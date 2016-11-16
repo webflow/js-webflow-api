@@ -35,15 +35,16 @@ export default class Webflow {
       return new Promise((resolve, reject) => {
         req.end((res) => {
           // Convenience function to attach metadata to responses or errors
-          const attachMeta = obj => ({
-            ...obj,
-            _meta: {
+          const attachMeta = (obj) => {
+            obj._meta = { // eslint-disable-line no-param-reassign
               rateLimit: {
                 limit: res.headers['x-ratelimit-limit'],
                 remaining: res.headers['x-ratelimit-remaining'],
               },
-            },
-          });
+            };
+
+            return obj;
+          };
 
           if (res.code >= 400) {
             reject(attachMeta(new WebflowError(res.body.err)));
@@ -86,28 +87,30 @@ export default class Webflow {
   // Sites
 
   sites() {
-    return this.get('/sites').then(sites => sites.map(this.responseWrapper.site));
+    return this.get('/sites').then(sites => sites.map(site => this.responseWrapper.site(site)));
   }
 
   site(siteID = requiredArg('siteID')) {
-    return this.get(`/sites/${siteID}`).then(this.responseWrapper.site);
+    return this.get(`/sites/${siteID}`).then(site => this.responseWrapper.site(site));
   }
 
   // Collections
 
   collections(siteID = requiredArg('siteID')) {
     return this.get(`/sites/${siteID}/collections`).then(
-      collections => collections.map(this.responseWrapper.collection),
+      collections => collections.map(collection => this.responseWrapper.collection(collection)),
     );
   }
 
   collection(collectionID = requiredArg('collectionID')) {
-    return this.get(`/collections/${collectionID}`).then(this.responseWrapper.collection);
+    return this.get(`/collections/${collectionID}`).then(
+      collection => this.responseWrapper.collection(collection),
+    );
   }
 
   // Items
 
-  items(collectionID = requiredArg('collectionID'), query) {
+  items(collectionID = requiredArg('collectionID'), query = {}) {
     return this.get(`/collections/${collectionID}/items`, pick(query, 'limit', 'offset')).then(
       res => ({
         ...res,

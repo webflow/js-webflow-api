@@ -12,9 +12,11 @@
   "scripts": {
     "build": "babel --out-dir dist src/",
     "lint": "eslint src",
-    "test": "npm run lint"
+    "test": "npm run lint && ava",
+    "watch": "npm run build -- --watch"
   },
   "devDependencies": {
+    "ava": "^0.16.0",
     "babel-cli": "^6.18.0",
     "babel-core": "^6.18.2",
     "babel-eslint": "^7.1.0",
@@ -22,7 +24,8 @@
     "babel-preset-stage-1": "^6.16.0",
     "eslint": "^3.10.1",
     "eslint-config-airbnb-base": "^10.0.1",
-    "eslint-plugin-import": "^2.2.0"
+    "eslint-plugin-import": "^2.2.0",
+    "nock": "^9.0.2"
   },
   "dependencies": {
     "unirest": "^0.5.1"
