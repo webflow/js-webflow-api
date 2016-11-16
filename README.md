@@ -8,7 +8,7 @@
 ## Usage
 
 ```javascript
-const Webflow = require('webflow-sdk');
+const Webflow = require('webflow-cms');
 const api = new Webflow('api-token');
 
 // Fetch a site

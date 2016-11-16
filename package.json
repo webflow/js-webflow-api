@@ -1,5 +1,5 @@
 {
-  "name": "webflow-sdk",
+  "name": "webflow-cms",
   "version": "0.1.0",
   "description": "SDK for the Webflow CMS API",
   "main": "dist/index.js",
