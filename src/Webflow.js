@@ -2,7 +2,9 @@ import unirest from 'unirest';
 
 import { isObjectEmpty, pick, requiredArg } from './utils';
 import ResponseWrapper from './ResponseWrapper';
-import WebflowError from './WebflowError';
+import importedWebflowError from './WebflowError';
+
+export const WebflowError = importedWebflowError;
 
 export const DEFAULT_ENDPOINT = 'https://api.webflow.com';
 
