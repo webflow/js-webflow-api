@@ -3,7 +3,7 @@
 import nock from 'nock';
 import test from 'ava';
 
-import Webflow from './dist';
+import Webflow from './src';
 
 test('Requires an access token', (t) => {
   t.throws(() => {
