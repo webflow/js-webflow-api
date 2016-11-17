@@ -1,11 +1,11 @@
 {
-  "name": "webflow-cms",
+  "name": "webflow-api",
   "version": "0.1.0",
   "description": "SDK for the Webflow CMS API",
   "main": "dist/index.js",
   "jsnext:main": "src/index.js",
   "repository": {
-    "url": "https://github.com/webflow/node-webflow.git",
+    "url": "https://github.com/webflow/node-webflow-api.git",
     "type": "git"
   },
   "license": "MIT",
