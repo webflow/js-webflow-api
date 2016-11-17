@@ -10,9 +10,10 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "babel --out-dir dist src/",
+    "build": "BABEL_ENV=production babel --out-dir dist src/",
     "lint": "eslint src",
-    "test": "ava",
+    "report": "nyc report --reporter=html",
+    "test": "nyc ava",
     "watch": "npm run build -- --watch",
     "watch:test": "npm run test -- --watch"
   },
@@ -27,7 +28,8 @@
     "eslint": "^3.10.1",
     "eslint-config-airbnb-base": "^10.0.1",
     "eslint-plugin-import": "^2.2.0",
-    "nock": "^9.0.2"
+    "nock": "^9.0.2",
+    "nyc": "^9.0.1"
   },
   "dependencies": {
     "es6-error": "^4.0.0",
