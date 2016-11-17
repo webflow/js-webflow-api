@@ -1,3 +1,5 @@
+import WebflowError from './WebflowError';
+
 export const isObjectEmpty = obj => Object.keys(obj).length === 0;
 
 export const pick = (obj, ...props) => {
@@ -13,5 +15,5 @@ export const pick = (obj, ...props) => {
 };
 
 export const requiredArg = (argName) => {
-  throw new Error(`Argument '${argName}' is required but was not present`);
+  throw new WebflowError(`Argument '${argName}' is required but was not present`);
 };

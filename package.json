@@ -30,10 +30,13 @@
     "nock": "^9.0.2"
   },
   "dependencies": {
+    "es6-error": "^4.0.0",
     "unirest": "^0.5.1"
   },
   "ava": {
-    "require": ["babel-register"],
+    "require": [
+      "babel-register"
+    ],
     "babel": "inherit"
   }
 }

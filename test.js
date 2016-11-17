@@ -3,12 +3,12 @@
 import nock from 'nock';
 import test from 'ava';
 
-import Webflow from './src';
+import Webflow, { WebflowError } from './src';
 
 test('Requires an access token', (t) => {
   t.throws(() => {
-    new Webflow(); // eslint-disable-line no-new
-  });
+    new Webflow({}); // eslint-disable-line no-new
+  }, WebflowError);
 });
 
 test('Passes the access token as an HTTP header', (t) => {
