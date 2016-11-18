@@ -67,7 +67,7 @@ test('Responds with a single site', (t) => {
 
   const api = new Webflow({ token: 'token' });
 
-  return api.site('123').then((site) => {
+  return api.site({ siteId: '123' }).then((site) => {
     scope.done();
     t.is(site._id, '123');
   });
@@ -84,7 +84,7 @@ test('Responds with a list of collections', (t) => {
 
   const api = new Webflow({ token: 'token' });
 
-  return api.collections('123').then((collections) => {
+  return api.collections({ siteId: '123' }).then((collections) => {
     scope.done();
     t.is(collections.length, 1);
     t.is(collections[0]._id, '321');
@@ -98,7 +98,7 @@ test('Responds with a single collection', (t) => {
 
   const api = new Webflow({ token: 'token' });
 
-  return api.collection('321').then((collection) => {
+  return api.collection({ collectionId: '321' }).then((collection) => {
     scope.done();
     t.is(collection._id, '321');
   });
@@ -117,7 +117,7 @@ test('Responds with a list of items', (t) => {
 
   const api = new Webflow({ token: 'token' });
 
-  return api.items('321').then(({ items }) => {
+  return api.items({ collectionId: '321' }).then(({ items }) => {
     scope.done();
     t.is(items.length, 1);
     t.is(items[0]._id, '456');
@@ -137,7 +137,7 @@ test('Responds with a single item', (t) => {
 
   const api = new Webflow({ token: 'token' });
 
-  return api.item('321', '456').then((item) => {
+  return api.item({ collectionId: '321', itemId: '456' }).then((item) => {
     scope.done();
     t.is(item._id, '456');
   });
@@ -154,7 +154,7 @@ test('Responds with a list of webhooks', (t) => {
 
   const api = new Webflow({ token: 'token' });
 
-  return api.webhooks('123').then((webhooks) => {
+  return api.webhooks({ siteId: '123' }).then((webhooks) => {
     scope.done();
     t.is(webhooks.length, 1);
     t.is(webhooks[0]._id, '321');
@@ -168,7 +168,7 @@ test('Responds with a single webhook', (t) => {
 
   const api = new Webflow({ token: 'token' });
 
-  return api.webhook('123', '321').then((webhook) => {
+  return api.webhook({ siteId: '123', webhookId: '321' }).then((webhook) => {
     scope.done();
     t.is(webhook._id, '321');
   });
