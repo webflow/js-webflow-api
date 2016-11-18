@@ -4,9 +4,9 @@ import { isObjectEmpty, pick, requiredArg } from './utils';
 import ResponseWrapper from './ResponseWrapper';
 import importedWebflowError from './WebflowError';
 
-export const WebflowError = importedWebflowError;
+const WebflowError = importedWebflowError;
 
-export const DEFAULT_ENDPOINT = 'https://api.webflow.com';
+const DEFAULT_ENDPOINT = 'https://api.webflow.com';
 
 export default class Webflow {
   constructor({ endpoint = DEFAULT_ENDPOINT, token = requiredArg('token') }) {

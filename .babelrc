@@ -1,5 +1,6 @@
 {
   "presets": ["es2015", "stage-1"],
+  "plugins": ["add-module-exports"],
   "env": {
     "development": {
       "sourceMaps": "inline"
