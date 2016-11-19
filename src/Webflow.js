@@ -1,19 +1,19 @@
 import unirest from 'unirest';
 
-import { isObjectEmpty, requiredArg } from './utils';
+import { isObjectEmpty } from './utils';
 import ResponseWrapper from './ResponseWrapper';
-import importedWebflowError from './WebflowError';
-
-const WebflowError = importedWebflowError;
+import WebflowError, { buildRequiredArgError } from './WebflowError';
 
 const DEFAULT_ENDPOINT = 'https://api.webflow.com';
 
 export default class Webflow {
   constructor({
     endpoint = DEFAULT_ENDPOINT,
-    token = requiredArg('token'),
+    token,
     version = '1.0.0',
-  }) {
+  } = {}) {
+    if (!token) throw buildRequiredArgError('token');
+
     this.responseWrapper = new ResponseWrapper(this);
 
     this.endpoint = endpoint;
@@ -96,19 +96,25 @@ export default class Webflow {
     return this.get('/sites', query).then(sites => sites.map(site => this.responseWrapper.site(site)));
   }
 
-  site({ siteId = requiredArg('siteId') }, query = {}) {
+  site({ siteId }, query = {}) {
+    if (!siteId) return Promise.reject(buildRequiredArgError('siteId'));
+
     return this.get(`/sites/${siteId}`, query).then(site => this.responseWrapper.site(site));
   }
 
   // Collections
 
-  collections({ siteId = requiredArg('siteId') }, query = {}) {
+  collections({ siteId }, query = {}) {
+    if (!siteId) return Promise.reject(buildRequiredArgError('siteId'));
+
     return this.get(`/sites/${siteId}/collections`, query).then(
       collections => collections.map(collection => this.responseWrapper.collection(collection)),
     );
   }
 
-  collection({ collectionId = requiredArg('collectionId') }, query = {}) {
+  collection({ collectionId }, query = {}) {
+    if (!collectionId) return Promise.reject(buildRequiredArgError('collectionId'));
+
     return this.get(`/collections/${collectionId}`, query).then(
       collection => this.responseWrapper.collection(collection),
     );
@@ -116,7 +122,9 @@ export default class Webflow {
 
   // Items
 
-  items({ collectionId = requiredArg('collectionId') }, query = {}) {
+  items({ collectionId }, query = {}) {
+    if (!collectionId) return Promise.reject(buildRequiredArgError('collectionId'));
+
     return this.get(`/collections/${collectionId}/items`, query).then(
       res => ({
         ...res,
@@ -126,39 +134,34 @@ export default class Webflow {
     );
   }
 
-  item({ collectionId = requiredArg('collectionId'), itemId = requiredArg('itemId') }, query = {}) {
+  item({ collectionId, itemId }, query = {}) {
+    if (!collectionId) return Promise.reject(buildRequiredArgError('collectionId'));
+    if (!itemId) return Promise.reject(buildRequiredArgError('siteId'));
+
     return this.get(`/collections/${collectionId}/items/${itemId}`, query).then(
       res => this.responseWrapper.item(res.items[0], collectionId),
     );
   }
 
-  createItem(params, query = {}) {
-    const collectionId = params.collectionId || requiredArg('collectionId');
-    const data = { ...params };
-    delete data.collectionId;
+  createItem({ collectionId, ...data }, query = {}) {
+    if (!collectionId) return Promise.reject(buildRequiredArgError('collectionId'));
 
     return this.post(`/collections/${collectionId}/items`, data, query).then(
       item => this.responseWrapper.item(item, collectionId),
     );
   }
 
-  updateItem(params, query = {}) {
-    const collectionId = params.collectionId || requiredArg('collectionId');
-    const itemId = params.itemId || requiredArg('itemId');
-    const data = { ...params };
-    delete data.collectionId;
-    delete data.itemId;
+  updateItem({ collectionId, itemId, ...data }, query = {}) {
+    if (!collectionId) return Promise.reject(buildRequiredArgError('collectionId'));
+    if (!itemId) return Promise.reject(buildRequiredArgError('itemId'));
 
     return this.put(`/collections/${collectionId}/items/${itemId}`, data, query);
   }
 
-  removeItem(
-    {
-      collectionId = requiredArg('collectionId'),
-      itemId = requiredArg('itemId'),
-    },
-    query = {},
-  ) {
+  removeItem({ collectionId, itemId }, query = {}) {
+    if (!collectionId) return Promise.reject(buildRequiredArgError('collectionId'));
+    if (!itemId) return Promise.reject(buildRequiredArgError('itemId'));
+
     return this.delete(`/collections/${collectionId}/items/${itemId}`, query);
   }
 
@@ -168,35 +171,35 @@ export default class Webflow {
 
   // Webhooks
 
-  webhooks({ siteId = requiredArg('siteId') }, query = {}) {
+  webhooks({ siteId }, query = {}) {
+    if (!siteId) return Promise.reject(buildRequiredArgError('siteId'));
+
     return this.get(`/sites/${siteId}/webhooks`, query).then(
       webhooks => webhooks.map(webhook => this.responseWrapper.webhook(webhook, siteId)),
     );
   }
 
-  webhook({ siteId = requiredArg('siteId'), webhookId = requiredArg('webhookId') }, query = {}) {
+  webhook({ siteId, webhookId }, query = {}) {
+    if (!siteId) return Promise.reject(buildRequiredArgError('siteId'));
+    if (!webhookId) return Promise.reject(buildRequiredArgError('webhookId'));
+
     return this.get(`/sites/${siteId}/webhooks/${webhookId}`, query).then(
       webhook => this.responseWrapper.webhook(webhook, siteId),
     );
   }
 
-  createWebhook(params, query = {}) {
-    const siteId = params.siteId || requiredArg('siteId');
-    const data = { ...params };
-    delete data.siteId;
+  createWebhook({ siteId, ...data }, query = {}) {
+    if (!siteId) return Promise.reject(buildRequiredArgError('siteId'));
 
     return this.post(`/sites/${siteId}/webhooks`, data, query).then(
       webhook => this.responseWrapper.webhook(webhook, siteId),
     );
   }
 
-  removeWebhook(
-    {
-      siteId = requiredArg('siteId'),
-      webhookId = requiredArg('webhookId'),
-    },
-    query = {},
-  ) {
+  removeWebhook({ siteId, webhookId }, query = {}) {
+    if (!siteId) return Promise.reject(buildRequiredArgError('siteId'));
+    if (!webhookId) return Promise.reject(buildRequiredArgError('webhookId'));
+
     return this.delete(`/sites/${siteId}/webhooks/${webhookId}`, query);
   }
 }
