@@ -138,7 +138,7 @@ export default class Webflow {
     delete data.collectionId;
 
     return this.post(`/collections/${collectionId}/items`, data, query).then(
-      res => this.responseWrapper.item(res[0], collectionId),
+      item => this.responseWrapper.item(item, collectionId),
     );
   }
 
