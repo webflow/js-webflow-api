@@ -34,7 +34,8 @@
   },
   "dependencies": {
     "es6-error": "^4.0.0",
-    "unirest": "^0.5.1"
+    "isomorphic-fetch": "^2.2.1",
+    "qs": "^6.3.0"
   },
   "ava": {
     "require": [

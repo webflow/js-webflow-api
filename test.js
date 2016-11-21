@@ -13,7 +13,7 @@ test('Requires an access token', (t) => {
 
 test('Passes the access token as an HTTP header', (t) => {
   const scope = nock('https://api.webflow.com')
-    .matchHeader('Authorization', 'Bearer token')
+    .matchHeader('Authorization', /Bearer token/)
     .get('/info')
     .reply(200, {});
 

@@ -1,4 +1,5 @@
-import unirest from 'unirest';
+import fetch from 'isomorphic-fetch';
+import qs from 'qs';
 
 import { isObjectEmpty } from './utils';
 import ResponseWrapper from './ResponseWrapper';
@@ -26,62 +27,71 @@ export default class Webflow {
       'Content-Type': 'application/json',
     };
 
-    this.promiseUnirest = (method, path, data, query) => {
-      let req = unirest[method](`${this.endpoint}${path}`)
-        .headers(this.headers);
+    this.authenticatedFetch = (method, path, data, query) => {
+      const queryString = query && !isObjectEmpty(query)
+        ? `?${qs.stringify(query)}`
+        : '';
+
+      const uri = `${this.endpoint}${path}${queryString}`;
+      const opts = {
+        method,
+        headers: this.headers,
+        mode: 'cors',
+      };
 
       if (data) {
-        req = req.send(data);
+        opts.body = JSON.stringify(data);
       }
 
-      if (query && !isObjectEmpty(query)) {
-        req = req.query(query);
-      }
+      // Convenience function to attach metadata to responses or errors
+      const attachMeta = (res, obj) => {
+        obj._meta = { // eslint-disable-line no-param-reassign
+          rateLimit: {
+            limit: parseInt(res.headers.get('x-ratelimit-limit'), 10),
+            remaining: parseInt(res.headers.get('x-ratelimit-remaining'), 10),
+          },
+        };
 
-      return new Promise((resolve, reject) => {
-        req.end((res) => {
-          // Convenience function to attach metadata to responses or errors
-          const attachMeta = (obj) => {
-            obj._meta = { // eslint-disable-line no-param-reassign
-              rateLimit: {
-                limit: res.headers['x-ratelimit-limit'],
-                remaining: res.headers['x-ratelimit-remaining'],
-              },
-            };
+        return obj;
+      };
 
-            return obj;
-          };
+      let savedRes;
+      return fetch(uri, opts).then(
+        (res) => {
+          savedRes = res;
 
-          if (res.code >= 400) {
-            reject(attachMeta(new WebflowError(res.body.err)));
+          if (res.status >= 400) {
+            throw attachMeta(res, new WebflowError(res.body.err));
           } else {
-            resolve(attachMeta(res.body));
+            return res.json();
           }
-        });
-      });
+        },
+      ).then(
+        body => attachMeta(savedRes, body),
+      );
     };
   }
 
   // Generic HTTP request handlers
 
   get(path, query = {}) {
-    return this.promiseUnirest('get', path, false, query);
+    return this.authenticatedFetch('GET', path, false, query);
   }
 
   post(path, data, query = {}) {
-    return this.promiseUnirest('post', path, data, query);
+    return this.authenticatedFetch('POST', path, data, query);
   }
 
   put(path, data, query = {}) {
-    return this.promiseUnirest('put', path, data, query);
+    return this.authenticatedFetch('PUT', path, data, query);
   }
 
   patch(path, data, query = {}) {
-    return this.promiseUnirest('patch', path, data, query);
+    return this.authenticatedFetch('PATCH', path, data, query);
   }
 
   delete(path, query = {}) {
-    return this.promiseUnirest('delete', path, query);
+    return this.authenticatedFetch('DELETE', path, query);
   }
 
   // Meta
