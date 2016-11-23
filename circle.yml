@@ -17,3 +17,11 @@ dependencies:
 test:
   override:
     - yarn test
+
+deployment:
+  release:
+    tag: /v[0-9]+(\.[0-9]+)*/
+    owner: webflow
+    commands:
+      - echo -e "$NPM_USERNAME\n$NPM_PASSWORD\n$NPM_EMAIL" | npm login
+      - npm publish
