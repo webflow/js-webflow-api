@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "jsnext:main": "src/index.js",
   "repository": {
-    "url": "https://github.com/webflow/node-webflow-api.git",
+    "url": "https://github.com/webflow/js-webflow-api.git",
     "type": "git"
   },
   "license": "MIT",

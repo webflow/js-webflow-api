@@ -1,8 +1,8 @@
-# Webflow CMS API Node.js SDK
+# Webflow CMS API Client
 
 ## Requirements
 
-* Node.js 4+
+* Node.js 4+ / Webpack / Browserify
 * NPM 3+ / YARN
 
 ## Usage
