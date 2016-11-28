@@ -2,8 +2,9 @@
 
 ## Requirements
 
-* Node.js 4+ / Webpack / Browserify
+* Node.js 4+
 * NPM 3+ / YARN
+* Webpack / Browserify (optional)
 
 ## Installation
 
