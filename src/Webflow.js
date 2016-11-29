@@ -61,7 +61,9 @@ export default class Webflow {
           savedRes = res;
 
           if (res.status >= 400) {
-            throw attachMeta(res, new WebflowError(res.body.err));
+            const err = attachMeta(res, new WebflowError(res.body.err));
+            err._meta.body = res.body;
+            throw err;
           } else {
             return res.json();
           }
