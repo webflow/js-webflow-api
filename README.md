@@ -35,7 +35,7 @@ The `Webflow` constructor takes several options to initialize the API client:
 * `token` - the API token **(required)**
 * `version` - the version of the API you wish to use (optional)
 
-All of the API methods are documented in the [API documentation](https://webflow.com/api-docs).
+All of the API methods are documented in the [API documentation](https://developers.webflow.com).
 
 ## Contributing
 
