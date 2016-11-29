@@ -9,6 +9,12 @@
     "type": "git"
   },
   "license": "MIT",
+  "files": [
+    "dist",
+    "src",
+    "LICENSE",
+    "yarn.lock"
+  ],
   "scripts": {
     "build": "BABEL_ENV=production babel --out-dir dist src/",
     "lint": "eslint src",
