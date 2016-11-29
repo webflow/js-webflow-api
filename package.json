@@ -12,6 +12,7 @@
   "scripts": {
     "build": "BABEL_ENV=production babel --out-dir dist src/",
     "lint": "eslint src",
+    "prepublish": "npm run build",
     "report": "nyc report --reporter=html",
     "test": "nyc ava",
     "watch": "npm run build -- --watch",
