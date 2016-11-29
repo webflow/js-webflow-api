@@ -1,6 +1,6 @@
 {
   "name": "webflow-api",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "SDK for the Webflow CMS API",
   "main": "dist/index.js",
   "jsnext:main": "src/index.js",
