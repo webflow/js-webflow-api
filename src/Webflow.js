@@ -62,7 +62,8 @@ export default class Webflow {
 
           if (res.status >= 400) {
             const err = attachMeta(res, new WebflowError(res.body.err));
-            err._meta.body = res.body;
+            err.code = res.body.code;
+            err.msg = res.body.msg;
             throw err;
           } else {
             return res.json();
