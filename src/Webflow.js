@@ -7,6 +7,44 @@ import WebflowError, { buildRequiredArgError } from './WebflowError';
 
 const DEFAULT_ENDPOINT = 'https://api.webflow.com';
 
+const buildMeta = (res) => {
+  if (!res || !res.headers) { return {}; }
+
+  return {
+    limit: parseInt(res.headers.get('x-ratelimit-limit'), 10),
+    remaining: parseInt(res.headers.get('x-ratelimit-remaining'), 10),
+  };
+};
+
+const responseHandler = res =>
+  res.json()
+    .catch(err =>
+      // Catch unexpected server errors where json isn't sent and rewrite
+      // with proper class (WebflowError)
+      Promise.reject(new WebflowError(err)))
+    .then((body) => {
+      if (res.status >= 400) {
+        const errOpts = {
+          code: body.code,
+          msg: body.msg,
+          _meta: buildMeta(res),
+        };
+
+        if (body.problems && body.problems.length > 0) {
+          errOpts.problems = body.problems;
+        }
+
+        const errMsg = (body && body.err) ? body.err : 'Unknown error occured';
+        const err = new WebflowError(errMsg);
+
+        return Promise.reject(Object.assign(err, errOpts));
+      }
+
+      body._meta = buildMeta(res); // eslint-disable-line no-param-reassign
+
+      return body;
+    });
+
 export default class Webflow {
   constructor({
     endpoint = DEFAULT_ENDPOINT,
@@ -43,35 +81,8 @@ export default class Webflow {
         opts.body = JSON.stringify(data);
       }
 
-      // Convenience function to attach metadata to responses or errors
-      const attachMeta = (res, obj) => {
-        obj._meta = { // eslint-disable-line no-param-reassign
-          rateLimit: {
-            limit: parseInt(res.headers.get('x-ratelimit-limit'), 10),
-            remaining: parseInt(res.headers.get('x-ratelimit-remaining'), 10),
-          },
-        };
-
-        return obj;
-      };
-
-      let savedRes;
-      return fetch(uri, opts).then(
-        (res) => {
-          savedRes = res;
-
-          if (res.status >= 400) {
-            const err = attachMeta(res, new WebflowError(res.body.err));
-            err.code = res.body.code;
-            err.msg = res.body.msg;
-            throw err;
-          } else {
-            return res.json();
-          }
-        },
-      ).then(
-        body => attachMeta(savedRes, body),
-      );
+      return fetch(uri, opts)
+        .then(responseHandler);
     };
   }
 
