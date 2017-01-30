@@ -11,8 +11,10 @@ const buildMeta = (res) => {
   if (!res || !res.headers) { return {}; }
 
   return {
-    limit: parseInt(res.headers.get('x-ratelimit-limit'), 10),
-    remaining: parseInt(res.headers.get('x-ratelimit-remaining'), 10),
+    rateLimit: {
+      limit: parseInt(res.headers.get('x-ratelimit-limit'), 10),
+      remaining: parseInt(res.headers.get('x-ratelimit-remaining'), 10),
+    },
   };
 };
 
