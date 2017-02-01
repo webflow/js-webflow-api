@@ -27,7 +27,7 @@ const Webflow = require('webflow-api');
 const api = new Webflow({ token: 'api-token' });
 
 // Fetch a site
-api.site('580e63e98c9a982ac9b8b741').then(site => console.log(site));
+api.site({ siteId: '580e63e98c9a982ac9b8b741' }).then(site => console.log(site));
 ```
 
 The `Webflow` constructor takes several options to initialize the API client:
