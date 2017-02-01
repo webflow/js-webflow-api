@@ -16,8 +16,6 @@ $ npm install --save webflow-api
 $ yarn add webflow-api
 ```
 
-**Note:** this API client is compatible with the browser in addition to Node.js, and thus can be utilized with Webpack or Browserify.  However, at this time the beta launch of the API does not support browser clients - that functionality will be released at a later date.
-
 ## Usage
 
 ```javascript
