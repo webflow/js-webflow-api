@@ -161,6 +161,24 @@ test('Responds with a list of webhooks', (t) => {
   });
 });
 
+test('Responds with a list of domains', (t) => {
+  const scope = nock('https://api.webflow.com')
+    .get('/sites/123/domains')
+    .reply(200, [
+      {
+        _id: '321',
+      },
+    ]);
+
+  const api = new Webflow({ token: 'token' });
+
+  return api.domains({ siteId: '123' }).then((domains) => {
+    scope.done();
+    t.is(domains.length, 1);
+    t.is(domains[0]._id, '321');
+  });
+});
+
 test('Responds with a single webhook', (t) => {
   const scope = nock('https://api.webflow.com')
     .get('/sites/123/webhooks/321')
