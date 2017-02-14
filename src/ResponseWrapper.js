@@ -9,6 +9,7 @@ export default class ResponseWrapper {
 
       collections: this.api.collections.bind(this.api, { siteId: site._id }),
       webhooks: this.api.webhooks.bind(this.api, { siteId: site._id }),
+      domains: this.api.domains.bind(this.api, { siteId: site._id }),
       webhook(first, ...rest) {
         return this.api.webhook({ ...first, siteId: site._id }, ...rest);
       },
@@ -18,6 +19,15 @@ export default class ResponseWrapper {
       removeWebhook(first, ...rest) {
         return this.api.removeWebhook({ ...first, siteId: site._id }, ...rest);
       },
+      publishSite(domains) {
+        return this.api.publishSite({ siteId: site._id, domains });
+      },
+    };
+  }
+
+  domain(domain) {
+    return {
+      ...domain,
     };
   }
 

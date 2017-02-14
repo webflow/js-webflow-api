@@ -128,6 +128,23 @@ export default class Webflow {
     return this.get(`/sites/${siteId}`, query).then(site => this.responseWrapper.site(site));
   }
 
+  publishSite({ siteId, domains }) {
+    if (!siteId) return Promise.reject(buildRequiredArgError('siteId'));
+    if (!domains) return Promise.reject(buildRequiredArgError('domains'));
+
+    return this.post(`/sites/${siteId}/publish`, { domains });
+  }
+
+  // Domains
+
+  domains({ siteId }) {
+    if (!siteId) return Promise.reject(buildRequiredArgError('siteId'));
+
+    return this.get(`/sites/${siteId}/domains`).then(
+      domains => domains.map(domain => this.responseWrapper.domain(domain, siteId)),
+    );
+  }
+
   // Collections
 
   collections({ siteId }, query = {}) {
