@@ -9,5 +9,5 @@ export const pick = (obj, ...props) => {
     }
   });
 
-  return obj;
+  return picked;
 };
