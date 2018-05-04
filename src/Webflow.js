@@ -42,7 +42,11 @@ const responseHandler = res =>
         return Promise.reject(Object.assign(err, errOpts));
       }
 
-      body._meta = buildMeta(res); // eslint-disable-line no-param-reassign
+      if(Array.isArray(body)) {
+        body[0]._meta = buildMeta(res);
+      } else {
+        body._meta = buildMeta(res); // eslint-disable-line no-param-reassign
+      }
 
       return body;
     });
