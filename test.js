@@ -104,6 +104,53 @@ test('Responds with a single collection', (t) => {
   });
 });
 
+test('Responds with a list of all items', (t) => {
+  const items = [
+    {
+      _id: '456',
+    },
+    {
+      _id: '789',
+    },
+    {
+      _id: '91011',
+    },
+  ];
+  let query = {};
+
+  const scope = nock('https://api.webflow.com')
+  .persist()  
+  .get('/collections/321/items')
+  .query(actualQuery => {
+    query = actualQuery;
+    return (
+      query.limit === '1' && (
+      query.offset === '0' ||
+      query.offset === '1' ||
+      query.offset === '2' )
+    );
+  })
+  .reply(200, {
+      items: [
+        items[query.offset]
+      ],
+      "count": 1,
+      "limit": 1,
+      "offset": query.offset,
+      "total": 3
+    });
+
+  const api = new Webflow({ token: 'token' });
+
+  return api.allItems({ collectionId: '321' }, {limit: 1}).then(({ items }) => {
+    scope.done();
+    t.is(items.length, 3);
+    t.is(items[0]._id, '456');
+    t.is(items[1]._id, '789');
+    t.is(items[2]._id, '91011');
+  });
+});
+
 test('Responds with a list of items', (t) => {
   const scope = nock('https://api.webflow.com')
     .get('/collections/321/items')

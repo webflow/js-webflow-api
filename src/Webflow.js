@@ -165,6 +165,34 @@ export default class Webflow {
 
   // Items
 
+  allItems({ collectionId }, query = {}) {
+    if (!collectionId) return Promise.reject(buildRequiredArgError('collectionId'));
+
+    query.limit = query.limit || 100;
+    query.offset = query.offset || 0;
+
+    this.get(`/collections/${collectionId}/items`, query).then(
+      res => {
+        console.log(res)
+        let itemsPromises = [];
+        let runs = Math.ceil(res.total / res.limit);
+        for (let i = 0; i < runs; i++) {
+          itemsPromises.push(this.get(`/collections/${collectionId}/items`, { 
+            limit: res.limit, 
+            offset: res.limit * i 
+          }));
+          // console.log(itemsPromises)
+          //itemsPromises.push(res[0])
+        }
+        console.log(itemsPromises)
+        return Promise.all(itemsPromises)
+      }
+    ).then(res => {
+      console.log(res)
+    })
+  }
+
+
   items({ collectionId }, query = {}) {
     if (!collectionId) return Promise.reject(buildRequiredArgError('collectionId'));
 
