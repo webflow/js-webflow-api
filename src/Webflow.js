@@ -170,25 +170,24 @@ export default class Webflow {
 
     query.limit = query.limit || 100;
     query.offset = query.offset || 0;
+    let itemsPromises = [];
 
     this.get(`/collections/${collectionId}/items`, query).then(
       res => {
-        console.log(res)
-        let itemsPromises = [];
-        let runs = Math.ceil(res.total / res.limit);
-        for (let i = 0; i < runs; i++) {
-          itemsPromises.push(this.get(`/collections/${collectionId}/items`, { 
-            limit: res.limit, 
-            offset: res.limit * i 
-          }));
-          // console.log(itemsPromises)
-          //itemsPromises.push(res[0])
-        }
-        console.log(itemsPromises)
+        //itemsPromises.push(res);
+        //if (res.total > 100) {
+          let runs = Math.ceil(res.total / res.limit);
+          for (let i = 0; i < runs; i++) {
+            itemsPromises.push(this.get(`/collections/${collectionId}/items`, {
+              limit: res.limit,
+              offset: res.limit * i
+            }));
+          }
+        //}
         return Promise.all(itemsPromises)
       }
     ).then(res => {
-      console.log(res)
+      console.log('final', res)
     })
   }
 
