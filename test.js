@@ -192,6 +192,9 @@ test('Responds with a single webhook', (t) => {
   });
 });
 
+
+
+
 test('Responds with a list of all items', (t) => {
   const items = [
     {
@@ -204,40 +207,46 @@ test('Responds with a list of all items', (t) => {
       _id: '91011',
     }
   ];
+
   let query = {};
+  let test = 0;
 
   const scope = nock('https://api.webflow.com')
-  .persist()  
-  .get('/collections/321/items')
-  .query(actualQuery => {
-    query = {
-      limit: Number(actualQuery.limit),
-      offset: Number(actualQuery.offset)
-    }
-    console.log('test',  query)
-    return (
-      query.limit === 1 && (
-      query.offset === 0 ||
-      query.offset === 1 ||
-      query.offset === 2 )
-    );
-  })
-  .reply(200, {
-      items: [
-        //items[query.offset]
-        {_id: 'test'}
+    .persist()
+    .get('/collections/321/items')
+    .query(actualQuery => {
+      query = {
+        limit: Number(actualQuery.limit),
+        offset: Number(actualQuery.offset)
+      }
+      test = 1;
+
+      console.log('test', query)
+      return (
+        query.limit === 1 && (
+          query.offset === 0 ||
+          query.offset === 1 ||
+          query.offset === 2)
+      );
+    })
+    .reply(200, function(uri, requestBody) {
+      
+     // console.log(this.req)
+      return {
+        items: [
+        items[Number(this.req.path[this.req.path.length - 1])]
       ],
       "count": 1,
       "limit": 1,
-      "offset": query.offset,
+      "offset": Number(this.req.path[this.req.path.length - 1]),
       "total": 3
+    }
     });
 
   const api = new Webflow({ token: 'token' });
 
-  return api.allItems({ collectionId: '321' }, {limit: 1}).then(({ items }) => {
+  return api.allItems({ collectionId: '321' }, { limit: 1 }).then(({ items }) => {
     scope.done();
-    scope.persist(false);
     t.is(items.length, 3);
     t.is(items[0]._id, '456');
     t.is(items[1]._id, '789');

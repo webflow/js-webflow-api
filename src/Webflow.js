@@ -168,8 +168,8 @@ export default class Webflow {
   allItems({ collectionId }, query = {}) {
     if (!collectionId) return Promise.reject(buildRequiredArgError('collectionId'));
 
-    query.limit = query.limit || 100;
-    query.offset = query.offset || 0;
+     query.limit = query.limit || 100;
+     query.offset = query.offset || 0;
     let itemsPromises = [];
 
     this.get(`/collections/${collectionId}/items`, query).then(
