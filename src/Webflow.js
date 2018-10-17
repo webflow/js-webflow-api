@@ -168,39 +168,58 @@ export default class Webflow {
   allItems({ collectionId }, query = {}) {
     if (!collectionId) return Promise.reject(buildRequiredArgError('collectionId'));
 
-     query.limit = query.limit || 100;
-     query.offset = query.offset || 0;
+    query.limit = query.limit || 100;
+    query.offset = query.offset || 0;
     let itemsPromises = [];
 
     this.get(`/collections/${collectionId}/items`, query).then(
       res => {
-        //itemsPromises.push(res);
-        //if (res.total > 100) {
+        itemsPromises.push(res);
+        if (res.total > res.limit) {
           let runs = Math.ceil(res.total / res.limit);
-          for (let i = 0; i < runs; i++) {
+          for (let i = 1; i < runs; i++) {
             itemsPromises.push(this.get(`/collections/${collectionId}/items`, {
               limit: res.limit,
               offset: res.limit * i
             }));
           }
-        //}
+        }
         return Promise.all(itemsPromises)
       }
     ).then(res => {
-      console.log('final', res)
+      let metaData = res[res.length - 1]._meta;
+      let objectItems = res.map(page => page.items)
+      let flattened = [].concat.apply([], objectItems)
+      return { items: flattened, _meta: metaData }
     })
+      .then(
+        res => 
+       console.log(
+         ({
+        ...res,
+
+        items: res.items.map(item => this.responseWrapper.item(item, collectionId)),
+      })
+     )
+      )
   }
+
+
 
 
   items({ collectionId }, query = {}) {
     if (!collectionId) return Promise.reject(buildRequiredArgError('collectionId'));
 
     return this.get(`/collections/${collectionId}/items`, query).then(
-      res => ({
-        ...res,
+      res =>
+        //console.log(
+        res
+      // ({
+      //   ...res,
 
-        items: res.items.map(item => this.responseWrapper.item(item, collectionId)),
-      }),
+      //   items: res.items.map(item => this.responseWrapper.item(item, collectionId)),
+      // }),
+      //) // <<
     );
   }
 
