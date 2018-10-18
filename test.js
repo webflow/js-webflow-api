@@ -118,7 +118,6 @@ test('Responds with a list of items', (t) => {
   const api = new Webflow({ token: 'token' });
 
   return api.items({ collectionId: '321' }).then(({ items }) => {
-    console.log('this is the res', { items })
     scope.done();
     t.is(items.length, 1);
     t.is(items[0]._id, '456');
@@ -242,13 +241,12 @@ test('Responds with a list of all items', (t) => {
   const api = new Webflow({ token: 'token' });
 
   return api.allItems({ collectionId: '321' }, { limit: 1 }).then(
-    (items) => {
-      console.log(items)
-      // scope.done();
-      // t.is(items.length, 3);
-      // t.is(items[0]._id, '456');
-      // t.is(items[1]._id, '789');
-      // t.is(items[2]._id, '91011');
+    ({items}) => {
+      scope.done();
+      t.is(items.length, 3);
+      t.is(items[0]._id, '456');
+      t.is(items[1]._id, '789');
+      t.is(items[2]._id, '91011');
     }
   );
 });

@@ -172,7 +172,7 @@ export default class Webflow {
     query.offset = query.offset || 0;
     let itemsPromises = [];
 
-    this.get(`/collections/${collectionId}/items`, query).then(
+    return this.get(`/collections/${collectionId}/items`, query).then(
       res => {
         itemsPromises.push(res);
         if (res.total > res.limit) {
@@ -193,14 +193,12 @@ export default class Webflow {
       return { items: flattened, _meta: metaData }
     })
       .then(
-        res => 
-       console.log(
-         ({
-        ...res,
+        res =>
+          ({
+            ...res,
 
-        items: res.items.map(item => this.responseWrapper.item(item, collectionId)),
-      })
-     )
+            items: res.items.map(item => this.responseWrapper.item(item, collectionId)),
+          })
       )
   }
 
@@ -212,14 +210,11 @@ export default class Webflow {
 
     return this.get(`/collections/${collectionId}/items`, query).then(
       res =>
-        //console.log(
-        res
-      // ({
-      //   ...res,
+        ({
+          ...res,
 
-      //   items: res.items.map(item => this.responseWrapper.item(item, collectionId)),
-      // }),
-      //) // <<
+          items: res.items.map(item => this.responseWrapper.item(item, collectionId)),
+        }),
     );
   }
 
