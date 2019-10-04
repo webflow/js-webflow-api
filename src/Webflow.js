@@ -208,7 +208,7 @@ export default class Webflow {
     return this.delete(`/collections/${collectionId}/items/${itemId}`, query);
   }
 
-  patchItem({ collectionId, itemId, ...data }, query = {}){
+  patchItem({ collectionId, itemId, ...data }, query = {}) {
     if (!collectionId) return Promise.reject(buildRequiredArgError('collectionId'));
     if (!itemId) return Promise.reject(buildRequiredArgError('itemId'));
 
