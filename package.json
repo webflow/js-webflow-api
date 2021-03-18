@@ -36,12 +36,12 @@
     "eslint": "^3.10.1",
     "eslint-config-airbnb-base": "^10.0.1",
     "eslint-plugin-import": "^2.2.0",
-    "nock": "^9.0.2",
+    "nock": "^13.0.7",
     "nyc": "^9.0.1"
   },
   "dependencies": {
     "es6-error": "^4.0.0",
-    "isomorphic-fetch": "^2.2.1",
+    "isomorphic-fetch": "^3.0.0",
     "qs": "^6.3.0"
   },
   "ava": {
