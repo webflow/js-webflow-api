@@ -179,7 +179,7 @@ export default class Webflow {
 
   item({ collectionId, itemId }, query = {}) {
     if (!collectionId) return Promise.reject(buildRequiredArgError('collectionId'));
-    if (!itemId) return Promise.reject(buildRequiredArgError('siteId'));
+    if (!itemId) return Promise.reject(buildRequiredArgError('itemId'));
 
     return this.get(`/collections/${collectionId}/items/${itemId}`, query).then(
       res => this.responseWrapper.item(res.items[0], collectionId),
