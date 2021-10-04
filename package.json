@@ -9,6 +9,7 @@
     "type": "git"
   },
   "license": "MIT",
+  "types": "index.d.ts",
   "files": [
     "dist",
     "src",
