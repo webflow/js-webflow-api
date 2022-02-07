@@ -14,7 +14,8 @@
     "dist",
     "src",
     "LICENSE",
-    "yarn.lock"
+    "yarn.lock",
+    "index.d.ts"
   ],
   "scripts": {
     "build": "BABEL_ENV=production babel --out-dir dist src/",
