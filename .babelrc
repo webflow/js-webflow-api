@@ -1,6 +1,6 @@
 {
-  "presets": ["es2015", "stage-1"],
-  "plugins": ["add-module-exports"],
+  "presets": ["@babel/preset-env"],
+  "plugins": [],
   "env": {
     "development": {
       "sourceMaps": "inline"
