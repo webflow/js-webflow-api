@@ -79,7 +79,7 @@ declare class Webflow {
       collectionId: string;
     },
     query?: Webflow.WebflowQueryArg
-  ): Promise<Webflow.WebflowApiModel.CollectionItem[]>;
+  ): Promise<Webflow.WebflowApiModel.ItemsResponse>;
 
   item(
     data: {
@@ -295,6 +295,22 @@ declare namespace Webflow {
         "collectionId" | "itemId"
       >;
       remove: OmitFirstArgOfFunction<Webflow["removeItem"]>;
+    }
+
+    interface ResponseMeta {
+      rateLimit: {
+        limit: number;
+        remaining: number;
+      }
+    }
+
+    interface ItemsResponse {
+      items: CollectionItem[];
+      count: number;
+      limit: number;
+      offset: number;
+      total: number;
+      _meta: ResponseMeta;
     }
 
     type WebhookTriggerType =
