@@ -1,6 +1,6 @@
 {
   "presets": ["@babel/preset-env"],
-  "plugins": [],
+  "plugins": ["@babel/plugin-transform-modules-commonjs"],
   "env": {
     "development": {
       "sourceMaps": "inline"
