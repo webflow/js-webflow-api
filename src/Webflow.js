@@ -91,7 +91,7 @@ export default class Webflow {
   // Generic HTTP request handlers
 
   get(path, query = {}) {
-    return this.authenticatedFetch('GET', path, false, query);
+    return this.authenticatedFetch('GET', path, null, query);
   }
 
   post(path, data, query = {}) {
@@ -107,7 +107,7 @@ export default class Webflow {
   }
 
   delete(path, query = {}) {
-    return this.authenticatedFetch('DELETE', path, query);
+    return this.authenticatedFetch('DELETE', path, null, query);
   }
 
   // Meta
