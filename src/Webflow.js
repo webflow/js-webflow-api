@@ -52,8 +52,11 @@ export default class Webflow {
     endpoint = DEFAULT_ENDPOINT,
     token,
     version = '1.0.0',
+    handleAuthorization = true,
   } = {}) {
-    if (!token) throw buildRequiredArgError('token');
+    if (handleAuthorization && !token) {
+      throw buildRequiredArgError('token');
+    }
 
     this.responseWrapper = new ResponseWrapper(this);
 
@@ -62,7 +65,7 @@ export default class Webflow {
 
     this.headers = {
       Accept: 'application/json',
-      Authorization: `Bearer ${token}`,
+      ... handleAuthorization && { Authorization: `Bearer ${token}` },
       'accept-version': version,
       'Content-Type': 'application/json',
     };
