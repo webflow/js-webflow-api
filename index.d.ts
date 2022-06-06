@@ -143,11 +143,17 @@ declare namespace Webflow {
   // helper types / namespaces
   type WebflowQueryArg = Record<string, any>;
 
-  interface WebflowOptions {
-    token: string;
-    endpoint?: string;
-    version?: string;
-  }
+  type WebflowOptions = {
+    token: string,
+    endpoint?: string,
+    version?: string,
+    handleAuthorization?: true,
+  } | {
+    token?: undefined,
+    endpoint?: string,
+    version?: string,
+    handleAuthorization: false,
+  };
 
   namespace WebflowApiModel {
     interface InfoApplication {
