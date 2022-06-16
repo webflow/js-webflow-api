@@ -68,7 +68,8 @@ export default class Webflow {
     };
 
     this.authenticatedFetch = (method, path, data, query) => {
-      const queryString = query && !isObjectEmpty(query) ? `?${qs.stringify(query)}` : "";
+      const queryString =
+        query && !isObjectEmpty(query) ? `?${qs.stringify(query)}` : "";
 
       const uri = `${this.endpoint}${path}${queryString}`;
       const opts = {
@@ -116,13 +117,17 @@ export default class Webflow {
   // Sites
 
   sites(query = {}) {
-    return this.get("/sites", query).then((sites) => sites.map((site) => this.responseWrapper.site(site)));
+    return this.get("/sites", query).then((sites) =>
+      sites.map((site) => this.responseWrapper.site(site))
+    );
   }
 
   site({ siteId }, query = {}) {
     if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
 
-    return this.get(`/sites/${siteId}`, query).then((site) => this.responseWrapper.site(site));
+    return this.get(`/sites/${siteId}`, query).then((site) =>
+      this.responseWrapper.site(site)
+    );
   }
 
   publishSite({ siteId, domains }) {
@@ -148,12 +153,15 @@ export default class Webflow {
     if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
 
     return this.get(`/sites/${siteId}/collections`, query).then((collections) =>
-      collections.map((collection) => this.responseWrapper.collection(collection))
+      collections.map((collection) =>
+        this.responseWrapper.collection(collection)
+      )
     );
   }
 
   collection({ collectionId }, query = {}) {
-    if (!collectionId) return Promise.reject(buildRequiredArgError("collectionId"));
+    if (!collectionId)
+      return Promise.reject(buildRequiredArgError("collectionId"));
 
     return this.get(`/collections/${collectionId}`, query).then((collection) =>
       this.responseWrapper.collection(collection)
@@ -163,56 +171,112 @@ export default class Webflow {
   // Items
 
   items({ collectionId }, query = {}) {
-    if (!collectionId) return Promise.reject(buildRequiredArgError("collectionId"));
+    if (!collectionId)
+      return Promise.reject(buildRequiredArgError("collectionId"));
 
-    return this.get(`/collections/${collectionId}/items`, query).then((res) => ({
-      ...res,
+    return this.get(`/collections/${collectionId}/items`, query).then(
+      (res) => ({
+        ...res,
 
-      items: res.items.map((item) => this.responseWrapper.item(item, collectionId)),
-    }));
+        items: res.items.map((item) =>
+          this.responseWrapper.item(item, collectionId)
+        ),
+      })
+    );
   }
 
   item({ collectionId, itemId }, query = {}) {
-    if (!collectionId) return Promise.reject(buildRequiredArgError("collectionId"));
+    if (!collectionId)
+      return Promise.reject(buildRequiredArgError("collectionId"));
     if (!itemId) return Promise.reject(buildRequiredArgError("itemId"));
 
-    return this.get(`/collections/${collectionId}/items/${itemId}`, query).then((res) =>
-      this.responseWrapper.item(res.items[0], collectionId)
+    return this.get(`/collections/${collectionId}/items/${itemId}`, query).then(
+      (res) => this.responseWrapper.item(res.items[0], collectionId)
     );
   }
 
   createItem({ collectionId, ...data }, query = {}) {
-    if (!collectionId) return Promise.reject(buildRequiredArgError("collectionId"));
+    if (!collectionId)
+      return Promise.reject(buildRequiredArgError("collectionId"));
 
-    return this.post(`/collections/${collectionId}/items`, data, query).then((item) =>
-      this.responseWrapper.item(item, collectionId)
+    return this.post(`/collections/${collectionId}/items`, data, query).then(
+      (item) => this.responseWrapper.item(item, collectionId)
     );
   }
 
   updateItem({ collectionId, itemId, ...data }, query = {}) {
-    if (!collectionId) return Promise.reject(buildRequiredArgError("collectionId"));
+    if (!collectionId)
+      return Promise.reject(buildRequiredArgError("collectionId"));
     if (!itemId) return Promise.reject(buildRequiredArgError("itemId"));
 
-    return this.put(`/collections/${collectionId}/items/${itemId}`, data, query);
+    return this.put(
+      `/collections/${collectionId}/items/${itemId}`,
+      data,
+      query
+    );
   }
 
   removeItem({ collectionId, itemId }, query = {}) {
-    if (!collectionId) return Promise.reject(buildRequiredArgError("collectionId"));
+    if (!collectionId)
+      return Promise.reject(buildRequiredArgError("collectionId"));
     if (!itemId) return Promise.reject(buildRequiredArgError("itemId"));
 
     return this.delete(`/collections/${collectionId}/items/${itemId}`, query);
   }
 
   patchItem({ collectionId, itemId, ...data }, query = {}) {
-    if (!collectionId) return Promise.reject(buildRequiredArgError("collectionId"));
+    if (!collectionId)
+      return Promise.reject(buildRequiredArgError("collectionId"));
     if (!itemId) return Promise.reject(buildRequiredArgError("itemId"));
 
-    return this.patch(`/collections/${collectionId}/items/${itemId}`, data, query);
+    return this.patch(
+      `/collections/${collectionId}/items/${itemId}`,
+      data,
+      query
+    );
   }
 
-  // Images
+  // Users
 
-  // TODO
+  users({ siteId }, query = {}) {
+    if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
+
+    return this.get(`/sites/${siteId}/users`, query).then((res) =>
+      res.users.map((user) => this.responseWrapper.user(user))
+    );
+  }
+
+  user({ siteId, userId }, query = {}) {
+    if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
+    if (!userId) return Promise.reject(buildRequiredArgError("userId"));
+
+    return this.get(`/sites/${siteId}/users/${userId}`, query).then((user) =>
+      this.responseWrapper.user(user, siteId)
+    );
+  }
+
+  updateUser({ siteId, userId, ...data }, query = {}) {
+    if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
+    if (!userId) return Promise.reject(buildRequiredArgError("userId"));
+
+    return this.patch(`/sites/${siteId}/users/${userId}`, data, query);
+  }
+
+  inviteUser({ siteId, email }, query = {}) {
+    if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
+    if (!email) return Promise.reject(buildRequiredArgError("email"));
+
+    return this.post(`/sites/${siteId}/users/invite`, { email }, query).then(
+      (user) => this.responseWrapper.user(user, siteId)
+    );
+  }
+
+  removeUser({ siteId, userId }, query = {}) {
+    if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
+    if (!userId) return Promise.reject(buildRequiredArgError("userId"));
+
+    return this.delete(`/sites/${siteId}/users/${userId}`, query);
+  }
 
   // Webhooks
 
@@ -228,8 +292,8 @@ export default class Webflow {
     if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
     if (!webhookId) return Promise.reject(buildRequiredArgError("webhookId"));
 
-    return this.get(`/sites/${siteId}/webhooks/${webhookId}`, query).then((webhook) =>
-      this.responseWrapper.webhook(webhook, siteId)
+    return this.get(`/sites/${siteId}/webhooks/${webhookId}`, query).then(
+      (webhook) => this.responseWrapper.webhook(webhook, siteId)
     );
   }
 
