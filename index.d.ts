@@ -249,7 +249,7 @@ declare namespace Webflow {
       lastUpdated: string;
       createdOn: string;
       emailVerified: boolean;
-      fields: object;
+      data: object;
     }
 
     /**
