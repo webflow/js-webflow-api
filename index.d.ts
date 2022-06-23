@@ -144,7 +144,7 @@ declare namespace Webflow {
   type WebflowQueryArg = Record<string, any>;
 
   interface WebflowOptions {
-    token: string;
+    token?: string;
     endpoint?: string;
     version?: string;
   }
