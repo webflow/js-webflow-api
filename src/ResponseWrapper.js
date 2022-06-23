@@ -37,16 +37,28 @@ export default class ResponseWrapper {
 
       items: this.api.items.bind(this.api, { collectionId: collection._id }),
       item(first, ...rest) {
-        return this.api.item({ ...first, collectionId: collection._id }, ...rest);
+        return this.api.item(
+          { ...first, collectionId: collection._id },
+          ...rest
+        );
       },
       createItem(first, ...rest) {
-        return this.api.createItem({ ...first, collectionId: collection._id }, ...rest);
+        return this.api.createItem(
+          { ...first, collectionId: collection._id },
+          ...rest
+        );
       },
       updateItem(first, ...rest) {
-        return this.api.updateItem({ ...first, collectionId: collection._id }, ...rest);
+        return this.api.updateItem(
+          { ...first, collectionId: collection._id },
+          ...rest
+        );
       },
       removeItem(first, ...rest) {
-        return this.api.removeItem({ ...first, collectionId: collection._id }, ...rest);
+        return this.api.removeItem(
+          { ...first, collectionId: collection._id },
+          ...rest
+        );
       },
     };
   }
@@ -56,9 +68,28 @@ export default class ResponseWrapper {
       ...item,
 
       update(first, ...rest) {
-        return this.api.updateItem({ ...first, collectionId, itemId: item._id }, ...rest);
+        return this.api.updateItem(
+          { ...first, collectionId, itemId: item._id },
+          ...rest
+        );
       },
-      remove: this.api.updateItem.bind(this.api, { collectionId, itemId: item._id }),
+      remove: this.api.updateItem.bind(this.api, {
+        collectionId,
+        itemId: item._id,
+      }),
+    };
+  }
+
+  user(user, siteId) {
+    return {
+      ...user,
+
+      update(first, ...rest) {
+        return this.api.updateUser({ ...first, siteId }, ...rest);
+      },
+      remove(first, ...rest) {
+        return this.api.removeUser({ ...first, siteId }, ...rest);
+      },
     };
   }
 
@@ -66,7 +97,10 @@ export default class ResponseWrapper {
     return {
       ...webhook,
 
-      remove: this.api.removeWebhook.bind(this.api, { siteId, webhookId: webhook._id }),
+      remove: this.api.removeWebhook.bind(this.api, {
+        siteId,
+        webhookId: webhook._id,
+      }),
     };
   }
 }

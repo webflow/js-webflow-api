@@ -72,6 +72,37 @@ declare class Webflow {
     query?: Webflow.WebflowQueryArg
   ): Promise<Webflow.WebflowApiModel.Collection>;
 
+  // Users
+  users(
+    data: {
+      siteId: string;
+    },
+    query?: Webflow.WebflowQueryArg
+  ): Promise<Webflow.WebflowApiModel.User[]>;
+
+  user(
+    data: {
+      siteId: string;
+      userId: string;
+    },
+    query?: Webflow.WebflowQueryArg
+  ): Promise<Webflow.WebflowApiModel.User>;
+
+  updateUser(
+    data: { siteId: string; userId: string } & Record<string, any>,
+    query?: Webflow.WebflowQueryArg
+  ): Promise<Webflow.WebflowApiModel.User>;
+
+  removeUser(
+    data: { siteId: string; userId: string },
+    query?: Webflow.WebflowQueryArg
+  ): Promise<{ deleted: number }>;
+
+  inviteUser(
+    data: { siteId: string; email: string },
+    query?: Webflow.WebflowQueryArg
+  ): Promise<Webflow.WebflowApiModel.User>;
+
   // Items
 
   items(
@@ -213,6 +244,14 @@ declare namespace Webflow {
       name: string;
     }
 
+    interface User {
+      _id: string;
+      lastUpdated: string;
+      createdOn: string;
+      emailVerified: boolean;
+      data: object;
+    }
+
     /**
      * https://developers.webflow.com/?javascript#collections
      */
@@ -301,7 +340,7 @@ declare namespace Webflow {
       rateLimit: {
         limit: number;
         remaining: number;
-      }
+      };
     }
 
     interface ItemsResponse {
