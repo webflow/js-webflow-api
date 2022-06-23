@@ -3,16 +3,7 @@
 import nock from "nock";
 import test from "ava";
 
-import Webflow, { WebflowError } from "./dist";
-
-test("Requires an access token", (t) => {
-  t.throws(
-    () => {
-      new Webflow({}); // eslint-disable-line no-new
-    },
-    { instanceOf: WebflowError }
-  );
-});
+import Webflow from "./dist";
 
 test("Passes the access token as an HTTP header", (t) => {
   const scope = nock("https://api.webflow.com")
