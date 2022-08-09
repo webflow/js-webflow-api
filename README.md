@@ -24,6 +24,9 @@ const Webflow = require('webflow-api');
 // Initialize the API
 const api = new Webflow({ token: 'api-token' });
 
+// Initialize the API without CORS mode
+const apiNoCors = new Webflow({ token: 'api-token', fetchOpts: { mode: undefined }});
+
 // Fetch a site
 api.site({ siteId: '580e63e98c9a982ac9b8b741' }).then(site => console.log(site));
 ```
@@ -32,6 +35,7 @@ The `Webflow` constructor takes several options to initialize the API client:
 
 * `token` - the API token **(required)**
 * `version` - the version of the API you wish to use (optional)
+* `fetchOpts` - an option to override `fetch` options
 
 All of the API methods are documented in the [API documentation](https://developers.webflow.com).
 
