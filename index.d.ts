@@ -178,7 +178,7 @@ declare namespace Webflow {
     token: string;
     endpoint?: string;
     version?: string;
-    useCors?: boolean;
+    fetchOpts?: RequestInit;
   }
 
   namespace WebflowApiModel {

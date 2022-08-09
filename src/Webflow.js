@@ -52,7 +52,7 @@ const responseHandler = (res) =>
     });
 
 export default class Webflow {
-  constructor({ endpoint = DEFAULT_ENDPOINT, token, version = "1.0.0", useCors = true } = {}) {
+  constructor({ endpoint = DEFAULT_ENDPOINT, token, version = "1.0.0", fetchOpts = {} } = {}) {
     if (!token) throw buildRequiredArgError("token");
 
     this.responseWrapper = new ResponseWrapper(this);
@@ -75,11 +75,9 @@ export default class Webflow {
       const opts = {
         method,
         headers: this.headers,
+        mode: "cors",
+        ...fetchOpts,
       };
-
-      if (useCors) {
-        opts.mode = "cors";
-      }
 
       if (data) {
         opts.body = JSON.stringify(data);
