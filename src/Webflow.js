@@ -104,8 +104,8 @@ export default class Webflow {
     return this.authenticatedFetch("PATCH", path, data, query);
   }
 
-  delete(path, query = {}) {
-    return this.authenticatedFetch("DELETE", path, null, query);
+  delete(path, data, query = {}) {
+    return this.authenticatedFetch("DELETE", path, data, query);
   }
 
   // Meta
@@ -221,7 +221,11 @@ export default class Webflow {
       return Promise.reject(buildRequiredArgError("collectionId"));
     if (!itemId) return Promise.reject(buildRequiredArgError("itemId"));
 
-    return this.delete(`/collections/${collectionId}/items/${itemId}`, query);
+    return this.delete(
+      `/collections/${collectionId}/items/${itemId}`,
+      null,
+      query
+    );
   }
 
   patchItem({ collectionId, itemId, ...data }, query = {}) {
@@ -232,6 +236,30 @@ export default class Webflow {
     return this.patch(
       `/collections/${collectionId}/items/${itemId}`,
       data,
+      query
+    );
+  }
+
+  deleteItems({ collectionId, itemIds, ...data }, query = {}) {
+    if (!collectionId)
+      return Promise.reject(buildRequiredArgError("collectionId"));
+    if (!itemIds) return Promise.reject(buildRequiredArgError("itemIds"));
+
+    return this.delete(
+      `/collections/${collectionId}/items`,
+      { ...data, itemIds },
+      query
+    );
+  }
+
+  publishItems({ collectionId, itemIds, ...data }, query = {}) {
+    if (!collectionId)
+      return Promise.reject(buildRequiredArgError("collectionId"));
+    if (!itemIds) return Promise.reject(buildRequiredArgError("itemIds"));
+
+    return this.put(
+      `/collections/${collectionId}/items/publish`,
+      { ...data, itemIds },
       query
     );
   }
@@ -275,7 +303,7 @@ export default class Webflow {
     if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
     if (!userId) return Promise.reject(buildRequiredArgError("userId"));
 
-    return this.delete(`/sites/${siteId}/users/${userId}`, query);
+    return this.delete(`/sites/${siteId}/users/${userId}`, null, query);
   }
 
   // Webhooks
@@ -309,6 +337,6 @@ export default class Webflow {
     if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
     if (!webhookId) return Promise.reject(buildRequiredArgError("webhookId"));
 
-    return this.delete(`/sites/${siteId}/webhooks/${webhookId}`, query);
+    return this.delete(`/sites/${siteId}/webhooks/${webhookId}`, null, query);
   }
 }
