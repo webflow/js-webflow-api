@@ -1,93 +1,60 @@
-import fetch from "isomorphic-fetch";
-import qs from "qs";
-
-import { isObjectEmpty } from "./utils";
+import { WebflowArgumentError, WebflowRequestError } from "./WebflowError";
 import ResponseWrapper from "./ResponseWrapper";
-import WebflowError, { buildRequiredArgError } from "./WebflowError";
+import fetch from "isomorphic-fetch";
 
 const DEFAULT_ENDPOINT = "https://api.webflow.com";
 
-const buildMeta = (res) => {
-  if (!res || !res.headers) {
-    return {};
+export class Webflow {
+  constructor({ endpoint = DEFAULT_ENDPOINT, token, version = "1.0.0" } = {}) {
+    if (!token) throw new WebflowArgumentError("token");
+    this.responseWrapper = new ResponseWrapper(this);
+    this.endpoint = endpoint;
+    this.version = version;
+    this.token = token;
   }
 
-  return {
-    rateLimit: {
-      limit: parseInt(res.headers.get("x-ratelimit-limit"), 10),
-      remaining: parseInt(res.headers.get("x-ratelimit-remaining"), 10),
-    },
-  };
-};
+  authenticatedFetch(method, path, data, query) {
+    // querystring
+    const hasQuery = Object.keys(query).length > 0;
+    const queryString = hasQuery ? `?${new URLSearchParams(query)}` : "";
 
-const responseHandler = (res) =>
-  res
-    .json()
-    .catch((err) =>
-      // Catch unexpected server errors where json isn't sent and rewrite
-      // with proper class (WebflowError)
-      Promise.reject(new WebflowError(err))
-    )
-    .then((body) => {
-      if (res.status >= 400) {
-        const errOpts = {
-          code: body.code,
-          msg: body.msg,
-          _meta: buildMeta(res),
-        };
-
-        if (body.problems && body.problems.length > 0) {
-          errOpts.problems = body.problems;
-        }
-
-        const errMsg = body && body.err ? body.err : "Unknown error occured";
-        const err = new WebflowError(errMsg);
-
-        return Promise.reject(Object.assign(err, errOpts));
-      }
-
-      body._meta = buildMeta(res); // eslint-disable-line no-param-reassign
-
-      return body;
-    });
-
-export default class Webflow {
-  constructor({ endpoint = DEFAULT_ENDPOINT, token, version = "1.0.0" } = {}) {
-    if (!token) throw buildRequiredArgError("token");
-
-    this.responseWrapper = new ResponseWrapper(this);
-
-    this.endpoint = endpoint;
-    this.token = token;
-
-    this.headers = {
-      Accept: "application/json",
-      Authorization: `Bearer ${token}`,
-      "accept-version": version,
+    // headers
+    const headers = {
+      Authorization: `Bearer ${this.token}`,
       "Content-Type": "application/json",
+      "accept-version": this.version,
+      Accept: "application/json",
     };
 
-    this.authenticatedFetch = (method, path, data, query) => {
-      const queryString =
-        query && !isObjectEmpty(query) ? `?${qs.stringify(query)}` : "";
+    // url and options
+    const uri = `${this.endpoint}${path}${queryString}`;
+    const opts = { method, headers, mode: "cors" };
 
-      const uri = `${this.endpoint}${path}${queryString}`;
-      const opts = {
-        method,
-        headers: this.headers,
-        mode: "cors",
-      };
+    // body
+    if (data) opts.body = JSON.stringify(data);
 
-      if (data) {
-        opts.body = JSON.stringify(data);
-      }
+    // call fetch and wrap response
+    return fetch(uri, opts).then(this.responseHandler);
+  }
 
-      return fetch(uri, opts).then(responseHandler);
-    };
+  async responseHandler(res) {
+    const body = await res.json();
+
+    // append ratelimit meta data to response
+    if (res.headers) {
+      const limit = parseInt(res.headers.get("x-ratelimit-limit"), 10);
+      const remaining = parseInt(res.headers.get("x-ratelimit-remaining"), 10);
+      body._meta = { rateLimit: { limit, remaining } };
+    }
+
+    // webflow error
+    // if (res.status >= 400) throw new WebflowRequestError(body);
+    if (body.err) throw new WebflowRequestError(body);
+
+    return body;
   }
 
   // Generic HTTP request handlers
-
   get(path, query = {}) {
     return this.authenticatedFetch("GET", path, null, query);
   }
@@ -109,13 +76,14 @@ export default class Webflow {
   }
 
   // Meta
-
   info(query = {}) {
     return this.get("/info", query);
   }
+  installer(query = {}) {
+    return this.get("/user", query);
+  }
 
   // Sites
-
   sites(query = {}) {
     return this.get("/sites", query).then((sites) =>
       sites.map((site) => this.responseWrapper.site(site))
@@ -123,7 +91,7 @@ export default class Webflow {
   }
 
   site({ siteId }, query = {}) {
-    if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
+    if (!siteId) throw new WebflowArgumentError("siteId");
 
     return this.get(`/sites/${siteId}`, query).then((site) =>
       this.responseWrapper.site(site)
@@ -131,16 +99,14 @@ export default class Webflow {
   }
 
   publishSite({ siteId, domains }) {
-    if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
-    if (!domains) return Promise.reject(buildRequiredArgError("domains"));
+    if (!siteId) throw new WebflowArgumentError("siteId");
+    if (!domains) throw new WebflowArgumentError("domains");
 
     return this.post(`/sites/${siteId}/publish`, { domains });
   }
 
-  // Domains
-
   domains({ siteId }) {
-    if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
+    if (!siteId) throw new WebflowArgumentError("siteId");
 
     return this.get(`/sites/${siteId}/domains`).then((domains) =>
       domains.map((domain) => this.responseWrapper.domain(domain, siteId))
@@ -148,9 +114,8 @@ export default class Webflow {
   }
 
   // Collections
-
   collections({ siteId }, query = {}) {
-    if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
+    if (!siteId) throw new WebflowArgumentError("siteId");
 
     return this.get(`/sites/${siteId}/collections`, query).then((collections) =>
       collections.map((collection) =>
@@ -160,8 +125,7 @@ export default class Webflow {
   }
 
   collection({ collectionId }, query = {}) {
-    if (!collectionId)
-      return Promise.reject(buildRequiredArgError("collectionId"));
+    if (!collectionId) throw new WebflowArgumentError("collectionId");
 
     return this.get(`/collections/${collectionId}`, query).then((collection) =>
       this.responseWrapper.collection(collection)
@@ -169,10 +133,8 @@ export default class Webflow {
   }
 
   // Items
-
   items({ collectionId }, query = {}) {
-    if (!collectionId)
-      return Promise.reject(buildRequiredArgError("collectionId"));
+    if (!collectionId) throw new WebflowArgumentError("collectionId");
 
     return this.get(`/collections/${collectionId}/items`, query).then(
       (res) => ({
@@ -186,9 +148,8 @@ export default class Webflow {
   }
 
   item({ collectionId, itemId }, query = {}) {
-    if (!collectionId)
-      return Promise.reject(buildRequiredArgError("collectionId"));
-    if (!itemId) return Promise.reject(buildRequiredArgError("itemId"));
+    if (!collectionId) throw new WebflowArgumentError("collectionId");
+    if (!itemId) throw new WebflowArgumentError("itemId");
 
     return this.get(`/collections/${collectionId}/items/${itemId}`, query).then(
       (res) => this.responseWrapper.item(res.items[0], collectionId)
@@ -196,8 +157,7 @@ export default class Webflow {
   }
 
   createItem({ collectionId, ...data }, query = {}) {
-    if (!collectionId)
-      return Promise.reject(buildRequiredArgError("collectionId"));
+    if (!collectionId) throw new WebflowArgumentError("collectionId");
 
     return this.post(`/collections/${collectionId}/items`, data, query).then(
       (item) => this.responseWrapper.item(item, collectionId)
@@ -205,9 +165,8 @@ export default class Webflow {
   }
 
   updateItem({ collectionId, itemId, ...data }, query = {}) {
-    if (!collectionId)
-      return Promise.reject(buildRequiredArgError("collectionId"));
-    if (!itemId) return Promise.reject(buildRequiredArgError("itemId"));
+    if (!collectionId) throw new WebflowArgumentError("collectionId");
+    if (!itemId) throw new WebflowArgumentError("itemId");
 
     return this.put(
       `/collections/${collectionId}/items/${itemId}`,
@@ -217,9 +176,8 @@ export default class Webflow {
   }
 
   removeItem({ collectionId, itemId }, query = {}) {
-    if (!collectionId)
-      return Promise.reject(buildRequiredArgError("collectionId"));
-    if (!itemId) return Promise.reject(buildRequiredArgError("itemId"));
+    if (!collectionId) throw new WebflowArgumentError("collectionId");
+    if (!itemId) throw new WebflowArgumentError("itemId");
 
     return this.delete(
       `/collections/${collectionId}/items/${itemId}`,
@@ -229,9 +187,8 @@ export default class Webflow {
   }
 
   patchItem({ collectionId, itemId, ...data }, query = {}) {
-    if (!collectionId)
-      return Promise.reject(buildRequiredArgError("collectionId"));
-    if (!itemId) return Promise.reject(buildRequiredArgError("itemId"));
+    if (!collectionId) throw new WebflowArgumentError("collectionId");
+    if (!itemId) throw new WebflowArgumentError("itemId");
 
     return this.patch(
       `/collections/${collectionId}/items/${itemId}`,
@@ -241,9 +198,8 @@ export default class Webflow {
   }
 
   deleteItems({ collectionId, itemIds, ...data }, query = {}) {
-    if (!collectionId)
-      return Promise.reject(buildRequiredArgError("collectionId"));
-    if (!itemIds) return Promise.reject(buildRequiredArgError("itemIds"));
+    if (!collectionId) throw new WebflowArgumentError("collectionId");
+    if (!itemIds) throw new WebflowArgumentError("itemIds");
 
     return this.delete(
       `/collections/${collectionId}/items`,
@@ -253,9 +209,8 @@ export default class Webflow {
   }
 
   publishItems({ collectionId, itemIds, ...data }, query = {}) {
-    if (!collectionId)
-      return Promise.reject(buildRequiredArgError("collectionId"));
-    if (!itemIds) return Promise.reject(buildRequiredArgError("itemIds"));
+    if (!collectionId) throw new WebflowArgumentError("collectionId");
+    if (!itemIds) throw new WebflowArgumentError("itemIds");
 
     return this.put(
       `/collections/${collectionId}/items/publish`,
@@ -265,18 +220,20 @@ export default class Webflow {
   }
 
   // Users
-
   users({ siteId }, query = {}) {
-    if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
+    if (!siteId) throw new WebflowArgumentError("siteId");
 
-    return this.get(`/sites/${siteId}/users`, query).then((res) =>
-      res.users.map((user) => this.responseWrapper.user(user))
-    );
+    return this.get(`/sites/${siteId}/users`, query).then((res) => {
+      return {
+        ...res,
+        users: res.users.map((user) => this.responseWrapper.user(user)),
+      };
+    });
   }
 
   user({ siteId, userId }, query = {}) {
-    if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
-    if (!userId) return Promise.reject(buildRequiredArgError("userId"));
+    if (!siteId) throw new WebflowArgumentError("siteId");
+    if (!userId) throw new WebflowArgumentError("userId");
 
     return this.get(`/sites/${siteId}/users/${userId}`, query).then((user) =>
       this.responseWrapper.user(user, siteId)
@@ -284,15 +241,15 @@ export default class Webflow {
   }
 
   updateUser({ siteId, userId, ...data }, query = {}) {
-    if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
-    if (!userId) return Promise.reject(buildRequiredArgError("userId"));
+    if (!siteId) throw new WebflowArgumentError("siteId");
+    if (!userId) throw new WebflowArgumentError("userId");
 
     return this.patch(`/sites/${siteId}/users/${userId}`, data, query);
   }
 
   inviteUser({ siteId, email }, query = {}) {
-    if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
-    if (!email) return Promise.reject(buildRequiredArgError("email"));
+    if (!siteId) throw new WebflowArgumentError("siteId");
+    if (!email) throw new WebflowArgumentError("email");
 
     return this.post(`/sites/${siteId}/users/invite`, { email }, query).then(
       (user) => this.responseWrapper.user(user, siteId)
@@ -300,16 +257,15 @@ export default class Webflow {
   }
 
   removeUser({ siteId, userId }, query = {}) {
-    if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
-    if (!userId) return Promise.reject(buildRequiredArgError("userId"));
+    if (!siteId) throw new WebflowArgumentError("siteId");
+    if (!userId) throw new WebflowArgumentError("userId");
 
     return this.delete(`/sites/${siteId}/users/${userId}`, null, query);
   }
 
   // Webhooks
-
   webhooks({ siteId }, query = {}) {
-    if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
+    if (!siteId) throw new WebflowArgumentError("siteId");
 
     return this.get(`/sites/${siteId}/webhooks`, query).then((webhooks) =>
       webhooks.map((webhook) => this.responseWrapper.webhook(webhook, siteId))
@@ -317,8 +273,8 @@ export default class Webflow {
   }
 
   webhook({ siteId, webhookId }, query = {}) {
-    if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
-    if (!webhookId) return Promise.reject(buildRequiredArgError("webhookId"));
+    if (!siteId) throw new WebflowArgumentError("siteId");
+    if (!webhookId) throw new WebflowArgumentError("webhookId");
 
     return this.get(`/sites/${siteId}/webhooks/${webhookId}`, query).then(
       (webhook) => this.responseWrapper.webhook(webhook, siteId)
@@ -326,7 +282,7 @@ export default class Webflow {
   }
 
   createWebhook({ siteId, ...data }, query = {}) {
-    if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
+    if (!siteId) throw new WebflowArgumentError("siteId");
 
     return this.post(`/sites/${siteId}/webhooks`, data, query).then((webhook) =>
       this.responseWrapper.webhook(webhook, siteId)
@@ -334,9 +290,11 @@ export default class Webflow {
   }
 
   removeWebhook({ siteId, webhookId }, query = {}) {
-    if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
-    if (!webhookId) return Promise.reject(buildRequiredArgError("webhookId"));
+    if (!siteId) throw new WebflowArgumentError("siteId");
+    if (!webhookId) throw new WebflowArgumentError("webhookId");
 
     return this.delete(`/sites/${siteId}/webhooks/${webhookId}`, null, query);
   }
 }
+
+export default Webflow;

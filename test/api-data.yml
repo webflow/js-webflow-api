@@ -1,0 +1,620 @@
+common:
+  error:
+    response:
+      msg: Cannot access resource
+      code: 401,
+      name: Unauthorized
+      path: /sites/invalid_site
+      err: "Unauthorized: Cannot access resource"
+  headers:
+    "X-RateLimit-Limit": 100
+    "X-RateLimit-Remaining": 99
+
+endpoints:
+  # Meta
+  installer:
+    response:
+      user:
+        _id: 545bbecb7bdd6769632504a7
+        email: some@email.com
+        firstName: Some
+        lastName: One
+  info:
+    response:
+      _id: 55818d58616600637b9a5786
+      createdOn: "2016-10-03T23:12:00.755Z"
+      grantType: authorization_code
+      lastUsed: "2016-10-10T21:41:12.736Z"
+      sites:
+        - 62f3b1f7eafac55d0c64ef91
+      orgs:
+        - 551ad253f0a9c0686f71ed08
+      workspaces: []
+      users:
+        - 545bbecb7bdd6769632504a7
+      rateLimit: 60
+      status: confirmed
+      application:
+        _id: 55131cd036c09f7d07883dfc
+        description: OAuth Testing Application
+        homepage: https://webflow.com
+        name: Test App
+        owner: 545bbecb7bdd6769632504a7
+        ownerType: Person
+
+  # Sites
+  sites:
+    response:
+      - _id: 580e63e98c9a982ac9b8b741
+        createdOn: "2016-10-24T19:41:29.156Z"
+        name: api_docs_sample_json
+        shortName: api-docs-sample-json
+        lastPublished: "2016-10-24T23:06:51.251Z"
+        previewUrl: https://d1otoma47x30pg.cloudfront.net/580e63e98c9a982ac9b8b741/201610241603.png
+        timezone: America/Los_Angeles
+        database: 580e63fc8c9a982ac9b8b744
+      - _id: 580ff8c3ba3e45ba9fe588bb
+        createdOn: "2016-10-26T00:28:54.191Z"
+        name: Copy of api_docs_sample_json
+        shortName: api-docs-sample-json-086c6538f9b0583762
+        lastPublished: null
+        previewUrl: https://d1otoma47x30pg.cloudfront.net/580e63e98c9a982ac9b8b741/201610241603.png
+        timezone: America/Los_Angeles
+        database: 580ff8c3ba3e45ba9fe588bf
+      - _id: 580ff8d7ba3e45ba9fe588e9
+        createdOn: "2016-10-26T00:29:13.634Z"
+        name: Copy of api_docs_sample_json
+        shortName: api-docs-sample-json-ce077aa6c5cd3e0177
+        lastPublished: null
+        previewUrl: https://d1otoma47x30pg.cloudfront.net/580e63e98c9a982ac9b8b741/201610241603.png
+        timezone: America/Los_Angeles
+        database: 580ff8d7ba3e45ba9fe588ed
+  site:
+    parameters:
+      siteId: 580e63e98c9a982ac9b8b741
+    response:
+      _id: 580e63e98c9a982ac9b8b741
+      createdOn: "2016-10-24T19:41:29.156Z"
+      name: api_docs_sample_json
+      shortName: api-docs-sample-json
+      lastPublished: "2016-10-24T19:43:17.271Z"
+      previewUrl: https://d1otoma47x30pg.cloudfront.net/580e63e98c9a982ac9b8b741/201610241243.png
+      timezone: America/Los_Angeles
+      database: 580e63fc8c9a982ac9b8b744
+  domains:
+    parameters:
+      siteId: 589a331aa51e760df7ccb89d
+    response:
+      - _id: 589a331aa51e760df7ccb89d
+        name: test-api-domain.com
+      - _id: 589a331aa51e760df7ccb89e
+        name: www.test-api-domain.com
+  publish:
+    parameters:
+      siteId: 580e63e98c9a982ac9b8b741
+      domains:
+        - test-api-domain.com
+    response:
+      queued: true
+
+  # Collections
+  collections:
+    parameters:
+      siteId: 580e63e98c9a982ac9b8b741
+    response:
+      - _id: 580e63fc8c9a982ac9b8b745
+        lastUpdated: "2016-10-24T19:42:38.929Z"
+        createdOn: "2016-10-24T19:41:48.349Z"
+        name: Blog Posts
+        slug: post
+        singularName: Blog Post
+      - _id: 580e64088c9a982ac9b8b766
+        lastUpdated: "2016-10-24T19:42:00.799Z"
+        createdOn: "2016-10-24T19:42:00.777Z"
+        name: Authors
+        slug: author
+        singularName: Author
+  collection:
+    parameters:
+      collectionId: 580e63fc8c9a982ac9b8b745
+    response:
+      _id: 580e63fc8c9a982ac9b8b745
+      lastUpdated: "2016-10-24T19:42:38.929Z"
+      createdOn: "2016-10-24T19:41:48.349Z"
+      name: Blog Posts
+      slug: post
+      singularName: Blog Post
+      fields:
+        - id: 7f62a9781291109b9e428fb47239fd35
+          editable: true
+          required: false
+          type: RichText
+          slug: post-body
+          name: Post Body
+        - validations:
+            singleLine: false
+          id: ac4ffead755a78c710c44042f528b073
+          helpText: A summary of the blog post that appears on blog post grid
+          editable: true
+          required: false
+          type: PlainText
+          slug: post-summary
+          name: Post Summary
+        - id: ba1cfbdaa6b38b8e95e9b5063da8a5bd
+          editable: true
+          required: false
+          type: ImageRef
+          slug: main-image
+          name: Main Image
+        - id: a8c6ea29b08cc5b5ef966908fa1deae2
+          helpText: Smaller version of main image that is used on blog post grid
+          editable: true
+          required: false
+          type: ImageRef
+          slug: thumbnail-image
+          name: Thumbnail image
+        - id: 87e79a644a6fb5729940ec24e0012f01
+          editable: true
+          required: false
+          type: Set
+          innerType: ImageRef
+          slug: picture-gallery
+          name: Picture Gallery
+        - id: 1e54974d97181032d3206ea021668e5f
+          editable: true
+          required: false
+          type: Bool
+          slug: featured
+          name: Featured?
+        - id: 648463cbc042ab079c2b99430a398ae5
+          editable: true
+          required: false
+          type: Color
+          slug: color
+          name: Color
+        - validations:
+            collectionId: 580e64088c9a982ac9b8b766
+          id: ea9067c48edee510de71fe503fa2fb51
+          editable: true
+          required: false
+          type: ItemRef
+          slug: author
+          name: Author
+        - validations:
+            maxLength: 256
+          id: 60c0667e27b6d5a6daedec3a641265f6
+          editable: true
+          required: true
+          type: PlainText
+          slug: name
+          name: Name
+        - validations:
+            messages:
+              maxLength: Must be less than 256 characters
+              pattern: >-
+                Must be alphanumerical and not contain any spaces or special
+                characters
+            pattern: {}
+            maxLength: 256
+          id: 8f0c953df91d10b767d66e1d7d00d631
+          unique: true
+          editable: true
+          required: true
+          type: PlainText
+          slug: slug
+          name: Slug
+        - default: false
+          id: e4e92e700d70faffac6fa82ff2bfaece
+          editable: true
+          required: true
+          type: Bool
+          slug: _archived
+          name: Archived
+        - default: false
+          id: f2675b2ac4fcef746b24d4a320887ef8
+          editable: true
+          required: true
+          type: Bool
+          slug: _draft
+          name: Draft
+        - id: 0913a35d92208bdf8fbf3ed1e39b771e
+          editable: false
+          required: false
+          type: Date
+          slug: created-on
+          name: Created On
+        - id: 3de04889465fe6d718e47b152ef5bb4d
+          editable: false
+          required: false
+          type: Date
+          slug: updated-on
+          name: Updated On
+        - id: 2a3cd866d5dbb294896130b233218626
+          editable: false
+          required: false
+          type: Date
+          slug: published-on
+          name: Published On
+        - id: 62c18561b9e89517751c6d8712d48f91
+          editable: false
+          required: false
+          type: User
+          slug: created-by
+          name: Created By
+        - id: 50918093b4e4d4eca1e83c25bcdc06a4
+          editable: false
+          required: false
+          type: User
+          slug: updated-by
+          name: Updated By
+        - id: 5c4587f18b32ef245daeaadfcba7860b
+          editable: false
+          required: false
+          type: User
+          slug: published-by
+          name: Published By
+        - id: 7f62a9781291109b9e428fb47239fd35
+          editable: true
+          required: false
+          type: RichText
+          slug: post-body
+          name: Post Body
+        - validations:
+            singleLine: false
+          id: ac4ffead755a78c710c44042f528b073
+          helpText: A summary of the blog post that appears on blog post grid
+          editable: true
+          required: false
+          type: PlainText
+          slug: post-summary
+          name: Post Summary
+        - id: ba1cfbdaa6b38b8e95e9b5063da8a5bd
+          editable: true
+          required: false
+          type: ImageRef
+          slug: main-image
+          name: Main Image
+        - id: a8c6ea29b08cc5b5ef966908fa1deae2
+          helpText: Smaller version of main image that is used on blog post grid
+          editable: true
+          required: false
+          type: ImageRef
+          slug: thumbnail-image
+          name: Thumbnail image
+        - id: 87e79a644a6fb5729940ec24e0012f01
+          editable: true
+          required: false
+          type: Set
+          innerType: ImageRef
+          slug: picture-gallery
+          name: Picture Gallery
+        - id: 1e54974d97181032d3206ea021668e5f
+          editable: true
+          required: false
+          type: Bool
+          slug: featured
+          name: Featured?
+        - id: 648463cbc042ab079c2b99430a398ae5
+          editable: true
+          required: false
+          type: Color
+          slug: color
+          name: Color
+        - validations:
+            collectionId: 580e64088c9a982ac9b8b766
+          id: ea9067c48edee510de71fe503fa2fb51
+          editable: true
+          required: false
+          type: ItemRef
+          slug: author
+          name: Author
+        - validations:
+            maxLength: 256
+          id: 60c0667e27b6d5a6daedec3a641265f6
+          editable: true
+          required: true
+          type: PlainText
+          slug: name
+          name: Name
+        - validations:
+            messages:
+              maxLength: Must be less than 256 characters
+              pattern: >-
+                Must be alphanumerical and not contain any spaces or special
+                characters
+            pattern: {}
+            maxLength: 256
+          id: 8f0c953df91d10b767d66e1d7d00d631
+          unique: true
+          editable: true
+          required: true
+          type: PlainText
+          slug: slug
+          name: Slug
+        - default: false
+          id: e4e92e700d70faffac6fa82ff2bfaece
+          editable: true
+          required: true
+          type: Bool
+          slug: _archived
+          name: Archived
+        - default: false
+          id: f2675b2ac4fcef746b24d4a320887ef8
+          editable: true
+          required: true
+          type: Bool
+          slug: _draft
+          name: Draft
+        - id: 0913a35d92208bdf8fbf3ed1e39b771e
+          editable: false
+          required: false
+          type: Date
+          slug: created-on
+          name: Created On
+        - id: 3de04889465fe6d718e47b152ef5bb4d
+          editable: false
+          required: false
+          type: Date
+          slug: updated-on
+          name: Updated On
+        - id: 2a3cd866d5dbb294896130b233218626
+          editable: false
+          required: false
+          type: Date
+          slug: published-on
+          name: Published On
+        - id: 62c18561b9e89517751c6d8712d48f91
+          editable: false
+          required: false
+          type: User
+          slug: created-by
+          name: Created By
+        - id: 50918093b4e4d4eca1e83c25bcdc06a4
+          editable: false
+          required: false
+          type: User
+          slug: updated-by
+          name: Updated By
+        - id: 5c4587f18b32ef245daeaadfcba7860b
+          editable: false
+          required: false
+          type: User
+          slug: published-by
+          name: Published By
+
+  # Collection Items
+  items:
+    parameters:
+      collectionId: 580e63fc8c9a982ac9b8b745
+    response:
+      items:
+        - _archived: false
+          _draft: false
+          color: "#a98080"
+          name: Exciting blog post title
+          post-body: <p>Blog post contents...</p>
+          post-summary: Summary of exciting blog post
+          main-image:
+            fileId: 580e63fe8c9a982ac9b8b749
+            url: https://d1otoma47x30pg.cloudfront.net/580e63fc8c9a982ac9b8b744/580e63fe8c9a982ac9b8b749_1477338110257-image20.jpg
+          slug: exciting-post
+          author: 580e640c8c9a982ac9b8b778
+          updated-on: "2016-11-15T22:45:32.647Z"
+          updated-by: Person_5660c5338e9d3b0bee3b86aa
+          created-on: "2016-11-15T22:45:32.647Z"
+          created-by: Person_5660c5338e9d3b0bee3b86aa
+          published-on: null
+          published-by: null
+          _cid: 580e63fc8c9a982ac9b8b745
+          _id: 582b900cba19143b2bb8a759
+      count: 1
+      limit: 1
+      offset: 0
+      total: 5
+  item:
+    parameters:
+      collectionId: 580e63fc8c9a982ac9b8b745
+      itemId: 582b900cba19143b2bb8a759
+    response:
+      items:
+        - _archived: false
+          _draft: false
+          color: "#a98080"
+          name: Exciting blog post title
+          post-body: <p>Blog post contents...</p>
+          post-summary: Summary of exciting blog post
+          main-image:
+            fileId: 580e63fe8c9a982ac9b8b749
+            url: https://d1otoma47x30pg.cloudfront.net/580e63fc8c9a982ac9b8b744/580e63fe8c9a982ac9b8b749_1477338110257-image20.jpg
+          slug: exciting-post
+          author: 580e640c8c9a982ac9b8b778
+          updated-on: "2016-11-15T22:45:32.647Z"
+          updated-by: Person_5660c5338e9d3b0bee3b86aa
+          created-on: "2016-11-15T22:45:32.647Z"
+          created-by: Person_5660c5338e9d3b0bee3b86aa
+          published-on: null
+          published-by: null
+          _cid: 580e63fc8c9a982ac9b8b745
+          _id: 582b900cba19143b2bb8a759
+      count: 1
+      limit: 1
+      offset: 0
+      total: 5
+  publish_items:
+    parameters:
+      collectionId: 580e63fc8c9a982ac9b8b745
+      itemIds:
+        - 62aa37923cf7a9de1ca4469c
+        - 62aa37923cf7a9de1ca44697
+        - 62aa37923cf7a9de1ca44696
+    response:
+      publishedItemIds:
+        - 62aa37923cf7a9de1ca4469c
+        - 62aa37923cf7a9de1ca44697
+        - 62aa37923cf7a9de1ca44696
+      errors: []
+  remove_items:
+    parameters:
+      collectionId: 580e63fc8c9a982ac9b8b745
+      itemIds:
+        - 62aa37923cf7a9de1ca4469c
+        - 62aa37923cf7a9de1ca44697
+        - 62aa37923cf7a9de1ca44696
+    response:
+      deletedItemIds:
+        - 62aa37923cf7a9de1ca4469c
+        - 62aa37923cf7a9de1ca44697
+        - 62aa37923cf7a9de1ca44696
+      errors: []
+  remove_item:
+    parameters:
+      collectionId: 580e63fc8c9a982ac9b8b745
+      itemId: 62aa37923cf7a9de1ca4469c
+    response:
+      deleted: 1
+
+  # Users
+  user:
+    parameters:
+      userId: 6287ec36a841b25637c663df
+      siteId: 6287ec36a841b25637c663de
+    response:
+      _id: 6287ec36a841b25637c663df
+      createdOn: "2022-05-20T13:46:12.093Z"
+      updatedOn: "2022-05-20T13:46:12.093Z"
+      emailVerified: true
+      status: verified
+      data:
+        accept-privacy: false
+        accept-communications: false
+        email: Some.One@home.com
+        name: Some One
+  users:
+    parameters:
+      siteId: 6287ec36a841b25637c663de
+    response:
+      users:
+        - _id: 6287ec36a841b25637c663df
+          createdOn: "2022-05-20T13:46:12.093Z"
+          updatedOn: "2022-05-20T13:46:12.093Z"
+          emailVerified: false
+          status: unverified
+          data:
+            accept-privacy: false
+            accept-communications: false
+            email: Person.One@home.com
+            name: Person One
+        - _id: 6287ec36a841b25637c663f0
+          createdOn: "2022-05-19T05:32:04.581Z"
+          updatedOn: "2022-05-19T05:32:04.581Z"
+          emailVerified: false
+          status: unverified
+          data:
+            accept-privacy: false
+            accept-communications: false
+            email: Person.Two@home.com
+            name: Person Two
+        - _id: 6287ec36a841b25637c663d9
+          createdOn: "2022-05-17T03:34:06.720Z"
+          updatedOn: "2022-05-17T03:34:06.720Z"
+          emailVerified: true
+          status: verified
+          data:
+            accept-privacy: false
+            accept-communications: false
+            email: Person.Three@home.com
+            name: Person Three
+        - _id: 6287ec37a841b25637c6641b
+          createdOn: "2022-05-15T03:46:09.748Z"
+          updatedOn: "2022-05-15T03:46:09.748Z"
+          emailVerified: false
+          status: unverified
+          data:
+            accept-privacy: false
+            accept-communications: false
+            email: Person.Four@home.com
+            name: Person Four
+        - _id: 6287ec37a841b25637c66449
+          createdOn: "2022-05-15T02:55:38.786Z"
+          updatedOn: "2022-05-15T02:55:38.786Z"
+          emailVerified: true
+          status: verified
+          data:
+            accept-privacy: false
+            accept-communications: false
+            email: Person.Five@home.com
+            name: Person Five
+      count: 5
+      limit: 5
+      offset: 0
+      total: 201
+  invite_user:
+    parameters:
+      siteId: 6287ec36a841b25637c663de
+      email: some.one@home.com
+    response:
+      _id: 6287ec36a841b25637c663df
+      createdOn: "2022-05-20T13:46:12.093Z"
+      updatedOn: "2022-05-20T13:46:12.093Z"
+      emailVerified: true
+      status: verified
+      data:
+        accept-privacy: false
+        accept-communications: false
+        email: some.one@home.com
+        name: Some One
+
+  access_group:
+    parameters:
+      siteId: 6287ec36a841b25637c663de
+    response:
+      accessGroups:
+        - _id: 62be58d404be8a6cc900c081
+          name: Webflowers
+          shortId: jo
+          slug: webflowers
+          createdOn: "2022-08-01T19:41:48.349Z"
+      count: 1
+      limit: 10
+      offset: 0
+      total: 1
+
+  # Webhooks
+  webhook:
+    parameters:
+      siteId: 562ac0395358780a1f5e6fbd
+      webhookId: 582266e0cd48de0f0e3c6d8b
+    response:
+      _id: 582266e0cd48de0f0e3c6d8b
+      triggerType: form_submission
+      triggerId: 562ac0395358780a1f5e6fbd
+      site: 562ac0395358780a1f5e6fbd
+      createdOn: "2016-11-08T23:59:28.572Z"
+  webhooks:
+    parameters:
+      siteId: 562ac0395358780a1f5e6fbd
+    response:
+      - _id: 57ca0a9e418c504a6e1acbb6
+        triggerType: form_submission
+        triggerId: 562ac0395358780a1f5e6fbd
+        site: 562ac0395358780a1f5e6fbd
+        filter:
+          name: Email Form
+        lastUsed: "2016-09-06T21:12:22.148Z"
+        createdOn: "2016-09-02T23:26:22.241Z"
+      - _id: 578d85cce0c47cd2865f4cf2
+        triggerType: form_submission
+        triggerId: 562ac0395358780a1f5e6fbd
+        site: 562ac0395358780a1f5e6fbd
+        filter:
+          name: Email Form
+        lastUsed: "2016-09-06T21:12:22.142Z"
+        createdOn: "2016-07-19T01:43:40.585Z"
+      - _id: 578d85cce0c47cd2865f4cf3
+        triggerType: form_submission
+        triggerId: 562ac0395358780a1f5e6fbd
+        site: 562ac0395358780a1f5e6fbd
+        filter:
+          name: Email Form
+        lastUsed: "2016-09-06T21:12:22.192Z"
+        createdOn: "2016-07-19T01:43:40.605Z"
