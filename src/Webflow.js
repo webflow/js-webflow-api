@@ -3,13 +3,20 @@ import ResponseWrapper from "./ResponseWrapper";
 import fetch from "isomorphic-fetch";
 
 const DEFAULT_ENDPOINT = "https://api.webflow.com";
+const USER_AGENT = "Webflow Javascript SDK / 1.0";
 
 export class Webflow {
-  constructor({ endpoint = DEFAULT_ENDPOINT, token, version = "1.0.0" } = {}) {
+  constructor({
+    endpoint = DEFAULT_ENDPOINT,
+    token,
+    version = "1.0.0",
+    headers = {},
+  } = {}) {
     if (!token) throw new WebflowArgumentError("token");
     this.responseWrapper = new ResponseWrapper(this);
     this.endpoint = endpoint;
     this.version = version;
+    this.headers = headers;
     this.token = token;
   }
 
@@ -24,6 +31,10 @@ export class Webflow {
       "Content-Type": "application/json",
       "accept-version": this.version,
       Accept: "application/json",
+      "User-Agent": USER_AGENT,
+
+      // user headers
+      ...this.headers,
     };
 
     // url and options

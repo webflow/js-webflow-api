@@ -1,9 +1,15 @@
 {
-  "name": "webflow-api",
-  "version": "0.8.1",
-  "description": "SDK for the Webflow CMS API",
+  "name": "@webflow/data",
+  "description": "Webflow's official Javascript SDK for Data APIs",
+  "version": "1.0.0",
   "main": "dist/index.js",
   "jsnext:main": "src/index.js",
+  "contributors": [
+    {
+      "name": "John Agan",
+      "email": "john.agan@webflow.com"
+    }
+  ],
   "repository": {
     "url": "https://github.com/webflow/js-webflow-api.git",
     "type": "git"
