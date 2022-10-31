@@ -4,6 +4,7 @@
   "rules": {
     "no-underscore-dangle": 0,
     "class-methods-use-this": 0,
+    "max-classes-per-file": "off",
     "prettier/prettier": ["error"]
   }
 }

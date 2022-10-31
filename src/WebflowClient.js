@@ -1,11 +1,11 @@
+import fetch from "isomorphic-fetch";
 import { WebflowArgumentError, WebflowRequestError } from "./WebflowError";
 import ResponseWrapper from "./ResponseWrapper";
-import fetch from "isomorphic-fetch";
 
 const DEFAULT_ENDPOINT = "https://api.webflow.com";
 const USER_AGENT = "Webflow Javascript SDK / 1.0";
 
-export class Webflow {
+export class WebflowClient {
   constructor({
     endpoint = DEFAULT_ENDPOINT,
     token,
@@ -90,6 +90,7 @@ export class Webflow {
   info(query = {}) {
     return this.get("/info", query);
   }
+
   installer(query = {}) {
     return this.get("/user", query);
   }
@@ -234,12 +235,10 @@ export class Webflow {
   users({ siteId }, query = {}) {
     if (!siteId) throw new WebflowArgumentError("siteId");
 
-    return this.get(`/sites/${siteId}/users`, query).then((res) => {
-      return {
-        ...res,
-        users: res.users.map((user) => this.responseWrapper.user(user)),
-      };
-    });
+    return this.get(`/sites/${siteId}/users`, query).then((res) => ({
+      ...res,
+      users: res.users.map((user) => this.responseWrapper.user(user)),
+    }));
   }
 
   user({ siteId, userId }, query = {}) {
@@ -308,4 +307,4 @@ export class Webflow {
   }
 }
 
-export default Webflow;
+export default WebflowClient;
