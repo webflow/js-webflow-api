@@ -21,15 +21,15 @@ The constructor takes in a few optional parameters to initialize the API client
 * `headers` - additional headers to add to the request
 
 ``` javascript
-const Webflow = require('webflow-api');
+const Webflow = require("webflow-api");
 
 // initialize the client with the access token
-const webflow = new Webflow({ token: "[API TOKEN]" });
+const webflow = new Webflow({ token: "[ACCESS TOKEN]" });
 
 // fully loaded
 const webflow = new Webflow({
-  token: "[API TOKEN]"
-  version: '1.0.0',
+  token: "[ACCESS TOKEN]"
+  version: "1.0.0",
   headers: {
     "User-Agent": "My Webflow App / 1.0"
   }
@@ -97,9 +97,59 @@ const result = await webflow.post("/sites/[SITE ID]/publish", {
 });
 ```
 
+## OAuth
+To implement OAuth, you'll need a Webflow App registered and a webserver running, that is publicly facing.
+
+### Authorize
+The first step in OAuth is to generate an authorization url to redirect the user to.
+
+```javascript
+// Get the authorization url to redirect users to
+const url = webflow.authorizeUrl({
+  client_id: "[CLIENT ID]",
+  state: "1234567890" // optional
+  redirect_uri: "https://my.server.com/oauth/callback", // optional
+});
+
+// redirect user from your server route
+res.redirect(url);
+```
+
+### Access Token
+Once a user has authorized their Webflow resource(s), Webflow will redirect back to your server with a `code`. Use this to get an access token.
+
+```javascript
+const auth = await webflow.accessToken({
+  client_id,
+  client_secret,
+  code,
+  redirect_uri // optional - required if used in the authorize step
+});
+
+// you now have the user's access token to make API requests with
+const userWF = new Webflow({ token: auth.access_token });
+
+// pull information for the installer
+const installer = await userWF.installer();
+```
+
+### Revoke Token
+If the user decides to disconnect from your server, you should call revoke token to remove the authorization.
+
+```javascript
+const result = await webflow.revokeToken({
+  client_id,
+  client_secret,
+  access_token
+});
+
+// ensure it went through
+if (result.didRevoke) {
+  // should equal true
+}
+```
 
 ## Examples
-
 ### Sites
 Get all sites available or lookup by site id.
 

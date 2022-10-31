@@ -2,21 +2,21 @@ import fetch from "isomorphic-fetch";
 import { WebflowArgumentError, WebflowRequestError } from "./WebflowError";
 import ResponseWrapper from "./ResponseWrapper";
 
-const DEFAULT_ENDPOINT = "https://api.webflow.com";
+const DEFAULT_HOST = "webflow.com";
 const USER_AGENT = "Webflow Javascript SDK / 1.0";
 
 export class WebflowClient {
   constructor({
-    endpoint = DEFAULT_ENDPOINT,
+    host = DEFAULT_HOST,
     token,
     version = "1.0.0",
     headers = {},
   } = {}) {
     this.responseWrapper = new ResponseWrapper(this);
-    this.endpoint = endpoint;
     this.version = version;
     this.headers = headers;
     this.token = token;
+    this.host = host;
   }
 
   authenticatedFetch(method, path, data, query) {
@@ -37,7 +37,7 @@ export class WebflowClient {
     };
 
     // url and options
-    const uri = `${this.endpoint}${path}${queryString}`;
+    const uri = `https://api.${this.host}${path}${queryString}`;
     const opts = { method, headers, mode: "cors" };
 
     // body
@@ -303,6 +303,57 @@ export class WebflowClient {
     if (!webhookId) throw new WebflowArgumentError("webhookId");
 
     return this.delete(`/sites/${siteId}/webhooks/${webhookId}`, null, query);
+  }
+
+  // Webhooks
+  authorizeUrl({
+    client_id,
+    redirect_uri,
+    state,
+    scope,
+    response_type = "code",
+  }) {
+    if (!client_id) throw new WebflowArgumentError("clientId");
+
+    const query = new URLSearchParams({ response_type, client_id });
+
+    if (redirect_uri) query.set("redirect_uri", redirect_uri);
+    if (state) query.set("state", state);
+    if (scope) query.set("scope", scope);
+
+    return `https://${this.host}/oauth/authorize?${query}`;
+  }
+
+  accessToken({
+    client_id,
+    client_secret,
+    code,
+    redirect_uri,
+    grant_type = "authorization_code",
+  }) {
+    if (!client_id) throw new WebflowArgumentError("client_id");
+    if (!client_secret) throw new WebflowArgumentError("client_secret");
+    if (!code) throw new WebflowArgumentError("code");
+
+    return this.post("/oauth/access_token", {
+      client_id,
+      client_secret,
+      code,
+      redirect_uri,
+      grant_type,
+    });
+  }
+
+  revokeToken({ client_id, client_secret, access_token }) {
+    if (!client_id) throw new WebflowArgumentError("client_id");
+    if (!client_secret) throw new WebflowArgumentError("client_secret");
+    if (!access_token) throw new WebflowArgumentError("access_token");
+
+    return this.post("/oauth/revoke_authorization", {
+      client_id,
+      client_secret,
+      access_token,
+    });
   }
 }
 
