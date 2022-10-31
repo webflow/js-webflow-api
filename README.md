@@ -107,7 +107,7 @@ The first step in OAuth is to generate an authorization url to redirect the user
 // Get the authorization url to redirect users to
 const url = webflow.authorizeUrl({
   client_id: "[CLIENT ID]",
-  state: "1234567890" // optional
+  state: "1234567890", // optional
   redirect_uri: "https://my.server.com/oauth/callback", // optional
 });
 
