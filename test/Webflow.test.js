@@ -1,6 +1,6 @@
 import { WebflowArgumentError, WebflowRequestError } from "../src/WebflowError";
 import { expect, it } from "@jest/globals";
-import { Webflow } from "../src/Webflow";
+import Webflow from "../src";
 import yaml from "js-yaml";
 import nock from "nock";
 import fs from "fs";
