@@ -231,6 +231,13 @@ const webhook = await site.createWebhook({
 
 ```
 
+### Installed User
+```javascript
+// pull information for the installer
+const installer = await webflow.installer();
+```
+
+
 ## Contributing
 
 Contributions are welcome - feel free to open an issue or pull request.
