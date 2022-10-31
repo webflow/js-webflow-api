@@ -1,51 +1,49 @@
 declare class Webflow {
-  constructor(options: Webflow.WebflowOptions);
+  constructor(options: Webflow.Options);
 
   get<Result extends any>(
     path: string,
-    query?: Webflow.WebflowQueryArg
+    query?: Webflow.QueryArg
   ): Promise<Result>;
   post<Data extends any, Result extends any>(
     path: string,
     data?: Data,
-    query?: Webflow.WebflowQueryArg
+    query?: Webflow.QueryArg
   ): Promise<Result>;
   put<Data extends any, Result extends any>(
     path: string,
     data?: Data,
-    query?: Webflow.WebflowQueryArg
+    query?: Webflow.QueryArg
   ): Promise<Result>;
   patch<Data extends any, Result extends any>(
     path: string,
     data?: Data,
-    query?: Webflow.WebflowQueryArg
+    query?: Webflow.QueryArg
   ): Promise<Result>;
   delete<Result extends any>(
     path: string,
-    query?: Webflow.WebflowQueryArg
+    query?: Webflow.QueryArg
   ): Promise<Result>;
 
-  info(query?: Webflow.WebflowQueryArg): Promise<Webflow.WebflowApiModel.Info>;
+  info(query?: Webflow.QueryArg): Promise<Webflow.ApiModel.Info>;
 
   // sites
 
-  sites(
-    query?: Webflow.WebflowQueryArg
-  ): Promise<Webflow.WebflowApiModel.Site[]>;
+  sites(query?: Webflow.QueryArg): Promise<Webflow.ApiModel.Site[]>;
 
   site(
     params: {
       siteId: string;
     },
-    query?: Webflow.WebflowQueryArg
-  ): Promise<Webflow.WebflowApiModel.Site>;
+    query?: Webflow.QueryArg
+  ): Promise<Webflow.ApiModel.Site>;
 
   publishSite(
     data: {
       siteId: string;
       domains: string[];
     },
-    query?: Webflow.WebflowQueryArg
+    query?: Webflow.QueryArg
   ): Promise<{ queued: boolean }>;
 
   // Domains
@@ -54,8 +52,8 @@ declare class Webflow {
     data: {
       siteId: string;
     },
-    query?: Webflow.WebflowQueryArg
-  ): Promise<Webflow.WebflowApiModel.Domain[]>;
+    query?: Webflow.QueryArg
+  ): Promise<Webflow.ApiModel.Domain[]>;
 
   // Collections
 
@@ -63,45 +61,45 @@ declare class Webflow {
     data: {
       siteId: string;
     },
-    query?: Webflow.WebflowQueryArg
-  ): Promise<Webflow.WebflowApiModel.Collection[]>;
+    query?: Webflow.QueryArg
+  ): Promise<Webflow.ApiModel.Collection[]>;
   collection(
     data: {
       collectionId: string;
     },
-    query?: Webflow.WebflowQueryArg
-  ): Promise<Webflow.WebflowApiModel.Collection>;
+    query?: Webflow.QueryArg
+  ): Promise<Webflow.ApiModel.Collection>;
 
   // Users
   users(
     data: {
       siteId: string;
     },
-    query?: Webflow.WebflowQueryArg
-  ): Promise<Webflow.WebflowApiModel.User[]>;
+    query?: Webflow.QueryArg
+  ): Promise<Webflow.ApiModel.User[]>;
 
   user(
     data: {
       siteId: string;
       userId: string;
     },
-    query?: Webflow.WebflowQueryArg
-  ): Promise<Webflow.WebflowApiModel.User>;
+    query?: Webflow.QueryArg
+  ): Promise<Webflow.ApiModel.User>;
 
   updateUser(
     data: { siteId: string; userId: string } & Record<string, any>,
-    query?: Webflow.WebflowQueryArg
-  ): Promise<Webflow.WebflowApiModel.User>;
+    query?: Webflow.QueryArg
+  ): Promise<Webflow.ApiModel.User>;
 
   removeUser(
     data: { siteId: string; userId: string },
-    query?: Webflow.WebflowQueryArg
+    query?: Webflow.QueryArg
   ): Promise<{ deleted: number }>;
 
   inviteUser(
     data: { siteId: string; email: string },
-    query?: Webflow.WebflowQueryArg
-  ): Promise<Webflow.WebflowApiModel.User>;
+    query?: Webflow.QueryArg
+  ): Promise<Webflow.ApiModel.User>;
 
   // Items
 
@@ -109,61 +107,61 @@ declare class Webflow {
     data: {
       collectionId: string;
     },
-    query?: Webflow.WebflowQueryArg
-  ): Promise<Webflow.WebflowApiModel.ItemsResponse>;
+    query?: Webflow.QueryArg
+  ): Promise<Webflow.ApiModel.ItemsResponse>;
 
   item(
     data: {
       collectionId: string;
       itemId: string;
     },
-    query?: Webflow.WebflowQueryArg
-  ): Promise<Webflow.WebflowApiModel.CollectionItem>;
+    query?: Webflow.QueryArg
+  ): Promise<Webflow.ApiModel.CollectionItem>;
 
   createItem(
     // TODO: add a better data type
     data: { collectionId: string } & Record<string, any>,
-    query?: Webflow.WebflowQueryArg
-  ): Promise<Webflow.WebflowApiModel.CollectionItem>;
+    query?: Webflow.QueryArg
+  ): Promise<Webflow.ApiModel.CollectionItem>;
 
   updateItem(
     // TODO: add a better data type
     data: { collectionId: string; itemId: string } & Record<string, any>,
-    query?: Webflow.WebflowQueryArg
-  ): Promise<Webflow.WebflowApiModel.CollectionItem>;
+    query?: Webflow.QueryArg
+  ): Promise<Webflow.ApiModel.CollectionItem>;
 
   removeItem(
     data: { collectionId: string; itemId: string },
-    query?: Webflow.WebflowQueryArg
+    query?: Webflow.QueryArg
   ): Promise<{ deleted: number }>;
 
   patchItem(
     // TODO: add a better data type
     data: { collectionId: string; itemId: string } & Record<string, any>,
-    query?: Webflow.WebflowQueryArg
-  ): Promise<Webflow.WebflowApiModel.CollectionItem>;
+    query?: Webflow.QueryArg
+  ): Promise<Webflow.ApiModel.CollectionItem>;
 
   // Webhooks
 
   webhooks(
     data: { siteId: string },
-    query?: Webflow.WebflowQueryArg
-  ): Promise<Webflow.WebflowApiModel.Webhook[]>;
+    query?: Webflow.QueryArg
+  ): Promise<Webflow.ApiModel.Webhook[]>;
 
   webhook(
     data: { siteId: string; webhookId: string },
-    query?: Webflow.WebflowQueryArg
-  ): Promise<Webflow.WebflowApiModel.Webhook>;
+    query?: Webflow.QueryArg
+  ): Promise<Webflow.ApiModel.Webhook>;
 
   createWebhook(
     // TODO: add a better data type
     data: { siteId: string } & Record<string, any>,
-    query?: Webflow.WebflowQueryArg
-  ): Promise<Webflow.WebflowApiModel.Webhook>;
+    query?: Webflow.QueryArg
+  ): Promise<Webflow.ApiModel.Webhook>;
 
   removeWebhook(
     data: { siteId: string; webhookId: string },
-    query?: Webflow.WebflowQueryArg
+    query?: Webflow.QueryArg
   ): Promise<{ deleted: number }>;
 }
 
@@ -172,15 +170,16 @@ declare namespace Webflow {
   class WebflowError extends Error {}
 
   // helper types / namespaces
-  type WebflowQueryArg = Record<string, any>;
+  type QueryArg = Record<string, any>;
 
-  interface WebflowOptions {
+  interface Options {
     token: string;
     endpoint?: string;
     version?: string;
+    headers?: { [key: string]: string };
   }
 
-  namespace WebflowApiModel {
+  namespace ApiModel {
     interface InfoApplication {
       _id: string;
       description: string;

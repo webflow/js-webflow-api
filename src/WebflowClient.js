@@ -12,7 +12,6 @@ export class WebflowClient {
     version = "1.0.0",
     headers = {},
   } = {}) {
-    if (!token) throw new WebflowArgumentError("token");
     this.responseWrapper = new ResponseWrapper(this);
     this.endpoint = endpoint;
     this.version = version;

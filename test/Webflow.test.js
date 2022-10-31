@@ -32,10 +32,6 @@ describe("Webflow Client", () => {
       }
     });
 
-    it("should requires an access token", () => {
-      expect(() => new Webflow({})).toThrow(WebflowArgumentError);
-    });
-
     it("should pass the access token as an HTTP header", async () => {
       const scope = api
         .matchHeader("Authorization", /Bearer token/)

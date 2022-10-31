@@ -10,16 +10,16 @@ export default class ResponseWrapper {
       collections: this.api.collections.bind(this.api, { siteId: site._id }),
       webhooks: this.api.webhooks.bind(this.api, { siteId: site._id }),
       domains: this.api.domains.bind(this.api, { siteId: site._id }),
-      webhook(first, ...rest) {
+      webhook: (first, ...rest) => {
         return this.api.webhook({ ...first, siteId: site._id }, ...rest);
       },
-      createWebhook(first, ...rest) {
+      createWebhook: (first, ...rest) => {
         return this.api.createWebhook({ ...first, siteId: site._id }, ...rest);
       },
-      removeWebhook(first, ...rest) {
+      removeWebhook: (first, ...rest) => {
         return this.api.removeWebhook({ ...first, siteId: site._id }, ...rest);
       },
-      publishSite(domains) {
+      publishSite: (domains) => {
         return this.api.publishSite({ siteId: site._id, domains });
       },
     };
@@ -36,25 +36,25 @@ export default class ResponseWrapper {
       ...collection,
 
       items: this.api.items.bind(this.api, { collectionId: collection._id }),
-      item(first, ...rest) {
+      item: (first, ...rest) => {
         return this.api.item(
           { ...first, collectionId: collection._id },
           ...rest
         );
       },
-      createItem(first, ...rest) {
+      createItem: (first, ...rest) => {
         return this.api.createItem(
           { ...first, collectionId: collection._id },
           ...rest
         );
       },
-      updateItem(first, ...rest) {
+      updateItem: (first, ...rest) => {
         return this.api.updateItem(
           { ...first, collectionId: collection._id },
           ...rest
         );
       },
-      removeItem(first, ...rest) {
+      removeItem: (first, ...rest) => {
         return this.api.removeItem(
           { ...first, collectionId: collection._id },
           ...rest
@@ -67,7 +67,7 @@ export default class ResponseWrapper {
     return {
       ...item,
 
-      update(first, ...rest) {
+      update: (first, ...rest) => {
         return this.api.updateItem(
           { ...first, collectionId, itemId: item._id },
           ...rest
@@ -84,10 +84,10 @@ export default class ResponseWrapper {
     return {
       ...user,
 
-      update(first, ...rest) {
+      update: (first, ...rest) => {
         return this.api.updateUser({ ...first, siteId }, ...rest);
       },
-      remove(first, ...rest) {
+      remove: (first, ...rest) => {
         return this.api.removeUser({ ...first, siteId }, ...rest);
       },
     };

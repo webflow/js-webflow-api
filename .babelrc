@@ -3,15 +3,11 @@
     [
       "@babel/preset-env",
       {
-        "targets": "> 0.25%, not dead",
-        "useBuiltIns": "usage",
-        "corejs": 3
+        "targets": {
+          "node": true
+        }
       }
     ]
   ],
-  "env": {
-    "development": {
-      "sourceMaps": "inline"
-    }
-  }
+  "plugins": ["add-module-exports"]
 }
