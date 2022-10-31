@@ -1,12 +1,17 @@
 {
-  "presets": ["@babel/preset-env"],
-  "plugins": ["@babel/plugin-transform-modules-commonjs"],
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": "> 0.25%, not dead",
+        "useBuiltIns": "usage",
+        "corejs": 3
+      }
+    ]
+  ],
   "env": {
     "development": {
       "sourceMaps": "inline"
-    },
-    "test": {
-      "plugins": ["@babel/plugin-transform-runtime"]
     }
   }
 }
