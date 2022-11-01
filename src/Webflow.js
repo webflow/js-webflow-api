@@ -8,8 +8,8 @@ export class WebflowArgumentError extends Error {
   }
 }
 export class Webflow {
-  constructor({ host, token, version, headers, mode } = {}) {
-    this.client = new WebflowClient({ host, token, version, headers, mode });
+  constructor(options = {}) {
+    this.client = new WebflowClient(options);
     this.responseWrapper = new ResponseWrapper(this);
   }
 
@@ -180,11 +180,13 @@ export class Webflow {
     return this.responseWrapper.user(user, siteId);
   }
 
-  updateUser({ siteId, userId, ...data }, query = {}) {
+  async updateUser({ siteId, userId, ...data }, query = {}) {
     if (!siteId) throw new WebflowArgumentError("siteId");
     if (!userId) throw new WebflowArgumentError("userId");
 
-    return this.patch(`/sites/${siteId}/users/${userId}`, data, query);
+    const uri = `/sites/${siteId}/users/${userId}`;
+    const user = await this.patch(uri, data, query);
+    return this.responseWrapper.user(user, siteId);
   }
 
   async inviteUser({ siteId, email }, query = {}) {
