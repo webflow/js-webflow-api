@@ -25,10 +25,37 @@ declare class Webflow {
     query?: Webflow.QueryArg
   ): Promise<Result>;
 
-  info(query?: Webflow.QueryArg): Promise<Webflow.ApiModel.Info>;
+  // meta
+  info(): Promise<Webflow.ApiModel.Info>;
+  installer(): Promise<Webflow.ApiModel.Installer>;
+
+  // oauth
+  authorizeUrl(params: {
+    client_id: string;
+    redirect_uri?: string;
+    state?: string;
+    scope?: string;
+    response_type?: string;
+  }): string;
+
+  accessToken(params: {
+    client_id: string;
+    client_secret: string;
+    redirect_uri?: string;
+    code: string;
+    grant_type?: string;
+  }): Promise<{
+    token_type: string;
+    access_token: string;
+  }>;
+
+  revokeToken(params: {
+    client_id: string;
+    client_secret: string;
+    access_token: string;
+  }): Promise<{ didRevoke: boolean }>;
 
   // sites
-
   sites(query?: Webflow.QueryArg): Promise<Webflow.ApiModel.Site[]>;
 
   site(
@@ -176,10 +203,20 @@ declare namespace Webflow {
     token: string;
     endpoint?: string;
     version?: string;
+    mode?: string;
     headers?: { [key: string]: string };
   }
 
   namespace ApiModel {
+    interface Installer {
+      user: {
+        _id: string;
+        email: string;
+        firstName: string;
+        lastName: string;
+      };
+    }
+
     interface InfoApplication {
       _id: string;
       description: string;
