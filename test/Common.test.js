@@ -1,11 +1,10 @@
 import { describe, expect, it, beforeEach } from "@jest/globals";
 import nock from "nock";
-import { WebflowRequestError } from "../src/WebflowError";
 import { CommonFixture } from "./Common.fixture";
 import { MetaFixture } from "./Meta.fixture";
-import Webflow from "../src";
+import { Webflow, WebflowRequestError } from "../src/Webflow";
 
-describe("Sites", () => {
+describe("Common", () => {
   let webflow;
   let api;
 

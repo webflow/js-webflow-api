@@ -1,9 +1,8 @@
 import { describe, expect, it, beforeEach } from "@jest/globals";
 import nock from "nock";
-import { WebflowArgumentError } from "../src/WebflowError";
+import { Webflow, WebflowArgumentError } from "../src/Webflow";
 import { CollectionsFixture } from "./Collections.fixture";
 import { ItemsFixture } from "./Items.fixture";
-import Webflow from "../src";
 
 describe("Collections", () => {
   let webflow;

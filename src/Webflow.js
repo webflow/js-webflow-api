@@ -1,7 +1,12 @@
-import { WebflowArgumentError } from "./WebflowError";
-import { WebflowClient } from "./WebflowClient";
+import { WebflowClient, WebflowRequestError } from "./WebflowClient";
 import ResponseWrapper from "./ResponseWrapper";
 
+export { WebflowRequestError };
+export class WebflowArgumentError extends Error {
+  constructor(name) {
+    super(`Argument '${name}' is required but was not present`);
+  }
+}
 export class Webflow {
   constructor({ host, token, version, headers } = {}) {
     this.client = new WebflowClient({ host, token, version, headers });
