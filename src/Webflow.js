@@ -1,342 +1,294 @@
-import fetch from "isomorphic-fetch";
-import qs from "qs";
-
-import { isObjectEmpty } from "./utils";
+import { WebflowClient, WebflowRequestError } from "./WebflowClient";
 import ResponseWrapper from "./ResponseWrapper";
-import WebflowError, { buildRequiredArgError } from "./WebflowError";
 
-const DEFAULT_ENDPOINT = "https://api.webflow.com";
-
-const buildMeta = (res) => {
-  if (!res || !res.headers) {
-    return {};
+export { WebflowRequestError };
+export class WebflowArgumentError extends Error {
+  constructor(name) {
+    super(`Argument '${name}' is required but was not present`);
   }
-
-  return {
-    rateLimit: {
-      limit: parseInt(res.headers.get("x-ratelimit-limit"), 10),
-      remaining: parseInt(res.headers.get("x-ratelimit-remaining"), 10),
-    },
-  };
-};
-
-const responseHandler = (res) =>
-  res
-    .json()
-    .catch((err) =>
-      // Catch unexpected server errors where json isn't sent and rewrite
-      // with proper class (WebflowError)
-      Promise.reject(new WebflowError(err))
-    )
-    .then((body) => {
-      if (res.status >= 400) {
-        const errOpts = {
-          code: body.code,
-          msg: body.msg,
-          _meta: buildMeta(res),
-        };
-
-        if (body.problems && body.problems.length > 0) {
-          errOpts.problems = body.problems;
-        }
-
-        const errMsg = body && body.err ? body.err : "Unknown error occured";
-        const err = new WebflowError(errMsg);
-
-        return Promise.reject(Object.assign(err, errOpts));
-      }
-
-      body._meta = buildMeta(res); // eslint-disable-line no-param-reassign
-
-      return body;
-    });
-
-export default class Webflow {
-  constructor({ endpoint = DEFAULT_ENDPOINT, token, version = "1.0.0" } = {}) {
-    if (!token) throw buildRequiredArgError("token");
-
+}
+export class Webflow {
+  constructor(options = {}) {
+    this.client = new WebflowClient(options);
     this.responseWrapper = new ResponseWrapper(this);
-
-    this.endpoint = endpoint;
-    this.token = token;
-
-    this.headers = {
-      Accept: "application/json",
-      Authorization: `Bearer ${token}`,
-      "accept-version": version,
-      "Content-Type": "application/json",
-    };
-
-    this.authenticatedFetch = (method, path, data, query) => {
-      const queryString =
-        query && !isObjectEmpty(query) ? `?${qs.stringify(query)}` : "";
-
-      const uri = `${this.endpoint}${path}${queryString}`;
-      const opts = {
-        method,
-        headers: this.headers,
-        mode: "cors",
-      };
-
-      if (data) {
-        opts.body = JSON.stringify(data);
-      }
-
-      return fetch(uri, opts).then(responseHandler);
-    };
   }
-
-  // Generic HTTP request handlers
 
   get(path, query = {}) {
-    return this.authenticatedFetch("GET", path, null, query);
+    return this.client.get(path, query);
   }
 
   post(path, data, query = {}) {
-    return this.authenticatedFetch("POST", path, data, query);
+    return this.client.post(path, data, query);
   }
 
   put(path, data, query = {}) {
-    return this.authenticatedFetch("PUT", path, data, query);
+    return this.client.put(path, data, query);
   }
 
   patch(path, data, query = {}) {
-    return this.authenticatedFetch("PATCH", path, data, query);
+    return this.client.patch(path, data, query);
   }
 
   delete(path, data, query = {}) {
-    return this.authenticatedFetch("DELETE", path, data, query);
+    return this.client.delete(path, data, query);
   }
 
   // Meta
+  info() {
+    return this.get("/info");
+  }
 
-  info(query = {}) {
-    return this.get("/info", query);
+  installer() {
+    return this.get("/user");
   }
 
   // Sites
-
-  sites(query = {}) {
-    return this.get("/sites", query).then((sites) =>
-      sites.map((site) => this.responseWrapper.site(site))
-    );
+  async sites(query = {}) {
+    const sites = await this.get("/sites", query);
+    return sites.map((site) => this.responseWrapper.site(site));
   }
 
-  site({ siteId }, query = {}) {
-    if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
+  async site({ siteId }, query = {}) {
+    if (!siteId) throw new WebflowArgumentError("siteId");
 
-    return this.get(`/sites/${siteId}`, query).then((site) =>
-      this.responseWrapper.site(site)
-    );
+    const site = await this.get(`/sites/${siteId}`, query);
+    return this.responseWrapper.site(site);
   }
 
   publishSite({ siteId, domains }) {
-    if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
-    if (!domains) return Promise.reject(buildRequiredArgError("domains"));
+    if (!siteId) throw new WebflowArgumentError("siteId");
+    if (!domains) throw new WebflowArgumentError("domains");
 
     return this.post(`/sites/${siteId}/publish`, { domains });
   }
 
-  // Domains
+  async domains({ siteId }) {
+    if (!siteId) throw new WebflowArgumentError("siteId");
 
-  domains({ siteId }) {
-    if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
-
-    return this.get(`/sites/${siteId}/domains`).then((domains) =>
-      domains.map((domain) => this.responseWrapper.domain(domain, siteId))
-    );
+    const domains = await this.client.get(`/sites/${siteId}/domains`);
+    return domains.map((domain) => this.responseWrapper.domain(domain, siteId));
   }
 
   // Collections
+  async collections({ siteId }, query = {}) {
+    if (!siteId) throw new WebflowArgumentError("siteId");
 
-  collections({ siteId }, query = {}) {
-    if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
-
-    return this.get(`/sites/${siteId}/collections`, query).then((collections) =>
-      collections.map((collection) =>
-        this.responseWrapper.collection(collection)
-      )
-    );
-  }
-
-  collection({ collectionId }, query = {}) {
-    if (!collectionId)
-      return Promise.reject(buildRequiredArgError("collectionId"));
-
-    return this.get(`/collections/${collectionId}`, query).then((collection) =>
+    const collections = await this.get(`/sites/${siteId}/collections`, query);
+    return collections.map((collection) =>
       this.responseWrapper.collection(collection)
     );
   }
 
+  async collection({ collectionId }, query = {}) {
+    if (!collectionId) throw new WebflowArgumentError("collectionId");
+
+    const uri = `/collections/${collectionId}`;
+    const collection = await this.client.get(uri, query);
+    return this.responseWrapper.collection(collection);
+  }
+
   // Items
+  async items({ collectionId }, query = {}) {
+    if (!collectionId) throw new WebflowArgumentError("collectionId");
 
-  items({ collectionId }, query = {}) {
-    if (!collectionId)
-      return Promise.reject(buildRequiredArgError("collectionId"));
+    const uri = `/collections/${collectionId}/items`;
+    const res = await this.client.get(uri, query);
 
-    return this.get(`/collections/${collectionId}/items`, query).then(
-      (res) => ({
-        ...res,
+    return {
+      ...res,
 
-        items: res.items.map((item) =>
-          this.responseWrapper.item(item, collectionId)
-        ),
-      })
-    );
+      items: res.items.map((item) =>
+        this.responseWrapper.item(item, collectionId)
+      ),
+    };
   }
 
-  item({ collectionId, itemId }, query = {}) {
-    if (!collectionId)
-      return Promise.reject(buildRequiredArgError("collectionId"));
-    if (!itemId) return Promise.reject(buildRequiredArgError("itemId"));
+  async item({ collectionId, itemId }, query = {}) {
+    if (!collectionId) throw new WebflowArgumentError("collectionId");
+    if (!itemId) throw new WebflowArgumentError("itemId");
 
-    return this.get(`/collections/${collectionId}/items/${itemId}`, query).then(
-      (res) => this.responseWrapper.item(res.items[0], collectionId)
-    );
+    const uri = `/collections/${collectionId}/items/${itemId}`;
+    const { items } = await this.client.get(uri, query);
+    return this.responseWrapper.item(items[0], collectionId);
   }
 
-  createItem({ collectionId, ...data }, query = {}) {
-    if (!collectionId)
-      return Promise.reject(buildRequiredArgError("collectionId"));
+  async createItem({ collectionId, ...data }, query = {}) {
+    if (!collectionId) throw new WebflowArgumentError("collectionId");
 
-    return this.post(`/collections/${collectionId}/items`, data, query).then(
-      (item) => this.responseWrapper.item(item, collectionId)
-    );
+    const uri = `/collections/${collectionId}/items`;
+    const item = await this.post(uri, data, query);
+    return this.responseWrapper.item(item, collectionId);
   }
 
   updateItem({ collectionId, itemId, ...data }, query = {}) {
-    if (!collectionId)
-      return Promise.reject(buildRequiredArgError("collectionId"));
-    if (!itemId) return Promise.reject(buildRequiredArgError("itemId"));
+    if (!collectionId) throw new WebflowArgumentError("collectionId");
+    if (!itemId) throw new WebflowArgumentError("itemId");
 
-    return this.put(
-      `/collections/${collectionId}/items/${itemId}`,
-      data,
-      query
-    );
+    const uri = `/collections/${collectionId}/items/${itemId}`;
+    return this.put(uri, data, query);
   }
 
   removeItem({ collectionId, itemId }, query = {}) {
-    if (!collectionId)
-      return Promise.reject(buildRequiredArgError("collectionId"));
-    if (!itemId) return Promise.reject(buildRequiredArgError("itemId"));
+    if (!collectionId) throw new WebflowArgumentError("collectionId");
+    if (!itemId) throw new WebflowArgumentError("itemId");
 
-    return this.delete(
-      `/collections/${collectionId}/items/${itemId}`,
-      null,
-      query
-    );
+    const uri = `/collections/${collectionId}/items/${itemId}`;
+    return this.delete(uri, null, query);
   }
 
   patchItem({ collectionId, itemId, ...data }, query = {}) {
-    if (!collectionId)
-      return Promise.reject(buildRequiredArgError("collectionId"));
-    if (!itemId) return Promise.reject(buildRequiredArgError("itemId"));
+    if (!collectionId) throw new WebflowArgumentError("collectionId");
+    if (!itemId) throw new WebflowArgumentError("itemId");
 
-    return this.patch(
-      `/collections/${collectionId}/items/${itemId}`,
-      data,
-      query
-    );
+    const uri = `/collections/${collectionId}/items/${itemId}`;
+    return this.patch(uri, data, query);
   }
 
   deleteItems({ collectionId, itemIds, ...data }, query = {}) {
-    if (!collectionId)
-      return Promise.reject(buildRequiredArgError("collectionId"));
-    if (!itemIds) return Promise.reject(buildRequiredArgError("itemIds"));
+    if (!collectionId) throw new WebflowArgumentError("collectionId");
+    if (!itemIds) throw new WebflowArgumentError("itemIds");
 
-    return this.delete(
-      `/collections/${collectionId}/items`,
-      { ...data, itemIds },
-      query
-    );
+    const uri = `/collections/${collectionId}/items`;
+    return this.delete(uri, { ...data, itemIds }, query);
   }
 
   publishItems({ collectionId, itemIds, ...data }, query = {}) {
-    if (!collectionId)
-      return Promise.reject(buildRequiredArgError("collectionId"));
-    if (!itemIds) return Promise.reject(buildRequiredArgError("itemIds"));
+    if (!collectionId) throw new WebflowArgumentError("collectionId");
+    if (!itemIds) throw new WebflowArgumentError("itemIds");
 
-    return this.put(
-      `/collections/${collectionId}/items/publish`,
-      { ...data, itemIds },
-      query
-    );
+    const uri = `/collections/${collectionId}/items/publish`;
+    return this.put(uri, { ...data, itemIds }, query);
   }
 
   // Users
+  async users({ siteId }, query = {}) {
+    if (!siteId) throw new WebflowArgumentError("siteId");
 
-  users({ siteId }, query = {}) {
-    if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
-
-    return this.get(`/sites/${siteId}/users`, query).then((res) =>
-      res.users.map((user) => this.responseWrapper.user(user))
-    );
+    const res = await this.get(`/sites/${siteId}/users`, query);
+    return {
+      ...res,
+      users: res.users.map((user) => this.responseWrapper.user(user, siteId)),
+    };
   }
 
-  user({ siteId, userId }, query = {}) {
-    if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
-    if (!userId) return Promise.reject(buildRequiredArgError("userId"));
+  async user({ siteId, userId }, query = {}) {
+    if (!siteId) throw new WebflowArgumentError("siteId");
+    if (!userId) throw new WebflowArgumentError("userId");
 
-    return this.get(`/sites/${siteId}/users/${userId}`, query).then((user) =>
-      this.responseWrapper.user(user, siteId)
-    );
+    const uri = `/sites/${siteId}/users/${userId}`;
+    const user = await this.get(uri, query);
+    return this.responseWrapper.user(user, siteId);
   }
 
-  updateUser({ siteId, userId, ...data }, query = {}) {
-    if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
-    if (!userId) return Promise.reject(buildRequiredArgError("userId"));
+  async updateUser({ siteId, userId, ...data }, query = {}) {
+    if (!siteId) throw new WebflowArgumentError("siteId");
+    if (!userId) throw new WebflowArgumentError("userId");
 
-    return this.patch(`/sites/${siteId}/users/${userId}`, data, query);
+    const uri = `/sites/${siteId}/users/${userId}`;
+    const user = await this.patch(uri, data, query);
+    return this.responseWrapper.user(user, siteId);
   }
 
-  inviteUser({ siteId, email }, query = {}) {
-    if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
-    if (!email) return Promise.reject(buildRequiredArgError("email"));
+  async inviteUser({ siteId, email }, query = {}) {
+    if (!siteId) throw new WebflowArgumentError("siteId");
+    if (!email) throw new WebflowArgumentError("email");
 
-    return this.post(`/sites/${siteId}/users/invite`, { email }, query).then(
-      (user) => this.responseWrapper.user(user, siteId)
-    );
+    const uri = `/sites/${siteId}/users/invite`;
+    const user = await this.post(uri, { email }, query);
+    return this.responseWrapper.user(user, siteId);
   }
 
   removeUser({ siteId, userId }, query = {}) {
-    if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
-    if (!userId) return Promise.reject(buildRequiredArgError("userId"));
+    if (!siteId) throw new WebflowArgumentError("siteId");
+    if (!userId) throw new WebflowArgumentError("userId");
 
     return this.delete(`/sites/${siteId}/users/${userId}`, null, query);
   }
 
   // Webhooks
+  async webhooks({ siteId }, query = {}) {
+    if (!siteId) throw new WebflowArgumentError("siteId");
 
-  webhooks({ siteId }, query = {}) {
-    if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
-
-    return this.get(`/sites/${siteId}/webhooks`, query).then((webhooks) =>
-      webhooks.map((webhook) => this.responseWrapper.webhook(webhook, siteId))
-    );
-  }
-
-  webhook({ siteId, webhookId }, query = {}) {
-    if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
-    if (!webhookId) return Promise.reject(buildRequiredArgError("webhookId"));
-
-    return this.get(`/sites/${siteId}/webhooks/${webhookId}`, query).then(
-      (webhook) => this.responseWrapper.webhook(webhook, siteId)
-    );
-  }
-
-  createWebhook({ siteId, ...data }, query = {}) {
-    if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
-
-    return this.post(`/sites/${siteId}/webhooks`, data, query).then((webhook) =>
+    const uri = `/sites/${siteId}/webhooks`;
+    const webhooks = await this.client.get(uri, query);
+    return webhooks.map((webhook) =>
       this.responseWrapper.webhook(webhook, siteId)
     );
   }
 
+  async webhook({ siteId, webhookId }, query = {}) {
+    if (!siteId) throw new WebflowArgumentError("siteId");
+    if (!webhookId) throw new WebflowArgumentError("webhookId");
+
+    const uri = `/sites/${siteId}/webhooks/${webhookId}`;
+    const webhook = await this.client.get(uri, query);
+    return this.responseWrapper.webhook(webhook, siteId);
+  }
+
+  async createWebhook({ siteId, triggerType, ...data }, query = {}) {
+    if (!siteId) throw new WebflowArgumentError("siteId");
+    if (!triggerType) throw new WebflowArgumentError("triggerType");
+
+    const uri = `/sites/${siteId}/webhooks`;
+    const webhook = { ...data, triggerType };
+    const createdWebhook = await this.client.post(uri, webhook, query);
+    return this.responseWrapper.webhook(createdWebhook, siteId);
+  }
+
   removeWebhook({ siteId, webhookId }, query = {}) {
-    if (!siteId) return Promise.reject(buildRequiredArgError("siteId"));
-    if (!webhookId) return Promise.reject(buildRequiredArgError("webhookId"));
+    if (!siteId) throw new WebflowArgumentError("siteId");
+    if (!webhookId) throw new WebflowArgumentError("webhookId");
 
     return this.delete(`/sites/${siteId}/webhooks/${webhookId}`, null, query);
   }
+
+  // OAuth
+  authorizeUrl({
+    client_id,
+    redirect_uri,
+    state,
+    scope,
+    response_type = "code",
+  }) {
+    if (!client_id) throw new WebflowArgumentError("clientId");
+
+    const query = new URLSearchParams({ response_type, client_id });
+
+    if (redirect_uri) query.set("redirect_uri", redirect_uri);
+    if (state) query.set("state", state);
+    if (scope) query.set("scope", scope);
+
+    return `https://${this.host}/oauth/authorize?${query}`;
+  }
+
+  accessToken({
+    client_id,
+    client_secret,
+    code,
+    redirect_uri,
+    grant_type = "authorization_code",
+  }) {
+    if (!client_id) throw new WebflowArgumentError("client_id");
+    if (!client_secret) throw new WebflowArgumentError("client_secret");
+    if (!code) throw new WebflowArgumentError("code");
+
+    return this.post("/oauth/access_token", {
+      client_id,
+      client_secret,
+      code,
+      redirect_uri,
+      grant_type,
+    });
+  }
+
+  revokeToken({ client_id, client_secret, access_token }) {
+    if (!client_id) throw new WebflowArgumentError("client_id");
+    if (!client_secret) throw new WebflowArgumentError("client_secret");
+    if (!access_token) throw new WebflowArgumentError("access_token");
+
+    const uri = "/oauth/revoke_authorization";
+    return this.post(uri, { client_id, client_secret, access_token });
+  }
 }
+
+export default Webflow;

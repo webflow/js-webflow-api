@@ -1,15 +1,17 @@
 {
   "name": "webflow-api",
-  "version": "0.8.1",
-  "description": "SDK for the Webflow CMS API",
+  "description": "Webflow's official Node.js SDK for Data APIs",
+  "version": "1.0.0",
+  "types": "index.d.ts",
   "main": "dist/index.js",
-  "jsnext:main": "src/index.js",
+  "contributors": [
+    "John Agan (https://github.com/johnagan)"
+  ],
   "repository": {
     "url": "https://github.com/webflow/js-webflow-api.git",
     "type": "git"
   },
   "license": "MIT",
-  "types": "index.d.ts",
   "files": [
     "dist",
     "src",
@@ -18,35 +20,31 @@
     "index.d.ts"
   ],
   "scripts": {
-    "build": "BABEL_ENV=production babel --out-dir dist src/",
-    "lint": "eslint src",
-    "prepublish": "npm run build",
-    "report": "nyc report --reporter=html",
-    "test": "nyc ava",
-    "watch": "npm run build -- --watch",
-    "watch:test": "npm run test -- --watch"
+    "compile": "BABEL_ENV=production babel --out-dir dist src/",
+    "build": " yarn clean && yarn compile",
+    "watch": "yarn build --watch",
+    "prepublish": "yarn build",
+    "clean": "rm -rf dist",
+    "lint": "eslint",
+    "test": "jest"
   },
   "devDependencies": {
-    "@babel/cli": "^7.17.6",
-    "@babel/core": "^7.17.8",
-    "@babel/preset-env": "^7.16.11",
-    "@babel/register": "^7.17.7",
-    "ava": "^4.1.0",
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.19.6",
+    "@babel/preset-env": "^7.19.4",
+    "@babel/register": "^7.18.9",
+    "@jest/globals": "^29.2.2",
+    "babel-jest": "^29.2.2",
+    "babel-plugin-add-module-exports": "^1.0.4",
     "eslint": "^8.12.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-import": "^2.25.2",
-    "nock": "^13.0.7",
-    "nyc": "^15.1.0"
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "jest": "^29.2.2",
+    "nock": "^13.0.7"
   },
   "dependencies": {
-    "es6-error": "^4.0.0",
-    "isomorphic-fetch": "^3.0.0",
-    "qs": "^6.3.0"
-  },
-  "ava": {
-    "require": [
-      "@babel/register"
-    ]
+    "isomorphic-fetch": "^3.0.0"
   }
 }

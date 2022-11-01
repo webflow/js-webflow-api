@@ -1,2 +1,3 @@
-module.exports = require("./Webflow").default;
-module.exports.WebflowError = require("./WebflowError").default;
+import { Webflow } from "./Webflow";
+
+export default Webflow;

@@ -10,16 +10,16 @@ export default class ResponseWrapper {
       collections: this.api.collections.bind(this.api, { siteId: site._id }),
       webhooks: this.api.webhooks.bind(this.api, { siteId: site._id }),
       domains: this.api.domains.bind(this.api, { siteId: site._id }),
-      webhook(first, ...rest) {
+      webhook: (first, ...rest) => {
         return this.api.webhook({ ...first, siteId: site._id }, ...rest);
       },
-      createWebhook(first, ...rest) {
+      createWebhook: (first, ...rest) => {
         return this.api.createWebhook({ ...first, siteId: site._id }, ...rest);
       },
-      removeWebhook(first, ...rest) {
+      removeWebhook: (first, ...rest) => {
         return this.api.removeWebhook({ ...first, siteId: site._id }, ...rest);
       },
-      publishSite(domains) {
+      publishSite: (domains) => {
         return this.api.publishSite({ siteId: site._id, domains });
       },
     };
@@ -36,25 +36,25 @@ export default class ResponseWrapper {
       ...collection,
 
       items: this.api.items.bind(this.api, { collectionId: collection._id }),
-      item(first, ...rest) {
+      item: (first, ...rest) => {
         return this.api.item(
           { ...first, collectionId: collection._id },
           ...rest
         );
       },
-      createItem(first, ...rest) {
+      createItem: (first, ...rest) => {
         return this.api.createItem(
           { ...first, collectionId: collection._id },
           ...rest
         );
       },
-      updateItem(first, ...rest) {
+      updateItem: (first, ...rest) => {
         return this.api.updateItem(
           { ...first, collectionId: collection._id },
           ...rest
         );
       },
-      removeItem(first, ...rest) {
+      removeItem: (first, ...rest) => {
         return this.api.removeItem(
           { ...first, collectionId: collection._id },
           ...rest
@@ -64,43 +64,40 @@ export default class ResponseWrapper {
   }
 
   item(item, collectionId) {
+    const itemId = item._id;
+    const ids = { itemId, collectionId };
     return {
       ...item,
 
-      update(first, ...rest) {
-        return this.api.updateItem(
-          { ...first, collectionId, itemId: item._id },
-          ...rest
-        );
+      update: (itemData, query) => {
+        return this.api.updateItem({ ...itemData, ...ids }, query);
       },
-      remove: this.api.updateItem.bind(this.api, {
-        collectionId,
-        itemId: item._id,
-      }),
+      remove: (query) => {
+        return this.api.removeItem(ids, query);
+      },
     };
   }
 
   user(user, siteId) {
+    const userId = user._id;
+    const ids = { userId, siteId };
+
     return {
       ...user,
-
-      update(first, ...rest) {
-        return this.api.updateUser({ ...first, siteId }, ...rest);
+      update: (userData) => {
+        return this.api.updateUser({ ...ids, ...userData });
       },
-      remove(first, ...rest) {
-        return this.api.removeUser({ ...first, siteId }, ...rest);
-      },
+      remove: this.api.removeUser.bind(this.api, ids),
     };
   }
 
   webhook(webhook, siteId) {
+    const webhookId = webhook._id;
+    const ids = { webhookId, siteId };
+
     return {
       ...webhook,
-
-      remove: this.api.removeWebhook.bind(this.api, {
-        siteId,
-        webhookId: webhook._id,
-      }),
+      remove: this.api.removeWebhook.bind(this.api, ids),
     };
   }
 }

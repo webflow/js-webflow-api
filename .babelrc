@@ -1,9 +1,13 @@
 {
-  "presets": ["@babel/preset-env"],
-  "plugins": ["@babel/plugin-transform-modules-commonjs"],
-  "env": {
-    "development": {
-      "sourceMaps": "inline"
-    }
-  }
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "node": true
+        }
+      }
+    ]
+  ],
+  "plugins": ["add-module-exports"]
 }
