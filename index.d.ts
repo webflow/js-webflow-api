@@ -1,5 +1,6 @@
 declare class Webflow {
   constructor(options: Webflow.Options);
+  token: string;
 
   get<Result extends any>(
     path: string,
