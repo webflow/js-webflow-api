@@ -51,4 +51,17 @@ describe("Common", () => {
     expect(result._meta.rateLimit.limit).toBe(100);
     expect(result._meta.rateLimit.remaining).toBe(99);
   });
+
+  it("should allow the token to be set via the token property", async () => {
+    const scope = api
+      .matchHeader("Authorization", /Bearer new-token/)
+      .get("/info")
+      .reply(200, {});
+
+    webflow.token = "new-token";
+    const result = await webflow.info();
+    scope.done();
+
+    expect(result).toBeDefined();
+  });
 });

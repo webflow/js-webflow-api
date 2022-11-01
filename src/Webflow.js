@@ -13,6 +13,13 @@ export class Webflow {
     this.responseWrapper = new ResponseWrapper(this);
   }
 
+  set token(value) {
+    this.client.token = value;
+  }
+  get token() {
+    return this.client.token;
+  }
+
   get(path, query = {}) {
     return this.client.get(path, query);
   }
