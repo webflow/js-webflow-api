@@ -64,18 +64,4 @@ describe("Common", () => {
 
     expect(result).toBeDefined();
   });
-
-  it("should allow the token to be overriden via the token property", async () => {
-    webflow = new Webflow({ token: "token" });
-    const scope = api
-      .matchHeader("Authorization", /Bearer new-token/)
-      .get("/info")
-      .reply(200, {});
-
-    webflow.token = "new-token";
-    const result = await webflow.info();
-    scope.done();
-
-    expect(result).toBeDefined();
-  });
 });
