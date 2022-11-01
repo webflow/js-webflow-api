@@ -31,6 +31,7 @@ const webflow = new Webflow({ token: "[ACCESS TOKEN]" });
 const webflow = new Webflow({
   token: "[ACCESS TOKEN]"
   version: "1.0.0",
+  mode: "cors",
   headers: {
     "User-Agent": "My Webflow App / 1.0"
   }
