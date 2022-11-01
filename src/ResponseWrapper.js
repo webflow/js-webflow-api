@@ -64,43 +64,40 @@ export default class ResponseWrapper {
   }
 
   item(item, collectionId) {
+    const itemId = item._id;
+    const ids = { itemId, collectionId };
     return {
       ...item,
 
-      update: (first, ...rest) => {
-        return this.api.updateItem(
-          { ...first, collectionId, itemId: item._id },
-          ...rest
-        );
+      update: (itemData, query) => {
+        return this.api.updateItem({ ...itemData, ...ids }, query);
       },
-      remove: this.api.updateItem.bind(this.api, {
-        collectionId,
-        itemId: item._id,
-      }),
+      remove: (query) => {
+        return this.api.removeItem(ids, query);
+      },
     };
   }
 
   user(user, siteId) {
+    const userId = user._id;
+    const ids = { userId, siteId };
+
     return {
       ...user,
-
-      update: (first, ...rest) => {
-        return this.api.updateUser({ ...first, siteId }, ...rest);
+      update: (userData) => {
+        return this.api.updateUser({ ...ids, ...userData });
       },
-      remove: (first, ...rest) => {
-        return this.api.removeUser({ ...first, siteId }, ...rest);
-      },
+      remove: this.api.removeUser.bind(this.api, ids),
     };
   }
 
   webhook(webhook, siteId) {
+    const webhookId = webhook._id;
+    const ids = { webhookId, siteId };
+
     return {
       ...webhook,
-
-      remove: this.api.removeWebhook.bind(this.api, {
-        siteId,
-        webhookId: webhook._id,
-      }),
+      remove: this.api.removeWebhook.bind(this.api, ids),
     };
   }
 }

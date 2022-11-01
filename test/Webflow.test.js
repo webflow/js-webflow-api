@@ -1,15 +1,15 @@
-import { WebflowArgumentError, WebflowRequestError } from "../src/WebflowError";
-import { expect, it } from "@jest/globals";
-import Webflow from "../src";
-import yaml from "js-yaml";
-import nock from "nock";
 import fs from "fs";
+import nock from "nock";
+import yaml from "js-yaml";
+import { describe, expect, it, beforeEach } from "@jest/globals";
 
-const apiData = yaml.load(fs.readFileSync("./test/api-data.yml", "utf8"));
+import { WebflowArgumentError, WebflowRequestError } from "../src/WebflowError";
+import Webflow from "../src";
 
 describe("Webflow Client", () => {
-  let api;
+  const apiData = yaml.load(fs.readFileSync("./test/api-data.yml", "utf8"));
   let webflow;
+  let api;
 
   beforeEach(() => {
     api = nock("https://api.webflow.com");
@@ -102,7 +102,7 @@ describe("Webflow Client", () => {
     });
 
     it("should throw an error when getting a site without an id", () => {
-      expect(() => webflow.site({})).toThrow(WebflowArgumentError);
+      expect(webflow.site({})).rejects.toBeInstanceOf(WebflowArgumentError);
     });
 
     it("should respond with a single site", async () => {
@@ -142,6 +142,117 @@ describe("Webflow Client", () => {
       expect(result).toBeDefined();
       expect(result.queued).toBe(true);
     });
+
+    describe("Site Response Wrapper", () => {
+      let site;
+
+      beforeEach(async () => {
+        const { parameters, response } = apiData.endpoints.site;
+        const { siteId } = parameters;
+
+        const scope = api.get(`/sites/${siteId}`).reply(200, response);
+        site = await webflow.site(parameters);
+        scope.done();
+      });
+
+      it("should respond with a list of collections", async () => {
+        const { parameters, response } = apiData.endpoints.collections;
+        const { siteId } = parameters;
+
+        const collectionScope = api
+          .get(`/sites/${siteId}/collections`)
+          .reply(200, response);
+        const collections = await site.collections();
+        collectionScope.done();
+
+        expect(collections).toBeDefined();
+        expect(collections.length).toBe(response.length);
+        expect(collections[0]._id).toBe(response[0]._id);
+      });
+
+      it("should respond with a list of webhooks", async () => {
+        const { parameters, response } = apiData.endpoints.webhooks;
+        const { siteId } = parameters;
+
+        const scope = api.get(`/sites/${siteId}/webhooks`).reply(200, response);
+        const webhooks = await site.webhooks();
+        scope.done();
+
+        expect(webhooks).toBeDefined();
+        expect(webhooks.length).toBe(response.length);
+        expect(webhooks[0]._id).toBe(response[0]._id);
+      });
+
+      it("should respond with a single webhook", async () => {
+        const { parameters, response } = apiData.endpoints.webhook;
+        const { siteId, webhookId } = parameters;
+
+        const scope = api
+          .get(`/sites/${siteId}/webhooks/${webhookId}`)
+          .reply(200, response);
+        const webhook = await site.webhook({ webhookId });
+        scope.done();
+
+        expect(webhook).toBeDefined();
+        expect(webhook._id).toBe(response._id);
+      });
+
+      it("should create a webhook", async () => {
+        const { parameters, response } = apiData.endpoints.webhook;
+        const { siteId } = parameters;
+
+        const newWebhook = { siteId, url: "https://example.com" };
+
+        const scope = api
+          .post(`/sites/${siteId}/webhooks`, newWebhook)
+          .reply(200, response);
+        const webhook = await site.createWebhook(newWebhook);
+        scope.done();
+
+        expect(webhook).toBeDefined();
+        expect(webhook._id).toBe(response._id);
+      });
+
+      it("should remove a webhook", async () => {
+        const { parameters, response } = apiData.endpoints.webhook;
+        const { siteId, webhookId } = parameters;
+
+        const scope = api
+          .delete(`/sites/${siteId}/webhooks/${webhookId}`)
+          .reply(200, response);
+
+        const result = await site.removeWebhook(parameters);
+        scope.done();
+
+        expect(result).toBeDefined();
+      });
+
+      it("should respond with a list of domains", async () => {
+        const { parameters, response } = apiData.endpoints.domains;
+        const { siteId } = parameters;
+
+        const scope = api.get(`/sites/${siteId}/domains`).reply(200, response);
+        const domains = await site.domains();
+        scope.done();
+
+        expect(domains).toBeDefined();
+        expect(domains.length).toBe(response.length);
+        expect(domains[0]._id).toBe(response[0]._id);
+        expect(domains[0].domain).toBe(response[0].domain);
+      });
+
+      it("should publish a site", async () => {
+        const { parameters, response } = apiData.endpoints.publish;
+        const { siteId } = parameters;
+
+        const scope = api.post(`/sites/${siteId}/publish`).reply(200, response);
+        const result = await site.publishSite(parameters);
+        scope.done();
+
+        expect(result).toBeDefined();
+        expect(result.queued).toBe(true);
+      });
+    });
   });
 
   describe("Collections", () => {
@@ -161,7 +272,9 @@ describe("Webflow Client", () => {
     });
 
     it("should throw an error when getting collections without an id", () => {
-      expect(() => webflow.collections({})).toThrow(WebflowArgumentError);
+      expect(webflow.collections({})).rejects.toBeInstanceOf(
+        WebflowArgumentError
+      );
     });
 
     it("should respond with a single site collection", async () => {
@@ -179,7 +292,98 @@ describe("Webflow Client", () => {
     });
 
     it("should throw an error when getting a collection without ids", () => {
-      expect(() => webflow.collection({})).toThrow(WebflowArgumentError);
+      expect(webflow.collection({})).rejects.toBeInstanceOf(
+        WebflowArgumentError
+      );
+    });
+
+    describe("Collection Response Wrapper", () => {
+      let collection;
+
+      beforeEach(async () => {
+        const { parameters, response } = apiData.endpoints.collection;
+        const { collectionId } = parameters;
+
+        const scope = api
+          .get(`/collections/${collectionId}`)
+          .reply(200, response);
+        collection = await webflow.collection(parameters);
+        scope.done();
+      });
+
+      it("should respond with a list of items", async () => {
+        const { parameters, response } = apiData.endpoints.items;
+        const { collectionId } = parameters;
+
+        const scope = api
+          .get(`/collections/${collectionId}/items`)
+          .reply(200, response);
+        const { items } = await collection.items();
+        scope.done();
+
+        expect(items).toBeDefined();
+        expect(items.length).toBe(response.items.length);
+        expect(items[0]._id).toBe(response.items[0]._id);
+      });
+
+      it("should respond with a single item", async () => {
+        const { parameters, response } = apiData.endpoints.item;
+        const { collectionId, itemId } = parameters;
+
+        const scope = api
+          .get(`/collections/${collectionId}/items/${itemId}`)
+          .reply(200, response);
+
+        const item = await collection.item({ itemId });
+        scope.done();
+
+        expect(item).toBeDefined();
+        expect(item._id).toBe(response.items[0]._id);
+      });
+
+      it("should create an item", async () => {
+        const { parameters, response } = apiData.endpoints.item;
+        const { collectionId } = parameters;
+
+        const scope = api
+          .post(`/collections/${collectionId}/items`, response)
+          .reply(200, response);
+        const item = await collection.createItem(response);
+        scope.done();
+
+        expect(item).toBeDefined();
+        expect(item._id).toBe(response._id);
+      });
+
+      it("should update an item", async () => {
+        const { parameters, response } = apiData.endpoints.item;
+        const { collectionId, itemId } = parameters;
+
+        const scope = api
+          .put(`/collections/${collectionId}/items/${itemId}`, response)
+          .reply(200, response);
+
+        const item = await collection.updateItem({ itemId, ...response });
+        scope.done();
+
+        expect(item).toBeDefined();
+        expect(item._id).toBe(response._id);
+      });
+
+      it("should remove an item", async () => {
+        const { parameters, response } = apiData.endpoints.remove_item;
+        const { collectionId, itemId } = parameters;
+
+        const scope = api
+          .delete(`/collections/${collectionId}/items/${itemId}`)
+          .reply(200, response);
+
+        const result = await collection.removeItem({ itemId });
+        scope.done();
+
+        expect(result).toBeDefined();
+        expect(result.deleted).toBe(response.deleted);
+      });
     });
   });
 
@@ -233,10 +437,10 @@ describe("Webflow Client", () => {
       const { collectionId, itemId } = parameters;
 
       const scope = api
-        .put(`/collections/${collectionId}/items/${itemId}`)
+        .put(`/collections/${collectionId}/items/${itemId}`, response)
         .reply(200, response);
 
-      const item = await webflow.updateItem(parameters);
+      const item = await webflow.updateItem({ ...parameters, ...response });
       scope.done();
 
       expect(item).toBeDefined();
@@ -248,10 +452,10 @@ describe("Webflow Client", () => {
       const { collectionId, itemId } = parameters;
 
       const scope = api
-        .patch(`/collections/${collectionId}/items/${itemId}`)
+        .patch(`/collections/${collectionId}/items/${itemId}`, response)
         .reply(200, response);
 
-      const item = await webflow.patchItem(parameters);
+      const item = await webflow.patchItem({ ...parameters, ...response });
       scope.done();
 
       expect(item).toBeDefined();
@@ -336,6 +540,52 @@ describe("Webflow Client", () => {
       expect(result.publishedItemIds.length).toBe(parameters.itemIds.length);
       expect(result.publishedItemIds[0]).toBe(parameters.itemIds[0]);
     });
+
+    describe("Item Response Wrapper", () => {
+      let item;
+
+      beforeEach(async () => {
+        const { parameters, response } = apiData.endpoints.item;
+        const { collectionId, itemId } = parameters;
+
+        const scope = api
+          .get(`/collections/${collectionId}/items/${itemId}`)
+          .reply(200, response);
+
+        item = await webflow.item(parameters);
+        scope.done();
+      });
+
+      it("should update an item", async () => {
+        const { parameters, response } = apiData.endpoints.item;
+        const { collectionId, itemId } = parameters;
+
+        const scope = api
+          .put(`/collections/${collectionId}/items/${itemId}`)
+          .reply(200, response);
+
+        const updatedItem = await item.update(parameters);
+        scope.done();
+
+        expect(updatedItem).toBeDefined();
+        expect(updatedItem._id).toBe(response._id);
+      });
+
+      it("should remove an item", async () => {
+        const { parameters, response } = apiData.endpoints.remove_item;
+        const { collectionId, itemId } = parameters;
+
+        const scope = api
+          .delete(`/collections/${collectionId}/items/${itemId}`)
+          .reply(200, response);
+
+        const result = await item.remove();
+        scope.done();
+
+        expect(result).toBeDefined();
+        expect(result.deleted).toBe(response.deleted);
+      });
+    });
   });
 
   describe("Users", () => {
@@ -383,6 +633,22 @@ describe("Webflow Client", () => {
       expect(user.data.email).toBe(response.data.email);
     });
 
+    it("should update a user", async () => {
+      const { response, parameters } = apiData.endpoints.user;
+      const { siteId, userId } = parameters;
+
+      const scope = api
+        .patch(`/sites/${siteId}/users/${userId}`, response)
+        .reply(200, response);
+      const user = await webflow.updateUser({ ...parameters, ...response });
+
+      scope.done();
+      expect(user).toBeDefined();
+      expect(user._id).toBe(response._id);
+      expect(user.data).toBeDefined();
+      expect(user.data.email).toBe(response.data.email);
+    });
+
     it("should remove a user", async () => {
       const { response, parameters } = apiData.endpoints.user;
       const { siteId, userId } = parameters;
@@ -395,6 +661,51 @@ describe("Webflow Client", () => {
       scope.done();
 
       expect(result).toBeDefined();
+    });
+
+    describe("User Response Wrapper", () => {
+      let user;
+
+      beforeEach(async () => {
+        const { response, parameters } = apiData.endpoints.user;
+        const { siteId, userId } = parameters;
+
+        const scope = api
+          .get(`/sites/${siteId}/users/${userId}`)
+          .reply(200, response);
+        user = await webflow.user(parameters);
+        scope.done();
+      });
+
+      it("should update a user", async () => {
+        const { response, parameters } = apiData.endpoints.user;
+        const { siteId, userId } = parameters;
+
+        const scope = api
+          .patch(`/sites/${siteId}/users/${userId}`, response)
+          .reply(200, response);
+        const updatedUser = await user.update(response);
+
+        scope.done();
+        expect(updatedUser).toBeDefined();
+        expect(updatedUser._id).toBe(response._id);
+        expect(updatedUser.data).toBeDefined();
+        expect(updatedUser.data.email).toBe(response.data.email);
+      });
+
+      it("should remove a user", async () => {
+        const { response, parameters } = apiData.endpoints.user;
+        const { siteId, userId } = parameters;
+
+        const scope = api
+          .delete(`/sites/${siteId}/users/${userId}`)
+          .reply(200, response);
+
+        const result = await user.remove();
+        scope.done();
+
+        expect(result).toBeDefined();
+      });
     });
   });
 
@@ -430,11 +741,12 @@ describe("Webflow Client", () => {
       const { parameters, response } = apiData.endpoints.webhook;
       const { siteId } = parameters;
 
-      const scope = api.post(`/sites/${siteId}/webhooks`).reply(200, response);
-      const webhook = await webflow.createWebhook({
-        siteId,
-        url: "https://example.com",
-      });
+      const newWebhook = { siteId, url: "https://example.com" };
+
+      const scope = api
+        .post(`/sites/${siteId}/webhooks`, newWebhook)
+        .reply(200, response);
+      const webhook = await webflow.createWebhook(newWebhook);
       scope.done();
 
       expect(webhook).toBeDefined();
@@ -454,11 +766,40 @@ describe("Webflow Client", () => {
 
       expect(result).toBeDefined();
     });
+
+    describe("Webhook Response Wrapper", () => {
+      let webhook;
+
+      beforeEach(async () => {
+        const { parameters, response } = apiData.endpoints.webhook;
+        const { siteId, webhookId } = parameters;
+
+        const scope = api
+          .get(`/sites/${siteId}/webhooks/${webhookId}`)
+          .reply(200, response);
+        webhook = await webflow.webhook(parameters);
+        scope.done();
+      });
+
+      it("should remove a webhook", async () => {
+        const { parameters, response } = apiData.endpoints.webhook;
+        const { siteId, webhookId } = parameters;
+
+        const scope = api
+          .delete(`/sites/${siteId}/webhooks/${webhookId}`)
+          .reply(200, response);
+
+        const result = await webhook.remove();
+        scope.done();
+
+        expect(result).toBeDefined();
+      });
+    });
   });
 
   describe("OAuth", () => {
     it("should generate an authorization url", () => {
-      const { parameters, response } = apiData.endpoints.authorize;
+      const { parameters } = apiData.endpoints.authorize;
       const { client_id, redirect_uri, state, response_type } = parameters;
 
       const url = webflow.authorizeUrl({

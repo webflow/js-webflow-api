@@ -5,10 +5,7 @@
   "types": "index.d.ts",
   "main": "dist/index.js",
   "contributors": [
-    {
-      "name": "John Agan",
-      "email": "john.agan@webflow.com"
-    }
+    "John Agan (https://github.com/johnagan)"
   ],
   "repository": {
     "url": "https://github.com/webflow/js-webflow-api.git",
@@ -36,6 +33,7 @@
     "@babel/core": "^7.19.6",
     "@babel/preset-env": "^7.19.4",
     "@babel/register": "^7.18.9",
+    "@jest/globals": "^29.2.2",
     "babel-jest": "^29.2.2",
     "babel-plugin-add-module-exports": "^1.0.4",
     "eslint": "^8.12.0",

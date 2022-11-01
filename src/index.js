@@ -1,3 +1,3 @@
-import { WebflowClient } from "./WebflowClient";
+import { Webflow } from "./Webflow";
 
-export default WebflowClient;
+export default Webflow;
