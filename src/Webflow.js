@@ -8,8 +8,8 @@ export class WebflowArgumentError extends Error {
   }
 }
 export class Webflow {
-  constructor({ host, token, version, headers } = {}) {
-    this.client = new WebflowClient({ host, token, version, headers });
+  constructor({ host, token, version, headers, mode } = {}) {
+    this.client = new WebflowClient({ host, token, version, headers, mode });
     this.responseWrapper = new ResponseWrapper(this);
   }
 

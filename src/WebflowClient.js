@@ -11,11 +11,12 @@ export class WebflowRequestError extends Error {
 }
 
 export class WebflowClient {
-  constructor({ host, token, version, headers } = {}) {
+  constructor({ host, token, version, headers, mode } = {}) {
     this.host = host || DEFAULT_HOST;
-    this.version = version || "1.0.0";
     this.headers = headers || {};
+    this.version = version;
     this.token = token;
+    this.mode = mode;
   }
 
   getUri(path, query = {}) {
@@ -25,14 +26,22 @@ export class WebflowClient {
   }
 
   getHeaders() {
-    return {
-      Authorization: `Bearer ${this.token}`,
+    const { version, token } = this;
+
+    const headers = {
       "Content-Type": "application/json",
-      "accept-version": this.version,
       Accept: "application/json",
       "User-Agent": USER_AGENT,
-      ...this.headers, // user headers
     };
+
+    // set authorization header if token is set
+    if (token) headers.Authorization = `Bearer ${token}`;
+
+    // set the API version
+    if (version) headers["accept-version"] = version;
+
+    // merge headers with user headers;
+    return { ...headers, ...this.headers };
   }
 
   async parseBody(res) {
@@ -57,7 +66,7 @@ export class WebflowClient {
 
     // build request options
     const headers = this.getHeaders();
-    const opts = { method, headers, mode: "cors" };
+    const opts = { method, headers, mode: this.mode };
     if (data) opts.body = JSON.stringify(data);
 
     // call fetch and wrap response

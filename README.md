@@ -17,8 +17,9 @@ $ yarn add webflow-api
 The constructor takes in a few optional parameters to initialize the API client
 
 * `token` - the access token to use
-* `version` - the version of the API you wish to use
 * `headers` - additional headers to add to the request
+* `version` - the version of the API you wish to use
+* `mode` - the [sec-fetch-mode](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Mode) to use
 
 ``` javascript
 const Webflow = require("webflow-api");
