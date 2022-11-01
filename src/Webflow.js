@@ -218,12 +218,14 @@ export class Webflow {
     return this.responseWrapper.webhook(webhook, siteId);
   }
 
-  async createWebhook({ siteId, ...data }, query = {}) {
+  async createWebhook({ siteId, triggerType, ...data }, query = {}) {
     if (!siteId) throw new WebflowArgumentError("siteId");
+    if (!triggerType) throw new WebflowArgumentError("triggerType");
 
     const uri = `/sites/${siteId}/webhooks`;
-    const webhook = await this.client.post(uri, data, query);
-    return this.responseWrapper.webhook(webhook, siteId);
+    const webhook = { ...data, triggerType };
+    const createdWebhook = await this.client.post(uri, webhook, query);
+    return this.responseWrapper.webhook(createdWebhook, siteId);
   }
 
   removeWebhook({ siteId, webhookId }, query = {}) {
