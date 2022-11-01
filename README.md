@@ -29,7 +29,7 @@ const webflow = new Webflow({ token: "[ACCESS TOKEN]" });
 
 // fully loaded
 const webflow = new Webflow({
-  token: "[ACCESS TOKEN]"
+  token: "[ACCESS TOKEN]",
   version: "1.0.0",
   mode: "cors",
   headers: {
