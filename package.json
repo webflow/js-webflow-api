@@ -1,7 +1,7 @@
 {
   "name": "webflow-api",
   "description": "Webflow's official Node.js SDK for Data APIs",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "types": "index.d.ts",
   "main": "dist/index.js",
   "contributors": [

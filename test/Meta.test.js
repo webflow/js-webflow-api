@@ -30,7 +30,7 @@ describe("Meta", () => {
     const { response } = MetaFixture.installer;
     const scope = api.get("/user").reply(200, response);
 
-    const result = await webflow.installer();
+    const result = await webflow.authenticatedUser();
     scope.done();
 
     expect(result).toBeDefined();

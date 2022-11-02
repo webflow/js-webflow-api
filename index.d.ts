@@ -28,7 +28,7 @@ declare class Webflow {
 
   // meta
   info(): Promise<Webflow.ApiModel.Info>;
-  installer(): Promise<Webflow.ApiModel.Installer>;
+  authenticatedUser(): Promise<Webflow.ApiModel.AuthenticatedUser>;
 
   // oauth
   authorizeUrl(params: {
@@ -209,7 +209,7 @@ declare namespace Webflow {
   }
 
   namespace ApiModel {
-    interface Installer {
+    interface AuthenticatedUser {
       user: {
         _id: string;
         email: string;
