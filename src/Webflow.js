@@ -265,7 +265,7 @@ export class Webflow {
     if (state) query.set("state", state);
     if (scope) query.set("scope", scope);
 
-    return `https://${this.host}/oauth/authorize?${query}`;
+    return `https://${this.client.host}/oauth/authorize?${query}`;
   }
 
   accessToken({

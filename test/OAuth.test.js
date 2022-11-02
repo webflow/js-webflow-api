@@ -4,12 +4,13 @@ import { OAuthFixture } from "./OAuth.fixture";
 import Webflow from "../src";
 
 describe("OAuth", () => {
+  const host = "test.com";
   let webflow;
   let api;
 
   beforeEach(() => {
-    api = nock("https://api.webflow.com");
-    webflow = new Webflow({ token: "token" });
+    api = nock(`https://api.${host}`);
+    webflow = new Webflow({ token: "token", host });
   });
 
   it("should generate an authorization url", () => {
@@ -30,7 +31,7 @@ describe("OAuth", () => {
     });
 
     expect(url).toBeDefined();
-    expect(url).toBe(`https://${webflow.host}/oauth/authorize?${query}`);
+    expect(url).toBe(`https://${host}/oauth/authorize?${query}`);
   });
 
   it("should generate an access token", async () => {
