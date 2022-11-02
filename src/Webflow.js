@@ -45,7 +45,7 @@ export class Webflow {
     return this.get("/info");
   }
 
-  installer() {
+  authenticatedUser() {
     return this.get("/user");
   }
 

@@ -131,8 +131,8 @@ const auth = await webflow.accessToken({
 // you now have the user's access token to make API requests with
 const userWF = new Webflow({ token: auth.access_token });
 
-// pull information for the installer
-const installer = await userWF.installer();
+// pull information for the user
+const authenticatedUser = await userWF.authenticatedUser();
 ```
 
 ### Revoke Token
@@ -233,10 +233,10 @@ const webhook = await site.createWebhook({
 
 ```
 
-### Installer
+### Authenticated User
 ```javascript
-// pull information for the installer
-const installer = await webflow.installer();
+// pull information for the authenticated user
+const authenticatedUser = await webflow.authenticatedUser();
 ```
 
 
