@@ -19,7 +19,6 @@ The constructor takes in a few optional parameters to initialize the API client
 * `token` - the access token to use
 * `headers` - additional headers to add to the request
 * `version` - the version of the API you wish to use
-* `mode` - the [sec-fetch-mode](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Mode) to use
 
 ``` javascript
 const Webflow = require("webflow-api");
@@ -31,7 +30,6 @@ const webflow = new Webflow({ token: "[ACCESS TOKEN]" });
 const webflow = new Webflow({
   token: "[ACCESS TOKEN]",
   version: "1.0.0",
-  mode: "cors",
   headers: {
     "User-Agent": "My Webflow App / 1.0"
   }
@@ -85,6 +83,9 @@ const webflow = new Webflow();
 
 // set token
 webflow.token = "[ACCESS TOKEN]";
+
+// remove the token
+webflow.clearToken();
 ```
 ### Calling APIs Directly
 All Webflow API endpoints can be called directly using the `get`, `post`, `put`, and `delete` methods.
@@ -146,9 +147,7 @@ const result = await webflow.revokeToken({
 });
 
 // ensure it went through
-if (result.didRevoke) {
-  // should equal true
-}
+result.didRevoke === true
 ```
 
 ## Examples
