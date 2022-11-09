@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   test:
-    name: Tests
+    name: Jest
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -12,7 +12,7 @@ jobs:
       - run: yarn install
       - run: yarn test
   lint:
-    name: Linter
+    name: ESLint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

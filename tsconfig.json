@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "lib": ["es6", "dom"],
+    "module": "CommonJS",
+    "target": "es2020",
+    "outDir": "dist",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "declaration": true,
+    "baseUrl": "src",
+    "experimentalDecorators": true
+  },
+  "exclude": ["**/node_modules/*", "**/dist", "**/test"]
+}
