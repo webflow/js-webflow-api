@@ -2,8 +2,8 @@ import { describe, expect, it } from "@jest/globals";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import { CollectionWrapper, MetaResponse } from "../../src/wrapper";
-import { CollectionFixture } from "../api/collection.fixture";
-import { ItemFixture } from "../api/item.fixture";
+import { CollectionFixture } from "../fixtures/collection.fixture";
+import { ItemFixture } from "../fixtures/item.fixture";
 import { Client } from "../../src/core";
 import { Item } from "../../src/api";
 
@@ -26,10 +26,9 @@ describe("Collection Wrapper", () => {
   });
 
   it("should respond with a list of wrapped items", async () => {
-    const { parameters, response } = ItemFixture.list;
+    const { parameters, response, path } = ItemFixture.list;
     const { collectionId } = parameters;
 
-    const path = `/collections/${collectionId}/items`;
     mock.onGet(path).reply(200, response);
     const spy = jest.spyOn(Item, "list");
 
@@ -42,7 +41,6 @@ describe("Collection Wrapper", () => {
 
     expect(result).toBeDefined();
     expect(result.length).toBe(response.items.length);
-
     expect(result[0]._id).toBe(response.items[0]._id);
 
     // item wrapper functions
@@ -51,10 +49,9 @@ describe("Collection Wrapper", () => {
   });
 
   it("should respond with a single wrapped item", async () => {
-    const { parameters, response } = ItemFixture.get;
+    const { parameters, response, path } = ItemFixture.get;
     const { collectionId, itemId } = parameters;
 
-    const path = `/collections/${collectionId}/items/${itemId}`;
     mock.onGet(path).reply(200, response);
     const spy = jest.spyOn(Item, "getOne");
 
@@ -75,11 +72,11 @@ describe("Collection Wrapper", () => {
   });
 
   it("should create an item and wrap it", async () => {
-    const { parameters, response } = ItemFixture.create;
-    const { collectionId, fields } = parameters;
+    const { parameters, response, body, path } = ItemFixture.create;
+    const { collectionId } = parameters;
+    const { fields } = body;
 
-    const path = `/collections/${collectionId}/items`;
-    mock.onPost(path).reply(200, response);
+    mock.onPost(path, body).reply(200, response);
     const spy = jest.spyOn(Item, "create");
 
     const result = (_response = await collection.createItem(fields));
@@ -99,11 +96,11 @@ describe("Collection Wrapper", () => {
   });
 
   it("should update an item and wrap it", async () => {
-    const { parameters, response } = ItemFixture.update;
-    const { collectionId, itemId, fields } = parameters;
+    const { parameters, response, body, path } = ItemFixture.update;
+    const { collectionId, itemId } = parameters;
+    const { fields } = body;
 
-    const path = `/collections/${collectionId}/items/${itemId}`;
-    mock.onPut(path).reply(200, response);
+    mock.onPut(path, body).reply(200, response);
     const spy = jest.spyOn(Item, "update");
 
     const result = (_response = await collection.updateItem({
@@ -127,10 +124,9 @@ describe("Collection Wrapper", () => {
   });
 
   it("should remove an item", async () => {
-    const { parameters, response } = ItemFixture.remove;
+    const { parameters, response, path } = ItemFixture.remove;
     const { collectionId, itemId } = parameters;
 
-    const path = `/collections/${collectionId}/items/${itemId}`;
     mock.onDelete(path).reply(200, response);
     const spy = jest.spyOn(Item, "remove");
 

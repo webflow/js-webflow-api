@@ -71,7 +71,7 @@ export class MembershipWrapper implements Membership.IUser {
     client: Client,
     { userId, siteId, data }: { userId: string; siteId: string; data: any }
   ) {
-    const res = await Membership.update(client, { userId, siteId, data });
+    const res = await Membership.update(client, { userId, siteId, ...data });
     const user = ResponseWrapper<typeof res.data>(res);
     return new MembershipWrapper(client, siteId, user);
   }
@@ -89,6 +89,31 @@ export class MembershipWrapper implements Membership.IUser {
     { siteId, email }: { siteId: string; email: string }
   ) {
     const res = await Membership.invite(client, { siteId, email });
+    return ResponseWrapper<typeof res.data>(res);
+  }
+
+  /**
+   * Get a list of Access Groups
+   * @param client The Webflow client
+   * @param params The params for the request
+   * @param params.siteId The Site ID
+   * @param params.limit The number of items to return (optional)
+   * @param params.offset The number of items to skip (optional)
+   * @returns A list of Access Groups
+   */
+  static async accessGroups(
+    client: Client,
+    {
+      siteId,
+      limit,
+      offset,
+    }: { siteId: string; limit?: number; offset?: number }
+  ) {
+    const res = await Membership.accessGroups(client, {
+      siteId,
+      limit,
+      offset,
+    });
     return ResponseWrapper<typeof res.data>(res);
   }
 

@@ -2,7 +2,7 @@ import { describe, expect, it } from "@jest/globals";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import { MembershipWrapper, MetaResponse } from "../../src/wrapper";
-import { MembershipFixture } from "../api/membership.fixture";
+import { MembershipFixture } from "../fixtures/membership.fixture";
 import { Membership } from "../../src/api";
 import { Client } from "../../src/core";
 
@@ -20,18 +20,17 @@ describe("Membership Wrapper", () => {
   });
 
   it("should update a user and wrap it", async () => {
-    const { response, parameters } = MembershipFixture.update;
-    const { siteId, userId, data } = parameters;
+    const { response, parameters, body, path } = MembershipFixture.update;
+    const { siteId, userId } = parameters;
     const user = new MembershipWrapper(client, siteId, response);
 
-    const path = `/sites/${siteId}/users/${userId}`;
-    mock.onPatch(path).reply(200, response);
+    mock.onPatch(path, body).reply(200, response);
     const spy = jest.spyOn(Membership, "update");
 
-    const result = (_response = await user.update(data));
+    const result = (_response = await user.update(body));
 
     expect(spy).toHaveBeenCalledWith(client, {
-      data,
+      ...body,
       siteId,
       userId,
     });
@@ -48,13 +47,12 @@ describe("Membership Wrapper", () => {
   });
 
   it("should remove a user", async () => {
-    const { response, parameters } = MembershipFixture.delete;
+    const { response, parameters, path } = MembershipFixture.delete;
     const { siteId, userId } = parameters;
 
     const userToDelete = MembershipFixture.get.response;
     const user = new MembershipWrapper(client, siteId, userToDelete);
 
-    const path = `/sites/${siteId}/users/${userId}`;
     mock.onDelete(path).reply(200, response);
     const spy = jest.spyOn(Membership, "remove");
 

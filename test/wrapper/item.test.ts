@@ -3,7 +3,7 @@ import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import { Item } from "../../src/api";
 import { ItemWrapper, MetaResponse } from "../../src/wrapper";
-import { ItemFixture } from "../api/item.fixture";
+import { ItemFixture } from "../fixtures/item.fixture";
 import { Client } from "../../src/core";
 
 describe("Item Wrapper", () => {
@@ -21,11 +21,11 @@ describe("Item Wrapper", () => {
   });
 
   it("should update an item and wrap it", async () => {
-    const { parameters, response } = ItemFixture.update;
-    const { collectionId, itemId, fields } = parameters;
+    const { parameters, response, body, path } = ItemFixture.update;
+    const { collectionId, itemId } = parameters;
+    const { fields } = body;
 
-    const path = `/collections/${collectionId}/items/${itemId}`;
-    mock.onPut(path).reply(200, response);
+    mock.onPut(path, body).reply(200, response);
     const spy = jest.spyOn(Item, "update");
 
     const result = (_response = await item.update(fields));
@@ -46,10 +46,9 @@ describe("Item Wrapper", () => {
   });
 
   it("should remove an item", async () => {
-    const { parameters, response } = ItemFixture.remove;
+    const { parameters, response, path } = ItemFixture.remove;
     const { collectionId, itemId } = parameters;
 
-    const path = `/collections/${collectionId}/items/${itemId}`;
     mock.onDelete(path).reply(200, response);
     const spy = jest.spyOn(Item, "remove");
 

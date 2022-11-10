@@ -2,7 +2,7 @@ import { describe, expect, it } from "@jest/globals";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import { WebhookWrapper, MetaResponse } from "../../src/wrapper";
-import { WebhooksFixture } from "../api/webhook.fixture";
+import { WebhooksFixture } from "../fixtures/webhook.fixture";
 import { Webhook } from "../../src/api";
 import { Client } from "../../src/core";
 
@@ -21,10 +21,9 @@ describe("Webhook Wrapper", () => {
   });
 
   it("should remove a webhook", async () => {
-    const { parameters, response } = WebhooksFixture.delete;
+    const { parameters, response, path } = WebhooksFixture.delete;
     const { siteId, webhookId } = parameters;
 
-    const path = `/sites/${siteId}/webhooks/${webhookId}`;
     mock.onDelete(path).reply(200, response);
     const spy = jest.spyOn(Webhook, "remove");
 

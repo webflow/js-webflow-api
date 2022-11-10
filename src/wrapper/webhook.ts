@@ -1,5 +1,5 @@
-import { ResponseWrapper } from ".";
 import { Client, QueryString } from "../core";
+import { ResponseWrapper } from ".";
 import { Webhook } from "../api";
 
 export type CreateWebhookParams = {

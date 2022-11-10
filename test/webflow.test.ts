@@ -1,13 +1,15 @@
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import { Webflow } from "../src/webflow";
-import { OAuthFixture } from "./api/oauth.fixture";
-import { MetaFixture } from "./api/meta.fixture";
-import { SiteFixture } from "./api/site.fixture";
-import { ItemFixture } from "./api/item.fixture";
-import { WebhooksFixture } from "./api/webhook.fixture";
-import { CollectionFixture } from "./api/collection.fixture";
-import { MembershipFixture } from "./api/membership.fixture";
+import {
+  OAuthFixture,
+  ItemFixture,
+  MetaFixture,
+  SiteFixture,
+  WebhooksFixture,
+  CollectionFixture,
+  MembershipFixture,
+} from "./fixtures";
 
 describe("Webflow", () => {
   const options = { host: "test.com" };
@@ -83,20 +85,20 @@ describe("Webflow", () => {
       });
 
       it("should generate an access token", async () => {
-        const { parameters, response, path } = OAuthFixture.access_token;
+        const { body, response, path } = OAuthFixture.access_token;
 
-        mock.onPost(path, parameters).reply(200, response);
-        const result = await webflow.accessToken(parameters);
+        mock.onPost(path, body).reply(200, response);
+        const result = await webflow.accessToken(body);
 
         expect(result).toBeDefined();
         expect(result.access_token).toBe(response.access_token);
       });
 
       it("should revoke an access token", async () => {
-        const { parameters, response, path } = OAuthFixture.revoke_token;
+        const { body, response, path } = OAuthFixture.revoke_token;
 
-        mock.onPost(path, parameters).reply(200, response);
-        const result = await webflow.revokeToken(parameters);
+        mock.onPost(path, body).reply(200, response);
+        const result = await webflow.revokeToken(body);
 
         expect(result).toBeDefined();
         expect(result.didRevoke).toBe(true);
@@ -105,8 +107,7 @@ describe("Webflow", () => {
 
     describe("Meta", () => {
       it("should get info", async () => {
-        const { response } = MetaFixture.info;
-        const path = `/info`;
+        const { response, path } = MetaFixture.info;
 
         mock.onGet(path).reply(200, response);
         const result = await webflow.info();
@@ -119,9 +120,8 @@ describe("Webflow", () => {
       });
 
       it("should get info about the user", async () => {
-        const { response } = MetaFixture.installer;
+        const { response, path } = MetaFixture.user;
 
-        const path = `/user`;
         mock.onGet(path).reply(200, response);
         const result = await webflow.authenticatedUser();
 
@@ -135,8 +135,7 @@ describe("Webflow", () => {
 
     describe("Sites", () => {
       it("should respond with a list of sites", async () => {
-        const { response } = SiteFixture.list;
-        const path = "/sites";
+        const { response, path } = SiteFixture.list;
 
         mock.onGet(path).reply(200, response);
         const sites = await webflow.sites();
@@ -147,9 +146,8 @@ describe("Webflow", () => {
       });
 
       it("should respond with a single site", async () => {
-        const { parameters, response } = SiteFixture.get;
+        const { parameters, response, path } = SiteFixture.get;
         const { siteId } = parameters;
-        const path = `/sites/${siteId}`;
 
         mock.onGet(path).reply(200, response);
         const site = await webflow.site(parameters);
@@ -159,9 +157,7 @@ describe("Webflow", () => {
       });
 
       it("should respond with a list of domains", async () => {
-        const { parameters, response } = SiteFixture.domains;
-        const { siteId } = parameters;
-        const path = `/sites/${siteId}/domains`;
+        const { parameters, response, path } = SiteFixture.domains;
 
         mock.onGet(path).reply(200, response);
         const domains = await webflow.domains(parameters);
@@ -172,12 +168,11 @@ describe("Webflow", () => {
       });
 
       it("should publish a site", async () => {
-        const { parameters, response } = SiteFixture.publish;
-        const { siteId, domains } = parameters;
-        const path = `/sites/${siteId}/publish`;
+        const { parameters, response, body, path } = SiteFixture.publish;
+        const { domains } = body;
 
         mock.onPost(path, { domains }).reply(200, response);
-        const result = await webflow.publishSite(parameters);
+        const result = await webflow.publishSite({ ...parameters, domains });
 
         expect(result).toBeDefined();
         expect(result.queued).toBe(true);
@@ -186,9 +181,7 @@ describe("Webflow", () => {
 
     describe("Collections", () => {
       it("should respond with a list of site collections", async () => {
-        const { parameters, response } = CollectionFixture.list;
-        const { siteId } = parameters;
-        const path = `/sites/${siteId}/collections`;
+        const { parameters, response, path } = CollectionFixture.list;
 
         mock.onGet(path).reply(200, response);
         const collections = await webflow.collections(parameters);
@@ -199,9 +192,7 @@ describe("Webflow", () => {
       });
 
       it("should respond with a single site collection", async () => {
-        const { parameters, response } = CollectionFixture.get;
-        const { collectionId } = parameters;
-        const path = `/collections/${collectionId}`;
+        const { parameters, response, path } = CollectionFixture.get;
 
         mock.onGet(path).reply(200, response);
         const collection = await webflow.collection(parameters);
@@ -213,9 +204,7 @@ describe("Webflow", () => {
 
     describe("Items", () => {
       it("should respond with a list of items", async () => {
-        const { parameters, response } = ItemFixture.list;
-        const { collectionId } = parameters;
-        const path = `/collections/${collectionId}/items`;
+        const { parameters, response, path } = ItemFixture.list;
 
         mock.onGet(path).reply(200, response);
         const items = await webflow.items(parameters);
@@ -226,15 +215,15 @@ describe("Webflow", () => {
       });
 
       it("should respond with a list of paginated items", async () => {
-        const { parameters, response } = ItemFixture.list;
-        const { collectionId } = parameters;
+        const { parameters, response, path } = ItemFixture.list;
 
         const limit = 2;
         const offset = 2;
-        const path = `/collections/${collectionId}/items`;
 
-        mock.onGet(path, { params: { limit, offset } }).reply(200, response);
+        mock.onGet(path).reply(200, response);
         const items = await webflow.items(parameters, { limit, offset });
+
+        expect(mock.history.get[0].params).toMatchObject({ limit, offset });
 
         expect(items).toBeDefined();
         expect(items.length).toBe(response.items.length);
@@ -242,9 +231,7 @@ describe("Webflow", () => {
       });
 
       it("should respond with a single item", async () => {
-        const { parameters, response } = ItemFixture.get;
-        const { collectionId, itemId } = parameters;
-        const path = `/collections/${collectionId}/items/${itemId}`;
+        const { parameters, response, path } = ItemFixture.get;
 
         mock.onGet(path).reply(200, response);
         const item = await webflow.item(parameters);
@@ -254,22 +241,18 @@ describe("Webflow", () => {
       });
 
       it("should create an item", async () => {
-        const { parameters, response } = ItemFixture.create;
-        const { collectionId, fields } = parameters;
-
-        const path = `/collections/${collectionId}/items`;
+        const { parameters, response, body, path } = ItemFixture.create;
+        const { fields } = body;
 
         mock.onPost(path, { fields }).reply(200, response);
-        const item = await webflow.createItem(parameters);
+        const item = await webflow.createItem({ ...parameters, fields });
 
         expect(item).toBeDefined();
         expect(item._id).toBe(response._id);
       });
 
       it("should update an item", async () => {
-        const { parameters, response } = ItemFixture.update;
-        const { collectionId, itemId } = parameters;
-        const path = `/collections/${collectionId}/items/${itemId}`;
+        const { parameters, response, path } = ItemFixture.update;
 
         mock.onPut(path).reply(200, response);
         const item = await webflow.updateItem(parameters);
@@ -279,9 +262,7 @@ describe("Webflow", () => {
       });
 
       it("should patch an item", async () => {
-        const { parameters, response } = ItemFixture.update;
-        const { collectionId, itemId } = parameters;
-        const path = `/collections/${collectionId}/items/${itemId}`;
+        const { parameters, response, path } = ItemFixture.update;
 
         mock.onPatch(path).reply(200, response);
         const item = await webflow.patchItem(parameters);
@@ -291,9 +272,7 @@ describe("Webflow", () => {
       });
 
       it("should remove an item", async () => {
-        const { parameters, response } = ItemFixture.remove;
-        const { collectionId, itemId } = parameters;
-        const path = `/collections/${collectionId}/items/${itemId}`;
+        const { parameters, response, path } = ItemFixture.remove;
 
         mock.onDelete(path).reply(200, response);
         const item = await webflow.removeItem(parameters);
@@ -303,12 +282,11 @@ describe("Webflow", () => {
       });
 
       it("should unpublish multiple items", async () => {
-        const { parameters, response } = ItemFixture.unpublish;
-        const { collectionId, itemIds } = parameters;
-        const path = `/collections/${collectionId}/items`;
+        const { parameters, response, body, path } = ItemFixture.unpublish;
+        const { itemIds } = body;
 
         mock.onDelete(path).reply(200, response);
-        const result = await webflow.deleteItems(parameters);
+        const result = await webflow.deleteItems({ ...parameters, itemIds });
 
         expect(result).toBeDefined();
         expect(result.deletedItemIds.length).toBe(itemIds.length);
@@ -316,13 +294,17 @@ describe("Webflow", () => {
       });
 
       it("should live unpublish multiple items", async () => {
-        const { parameters, response } = ItemFixture.unpublish;
-        const { collectionId, itemIds } = parameters;
-        const path = `/collections/${collectionId}/items`;
+        const { parameters, response, body, path } = ItemFixture.unpublish;
+        const { itemIds } = body;
 
-        const { live } = parameters;
-        mock.onDelete(path, { params: { live } }).reply(200, response);
-        const result = await webflow.deleteItems(parameters);
+        mock.onDelete(path, body).reply(200, response);
+        const result = await webflow.deleteItems({
+          ...parameters,
+          live: true,
+          ...body,
+        });
+
+        expect(mock.history.delete[0].params).toMatchObject({ live: true });
 
         expect(result).toBeDefined();
         expect(result.deletedItemIds.length).toBe(itemIds.length);
@@ -330,15 +312,14 @@ describe("Webflow", () => {
       });
 
       it("should publish multiple items", async () => {
-        const { parameters, response } = ItemFixture.publish;
-        const { collectionId, itemIds } = parameters;
+        const { parameters, response, body, path } = ItemFixture.publish;
+        const { itemIds } = body;
 
-        const { live } = parameters;
-        const path = `/collections/${collectionId}/items/publish`;
-
-        mock.onPut(path, { itemIds }).reply(200, response);
-        const result = await webflow.publishItems(parameters);
-        expect(mock.history.put[0].params).toMatchObject({ live });
+        mock.onPut(path, body).reply(200, response);
+        const result = await webflow.publishItems({
+          ...parameters,
+          ...body,
+        });
 
         expect(result).toBeDefined();
         expect(result.publishedItemIds.length).toBe(itemIds.length);
@@ -346,15 +327,14 @@ describe("Webflow", () => {
       });
 
       it("should live publish multiple items", async () => {
-        const { parameters, response } = ItemFixture.publish;
-        const { collectionId, itemIds } = parameters;
+        const { parameters, response, body, path } = ItemFixture.publish;
+        const { itemIds } = body;
 
-        const { live } = parameters;
-        const path = `/collections/${collectionId}/items/publish`;
-
-        mock.onPut(path, { itemIds }).reply(200, response);
-        const result = await webflow.publishItems(parameters);
-        expect(mock.history.put[0].params).toMatchObject({ live });
+        mock.onPut(path, body).reply(200, response);
+        const result = await webflow.publishItems({
+          ...parameters,
+          ...body,
+        });
 
         expect(result).toBeDefined();
         expect(result.publishedItemIds.length).toBe(itemIds.length);
@@ -364,9 +344,7 @@ describe("Webflow", () => {
 
     describe("Memberships", () => {
       it("should respond with a list of users", async () => {
-        const { response, parameters } = MembershipFixture.list;
-        const { siteId } = parameters;
-        const path = `/sites/${siteId}/users`;
+        const { response, parameters, path } = MembershipFixture.list;
 
         mock.onGet(path).reply(200, response);
         const users = await webflow.users(parameters);
@@ -377,9 +355,7 @@ describe("Webflow", () => {
       });
 
       it("should respond with a single user", async () => {
-        const { response, parameters } = MembershipFixture.get;
-        const { siteId, userId } = parameters;
-        const path = `/sites/${siteId}/users/${userId}`;
+        const { response, parameters, path } = MembershipFixture.get;
 
         mock.onGet(path).reply(200, response);
         const user = await webflow.user(parameters);
@@ -389,12 +365,12 @@ describe("Webflow", () => {
       });
 
       it("should invite a user", async () => {
-        const { response, parameters } = MembershipFixture.invite;
-        const { siteId, email } = parameters;
+        const { response, parameters, body } = MembershipFixture.invite;
+        const { siteId } = parameters;
         const path = `/sites/${siteId}/users/invite`;
 
-        mock.onPost(path, { email }).reply(200, response);
-        const user = await webflow.inviteUser(parameters);
+        mock.onPost(path, body).reply(200, response);
+        const user = await webflow.inviteUser({ ...parameters, ...body });
 
         expect(user).toBeDefined();
         expect(user.data).toBeDefined();
@@ -403,12 +379,10 @@ describe("Webflow", () => {
       });
 
       it("should update a user", async () => {
-        const { response, parameters } = MembershipFixture.update;
-        const { siteId, userId } = parameters;
-        const path = `/sites/${siteId}/users/${userId}`;
+        const { response, parameters, path, body } = MembershipFixture.update;
 
-        mock.onPatch(path).reply(200, response);
-        const user = await webflow.updateUser(parameters);
+        mock.onPatch(path, body).reply(200, response);
+        const user = await webflow.updateUser({ ...parameters, ...body });
 
         expect(user).toBeDefined();
         expect(user._id).toBe(response._id);
@@ -417,9 +391,7 @@ describe("Webflow", () => {
       });
 
       it("should remove a user", async () => {
-        const { response, parameters } = MembershipFixture.delete;
-        const { siteId, userId } = parameters;
-        const path = `/sites/${siteId}/users/${userId}`;
+        const { response, parameters, path } = MembershipFixture.delete;
 
         mock.onDelete(path).reply(200, response);
         const result = await webflow.removeUser(parameters);
@@ -427,13 +399,21 @@ describe("Webflow", () => {
         expect(result).toBeDefined();
         expect(result.deleted).toBe(response.deleted);
       });
+
+      it("should return access groups", async () => {
+        const { response, parameters, path } = MembershipFixture.access_groups;
+
+        mock.onGet(path).reply(200, response);
+        const result = await webflow.accessGroups(parameters);
+
+        expect(result).toBeDefined();
+        expect(result.accessGroups.length).toBe(response.accessGroups.length);
+      });
     });
 
     describe("Webhooks", () => {
       it("should respond with a list of webhooks", async () => {
-        const { parameters, response } = WebhooksFixture.list;
-        const { siteId } = parameters;
-        const path = `/sites/${siteId}/webhooks`;
+        const { parameters, response, path } = WebhooksFixture.list;
 
         mock.onGet(path).reply(200, response);
         const webhooks = await webflow.webhooks(parameters);
@@ -444,10 +424,8 @@ describe("Webflow", () => {
       });
 
       it("should respond with a single webhook", async () => {
-        const { parameters, response } = WebhooksFixture.get;
-        const { siteId, webhookId } = parameters;
+        const { parameters, response, path } = WebhooksFixture.get;
 
-        const path = `/sites/${siteId}/webhooks/${webhookId}`;
         mock.onGet(path).reply(200, response);
         const webhook = await webflow.webhook(parameters);
 
@@ -456,22 +434,18 @@ describe("Webflow", () => {
       });
 
       it("should create a webhook", async () => {
-        const { parameters, response } = WebhooksFixture.create;
-        const { siteId, triggerType, url } = parameters;
+        const { parameters, response, body, path } = WebhooksFixture.create;
 
-        const path = `/sites/${siteId}/webhooks`;
-        mock.onPost(path, { triggerType, url }).reply(200, response);
-        const webhook = await webflow.createWebhook(parameters);
+        mock.onPost(path, body).reply(200, response);
+        const webhook = await webflow.createWebhook({ ...parameters, ...body });
 
         expect(webhook).toBeDefined();
         expect(webhook._id).toBe(response._id);
       });
 
       it("should remove a webhook", async () => {
-        const { parameters, response } = WebhooksFixture.delete;
-        const { siteId, webhookId } = parameters;
+        const { parameters, response, path } = WebhooksFixture.delete;
 
-        const path = `/sites/${siteId}/webhooks/${webhookId}`;
         mock.onDelete(path).reply(200, response);
         const result = await webflow.removeWebhook(parameters);
 

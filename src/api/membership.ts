@@ -1,4 +1,4 @@
-import { Client, PaginatedData, QueryString, requireArgs } from "../core";
+import { Client, PaginatedData, requireArgs } from "../core";
 
 /**************************************************************
  * Interfaces
@@ -11,6 +11,14 @@ export interface IUser {
   data: any;
 }
 
+export interface IAccessGroup {
+  _id: string;
+  name: string;
+  shortId: string;
+  slug: string;
+  createdOn: string;
+}
+
 export interface IUserDelete {
   deleted: number;
 }
@@ -20,6 +28,10 @@ export interface IUserDelete {
  **************************************************************/
 export type PaginatedUsers = PaginatedData & {
   users: IUser[];
+};
+
+export type PaginatedAccessGroups = PaginatedData & {
+  accessGroups: IAccessGroup[];
 };
 
 export type UserIdParam = { siteId: string; userId: string };
@@ -78,9 +90,8 @@ export function update(
   {
     siteId,
     userId,
-    data,
+    ...data
   }: {
-    data: object;
     siteId: string;
     userId: string;
   }
@@ -122,4 +133,23 @@ export function remove(
   requireArgs({ siteId, userId });
   const path = `/sites/${siteId}/users/${userId}`;
   return client.delete<IUserDelete>(path);
+}
+
+/**
+ * Get a list of Access Groups
+ * @param client The Webflow client
+ * @param params The params for the request
+ * @param params.siteId The Site ID
+ * @param params.limit The number of items to return (optional)
+ * @param params.offset The number of items to skip (optional)
+ * @returns A list of Access Groups
+ */
+export function accessGroups(
+  client: Client,
+  { siteId, limit, offset }: { siteId: string; limit?: number; offset?: number }
+) {
+  requireArgs({ siteId });
+  const params = { limit, offset };
+  const path = `/sites/${siteId}/users/accessgroups`;
+  return client.get<PaginatedAccessGroups>(path, { params });
 }

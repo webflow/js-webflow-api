@@ -1,5 +1,6 @@
 export const WebhooksFixture = {
   get: {
+    path: "/sites/580e63e98c9a982ac9b8b741/webhooks/582266e0cd48de0f0e3c6d8b",
     parameters: {
       siteId: "580e63e98c9a982ac9b8b741",
       webhookId: "582266e0cd48de0f0e3c6d8b",
@@ -13,6 +14,7 @@ export const WebhooksFixture = {
     },
   },
   list: {
+    path: "/sites/580e63e98c9a982ac9b8b741/webhooks",
     parameters: {
       siteId: "580e63e98c9a982ac9b8b741",
     },
@@ -44,8 +46,11 @@ export const WebhooksFixture = {
     ],
   },
   create: {
+    path: "/sites/580e63e98c9a982ac9b8b741/webhooks",
     parameters: {
       siteId: "580e63e98c9a982ac9b8b741",
+    },
+    body: {
       triggerType: "form_submission",
       url: "https://example.com",
     },
@@ -58,6 +63,7 @@ export const WebhooksFixture = {
     },
   },
   delete: {
+    path: "/sites/580e63e98c9a982ac9b8b741/webhooks/582266e0cd48de0f0e3c6d8b",
     parameters: {
       siteId: "580e63e98c9a982ac9b8b741",
       webhookId: "582266e0cd48de0f0e3c6d8b",
@@ -67,5 +73,3 @@ export const WebhooksFixture = {
     },
   },
 };
-
-export default WebhooksFixture;
