@@ -2,7 +2,7 @@ import { describe, expect, it } from "@jest/globals";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import { MembershipWrapper, MetaResponse } from "../../src/wrapper";
-import { MembershipFixture } from "../api/membership.fixture";
+import { MembershipFixture } from "../fixtures/membership.fixture";
 import { Membership } from "../../src/api";
 import { Client } from "../../src/core";
 

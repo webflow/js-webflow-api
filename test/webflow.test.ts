@@ -1,13 +1,15 @@
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import { Webflow } from "../src/webflow";
-import { OAuthFixture } from "./api/oauth.fixture";
-import { MetaFixture } from "./api/meta.fixture";
-import { SiteFixture } from "./api/site.fixture";
-import { ItemFixture } from "./api/item.fixture";
-import { WebhooksFixture } from "./api/webhook.fixture";
-import { CollectionFixture } from "./api/collection.fixture";
-import { MembershipFixture } from "./api/membership.fixture";
+import {
+  OAuthFixture,
+  ItemFixture,
+  MetaFixture,
+  SiteFixture,
+  WebhooksFixture,
+  CollectionFixture,
+  MembershipFixture,
+} from "./fixtures";
 
 describe("Webflow", () => {
   const options = { host: "test.com" };
@@ -396,6 +398,16 @@ describe("Webflow", () => {
 
         expect(result).toBeDefined();
         expect(result.deleted).toBe(response.deleted);
+      });
+
+      it("should return access groups", async () => {
+        const { response, parameters, path } = MembershipFixture.access_groups;
+
+        mock.onGet(path).reply(200, response);
+        const result = await webflow.accessGroups(parameters);
+
+        expect(result).toBeDefined();
+        expect(result.accessGroups.length).toBe(response.accessGroups.length);
       });
     });
 

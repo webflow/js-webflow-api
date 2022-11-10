@@ -3,6 +3,7 @@ import {
   CollectionWrapper,
   ResponseWrapper,
   WebhookWrapper,
+  MembershipWrapper,
 } from ".";
 import { Client, QueryString } from "../core";
 import { Site } from "../api";
@@ -160,5 +161,68 @@ export class SiteWrapper implements Site.ISite {
   async createWebhook({ triggerType, filter, url }: CreateWebhookParams) {
     const _params = { url, siteId: this._id, triggerType, filter };
     return WebhookWrapper.create(this.client, _params);
+  }
+
+  /**
+   * Get a list of Users
+   * @param params The params for the request
+   * @param params.limit The number of items to return (optional)
+   * @param params.offset The number of items to skip (optional)
+   * @returns A list of Users
+   */
+  async users({ limit, offset }: { limit?: number; offset?: number } = {}) {
+    return MembershipWrapper.list(this.client, {
+      siteId: this._id,
+      limit,
+      offset,
+    });
+  }
+
+  /**
+   * Get a single User
+   * @param params The params for the request
+   * @param params.userId The user ID
+   * @returns A single User
+   */
+  async user({ userId }: { userId: string }) {
+    return MembershipWrapper.getOne(this.client, { siteId: this._id, userId });
+  }
+
+  /**
+   * Invite a User to a site
+   * @param params The params for the request
+   * @param params.email The email address of the user to invite
+   * @returns The newly created User
+   */
+  async inviteUser({ email }: { email: string }) {
+    return MembershipWrapper.invite(this.client, { siteId: this._id, email });
+  }
+
+  /**
+   * Get a list of Access Groups
+   * @param params The params for the request
+   * @param params.limit The number of items to return (optional)
+   * @param params.offset The number of items to skip (optional)
+   * @returns A list of Access Groups
+   */
+  async accessGroups({
+    limit,
+    offset,
+  }: { limit?: number; offset?: number } = {}) {
+    return MembershipWrapper.accessGroups(this.client, {
+      siteId: this._id,
+      limit,
+      offset,
+    });
+  }
+
+  /**
+   * Remove a User
+   * @param params The params for the request
+   * @param params.userId The user ID
+   * @returns The result of the remove
+   */
+  async removeUser({ userId }: { userId: string }) {
+    return MembershipWrapper.remove(this.client, { siteId: this._id, userId });
   }
 }

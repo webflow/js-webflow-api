@@ -2,7 +2,7 @@ import { describe, expect, it } from "@jest/globals";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import { Client } from "../../src/core/client";
-import { MetaFixture } from "./meta.fixture";
+import { MetaFixture } from "../fixtures/meta.fixture";
 import * as Meta from "../../src/api/meta";
 
 describe("Meta", () => {

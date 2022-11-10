@@ -1,7 +1,7 @@
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import { describe, expect, it } from "@jest/globals";
-import { CollectionFixture } from "./collection.fixture";
+import { CollectionFixture } from "../fixtures/collection.fixture";
 import * as Collection from "../../src/api/collection";
 import { Client } from "../../src/core/client";
 

@@ -207,7 +207,10 @@ const updatedItem = await webflow.updateItem({
 
 ### Memberships
 ```javascript
-// Get the all users for a site
+// Get a site's users from the site
+const users = await site.users();
+
+// Get a site's users with a site id
 const users = await webflow.users({
   siteId: "[SITE ID]"
 });
@@ -216,6 +219,14 @@ const users = await webflow.users({
 const user = await site.user({
   siteId: "[SITE ID]",
   userId: "[USER ID]"
+});
+
+// Get a site's access groups
+const accessGroups = await site.accessGroups();
+
+// Get a site's access groups with a site id
+const accessGroups = await webflow.accessGroups({
+  siteId: "[SITE ID]"
 });
 ```
 

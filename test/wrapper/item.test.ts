@@ -3,7 +3,7 @@ import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import { Item } from "../../src/api";
 import { ItemWrapper, MetaResponse } from "../../src/wrapper";
-import { ItemFixture } from "../api/item.fixture";
+import { ItemFixture } from "../fixtures/item.fixture";
 import { Client } from "../../src/core";
 
 describe("Item Wrapper", () => {

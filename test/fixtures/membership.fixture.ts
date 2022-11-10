@@ -159,8 +159,8 @@ export const MembershipFixture = {
       deleted: 1,
     },
   },
-  access_group: {
-    path: "/sites/580e63e98c9a982ac9b8b741/users/6287ec36a841b25637c663df/accessgroups",
+  access_groups: {
+    path: "/sites/580e63e98c9a982ac9b8b741/users/accessgroups",
     parameters: {
       siteId: "580e63e98c9a982ac9b8b741",
     },

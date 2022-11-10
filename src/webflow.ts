@@ -424,6 +424,16 @@ export class Webflow {
     return MembershipWrapper.remove(this.client, { siteId, userId });
   }
 
+  /**
+   * Get a list of Access Groups
+   * @param params The Site and User information
+   * @param params.siteId The Site ID
+   * @returns The result from the remove request
+   */
+  accessGroups({ siteId }: { siteId: string }) {
+    return MembershipWrapper.accessGroups(this.client, { siteId });
+  }
+
   /**************************************************************
    * Webhook Endpoints
    **************************************************************/

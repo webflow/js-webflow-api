@@ -1,7 +1,7 @@
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import { describe, expect, it } from "@jest/globals";
-import { SiteFixture } from "./site.fixture";
+import { SiteFixture } from "../fixtures/site.fixture";
 import { Client } from "../../src/core/client";
 import * as Site from "../../src/api/site";
 

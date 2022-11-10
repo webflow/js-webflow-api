@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
-import { WebhooksFixture } from "./webhook.fixture";
+import { WebhooksFixture } from "../fixtures/webhook.fixture";
 import * as Webhook from "../../src/api/webhook";
 import { Client } from "../../src/core/client";
 

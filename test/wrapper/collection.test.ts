@@ -2,8 +2,8 @@ import { describe, expect, it } from "@jest/globals";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import { CollectionWrapper, MetaResponse } from "../../src/wrapper";
-import { CollectionFixture } from "../api/collection.fixture";
-import { ItemFixture } from "../api/item.fixture";
+import { CollectionFixture } from "../fixtures/collection.fixture";
+import { ItemFixture } from "../fixtures/item.fixture";
 import { Client } from "../../src/core";
 import { Item } from "../../src/api";
 

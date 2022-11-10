@@ -1,7 +1,7 @@
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import { describe, expect, it } from "@jest/globals";
-import { MembershipFixture } from "./membership.fixture";
+import { MembershipFixture } from "../fixtures/membership.fixture";
 import * as Membership from "../../src/api/membership";
 import { Client } from "../../src/core/client";
 
@@ -52,6 +52,14 @@ describe("Users", () => {
     mock.onDelete(path).reply(200, response);
 
     const { data } = await Membership.remove(client, parameters);
+    expect(data).toMatchObject(response);
+  });
+
+  it("should get access groups", async () => {
+    const { response, parameters, path } = MembershipFixture.access_groups;
+    mock.onGet(path).reply(200, response);
+
+    const { data } = await Membership.accessGroups(client, parameters);
     expect(data).toMatchObject(response);
   });
 });

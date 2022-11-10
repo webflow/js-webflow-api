@@ -3,7 +3,7 @@ import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import * as OAuth from "../../src/api/oauth";
 import { Client } from "../../src/core/client";
-import { OAuthFixture } from "./oauth.fixture";
+import { OAuthFixture } from "../fixtures/oauth.fixture";
 
 describe("OAuth", () => {
   const options = { host: "test.com" };

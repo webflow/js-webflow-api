@@ -3,9 +3,10 @@ import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import { SiteWrapper, MetaResponse } from "../../src/wrapper";
 import { Webhook, Site, Collection } from "../../src/api";
-import { CollectionFixture } from "../api/collection.fixture";
-import { WebhooksFixture } from "../api/webhook.fixture";
-import { SiteFixture } from "../api/site.fixture";
+import { MembershipFixture } from "../fixtures/membership.fixture";
+import { CollectionFixture } from "../fixtures/collection.fixture";
+import { WebhooksFixture } from "../fixtures/webhook.fixture";
+import { SiteFixture } from "../fixtures/site.fixture";
 import { Client } from "../../src/core";
 
 describe("Site Wrapper", () => {
@@ -150,5 +151,58 @@ describe("Site Wrapper", () => {
 
     expect(result).toBeDefined();
     expect(result.queued).toBe(true);
+  });
+
+  it("should return a single user", async () => {
+    const { response, path, parameters } = MembershipFixture.get;
+    const { userId } = parameters;
+
+    mock.onGet(path).reply(200, response);
+    const result = (_response = await site.user({ userId }));
+
+    expect(result).toBeDefined();
+    expect(result._id).toBe(response._id);
+  });
+
+  it("should return users", async () => {
+    const { response, path } = MembershipFixture.list;
+
+    mock.onGet(path).reply(200, response);
+    const result = (_response = await site.users());
+
+    expect(result).toBeDefined();
+    expect(result.length).toBe(response.users.length);
+  });
+
+  it("should return access groups", async () => {
+    const { response, path } = MembershipFixture.access_groups;
+
+    mock.onGet(path).reply(200, response);
+    const result = (_response = await site.accessGroups());
+
+    expect(result).toBeDefined();
+    expect(result.accessGroups.length).toBe(response.accessGroups.length);
+  });
+
+  it("should invite a user", async () => {
+    const { response, path, body } = MembershipFixture.invite;
+    const { email } = body;
+
+    mock.onPost(path, body).reply(200, response);
+    const result = (_response = await site.inviteUser({ email }));
+
+    expect(result).toBeDefined();
+    expect(result._id).toBe(response._id);
+  });
+
+  it("should remove a user", async () => {
+    const { response, path, parameters } = MembershipFixture.delete;
+    const { userId } = parameters;
+
+    mock.onDelete(path).reply(200, response);
+    const result = (_response = await site.removeUser({ userId }));
+
+    expect(result).toBeDefined();
+    expect(result.deleted).toBe(response.deleted);
   });
 });
