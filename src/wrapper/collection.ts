@@ -1,6 +1,6 @@
 import { ResponseWrapper, ItemWrapper } from ".";
 import { Client, QueryString } from "../core";
-import { Collection, Item } from "../api";
+import { Collection } from "../api";
 
 export class CollectionWrapper implements Collection.ICollection {
   fields: Collection.CollectionField[];

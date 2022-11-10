@@ -71,7 +71,7 @@ export class MembershipWrapper implements Membership.IUser {
     client: Client,
     { userId, siteId, data }: { userId: string; siteId: string; data: any }
   ) {
-    const res = await Membership.update(client, { userId, siteId, data });
+    const res = await Membership.update(client, { userId, siteId, ...data });
     const user = ResponseWrapper<typeof res.data>(res);
     return new MembershipWrapper(client, siteId, user);
   }

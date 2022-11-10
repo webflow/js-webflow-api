@@ -10,51 +10,34 @@ describe("Sites", () => {
   const client = new Client();
 
   it("should respond with a list of sites", async () => {
-    const { response } = SiteFixture.list;
-    const path = "/sites";
-
+    const { response, path } = SiteFixture.list;
     mock.onGet(path).reply(200, response);
-    const { data } = await Site.list(client);
 
-    expect(data).toBeDefined();
-    expect(data.length).toBe(response.length);
-    expect(data[0]).toMatchObject(response[0]);
+    const { data } = await Site.list(client);
+    expect(data).toMatchObject(response);
   });
 
   it("should respond with a single site", async () => {
-    const { parameters, response } = SiteFixture.get;
-    const { siteId } = parameters;
-    const path = `/sites/${siteId}`;
-
+    const { parameters, response, path } = SiteFixture.get;
     mock.onGet(path).reply(200, response);
-    const { data } = await Site.getOne(client, parameters);
 
-    expect(data).toBeDefined();
-    expect(data._id).toBe(siteId);
+    const { data } = await Site.getOne(client, parameters);
+    expect(data).toMatchObject(response);
   });
 
   it("should respond with a list of domains", async () => {
-    const { parameters, response } = SiteFixture.domains;
-    const { siteId } = parameters;
-    const path = `/sites/${siteId}/domains`;
-
+    const { parameters, response, path } = SiteFixture.domains;
     mock.onGet(path).reply(200, response);
-    const { data } = await Site.domains(client, parameters);
 
-    expect(data).toBeDefined();
-    expect(data.length).toBe(response.length);
-    expect(data[0]).toMatchObject(response[0]);
+    const { data } = await Site.domains(client, parameters);
+    expect(data).toMatchObject(response);
   });
 
   it("should publish a site", async () => {
-    const { parameters, response } = SiteFixture.publish;
-    const { siteId } = parameters;
-    const path = `/sites/${siteId}/publish`;
+    const { parameters, response, body, path } = SiteFixture.publish;
+    mock.onPost(path, body).reply(200, response);
 
-    mock.onPost(path).reply(200, response);
-    const { data } = await Site.publish(client, parameters);
-
-    expect(data).toBeDefined();
-    expect(data.queued).toBe(true);
+    const { data } = await Site.publish(client, { ...parameters, ...body });
+    expect(data).toMatchObject(response);
   });
 });

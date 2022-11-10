@@ -17,11 +17,32 @@ export interface PaginatedData {
   total: number;
 }
 
-export interface WebflowOptions {
-  host?: string;
-  token?: string;
-  version?: string;
-  headers?: Record<string, string>;
+/**************************************************************
+ * Functions
+ **************************************************************/
+
+/**
+ * Transforms JSON response to an object
+ * if the response is a Webflow error, it will throw an error
+ * @param data JSON response
+ * @returns response object
+ */
+function transformResponse(data: any = {}) {
+  // parse json if string
+  if (String(data) === data) data = JSON.parse(data);
+
+  // throw an error if Webflow returns an error obejct
+  if (data.err) throw new RequestError(data);
+  return data;
+}
+
+/**
+ * Transforms POST/PUT/PATCH request data to JSON
+ * @param data A JavaScript object
+ * @returns JSON string
+ */
+function transformRequest(data: any = {}) {
+  return JSON.stringify(data);
 }
 
 /**************************************************************
@@ -35,7 +56,8 @@ export class Client extends Axios {
     token,
   }: Options = {}) {
     super({
-      transformRequest: [(data) => JSON.stringify(data)],
+      transformRequest: [transformRequest],
+      transformResponse: [transformResponse],
       baseURL: `https://api.${host}/`,
       headers: {
         "Content-Type": "application/json",
@@ -46,22 +68,6 @@ export class Client extends Axios {
     });
 
     if (token) this.token = token;
-
-    // check for webflow errors
-    this.defaults.transformResponse = [this.transformResponse];
-  }
-
-  /**
-   * Transforms JSON response to an object
-   * if the response is a Webflow error, it will throw an error
-   * @param data JSON response
-   * @returns response object
-   */
-  private transformResponse(data: any = {}) {
-    // parse json if string
-    if (String(data) === data) data = JSON.parse(data);
-    if (data.err) throw new RequestError(data);
-    return data;
   }
 
   // set the Authorization header

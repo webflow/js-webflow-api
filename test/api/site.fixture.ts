@@ -1,5 +1,6 @@
 export const SiteFixture = {
   list: {
+    path: "/sites",
     response: [
       {
         _id: "580e63e98c9a982ac9b8b741",
@@ -37,6 +38,7 @@ export const SiteFixture = {
     ],
   },
   get: {
+    path: "/sites/580e63e98c9a982ac9b8b741",
     parameters: {
       siteId: "580e63e98c9a982ac9b8b741",
     },
@@ -53,6 +55,7 @@ export const SiteFixture = {
     },
   },
   domains: {
+    path: "/sites/580e63e98c9a982ac9b8b741/domains",
     parameters: {
       siteId: "580e63e98c9a982ac9b8b741",
     },
@@ -68,8 +71,11 @@ export const SiteFixture = {
     ],
   },
   publish: {
+    path: "/sites/580e63e98c9a982ac9b8b741/publish",
     parameters: {
       siteId: "580e63e98c9a982ac9b8b741",
+    },
+    body: {
       domains: ["test-api-domain.com"],
     },
     response: {
@@ -77,5 +83,3 @@ export const SiteFixture = {
     },
   },
 };
-
-export default SiteFixture;

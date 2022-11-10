@@ -1,4 +1,4 @@
-import { Client, PaginatedData, QueryString, requireArgs } from "../core";
+import { Client, PaginatedData, requireArgs } from "../core";
 
 /**************************************************************
  * Interfaces

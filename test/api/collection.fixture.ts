@@ -1,5 +1,6 @@
 export const CollectionFixture = {
   list: {
+    path: "/sites/580e63e98c9a982ac9b8b741/collections",
     parameters: {
       siteId: "580e63e98c9a982ac9b8b741",
     },
@@ -23,6 +24,7 @@ export const CollectionFixture = {
     ],
   },
   get: {
+    path: "/collections/580e63fc8c9a982ac9b8b745",
     parameters: {
       collectionId: "580e63fc8c9a982ac9b8b745",
     },
@@ -376,5 +378,3 @@ export const CollectionFixture = {
     },
   },
 };
-
-export default CollectionFixture;

@@ -24,10 +24,9 @@ describe("Site Wrapper", () => {
   const site = new SiteWrapper(client, SiteFixture.get.response);
 
   it("should respond with a list of wrapped collections", async () => {
-    const { parameters, response } = CollectionFixture.list;
+    const { parameters, response, path } = CollectionFixture.list;
     const { siteId } = parameters;
 
-    const path = `/sites/${siteId}/collections`;
     mock.onGet(path).reply(200, response);
     const spy = jest.spyOn(Collection, "list");
 
@@ -50,10 +49,9 @@ describe("Site Wrapper", () => {
   });
 
   it("should respond with a list of wrapped webhooks", async () => {
-    const { parameters, response } = WebhooksFixture.list;
+    const { parameters, response, path } = WebhooksFixture.list;
     const { siteId } = parameters;
 
-    const path = `/sites/${siteId}/webhooks`;
     mock.onGet(path).reply(200, response);
     const spy = jest.spyOn(Webhook, "list");
 
@@ -72,10 +70,9 @@ describe("Site Wrapper", () => {
   });
 
   it("should respond with a single wrapped webhook", async () => {
-    const { parameters, response } = WebhooksFixture.get;
+    const { parameters, response, path } = WebhooksFixture.get;
     const { siteId, webhookId } = parameters;
 
-    const path = `/sites/${siteId}/webhooks/${webhookId}`;
     mock.onGet(path).reply(200, response);
     const spy = jest.spyOn(Webhook, "getOne");
 
@@ -91,16 +88,15 @@ describe("Site Wrapper", () => {
   });
 
   it("should create a webhook and wrap it", async () => {
-    const { parameters, response } = WebhooksFixture.create;
-    const { siteId } = parameters;
+    const { parameters, response, body, path } = WebhooksFixture.create;
 
-    const path = `/sites/${siteId}/webhooks`;
     const spy = jest.spyOn(Webhook, "create");
-    mock.onPost(path).reply(200, response);
+    mock.onPost(path, body).reply(200, response);
 
-    const result = (_response = await site.createWebhook(parameters));
+    const _params = { ...parameters, ...body };
+    const result = (_response = await site.createWebhook(_params));
 
-    expect(spy).toHaveBeenCalledWith(client, parameters);
+    expect(spy).toHaveBeenCalledWith(client, _params);
 
     expect(result).toBeDefined();
     expect(result._id).toBe(response._id);
@@ -110,10 +106,8 @@ describe("Site Wrapper", () => {
   });
 
   it("should remove a webhook", async () => {
-    const { parameters, response } = WebhooksFixture.delete;
-    const { siteId, webhookId } = parameters;
+    const { parameters, response, path } = WebhooksFixture.delete;
 
-    const path = `/sites/${siteId}/webhooks/${webhookId}`;
     const spy = jest.spyOn(Webhook, "remove");
     mock.onDelete(path).reply(200, response);
 
@@ -126,10 +120,8 @@ describe("Site Wrapper", () => {
   });
 
   it("should respond with a list of domains", async () => {
-    const { parameters, response } = SiteFixture.domains;
-    const { siteId } = parameters;
+    const { parameters, response, path } = SiteFixture.domains;
 
-    const path = `/sites/${siteId}/domains`;
     const spy = jest.spyOn(Site, "domains");
     mock.onGet(path).reply(200, response);
 
@@ -146,16 +138,15 @@ describe("Site Wrapper", () => {
   });
 
   it("should publish a site", async () => {
-    const { parameters, response } = SiteFixture.publish;
-    const { siteId, domains } = parameters;
+    const { parameters, response, path, body } = SiteFixture.publish;
+    const { domains } = body;
 
-    const path = `/sites/${siteId}/publish`;
     const spy = jest.spyOn(Site, "publish");
-    mock.onPost(path).reply(200, response);
+    mock.onPost(path, body).reply(200, response);
 
     const result = (_response = await site.publishSite(domains));
 
-    expect(spy).toHaveBeenCalledWith(client, parameters);
+    expect(spy).toHaveBeenCalledWith(client, { ...parameters, domains });
 
     expect(result).toBeDefined();
     expect(result.queued).toBe(true);

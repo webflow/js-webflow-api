@@ -1,4 +1,4 @@
-import { Client, PaginatedData, QueryString, requireArgs } from "../core";
+import { Client, PaginatedData, requireArgs } from "../core";
 
 /**************************************************************
  * Interfaces
@@ -78,9 +78,8 @@ export function update(
   {
     siteId,
     userId,
-    data,
+    ...data
   }: {
-    data: object;
     siteId: string;
     userId: string;
   }

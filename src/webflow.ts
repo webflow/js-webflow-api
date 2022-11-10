@@ -265,7 +265,6 @@ export class Webflow {
    * @param params The Item information
    * @param params.collectionId The Collection ID
    * @param params.itemId The Item ID
-   * @param query The query parameters (optional)
    * @returns The updated Collection Item
    */
   updateItem({
@@ -319,8 +318,7 @@ export class Webflow {
    * @param params The Item information
    * @param params.collectionId The Collection ID
    * @param params.itemId The Item ID
-   * @param query The query parameters (optional)
-   * @param query.live Update the live version
+   * @param params.live Update the live version
    * @returns The unpublished Collection Item result
    */
   deleteItems({
@@ -340,8 +338,7 @@ export class Webflow {
    * @param params The Item information
    * @param params.collectionId The Collection ID
    * @param params.itemId The Item ID
-   * @param query The query parameters (optional)
-   * @param query.live Update the live version
+   * @param params.live Update the live version
    * @returns The Published Collection Item result
    */
   publishItems({
@@ -366,6 +363,8 @@ export class Webflow {
    * @param params The Site information
    * @param params.siteId The Site ID
    * @param pageParams The pagination information (optional)
+   * @param pageParams.limit The number of results to return
+   * @param pageParams.offset The number of results to skip
    * @returns A list of User accounts
    */
   async users({ siteId }: { siteId: string }, pageParams?: PaginationFilter) {
