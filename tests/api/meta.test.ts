@@ -1,13 +1,11 @@
-import { describe, expect, it } from "@jest/globals";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
-import { Client } from "../../src/core/client";
-import { MetaFixture } from "./meta.fixture";
-import * as Meta from "../../src/api/meta";
+import { MetaFixture } from "../fixtures";
+import { Meta } from "../../src/api";
 
 describe("Meta", () => {
   const mock = new MockAdapter(axios);
-  const client = new Client();
+  const client = axios.create();
 
   it("should get info", async () => {
     const { response } = MetaFixture.info;

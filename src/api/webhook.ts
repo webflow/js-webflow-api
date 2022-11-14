@@ -1,4 +1,5 @@
-import { Client, QueryString, requireArgs } from "../core";
+import { AxiosInstance } from "axios";
+import { requireArgs, WebflowRecord } from "../core";
 
 /**************************************************************
  * Types
@@ -14,7 +15,7 @@ export type TriggerType =
   | "collection_item_deleted"
   | string;
 
-export type Filter = {
+export type WebhookFilter = {
   name: string;
 };
 
@@ -38,88 +39,104 @@ export interface IRemoveResult {
 }
 
 /**************************************************************
- * Functions
+ * Class
  **************************************************************/
+export class Webhook extends WebflowRecord<IWebhook> implements IWebhook {
+  filter?: { name: string };
+  triggerType: string;
+  triggerId: string;
+  createdOn: string;
+  lastUsed?: string;
+  site: string;
+  _id: string;
 
-/**
- * Get a list of Webhooks
- * @param client The Webflow client
- * @param params1 The params for the request
- * @param params1.siteId The site ID
- * @param params The query string parameters (optional)
- * @returns A list of Webhooks
- */
-export function list(
-  client: Client,
-  { siteId }: { siteId: string },
-  params?: QueryString
-) {
-  requireArgs({ siteId });
-  const path = `/sites/${siteId}/webhooks`;
-  return client.get<IWebhook[]>(path, { params });
-}
+  /**************************************************************
+   * Static Methods
+   **************************************************************/
 
-/**
- * Get a single Webhook
- * @param client The Webflow client
- * @param params The params for the request
- * @param params.siteId The site ID
- * @param params.webhookId The webhook ID
- * @returns A single Webhook
- */
-export function getOne(
-  client: Client,
-  { siteId, webhookId }: { siteId: string; webhookId: string }
-) {
-  requireArgs({ siteId, webhookId });
-  const path = `/sites/${siteId}/webhooks/${webhookId}`;
-  return client.get<IWebhook>(path);
-}
-
-/**
- * Create a new Webhook
- * @param client The Webflow client
- * @param params The params for the request
- * @param params.siteId The site ID
- * @param params.url The URL to send the webhook to
- * @param params.triggerType The event to trigger the webhook
- * @param params.filter The filter to apply to the webhook (optional: form_submission only)
- * @param params.params The query string parameters (optional)
- * @returns The created webhook
- */
-export function create(
-  client: Client,
-  {
-    triggerType,
-    siteId,
-    filter,
-    url,
-  }: {
-    url: string;
-    siteId: string;
-    filter?: Filter;
-    triggerType: TriggerType;
+  /**
+   * Get a list of Webhooks
+   * @param params The params for the request
+   * @param params.siteId The site ID
+   * @param client The Axios client instance
+   * @returns A list of Webhooks
+   */
+  static list({ siteId }: { siteId: string }, client: AxiosInstance) {
+    requireArgs({ siteId });
+    const path = `/sites/${siteId}/webhooks`;
+    return client.get<IWebhook[]>(path);
   }
-) {
-  requireArgs({ siteId, triggerType, url });
-  const path = `/sites/${siteId}/webhooks`;
-  const data = { triggerType, url, filter };
-  return client.post<IWebhook>(path, data);
-}
 
-/**
- * Remove a Webhook
- * @param client The Webflow client
- * @param params The query string parameters (optional)
- * @param params.webhookId The Webhook ID
- * @param params.siteId The Site ID
- * @returns The result of the removal
- */
-export function remove(
-  client: Client,
-  { siteId, webhookId }: { siteId: string; webhookId: string }
-) {
-  requireArgs({ siteId, webhookId });
-  const path = `/sites/${siteId}/webhooks/${webhookId}`;
-  return client.delete<IRemoveResult>(path);
+  /**
+   * Get a single Webhook
+   * @param params The params for the request
+   * @param params.siteId The site ID
+   * @param params.webhookId The webhook ID
+   * @param client The Axios client instance
+   * @returns A single Webhook
+   */
+  static getOne({ siteId, webhookId }: { siteId: string; webhookId: string }, client: AxiosInstance) {
+    requireArgs({ siteId, webhookId });
+    const path = `/sites/${siteId}/webhooks/${webhookId}`;
+    return client.get<IWebhook>(path);
+  }
+
+  /**
+   * Create a new Webhook
+   * @param params The params for the request
+   * @param params.siteId The site ID
+   * @param params.url The URL to send the webhook to
+   * @param params.triggerType The event to trigger the webhook
+   * @param params.filter The filter to apply to the webhook (optional: form_submission only)
+   * @param params.params The query string parameters (optional)
+   * @param client The Axios client instance
+   * @returns The created webhook
+   */
+  static create(
+    {
+      triggerType,
+      siteId,
+      filter,
+      url,
+    }: {
+      url: string;
+      siteId: string;
+      filter?: WebhookFilter;
+      triggerType: TriggerType;
+    },
+    client: AxiosInstance
+  ) {
+    requireArgs({ siteId, triggerType, url });
+    const path = `/sites/${siteId}/webhooks`;
+    const data = { triggerType, url, filter };
+    return client.post<IWebhook>(path, data);
+  }
+
+  /**
+   * Remove a Webhook
+   * @param params The query string parameters (optional)
+   * @param params.webhookId The Webhook ID
+   * @param params.siteId The Site ID
+   * @param client The Axios client instance
+   * @returns The result of the removal
+   */
+  static remove({ siteId, webhookId }: { siteId: string; webhookId: string }, client: AxiosInstance) {
+    requireArgs({ siteId, webhookId });
+    const path = `/sites/${siteId}/webhooks/${webhookId}`;
+    return client.delete<IRemoveResult>(path);
+  }
+
+  /**************************************************************
+   * Instance Methods
+   **************************************************************/
+
+  /**
+   * Remove a Webhook
+   * @returns The result of the removal
+   */
+  async remove() {
+    const params = { siteId: this.site, webhookId: this._id };
+    const res = await Webhook.remove(params, this.client);
+    return res.data;
+  }
 }

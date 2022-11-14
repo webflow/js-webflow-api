@@ -22,7 +22,7 @@ export const CollectionFixture = {
       },
     ],
   },
-  get: {
+  getOne: {
     parameters: {
       collectionId: "580e63fc8c9a982ac9b8b745",
     },
@@ -64,8 +64,7 @@ export const CollectionFixture = {
         },
         {
           id: "a8c6ea29b08cc5b5ef966908fa1deae2",
-          helpText:
-            "Smaller version of main image that is used on blog post grid",
+          helpText: "Smaller version of main image that is used on blog post grid",
           editable: true,
           required: false,
           type: "ImageRef",
@@ -123,8 +122,7 @@ export const CollectionFixture = {
           validations: {
             messages: {
               maxLength: "Must be less than 256 characters",
-              pattern:
-                "Must be alphanumerical and not contain any spaces or special characters",
+              pattern: "Must be alphanumerical and not contain any spaces or special characters",
             },
             pattern: {},
             maxLength: 256,
@@ -233,8 +231,7 @@ export const CollectionFixture = {
         },
         {
           id: "a8c6ea29b08cc5b5ef966908fa1deae2",
-          helpText:
-            "Smaller version of main image that is used on blog post grid",
+          helpText: "Smaller version of main image that is used on blog post grid",
           editable: true,
           required: false,
           type: "ImageRef",
@@ -292,8 +289,7 @@ export const CollectionFixture = {
           validations: {
             messages: {
               maxLength: "Must be less than 256 characters",
-              pattern:
-                "Must be alphanumerical and not contain any spaces or special characters",
+              pattern: "Must be alphanumerical and not contain any spaces or special characters",
             },
             pattern: {},
             maxLength: 256,
@@ -376,5 +372,3 @@ export const CollectionFixture = {
     },
   },
 };
-
-export default CollectionFixture;

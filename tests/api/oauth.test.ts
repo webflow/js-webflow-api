@@ -1,24 +1,23 @@
-import { describe, expect, it } from "@jest/globals";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
-import * as OAuth from "../../src/api/oauth";
-import { Client } from "../../src/core/client";
-import { OAuthFixture } from "./oauth.fixture";
+import { OAuthFixture } from "../fixtures";
+import { OAuth } from "../../src/api";
 
 describe("OAuth", () => {
-  const options = { host: "test.com" };
   const mock = new MockAdapter(axios);
-  const client = new Client(options);
+  const client = axios.create();
 
   it("should generate an authorization url", () => {
     const { parameters } = OAuthFixture.authorize;
     const { client_id, state, response_type } = parameters;
 
-    const url = OAuth.authorizeUrl(client, { client_id, state });
+    const baseURL = "https://api.test.com";
+    const instance = axios.create({ baseURL });
+    const url = OAuth.authorizeUrl({ client_id, state }, instance);
     const query = new URLSearchParams({ response_type, client_id, state });
 
     expect(url).toBeDefined();
-    expect(url).toBe(`https://api.${options.host}/oauth/authorize?${query}`);
+    expect(url).toBe(`${baseURL}/oauth/authorize?${query}`);
   });
 
   it("should generate an access token", async () => {
@@ -26,7 +25,7 @@ describe("OAuth", () => {
     const path = `/oauth/access_token`;
 
     mock.onPost(path).reply(200, response);
-    const { data } = await OAuth.accessToken(client, parameters);
+    const { data } = await OAuth.accessToken(parameters, client);
 
     expect(data).toBeDefined();
     expect(data.access_token).toBe(response.access_token);
@@ -37,7 +36,7 @@ describe("OAuth", () => {
     const path = `/oauth/revoke_authorization`;
 
     mock.onPost(path).reply(200, response);
-    const { data } = await OAuth.revokeToken(client, parameters);
+    const { data } = await OAuth.revokeToken(parameters, client);
 
     expect(data).toBeDefined();
     expect(data.didRevoke).toBe(true);

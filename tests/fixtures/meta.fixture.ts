@@ -32,5 +32,3 @@ export const MetaFixture = {
     },
   },
 };
-
-export default MetaFixture;

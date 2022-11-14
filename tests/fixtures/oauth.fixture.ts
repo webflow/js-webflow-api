@@ -36,5 +36,3 @@ export const OAuthFixture = {
     },
   },
 };
-
-export default OAuthFixture;

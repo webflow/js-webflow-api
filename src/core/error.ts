@@ -1,3 +1,5 @@
+import { AxiosResponse } from "axios";
+
 export interface IRequestError {
   msg: string;
   code: number;
@@ -29,4 +31,10 @@ export function requireArgs(args: object) {
   for (const key in args) {
     if (!args[key]) throw new ArgumentError(key);
   }
+}
+
+// throw an error if Webflow error
+export function ErrorInterceptor(res: AxiosResponse) {
+  if (res.data.err) throw new RequestError(res.data);
+  return res;
 }

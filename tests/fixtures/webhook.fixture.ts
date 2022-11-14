@@ -1,5 +1,5 @@
-export const WebhooksFixture = {
-  get: {
+export const WebhookFixture = {
+  getOne: {
     parameters: {
       siteId: "580e63e98c9a982ac9b8b741",
       webhookId: "582266e0cd48de0f0e3c6d8b",
@@ -67,5 +67,3 @@ export const WebhooksFixture = {
     },
   },
 };
-
-export default WebhooksFixture;

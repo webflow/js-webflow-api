@@ -34,7 +34,7 @@ export const ItemFixture = {
       total: 5,
     },
   },
-  get: {
+  getOne: {
     parameters: {
       collectionId: "580e63fc8c9a982ac9b8b745",
       itemId: "582b900cba19143b2bb8a759",
@@ -155,18 +155,10 @@ export const ItemFixture = {
     parameters: {
       live: true,
       collectionId: "580e63fc8c9a982ac9b8b745",
-      itemIds: [
-        "62aa37923cf7a9de1ca4469c",
-        "62aa37923cf7a9de1ca44697",
-        "62aa37923cf7a9de1ca44696",
-      ],
+      itemIds: ["62aa37923cf7a9de1ca4469c", "62aa37923cf7a9de1ca44697", "62aa37923cf7a9de1ca44696"],
     },
     response: {
-      publishedItemIds: [
-        "62aa37923cf7a9de1ca4469c",
-        "62aa37923cf7a9de1ca44697",
-        "62aa37923cf7a9de1ca44696",
-      ],
+      publishedItemIds: ["62aa37923cf7a9de1ca4469c", "62aa37923cf7a9de1ca44697", "62aa37923cf7a9de1ca44696"],
       errors: [],
     },
   },
@@ -174,18 +166,10 @@ export const ItemFixture = {
     parameters: {
       live: true,
       collectionId: "580e63fc8c9a982ac9b8b745",
-      itemIds: [
-        "62aa37923cf7a9de1ca4469c",
-        "62aa37923cf7a9de1ca44697",
-        "62aa37923cf7a9de1ca44696",
-      ],
+      itemIds: ["62aa37923cf7a9de1ca4469c", "62aa37923cf7a9de1ca44697", "62aa37923cf7a9de1ca44696"],
     },
     response: {
-      deletedItemIds: [
-        "62aa37923cf7a9de1ca4469c",
-        "62aa37923cf7a9de1ca44697",
-        "62aa37923cf7a9de1ca44696",
-      ],
+      deletedItemIds: ["62aa37923cf7a9de1ca4469c", "62aa37923cf7a9de1ca44697", "62aa37923cf7a9de1ca44696"],
       errors: [],
     },
   },
@@ -199,5 +183,3 @@ export const ItemFixture = {
     },
   },
 };
-
-export default ItemFixture;
