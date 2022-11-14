@@ -1,4 +1,5 @@
-import { Client, requireArgs } from "../core";
+import { AxiosInstance } from "axios";
+import { requireArgs } from "../core";
 
 /**************************************************************
  * Interfaces
@@ -35,85 +36,72 @@ export interface IRevokeToken {
 }
 
 /**************************************************************
- * Functions
+ * Class
  **************************************************************/
 
-/**
- * Get the URL to authorize a user
- * @param client The Webflow client
- * @param params The params for the request
- * @param params.client_id The OAuth client ID
- * @param params.scope The scope (optional)
- * @param params.state The state (optional)
- * @param params.redirect_uri The redirect URI (optional)
- * @param params.response_type The response type (default: code)
- * @returns The URL to authorize a user
- */
-export function authorizeUrl(
-  client: Client,
-  {
-    response_type = "code",
-    redirect_uri,
-    client_id,
-    state,
-    scope,
-  }: IAuthorizeUrlParams
-) {
-  requireArgs({ client_id });
+export class OAuth {
+  /**
+   * Get the URL to authorize a user
+   * @param params The params for the request
+   * @param params.client_id The OAuth client ID
+   * @param params.scope The scope (optional)
+   * @param params.state The state (optional)
+   * @param params.redirect_uri The redirect URI (optional)
+   * @param params.response_type The response type (default: code)
+   * @param client The Axios client instance
+   * @returns The URL to authorize a user
+   */
+  static authorizeUrl(
+    { response_type = "code", redirect_uri, client_id, state, scope }: IAuthorizeUrlParams,
+    client: AxiosInstance
+  ) {
+    requireArgs({ client_id });
 
-  const params = { response_type, client_id };
-  if (redirect_uri) params["redirect_uri"] = redirect_uri;
-  if (state) params["state"] = state;
-  if (scope) params["scope"] = scope;
+    const params = { response_type, client_id };
+    if (redirect_uri) params["redirect_uri"] = redirect_uri;
+    if (state) params["state"] = state;
+    if (scope) params["scope"] = scope;
 
-  const url = "/oauth/authorize";
-  return client.getUri({ url, method: "GET", params });
-}
+    const url = "/oauth/authorize";
+    return client.getUri({ url, method: "GET", params });
+  }
 
-/**
- * Get an access token
- * @param client The Webflow client
- * @param params The params for the request
- * @param params.code The OAuth code
- * @param params.client_id The OAuth client ID
- * @param params.client_secret The OAuth client secret
- * @param params.redirect_uri The redirect URI (optional)
- * @param params.grant_type The grant type (default: "authorization_code")
- * @returns An access token
- */
-export function accessToken(
-  client: Client,
-  {
-    grant_type = "authorization_code",
-    client_secret,
-    redirect_uri,
-    client_id,
-    code,
-  }: IAccessTokenParams
-) {
-  requireArgs({ client_id, client_secret, code });
+  /**
+   * Get an access token
+   * @param params The params for the request
+   * @param params.code The OAuth code
+   * @param params.client_id The OAuth client ID
+   * @param params.client_secret The OAuth client secret
+   * @param params.redirect_uri The redirect URI (optional)
+   * @param params.grant_type The grant type (default: "authorization_code")
+   * @param client The Axios client instance
+   * @returns An access token
+   */
+  static accessToken(
+    { grant_type = "authorization_code", client_secret, redirect_uri, client_id, code }: IAccessTokenParams,
+    client: AxiosInstance
+  ) {
+    requireArgs({ client_id, client_secret, code });
 
-  const path = "/oauth/access_token";
-  const data = { client_secret, redirect_uri, grant_type, client_id, code };
-  return client.post<IAccessToken>(path, data);
-}
+    const path = "/oauth/access_token";
+    const data = { client_secret, redirect_uri, grant_type, client_id, code };
+    return client.post<IAccessToken>(path, data);
+  }
 
-/**
- * Revoke an access token
- * @param client The Webflow client
- * @param params The params for the request
- * @param params.client_id The OAuth client ID
- * @param params.client_secret The OAuth client secret
- * @param params.access_token The OAuth access token
- * @returns The result of the revoke
- */
-export function revokeToken(
-  client: Client,
-  { client_secret, access_token, client_id }: IRevokeTokenParams
-) {
-  requireArgs({ client_id, client_secret, access_token });
+  /**
+   * Revoke an access token
+   * @param params The params for the request
+   * @param params.client_id The OAuth client ID
+   * @param params.client_secret The OAuth client secret
+   * @param params.access_token The OAuth access token
+   * @param client The Axios client instance
+   * @returns The result of the revoke
+   */
+  static revokeToken({ client_secret, access_token, client_id }: IRevokeTokenParams, client: AxiosInstance) {
+    requireArgs({ client_id, client_secret, access_token });
 
-  const path = "/oauth/revoke_authorization";
-  const data = { client_secret, access_token, client_id };
-  return client.post<IRevokeToken>(path, data);
+    const path = "/oauth/revoke_authorization";
+    const data = { client_secret, access_token, client_id };
+    return client.post<IRevokeToken>(path, data);
+  }
 }

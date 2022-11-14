@@ -1,6 +1,5 @@
-export const MembershipFixture = {
-  get: {
-    path: "/sites/580e63e98c9a982ac9b8b741/users/6287ec36a841b25637c663df",
+export const UserFixture = {
+  getOne: {
     parameters: {
       userId: "6287ec36a841b25637c663df",
       siteId: "580e63e98c9a982ac9b8b741",
@@ -20,7 +19,6 @@ export const MembershipFixture = {
     },
   },
   list: {
-    path: "/sites/580e63e98c9a982ac9b8b741/users",
     parameters: {
       siteId: "580e63e98c9a982ac9b8b741",
     },
@@ -99,11 +97,8 @@ export const MembershipFixture = {
     },
   },
   invite: {
-    path: "/sites/580e63e98c9a982ac9b8b741/users/invite",
     parameters: {
       siteId: "580e63e98c9a982ac9b8b741",
-    },
-    body: {
       email: "some.one@home.com",
     },
     response: {
@@ -121,18 +116,17 @@ export const MembershipFixture = {
     },
   },
   update: {
-    path: "/sites/580e63e98c9a982ac9b8b741/users/6287ec36a841b25637c663df",
     parameters: {
       userId: "6287ec36a841b25637c663df",
       siteId: "580e63e98c9a982ac9b8b741",
-    },
-    body: {
-      status: "verified",
       data: {
-        "accept-privacy": false,
-        "accept-communications": false,
-        email: "Some.One@home.com",
-        name: "Some One",
+        status: "verified",
+        data: {
+          "accept-privacy": false,
+          "accept-communications": false,
+          email: "Some.One@home.com",
+          name: "Some One",
+        },
       },
     },
     response: {
@@ -150,7 +144,6 @@ export const MembershipFixture = {
     },
   },
   delete: {
-    path: "/sites/580e63e98c9a982ac9b8b741/users/6287ec36a841b25637c663df",
     parameters: {
       userId: "6287ec36a841b25637c663df",
       siteId: "580e63e98c9a982ac9b8b741",
@@ -159,8 +152,7 @@ export const MembershipFixture = {
       deleted: 1,
     },
   },
-  access_groups: {
-    path: "/sites/580e63e98c9a982ac9b8b741/users/accessgroups",
+  access_group: {
     parameters: {
       siteId: "580e63e98c9a982ac9b8b741",
     },

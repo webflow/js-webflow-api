@@ -18,7 +18,6 @@ describe("Webflow", () => {
     const webflow = new Webflow();
     webflow.token = "token";
 
-    const header = webflow.client.defaults.headers["Authorization"];
-    expect(header).toEqual(`Bearer token`);
+    expect(webflow.options.token).toEqual("token");
   });
 });

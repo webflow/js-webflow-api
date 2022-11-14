@@ -1,32 +1,68 @@
-import { QueryString, Options, Client, PaginationFilter } from "./core";
-import { Meta, OAuth, Webhook } from "./api";
+import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
+import { PaginationFilter } from "../core";
 import {
-  MembershipWrapper,
-  CollectionWrapper,
-  WebhookWrapper,
-  SiteWrapper,
-  ItemWrapper,
-  ResponseWrapper,
-} from "./wrapper";
+  Collection,
+  IAccessTokenParams,
+  IAuthorizeUrlParams,
+  IRevokeTokenParams,
+  User,
+  Meta,
+  OAuth,
+  Site,
+  Webhook,
+  WebhookFilter,
+  Item,
+} from "../api";
+
+export const DEFAULT_HOST = "webflow.com";
+export const USER_AGENT = "Webflow Javascript SDK / 1.0";
+
+export interface Options {
+  host?: string;
+  token?: string;
+  version?: string;
+  headers?: Record<string, string>;
+}
 
 /**************************************************************
  * Class
  **************************************************************/
 export class Webflow {
-  client: Client;
-
+  private client: AxiosInstance;
   constructor(public options: Options = {}) {
-    this.client = new Client(options);
+    this.client = axios.create(this.config);
   }
 
   // Set the Authentication token
   set token(value: string) {
-    this.client.token = value;
+    this.options.token = value;
   }
 
   // clear the Authorization header
   clearToken() {
-    this.client.clearToken();
+    delete this.options.token;
+  }
+
+  // The Axios configuration
+  get config() {
+    const { host = DEFAULT_HOST, token, version, headers } = this.options;
+
+    const config: AxiosRequestConfig = {
+      baseURL: `https://api.${host}/`,
+      headers: {
+        "Content-Type": "application/json",
+        "User-Agent": USER_AGENT,
+        ...headers,
+      },
+    };
+
+    // Add the version to the headers if passed in
+    if (version) config.headers["Accept-Version"] = version;
+
+    // Add the Authorization header if a token is set
+    if (token) config.headers.Authorization = `Bearer ${token}`;
+
+    return config;
   }
 
   /**************************************************************
@@ -39,7 +75,7 @@ export class Webflow {
    * @param params The query parameters (optional)
    * @returns The response from the Webflow API
    */
-  get(path: string, params?: QueryString) {
+  get(path: string, params?: Record<string, any>) {
     return this.client.get(path, { params });
   }
   /**
@@ -48,7 +84,7 @@ export class Webflow {
    * @param params The query parameters (optional)
    * @returns The response from the Webflow API
    */
-  delete(path: string, params?: QueryString) {
+  delete(path: string, params?: Record<string, any>) {
     return this.client.delete(path, { params });
   }
   /**
@@ -58,7 +94,7 @@ export class Webflow {
    * @param params The query parameters (optional)
    * @returns The response from the Webflow API
    */
-  post(path: string, data: any, params?: QueryString) {
+  post(path: string, data: any, params?: Record<string, any>) {
     return this.client.post(path, data, { params });
   }
   /**
@@ -68,7 +104,7 @@ export class Webflow {
    * @param params The query parameters (optional)
    * @returns The response from the Webflow API
    */
-  put(path: string, data: any, params?: QueryString) {
+  put(path: string, data: any, params?: Record<string, any>) {
     return this.client.put(path, data, { params });
   }
   /**
@@ -78,7 +114,7 @@ export class Webflow {
    * @param params The query parameters (optional)
    * @returns The response from the Webflow API
    */
-  patch(path: string, data: any, params?: QueryString) {
+  patch(path: string, data: any, params?: Record<string, any>) {
     return this.client.patch(path, data, { params });
   }
 
@@ -96,8 +132,8 @@ export class Webflow {
    * @param params.response_type The response_type parameter (default: "code")
    * @returns The url to redirect to
    */
-  authorizeUrl(params: OAuth.IAuthorizeUrlParams) {
-    return OAuth.authorizeUrl(this.client, params);
+  authorizeUrl(params: IAuthorizeUrlParams) {
+    return OAuth.authorizeUrl(params, this.client);
   }
   /**
    * Create an OAuth Access Token
@@ -109,9 +145,9 @@ export class Webflow {
    * @param params.grant_type The grant_type parameter (default: "authorization_code")
    * @returns The access token
    */
-  async accessToken(params: OAuth.IAccessTokenParams) {
-    const res = await OAuth.accessToken(this.client, params);
-    return ResponseWrapper<typeof res.data>(res);
+  async accessToken(params: IAccessTokenParams) {
+    const res = await OAuth.accessToken(params, this.client);
+    return res.data;
   }
   /**
    * Revoke an OAuth Access Token
@@ -121,9 +157,9 @@ export class Webflow {
    * @param params.client_secret The client_secret parameter
    * @returns The result of the revoked token
    */
-  async revokeToken(params: OAuth.IRevokeTokenParams) {
-    const res = await OAuth.revokeToken(this.client, params);
-    return ResponseWrapper<typeof res.data>(res);
+  async revokeToken(params: IRevokeTokenParams) {
+    const res = await OAuth.revokeToken(params, this.client);
+    return res.data;
   }
 
   /**************************************************************
@@ -136,7 +172,7 @@ export class Webflow {
    */
   async info() {
     const res = await Meta.info(this.client);
-    return ResponseWrapper<typeof res.data>(res);
+    return res.data;
   }
   /**
    * Get the current authenticated user
@@ -144,7 +180,7 @@ export class Webflow {
    */
   async authenticatedUser() {
     const res = await Meta.user(this.client);
-    return ResponseWrapper<typeof res.data>(res);
+    return res.data;
   }
 
   /**************************************************************
@@ -153,11 +189,11 @@ export class Webflow {
 
   /**
    * Get a list of Sites available
-   * @param query The query parameters (optional)
    * @returns A list of Sites
    */
-  async sites(query?: QueryString) {
-    return SiteWrapper.list(this.client, query);
+  async sites() {
+    const res = await Site.list(this.client);
+    return res.data.map((data) => new Site(this.client, { ...res, data }));
   }
   /**
    * Get a single Site
@@ -166,7 +202,8 @@ export class Webflow {
    * @returns The Site
    */
   async site({ siteId }: { siteId: string }) {
-    return SiteWrapper.getOne(this.client, { siteId });
+    const res = await Site.getOne({ siteId }, this.client);
+    return new Site(this.client, res);
   }
   /**
    * Publish a Site
@@ -175,8 +212,9 @@ export class Webflow {
    * @param params.domain The domains to publish
    * @returns The result of the publish
    */
-  publishSite({ siteId, domains }: { siteId: string } & { domains: string[] }) {
-    return SiteWrapper.publish(this.client, { siteId, domains });
+  async publishSite({ siteId, domains }: { siteId: string } & { domains: string[] }) {
+    const res = await Site.publish({ siteId, domains }, this.client);
+    return res.data;
   }
   /**
    * Get a list of Domains for a Site
@@ -185,7 +223,8 @@ export class Webflow {
    * @returns A list of Domains
    */
   async domains({ siteId }: { siteId: string }) {
-    return SiteWrapper.domains(this.client, { siteId });
+    const res = await Site.domains({ siteId }, this.client);
+    return res.data;
   }
 
   /**************************************************************
@@ -196,11 +235,11 @@ export class Webflow {
    * Get a list of Collections
    * @param params The Site information
    * @param params.siteId The Site ID
-   * @param query The query parameters (optional)
    * @returns A list of Collections
    */
-  async collections({ siteId }: { siteId: string }, query?: QueryString) {
-    return CollectionWrapper.list(this.client, { siteId }, query);
+  async collections({ siteId }: { siteId: string }) {
+    const res = await Collection.list({ siteId }, this.client);
+    return res.data.map((data) => new Collection(this.client, { ...res, data }));
   }
   /**
    * Get a single Collection
@@ -209,7 +248,8 @@ export class Webflow {
    * @returns A single Collection
    */
   async collection({ collectionId }: { collectionId: string }) {
-    return CollectionWrapper.getOne(this.client, { collectionId });
+    const res = await Collection.getOne({ collectionId }, this.client);
+    return new Collection(this.client, res);
   }
 
   /**************************************************************
@@ -220,14 +260,13 @@ export class Webflow {
    * Get a list of Collection Items
    * @param params The Collection information
    * @param params.collectionId The Collection ID
-   * @param pageParams The pagination parameters (optional)
+   * @param params.limit The number of items to return
+   * @param params.offset The number of items to skip
    * @returns A list of Items
    */
-  async items(
-    { collectionId }: { collectionId: string },
-    pageParams?: PaginationFilter
-  ) {
-    return ItemWrapper.list(this.client, { collectionId, ...pageParams });
+  async items({ collectionId, limit, offset }: { collectionId: string } & PaginationFilter) {
+    const res = await Item.list({ collectionId, limit, offset }, this.client);
+    return res.data.items.map((data) => new Item(this.client, { ...res, data }));
   }
   /**
    * Get a single Collection Item
@@ -236,14 +275,10 @@ export class Webflow {
    * @param params.itemId The Item ID
    * @returns A single Collection Item
    */
-  async item({
-    itemId,
-    collectionId,
-  }: {
-    itemId: string;
-    collectionId: string;
-  }) {
-    return ItemWrapper.getOne(this.client, { itemId, collectionId });
+  async item({ itemId, collectionId }: { itemId: string; collectionId: string }) {
+    const res = await Item.getOne({ itemId, collectionId }, this.client);
+    const [item] = res.data.items.map((data) => new Item(this.client, { ...res, data }));
+    return item;
   }
   /**
    * Create a new Collection Item
@@ -251,51 +286,34 @@ export class Webflow {
    * @param params.collectionId The Collection ID
    * @returns The created Collection Item
    */
-  async createItem({
-    collectionId,
-    fields,
-  }: {
-    collectionId: string;
-    fields: any;
-  }) {
-    return ItemWrapper.create(this.client, { collectionId, fields });
+  async createItem({ collectionId, fields }: { collectionId: string; fields: any }) {
+    const res = await Item.create({ collectionId, fields }, this.client);
+    return new Item(this.client, res);
   }
   /**
    * Update a Collection Item
    * @param params The Item information
    * @param params.collectionId The Collection ID
    * @param params.itemId The Item ID
+   * @param query The query parameters (optional)
    * @returns The updated Collection Item
    */
-  updateItem({
-    collectionId,
-    itemId,
-    ...fields
-  }: {
-    itemId: string;
-    collectionId: string;
-  }) {
+  async updateItem({ collectionId, itemId, ...fields }: { itemId: string; collectionId: string }) {
     const _params = { collectionId, itemId, fields };
-    return ItemWrapper.update(this.client, _params);
+    const res = await Item.update(_params, this.client);
+    return new Item(this.client, res);
   }
   /**
    * Patch a Collection Item
    * @param params The Item information
    * @param params.collectionId The Collection ID
    * @param params.itemId The Item ID
-   * @param query The query parameters (optional)
    * @returns The patched Collection Item
    */
-  patchItem(
-    {
-      collectionId,
-      itemId,
-      ...fields
-    }: { collectionId: string; itemId: string },
-    query?: QueryString
-  ) {
+  async patchItem({ collectionId, itemId, ...fields }: { collectionId: string; itemId: string }) {
     const _params = { collectionId, itemId, fields };
-    return ItemWrapper.patch(this.client, _params, query);
+    const res = await Item.patch(_params, this.client);
+    return new Item(this.client, res);
   }
   /**
    * Delete a Collection Item
@@ -304,14 +322,9 @@ export class Webflow {
    * @param params.itemId The Item ID
    * @returns The deleted Collection Item result
    */
-  removeItem({
-    collectionId,
-    itemId,
-  }: {
-    itemId: string;
-    collectionId: string;
-  }) {
-    return ItemWrapper.remove(this.client, { collectionId, itemId });
+  async removeItem({ collectionId, itemId }: { itemId: string; collectionId: string }) {
+    const res = await Item.remove({ collectionId, itemId }, this.client);
+    return res.data;
   }
   /**
    * Upublish a Collection Item
@@ -321,17 +334,9 @@ export class Webflow {
    * @param params.live Update the live version
    * @returns The unpublished Collection Item result
    */
-  deleteItems({
-    collectionId,
-    itemIds,
-    live,
-  }: {
-    collectionId: string;
-    itemIds: string[];
-    live?: boolean;
-  }) {
-    const params = { collectionId, itemIds, live };
-    return ItemWrapper.unpublish(this.client, params);
+  async deleteItems({ collectionId, itemIds, live }: { collectionId: string; itemIds: string[]; live?: boolean }) {
+    const res = await Item.unpublish({ collectionId, itemIds, live }, this.client);
+    return res.data;
   }
   /**
    * Publish a Collection Item
@@ -341,17 +346,9 @@ export class Webflow {
    * @param params.live Update the live version
    * @returns The Published Collection Item result
    */
-  publishItems({
-    collectionId,
-    itemIds,
-    live,
-  }: {
-    collectionId: string;
-    itemIds: string[];
-    live?: boolean;
-  }) {
-    const params = { collectionId, itemIds, live };
-    return ItemWrapper.publish(this.client, params);
+  async publishItems({ collectionId, itemIds, live }: { collectionId: string; itemIds: string[]; live?: boolean }) {
+    const res = await Item.publish({ collectionId, itemIds, live }, this.client);
+    return res.data;
   }
 
   /**************************************************************
@@ -363,12 +360,11 @@ export class Webflow {
    * @param params The Site information
    * @param params.siteId The Site ID
    * @param pageParams The pagination information (optional)
-   * @param pageParams.limit The number of results to return
-   * @param pageParams.offset The number of results to skip
    * @returns A list of User accounts
    */
   async users({ siteId }: { siteId: string }, pageParams?: PaginationFilter) {
-    return MembershipWrapper.list(this.client, { siteId, ...pageParams });
+    const res = await User.list({ siteId, ...pageParams }, this.client);
+    return res.data.users.map((data) => new User(this.client, { ...res, data }));
   }
 
   /**
@@ -379,7 +375,8 @@ export class Webflow {
    * @returns The User information
    */
   async user({ siteId, userId }: { siteId: string; userId: string }) {
-    return MembershipWrapper.getOne(this.client, { siteId, userId });
+    const res = await User.getOne({ siteId, userId }, this.client);
+    return new User(this.client, res, res.data, { siteId });
   }
 
   /**
@@ -389,17 +386,10 @@ export class Webflow {
    * @param params.userId The User ID
    * @returns The updated User
    */
-  async updateUser({
-    siteId,
-    userId,
-    ...data
-  }: {
-    siteId: string;
-    userId: string;
-    data: any;
-  }) {
+  async updateUser({ siteId, userId, ...data }: { siteId: string; userId: string; data: any }) {
     const _params = { siteId, userId, data };
-    return MembershipWrapper.update(this.client, _params);
+    const res = await User.update(_params, this.client);
+    return new User(this.client, res, res.data, { siteId });
   }
 
   /**
@@ -410,7 +400,8 @@ export class Webflow {
    * @returns The created User account
    */
   async inviteUser({ siteId, email }: { siteId: string; email: string }) {
-    return MembershipWrapper.invite(this.client, { siteId, email });
+    const res = await User.invite({ siteId, email }, this.client);
+    return new User(this.client, res, res.data, { siteId });
   }
 
   /**
@@ -420,18 +411,9 @@ export class Webflow {
    * @param params.userId The User ID
    * @returns The result from the remove request
    */
-  removeUser({ siteId, userId }: { siteId: string; userId: string }) {
-    return MembershipWrapper.remove(this.client, { siteId, userId });
-  }
-
-  /**
-   * Get a list of Access Groups
-   * @param params The Site and User information
-   * @param params.siteId The Site ID
-   * @returns The result from the remove request
-   */
-  accessGroups({ siteId }: { siteId: string }) {
-    return MembershipWrapper.accessGroups(this.client, { siteId });
+  async removeUser({ siteId, userId }: { siteId: string; userId: string }) {
+    const res = await User.remove({ siteId, userId }, this.client);
+    return res.data;
   }
 
   /**************************************************************
@@ -444,8 +426,9 @@ export class Webflow {
    * @param params.siteId The Site ID
    * @returns A list of Webhooks
    */
-  async webhooks({ siteId }: { siteId: string }, query?: QueryString) {
-    return WebhookWrapper.list(this.client, { siteId }, query);
+  async webhooks({ siteId }: { siteId: string }) {
+    const res = await Webhook.list({ siteId }, this.client);
+    return res.data.map((data) => new Webhook(this.client, { ...res, data }));
   }
 
   /**
@@ -456,7 +439,8 @@ export class Webflow {
    * @returns The Webhook
    */
   async webhook({ siteId, webhookId }: { siteId: string; webhookId: string }) {
-    return WebhookWrapper.getOne(this.client, { siteId, webhookId });
+    const res = await Webhook.getOne({ siteId, webhookId }, this.client);
+    return new Webhook(this.client, res);
   }
 
   /**
@@ -466,8 +450,9 @@ export class Webflow {
    * @param params.webhookId The Webhook Id
    * @returns the result from the remove request
    */
-  removeWebhook({ siteId, webhookId }: { siteId: string; webhookId: string }) {
-    return WebhookWrapper.remove(this.client, { siteId, webhookId });
+  async removeWebhook({ siteId, webhookId }: { siteId: string; webhookId: string }) {
+    const res = await Webhook.remove({ siteId, webhookId }, this.client);
+    return res.data;
   }
 
   /**
@@ -488,9 +473,10 @@ export class Webflow {
     url: string;
     siteId: string;
     triggerType: string;
-    filter?: Webhook.Filter;
+    filter?: WebhookFilter;
   }) {
     const _params = { url, siteId, triggerType, filter };
-    return WebhookWrapper.create(this.client, _params);
+    const res = await Webhook.create(_params, this.client);
+    return new Webhook(this.client, res);
   }
 }

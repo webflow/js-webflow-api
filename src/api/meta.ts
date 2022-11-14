@@ -1,4 +1,4 @@
-import { Client } from "../core";
+import { AxiosInstance } from "axios";
 
 /**************************************************************
  * Types
@@ -39,23 +39,24 @@ export interface IAuthentiationInfo {
 }
 
 /**************************************************************
- * Functions
+ * Class
  **************************************************************/
+export class Meta {
+  /**
+   * Get the authentication info for the current token
+   * @param client The Axios client instance
+   * @returns The authentication info
+   */
+  static info(client: AxiosInstance) {
+    return client.get<IAuthentiationInfo>("/info");
+  }
 
-/**
- * Get the authentication info for the current token
- * @param client The Webflow client
- * @returns The authentication info
- */
-export function info(client: Client) {
-  return client.get<IAuthentiationInfo>("/info");
-}
-
-/**
- * Get the authenticated user
- * @param client The Webflow client
- * @returns The authenticated user
- */
-export function user(client: Client) {
-  return client.get<IAuthenticatedUser>("/user");
+  /**
+   * Get the authenticated user
+   * @param client The Axios client instance
+   * @returns The authenticated user
+   */
+  static user(client: AxiosInstance) {
+    return client.get<IAuthenticatedUser>("/user");
+  }
 }
