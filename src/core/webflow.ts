@@ -193,7 +193,7 @@ export class Webflow {
    */
   async sites() {
     const res = await Site.list(this.client);
-    return res.data.map((site: any) => new Site(this.client, res, site));
+    return res.data.map((data) => new Site(this.client, { ...res, data }));
   }
   /**
    * Get a single Site
@@ -239,7 +239,7 @@ export class Webflow {
    */
   async collections({ siteId }: { siteId: string }) {
     const res = await Collection.list({ siteId }, this.client);
-    return res.data.map((collection: any) => new Collection(this.client, res, collection));
+    return res.data.map((data) => new Collection(this.client, { ...res, data }));
   }
   /**
    * Get a single Collection
@@ -266,7 +266,7 @@ export class Webflow {
    */
   async items({ collectionId, limit, offset }: { collectionId: string } & PaginationFilter) {
     const res = await Item.list({ collectionId, limit, offset }, this.client);
-    return res.data.items.map((item: any) => new Item(this.client, res, item));
+    return res.data.items.map((data) => new Item(this.client, { ...res, data }));
   }
   /**
    * Get a single Collection Item
@@ -277,7 +277,7 @@ export class Webflow {
    */
   async item({ itemId, collectionId }: { itemId: string; collectionId: string }) {
     const res = await Item.getOne({ itemId, collectionId }, this.client);
-    const [item] = res.data.items.map((item: any) => new Item(this.client, res, item));
+    const [item] = res.data.items.map((data) => new Item(this.client, { ...res, data }));
     return item;
   }
   /**
@@ -364,7 +364,7 @@ export class Webflow {
    */
   async users({ siteId }: { siteId: string }, pageParams?: PaginationFilter) {
     const res = await User.list({ siteId, ...pageParams }, this.client);
-    return res.data.users.map((user: any) => new User(this.client, res, user, { siteId }));
+    return res.data.users.map((data) => new User(this.client, { ...res, data }));
   }
 
   /**
@@ -428,7 +428,7 @@ export class Webflow {
    */
   async webhooks({ siteId }: { siteId: string }) {
     const res = await Webhook.list({ siteId }, this.client);
-    return res.data.map((webhook: any) => new Webhook(this.client, res, webhook));
+    return res.data.map((data) => new Webhook(this.client, { ...res, data }));
   }
 
   /**

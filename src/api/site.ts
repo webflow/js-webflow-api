@@ -130,7 +130,7 @@ export class Site extends WebflowRecord<ISite> implements ISite {
    */
   async collections() {
     const res = await Collection.list({ siteId: this._id }, this.client);
-    return res.data.map((collection) => new Collection(this.client, res, collection));
+    return res.data.map((data) => new Collection(this.client, { ...res, data }));
   }
 
   /**
@@ -150,7 +150,7 @@ export class Site extends WebflowRecord<ISite> implements ISite {
    */
   async webhooks() {
     const res = await Webhook.list({ siteId: this._id }, this.client);
-    return res.data.map((webhook) => new Webhook(this.client, res, webhook));
+    return res.data.map((data) => new Webhook(this.client, { ...res, data }));
   }
 
   /**

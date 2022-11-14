@@ -102,7 +102,7 @@ export class Collection extends WebflowRecord<ICollection> implements ICollectio
    */
   async item({ itemId }: { itemId: string }) {
     const res = await Item.getOne({ itemId, collectionId: this._id }, this.client);
-    const [item] = res.data.items.map((item: any) => new Item(this.client, res, item));
+    const [item] = res.data.items.map((data) => new Item(this.client, { ...res, data }));
     return item;
   }
 
@@ -115,7 +115,7 @@ export class Collection extends WebflowRecord<ICollection> implements ICollectio
    */
   async items({ limit, offset }: { limit?: number; offset?: number } = {}) {
     const res = await Item.list({ collectionId: this._id, limit, offset }, this.client);
-    return res.data.items.map((item: any) => new Item(this.client, res, item));
+    return res.data.items.map((data) => new Item(this.client, { ...res, data }));
   }
 
   /**
