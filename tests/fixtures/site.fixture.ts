@@ -1,6 +1,5 @@
 export const SiteFixture = {
   list: {
-    path: "/sites",
     response: [
       {
         _id: "580e63e98c9a982ac9b8b741",
@@ -8,8 +7,7 @@ export const SiteFixture = {
         name: "api_docs_sample_json",
         shortName: "api-docs-sample-json",
         lastPublished: "2016-10-24T23:06:51.251Z",
-        previewUrl:
-          "https://d1otoma47x30pg.cloudfront.net/580e63e98c9a982ac9b8b741/201610241603.png",
+        previewUrl: "https://d1otoma47x30pg.cloudfront.net/580e63e98c9a982ac9b8b741/201610241603.png",
         timezone: "America/Los_Angeles",
         database: "580e63fc8c9a982ac9b8b744",
       },
@@ -19,8 +17,7 @@ export const SiteFixture = {
         name: "Copy of api_docs_sample_json",
         shortName: "api-docs-sample-json-086c6538f9b0583762",
         lastPublished: null,
-        previewUrl:
-          "https://d1otoma47x30pg.cloudfront.net/580e63e98c9a982ac9b8b741/201610241603.png",
+        previewUrl: "https://d1otoma47x30pg.cloudfront.net/580e63e98c9a982ac9b8b741/201610241603.png",
         timezone: "America/Los_Angeles",
         database: "580ff8c3ba3e45ba9fe588bf",
       },
@@ -30,15 +27,13 @@ export const SiteFixture = {
         name: "Copy of api_docs_sample_json",
         shortName: "api-docs-sample-json-ce077aa6c5cd3e0177",
         lastPublished: null,
-        previewUrl:
-          "https://d1otoma47x30pg.cloudfront.net/580e63e98c9a982ac9b8b741/201610241603.png",
+        previewUrl: "https://d1otoma47x30pg.cloudfront.net/580e63e98c9a982ac9b8b741/201610241603.png",
         timezone: "America/Los_Angeles",
         database: "580ff8d7ba3e45ba9fe588ed",
       },
     ],
   },
-  get: {
-    path: "/sites/580e63e98c9a982ac9b8b741",
+  getOne: {
     parameters: {
       siteId: "580e63e98c9a982ac9b8b741",
     },
@@ -48,14 +43,12 @@ export const SiteFixture = {
       name: "api_docs_sample_json",
       shortName: "api-docs-sample-json",
       lastPublished: "2016-10-24T19:43:17.271Z",
-      previewUrl:
-        "https://d1otoma47x30pg.cloudfront.net/580e63e98c9a982ac9b8b741/201610241243.png",
+      previewUrl: "https://d1otoma47x30pg.cloudfront.net/580e63e98c9a982ac9b8b741/201610241243.png",
       timezone: "America/Los_Angeles",
       database: "580e63fc8c9a982ac9b8b744",
     },
   },
   domains: {
-    path: "/sites/580e63e98c9a982ac9b8b741/domains",
     parameters: {
       siteId: "580e63e98c9a982ac9b8b741",
     },
@@ -71,11 +64,8 @@ export const SiteFixture = {
     ],
   },
   publish: {
-    path: "/sites/580e63e98c9a982ac9b8b741/publish",
     parameters: {
       siteId: "580e63e98c9a982ac9b8b741",
-    },
-    body: {
       domains: ["test-api-domain.com"],
     },
     response: {

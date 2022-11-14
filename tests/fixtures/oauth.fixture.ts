@@ -12,7 +12,7 @@ export const OAuthFixture = {
   },
   access_token: {
     path: "/oauth/access_token",
-    body: {
+    parameters: {
       client_id: "6287ec36a841b25637c663de",
       client_secret: "6287ec36a841b25637c663de",
       code: "6287ec36a841b25637c663de",
@@ -26,7 +26,7 @@ export const OAuthFixture = {
   },
   revoke_token: {
     path: "/oauth/revoke_authorization",
-    body: {
+    parameters: {
       client_id: "6287ec36a841b25637c663de",
       client_secret: "6287ec36a841b25637c663de",
       access_token: "6287ec36a841b25637c663de",

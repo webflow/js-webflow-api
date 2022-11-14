@@ -1,4 +1,6 @@
-import { Client, QueryString, requireArgs } from "../core";
+import { AxiosInstance } from "axios";
+import { requireArgs, WebflowRecord } from "../core";
+import { Item } from ".";
 
 /**************************************************************
  * Types
@@ -47,41 +49,106 @@ export interface ICollection {
 }
 
 /**************************************************************
- * Functions
+ * Class
  **************************************************************/
+export class Collection extends WebflowRecord<ICollection> implements ICollection {
+  fields: CollectionField[];
+  singularName: string;
+  lastUpdated: string;
+  createdOn: string;
+  _id: string;
+  name: string;
+  slug: string;
 
-/**
- * Get a list of Collections
- * @param client The Webflow client
- * @param params1 The params for the request
- * @param params1.siteId The site ID
- * @param params The query string parameters (optional)
- * @returns A list of Collections
- */
-export function list(
-  client: Client,
-  { siteId }: { siteId: string },
-  params?: QueryString
-) {
-  requireArgs({ siteId });
-  const path = `/sites/${siteId}/collections`;
-  return client.get<ICollection[]>(path, { params });
-}
+  /**************************************************************
+   * Static Methods
+   **************************************************************/
 
-/**
- * Get a single Collection
- * @param client The Webflow client
- * @param params The params for the request
- * @param params.collectionId The collection ID
- * @param params.params The query string parameters (optional)
- * @returns A single Collection
- */
-export function getOne(
-  client: Client,
-  { collectionId }: { collectionId: string },
-  params?: QueryString
-) {
-  requireArgs({ collectionId });
-  const path = `/collections/${collectionId}`;
-  return client.get<ICollection>(path, { params });
+  /**
+   * Get a list of Collections
+   * @param params The params for the request
+   * @param params.siteId The site ID
+   * @param client The Axios client instance
+   * @returns A list of Collections
+   */
+  static list({ siteId }: { siteId: string }, client: AxiosInstance) {
+    requireArgs({ siteId });
+    const path = `/sites/${siteId}/collections`;
+    return client.get<ICollection[]>(path);
+  }
+
+  /**
+   * Get a single Collection
+   * @param params The params for the request
+   * @param params.collectionId The collection ID
+   * @param client The Axios client instance
+   * @returns A single Collection
+   */
+  static getOne({ collectionId }: { collectionId: string }, client: AxiosInstance) {
+    requireArgs({ collectionId });
+    const path = `/collections/${collectionId}`;
+    return client.get<ICollection>(path);
+  }
+
+  /**************************************************************
+   * Instance Methods
+   **************************************************************/
+
+  /**
+   * Get a single Item
+   * @param params The params for the request
+   * @param params.itemId The Item ID
+   * @returns A single Item
+   */
+  async item({ itemId }: { itemId: string }) {
+    const res = await Item.getOne({ itemId, collectionId: this._id }, this.client);
+    const [item] = res.data.items.map((data) => new Item(this.client, { ...res, data }));
+    return item;
+  }
+
+  /**
+   * Get a list of Items
+   * @param params The params for the request
+   * @param params.limit The number of items to return (optional)
+   * @param params.offset The number of items to skip (optional)
+   * @returns A list of Items
+   */
+  async items({ limit, offset }: { limit?: number; offset?: number } = {}) {
+    const res = await Item.list({ collectionId: this._id, limit, offset }, this.client);
+    return res.data.items.map((data) => new Item(this.client, { ...res, data }));
+  }
+
+  /**
+   * Remove a single Item
+   * @param params The params for the request
+   * @param params.itemId The Item ID
+   * @returns The result from the removal
+   */
+  async removeItem({ itemId }: { itemId: string }) {
+    const res = await Item.remove({ itemId, collectionId: this._id }, this.client);
+    return res.data;
+  }
+
+  /**
+   * Create a new Item
+   * @param fields The Item fields to create
+   * @returns The created Item
+   */
+  async createItem(fields: any) {
+    const res = await Item.create({ collectionId: this._id, fields }, this.client);
+    return new Item(this.client, res);
+  }
+
+  /**
+   * Update a single Item
+   * @param params The params for the request
+   * @param params.itemId The Item ID
+   * @param params.fields The fields to update
+   * @returns The updated Item
+   */
+  async updateItem({ itemId, fields }: { itemId: string; fields: any }) {
+    const params = { itemId, collectionId: this._id, fields };
+    const res = await Item.update(params, this.client);
+    return new Item(this.client, res);
+  }
 }

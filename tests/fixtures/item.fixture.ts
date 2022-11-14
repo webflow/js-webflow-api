@@ -1,6 +1,5 @@
 export const ItemFixture = {
   list: {
-    path: "/collections/580e63fc8c9a982ac9b8b745/items",
     parameters: {
       collectionId: "580e63fc8c9a982ac9b8b745",
     },
@@ -35,8 +34,7 @@ export const ItemFixture = {
       total: 5,
     },
   },
-  get: {
-    path: "/collections/580e63fc8c9a982ac9b8b745/items/582b900cba19143b2bb8a759",
+  getOne: {
     parameters: {
       collectionId: "580e63fc8c9a982ac9b8b745",
       itemId: "582b900cba19143b2bb8a759",
@@ -73,12 +71,9 @@ export const ItemFixture = {
     },
   },
   update: {
-    path: "/collections/580e63fc8c9a982ac9b8b745/items/582b900cba19143b2bb8a759",
     parameters: {
       collectionId: "580e63fc8c9a982ac9b8b745",
       itemId: "582b900cba19143b2bb8a759",
-    },
-    body: {
       fields: {
         _archived: false,
         _draft: false,
@@ -117,11 +112,8 @@ export const ItemFixture = {
     },
   },
   create: {
-    path: "/collections/580e63fc8c9a982ac9b8b745/items",
     parameters: {
       collectionId: "580e63fc8c9a982ac9b8b745",
-    },
-    body: {
       fields: {
         _archived: false,
         _draft: false,
@@ -160,49 +152,28 @@ export const ItemFixture = {
     },
   },
   publish: {
-    path: "/collections/580e63fc8c9a982ac9b8b745/items/publish",
     parameters: {
+      live: true,
       collectionId: "580e63fc8c9a982ac9b8b745",
-    },
-    body: {
-      itemIds: [
-        "62aa37923cf7a9de1ca4469c",
-        "62aa37923cf7a9de1ca44697",
-        "62aa37923cf7a9de1ca44696",
-      ],
+      itemIds: ["62aa37923cf7a9de1ca4469c", "62aa37923cf7a9de1ca44697", "62aa37923cf7a9de1ca44696"],
     },
     response: {
-      publishedItemIds: [
-        "62aa37923cf7a9de1ca4469c",
-        "62aa37923cf7a9de1ca44697",
-        "62aa37923cf7a9de1ca44696",
-      ],
+      publishedItemIds: ["62aa37923cf7a9de1ca4469c", "62aa37923cf7a9de1ca44697", "62aa37923cf7a9de1ca44696"],
       errors: [],
     },
   },
   unpublish: {
-    path: "/collections/580e63fc8c9a982ac9b8b745/items",
     parameters: {
+      live: true,
       collectionId: "580e63fc8c9a982ac9b8b745",
-    },
-    body: {
-      itemIds: [
-        "62aa37923cf7a9de1ca4469c",
-        "62aa37923cf7a9de1ca44697",
-        "62aa37923cf7a9de1ca44696",
-      ],
+      itemIds: ["62aa37923cf7a9de1ca4469c", "62aa37923cf7a9de1ca44697", "62aa37923cf7a9de1ca44696"],
     },
     response: {
-      deletedItemIds: [
-        "62aa37923cf7a9de1ca4469c",
-        "62aa37923cf7a9de1ca44697",
-        "62aa37923cf7a9de1ca44696",
-      ],
+      deletedItemIds: ["62aa37923cf7a9de1ca4469c", "62aa37923cf7a9de1ca44697", "62aa37923cf7a9de1ca44696"],
       errors: [],
     },
   },
   remove: {
-    path: "/collections/580e63fc8c9a982ac9b8b745/items/582b900cba19143b2bb8a759",
     parameters: {
       collectionId: "580e63fc8c9a982ac9b8b745",
       itemId: "582b900cba19143b2bb8a759",

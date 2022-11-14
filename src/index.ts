@@ -1,3 +1,3 @@
-import { Webflow } from "./webflow";
+import { Webflow } from "./core";
 
 export = Webflow;

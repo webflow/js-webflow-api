@@ -1,6 +1,5 @@
 export const MetaFixture = {
-  user: {
-    path: "/user",
+  installer: {
     response: {
       user: {
         _id: "545bbecb7bdd6769632504a7",
@@ -11,7 +10,6 @@ export const MetaFixture = {
     },
   },
   info: {
-    path: "/info",
     response: {
       _id: "55818d58616600637b9a5786",
       createdOn: "2016-10-03T23:12:00.755Z",
@@ -34,5 +32,3 @@ export const MetaFixture = {
     },
   },
 };
-
-export default MetaFixture;
