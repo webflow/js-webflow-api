@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
-import { PaginationFilter } from "../core";
+import { PaginationFilter, ErrorInterceptor } from "../core";
 import {
   Collection,
   IAccessTokenParams,
@@ -31,6 +31,7 @@ export class Webflow {
   private client: AxiosInstance;
   constructor(public options: Options = {}) {
     this.client = axios.create(this.config);
+    this.client.interceptors.response.use(ErrorInterceptor);
   }
 
   // Set the Authentication token
@@ -334,7 +335,15 @@ export class Webflow {
    * @param params.live Update the live version
    * @returns The unpublished Collection Item result
    */
-  async deleteItems({ collectionId, itemIds, live }: { collectionId: string; itemIds: string[]; live?: boolean }) {
+  async deleteItems({
+    collectionId,
+    itemIds,
+    live,
+  }: {
+    collectionId: string;
+    itemIds: string[];
+    live?: boolean;
+  }) {
     const res = await Item.unpublish({ collectionId, itemIds, live }, this.client);
     return res.data;
   }
@@ -346,7 +355,15 @@ export class Webflow {
    * @param params.live Update the live version
    * @returns The Published Collection Item result
    */
-  async publishItems({ collectionId, itemIds, live }: { collectionId: string; itemIds: string[]; live?: boolean }) {
+  async publishItems({
+    collectionId,
+    itemIds,
+    live,
+  }: {
+    collectionId: string;
+    itemIds: string[];
+    live?: boolean;
+  }) {
     const res = await Item.publish({ collectionId, itemIds, live }, this.client);
     return res.data;
   }
@@ -413,6 +430,31 @@ export class Webflow {
    */
   async removeUser({ siteId, userId }: { siteId: string; userId: string }) {
     const res = await User.remove({ siteId, userId }, this.client);
+    return res.data;
+  }
+
+  /**
+   * Get a list of User Access Groups
+   * @param params The params for the request
+   * @param params.siteId The site ID
+   * @param params.limit The number of items to return (optional)
+   * @param params.offset The number of items to skip (optional)
+   * @param params.sort The sort order of the groups (optional)
+   * @returns A list of Access Groups
+   */
+  async accessGroups({
+    siteId,
+    limit,
+    offset,
+    sort,
+  }: {
+    siteId: string;
+    limit?: number;
+    offset?: number;
+    sort?: string;
+  }) {
+    const params = { siteId, limit, offset, sort };
+    const res = await User.accessGroups(params, this.client);
     return res.data;
   }
 

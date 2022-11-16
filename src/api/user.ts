@@ -12,6 +12,14 @@ export interface IUser {
   data: any;
 }
 
+export interface IAcessGroup {
+  _id: string;
+  name: string;
+  shortId: string;
+  slug: string;
+  createdOn: string;
+}
+
 export interface IUserDelete {
   deleted: number;
 }
@@ -21,6 +29,10 @@ export interface IUserDelete {
  **************************************************************/
 export type PaginatedUsers = PaginatedData & {
   users: IUser[];
+};
+
+export type PaginatedAccessGroups = PaginatedData & {
+  accessGroups: IAcessGroup[];
 };
 
 export type UserIdParam = { siteId: string; userId: string };
@@ -50,7 +62,10 @@ export class User extends WebflowRecord<IUser> implements IUser {
    * @param client The Axios client instance
    * @returns A list of Users
    */
-  static list({ siteId, limit, offset }: { siteId: string; limit?: number; offset?: number }, client: AxiosInstance) {
+  static list(
+    { siteId, limit, offset }: { siteId: string; limit?: number; offset?: number },
+    client: AxiosInstance,
+  ) {
     requireArgs({ siteId });
     const params = { limit, offset };
     const path = `/sites/${siteId}/users`;
@@ -90,7 +105,7 @@ export class User extends WebflowRecord<IUser> implements IUser {
       siteId: string;
       userId: string;
     },
-    client: AxiosInstance
+    client: AxiosInstance,
   ) {
     requireArgs({ siteId, userId });
     const path = `/sites/${siteId}/users/${userId}`;
@@ -123,6 +138,31 @@ export class User extends WebflowRecord<IUser> implements IUser {
     requireArgs({ siteId, userId });
     const path = `/sites/${siteId}/users/${userId}`;
     return client.delete<IUserDelete>(path);
+  }
+
+  /**
+   * Get a list of User Access Groups
+   * @param params The params for the request
+   * @param params.siteId The site ID
+   * @param params.limit The number of items to return (optional)
+   * @param params.offset The number of items to skip (optional)
+   * @param params.sort The sort order of the groups (optional)
+   * @param client The Axios client instance
+   * @returns A list of Access Groups
+   */
+  static accessGroups(
+    {
+      siteId,
+      limit,
+      offset,
+      sort,
+    }: { siteId: string; limit?: number; offset?: number; sort?: string },
+    client: AxiosInstance,
+  ) {
+    requireArgs({ siteId });
+    const params = { limit, offset, sort };
+    const path = `/sites/${siteId}/accessgroups`;
+    return client.get<PaginatedAccessGroups>(path, { params });
   }
 
   /**************************************************************

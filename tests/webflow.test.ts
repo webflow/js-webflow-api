@@ -1,6 +1,6 @@
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
-import { Webflow } from "../src/core";
+import { Webflow, RequestError } from "../src/core";
 import {
   MetaFixture,
   SiteFixture,
@@ -81,6 +81,17 @@ describe("Webflow", () => {
       await webflow.patch("/", { body: true }, query);
       expect(mock.history.patch.length).toBe(1);
       expect(mock.history.patch[0].params).toMatchObject(query);
+    });
+    it("should throw a RequestError when Webflow returns a 200 with error", async () => {
+      mock.onGet("/").reply(200, {
+        msg: "msg",
+        code: 400,
+        name: "name",
+        path: "path",
+        err: "err",
+      });
+
+      await expect(webflow.get("/")).rejects.toThrowError(RequestError);
     });
   });
 
@@ -441,6 +452,19 @@ describe("Webflow", () => {
 
         expect(result).toBeDefined();
         expect(result.deleted).toBe(response.deleted);
+      });
+
+      it("should respond with a list of access groups", async () => {
+        const { response, parameters } = UserFixture.accessGroups;
+        const { siteId } = parameters;
+        const path = `/sites/${siteId}/accessgroups`;
+
+        mock.onGet(path).reply(200, response);
+        const result = await webflow.accessGroups(parameters);
+
+        expect(result).toBeDefined();
+        expect(result.accessGroups.length).toBe(response.accessGroups.length);
+        expect(result.accessGroups[0]).toMatchObject(response.accessGroups[0]);
       });
     });
 

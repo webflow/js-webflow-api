@@ -70,7 +70,10 @@ export class Item extends WebflowRecord<IItem> implements IItem {
    * @param client The Axios client instance
    * @returns A single Item
    */
-  static getOne({ collectionId, itemId }: { collectionId: string; itemId: string }, client: AxiosInstance) {
+  static getOne(
+    { collectionId, itemId }: { collectionId: string; itemId: string },
+    client: AxiosInstance,
+  ) {
     requireArgs({ collectionId, itemId });
     const path = `/collections/${collectionId}/items/${itemId}`;
     // The API returns a paginated list with one record :(
@@ -88,7 +91,7 @@ export class Item extends WebflowRecord<IItem> implements IItem {
    */
   static list(
     { collectionId, limit, offset }: { collectionId: string; limit?: number; offset?: number },
-    client: AxiosInstance
+    client: AxiosInstance,
   ) {
     requireArgs({ collectionId });
     const params = { limit, offset };
@@ -104,7 +107,10 @@ export class Item extends WebflowRecord<IItem> implements IItem {
    * @param client The Axios client instance
    * @returns The created Item
    */
-  static create({ collectionId, fields }: { fields: any; collectionId: string }, client: AxiosInstance) {
+  static create(
+    { collectionId, fields }: { fields: any; collectionId: string },
+    client: AxiosInstance,
+  ) {
     requireArgs({ collectionId });
     const path = `/collections/${collectionId}/items`;
     return client.post<IItem>(path, { fields });
@@ -129,7 +135,7 @@ export class Item extends WebflowRecord<IItem> implements IItem {
       itemId: string;
       collectionId: string;
     },
-    client: AxiosInstance
+    client: AxiosInstance,
   ) {
     requireArgs({ collectionId, itemId });
     const path = `/collections/${collectionId}/items/${itemId}`;
@@ -155,7 +161,7 @@ export class Item extends WebflowRecord<IItem> implements IItem {
       itemId: string;
       collectionId: string;
     },
-    client: AxiosInstance
+    client: AxiosInstance,
   ) {
     requireArgs({ collectionId, itemId });
     const path = `/collections/${collectionId}/items/${itemId}`;
@@ -178,7 +184,7 @@ export class Item extends WebflowRecord<IItem> implements IItem {
       itemId: string;
       collectionId: string;
     },
-    client: AxiosInstance
+    client: AxiosInstance,
   ) {
     requireArgs({ collectionId, itemId });
     const path = `/collections/${collectionId}/items/${itemId}`;
@@ -203,7 +209,7 @@ export class Item extends WebflowRecord<IItem> implements IItem {
       itemIds: string[];
       collectionId: string;
     },
-    client: AxiosInstance
+    client: AxiosInstance,
   ) {
     requireArgs({ collectionId, itemIds });
     const params = { live };
@@ -226,8 +232,12 @@ export class Item extends WebflowRecord<IItem> implements IItem {
    * @returns The result of the publish
    */
   static publish(
-    { itemIds, live = false, collectionId }: { live?: boolean; itemIds: string[]; collectionId: string },
-    client: AxiosInstance
+    {
+      itemIds,
+      live = false,
+      collectionId,
+    }: { live?: boolean; itemIds: string[]; collectionId: string },
+    client: AxiosInstance,
   ) {
     requireArgs({ collectionId, itemIds });
     const params = { live };

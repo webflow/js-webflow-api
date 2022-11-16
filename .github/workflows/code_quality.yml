@@ -1,0 +1,102 @@
+name: Code Quality
+
+on: push
+
+jobs:
+  build:
+    name: TypeScript Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - name: yarn install
+        run: yarn install
+
+      - run: yarn build
+        name: yarn build
+
+  typecheck:
+    name: TypeScript Typecheck
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - name: yarn install
+        run: yarn install
+
+      - run: yarn typecheck
+        name: yarn typecheck
+
+  test:
+    name: Jest CI Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - name: yarn install
+        run: yarn install
+
+      - name: yarn build
+        run: yarn build
+
+      - run: yarn test:ci
+        name: yarn test:ci
+
+  prettier:
+    name: Prettier Formatting
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - name: yarn install
+        run: yarn install
+
+      - run: yarn format:check
+        name: yarn format:check
+
+  lint:
+    name: ESLint Linting
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - name: yarn install
+        run: yarn install
+
+      - run: yarn lint
+        name: yarn lint

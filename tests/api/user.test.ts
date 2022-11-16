@@ -72,11 +72,30 @@ describe("Users", () => {
       expect(data).toBeDefined();
       expect(data.deleted).toBe(response.deleted);
     });
+
+    it("should respond with a list of access groups", async () => {
+      const { response, parameters } = UserFixture.accessGroups;
+      const { siteId } = parameters;
+      const path = `/sites/${siteId}/accessgroups`;
+
+      mock.onGet(path).reply(200, response);
+      const { data } = await User.accessGroups(parameters, client);
+
+      expect(data).toBeDefined();
+      expect(data.accessGroups.length).toBe(response.accessGroups.length);
+      expect(data.accessGroups[0]).toMatchObject(response.accessGroups[0]);
+    });
   });
 
   describe("Instance Methods", () => {
     const { parameters, response } = UserFixture.getOne;
-    const res = { data: {}, status: 200, statusText: "", headers: {}, config: {} };
+    const res = {
+      data: {},
+      status: 200,
+      statusText: "",
+      headers: {},
+      config: {},
+    };
     const user = new User(client, res, response, { siteId: parameters.siteId });
 
     it("should update a user", async () => {
