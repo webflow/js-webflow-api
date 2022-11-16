@@ -212,7 +212,10 @@ export class Webflow {
    * @param params.domain The domains to publish
    * @returns The result of the publish
    */
-  async publishSite({ siteId, domains }: { siteId: string } & { domains: string[] }) {
+  async publishSite({
+    siteId,
+    domains,
+  }: { siteId: string } & { domains: string[] }) {
     const res = await Site.publish({ siteId, domains }, this.client);
     return res.data;
   }
@@ -239,7 +242,9 @@ export class Webflow {
    */
   async collections({ siteId }: { siteId: string }) {
     const res = await Collection.list({ siteId }, this.client);
-    return res.data.map((data) => new Collection(this.client, { ...res, data }));
+    return res.data.map(
+      (data) => new Collection(this.client, { ...res, data })
+    );
   }
   /**
    * Get a single Collection
@@ -264,9 +269,15 @@ export class Webflow {
    * @param params.offset The number of items to skip
    * @returns A list of Items
    */
-  async items({ collectionId, limit, offset }: { collectionId: string } & PaginationFilter) {
+  async items({
+    collectionId,
+    limit,
+    offset,
+  }: { collectionId: string } & PaginationFilter) {
     const res = await Item.list({ collectionId, limit, offset }, this.client);
-    return res.data.items.map((data) => new Item(this.client, { ...res, data }));
+    return res.data.items.map(
+      (data) => new Item(this.client, { ...res, data })
+    );
   }
   /**
    * Get a single Collection Item
@@ -275,9 +286,17 @@ export class Webflow {
    * @param params.itemId The Item ID
    * @returns A single Collection Item
    */
-  async item({ itemId, collectionId }: { itemId: string; collectionId: string }) {
+  async item({
+    itemId,
+    collectionId,
+  }: {
+    itemId: string;
+    collectionId: string;
+  }) {
     const res = await Item.getOne({ itemId, collectionId }, this.client);
-    const [item] = res.data.items.map((data) => new Item(this.client, { ...res, data }));
+    const [item] = res.data.items.map(
+      (data) => new Item(this.client, { ...res, data })
+    );
     return item;
   }
   /**
@@ -286,7 +305,13 @@ export class Webflow {
    * @param params.collectionId The Collection ID
    * @returns The created Collection Item
    */
-  async createItem({ collectionId, fields }: { collectionId: string; fields: any }) {
+  async createItem({
+    collectionId,
+    fields,
+  }: {
+    collectionId: string;
+    fields: any;
+  }) {
     const res = await Item.create({ collectionId, fields }, this.client);
     return new Item(this.client, res);
   }
@@ -298,7 +323,14 @@ export class Webflow {
    * @param query The query parameters (optional)
    * @returns The updated Collection Item
    */
-  async updateItem({ collectionId, itemId, ...fields }: { itemId: string; collectionId: string }) {
+  async updateItem({
+    collectionId,
+    itemId,
+    ...fields
+  }: {
+    itemId: string;
+    collectionId: string;
+  }) {
     const _params = { collectionId, itemId, fields };
     const res = await Item.update(_params, this.client);
     return new Item(this.client, res);
@@ -310,7 +342,14 @@ export class Webflow {
    * @param params.itemId The Item ID
    * @returns The patched Collection Item
    */
-  async patchItem({ collectionId, itemId, ...fields }: { collectionId: string; itemId: string }) {
+  async patchItem({
+    collectionId,
+    itemId,
+    ...fields
+  }: {
+    collectionId: string;
+    itemId: string;
+  }) {
     const _params = { collectionId, itemId, fields };
     const res = await Item.patch(_params, this.client);
     return new Item(this.client, res);
@@ -322,7 +361,13 @@ export class Webflow {
    * @param params.itemId The Item ID
    * @returns The deleted Collection Item result
    */
-  async removeItem({ collectionId, itemId }: { itemId: string; collectionId: string }) {
+  async removeItem({
+    collectionId,
+    itemId,
+  }: {
+    itemId: string;
+    collectionId: string;
+  }) {
     const res = await Item.remove({ collectionId, itemId }, this.client);
     return res.data;
   }
@@ -334,8 +379,19 @@ export class Webflow {
    * @param params.live Update the live version
    * @returns The unpublished Collection Item result
    */
-  async deleteItems({ collectionId, itemIds, live }: { collectionId: string; itemIds: string[]; live?: boolean }) {
-    const res = await Item.unpublish({ collectionId, itemIds, live }, this.client);
+  async deleteItems({
+    collectionId,
+    itemIds,
+    live,
+  }: {
+    collectionId: string;
+    itemIds: string[];
+    live?: boolean;
+  }) {
+    const res = await Item.unpublish(
+      { collectionId, itemIds, live },
+      this.client
+    );
     return res.data;
   }
   /**
@@ -346,8 +402,19 @@ export class Webflow {
    * @param params.live Update the live version
    * @returns The Published Collection Item result
    */
-  async publishItems({ collectionId, itemIds, live }: { collectionId: string; itemIds: string[]; live?: boolean }) {
-    const res = await Item.publish({ collectionId, itemIds, live }, this.client);
+  async publishItems({
+    collectionId,
+    itemIds,
+    live,
+  }: {
+    collectionId: string;
+    itemIds: string[];
+    live?: boolean;
+  }) {
+    const res = await Item.publish(
+      { collectionId, itemIds, live },
+      this.client
+    );
     return res.data;
   }
 
@@ -364,7 +431,9 @@ export class Webflow {
    */
   async users({ siteId }: { siteId: string }, pageParams?: PaginationFilter) {
     const res = await User.list({ siteId, ...pageParams }, this.client);
-    return res.data.users.map((data) => new User(this.client, { ...res, data }));
+    return res.data.users.map(
+      (data) => new User(this.client, { ...res, data })
+    );
   }
 
   /**
@@ -386,7 +455,15 @@ export class Webflow {
    * @param params.userId The User ID
    * @returns The updated User
    */
-  async updateUser({ siteId, userId, ...data }: { siteId: string; userId: string; data: any }) {
+  async updateUser({
+    siteId,
+    userId,
+    ...data
+  }: {
+    siteId: string;
+    userId: string;
+    data: any;
+  }) {
     const _params = { siteId, userId, data };
     const res = await User.update(_params, this.client);
     return new User(this.client, res, res.data, { siteId });
@@ -413,6 +490,31 @@ export class Webflow {
    */
   async removeUser({ siteId, userId }: { siteId: string; userId: string }) {
     const res = await User.remove({ siteId, userId }, this.client);
+    return res.data;
+  }
+
+  /**
+   * Get a list of User Access Groups
+   * @param params The params for the request
+   * @param params.siteId The site ID
+   * @param params.limit The number of items to return (optional)
+   * @param params.offset The number of items to skip (optional)
+   * @param params.sort The sort order of the groups (optional)
+   * @returns A list of Access Groups
+   */
+  async accessGroups({
+    siteId,
+    limit,
+    offset,
+    sort,
+  }: {
+    siteId: string;
+    limit?: number;
+    offset?: number;
+    sort?: string;
+  }) {
+    const params = { siteId, limit, offset, sort };
+    const res = await User.accessGroups(params, this.client);
     return res.data;
   }
 
@@ -450,7 +552,13 @@ export class Webflow {
    * @param params.webhookId The Webhook Id
    * @returns the result from the remove request
    */
-  async removeWebhook({ siteId, webhookId }: { siteId: string; webhookId: string }) {
+  async removeWebhook({
+    siteId,
+    webhookId,
+  }: {
+    siteId: string;
+    webhookId: string;
+  }) {
     const res = await Webhook.remove({ siteId, webhookId }, this.client);
     return res.data;
   }

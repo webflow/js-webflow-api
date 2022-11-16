@@ -41,7 +41,9 @@ describe("Webflow", () => {
     });
 
     it("should set the authorization token", () => {
-      mock.onGet("/", "", { Authorization: `Bearer ${options.token}` }).reply(200, {});
+      mock
+        .onGet("/", "", { Authorization: `Bearer ${options.token}` })
+        .reply(200, {});
       webflow.get("/");
     });
   });
@@ -94,7 +96,9 @@ describe("Webflow", () => {
         const query = new URLSearchParams({ response_type, client_id, state });
 
         expect(url).toBeDefined();
-        expect(url).toBe(`https://api.${options.host}/oauth/authorize?${query}`);
+        expect(url).toBe(
+          `https://api.${options.host}/oauth/authorize?${query}`
+        );
       });
 
       it("should generate an access token", async () => {
@@ -441,6 +445,19 @@ describe("Webflow", () => {
 
         expect(result).toBeDefined();
         expect(result.deleted).toBe(response.deleted);
+      });
+
+      it("should respond with a list of access groups", async () => {
+        const { response, parameters } = UserFixture.accessGroups;
+        const { siteId } = parameters;
+        const path = `/sites/${siteId}/accessgroups`;
+
+        mock.onGet(path).reply(200, response);
+        const result = await webflow.accessGroups(parameters);
+
+        expect(result).toBeDefined();
+        expect(result.accessGroups.length).toBe(response.accessGroups.length);
+        expect(result.accessGroups[0]).toMatchObject(response.accessGroups[0]);
       });
     });
 
