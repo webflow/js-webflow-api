@@ -71,7 +71,10 @@ export class Site extends WebflowRecord<ISite> implements ISite {
    * @param client The Axios client instance
    * @returns The publish result
    */
-  static publish({ siteId, domains }: { siteId: string; domains: string[] }, client: AxiosInstance) {
+  static publish(
+    { siteId, domains }: { siteId: string; domains: string[] },
+    client: AxiosInstance,
+  ) {
     requireArgs({ siteId, domains });
     const path = `/sites/${siteId}/publish`;
     return client.post<IPublishSite>(path, { domains });

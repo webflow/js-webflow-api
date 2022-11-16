@@ -158,7 +158,11 @@ export const ItemFixture = {
       itemIds: ["62aa37923cf7a9de1ca4469c", "62aa37923cf7a9de1ca44697", "62aa37923cf7a9de1ca44696"],
     },
     response: {
-      publishedItemIds: ["62aa37923cf7a9de1ca4469c", "62aa37923cf7a9de1ca44697", "62aa37923cf7a9de1ca44696"],
+      publishedItemIds: [
+        "62aa37923cf7a9de1ca4469c",
+        "62aa37923cf7a9de1ca44697",
+        "62aa37923cf7a9de1ca44696",
+      ],
       errors: [],
     },
   },
@@ -169,7 +173,11 @@ export const ItemFixture = {
       itemIds: ["62aa37923cf7a9de1ca4469c", "62aa37923cf7a9de1ca44697", "62aa37923cf7a9de1ca44696"],
     },
     response: {
-      deletedItemIds: ["62aa37923cf7a9de1ca4469c", "62aa37923cf7a9de1ca44697", "62aa37923cf7a9de1ca44696"],
+      deletedItemIds: [
+        "62aa37923cf7a9de1ca4469c",
+        "62aa37923cf7a9de1ca44697",
+        "62aa37923cf7a9de1ca44696",
+      ],
       errors: [],
     },
   },

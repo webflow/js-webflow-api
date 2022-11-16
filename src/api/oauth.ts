@@ -53,7 +53,7 @@ export class OAuth {
    */
   static authorizeUrl(
     { response_type = "code", redirect_uri, client_id, state, scope }: IAuthorizeUrlParams,
-    client: AxiosInstance
+    client: AxiosInstance,
   ) {
     requireArgs({ client_id });
 
@@ -78,8 +78,14 @@ export class OAuth {
    * @returns An access token
    */
   static accessToken(
-    { grant_type = "authorization_code", client_secret, redirect_uri, client_id, code }: IAccessTokenParams,
-    client: AxiosInstance
+    {
+      grant_type = "authorization_code",
+      client_secret,
+      redirect_uri,
+      client_id,
+      code,
+    }: IAccessTokenParams,
+    client: AxiosInstance,
   ) {
     requireArgs({ client_id, client_secret, code });
 
@@ -97,7 +103,10 @@ export class OAuth {
    * @param client The Axios client instance
    * @returns The result of the revoke
    */
-  static revokeToken({ client_secret, access_token, client_id }: IRevokeTokenParams, client: AxiosInstance) {
+  static revokeToken(
+    { client_secret, access_token, client_id }: IRevokeTokenParams,
+    client: AxiosInstance,
+  ) {
     requireArgs({ client_id, client_secret, access_token });
 
     const path = "/oauth/revoke_authorization";

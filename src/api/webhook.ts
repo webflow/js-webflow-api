@@ -75,7 +75,10 @@ export class Webhook extends WebflowRecord<IWebhook> implements IWebhook {
    * @param client The Axios client instance
    * @returns A single Webhook
    */
-  static getOne({ siteId, webhookId }: { siteId: string; webhookId: string }, client: AxiosInstance) {
+  static getOne(
+    { siteId, webhookId }: { siteId: string; webhookId: string },
+    client: AxiosInstance,
+  ) {
     requireArgs({ siteId, webhookId });
     const path = `/sites/${siteId}/webhooks/${webhookId}`;
     return client.get<IWebhook>(path);
@@ -104,7 +107,7 @@ export class Webhook extends WebflowRecord<IWebhook> implements IWebhook {
       filter?: WebhookFilter;
       triggerType: TriggerType;
     },
-    client: AxiosInstance
+    client: AxiosInstance,
   ) {
     requireArgs({ siteId, triggerType, url });
     const path = `/sites/${siteId}/webhooks`;
@@ -120,7 +123,10 @@ export class Webhook extends WebflowRecord<IWebhook> implements IWebhook {
    * @param client The Axios client instance
    * @returns The result of the removal
    */
-  static remove({ siteId, webhookId }: { siteId: string; webhookId: string }, client: AxiosInstance) {
+  static remove(
+    { siteId, webhookId }: { siteId: string; webhookId: string },
+    client: AxiosInstance,
+  ) {
     requireArgs({ siteId, webhookId });
     const path = `/sites/${siteId}/webhooks/${webhookId}`;
     return client.delete<IRemoveResult>(path);

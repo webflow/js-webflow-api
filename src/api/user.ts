@@ -63,12 +63,8 @@ export class User extends WebflowRecord<IUser> implements IUser {
    * @returns A list of Users
    */
   static list(
-    {
-      siteId,
-      limit,
-      offset,
-    }: { siteId: string; limit?: number; offset?: number },
-    client: AxiosInstance
+    { siteId, limit, offset }: { siteId: string; limit?: number; offset?: number },
+    client: AxiosInstance,
   ) {
     requireArgs({ siteId });
     const params = { limit, offset };
@@ -84,10 +80,7 @@ export class User extends WebflowRecord<IUser> implements IUser {
    * @param client The Axios client instance
    * @returns A single User
    */
-  static getOne(
-    { siteId, userId }: { siteId: string; userId: string },
-    client: AxiosInstance
-  ) {
+  static getOne({ siteId, userId }: { siteId: string; userId: string }, client: AxiosInstance) {
     requireArgs({ siteId, userId });
     const path = `/sites/${siteId}/users/${userId}`;
     return client.get<IUser>(path);
@@ -112,7 +105,7 @@ export class User extends WebflowRecord<IUser> implements IUser {
       siteId: string;
       userId: string;
     },
-    client: AxiosInstance
+    client: AxiosInstance,
   ) {
     requireArgs({ siteId, userId });
     const path = `/sites/${siteId}/users/${userId}`;
@@ -127,10 +120,7 @@ export class User extends WebflowRecord<IUser> implements IUser {
    * @param client The Axios client instance
    * @returns The newly created User
    */
-  static async invite(
-    { siteId, email }: { siteId: string; email: string },
-    client: AxiosInstance
-  ) {
+  static async invite({ siteId, email }: { siteId: string; email: string }, client: AxiosInstance) {
     requireArgs({ siteId, email });
     const path = `/sites/${siteId}/users/invite`;
     return client.post<IUser>(path, { email });
@@ -144,10 +134,7 @@ export class User extends WebflowRecord<IUser> implements IUser {
    * @param client The Axios client instance
    * @returns The result of the remove
    */
-  static remove(
-    { siteId, userId }: { siteId: string; userId: string },
-    client: AxiosInstance
-  ) {
+  static remove({ siteId, userId }: { siteId: string; userId: string }, client: AxiosInstance) {
     requireArgs({ siteId, userId });
     const path = `/sites/${siteId}/users/${userId}`;
     return client.delete<IUserDelete>(path);
@@ -170,7 +157,7 @@ export class User extends WebflowRecord<IUser> implements IUser {
       offset,
       sort,
     }: { siteId: string; limit?: number; offset?: number; sort?: string },
-    client: AxiosInstance
+    client: AxiosInstance,
   ) {
     requireArgs({ siteId });
     const params = { limit, offset, sort };
