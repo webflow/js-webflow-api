@@ -32,7 +32,7 @@ export type CollectionField = {
   required: boolean;
   editable: boolean;
   // TODO: add a better type
-  validations?: any;
+  validations?: Record<string, string | number | boolean | object>;
 };
 
 /**************************************************************
@@ -134,7 +134,7 @@ export class Collection extends WebflowRecord<ICollection> implements ICollectio
    * @param fields The Item fields to create
    * @returns The created Item
    */
-  async createItem(fields: any) {
+  async createItem(fields: object) {
     const res = await Item.create({ collectionId: this._id, fields }, this.client);
     return new Item(this.client, res);
   }
@@ -146,7 +146,7 @@ export class Collection extends WebflowRecord<ICollection> implements ICollectio
    * @param params.fields The fields to update
    * @returns The updated Item
    */
-  async updateItem({ itemId, fields }: { itemId: string; fields: any }) {
+  async updateItem({ itemId, fields }: { itemId: string; fields: object }) {
     const params = { itemId, collectionId: this._id, fields };
     const res = await Item.update(params, this.client);
     return new Item(this.client, res);
