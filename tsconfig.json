@@ -10,5 +10,5 @@
     "baseUrl": "src",
     "experimentalDecorators": true
   },
-  "exclude": ["**/node_modules/*", "**/dist", "**/tests"]
+  "include": ["src"]
 }

@@ -1,6 +1,6 @@
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
-import { Webflow } from "../src/core";
+import { Webflow, RequestError } from "../src/core";
 import {
   MetaFixture,
   SiteFixture,
@@ -41,9 +41,7 @@ describe("Webflow", () => {
     });
 
     it("should set the authorization token", () => {
-      mock
-        .onGet("/", "", { Authorization: `Bearer ${options.token}` })
-        .reply(200, {});
+      mock.onGet("/", "", { Authorization: `Bearer ${options.token}` }).reply(200, {});
       webflow.get("/");
     });
   });
@@ -84,6 +82,17 @@ describe("Webflow", () => {
       expect(mock.history.patch.length).toBe(1);
       expect(mock.history.patch[0].params).toMatchObject(query);
     });
+    it("should throw a RequestError when Webflow returns a 200 with error", async () => {
+      mock.onGet("/").reply(200, {
+        msg: "msg",
+        code: 400,
+        name: "name",
+        path: "path",
+        err: "err",
+      });
+
+      await expect(webflow.get("/")).rejects.toThrowError(RequestError);
+    });
   });
 
   describe("API Calls", () => {
@@ -96,9 +105,7 @@ describe("Webflow", () => {
         const query = new URLSearchParams({ response_type, client_id, state });
 
         expect(url).toBeDefined();
-        expect(url).toBe(
-          `https://api.${options.host}/oauth/authorize?${query}`
-        );
+        expect(url).toBe(`https://api.${options.host}/oauth/authorize?${query}`);
       });
 
       it("should generate an access token", async () => {
