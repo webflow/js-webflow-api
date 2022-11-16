@@ -1,4 +1,7 @@
+name: Code Quality
+
 on: push
+
 jobs:
   build:
     runs-on: ubuntu-latest
