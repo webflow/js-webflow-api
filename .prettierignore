@@ -1,0 +1,5 @@
+dist
+temp
+*.json
+coverage
+.DS_Store
