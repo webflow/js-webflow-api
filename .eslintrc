@@ -18,7 +18,9 @@
     "prefer-const": "error",
     "prettier/prettier": "error",
     "@typescript-eslint/no-unused-vars": "off",
-    "@typescript-eslint/no-unused-params": "off"
+    "@typescript-eslint/no-unused-params": "off",
+    "@typescript-eslint/no-unsafe-argument": "warn",
+    "@typescript-eslint/no-unsafe-assignment": "warn"
   },
   "overrides": [
     {
