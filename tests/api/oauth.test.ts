@@ -1,7 +1,7 @@
 import MockAdapter from "axios-mock-adapter";
-import axios from "axios";
-import { OAuthFixture } from "../fixtures";
 import { OAuth } from "../../src/api";
+import { OAuthFixture } from "../fixtures";
+import axios from "axios";
 
 describe("OAuth", () => {
   const mock = new MockAdapter(axios);
@@ -17,7 +17,7 @@ describe("OAuth", () => {
     const query = new URLSearchParams({ response_type, client_id, state });
 
     expect(url).toBeDefined();
-    expect(url).toBe(`${baseURL}/oauth/authorize?${query}`);
+    expect(url).toBe(`${baseURL.replace("api.", "")}/oauth/authorize?${query}`);
   });
 
   it("should generate an access token", async () => {
