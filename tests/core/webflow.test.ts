@@ -1,6 +1,6 @@
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
-import { Webflow, RequestError } from "../src/core";
+import { Webflow, RequestError } from "../../src/core";
 import {
   MetaFixture,
   SiteFixture,
@@ -9,7 +9,7 @@ import {
   CollectionFixture,
   OAuthFixture,
   UserFixture,
-} from "./fixtures";
+} from "../fixtures";
 
 describe("Webflow", () => {
   const options = { host: "test.com", token: "test" };
