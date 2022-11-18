@@ -1,16 +1,15 @@
-import {
-  CollectionFixture,
-  ItemFixture,
-  MetaFixture,
-  OAuthFixture,
-  SiteFixture,
-  UserFixture,
-  WebhookFixture,
-} from "./fixtures";
-import { RequestError, Webflow } from "../src/core";
-
-import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
+import MockAdapter from "axios-mock-adapter";
+import { Webflow, RequestError } from "../src/core";
+import {
+  MetaFixture,
+  SiteFixture,
+  ItemFixture,
+  WebhookFixture,
+  CollectionFixture,
+  OAuthFixture,
+  UserFixture,
+} from "./fixtures";
 
 describe("Webflow", () => {
   const options = { host: "test.com", token: "test" };
@@ -106,7 +105,7 @@ describe("Webflow", () => {
         const query = new URLSearchParams({ response_type, client_id, state });
 
         expect(url).toBeDefined();
-        expect(url).toBe(`https://${options.host}/oauth/authorize?${query}`);
+        expect(url).toBe(`https://api.${options.host}/oauth/authorize?${query}`);
       });
 
       it("should generate an access token", async () => {
