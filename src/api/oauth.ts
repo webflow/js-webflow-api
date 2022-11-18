@@ -62,8 +62,8 @@ export class OAuth {
     if (state) params["state"] = state;
     if (scope) params["scope"] = scope;
 
-    const baseURL = client.defaults.baseURL.replace("api.", "");
     const url = "/oauth/authorize";
+    const baseURL = client.defaults.baseURL.replace("api.", "");
     return client.getUri({ baseURL, url, method: "GET", params });
   }
 

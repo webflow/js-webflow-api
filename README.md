@@ -1,4 +1,4 @@
-# Webflow CMS API Client
+# Webflow Data API SDK
 
 ## Installation
 
@@ -8,9 +8,9 @@ Using npm:
 $ npm install webflow-api
 ```
 
-using yarn
+Using yarn
 
-```
+```shell
 $ yarn add webflow-api
 ```
 
