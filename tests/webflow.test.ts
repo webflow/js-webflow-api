@@ -105,7 +105,7 @@ describe("Webflow", () => {
         const query = new URLSearchParams({ response_type, client_id, state });
 
         expect(url).toBeDefined();
-        expect(url).toBe(`https://api.${options.host}/oauth/authorize?${query}`);
+        expect(url).toBe(`https://${options.host}/oauth/authorize?${query}`);
       });
 
       it("should generate an access token", async () => {
