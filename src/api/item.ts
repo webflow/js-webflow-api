@@ -36,7 +36,7 @@ export interface IDeletedItems {
 /**************************************************************
  * Types
  **************************************************************/
-export type PageinatedItems = PaginatedData & {
+export type PaginatedItems = PaginatedData & {
   items: IItem[];
 };
 
@@ -77,7 +77,7 @@ export class Item extends WebflowRecord<IItem> implements IItem {
     requireArgs({ collectionId, itemId });
     const path = `/collections/${collectionId}/items/${itemId}`;
     // The API returns a paginated list with one record :(
-    return client.get<PageinatedItems>(path);
+    return client.get<PaginatedItems>(path);
   }
 
   /**
@@ -96,7 +96,7 @@ export class Item extends WebflowRecord<IItem> implements IItem {
     requireArgs({ collectionId });
     const params = { limit, offset };
     const path = `/collections/${collectionId}/items`;
-    return client.get<PageinatedItems>(path, { params });
+    return client.get<PaginatedItems>(path, { params });
   }
 
   /**
@@ -192,7 +192,7 @@ export class Item extends WebflowRecord<IItem> implements IItem {
   }
 
   /**
-   * Unpublishes a list of Items
+   * Unpublish a list of Items
    * @param params The params for the request
    * @param params.collectionId The Collection ID
    * @param params.live Unpublish from the live site

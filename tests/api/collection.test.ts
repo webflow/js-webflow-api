@@ -57,8 +57,8 @@ describe("Collection", () => {
       expect(result[0]._id).toBe(response.items[0]._id);
 
       // item wrapper functions
-      expect(result[0].update).toBeDefined();
-      expect(result[0].remove).toBeDefined();
+      expect(typeof result[0].update).toBe("function");
+      expect(typeof result[0].remove).toBe("function");
     });
 
     it("should respond with a single item", async () => {
@@ -78,8 +78,8 @@ describe("Collection", () => {
       expect(result._id).toBe(response.items[0]._id);
 
       // item wrapper functions
-      expect(result.update).toBeDefined();
-      expect(result.remove).toBeDefined();
+      expect(typeof result.update).toBe("function");
+      expect(typeof result.remove).toBe("function");
     });
 
     it("should create an item", async () => {
@@ -99,8 +99,8 @@ describe("Collection", () => {
       expect(result._id).toBe(response._id);
 
       // item wrapper functions
-      expect(result.update).toBeDefined();
-      expect(result.remove).toBeDefined();
+      expect(typeof result.update).toBe("function");
+      expect(typeof result.remove).toBe("function");
     });
 
     it("should update an item", async () => {
@@ -123,8 +123,8 @@ describe("Collection", () => {
       expect(result._id).toBe(response._id);
 
       // item wrapper functions
-      expect(result.update).toBeDefined();
-      expect(result.remove).toBeDefined();
+      expect(typeof result.update).toBe("function");
+      expect(typeof result.remove).toBe("function");
     });
 
     it("should remove an item", async () => {

@@ -328,7 +328,7 @@ export class Webflow {
     return res.data;
   }
   /**
-   * Upublish a Collection Item
+   * Unpublish a Collection Item
    * @param params The Item information
    * @param params.collectionId The Collection ID
    * @param params.itemId The Item ID
@@ -503,7 +503,7 @@ export class Webflow {
    * @param params.siteId The Site Id
    * @param params.url The Url the Webhook should call on events
    * @param params.triggerType The type of event that should trigger the Webhook
-   * @param params.filter The filter to apply to the Webhook (form_submssion only)
+   * @param params.filter The filter to apply to the Webhook (form_submission only)
    * @returns The created webhook
    */
   async createWebhook({

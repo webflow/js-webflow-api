@@ -115,11 +115,10 @@ describe("Users", () => {
       expect(result._id).toBe(response._id);
 
       expect(result.data).toBeDefined();
-      expect(result.data.email).toBe(response.data.email);
 
       // user wrapper functions
-      expect(result.update).toBeDefined();
-      expect(result.remove).toBeDefined();
+      expect(typeof result.update).toBe("function");
+      expect(typeof result.remove).toBe("function");
     });
 
     it("should remove a user", async () => {

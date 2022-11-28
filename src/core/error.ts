@@ -16,7 +16,7 @@ export class RequestError extends Error implements IRequestError {
   err: string;
 
   constructor(error: IRequestError) {
-    super(error.err ? error.err : "Unknown error occured");
+    super(error.err ? error.err : "Unknown error occurred");
     Object.assign(this, error);
   }
 }

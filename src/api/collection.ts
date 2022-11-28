@@ -32,7 +32,7 @@ export type CollectionField = {
   required: boolean;
   editable: boolean;
   // TODO: add a better type
-  validations?: Record<string, string | number | boolean | object>;
+  validations?: Record<string, any>;
 };
 
 /**************************************************************

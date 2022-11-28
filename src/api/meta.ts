@@ -24,7 +24,7 @@ export interface IAuthenticatedUser {
   };
 }
 
-export interface IAuthentiationInfo {
+export interface IAuthenticationInfo {
   application: InfoApplication;
   workspaces: string[];
   rateLimit: number;
@@ -48,7 +48,7 @@ export class Meta {
    * @returns The authentication info
    */
   static info(client: AxiosInstance) {
-    return client.get<IAuthentiationInfo>("/info");
+    return client.get<IAuthenticationInfo>("/info");
   }
 
   /**
