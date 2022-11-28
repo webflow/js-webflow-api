@@ -80,11 +80,11 @@ describe("Sites", () => {
       expect(first._id).toBe(response[0]._id);
 
       // collection wrapper functions
-      expect(first.item).toBeDefined();
-      expect(first.items).toBeDefined();
-      expect(first.removeItem).toBeDefined();
-      expect(first.createItem).toBeDefined();
-      expect(first.updateItem).toBeDefined();
+      expect(typeof first.item).toBe("function");
+      expect(typeof first.items).toBe("function");
+      expect(typeof first.removeItem).toBe("function");
+      expect(typeof first.createItem).toBe("function");
+      expect(typeof first.updateItem).toBe("function");
     });
 
     it("should respond with a list of webhooks", async () => {
@@ -106,7 +106,7 @@ describe("Sites", () => {
       expect(first._id).toBe(response[0]._id);
 
       // webhook wrapper functions
-      expect(first.remove).toBeDefined();
+      expect(typeof first.remove).toBe("function");
     });
 
     it("should respond with a single webhook", async () => {
@@ -125,7 +125,7 @@ describe("Sites", () => {
       expect(result._id).toBe(response._id);
 
       // webhook wrapper functions
-      expect(result.remove).toBeDefined();
+      expect(typeof result.remove).toBe("function");
     });
 
     it("should create a webhook", async () => {
@@ -144,7 +144,7 @@ describe("Sites", () => {
       expect(result._id).toBe(response._id);
 
       // webhook wrapper functions
-      expect(result.remove).toBeDefined();
+      expect(typeof result.remove).toBe("function");
     });
 
     it("should remove a webhook", async () => {

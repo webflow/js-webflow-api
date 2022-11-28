@@ -156,8 +156,8 @@ describe("Items", () => {
       expect(result._id).toBe(response._id);
 
       // item wrapper functions
-      expect(result.update).toBeDefined();
-      expect(result.remove).toBeDefined();
+      expect(typeof result.update).toBe("function");
+      expect(typeof result.remove).toBe("function");
     });
 
     it("should remove an item", async () => {

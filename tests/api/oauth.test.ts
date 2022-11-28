@@ -17,7 +17,7 @@ describe("OAuth", () => {
     const query = new URLSearchParams({ response_type, client_id, state });
 
     expect(url).toBeDefined();
-    expect(url).toBe(`${baseURL.replace("api.", "")}/oauth/authorize?${query}`);
+    expect(url).toBe(`${baseURL.replace("api.", "")}/oauth/authorize?${query.toString()}`);
   });
 
   it("should generate an access token", async () => {

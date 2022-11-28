@@ -33,16 +33,16 @@ describe("Webflow", () => {
   });
 
   describe("Helpers", () => {
-    it("should set the host", () => {
+    it("should set the host", async () => {
       mock.onGet("/").reply(200, {});
-      webflow.get("/");
+      await webflow.get("/");
 
       expect(mock.history.get[0].baseURL).toBe(`https://api.${options.host}/`);
     });
 
-    it("should set the authorization token", () => {
+    it("should set the authorization token", async () => {
       mock.onGet("/", "", { Authorization: `Bearer ${options.token}` }).reply(200, {});
-      webflow.get("/");
+      await webflow.get("/");
     });
   });
 
@@ -105,7 +105,7 @@ describe("Webflow", () => {
         const query = new URLSearchParams({ response_type, client_id, state });
 
         expect(url).toBeDefined();
-        expect(url).toBe(`https://${options.host}/oauth/authorize?${query}`);
+        expect(url).toBe(`https://${options.host}/oauth/authorize?${query.toString()}`);
       });
 
       it("should generate an access token", async () => {
