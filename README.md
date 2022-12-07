@@ -176,7 +176,7 @@ Get all sites available or lookup by site id.
 const sites = await webflow.sites();
 
 // Get a single site
-const site = await webflow.sites({ siteId: "[SITE ID]" });
+const site = await webflow.site({ siteId: "[SITE ID]" });
 ```
 
 ### Collections
