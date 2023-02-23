@@ -12,6 +12,8 @@ import {
   Webhook,
   WebhookFilter,
   Item,
+  Product,
+  Sku,
 } from "../api";
 
 export const DEFAULT_HOST = "webflow.com";
@@ -455,6 +457,150 @@ export class Webflow {
   }) {
     const params = { siteId, limit, offset, sort };
     const res = await User.accessGroups(params, this.client);
+    return res.data;
+  }
+
+  /**************************************************************
+   * Ecommerce Endpoints
+   **************************************************************/
+
+  /**
+   * Get a list of Products
+   * @param params The params for the request
+   * @param params.siteId The site ID
+   * @param params.limit The number of items to return (optional)
+   * @param params.offset The number of items to skip (optional)
+   * @returns A list of Products
+   */
+  async products({ siteId, limit, offset }: { siteId: string; limit?: number; offset?: number }) {
+    const params = { siteId, limit, offset };
+    const res = await Product.list(params, this.client);
+    return res.data;
+  }
+
+  /**
+   * Get a single Product
+   * @param params The params for the request
+   * @param params.siteId The site ID
+   * @param params.productId The product ID
+   * @returns The Product
+   */
+  async product({ siteId, productId }: { siteId: string; productId: string }) {
+    const params = { siteId, productId };
+    const res = await Product.getOne(params, this.client);
+    return res.data;
+  }
+
+  /**
+   * Create a new Product and default Sku
+   * @param params The params for the request
+   * @param params.siteId The Site ID
+   * @param params.productFields The Product fields to create
+   * @param params.skuFields The Sku fields to create
+   * @returns The created Product and default Sku
+   */
+  async createProduct({
+    siteId,
+    productFields,
+    skuFields,
+  }: {
+    siteId: string;
+    productFields: any;
+    skuFields: any;
+  }) {
+    const params = { siteId, productFields, skuFields };
+    const res = await Product.create(params, this.client);
+    return res.data;
+  }
+
+  /**
+   * Update a Product
+   * @param params The params for the request
+   * @param params.siteId The Site ID
+   * @param params.productId The Product ID
+   * @param params.fields The Product fields to update
+   * @returns The updated Product
+   */
+  async updateProduct({
+    siteId,
+    productId,
+    fields,
+  }: {
+    siteId: string;
+    productId: string;
+    fields: any;
+  }) {
+    const params = { siteId, productId, fields };
+    const res = await Product.update(params, this.client);
+    return res.data;
+  }
+
+  /**
+   * Create a single Sku
+   * @param params The params for the request
+   * @param params.siteId The Site ID
+   * @param params.productId The Product ID
+   * @param params.fields The Sku fields to create
+   * @returns The created Sku
+   */
+  async createSku({
+    siteId,
+    productId,
+    fields,
+  }: {
+    siteId: string;
+    productId: string;
+    fields: any;
+  }) {
+    const params = { siteId, productId, fields };
+    const res = await Sku.create(params, this.client);
+    return res.data;
+  }
+
+  /**
+   * Create multiple Skus
+   * @param params The params for the request
+   * @param params.siteId The Site ID
+   * @param params.productId The Product ID
+   * @param params.skus The Skus to create
+   * @returns The created Skus
+   */
+  async createSkus({
+    siteId,
+    productId,
+    skus,
+  }: {
+    siteId: string;
+    productId: string;
+    skus: any[];
+  }) {
+    const params = { siteId, productId, skus };
+    const res = await Sku.createMany(params, this.client);
+    return res.data;
+  }
+
+  /**
+   * Update a single Sku
+   * @param params The params for the request
+   * @param params.siteId The Site ID
+   * @param params.productId The Product ID
+   * @param params.skuId The Sku ID
+   * @param params.fields The Sku fields to update
+   * @returns The updated Sku
+   */
+  async updateSku({
+    siteId,
+    productId,
+    skuId,
+    fields,
+  }: {
+    siteId: string;
+    productId: string;
+    skuId: string;
+    fields: any;
+  }) {
+    const params = { siteId, productId, skuId, fields };
+    const res = await Sku.update(params, this.client);
     return res.data;
   }
 
