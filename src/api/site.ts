@@ -15,10 +15,10 @@ export interface ISite {
   previewUrl: string;
   createdOn: string;
   shortName: string;
-  timezone: string;
-  database: string;
-  name: string;
-  _id: string;
+  timeZone: string;
+  displayName: string;
+  workspaceId: string;
+  id: string;
 }
 
 export interface IPublishSite {
@@ -34,10 +34,11 @@ export class Site extends WebflowRecord<ISite> implements ISite {
   previewUrl: string;
   createdOn: string;
   shortName: string;
-  timezone: string;
-  database: string;
+  timeZone: string;
+  displayName: string;
+  workspaceId: string;
   name: string;
-  _id: string;
+  id: string;
 
   /**
    * Get a list of Sites
@@ -102,7 +103,7 @@ export class Site extends WebflowRecord<ISite> implements ISite {
    * @returns A list of domains
    */
   async domains() {
-    const res = await Site.domains({ siteId: this._id }, this.client);
+    const res = await Site.domains({ siteId: this.id }, this.client);
     return res.data;
   }
 
@@ -112,7 +113,7 @@ export class Site extends WebflowRecord<ISite> implements ISite {
    * @returns The publish result
    */
   async publishSite(domains: string[]) {
-    const res = await Site.publish({ siteId: this._id, domains }, this.client);
+    const res = await Site.publish({ siteId: this.id, domains }, this.client);
     return res.data;
   }
 
@@ -132,7 +133,7 @@ export class Site extends WebflowRecord<ISite> implements ISite {
    * @returns A list of Collections
    */
   async collections() {
-    const res = await Collection.list({ siteId: this._id }, this.client);
+    const res = await Collection.list({ siteId: this.id }, this.client);
     return res.data.map((data) => new Collection(this.client, { ...res, data }));
   }
 
@@ -143,7 +144,7 @@ export class Site extends WebflowRecord<ISite> implements ISite {
    * @returns A single Webhook
    */
   async webhook({ webhookId }: { webhookId: string }) {
-    const res = await Webhook.getOne({ siteId: this._id, webhookId }, this.client);
+    const res = await Webhook.getOne({ siteId: this.id, webhookId }, this.client);
     return new Webhook(this.client, res);
   }
 
@@ -152,7 +153,7 @@ export class Site extends WebflowRecord<ISite> implements ISite {
    * @returns A list of Webhooks
    */
   async webhooks() {
-    const res = await Webhook.list({ siteId: this._id }, this.client);
+    const res = await Webhook.list({ siteId: this.id }, this.client);
     return res.data.map((data) => new Webhook(this.client, { ...res, data }));
   }
 
@@ -163,7 +164,7 @@ export class Site extends WebflowRecord<ISite> implements ISite {
    * @returns The result of the removal
    */
   async removeWebhook({ webhookId }: { webhookId: string }) {
-    const res = await Webhook.remove({ siteId: this._id, webhookId }, this.client);
+    const res = await Webhook.remove({ siteId: this.id, webhookId }, this.client);
     return res.data;
   }
 
@@ -185,7 +186,7 @@ export class Site extends WebflowRecord<ISite> implements ISite {
     triggerType: string;
     filter?: WebhookFilter;
   }) {
-    const _params = { url, siteId: this._id, triggerType, filter };
+    const _params = { url, siteId: this.id, triggerType, filter };
     const res = await Webhook.create(_params, this.client);
     return new Webhook(this.client, res);
   }

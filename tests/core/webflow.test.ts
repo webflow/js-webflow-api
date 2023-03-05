@@ -169,7 +169,7 @@ describe("Webflow", () => {
 
         expect(sites).toBeDefined();
         expect(sites.length).toBe(response.length);
-        expect(sites[0]._id).toBe(response[0]._id);
+        expect(sites[0].id).toBe(response[0].id);
       });
 
       it("should respond with a single site", async () => {
@@ -181,7 +181,7 @@ describe("Webflow", () => {
         const site = await webflow.site(parameters);
 
         expect(site).toBeDefined();
-        expect(site._id).toBe(siteId);
+        expect(site.id).toBe(siteId);
       });
 
       it("should respond with a list of domains", async () => {

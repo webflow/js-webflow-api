@@ -28,7 +28,7 @@ describe("Sites", () => {
       const { data } = await Site.getOne(parameters, client);
 
       expect(data).toBeDefined();
-      expect(data._id).toBe(siteId);
+      expect(data.id).toBe(siteId);
     });
 
     it("should respond with a list of domains", async () => {
