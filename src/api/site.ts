@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-import { Webhook, Collection, WebhookFilter } from ".";
+import { Webhook, Collection, Page, WebhookFilter } from ".";
 import { requireArgs, WebflowRecord } from "../core";
 
 /**************************************************************
@@ -112,6 +112,15 @@ export class Site extends WebflowRecord<ISite> implements ISite {
    */
   async domains() {
     const res = await Site.domains({ siteId: this.id }, this.client);
+    return res.data;
+  }
+
+  /**
+   * Get a list of pages for a site
+   * @returns A list of pages
+   */
+  async pages() {
+    const res = await Page.list({ siteId: this.id }, this.client);
     return res.data;
   }
 

@@ -5,3 +5,4 @@ export * from "./item";
 export * from "./site";
 export * from "./oauth";
 export * from "./meta";
+export * from "./page";

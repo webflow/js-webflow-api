@@ -5,3 +5,4 @@ export * from "./meta.fixture";
 export * from "./site.fixture";
 export * from "./item.fixture";
 export * from "./user.fixture";
+export * from "./page.fixture";

@@ -7,6 +7,7 @@ import {
   ItemFixture,
   WebhookFixture,
   CollectionFixture,
+  PageFixture,
   OAuthFixture,
   UserFixture,
 } from "../fixtures";
@@ -234,6 +235,49 @@ describe("Webflow", () => {
 
         expect(collection).toBeDefined();
         expect(collection._id).toBe(response._id);
+      });
+    });
+
+    describe("Pages", () => {
+      it("should respond with a single page", async () => {
+        const { parameters, response } = PageFixture.getOne;
+        const { pageId } = parameters;
+        const path = `/pages/${pageId}`;
+
+        mock.onGet(path).reply(200, response);
+        const page = await webflow.page(parameters);
+
+        expect(page).toBeDefined();
+        expect(page.id).toBe(response.id);
+      });
+
+      it("should respond with a list of pages", async () => {
+        const { parameters, response } = PageFixture.list;
+        const { siteId } = parameters;
+        const path = `/sites/${siteId}/pages`;
+
+        mock.onGet(path).reply(200, response);
+        const pages = await webflow.pages(parameters);
+
+        expect(pages).toBeDefined();
+        expect(pages.length).toBe(response.pages.length);
+        expect(pages[0].id).toBe(response.pages[0].id);
+      });
+
+      it("should respond with a list of paginated pages", async () => {
+        const { parameters, response } = PageFixture.list;
+        const { siteId } = parameters;
+
+        const limit = 2;
+        const offset = 2;
+        const path = `/sites/${siteId}/pages`;
+
+        mock.onGet(path, { params: { limit, offset } }).reply(200, response);
+        const pages = await webflow.pages(parameters);
+
+        expect(pages).toBeDefined();
+        expect(pages.length).toBe(response.pages.length);
+        expect(pages[0].id).toBe(response.pages[0].id);
       });
     });
 

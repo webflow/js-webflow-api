@@ -9,6 +9,7 @@ import {
   Meta,
   OAuth,
   Site,
+  Page,
   Webhook,
   WebhookFilter,
   Item,
@@ -182,6 +183,42 @@ export class Webflow {
   async authenticatedUser() {
     const res = await Meta.user(this.client);
     return res.data;
+  }
+
+  /**************************************************************
+   * Page Endpoints
+   **************************************************************/
+
+  /**
+   * Get a Page by ID
+   * @param params The Page information
+   * @param params.pageId The Page ID
+   * @returns The Page
+   */
+  async page({ pageId }: { pageId: string }) {
+    const res = await Page.getOne({ pageId }, this.client);
+    return new Page(this.client, res);
+  }
+
+  /**
+   * Get a list of Pages available
+   * @param params The Page information
+   * @param params.siteId The Site ID
+   * @param params.limit The number of items to return (default: 100)
+   * @param params.offset The number of items to skip (default: 0)
+   * @returns A list of Pages
+   */
+  async pages({
+    siteId,
+    limit = 20,
+    offset = 0,
+  }: {
+    siteId: string;
+    limit?: number;
+    offset?: number;
+  }) {
+    const res = await Page.list({ siteId, limit, offset }, this.client);
+    return res.data.pages.map((data) => new Page(this.client, { ...res, data }));
   }
 
   /**************************************************************
