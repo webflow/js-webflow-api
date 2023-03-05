@@ -11,7 +11,8 @@ export interface IDomain {
 }
 
 export interface ISite {
-  lastPublished: string;
+  lastPublished: string | null | undefined;
+  lastUpdated: string;
   previewUrl: string;
   createdOn: string;
   shortName: string;
@@ -30,7 +31,8 @@ export interface IPublishSite {
  **************************************************************/
 
 export class Site extends WebflowRecord<ISite> implements ISite {
-  lastPublished: string;
+  lastPublished: string | null | undefined;
+  lastUpdated: string;
   previewUrl: string;
   createdOn: string;
   shortName: string;
