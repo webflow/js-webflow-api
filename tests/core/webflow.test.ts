@@ -168,8 +168,8 @@ describe("Webflow", () => {
         const sites = await webflow.sites();
 
         expect(sites).toBeDefined();
-        expect(sites.length).toBe(response.length);
-        expect(sites[0].id).toBe(response[0].id);
+        expect(sites.length).toBe(response.sites.length);
+        expect(sites[0].id).toBe(response.sites[0].id);
       });
 
       it("should respond with a single site", async () => {

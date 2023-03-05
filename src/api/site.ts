@@ -10,6 +10,13 @@ export interface IDomain {
   name: string;
 }
 
+/**************************************************************
+ * Types
+ **************************************************************/
+export type ISites = {
+  sites: ISite[];
+};
+
 export interface ISite {
   lastPublished: string | null | undefined;
   lastUpdated: string;
@@ -48,7 +55,7 @@ export class Site extends WebflowRecord<ISite> implements ISite {
    */
   static list(client: AxiosInstance) {
     const path = "/sites";
-    return client.get<ISite[]>(path);
+    return client.get<ISites>(path);
   }
 
   /**

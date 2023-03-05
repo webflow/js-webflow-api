@@ -194,7 +194,7 @@ export class Webflow {
    */
   async sites() {
     const res = await Site.list(this.client);
-    return res.data.map((data) => new Site(this.client, { ...res, data }));
+    return res.data.sites.map((data) => new Site(this.client, { ...res, data }));
   }
   /**
    * Get a single Site

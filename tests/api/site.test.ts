@@ -15,8 +15,8 @@ describe("Sites", () => {
       const { data } = await Site.list(client);
 
       expect(data).toBeDefined();
-      expect(data.length).toBe(response.length);
-      expect(data[0]).toMatchObject(response[0]);
+      expect(data.sites.length).toBe(response.sites.length);
+      expect(data.sites[0]).toMatchObject(response.sites[0]);
     });
 
     it("should respond with a single site", async () => {
