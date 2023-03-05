@@ -37,7 +37,6 @@ export class Site extends WebflowRecord<ISite> implements ISite {
   timeZone: string;
   displayName: string;
   workspaceId: string;
-  name: string;
   id: string;
 
   /**
