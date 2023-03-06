@@ -17,10 +17,8 @@ export interface IPage {
   draft: boolean;
   canBranch: boolean;
   isMembersOnly: boolean;
-  seo: {
-    title: string;
-    description: string | null;
-  };
+  seoTitle: string | null;
+  seoDesc: string | null;
   openGraph: {
     title: string | null;
     titleCopied: boolean;
@@ -52,10 +50,8 @@ export class Page extends WebflowRecord<IPage> implements IPage {
   draft: boolean;
   canBranch: boolean;
   isMembersOnly: boolean;
-  seo: {
-    title: string;
-    description: string | null;
-  };
+  seoTitle: string | null;
+  seoDesc: string | null;
   openGraph: {
     title: string | null;
     titleCopied: boolean;

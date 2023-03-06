@@ -23,11 +23,9 @@ export const PageFixture = {
           draft: false,
           canBranch: true,
           isMembersOnly: false,
-          seo: {
-            title: "CoffeeStyle eCommerce - Webflow HTML website template",
-            description:
-              "This Webflow template offers a quick start into an ecommerce / memberships site",
-          },
+          seoTitle: "CoffeeStyle eCommerce - Webflow HTML website template",
+          seoDesc:
+            "This Webflow template offers a quick start into an ecommerce / memberships site",
           openGraph: {
             title: "CoffeeStyle eCommerce - Webflow HTML website template",
             titleCopied: true,
@@ -49,10 +47,8 @@ export const PageFixture = {
           draft: false,
           canBranch: true,
           isMembersOnly: false,
-          seo: {
-            title: "CoffeeStyle eCommerce - Webflow HTML website template",
-            description: null,
-          },
+          seoTitle: "CoffeeStyle eCommerce - Webflow HTML website template",
+          seoDesc: null,
           openGraph: {
             title: null,
             titleCopied: true,
@@ -80,11 +76,8 @@ export const PageFixture = {
       draft: false,
       canBranch: true,
       isMembersOnly: false,
-      seo: {
-        title: "CoffeeStyle eCommerce - Webflow HTML website template",
-        description:
-          "This Webflow template offers a quick start into an e-commerce / memberships site",
-      },
+      seoTitle: "CoffeeStyle eCommerce - Webflow HTML website template",
+      seoDesc: "This Webflow template offers a quick start into an e-commerce / memberships site",
       openGraph: {
         title: "CoffeeStyle eCommerce - Webflow HTML website template",
         titleCopied: true,
