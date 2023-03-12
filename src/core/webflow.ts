@@ -2,6 +2,7 @@ import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import { PaginationFilter, ErrorInterceptor } from "../core";
 import {
   Collection,
+  CustomCode,
   IAccessTokenParams,
   IAuthorizeUrlParams,
   IRevokeTokenParams,
@@ -263,6 +264,40 @@ export class Webflow {
   async domains({ siteId }: { siteId: string }) {
     const res = await Site.domains({ siteId }, this.client);
     return res.data;
+  }
+
+  /**************************************************************
+   * Custom Code Endpoints
+   **************************************************************/
+  /**
+   * Writes custom code to a site
+   * @param params The Site information
+   * @param params.siteId The Site ID
+   * @returns The code as well as the createdOn and lastUpdated timestamps.
+   */
+  async getCustomCode({ siteId }: { siteId: string }) {
+    const res = await CustomCode.get({ siteId }, this.client);
+    return res.data;
+  }
+  /**
+   * Writes custom code to a site
+   * @param params The Site information
+   * @param params.siteId The Site ID
+   * @param params.code The custom code to write
+   * @returns The code as well as the createdOn and lastUpdated timestamps.
+   */
+  async writeCustomCode({ siteId, code }: { siteId: string; code: string }) {
+    const res = await CustomCode.write({ siteId, code }, this.client);
+    return res.data;
+  }
+  /**
+   * Delete custom code for a site
+   * @param params The Site information
+   * @param params.siteId The Site ID
+   * @returns An 204 AxiosResponse with no body.
+   */
+  async deleteCustomCode({ siteId }: { siteId: string }) {
+    return await CustomCode.delete({ siteId }, this.client);
   }
 
   /**************************************************************

@@ -35,6 +35,6 @@ export function requireArgs(args: object) {
 
 // throw an error if Webflow error
 export function ErrorInterceptor(res: AxiosResponse<IRequestError>) {
-  if (res.data.err) throw new RequestError(res.data);
+  if (res.data?.err) throw new RequestError(res.data);
   return res;
 }

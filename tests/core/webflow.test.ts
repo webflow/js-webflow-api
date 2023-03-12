@@ -7,6 +7,7 @@ import {
   ItemFixture,
   WebhookFixture,
   CollectionFixture,
+  CustomCodeFixture,
   PageFixture,
   OAuthFixture,
   UserFixture,
@@ -235,6 +236,48 @@ describe("Webflow", () => {
 
         expect(collection).toBeDefined();
         expect(collection._id).toBe(response._id);
+      });
+    });
+
+    describe("Custom Code", () => {
+      it("should get custom code on a site", async () => {
+        const { parameters, response: mock_response } = CustomCodeFixture.get;
+        const { siteId } = parameters;
+        const path = `/sites/${siteId}/custom_code`;
+
+        mock.onGet(path).reply(200, mock_response);
+        const response = await webflow.getCustomCode(parameters);
+
+        expect(response).toBeDefined();
+        expect(response.code).toBe(mock_response.code);
+        expect(response.createdOn).toBe(mock_response.createdOn);
+        expect(response.lastUpdated).toBe(mock_response.lastUpdated);
+      });
+
+      it("should write custom code on a site", async () => {
+        const { parameters, response: mock_response } = CustomCodeFixture.write;
+        const { siteId } = parameters;
+        const path = `/sites/${siteId}/custom_code`;
+
+        mock.onPut(path).reply(200, mock_response);
+        const response = await webflow.writeCustomCode(parameters);
+
+        expect(response).toBeDefined();
+        expect(response.code).toBe(mock_response.code);
+        expect(response.createdOn).toBe(mock_response.createdOn);
+        expect(response.lastUpdated).toBe(mock_response.lastUpdated);
+      });
+
+      it("should delete custom code on a site", async () => {
+        const { parameters } = CustomCodeFixture.delete;
+        const { siteId } = parameters;
+        const path = `/sites/${siteId}/custom_code`;
+
+        mock.onDelete(path).reply(204);
+        const response = await webflow.deleteCustomCode(parameters);
+
+        expect(response).toBeDefined();
+        expect(response.status).toBe(204);
       });
     });
 
