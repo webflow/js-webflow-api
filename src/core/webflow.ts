@@ -297,7 +297,8 @@ export class Webflow {
    * @returns An 204 AxiosResponse with no body.
    */
   async deleteCustomCode({ siteId }: { siteId: string }) {
-    return await CustomCode.delete({ siteId }, this.client);
+    const res = await CustomCode.delete({ siteId }, this.client);
+    return { deleted: res.status === 204 };
   }
 
   /**************************************************************

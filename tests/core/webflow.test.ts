@@ -277,7 +277,7 @@ describe("Webflow", () => {
         const response = await webflow.deleteCustomCode(parameters);
 
         expect(response).toBeDefined();
-        expect(response.status).toBe(204);
+        expect(response.deleted).toBe(true);
       });
     });
 
