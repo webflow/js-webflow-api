@@ -108,11 +108,11 @@ export class Item extends WebflowRecord<IItem> implements IItem {
    * @returns The created Item
    */
   static create(
-    { collectionId, fields }: { fields: any; collectionId: string },
+    { collectionId, fields, live }: { fields: any; collectionId: string, live?: boolean },
     client: AxiosInstance,
   ) {
     requireArgs({ collectionId });
-    const path = `/collections/${collectionId}/items`;
+    const path = `/collections/${collectionId}/items${live ? '?live=true' : ''}`;
     return client.post<IItem>(path, { fields });
   }
 

@@ -287,8 +287,8 @@ export class Webflow {
    * @param params.collectionId The Collection ID
    * @returns The created Collection Item
    */
-  async createItem({ collectionId, fields }: { collectionId: string; fields: any }) {
-    const res = await Item.create({ collectionId, fields }, this.client);
+  async createItem({ collectionId, fields, live }: { collectionId: string; fields: any; live?: boolean }) {
+    const res = await Item.create({ collectionId, fields, live }, this.client);
     return new Item(this.client, res);
   }
   /**
