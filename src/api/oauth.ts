@@ -1,12 +1,12 @@
 import { AxiosInstance } from "axios";
-import { requireArgs } from "../core";
+import { requireArgs, SupportedScope } from "../core";
 
 /**************************************************************
  * Interfaces
  **************************************************************/
 export interface IAuthorizeUrlParams {
   state?: string;
-  scope?: string;
+  scopes?: SupportedScope[];
   client_id: string;
   redirect_uri?: string;
   response_type?: string;
@@ -52,7 +52,7 @@ export class OAuth {
    * @returns The URL to authorize a user
    */
   static authorizeUrl(
-    { response_type = "code", redirect_uri, client_id, state, scope }: IAuthorizeUrlParams,
+    { response_type = "code", redirect_uri, client_id, state, scopes }: IAuthorizeUrlParams,
     client: AxiosInstance,
   ) {
     requireArgs({ client_id });
@@ -60,7 +60,7 @@ export class OAuth {
     const params = { response_type, client_id };
     if (redirect_uri) params["redirect_uri"] = redirect_uri;
     if (state) params["state"] = state;
-    if (scope) params["scope"] = scope;
+    if (scopes && scopes.length > 0) params["scope"] = scopes.join(" ");
 
     const url = "/oauth/authorize";
     const baseURL = client.defaults.baseURL.replace("api.", "");

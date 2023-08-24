@@ -1,6 +1,6 @@
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
-import { Webflow, RequestError } from "../../src/core";
+import { Webflow, RequestError, SupportedScope } from "../../src/core";
 import {
   MetaFixture,
   SiteFixture,
@@ -106,6 +106,24 @@ describe("Webflow", () => {
 
         expect(url).toBeDefined();
         expect(url).toBe(`https://${options.host}/oauth/authorize?${query.toString()}`);
+      });
+
+      it("should generate an authorization url with valid scopes", () => {
+        const { parameters } = OAuthFixture.authorize;
+        const { client_id, state, response_type } = parameters;
+        const scopes: SupportedScope[] = ["assets:read", "cms:write"];
+
+        const url = webflow.authorizeUrl({ client_id, state, scopes });
+        const queryParts = [
+          `response_type=${response_type}`,
+          `client_id=${client_id}`,
+          `state=${state}`,
+          `scope=${scopes.join("+")}`,
+        ];
+        const query = queryParts.join("&");
+
+        expect(url).toBeDefined();
+        expect(url).toBe(`https://${options.host}/oauth/authorize?${query}`);
       });
 
       it("should generate an access token", async () => {
