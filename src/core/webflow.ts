@@ -22,7 +22,50 @@ export interface Options {
   token?: string;
   version?: string;
   headers?: Record<string, string>;
+  beta?: boolean;
 }
+
+type MethodNames =
+  | "info"
+  | "authenticatedUser"
+  | "sites"
+  | "site"
+  | "publishSite"
+  | "domains"
+  | "collections"
+  | "collection"
+  | "items"
+  | "item"
+  | "createItem"
+  | "updateItem"
+  | "patchItem"
+  | "removeItem"
+  | "deleteItems"
+  | "publishItems";
+
+export const SCOPES_ARRAY = [
+  "assets:read",
+  "assets:write",
+  "authorized_user:read",
+  "cms:read",
+  "cms:write",
+  "custom_code:read",
+  "custom_code:write",
+  "forms:read",
+  "forms:write",
+  "pages:read",
+  "pages:write",
+  "sites:read",
+  "sites:write",
+  "users:read",
+  "users:write",
+  "ecommerce:read",
+  "ecommerce:write",
+] as const;
+
+export type SupportedScope = typeof SCOPES_ARRAY[number];
+
+type ParamValueType = string | number | boolean | null | undefined;
 
 /**************************************************************
  * Class
@@ -32,6 +75,43 @@ export class Webflow {
   constructor(public options: Options = {}) {
     this.client = axios.create(this.config);
     this.client.interceptors.response.use(ErrorInterceptor);
+
+    if (this.options.beta) {
+      this.removeNonBetaMethods();
+    }
+  }
+
+  private removeNonBetaMethods() {
+    const methodsToRemove: MethodNames[] = [
+      "info",
+      "authenticatedUser",
+      "sites",
+      "site",
+      "publishSite",
+      "domains",
+      "collections",
+      "collection",
+      "items",
+      "item",
+      "createItem",
+      "updateItem",
+      "patchItem",
+      "removeItem",
+      "deleteItems",
+      "publishItems",
+    ];
+
+    methodsToRemove.forEach((method) => {
+      Object.defineProperty(this, method, {
+        value: function (): never {
+          throw new Error(
+            `The method '${method}()' is not available in beta mode. Please disable the beta option to use this method.`,
+          );
+        },
+        enumerable: false,
+        configurable: true,
+      });
+    });
   }
 
   // Set the Authentication token
@@ -46,10 +126,11 @@ export class Webflow {
 
   // The Axios configuration
   get config() {
-    const { host = DEFAULT_HOST, token, version, headers } = this.options;
+    const { host = DEFAULT_HOST, token, version, headers, beta = false } = this.options;
+    const effectiveHost = beta ? "webflow.com/beta" : host;
 
     const config: AxiosRequestConfig = {
-      baseURL: `https://api.${host}/`,
+      baseURL: `https://api.${effectiveHost}/`,
       headers: {
         "Content-Type": "application/json",
         "User-Agent": USER_AGENT,
@@ -62,6 +143,32 @@ export class Webflow {
 
     // Add the Authorization header if a token is set
     if (token) config.headers.Authorization = `Bearer ${token}`;
+
+    config.paramsSerializer = {
+      serialize: (params: Record<string, ParamValueType>): string => {
+        if (typeof params !== "object" || params === null) {
+          return "";
+        }
+
+        const parts: string[] = [];
+
+        for (const key in params) {
+          const value = params[key];
+          if (value === undefined) continue;
+
+          const safeValue =
+            typeof value === "string" || typeof value === "number" ? value : String(value);
+
+          if (key === "scope") {
+            parts.push(`${key}=${safeValue}`);
+          } else {
+            parts.push(`${key}=${encodeURIComponent(safeValue)}`);
+          }
+        }
+
+        return parts.join("&");
+      },
+    };
 
     return config;
   }

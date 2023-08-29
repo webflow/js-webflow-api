@@ -38,6 +38,41 @@ const webflow = new Webflow({
 });
 ```
 
+## Transitioning to API v2
+
+We're actively working on a new version of the SDK that will fully support API v2. In the meantime, to make use of API v2 with our SDK, there are some important changes you need to be aware of:
+
+### Setting Up For API v2
+
+When initializing your client, it's crucial to set the `beta` flag to true in the client options. This ensures you're targeting the API v2 endpoints.
+
+```javascript
+const webflow = new Webflow({ beta: true, ...otherOptions });
+```
+
+Please note, when the beta flag is set, several built-in methods will not be available. These methods include, but are not limited to, info, authenticatedUser, sites, site, etc. Attempting to use these will throw an error.
+
+### Calling API v2 Endpoints
+
+To interact with API v2, you'll need to move away from using built-in methods, and instead use the provided HTTP methods directly.
+
+For instance, where you previously used `sites()`:
+
+```javascript
+// get the first site
+const [site] = await webflow.sites();
+```
+
+For API v2, you will need to use direct HTTP methods:
+
+```javascript
+// get the first site
+const sites = await webflow.get("/sites");
+const site = sites[0];
+```
+
+We understand that this is a shift in how you interact with the SDK, but rest assured, our upcoming SDK version will streamline this process and offer a more integrated experience with API v2.
+
 ## Basic Usage
 
 ### Chaining Calls
@@ -130,6 +165,20 @@ const url = webflow.authorizeUrl({
 // redirect user from your server route
 res.redirect(url);
 ```
+
+### Using the scopes Parameter with v2 API
+
+The v2 API introduces the concept of 'scopes', providing more control over app permissions. Instead of using the scope parameter as a single string, you can define multiple permissions using the scopes array:
+
+```javascript
+const url = webflow.authorizeUrl({
+  client_id: "[CLIENT ID]",
+  redirect_uri: "https://my.server.com/oauth/callback",
+  scopes: ["read:sites", "write:items", "read:users"],
+});
+```
+
+For more information and a detailed list of available scopes, refer to our Scopes Guide.
 
 ### Access Token
 
