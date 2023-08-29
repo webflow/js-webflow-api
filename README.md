@@ -67,7 +67,7 @@ For API v2, you will need to use direct HTTP methods:
 
 ```javascript
 // get the first site
-const sites: string[] = await webflow.get("/sites");
+const sites = await webflow.get("/sites");
 const site = sites[0];
 ```
 
