@@ -40,18 +40,30 @@ const webflow = new Webflow({
 
 ## Transitioning to API v2
 
-We're excited to let you know that we're in the process of actively developing an updated version of the SDK that will offer comprehensive support for API v2.
+We're actively working on a new version of the SDK that will fully support API v2. In the meantime, to make use of API v2 with our SDK, there are some important changes you need to be aware of:
 
-While we're working on that, if you're aiming to use the SDK with API v2, there's a crucial adaptation you need to be aware of: the built-in methods that were used previously are not applicable for API v2 endpoints.
+### Setting Up For API v2
 
-For instance, in the past, you might have retrieved all available sites using the method:
+When initializing your client, it's crucial to set the `beta` flag to true in the client options. This ensures you're targeting the API v2 endpoints.
+
+```javascript
+const webflow = new Webflow({ beta: true, ...otherOptions });
+```
+
+Please note, when the beta flag is set, several built-in methods will not be available. These methods include, but are not limited to, info, authenticatedUser, sites, site, etc. Attempting to use these will throw an error.
+
+### Calling API v2 Endpoints
+
+To interact with API v2, you'll need to move away from using built-in methods, and instead use the provided HTTP methods directly.
+
+For instance, where you previously used `sites()`:
 
 ```javascript
 // get the first site
 const [site] = await webflow.sites();
 ```
 
-However, for API v2, you will need to use direct HTTP methods:
+For API v2, you will need to use direct HTTP methods:
 
 ```javascript
 // get the first site
