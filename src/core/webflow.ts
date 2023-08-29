@@ -57,9 +57,15 @@ export const SCOPES_ARRAY = [
   "pages:write",
   "sites:read",
   "sites:write",
+  "users:read",
+  "users:write",
+  "ecommerce:read",
+  "ecommerce:write",
 ] as const;
 
 export type SupportedScope = typeof SCOPES_ARRAY[number];
+
+type ParamValueType = string | number | boolean | null | undefined;
 
 /**************************************************************
  * Class
@@ -137,6 +143,32 @@ export class Webflow {
 
     // Add the Authorization header if a token is set
     if (token) config.headers.Authorization = `Bearer ${token}`;
+
+    config.paramsSerializer = {
+      serialize: (params: Record<string, ParamValueType>): string => {
+        if (typeof params !== "object" || params === null) {
+          return "";
+        }
+
+        const parts: string[] = [];
+
+        for (const key in params) {
+          const value = params[key];
+          if (value === undefined) continue;
+
+          const safeValue =
+            typeof value === "string" || typeof value === "number" ? value : String(value);
+
+          if (key === "scope") {
+            parts.push(`${key}=${safeValue}`);
+          } else {
+            parts.push(`${key}=${encodeURIComponent(safeValue)}`);
+          }
+        }
+
+        return parts.join("&");
+      },
+    };
 
     return config;
   }
