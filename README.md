@@ -38,6 +38,27 @@ const webflow = new Webflow({
 });
 ```
 
+## Transitioning to API v2
+
+We're excited to let you know that we're in the process of actively developing an updated version of the SDK that will offer comprehensive support for API v2.
+
+While we're working on that, if you're aiming to use the SDK with API v2, there's a crucial adaptation you need to be aware of: the built-in methods that were used previously are not applicable for API v2 endpoints.
+
+For instance, in the past, you might have retrieved all available sites using the method:
+```javascript
+// get the first site
+const [site] = await webflow.sites();
+```
+
+However, for API v2, you will need to use direct HTTP methods:
+```javascript
+// get the first site
+const sites: string[] = await webflow.get("/sites");
+const site = sites[0];
+```
+
+We understand that this is a shift in how you interact with the SDK, but rest assured, our upcoming SDK version will streamline this process and offer a more integrated experience with API v2.
+
 ## Basic Usage
 
 ### Chaining Calls
@@ -130,6 +151,18 @@ const url = webflow.authorizeUrl({
 // redirect user from your server route
 res.redirect(url);
 ```
+
+### Using the scopes Parameter with v2 API
+The v2 API introduces the concept of 'scopes', providing more control over app permissions. Instead of using the scope parameter as a single string, you can define multiple permissions using the scopes array:
+
+```javascript
+const url = webflow.authorizeUrl({
+  client_id: "[CLIENT ID]",
+  redirect_uri: "https://my.server.com/oauth/callback",
+  scopes: ["read:sites", "write:items", "read:users"],
+});
+```
+For more information and a detailed list of available scopes, refer to our Scopes Guide.
 
 ### Access Token
 

@@ -241,15 +241,6 @@ export class Webflow {
    * @returns The url to redirect to
    */
   authorizeUrl(params: IAuthorizeUrlParams) {
-    const { scopes } = params;
-    if (scopes && scopes.length > 0) {
-      scopes.forEach((scope: SupportedScope) => {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-        if (!SCOPES_ARRAY.includes(scope)) {
-          throw new Error(`Invalid scope: ${scope}`);
-        }
-      });
-    }
     return OAuth.authorizeUrl(params, this.client);
   }
   /**
