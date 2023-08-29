@@ -1,10 +1,11 @@
 {
   "name": "webflow-api",
   "description": "Webflow's official Node.js SDK for Data APIs",
-  "version": "1.2.3",
+  "version": "1.3.0",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
   "contributors": [
+    "Rodney Urquhart (https://github.com/rodneyu215)",
     "John Agan (https://github.com/johnagan)"
   ],
   "repository": {
