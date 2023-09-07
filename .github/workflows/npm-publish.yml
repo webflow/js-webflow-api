@@ -16,7 +16,6 @@ jobs:
       - run: |
           yarn install
           yarn test
-          yarn prepublish
           yarn publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
