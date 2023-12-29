@@ -1,14 +1,20 @@
 {
-  "compilerOptions": {
-    "lib": ["es6", "dom"],
-    "module": "CommonJS",
-    "target": "es2020",
-    "outDir": "dist",
-    "moduleResolution": "Node",
-    "esModuleInterop": true,
-    "declaration": true,
-    "baseUrl": "src",
-    "experimentalDecorators": true
-  },
-  "include": ["src"]
+    "compilerOptions": {
+        "extendedDiagnostics": true,
+        "strict": true,
+        "target": "ES6",
+        "module": "CommonJS",
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "declaration": true,
+        "noUnusedParameters": true,
+        "outDir": "dist",
+        "rootDir": "src",
+        "baseUrl": "src"
+    },
+    "include": [
+        "src"
+    ],
+    "exclude": []
 }
