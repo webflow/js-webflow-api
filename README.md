@@ -1,9 +1,9 @@
-# Webflow Javascript SDK
+# Webflow JS SDK
 
-The Webflow Javascript SDK provides convenient access to the [Webflow Data API](https://developers.webflow.com/reference/rest-introduction) from
+The Webflow JavaScript SDK provides convenient access to the [Webflow Data API](https://developers.webflow.com/reference/rest-introduction) from
 applications written in JS.
 
-The SDK contains Typings and Request Builders for the Webflow SDK.
+The SDK contains typings and request builders for the Webflow Data API.
 
 ## Documentation
 
@@ -63,7 +63,7 @@ const authorizeUrl = webflowClient.authorizeUrl(authorizeUrlParams); // not yet 
 console.log(authorizeUrl);
 ```
 
-### Step 2: Retrieve your acccess token
+### Step 2: Retrieve your access token
 
 Use the `getAccessToken` function and pass in your `client_id`,
 `client_secret`, and `authorization_code`.
@@ -83,9 +83,9 @@ const accessToken = WebflowClient.getAccessToken(
 Instantiate the client using your `access_token`.
 
 ```javascript
-import { WebflowClient } from "webflow-api";
+import { WebflowClient } from "webflow-api"
 
-const webflow = WebflowClient({ accessToken });
+const webflow = WebflowClient({ accessToken })
 ```
 
 ## Webflow Types
@@ -95,21 +95,21 @@ guide you!
 
 ## Exception Handling
 
-All errors thrown by the SDK will be subclasses of [`WEbflowError`](./src/errors/WebflowError.ts).
+All errors thrown by the SDK will be subclasses of [`WebflowError`](./src/errors/WebflowError.ts).
 
 ```javascript
 import { WebflowClient, Webflow } from 'webflow'
-const webflow = new WebflowClient({ accessToken: 'your_access_token' });
+const webflow = new WebflowClient({ accessToken: 'your_access_token' })
 
 try {
-  webflow.sites.get(...);
+  webflow.sites.get(...)
 } catch (e) {
   if (e instanceof Webflow.ForbiddenError) {
-    console.log(e.body.mesasge);
+    console.log(e.body.message)
   } else if (e instanceof Webflow.BadRequestError) {
-    ...
+    console.log(e.body.message)
   } else {
-    throw e;
+    throw e
   }
 }
 ```
@@ -128,8 +128,8 @@ const webflow = new WebflowClient({
     requestOptions: {
         timeoutInSeconds: 10,
         maxRetries: 3, 
-    },
-});
+    }
+})
 ```
 
 ## Beta Status
