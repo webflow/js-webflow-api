@@ -83,14 +83,14 @@ const accessToken = WebflowClient.getAccessToken(
 Instantiate the client using your `access_token`.
 
 ```javascript
-import { WebflowClient } from "webflow-api"
+import { WebflowClient } from "webflow-api";
 
-const webflow = WebflowClient({ accessToken })
+const webflow = WebflowClient({ accessToken });
 ```
 
 ## Webflow Types
 
-All of the types are nested within the `Webflow` module. Let IntelliSense
+All of the types are nested within the `Webflow` object. Let IntelliSense
 guide you!
 
 ## Exception Handling
@@ -98,18 +98,18 @@ guide you!
 All errors thrown by the SDK will be subclasses of [`WebflowError`](./src/errors/WebflowError.ts).
 
 ```javascript
-import { WebflowClient, Webflow } from 'webflow'
-const webflow = new WebflowClient({ accessToken: 'your_access_token' })
+import { WebflowClient, Webflow } from 'webflow';
+const webflow = new WebflowClient({ accessToken: 'your_access_token' });
 
 try {
-  webflow.sites.get(...)
+  const sites = await webflow.sites.get(...);
 } catch (e) {
   if (e instanceof Webflow.ForbiddenError) {
-    console.log(e.body.message)
+    console.log(e.body.message);
   } else if (e instanceof Webflow.BadRequestError) {
-    console.log(e.body.message)
+    console.log(e.body.message);
   } else {
-    throw e
+    throw e;
   }
 }
 ```
@@ -121,7 +121,7 @@ try {
 By default, requests time out after 60 seconds. You can configure the timeout and # of max retries
 
 ```javascript
-import { WebflowClient } from 'webflow'
+import { WebflowClient } from 'webflow';
 
 const webflow = new WebflowClient({
     accessToken: 'your_access_token',
@@ -129,7 +129,7 @@ const webflow = new WebflowClient({
         timeoutInSeconds: 10,
         maxRetries: 3, 
     }
-})
+});
 ```
 
 ## Beta Status
