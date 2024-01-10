@@ -2,6 +2,7 @@ import { WebflowClient as FernClient } from "../Client";
 import { OauthScope } from "../api/types";
 import * as errors from "../errors";
 import * as core from "../core";
+import qs from "qs";
 
 export class WebflowClient extends FernClient {
     /**
