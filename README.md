@@ -50,15 +50,12 @@ for more details.
 ```javascript
 import { WebflowClient } from "webflow-api";
 
-const authorizeUrlParams = {
+const authorizeUrl = WebflowClient.authorizeURL({
     state: "your_state",
     scope: "sites:read",
-    client_id: "your_client_id",
-    redirect_uri: "your_redirect_uri",
-    response_type: "code",
-};
-
-const authorizeUrl = webflowClient.authorizeUrl(authorizeUrlParams); // not yet implemented
+    clientId: "your_client_id",
+    redirctUri: "your_redirect_uri",
+});
 
 console.log(authorizeUrl);
 ```
@@ -71,11 +68,11 @@ Use the `getAccessToken` function and pass in your `client_id`,
 ```javascript
 import { WebflowClient } from "webflow-api";
 
-const accessToken = WebflowClient.getAccessToken(
-    (client_id = "YOUR_CLIENT_ID"),
-    (client_secret = "YOUR_CLIENT_SECRET"),
-    (code = "YOUR_AUTHORIZATION_CODE")
-); // not yet implemented
+const accessToken = WebflowClient.getAccessToken({
+  clientId: "your_client_id", 
+  clientSecret: "your_client_secret",
+  code: "your_authorization_code"
+});
 ```
 
 ### Step 3: Instantiate the client
@@ -90,7 +87,7 @@ const webflow = WebflowClient({ accessToken });
 
 ## Webflow Types
 
-All of the types are nested within the `Webflow` object. Let IntelliSense
+All of the types are nested within the `Webflow` namespace. Let IntelliSense
 guide you!
 
 ## Exception Handling
@@ -123,12 +120,20 @@ By default, requests time out after 60 seconds. You can configure the timeout an
 ```javascript
 import { WebflowClient } from 'webflow';
 
-const webflow = new WebflowClient({
-    accessToken: 'your_access_token',
-    requestOptions: {
-        timeoutInSeconds: 10,
-        maxRetries: 3, 
-    }
+const sites = await webflow.sites.get(..., {
+  timeoutInSeconds: 30 // override the timeout
+});
+```
+
+### Retries
+The SDK will automatically retry failures with exponential backoff. 
+You can configure the retries by setting maxRetries.
+
+```javascript
+import { WebflowClient } from 'webflow';
+
+const sites = await webflow.sites.get(..., {
+  maxRetries: 10 // override the reries
 });
 ```
 
