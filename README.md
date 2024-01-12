@@ -7,7 +7,7 @@ The SDK contains typings and request builders for the Webflow Data API.
 
 ## Documentation
 
-Explore the API reference documentation [here](https://developers.webflow.com/reference/rest-introduction).
+Explore the [API reference documentation](https://developers.webflow.com/reference/rest-introduction).
 
 ## Installation
 
@@ -133,7 +133,7 @@ You can configure the retries by setting maxRetries.
 import { WebflowClient } from 'webflow';
 
 const sites = await webflow.sites.get(..., {
-  maxRetries: 10 // override the reries
+  maxRetries: 10 // override the retries
 });
 ```
 
