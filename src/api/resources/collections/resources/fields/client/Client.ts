@@ -40,14 +40,14 @@ export class Fields {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `collections/${collectionId}/fields`
+                `v2/collections/${collectionId}/fields`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "0.0.4",
+                "X-Fern-SDK-Version": "2.0.0-beta",
             },
             contentType: "application/json",
             body: await serializers.Field.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -116,14 +116,14 @@ export class Fields {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `collections/${collectionId}/fields/${fieldId}`
+                `v2/collections/${collectionId}/fields/${fieldId}`
             ),
             method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "0.0.4",
+                "X-Fern-SDK-Version": "2.0.0-beta",
             },
             contentType: "application/json",
             body: await serializers.collections.FieldUpdate.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),

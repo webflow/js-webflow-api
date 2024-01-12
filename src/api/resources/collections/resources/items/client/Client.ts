@@ -53,14 +53,14 @@ export class Items {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `collections/${collectionId}/items`
+                `v2/collections/${collectionId}/items`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "0.0.4",
+                "X-Fern-SDK-Version": "2.0.0-beta",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -136,14 +136,14 @@ export class Items {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `collections/${collectionId}/items`
+                `v2/collections/${collectionId}/items`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "0.0.4",
+                "X-Fern-SDK-Version": "2.0.0-beta",
             },
             contentType: "application/json",
             body: await serializers.CollectionItem.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -208,14 +208,14 @@ export class Items {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `collections/${collectionId}/items/${itemId}`
+                `v2/collections/${collectionId}/items/${itemId}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "0.0.4",
+                "X-Fern-SDK-Version": "2.0.0-beta",
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -285,14 +285,14 @@ export class Items {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `collections/${collectionId}/items/${itemId}`
+                `v2/collections/${collectionId}/items/${itemId}`
             ),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "0.0.4",
+                "X-Fern-SDK-Version": "2.0.0-beta",
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -362,14 +362,14 @@ export class Items {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `collections/${collectionId}/items/${itemId}`
+                `v2/collections/${collectionId}/items/${itemId}`
             ),
             method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "0.0.4",
+                "X-Fern-SDK-Version": "2.0.0-beta",
             },
             contentType: "application/json",
             body: await serializers.CollectionItem.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -442,14 +442,14 @@ export class Items {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `collections/${collectionId}/items/publish`
+                `v2/collections/${collectionId}/items/publish`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "0.0.4",
+                "X-Fern-SDK-Version": "2.0.0-beta",
             },
             contentType: "application/json",
             body: await serializers.collections.ItemsPublishItemRequest.jsonOrThrow(request, {

@@ -63,14 +63,14 @@ export class Orders {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${siteId}/orders`
+                `v2/sites/${siteId}/orders`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "0.0.4",
+                "X-Fern-SDK-Version": "2.0.0-beta",
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -145,14 +145,14 @@ export class Orders {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${siteId}/orders/${orderId}`
+                `v2/sites/${siteId}/orders/${orderId}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "0.0.4",
+                "X-Fern-SDK-Version": "2.0.0-beta",
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -236,14 +236,14 @@ export class Orders {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${siteId}/orders/${orderId}`
+                `v2/sites/${siteId}/orders/${orderId}`
             ),
             method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "0.0.4",
+                "X-Fern-SDK-Version": "2.0.0-beta",
             },
             contentType: "application/json",
             body: await serializers.OrdersUpdateRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -323,14 +323,14 @@ export class Orders {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${siteId}/orders/${orderId}/fulfill`
+                `v2/sites/${siteId}/orders/${orderId}/fulfill`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "0.0.4",
+                "X-Fern-SDK-Version": "2.0.0-beta",
             },
             contentType: "application/json",
             body: await serializers.OrdersUpdateFulfillRequest.jsonOrThrow(request, {
@@ -411,14 +411,14 @@ export class Orders {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${siteId}/orders/${orderId}/unfulfill`
+                `v2/sites/${siteId}/orders/${orderId}/unfulfill`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "0.0.4",
+                "X-Fern-SDK-Version": "2.0.0-beta",
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -500,14 +500,14 @@ export class Orders {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${siteId}/orders/${orderId}/refund`
+                `v2/sites/${siteId}/orders/${orderId}/refund`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "0.0.4",
+                "X-Fern-SDK-Version": "2.0.0-beta",
             },
             contentType: "application/json",
             body: await serializers.OrdersRefundRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
