@@ -107,7 +107,7 @@ export class Sites {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.sites.get("site-id")
+     *     await webflow.sites.get("string")
      */
     public async get(siteId: string, requestOptions?: Sites.RequestOptions): Promise<Webflow.Site> {
         const _response = await core.fetcher({
@@ -180,7 +180,7 @@ export class Sites {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.sites.getCustomDomain("site-id")
+     *     await webflow.sites.getCustomDomain("string")
      */
     public async getCustomDomain(siteId: string, requestOptions?: Sites.RequestOptions): Promise<Webflow.Domain> {
         const _response = await core.fetcher({
@@ -253,7 +253,7 @@ export class Sites {
      * @throws {@link Webflow.TooManyRequestsError}
      *
      * @example
-     *     await webflow.sites.publish("site-id", {
+     *     await webflow.sites.publish("string", {
      *         publishToWebflowSubdomain: false
      *     })
      */

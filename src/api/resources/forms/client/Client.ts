@@ -35,7 +35,7 @@ export class Forms {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.forms.list("site-id")
+     *     await webflow.forms.list("string")
      */
     public async list(siteId: string, requestOptions?: Forms.RequestOptions): Promise<Webflow.FormList> {
         const _response = await core.fetcher({
@@ -113,7 +113,7 @@ export class Forms {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.forms.get("form-id")
+     *     await webflow.forms.get("string")
      */
     public async get(formId: string, requestOptions?: Forms.RequestOptions): Promise<Webflow.Form> {
         const _response = await core.fetcher({
@@ -189,7 +189,7 @@ export class Forms {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.forms.listSubmissions("form-id")
+     *     await webflow.forms.listSubmissions("string")
      */
     public async listSubmissions(
         formId: string,
@@ -268,7 +268,7 @@ export class Forms {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.forms.getSubmission("form-submission-id")
+     *     await webflow.forms.getSubmission("string")
      */
     public async getSubmission(
         formSubmissionId: string,
@@ -348,7 +348,7 @@ export class Forms {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.forms.updateSubmission("form-submission-id", {})
+     *     await webflow.forms.updateSubmission("string", {})
      */
     public async updateSubmission(
         formSubmissionId: string,

@@ -33,7 +33,7 @@ export class Assets {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.assets.list("site-id")
+     *     await webflow.assets.list("string")
      */
     public async list(siteId: string, requestOptions?: Assets.RequestOptions): Promise<Webflow.Asset[]> {
         const _response = await core.fetcher({
@@ -106,7 +106,7 @@ export class Assets {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.assets.create("site-id", {
+     *     await webflow.assets.create("string", {
      *         fileName: "file.png",
      *         fileHash: "3c7d87c9575702bc3b1e991f4d3c638e",
      *         parentFolder: "6436b1ce5281cace05b65aea"
@@ -188,7 +188,7 @@ export class Assets {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.assets.get("asset-id")
+     *     await webflow.assets.get("string")
      */
     public async get(assetId: string, requestOptions?: Assets.RequestOptions): Promise<Webflow.Asset> {
         const _response = await core.fetcher({
@@ -261,7 +261,7 @@ export class Assets {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.assets.delete("asset-id")
+     *     await webflow.assets.delete("string")
      */
     public async delete(assetId: string, requestOptions?: Assets.RequestOptions): Promise<void> {
         const _response = await core.fetcher({
@@ -328,7 +328,7 @@ export class Assets {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.assets.listFolders("site-id")
+     *     await webflow.assets.listFolders("string")
      */
     public async listFolders(siteId: string, requestOptions?: Assets.RequestOptions): Promise<Webflow.AssetFolderList> {
         const _response = await core.fetcher({
@@ -401,7 +401,7 @@ export class Assets {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.assets.createFolder("site-id", {
+     *     await webflow.assets.createFolder("string", {
      *         displayName: "my asset folder",
      *         parentFolder: "6390c49774a71f99f21a08eb"
      *     })
@@ -482,7 +482,7 @@ export class Assets {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.assets.getFolder("asset-folder-id")
+     *     await webflow.assets.getFolder("string")
      */
     public async getFolder(
         assetFolderId: string,

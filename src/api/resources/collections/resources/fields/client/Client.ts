@@ -31,6 +31,14 @@ export class Fields {
      * @throws {@link Webflow.NotFoundError}
      * @throws {@link Webflow.TooManyRequestsError}
      * @throws {@link Webflow.InternalServerError}
+     *
+     * @example
+     *     await webflow.collections.fields.create("string", {
+     *         id: "string",
+     *         isRequired: true,
+     *         type: Webflow.FieldType.PlainText,
+     *         displayName: "string"
+     *     })
      */
     public async create(
         collectionId: string,
@@ -106,6 +114,9 @@ export class Fields {
      * @throws {@link Webflow.NotFoundError}
      * @throws {@link Webflow.TooManyRequestsError}
      * @throws {@link Webflow.InternalServerError}
+     *
+     * @example
+     *     await webflow.collections.fields.update("string", "string", {})
      */
     public async update(
         collectionId: string,

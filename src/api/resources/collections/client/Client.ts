@@ -35,7 +35,7 @@ export class Collections {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.collections.list("site-id")
+     *     await webflow.collections.list("string")
      */
     public async list(siteId: string, requestOptions?: Collections.RequestOptions): Promise<Webflow.CollectionList> {
         const _response = await core.fetcher({
@@ -106,6 +106,13 @@ export class Collections {
      * @throws {@link Webflow.NotFoundError}
      * @throws {@link Webflow.TooManyRequestsError}
      * @throws {@link Webflow.InternalServerError}
+     *
+     * @example
+     *     await webflow.collections.create("string", {
+     *         displayName: "Blog Posts",
+     *         singularName: "Blog Post",
+     *         slug: "posts"
+     *     })
      */
     public async create(
         siteId: string,
@@ -183,7 +190,7 @@ export class Collections {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.collections.get("collection-id")
+     *     await webflow.collections.get("string")
      */
     public async get(collectionId: string, requestOptions?: Collections.RequestOptions): Promise<Webflow.Collection> {
         const _response = await core.fetcher({
@@ -256,7 +263,7 @@ export class Collections {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.collections.deleteCollection("collection-id")
+     *     await webflow.collections.deleteCollection("string")
      */
     public async deleteCollection(collectionId: string, requestOptions?: Collections.RequestOptions): Promise<void> {
         const _response = await core.fetcher({
@@ -323,7 +330,7 @@ export class Collections {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.collections.delete("collection-id", "field-id")
+     *     await webflow.collections.delete("string", "string")
      */
     public async delete(
         collectionId: string,

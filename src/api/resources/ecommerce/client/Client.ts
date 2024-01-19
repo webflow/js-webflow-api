@@ -37,7 +37,7 @@ export class Ecommerce {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.ecommerce.getSettings("site-id")
+     *     await webflow.ecommerce.getSettings("string")
      */
     public async getSettings(
         siteId: string,

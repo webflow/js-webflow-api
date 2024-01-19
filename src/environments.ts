@@ -3,7 +3,7 @@
  */
 
 export const WebflowEnvironment = {
-    Default: "https://api.webflow.com/v2",
+    Default: "https://api.webflow.com",
 } as const;
 
 export type WebflowEnvironment = typeof WebflowEnvironment.Default;

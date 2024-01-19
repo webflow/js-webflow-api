@@ -34,7 +34,7 @@ export class AccessGroups {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.accessGroups.list("site-id", {
+     *     await webflow.accessGroups.list("string", {
      *         sort: Webflow.AccessGroupsListRequestSort.CreatedOnAscending
      *     })
      */

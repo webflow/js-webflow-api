@@ -37,7 +37,7 @@ export class Products {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.products.list("site-id", {})
+     *     await webflow.products.list("string", {})
      */
     public async list(
         siteId: string,
@@ -143,7 +143,7 @@ export class Products {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.products.create("site-id", {
+     *     await webflow.products.create("string", {
      *         publishStatus: Webflow.PublishStatus.Staging,
      *         product: {
      *             id: "580e63fc8c9a982ac9b8b745",
@@ -266,7 +266,7 @@ export class Products {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.products.get("site-id", "product-id")
+     *     await webflow.products.get("string", "string")
      */
     public async get(
         siteId: string,
@@ -351,7 +351,7 @@ export class Products {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.products.update("site-id", "product-id", {
+     *     await webflow.products.update("string", "string", {
      *         publishStatus: Webflow.PublishStatus.Staging,
      *         product: {
      *             id: "580e63fc8c9a982ac9b8b745",
@@ -463,7 +463,7 @@ export class Products {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.products.createSku("site-id", "product-id", {
+     *     await webflow.products.createSku("string", "string", {
      *         publishStatus: Webflow.PublishStatus.Staging,
      *         skus: [{
      *                 id: "580e63fc8c9a982ac9b8b745",
@@ -566,7 +566,7 @@ export class Products {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.products.updateSku("site-id", "product-id", "sku-id", {
+     *     await webflow.products.updateSku("string", "string", "string", {
      *         publishStatus: Webflow.PublishStatus.Staging,
      *         sku: {
      *             id: "580e63fc8c9a982ac9b8b745",

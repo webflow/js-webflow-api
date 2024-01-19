@@ -37,7 +37,7 @@ export class Inventory {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.inventory.list("collection-id", "item-id")
+     *     await webflow.inventory.list("string", "string")
      */
     public async list(
         collectionId: string,
@@ -122,7 +122,7 @@ export class Inventory {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.inventory.update("collection-id", "item-id", {
+     *     await webflow.inventory.update("string", "string", {
      *         inventoryType: Webflow.InventoryUpdateRequestInventoryType.Infinite,
      *         updateQuantity: 1,
      *         quantity: 100

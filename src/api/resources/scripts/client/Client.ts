@@ -33,7 +33,7 @@ export class Scripts {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.scripts.list("site-id")
+     *     await webflow.scripts.list("string")
      */
     public async list(siteId: string, requestOptions?: Scripts.RequestOptions): Promise<Webflow.RegisteredScriptList> {
         const _response = await core.fetcher({
@@ -104,6 +104,14 @@ export class Scripts {
      * @throws {@link Webflow.NotFoundError}
      * @throws {@link Webflow.TooManyRequestsError}
      * @throws {@link Webflow.InternalServerError}
+     *
+     * @example
+     *     await webflow.scripts.registerHosted("string", {
+     *         hostedLocation: "string",
+     *         integrityHash: "string",
+     *         version: "string",
+     *         displayName: "string"
+     *     })
      */
     public async registerHosted(
         siteId: string,
@@ -179,6 +187,13 @@ export class Scripts {
      * @throws {@link Webflow.NotFoundError}
      * @throws {@link Webflow.TooManyRequestsError}
      * @throws {@link Webflow.InternalServerError}
+     *
+     * @example
+     *     await webflow.scripts.registerInline("string", {
+     *         sourceCode: "alert('hello world');",
+     *         version: "string",
+     *         displayName: "string"
+     *     })
      */
     public async registerInline(
         siteId: string,

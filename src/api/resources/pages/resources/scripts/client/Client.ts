@@ -33,7 +33,7 @@ export class Scripts {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.pages.scripts.getCustomCode("page-id")
+     *     await webflow.pages.scripts.getCustomCode("string")
      */
     public async getCustomCode(
         pageId: string,
@@ -109,7 +109,16 @@ export class Scripts {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.pages.scripts.upsertCustomCode("page-id", {})
+     *     await webflow.pages.scripts.upsertCustomCode("string", {
+     *         scripts: [{
+     *                 id: "cms_slider",
+     *                 location: Webflow.ScriptApplyLocation.Header,
+     *                 version: "1.0.0",
+     *                 attributes: {
+     *                     "my-attribute": "some-value"
+     *                 }
+     *             }]
+     *     })
      */
     public async upsertCustomCode(
         pageId: string,
@@ -187,7 +196,7 @@ export class Scripts {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.pages.scripts.deleteCustomCode("page-id")
+     *     await webflow.pages.scripts.deleteCustomCode("string")
      */
     public async deleteCustomCode(pageId: string, requestOptions?: Scripts.RequestOptions): Promise<void> {
         const _response = await core.fetcher({

@@ -37,7 +37,7 @@ export class Orders {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.orders.list("site-id", {
+     *     await webflow.orders.list("string", {
      *         status: Webflow.OrdersListRequestStatus.Pending
      *     })
      */
@@ -139,7 +139,7 @@ export class Orders {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.orders.get("site-id", "order-id")
+     *     await webflow.orders.get("string", "string")
      */
     public async get(siteId: string, orderId: string, requestOptions?: Orders.RequestOptions): Promise<Webflow.Order> {
         const _response = await core.fetcher({
@@ -220,7 +220,7 @@ export class Orders {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.orders.update("site-id", "order-id", {
+     *     await webflow.orders.update("string", "string", {
      *         comment: "Example comment to myself",
      *         shippingProvider: "Shipping Company, Co.",
      *         shippingTracking: "tr00000000001",
@@ -312,7 +312,7 @@ export class Orders {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.orders.updateFulfill("site-id", "order-id", {})
+     *     await webflow.orders.updateFulfill("string", "string", {})
      */
     public async updateFulfill(
         siteId: string,
@@ -401,7 +401,7 @@ export class Orders {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.orders.updateUnfulfill("site-id", "order-id")
+     *     await webflow.orders.updateUnfulfill("string", "string")
      */
     public async updateUnfulfill(
         siteId: string,
@@ -487,7 +487,7 @@ export class Orders {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.orders.refund("site-id", "order-id", {
+     *     await webflow.orders.refund("string", "string", {
      *         reason: Webflow.OrdersRefundRequestReason.Duplicate
      *     })
      */

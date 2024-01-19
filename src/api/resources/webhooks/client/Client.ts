@@ -33,7 +33,7 @@ export class Webhooks {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.webhooks.list("site-id")
+     *     await webflow.webhooks.list("string")
      */
     public async list(siteId: string, requestOptions?: Webhooks.RequestOptions): Promise<Webflow.Webhook[]> {
         const _response = await core.fetcher({
@@ -106,7 +106,7 @@ export class Webhooks {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.webhooks.create("site-id", {
+     *     await webflow.webhooks.create("string", {
      *         triggerType: Webflow.TriggerType.FormSubmission,
      *         url: "https://api.mydomain.com/webhook"
      *     })
@@ -187,7 +187,7 @@ export class Webhooks {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.webhooks.get("webhook-id")
+     *     await webflow.webhooks.get("string")
      */
     public async get(webhookId: string, requestOptions?: Webhooks.RequestOptions): Promise<Webflow.Webhook> {
         const _response = await core.fetcher({
@@ -260,7 +260,7 @@ export class Webhooks {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.webhooks.delete("webhook-id")
+     *     await webflow.webhooks.delete("string")
      */
     public async delete(webhookId: string, requestOptions?: Webhooks.RequestOptions): Promise<void> {
         const _response = await core.fetcher({

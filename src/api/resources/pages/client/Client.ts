@@ -34,7 +34,7 @@ export class Pages {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.pages.list("site-id")
+     *     await webflow.pages.list("string")
      */
     public async list(siteId: string, requestOptions?: Pages.RequestOptions): Promise<Webflow.PageList> {
         const _response = await core.fetcher({
@@ -107,7 +107,7 @@ export class Pages {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.pages.getMetadata("page-id")
+     *     await webflow.pages.getMetadata("string")
      */
     public async getMetadata(pageId: string, requestOptions?: Pages.RequestOptions): Promise<Webflow.Page> {
         const _response = await core.fetcher({

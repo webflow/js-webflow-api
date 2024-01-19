@@ -34,7 +34,7 @@ export class Users {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.users.list("site-id", {
+     *     await webflow.users.list("string", {
      *         sort: Webflow.UsersListRequestSort.CreatedOnAscending
      *     })
      */
@@ -131,7 +131,7 @@ export class Users {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.users.get("site-id", "user-id")
+     *     await webflow.users.get("string", "string")
      */
     public async get(siteId: string, userId: string, requestOptions?: Users.RequestOptions): Promise<Webflow.User> {
         const _response = await core.fetcher({
@@ -207,7 +207,7 @@ export class Users {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.users.delete("site-id", "user-id")
+     *     await webflow.users.delete("string", "string")
      */
     public async delete(siteId: string, userId: string, requestOptions?: Users.RequestOptions): Promise<void> {
         const _response = await core.fetcher({
@@ -279,7 +279,7 @@ export class Users {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.users.update("site-id", "user-id", {
+     *     await webflow.users.update("string", "string", {
      *         id: "6287ec36a841b25637c663df",
      *         lastUpdated: new Date("2016-10-24T19:41:29.156Z"),
      *         invitedOn: new Date("2016-10-24T19:41:29.156Z"),
@@ -288,7 +288,10 @@ export class Users {
      *         status: Webflow.UserStatus.Invited,
      *         accessGroups: [{
      *                 type: Webflow.UserAccessGroupsItemType.Admin
-     *             }]
+     *             }],
+     *         data: {
+     *             data: {}
+     *         }
      *     })
      */
     public async update(
@@ -372,7 +375,7 @@ export class Users {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.users.invite("site-id", {
+     *     await webflow.users.invite("string", {
      *         email: "some.one@home.com"
      *     })
      */
