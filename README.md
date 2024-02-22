@@ -1,5 +1,8 @@
 # Webflow JS SDK
 
+[![npm shield](https://img.shields.io/npm/v/webflow-api)](https://www.npmjs.com/package/webflow-api)
+[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-SDK%20generated%20by%20Fern-brightgreen)](https://github.com/fern-api/fern)
+
 The Webflow JavaScript SDK provides convenient access to the [Webflow Data API](https://developers.webflow.com/reference/rest-introduction) from
 applications written in JS.
 
