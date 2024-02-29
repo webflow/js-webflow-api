@@ -14,7 +14,7 @@ export const CollectionItem: core.serialization.ObjectSchema<serializers.Collect
         createdOn: core.serialization.string().optional(),
         isArchived: core.serialization.boolean().optional(),
         isDraft: core.serialization.boolean().optional(),
-        fieldData: core.serialization.lazyObject(async () => (await import("..")).CollectionItemFieldData).optional(),
+        fieldData: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     });
 
 export declare namespace CollectionItem {
@@ -25,6 +25,6 @@ export declare namespace CollectionItem {
         createdOn?: string | null;
         isArchived?: boolean | null;
         isDraft?: boolean | null;
-        fieldData?: serializers.CollectionItemFieldData.Raw | null;
+        fieldData?: Record<string, unknown> | null;
     }
 }

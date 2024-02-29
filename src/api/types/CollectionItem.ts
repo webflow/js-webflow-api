@@ -20,5 +20,5 @@ export interface CollectionItem {
     isArchived?: boolean;
     /** Boolean determining if the Item is set to draft */
     isDraft?: boolean;
-    fieldData?: Webflow.CollectionItemFieldData;
+    fieldData?: Record<string, unknown>;
 }
