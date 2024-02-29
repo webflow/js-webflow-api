@@ -8,7 +8,7 @@
     "scripts": {
         "format": "prettier --write 'src/**/*.ts'",
         "build": "tsc",
-        "prepare": "tsc",
+        "prepare": "tsc && cp -rv dist/. .",
         "prepack": "cp -rv dist/. ."
     },
     "dependencies": {
