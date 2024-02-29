@@ -133,7 +133,7 @@ export class Items {
         collectionId: string,
         request: Webflow.CollectionItem,
         requestOptions?: Items.RequestOptions
-    ): Promise<void> {
+    ): Promise<Webflow.CollectionItem> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -152,7 +152,13 @@ export class Items {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return;
+            return await serializers.CollectionItem.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
