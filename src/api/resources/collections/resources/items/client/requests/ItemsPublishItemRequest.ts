@@ -5,7 +5,7 @@
 /**
  * @example
  *     {
- *         itemIds: []
+ *         itemIds: ["itemIds"]
  *     }
  */
 export interface ItemsPublishItemRequest {

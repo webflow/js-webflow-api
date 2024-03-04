@@ -8,20 +8,39 @@ import * as core from "../../core";
 
 export const SkuFieldData: core.serialization.ObjectSchema<serializers.SkuFieldData.Raw, Webflow.SkuFieldData> =
     core.serialization.object({
-        name: core.serialization.string().optional(),
-        slug: core.serialization.string().optional(),
-        price: core.serialization.lazyObject(async () => (await import("..")).SkuFieldDataPrice).optional(),
         skuValues: core.serialization.property(
             "sku-values",
             core.serialization.lazy(async () => (await import("..")).SkuValueList).optional()
         ),
+        name: core.serialization.string(),
+        slug: core.serialization.string(),
+        price: core.serialization.lazyObject(async () => (await import("..")).SkuFieldDataPrice),
+        compareAtPrice: core.serialization.property(
+            "compare-at-price",
+            core.serialization.lazyObject(async () => (await import("..")).SkuFieldDataCompareAtPrice).optional()
+        ),
+        ecSkuBillingMethod: core.serialization.property(
+            "ec-sku-billing-method",
+            core.serialization.lazy(async () => (await import("..")).SkuFieldDataEcSkuBillingMethod).optional()
+        ),
+        ecSkuSubscriptionPlan: core.serialization.property(
+            "ec-sku-subscription-plan",
+            core.serialization.lazyObject(async () => (await import("..")).SkuFieldDataEcSkuSubscriptionPlan).optional()
+        ),
+        trackInventory: core.serialization.property("track-inventory", core.serialization.boolean().optional()),
+        quantity: core.serialization.number().optional(),
     });
 
 export declare namespace SkuFieldData {
     interface Raw {
-        name?: string | null;
-        slug?: string | null;
-        price?: serializers.SkuFieldDataPrice.Raw | null;
         "sku-values"?: serializers.SkuValueList.Raw | null;
+        name: string;
+        slug: string;
+        price: serializers.SkuFieldDataPrice.Raw;
+        "compare-at-price"?: serializers.SkuFieldDataCompareAtPrice.Raw | null;
+        "ec-sku-billing-method"?: serializers.SkuFieldDataEcSkuBillingMethod.Raw | null;
+        "ec-sku-subscription-plan"?: serializers.SkuFieldDataEcSkuSubscriptionPlan.Raw | null;
+        "track-inventory"?: boolean | null;
+        quantity?: number | null;
     }
 }

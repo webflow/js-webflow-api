@@ -7,19 +7,19 @@ import * as Webflow from "../../../..";
 /**
  * @example
  *     {
- *         publishStatus: Webflow.PublishStatus.Staging,
  *         skus: [{
  *                 id: "580e63fc8c9a982ac9b8b745",
- *                 lastPublished: new Date("2023-03-17T18:47:35.560Z"),
- *                 lastUpdated: new Date("2023-03-17T18:47:35.560Z"),
- *                 createdOn: new Date("2023-03-17T18:47:35.560Z"),
+ *                 lastPublished: new Date("2023-03-17T18:47:35.000Z"),
+ *                 lastUpdated: new Date("2023-03-17T18:47:35.000Z"),
+ *                 createdOn: new Date("2023-03-17T18:47:35.000Z"),
  *                 fieldData: {
- *                     name: "My new item",
- *                     slug: "my-new-item",
+ *                     name: "Blue T-shirt",
+ *                     slug: "t-shirt-blue",
  *                     price: {
  *                         value: 100,
  *                         unit: "USD"
- *                     }
+ *                     },
+ *                     quantity: 10
  *                 }
  *             }]
  *     }

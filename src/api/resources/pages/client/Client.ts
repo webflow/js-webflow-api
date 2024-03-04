@@ -34,22 +34,35 @@ export class Pages {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.pages.list("string")
+     *     await webflow.pages.list("site_id", {})
      */
-    public async list(siteId: string, requestOptions?: Pages.RequestOptions): Promise<Webflow.PageList> {
+    public async list(
+        siteId: string,
+        request: Webflow.PagesListRequest = {},
+        requestOptions?: Pages.RequestOptions
+    ): Promise<Webflow.PageList> {
+        const { locale } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (locale != null) {
+            _queryParams["locale"] = locale;
+        }
+
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/sites/${siteId}/pages`
+                `sites/${siteId}/pages`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v2.1.0",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
+            queryParameters: _queryParams,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
         });
@@ -107,22 +120,35 @@ export class Pages {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.pages.getMetadata("string")
+     *     await webflow.pages.getMetadata("page_id", {})
      */
-    public async getMetadata(pageId: string, requestOptions?: Pages.RequestOptions): Promise<Webflow.Page> {
+    public async getMetadata(
+        pageId: string,
+        request: Webflow.PagesGetMetadataRequest = {},
+        requestOptions?: Pages.RequestOptions
+    ): Promise<Webflow.Page> {
+        const { locale } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (locale != null) {
+            _queryParams["locale"] = locale;
+        }
+
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/pages/${pageId}`
+                `pages/${pageId}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v2.1.0",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
+            queryParameters: _queryParams,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
         });
@@ -142,6 +168,300 @@ export class Pages {
                     throw new Webflow.BadRequestError(_response.error.body);
                 case 401:
                     throw new Webflow.UnauthorizedError(_response.error.body);
+                case 404:
+                    throw new Webflow.NotFoundError(_response.error.body);
+                case 429:
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
+                case 500:
+                    throw new Webflow.InternalServerError(_response.error.body);
+                default:
+                    throw new errors.WebflowError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.WebflowError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.WebflowTimeoutError();
+            case "unknown":
+                throw new errors.WebflowError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Update Page-level metadata, including SEO and Open Graph fields. </br></br> Required scope | `pages:write`
+     * @throws {@link Webflow.BadRequestError}
+     * @throws {@link Webflow.UnauthorizedError}
+     * @throws {@link Webflow.NotFoundError}
+     * @throws {@link Webflow.TooManyRequestsError}
+     * @throws {@link Webflow.InternalServerError}
+     *
+     * @example
+     *     await webflow.pages.updatePageSettings("page_id", {
+     *         body: {
+     *             id: "6390c49774a71f0e3c1a08ee",
+     *             siteId: "6390c49674a71f84b51a08d8",
+     *             title: "Blog Categories Template",
+     *             slug: "detail_blog-category",
+     *             parentId: "6419db964a9c435aa3af6251",
+     *             collectionId: "6390c49774a71f12831a08e3",
+     *             createdOn: new Date("2018-10-14T21:55:49.000Z"),
+     *             lastUpdated: new Date("2022-12-07T16:51:37.000Z"),
+     *             archived: false,
+     *             draft: false,
+     *             canBranch: true,
+     *             isMembersOnly: false,
+     *             seo: {
+     *                 title: "CoffeeStyle eCommerce - Webflow HTML website template",
+     *                 description: "This Webflow template offers a quick start into an e-commerce / memberships site"
+     *             },
+     *             openGraph: {
+     *                 title: "CoffeeStyle eCommerce - Webflow HTML website template",
+     *                 titleCopied: true,
+     *                 description: "This Webflow template offers a quick start into an e-commerce / memberships site",
+     *                 descriptionCopied: true
+     *             }
+     *         }
+     *     })
+     */
+    public async updatePageSettings(
+        pageId: string,
+        request: Webflow.UpdatePageSettingsRequest,
+        requestOptions?: Pages.RequestOptions
+    ): Promise<Webflow.Page> {
+        const { locale, body: _body } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (locale != null) {
+            _queryParams["locale"] = locale;
+        }
+
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                `pages/${pageId}`
+            ),
+            method: "PUT",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "webflow-api",
+                "X-Fern-SDK-Version": "v2.1.0",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            queryParameters: _queryParams,
+            body: await serializers.Page.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+        });
+        if (_response.ok) {
+            return await serializers.Page.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Webflow.BadRequestError(_response.error.body);
+                case 401:
+                    throw new Webflow.UnauthorizedError(_response.error.body);
+                case 404:
+                    throw new Webflow.NotFoundError(_response.error.body);
+                case 429:
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
+                case 500:
+                    throw new Webflow.InternalServerError(_response.error.body);
+                default:
+                    throw new errors.WebflowError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.WebflowError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.WebflowTimeoutError();
+            case "unknown":
+                throw new errors.WebflowError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Get static content from a static page. </br> If you do not provide a Locale ID in your request, the response will return any content that can be localized from the Primary locale</br></br> Required scope | `pages:read`
+     * @throws {@link Webflow.BadRequestError}
+     * @throws {@link Webflow.UnauthorizedError}
+     * @throws {@link Webflow.ForbiddenError}
+     * @throws {@link Webflow.NotFoundError}
+     * @throws {@link Webflow.TooManyRequestsError}
+     * @throws {@link Webflow.InternalServerError}
+     *
+     * @example
+     *     await webflow.pages.getContent("page_id", {})
+     */
+    public async getContent(
+        pageId: string,
+        request: Webflow.PagesGetContentRequest = {},
+        requestOptions?: Pages.RequestOptions
+    ): Promise<Webflow.Dom> {
+        const { locale } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (locale != null) {
+            _queryParams["locale"] = locale;
+        }
+
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                `pages/${pageId}/dom`
+            ),
+            method: "GET",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "webflow-api",
+                "X-Fern-SDK-Version": "v2.1.0",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            queryParameters: _queryParams,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+        });
+        if (_response.ok) {
+            return await serializers.Dom.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Webflow.BadRequestError(_response.error.body);
+                case 401:
+                    throw new Webflow.UnauthorizedError(_response.error.body);
+                case 403:
+                    throw new Webflow.ForbiddenError(_response.error.body);
+                case 404:
+                    throw new Webflow.NotFoundError(_response.error.body);
+                case 429:
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
+                case 500:
+                    throw new Webflow.InternalServerError(_response.error.body);
+                default:
+                    throw new errors.WebflowError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.WebflowError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.WebflowTimeoutError();
+            case "unknown":
+                throw new errors.WebflowError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Update static content on a static page. </br></br> Required scope | `pages:write`
+     * @throws {@link Webflow.BadRequestError}
+     * @throws {@link Webflow.UnauthorizedError}
+     * @throws {@link Webflow.ForbiddenError}
+     * @throws {@link Webflow.NotFoundError}
+     * @throws {@link Webflow.TooManyRequestsError}
+     * @throws {@link Webflow.InternalServerError}
+     *
+     * @example
+     *     await webflow.pages.updateStaticContent("page_id", {
+     *         locale: "locale",
+     *         nodes: [{
+     *                 nodeId: "guide-title-id",
+     *                 text: "<h1>Hello world</h1>"
+     *             }]
+     *     })
+     */
+    public async updateStaticContent(
+        pageId: string,
+        request: Webflow.DomWrite,
+        requestOptions?: Pages.RequestOptions
+    ): Promise<Webflow.Dom> {
+        const { locale, ..._body } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        _queryParams["locale"] = locale;
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                `pages/${pageId}/dom`
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "webflow-api",
+                "X-Fern-SDK-Version": "v2.1.0",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            queryParameters: _queryParams,
+            body: await serializers.DomWrite.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+        });
+        if (_response.ok) {
+            return await serializers.Dom.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Webflow.BadRequestError(_response.error.body);
+                case 401:
+                    throw new Webflow.UnauthorizedError(_response.error.body);
+                case 403:
+                    throw new Webflow.ForbiddenError(_response.error.body);
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:

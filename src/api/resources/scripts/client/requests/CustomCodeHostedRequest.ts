@@ -5,10 +5,10 @@
 /**
  * @example
  *     {
- *         hostedLocation: "string",
- *         integrityHash: "string",
- *         version: "string",
- *         displayName: "string"
+ *         hostedLocation: "hostedLocation",
+ *         integrityHash: "integrityHash",
+ *         version: "version",
+ *         displayName: "displayName"
  *     }
  */
 export interface CustomCodeHostedRequest {

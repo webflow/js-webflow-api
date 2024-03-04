@@ -34,9 +34,7 @@ export class AccessGroups {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.accessGroups.list("string", {
-     *         sort: Webflow.AccessGroupsListRequestSort.CreatedOnAscending
-     *     })
+     *     await webflow.accessGroups.list("site_id", {})
      */
     public async list(
         siteId: string,
@@ -44,7 +42,7 @@ export class AccessGroups {
         requestOptions?: AccessGroups.RequestOptions
     ): Promise<Webflow.AccessGroupList> {
         const { offset, limit, sort } = request;
-        const _queryParams: Record<string, string | string[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (offset != null) {
             _queryParams["offset"] = offset.toString();
         }
@@ -60,14 +58,16 @@ export class AccessGroups {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/sites/${siteId}/accessgroups`
+                `sites/${siteId}/accessgroups`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v2.1.0",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,

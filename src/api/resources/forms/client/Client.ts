@@ -35,20 +35,22 @@ export class Forms {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.forms.list("string")
+     *     await webflow.forms.list("site_id")
      */
     public async list(siteId: string, requestOptions?: Forms.RequestOptions): Promise<Webflow.FormList> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/sites/${siteId}/forms`
+                `sites/${siteId}/forms`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v2.1.0",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -113,20 +115,22 @@ export class Forms {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.forms.get("string")
+     *     await webflow.forms.get("form_id")
      */
     public async get(formId: string, requestOptions?: Forms.RequestOptions): Promise<Webflow.Form> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/forms/${formId}`
+                `forms/${formId}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v2.1.0",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -189,7 +193,7 @@ export class Forms {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.forms.listSubmissions("string")
+     *     await webflow.forms.listSubmissions("form_id")
      */
     public async listSubmissions(
         formId: string,
@@ -198,14 +202,16 @@ export class Forms {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/forms/${formId}/submissions`
+                `forms/${formId}/submissions`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v2.1.0",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -268,7 +274,7 @@ export class Forms {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.forms.getSubmission("string")
+     *     await webflow.forms.getSubmission("form_submission_id")
      */
     public async getSubmission(
         formSubmissionId: string,
@@ -277,14 +283,16 @@ export class Forms {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/form_submissions/${formSubmissionId}`
+                `form_submissions/${formSubmissionId}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v2.1.0",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -348,7 +356,7 @@ export class Forms {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.forms.updateSubmission("string", {})
+     *     await webflow.forms.updateSubmission("form_submission_id", {})
      */
     public async updateSubmission(
         formSubmissionId: string,
@@ -358,14 +366,16 @@ export class Forms {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/form_submissions/${formSubmissionId}`
+                `form_submissions/${formSubmissionId}`
             ),
             method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v2.1.0",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             body: await serializers.FormsUpdateSubmissionRequest.jsonOrThrow(request, {

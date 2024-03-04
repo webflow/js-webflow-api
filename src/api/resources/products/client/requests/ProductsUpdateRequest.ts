@@ -7,24 +7,45 @@ import * as Webflow from "../../../..";
 /**
  * @example
  *     {
- *         publishStatus: Webflow.PublishStatus.Staging,
  *         product: {
  *             id: "580e63fc8c9a982ac9b8b745",
- *             lastPublished: new Date("2023-03-17T18:47:35.560Z"),
- *             lastUpdated: new Date("2023-03-17T18:47:35.560Z"),
- *             createdOn: new Date("2023-03-17T18:47:35.560Z"),
+ *             lastPublished: new Date("2023-03-17T18:47:35.000Z"),
+ *             lastUpdated: new Date("2023-03-17T18:47:35.000Z"),
+ *             createdOn: new Date("2023-03-17T18:47:35.000Z"),
  *             isArchived: false,
  *             isDraft: false,
  *             fieldData: {
- *                 name: "My new item",
- *                 slug: "my-new-item",
+ *                 name: "T-Shirt",
+ *                 slug: "t-shirt",
+ *                 description: "A plain cotton t-shirt.",
+ *                 shippable: true,
  *                 skuProperties: [{
- *                         id: "ff42fee0113744f693a764e3431a9cc2",
+ *                         id: "color",
  *                         name: "Color",
  *                         enum: [{
- *                                 id: "64a74715c456e36762fc39a1",
+ *                                 id: "royal-blue",
  *                                 name: "Royal Blue",
  *                                 slug: "royal-blue"
+ *                             }, {
+ *                                 id: "crimson-red",
+ *                                 name: "Crimson Red",
+ *                                 slug: "crimson-red"
+ *                             }, {
+ *                                 id: "forrest-green",
+ *                                 name: "Forrst Green",
+ *                                 slug: "forrest-green"
+ *                             }, {
+ *                                 id: "id",
+ *                                 name: "name",
+ *                                 slug: "slug"
+ *                             }]
+ *                     }, {
+ *                         id: "Color",
+ *                         name: "Color",
+ *                         enum: [{
+ *                                 id: "id",
+ *                                 name: "name",
+ *                                 slug: "slug"
  *                             }]
  *                     }]
  *             }

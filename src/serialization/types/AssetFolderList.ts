@@ -10,15 +10,15 @@ export const AssetFolderList: core.serialization.ObjectSchema<
     serializers.AssetFolderList.Raw,
     Webflow.AssetFolderList
 > = core.serialization.object({
-    pagination: core.serialization.lazyObject(async () => (await import("..")).Pagination).optional(),
-    pages: core.serialization
+    assetFolders: core.serialization
         .list(core.serialization.lazyObject(async () => (await import("..")).AssetFolder))
         .optional(),
+    pagination: core.serialization.lazyObject(async () => (await import("..")).Pagination).optional(),
 });
 
 export declare namespace AssetFolderList {
     interface Raw {
+        assetFolders?: serializers.AssetFolder.Raw[] | null;
         pagination?: serializers.Pagination.Raw | null;
-        pages?: serializers.AssetFolder.Raw[] | null;
     }
 }

@@ -6,9 +6,23 @@ import * as Webflow from "..";
 
 export interface ProductFieldData {
     /** Name of the Product */
-    name?: string;
+    name: string;
     /** URL structure of the Product in your site. */
-    slug?: string;
-    /** Variant/Options types to include in SKUs */
+    slug: string;
+    /** A description of your product */
+    description?: string;
+    /** Boolean determining if the Product is shippable */
+    shippable?: boolean;
+    /** Variant types to include in SKUs */
     skuProperties?: Webflow.SkuPropertyList[];
+    /** The categories your product belongs to. */
+    categories?: string[];
+    /** Product tax class */
+    taxCategory?: Webflow.ProductFieldDataTaxCategory;
+    /** The default SKU associated with this product. */
+    defaultSku?: string;
+    /** <a href="https://university.webflow.com/lesson/add-and-manage-products-and-categories?topics=ecommerce#how-to-understand-product-types">Product types.</a> Enums reflect the following values in order: Physical, Digital, Service, Advanced" */
+    ecProductType?: Webflow.ProductFieldDataEcProductType;
+    /** Custom fields for your product. */
+    additionalProperties?: string;
 }

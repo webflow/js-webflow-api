@@ -10,17 +10,17 @@ export const SkuPropertyList: core.serialization.ObjectSchema<
     serializers.SkuPropertyList.Raw,
     Webflow.SkuPropertyList
 > = core.serialization.object({
-    id: core.serialization.string().optional(),
-    name: core.serialization.string().optional(),
-    enum: core.serialization
-        .list(core.serialization.lazyObject(async () => (await import("..")).SkuPropertyListEnumItem))
-        .optional(),
+    id: core.serialization.string(),
+    name: core.serialization.string(),
+    enum: core.serialization.list(
+        core.serialization.lazyObject(async () => (await import("..")).SkuPropertyListEnumItem)
+    ),
 });
 
 export declare namespace SkuPropertyList {
     interface Raw {
-        id?: string | null;
-        name?: string | null;
-        enum?: serializers.SkuPropertyListEnumItem.Raw[] | null;
+        id: string;
+        name: string;
+        enum: serializers.SkuPropertyListEnumItem.Raw[];
     }
 }

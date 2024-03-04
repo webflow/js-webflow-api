@@ -6,9 +6,7 @@ import * as Webflow from "../../../..";
 
 /**
  * @example
- *     {
- *         sort: Webflow.UsersListRequestSort.CreatedOnAscending
- *     }
+ *     {}
  */
 export interface UsersListRequest {
     /**

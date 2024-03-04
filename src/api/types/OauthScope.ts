@@ -35,7 +35,10 @@ export type OauthScope =
     | "ecommerce:read"
     /**
      * edit ecommerce data */
-    | "ecommerce:write";
+    | "ecommerce:write"
+    /**
+     * read site activity logs */
+    | "site_activity:read";
 
 export const OauthScope = {
     AuthorizedUserRead: "authorized_user:read",
@@ -49,4 +52,5 @@ export const OauthScope = {
     UsersWrite: "users:write",
     EcommerceRead: "ecommerce:read",
     EcommerceWrite: "ecommerce:write",
+    SiteActivityRead: "site_activity:read",
 } as const;
