@@ -6,11 +6,7 @@
  * @example
  *     {}
  */
-export interface PagesListRequest {
-    /**
-     * Unique identifier for a specific locale. Applicable, when using localization.
-     */
-    locale?: string;
+export interface FormsListRequest {
     /**
      * Maximum number of records to be returned (max limit: 100)
      */
