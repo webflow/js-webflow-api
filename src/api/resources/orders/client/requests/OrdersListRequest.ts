@@ -6,9 +6,7 @@ import * as Webflow from "../../../..";
 
 /**
  * @example
- *     {
- *         status: Webflow.OrdersListRequestStatus.Pending
- *     }
+ *     {}
  */
 export interface OrdersListRequest {
     /**

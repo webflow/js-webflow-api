@@ -17,7 +17,7 @@ export const SiteActivityLogItem: core.serialization.ObjectSchema<
     resourceOperation: core.serialization
         .lazy(async () => (await import("..")).SiteActivityLogItemResourceOperation)
         .optional(),
-    user: core.serialization.string().optional(),
+    user: core.serialization.lazyObject(async () => (await import("..")).SiteActivityLogItemUser).optional(),
     resourceId: core.serialization.string().optional(),
     resourceName: core.serialization.string().optional(),
     newValue: core.serialization.string().optional(),
@@ -32,7 +32,7 @@ export declare namespace SiteActivityLogItem {
         lastUpdated?: string | null;
         event?: string | null;
         resourceOperation?: serializers.SiteActivityLogItemResourceOperation.Raw | null;
-        user?: string | null;
+        user?: serializers.SiteActivityLogItemUser.Raw | null;
         resourceId?: string | null;
         resourceName?: string | null;
         newValue?: string | null;

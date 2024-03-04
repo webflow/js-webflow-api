@@ -3,7 +3,7 @@
  */
 
 /**
- * Publish target
+ * Indicate whether your Product should be set as "staging" or "live"
  */
 export type PublishStatus = "staging" | "live";
 

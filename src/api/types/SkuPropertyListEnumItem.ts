@@ -7,9 +7,9 @@
  */
 export interface SkuPropertyListEnumItem {
     /** Unique identifier for a Product variant/Option */
-    id?: string;
+    id: string;
     /** Name of the Product variant/Option */
-    name?: string;
+    name: string;
     /** Slug for the Product variant/Option in the Site URL structure */
-    slug?: string;
+    slug: string;
 }

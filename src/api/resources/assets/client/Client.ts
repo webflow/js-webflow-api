@@ -33,20 +33,22 @@ export class Assets {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.assets.list("string")
+     *     await webflow.assets.list("site_id")
      */
     public async list(siteId: string, requestOptions?: Assets.RequestOptions): Promise<Webflow.Asset[]> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/sites/${siteId}/assets`
+                `sites/${siteId}/assets`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v2.1.0",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -106,7 +108,7 @@ export class Assets {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.assets.create("string", {
+     *     await webflow.assets.create("site_id", {
      *         fileName: "file.png",
      *         fileHash: "3c7d87c9575702bc3b1e991f4d3c638e",
      *         parentFolder: "6436b1ce5281cace05b65aea"
@@ -120,14 +122,16 @@ export class Assets {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/sites/${siteId}/assets`
+                `sites/${siteId}/assets`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v2.1.0",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             body: await serializers.AssetsCreateRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -188,20 +192,22 @@ export class Assets {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.assets.get("string")
+     *     await webflow.assets.get("asset_id")
      */
     public async get(assetId: string, requestOptions?: Assets.RequestOptions): Promise<Webflow.Asset> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/assets/${assetId}`
+                `assets/${assetId}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v2.1.0",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -261,20 +267,22 @@ export class Assets {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.assets.delete("string")
+     *     await webflow.assets.delete("asset_id")
      */
     public async delete(assetId: string, requestOptions?: Assets.RequestOptions): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/assets/${assetId}`
+                `assets/${assetId}`
             ),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v2.1.0",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -282,6 +290,88 @@ export class Assets {
         });
         if (_response.ok) {
             return;
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Webflow.BadRequestError(_response.error.body);
+                case 401:
+                    throw new Webflow.UnauthorizedError(_response.error.body);
+                case 404:
+                    throw new Webflow.NotFoundError(_response.error.body);
+                case 429:
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
+                case 500:
+                    throw new Webflow.InternalServerError(_response.error.body);
+                default:
+                    throw new errors.WebflowError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.WebflowError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.WebflowTimeoutError();
+            case "unknown":
+                throw new errors.WebflowError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Update an Asset </br></br> Required scope | `assets:write`
+     * @throws {@link Webflow.BadRequestError}
+     * @throws {@link Webflow.UnauthorizedError}
+     * @throws {@link Webflow.NotFoundError}
+     * @throws {@link Webflow.TooManyRequestsError}
+     * @throws {@link Webflow.InternalServerError}
+     *
+     * @example
+     *     await webflow.assets.update("asset_id", {
+     *         displayName: "file.png"
+     *     })
+     */
+    public async update(
+        assetId: string,
+        request: Webflow.AssetsUpdateRequest,
+        requestOptions?: Assets.RequestOptions
+    ): Promise<Webflow.Asset> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                `assets/${assetId}`
+            ),
+            method: "PATCH",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "webflow-api",
+                "X-Fern-SDK-Version": "v2.1.0",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            body: await serializers.AssetsUpdateRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+        });
+        if (_response.ok) {
+            return await serializers.Asset.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -328,20 +418,22 @@ export class Assets {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.assets.listFolders("string")
+     *     await webflow.assets.listFolders("site_id")
      */
     public async listFolders(siteId: string, requestOptions?: Assets.RequestOptions): Promise<Webflow.AssetFolderList> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/sites/${siteId}/asset_folders`
+                `sites/${siteId}/asset_folders`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v2.1.0",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -401,7 +493,7 @@ export class Assets {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.assets.createFolder("string", {
+     *     await webflow.assets.createFolder("site_id", {
      *         displayName: "my asset folder",
      *         parentFolder: "6390c49774a71f99f21a08eb"
      *     })
@@ -414,14 +506,16 @@ export class Assets {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/sites/${siteId}/asset_folders`
+                `sites/${siteId}/asset_folders`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v2.1.0",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             body: await serializers.AssetsCreateFolderRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -482,7 +576,7 @@ export class Assets {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.assets.getFolder("string")
+     *     await webflow.assets.getFolder("asset_folder_id")
      */
     public async getFolder(
         assetFolderId: string,
@@ -491,14 +585,16 @@ export class Assets {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/asset_folders/${assetFolderId}`
+                `asset_folders/${assetFolderId}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v2.1.0",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,

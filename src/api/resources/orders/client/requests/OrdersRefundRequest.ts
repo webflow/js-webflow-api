@@ -6,9 +6,7 @@ import * as Webflow from "../../../..";
 
 /**
  * @example
- *     {
- *         reason: Webflow.OrdersRefundRequestReason.Duplicate
- *     }
+ *     {}
  */
 export interface OrdersRefundRequest {
     /** The reason for the refund */

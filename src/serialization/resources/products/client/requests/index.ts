@@ -1,4 +1,4 @@
-export { ProductsCreateRequest } from "./ProductsCreateRequest";
+export { ProductSkuCreate } from "./ProductSkuCreate";
 export { ProductsUpdateRequest } from "./ProductsUpdateRequest";
 export { ProductsCreateSkuRequest } from "./ProductsCreateSkuRequest";
 export { ProductsUpdateSkuRequest } from "./ProductsUpdateSkuRequest";

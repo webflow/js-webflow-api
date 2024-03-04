@@ -10,15 +10,15 @@ export const SkuPropertyListEnumItem: core.serialization.ObjectSchema<
     serializers.SkuPropertyListEnumItem.Raw,
     Webflow.SkuPropertyListEnumItem
 > = core.serialization.object({
-    id: core.serialization.string().optional(),
-    name: core.serialization.string().optional(),
-    slug: core.serialization.string().optional(),
+    id: core.serialization.string(),
+    name: core.serialization.string(),
+    slug: core.serialization.string(),
 });
 
 export declare namespace SkuPropertyListEnumItem {
     interface Raw {
-        id?: string | null;
-        name?: string | null;
-        slug?: string | null;
+        id: string;
+        name: string;
+        slug: string;
     }
 }
