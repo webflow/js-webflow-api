@@ -37,9 +37,7 @@ export class Orders {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.orders.list("string", {
-     *         status: Webflow.OrdersListRequestStatus.Pending
-     *     })
+     *     await webflow.orders.list("site_id", {})
      */
     public async list(
         siteId: string,
@@ -47,7 +45,7 @@ export class Orders {
         requestOptions?: Orders.RequestOptions
     ): Promise<Webflow.OrderList> {
         const { status, offset, limit } = request;
-        const _queryParams: Record<string, string | string[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (status != null) {
             _queryParams["status"] = status;
         }
@@ -63,14 +61,16 @@ export class Orders {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/sites/${siteId}/orders`
+                `sites/${siteId}/orders`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v1.0.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -139,20 +139,22 @@ export class Orders {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.orders.get("string", "string")
+     *     await webflow.orders.get("site_id", "order_id")
      */
     public async get(siteId: string, orderId: string, requestOptions?: Orders.RequestOptions): Promise<Webflow.Order> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/sites/${siteId}/orders/${orderId}`
+                `sites/${siteId}/orders/${orderId}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v1.0.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -220,7 +222,7 @@ export class Orders {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.orders.update("string", "string", {
+     *     await webflow.orders.update("site_id", "order_id", {
      *         comment: "Example comment to myself",
      *         shippingProvider: "Shipping Company, Co.",
      *         shippingTracking: "tr00000000001",
@@ -236,14 +238,16 @@ export class Orders {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/sites/${siteId}/orders/${orderId}`
+                `sites/${siteId}/orders/${orderId}`
             ),
             method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v1.0.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             body: await serializers.OrdersUpdateRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -312,7 +316,7 @@ export class Orders {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.orders.updateFulfill("string", "string", {})
+     *     await webflow.orders.updateFulfill("site_id", "order_id", {})
      */
     public async updateFulfill(
         siteId: string,
@@ -323,14 +327,16 @@ export class Orders {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/sites/${siteId}/orders/${orderId}/fulfill`
+                `sites/${siteId}/orders/${orderId}/fulfill`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v1.0.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             body: await serializers.OrdersUpdateFulfillRequest.jsonOrThrow(request, {
@@ -401,7 +407,7 @@ export class Orders {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.orders.updateUnfulfill("string", "string")
+     *     await webflow.orders.updateUnfulfill("site_id", "order_id")
      */
     public async updateUnfulfill(
         siteId: string,
@@ -411,14 +417,16 @@ export class Orders {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/sites/${siteId}/orders/${orderId}/unfulfill`
+                `sites/${siteId}/orders/${orderId}/unfulfill`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v1.0.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -487,9 +495,7 @@ export class Orders {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.orders.refund("string", "string", {
-     *         reason: Webflow.OrdersRefundRequestReason.Duplicate
-     *     })
+     *     await webflow.orders.refund("site_id", "order_id", {})
      */
     public async refund(
         siteId: string,
@@ -500,14 +506,16 @@ export class Orders {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/sites/${siteId}/orders/${orderId}/refund`
+                `sites/${siteId}/orders/${orderId}/refund`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v1.0.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             body: await serializers.OrdersRefundRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),

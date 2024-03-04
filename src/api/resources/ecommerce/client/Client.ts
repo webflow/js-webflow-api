@@ -37,7 +37,7 @@ export class Ecommerce {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.ecommerce.getSettings("string")
+     *     await webflow.ecommerce.getSettings("site_id")
      */
     public async getSettings(
         siteId: string,
@@ -46,14 +46,16 @@ export class Ecommerce {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/sites/${siteId}/ecommerce/settings`
+                `sites/${siteId}/ecommerce/settings`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v1.0.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,

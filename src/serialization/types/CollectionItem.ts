@@ -9,6 +9,7 @@ import * as core from "../../core";
 export const CollectionItem: core.serialization.ObjectSchema<serializers.CollectionItem.Raw, Webflow.CollectionItem> =
     core.serialization.object({
         id: core.serialization.string(),
+        cmsLocaleId: core.serialization.string().optional(),
         lastPublished: core.serialization.string().optional(),
         lastUpdated: core.serialization.string().optional(),
         createdOn: core.serialization.string().optional(),
@@ -20,6 +21,7 @@ export const CollectionItem: core.serialization.ObjectSchema<serializers.Collect
 export declare namespace CollectionItem {
     interface Raw {
         id: string;
+        cmsLocaleId?: string | null;
         lastPublished?: string | null;
         lastUpdated?: string | null;
         createdOn?: string | null;

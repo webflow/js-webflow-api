@@ -4,7 +4,11 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         isRequired: false,
+ *         displayName: "Post Body",
+ *         helpText: "Add the body of your post here"
+ *     }
  */
 export interface FieldUpdate {
     /** Define whether a field is required in a collection */

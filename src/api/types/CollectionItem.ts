@@ -10,6 +10,8 @@ import * as Webflow from "..";
 export interface CollectionItem {
     /** Unique identifier for the Item */
     id: string;
+    /** Identifier for the locale of the CMS item */
+    cmsLocaleId?: string;
     /** The date the item was last published */
     lastPublished?: string;
     /** The date the item was last updated */

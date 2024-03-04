@@ -8,6 +8,7 @@ import * as Webflow from "..";
  * The Asset Folders object
  */
 export interface AssetFolderList {
+    /** A list of Asset folders */
+    assetFolders?: Webflow.AssetFolder[];
     pagination?: Webflow.Pagination;
-    pages?: Webflow.AssetFolder[];
 }

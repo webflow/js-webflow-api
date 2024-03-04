@@ -9,5 +9,6 @@ import * as Webflow from "..";
  */
 export interface ProductAndSkUs {
     product?: Webflow.Product;
+    /** A list of SKU Objects */
     skus?: Webflow.Sku[];
 }

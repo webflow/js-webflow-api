@@ -4,12 +4,23 @@
 
 import * as Webflow from "..";
 
+/**
+ * Standard and Custom fields for a SKU
+ */
 export interface SkuFieldData {
-    /** Name of the Product */
-    name?: string;
-    /** URL structure of the Product in your site. */
-    slug?: string;
-    /** price of SKU */
-    price?: Webflow.SkuFieldDataPrice;
     skuValues?: Webflow.SkuValueList;
+    /** Name of the Product */
+    name: string;
+    /** URL structure of the Product in your site. */
+    slug: string;
+    /** price of SKU */
+    price: Webflow.SkuFieldDataPrice;
+    /** comparison price of SKU */
+    compareAtPrice?: Webflow.SkuFieldDataCompareAtPrice;
+    ecSkuBillingMethod?: Webflow.SkuFieldDataEcSkuBillingMethod;
+    ecSkuSubscriptionPlan?: Webflow.SkuFieldDataEcSkuSubscriptionPlan;
+    /** A boolean indicating whether inventory for this product should be tracked. */
+    trackInventory?: boolean;
+    /** Quantity of SKU that will be tracked as items are ordered. */
+    quantity?: number;
 }

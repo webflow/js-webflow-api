@@ -6,8 +6,8 @@
  * @example
  *     {
  *         sourceCode: "alert('hello world');",
- *         version: "string",
- *         displayName: "string"
+ *         version: "0.0.1",
+ *         displayName: "Alert"
  *     }
  */
 export interface CustomCodeInlineRequest {

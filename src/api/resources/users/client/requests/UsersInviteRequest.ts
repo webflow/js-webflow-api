@@ -5,7 +5,8 @@
 /**
  * @example
  *     {
- *         email: "some.one@home.com"
+ *         email: "some.one@home.com",
+ *         accessGroups: ["webflowers", "accessGroups"]
  *     }
  */
 export interface UsersInviteRequest {

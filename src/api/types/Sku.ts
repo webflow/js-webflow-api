@@ -16,5 +16,6 @@ export interface Sku {
     lastUpdated?: Date;
     /** The date the Product was created */
     createdOn?: Date;
+    /** Standard and Custom fields for a SKU */
     fieldData?: Webflow.SkuFieldData;
 }

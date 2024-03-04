@@ -33,7 +33,7 @@ export class Scripts {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.sites.scripts.getCustomCode("string")
+     *     await webflow.sites.scripts.getCustomCode("site_id")
      */
     public async getCustomCode(
         siteId: string,
@@ -42,14 +42,16 @@ export class Scripts {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/sites/${siteId}/custom_code`
+                `sites/${siteId}/custom_code`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v1.0.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -109,7 +111,7 @@ export class Scripts {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.sites.scripts.upsertCustomCode("string", {
+     *     await webflow.sites.scripts.upsertCustomCode("site_id", {
      *         scripts: [{
      *                 id: "cms_slider",
      *                 location: Webflow.ScriptApplyLocation.Header,
@@ -117,6 +119,14 @@ export class Scripts {
      *                 attributes: {
      *                     "my-attribute": "some-value"
      *                 }
+     *             }, {
+     *                 id: "alert",
+     *                 location: Webflow.ScriptApplyLocation.Header,
+     *                 version: "0.0.1"
+     *             }, {
+     *                 id: "id",
+     *                 location: Webflow.ScriptApplyLocation.Header,
+     *                 version: "version"
      *             }]
      *     })
      */
@@ -128,14 +138,16 @@ export class Scripts {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/sites/${siteId}/custom_code`
+                `sites/${siteId}/custom_code`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v1.0.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             body: await serializers.ScriptApplyList.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -196,20 +208,22 @@ export class Scripts {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.sites.scripts.deleteCustomCode("string")
+     *     await webflow.sites.scripts.deleteCustomCode("site_id")
      */
     public async deleteCustomCode(siteId: string, requestOptions?: Scripts.RequestOptions): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/sites/${siteId}/custom_code`
+                `sites/${siteId}/custom_code`
             ),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v1.0.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -263,7 +277,7 @@ export class Scripts {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.sites.scripts.listCustomCodeBlocks("string", {})
+     *     await webflow.sites.scripts.listCustomCodeBlocks("site_id", {})
      */
     public async listCustomCodeBlocks(
         siteId: string,
@@ -271,7 +285,7 @@ export class Scripts {
         requestOptions?: Scripts.RequestOptions
     ): Promise<Webflow.ListCustomCodeBlocks> {
         const { offset, limit } = request;
-        const _queryParams: Record<string, string | string[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (offset != null) {
             _queryParams["offset"] = offset.toString();
         }
@@ -283,14 +297,16 @@ export class Scripts {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/sites/${siteId}/custom_code/blocks`
+                `sites/${siteId}/custom_code/blocks`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v1.0.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,

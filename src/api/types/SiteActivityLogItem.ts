@@ -10,7 +10,7 @@ export interface SiteActivityLogItem {
     lastUpdated?: Date;
     event?: string;
     resourceOperation?: Webflow.SiteActivityLogItemResourceOperation;
-    user?: string;
+    user?: Webflow.SiteActivityLogItemUser;
     resourceId?: string;
     resourceName?: string;
     newValue?: string;

@@ -37,7 +37,7 @@ export class Inventory {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.inventory.list("string", "string")
+     *     await webflow.inventory.list("collection_id", "item_id")
      */
     public async list(
         collectionId: string,
@@ -47,14 +47,16 @@ export class Inventory {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/collections/${collectionId}/items/${itemId}/inventory`
+                `collections/${collectionId}/items/${itemId}/inventory`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v1.0.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -122,7 +124,7 @@ export class Inventory {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.inventory.update("string", "string", {
+     *     await webflow.inventory.update("collection_id", "item_id", {
      *         inventoryType: Webflow.InventoryUpdateRequestInventoryType.Infinite,
      *         updateQuantity: 1,
      *         quantity: 100
@@ -137,14 +139,16 @@ export class Inventory {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/collections/${collectionId}/items/${itemId}/inventory`
+                `collections/${collectionId}/items/${itemId}/inventory`
             ),
             method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v1.0.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             body: await serializers.InventoryUpdateRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),

@@ -1,4 +1,6 @@
 export * as collections from "./collections";
+export * as pages from "./pages";
+export * from "./pages/types";
 export * as users from "./users";
 export * from "./users/types";
 export * as accessGroups from "./accessGroups";
@@ -14,6 +16,7 @@ export * as assets from "./assets";
 export * as sites from "./sites";
 export * from "./sites/client/requests";
 export * from "./collections/client/requests";
+export * from "./pages/client/requests";
 export * as scripts from "./scripts";
 export * from "./scripts/client/requests";
 export * from "./webhooks/client/requests";

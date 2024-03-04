@@ -33,32 +33,34 @@ export class Fields {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.collections.fields.create("string", {
-     *         id: "string",
-     *         isRequired: true,
-     *         type: Webflow.FieldType.PlainText,
-     *         displayName: "string"
+     *     await webflow.collections.fields.create("collection_id", {
+     *         isRequired: false,
+     *         type: Webflow.collections.FieldCreateType.RichText,
+     *         displayName: "Post Body",
+     *         helpText: "Add the body of your post here"
      *     })
      */
     public async create(
         collectionId: string,
-        request: Webflow.Field,
+        request: Webflow.collections.FieldCreate,
         requestOptions?: Fields.RequestOptions
     ): Promise<Webflow.Field> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/collections/${collectionId}/fields`
+                `collections/${collectionId}/fields`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v1.0.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
-            body: await serializers.Field.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: await serializers.collections.FieldCreate.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
         });
@@ -116,7 +118,11 @@ export class Fields {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.collections.fields.update("string", "string", {})
+     *     await webflow.collections.fields.update("collection_id", "field_id", {
+     *         isRequired: false,
+     *         displayName: "Post Body",
+     *         helpText: "Add the body of your post here"
+     *     })
      */
     public async update(
         collectionId: string,
@@ -127,14 +133,16 @@ export class Fields {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/collections/${collectionId}/fields/${fieldId}`
+                `collections/${collectionId}/fields/${fieldId}`
             ),
             method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v1.0.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             body: await serializers.collections.FieldUpdate.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),

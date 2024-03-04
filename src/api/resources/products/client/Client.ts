@@ -37,7 +37,7 @@ export class Products {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.products.list("string", {})
+     *     await webflow.products.list("site_id", {})
      */
     public async list(
         siteId: string,
@@ -45,7 +45,7 @@ export class Products {
         requestOptions?: Products.RequestOptions
     ): Promise<Webflow.ProductAndSkUsList> {
         const { offset, limit } = request;
-        const _queryParams: Record<string, string | string[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (offset != null) {
             _queryParams["offset"] = offset.toString();
         }
@@ -57,14 +57,16 @@ export class Products {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/sites/${siteId}/products`
+                `sites/${siteId}/products`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v1.0.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -121,17 +123,13 @@ export class Products {
     }
 
     /**
-     * Adding a new Product involves creating both a Product Item and a SKU Item, since a Product Item has to have, at minimum, a SKU Item.
+     * Creating a new Product involves creating both a Product and a SKU, since a Product Item has to have, at minimum, a single SKU.
      *
-     * To create a new Product with multiple SKUs, you must:
+     * In order to create a Product with multiple SKUs - for example a T-shirt in sizes small, medium and large - you'll need to create `sku-properties`. In our T-shirt example, a single `sku-property` would be Color. Within that property, we'll need to list out the various colors a T-shirt could be as an array of `enum` values: `royal-blue`, `crimson-red`, and `forrest-green`.
      *
-     * - Create the Product and Default SKU using this endpoint, making sure to add `sku-properties` in the product data.
-     * - You can't add `sku-values` to the SKU yet, since there are no enum IDs created yet. When this endpoint returns, it will have IDs filled in for the `sku-properties` enums.
-     * - With those IDs, update the default SKU with valid `sku-values` and create any additional SKUs (if needed), with valid `sku-values`.
-     * - You can also create the Product without `sku-properties` and add them in later.
-     * - If you add any `sku` properties, the default SKU will default to the first value of each option.
+     * Once, you've created a Product and its `sku-properties` with `enum` values, you can create your default SKU, which will automatically be a combination of the first `sku-properties` you've created. In our example, the default SKU will be a Royal Blue T-Shirt, because our first `enum` of our Color `sku-property` is Royal Blue. After you've created your product, you can create additional SKUs using the <a href="https://developers.webflow.com/reference/create-skus">Create SKU endpoint</a>
      *
-     * Upon creation, the default product type will be `Advanced`. The product type is used to determine which Product and SKU fields are shown to users in the `Designer` and the `Editor`. Setting it to `Advanced` ensures that all Product and SKU fields will be shown. The product type can be edited in the `Designer` or the `Editor`.
+     * Upon creation, the default product type will be `Advanced`. The product type is used to determine which Product and SKU fields are shown to users in the `Designer` and the `Editor`. Setting it to `Advanced` ensures that all Product and SKU fields will be shown.
      *
      * Required scope | `ecommerce:write`
      * @throws {@link Webflow.BadRequestError}
@@ -143,64 +141,29 @@ export class Products {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.products.create("string", {
-     *         publishStatus: Webflow.PublishStatus.Staging,
-     *         product: {
-     *             id: "580e63fc8c9a982ac9b8b745",
-     *             lastPublished: new Date("2023-03-17T18:47:35.560Z"),
-     *             lastUpdated: new Date("2023-03-17T18:47:35.560Z"),
-     *             createdOn: new Date("2023-03-17T18:47:35.560Z"),
-     *             isArchived: false,
-     *             isDraft: false,
-     *             fieldData: {
-     *                 name: "My new item",
-     *                 slug: "my-new-item",
-     *                 skuProperties: [{
-     *                         id: "ff42fee0113744f693a764e3431a9cc2",
-     *                         name: "Color",
-     *                         enum: [{
-     *                                 id: "64a74715c456e36762fc39a1",
-     *                                 name: "Royal Blue",
-     *                                 slug: "royal-blue"
-     *                             }]
-     *                     }]
-     *             }
-     *         },
-     *         sku: {
-     *             id: "580e63fc8c9a982ac9b8b745",
-     *             lastPublished: new Date("2023-03-17T18:47:35.560Z"),
-     *             lastUpdated: new Date("2023-03-17T18:47:35.560Z"),
-     *             createdOn: new Date("2023-03-17T18:47:35.560Z"),
-     *             fieldData: {
-     *                 name: "My new item",
-     *                 slug: "my-new-item",
-     *                 price: {
-     *                     value: 100,
-     *                     unit: "USD"
-     *                 }
-     *             }
-     *         }
-     *     })
+     *     await webflow.products.create("site_id", {})
      */
     public async create(
         siteId: string,
-        request: Webflow.ProductsCreateRequest,
+        request: Webflow.ProductSkuCreate = {},
         requestOptions?: Products.RequestOptions
     ): Promise<Webflow.ProductAndSkUs> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/sites/${siteId}/products`
+                `sites/${siteId}/products`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v1.0.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
-            body: await serializers.ProductsCreateRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: await serializers.ProductSkuCreate.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
         });
@@ -266,7 +229,7 @@ export class Products {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.products.get("string", "string")
+     *     await webflow.products.get("site_id", "product_id")
      */
     public async get(
         siteId: string,
@@ -276,14 +239,16 @@ export class Products {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/sites/${siteId}/products/${productId}`
+                `sites/${siteId}/products/${productId}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v1.0.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -351,25 +316,46 @@ export class Products {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.products.update("string", "string", {
-     *         publishStatus: Webflow.PublishStatus.Staging,
+     *     await webflow.products.update("site_id", "product_id", {
      *         product: {
      *             id: "580e63fc8c9a982ac9b8b745",
-     *             lastPublished: new Date("2023-03-17T18:47:35.560Z"),
-     *             lastUpdated: new Date("2023-03-17T18:47:35.560Z"),
-     *             createdOn: new Date("2023-03-17T18:47:35.560Z"),
+     *             lastPublished: new Date("2023-03-17T18:47:35.000Z"),
+     *             lastUpdated: new Date("2023-03-17T18:47:35.000Z"),
+     *             createdOn: new Date("2023-03-17T18:47:35.000Z"),
      *             isArchived: false,
      *             isDraft: false,
      *             fieldData: {
-     *                 name: "My new item",
-     *                 slug: "my-new-item",
+     *                 name: "T-Shirt",
+     *                 slug: "t-shirt",
+     *                 description: "A plain cotton t-shirt.",
+     *                 shippable: true,
      *                 skuProperties: [{
-     *                         id: "ff42fee0113744f693a764e3431a9cc2",
+     *                         id: "color",
      *                         name: "Color",
      *                         enum: [{
-     *                                 id: "64a74715c456e36762fc39a1",
+     *                                 id: "royal-blue",
      *                                 name: "Royal Blue",
      *                                 slug: "royal-blue"
+     *                             }, {
+     *                                 id: "crimson-red",
+     *                                 name: "Crimson Red",
+     *                                 slug: "crimson-red"
+     *                             }, {
+     *                                 id: "forrest-green",
+     *                                 name: "Forrst Green",
+     *                                 slug: "forrest-green"
+     *                             }, {
+     *                                 id: "id",
+     *                                 name: "name",
+     *                                 slug: "slug"
+     *                             }]
+     *                     }, {
+     *                         id: "Color",
+     *                         name: "Color",
+     *                         enum: [{
+     *                                 id: "id",
+     *                                 name: "name",
+     *                                 slug: "slug"
      *                             }]
      *                     }]
      *             }
@@ -385,14 +371,16 @@ export class Products {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/sites/${siteId}/products/${productId}`
+                `sites/${siteId}/products/${productId}`
             ),
             method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v1.0.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             body: await serializers.ProductsUpdateRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -463,20 +451,20 @@ export class Products {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.products.createSku("string", "string", {
-     *         publishStatus: Webflow.PublishStatus.Staging,
+     *     await webflow.products.createSku("site_id", "product_id", {
      *         skus: [{
      *                 id: "580e63fc8c9a982ac9b8b745",
-     *                 lastPublished: new Date("2023-03-17T18:47:35.560Z"),
-     *                 lastUpdated: new Date("2023-03-17T18:47:35.560Z"),
-     *                 createdOn: new Date("2023-03-17T18:47:35.560Z"),
+     *                 lastPublished: new Date("2023-03-17T18:47:35.000Z"),
+     *                 lastUpdated: new Date("2023-03-17T18:47:35.000Z"),
+     *                 createdOn: new Date("2023-03-17T18:47:35.000Z"),
      *                 fieldData: {
-     *                     name: "My new item",
-     *                     slug: "my-new-item",
+     *                     name: "Blue T-shirt",
+     *                     slug: "t-shirt-blue",
      *                     price: {
      *                         value: 100,
      *                         unit: "USD"
-     *                     }
+     *                     },
+     *                     quantity: 10
      *                 }
      *             }]
      *     })
@@ -490,14 +478,16 @@ export class Products {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/sites/${siteId}/products/${productId}/skus`
+                `sites/${siteId}/products/${productId}/skus`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v1.0.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             body: await serializers.ProductsCreateSkuRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -566,20 +556,20 @@ export class Products {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.products.updateSku("string", "string", "string", {
-     *         publishStatus: Webflow.PublishStatus.Staging,
+     *     await webflow.products.updateSku("site_id", "product_id", "sku_id", {
      *         sku: {
      *             id: "580e63fc8c9a982ac9b8b745",
-     *             lastPublished: new Date("2023-03-17T18:47:35.560Z"),
-     *             lastUpdated: new Date("2023-03-17T18:47:35.560Z"),
-     *             createdOn: new Date("2023-03-17T18:47:35.560Z"),
+     *             lastPublished: new Date("2023-03-17T18:47:35.000Z"),
+     *             lastUpdated: new Date("2023-03-17T18:47:35.000Z"),
+     *             createdOn: new Date("2023-03-17T18:47:35.000Z"),
      *             fieldData: {
-     *                 name: "My new item",
-     *                 slug: "my-new-item",
+     *                 name: "Blue T-shirt",
+     *                 slug: "t-shirt-blue",
      *                 price: {
      *                     value: 100,
      *                     unit: "USD"
-     *                 }
+     *                 },
+     *                 quantity: 10
      *             }
      *         }
      *     })
@@ -594,14 +584,16 @@ export class Products {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/sites/${siteId}/products/${productId}/skus/${skuId}`
+                `sites/${siteId}/products/${productId}/skus/${skuId}`
             ),
             method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v1.0.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             body: await serializers.ProductsUpdateSkuRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),

@@ -19,6 +19,7 @@ export const OauthScope: core.serialization.Schema<serializers.OauthScope.Raw, W
         "users:write",
         "ecommerce:read",
         "ecommerce:write",
+        "site_activity:read",
     ]);
 
 export declare namespace OauthScope {
@@ -33,5 +34,6 @@ export declare namespace OauthScope {
         | "users:read"
         | "users:write"
         | "ecommerce:read"
-        | "ecommerce:write";
+        | "ecommerce:write"
+        | "site_activity:read";
 }

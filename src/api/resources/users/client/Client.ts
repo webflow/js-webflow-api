@@ -34,9 +34,7 @@ export class Users {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.users.list("string", {
-     *         sort: Webflow.UsersListRequestSort.CreatedOnAscending
-     *     })
+     *     await webflow.users.list("site_id", {})
      */
     public async list(
         siteId: string,
@@ -44,7 +42,7 @@ export class Users {
         requestOptions?: Users.RequestOptions
     ): Promise<Webflow.UserList> {
         const { offset, limit, sort } = request;
-        const _queryParams: Record<string, string | string[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (offset != null) {
             _queryParams["offset"] = offset.toString();
         }
@@ -60,14 +58,16 @@ export class Users {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/sites/${siteId}/users`
+                `sites/${siteId}/users`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v1.0.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -131,20 +131,22 @@ export class Users {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.users.get("string", "string")
+     *     await webflow.users.get("site_id", "user_id")
      */
     public async get(siteId: string, userId: string, requestOptions?: Users.RequestOptions): Promise<Webflow.User> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/sites/${siteId}/users/${userId}`
+                `sites/${siteId}/users/${userId}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v1.0.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -207,20 +209,22 @@ export class Users {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.users.delete("string", "string")
+     *     await webflow.users.delete("site_id", "user_id")
      */
     public async delete(siteId: string, userId: string, requestOptions?: Users.RequestOptions): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/sites/${siteId}/users/${userId}`
+                `sites/${siteId}/users/${userId}`
             ),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v1.0.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -279,41 +283,37 @@ export class Users {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.users.update("string", "string", {
-     *         id: "6287ec36a841b25637c663df",
-     *         lastUpdated: new Date("2016-10-24T19:41:29.156Z"),
-     *         invitedOn: new Date("2016-10-24T19:41:29.156Z"),
-     *         createdOn: new Date("2016-10-24T19:41:29.156Z"),
-     *         lastLogin: new Date("2016-10-24T19:41:29.156Z"),
-     *         status: Webflow.UserStatus.Invited,
-     *         accessGroups: [{
-     *                 type: Webflow.UserAccessGroupsItemType.Admin
-     *             }],
+     *     await webflow.users.update("site_id", "user_id", {
      *         data: {
-     *             data: {}
-     *         }
+     *             name: "Some One",
+     *             acceptPrivacy: false,
+     *             acceptCommunications: false
+     *         },
+     *         accessGroups: ["webflowers", "platinum", "free-tier", "accessGroups"]
      *     })
      */
     public async update(
         siteId: string,
         userId: string,
-        request: Webflow.User,
+        request: Webflow.UsersUpdateRequest = {},
         requestOptions?: Users.RequestOptions
     ): Promise<Webflow.User> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/sites/${siteId}/users/${userId}`
+                `sites/${siteId}/users/${userId}`
             ),
             method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v1.0.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
-            body: await serializers.User.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: await serializers.UsersUpdateRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
         });
@@ -375,8 +375,9 @@ export class Users {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.users.invite("string", {
-     *         email: "some.one@home.com"
+     *     await webflow.users.invite("site_id", {
+     *         email: "some.one@home.com",
+     *         accessGroups: ["webflowers", "accessGroups"]
      *     })
      */
     public async invite(
@@ -387,14 +388,16 @@ export class Users {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/sites/${siteId}/users/invite`
+                `sites/${siteId}/users/invite`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v1.0.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             body: await serializers.UsersInviteRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),

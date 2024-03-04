@@ -33,20 +33,22 @@ export class Scripts {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.scripts.list("string")
+     *     await webflow.scripts.list("site_id")
      */
     public async list(siteId: string, requestOptions?: Scripts.RequestOptions): Promise<Webflow.RegisteredScriptList> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/sites/${siteId}/registered_scripts`
+                `sites/${siteId}/registered_scripts`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v1.0.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -106,11 +108,11 @@ export class Scripts {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.scripts.registerHosted("string", {
-     *         hostedLocation: "string",
-     *         integrityHash: "string",
-     *         version: "string",
-     *         displayName: "string"
+     *     await webflow.scripts.registerHosted("site_id", {
+     *         hostedLocation: "hostedLocation",
+     *         integrityHash: "integrityHash",
+     *         version: "version",
+     *         displayName: "displayName"
      *     })
      */
     public async registerHosted(
@@ -121,14 +123,16 @@ export class Scripts {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/sites/${siteId}/registered_scripts/hosted`
+                `sites/${siteId}/registered_scripts/hosted`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v1.0.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             body: await serializers.CustomCodeHostedRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
@@ -189,10 +193,10 @@ export class Scripts {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.scripts.registerInline("string", {
+     *     await webflow.scripts.registerInline("site_id", {
      *         sourceCode: "alert('hello world');",
-     *         version: "string",
-     *         displayName: "string"
+     *         version: "0.0.1",
+     *         displayName: "Alert"
      *     })
      */
     public async registerInline(
@@ -203,14 +207,16 @@ export class Scripts {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `v2/sites/${siteId}/registered_scripts/inline`
+                `sites/${siteId}/registered_scripts/inline`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.0.0-beta",
+                "X-Fern-SDK-Version": "v1.0.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             body: await serializers.CustomCodeInlineRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
