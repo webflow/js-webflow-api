@@ -41,10 +41,18 @@ export class Pages {
         request: Webflow.PagesListRequest = {},
         requestOptions?: Pages.RequestOptions
     ): Promise<Webflow.PageList> {
-        const { locale } = request;
+        const { locale, limit, offset } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (locale != null) {
             _queryParams["locale"] = locale;
+        }
+
+        if (limit != null) {
+            _queryParams["limit"] = limit.toString();
+        }
+
+        if (offset != null) {
+            _queryParams["offset"] = offset.toString();
         }
 
         const _response = await core.fetcher({
@@ -57,7 +65,7 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "v2.1.0",
+                "X-Fern-SDK-Version": "v2.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -143,7 +151,7 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "v2.1.0",
+                "X-Fern-SDK-Version": "v2.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -254,7 +262,7 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "v2.1.0",
+                "X-Fern-SDK-Version": "v2.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -342,7 +350,7 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "v2.1.0",
+                "X-Fern-SDK-Version": "v2.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -399,7 +407,7 @@ export class Pages {
     }
 
     /**
-     * Update static content on a static page. </br></br> Required scope | `pages:write`
+     * Update static content on a static page. This endpoint supports sending 1000 nodes per request. </br></br> Required scope | `pages:write`
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.ForbiddenError}
@@ -434,7 +442,7 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "v2.1.0",
+                "X-Fern-SDK-Version": "v2.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
