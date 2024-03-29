@@ -5,7 +5,8 @@
 import * as Webflow from "..";
 
 export interface UserLimitReached {
-    code?: "user_limit_reached";
+    /** Error code */
+    code?: string;
     /** Error message */
     message?: string;
     /** Link to more information */

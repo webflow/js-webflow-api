@@ -20,7 +20,7 @@ import * as Webflow from "../../../../../..";
 export interface BulkCollectionItem {
     /** Unique identifier for the Item */
     id: string;
-    /** Array of identifiers for the locales where the item will be crated */
+    /** Array of identifiers for the locales where the item will be created */
     cmsLocaleIds?: string[];
     /** The date the item was last published */
     lastPublished?: string;

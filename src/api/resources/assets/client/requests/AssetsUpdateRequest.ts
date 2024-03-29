@@ -5,7 +5,7 @@
 /**
  * @example
  *     {
- *         displayName: "file.png"
+ *         displayName: "bulldoze.png"
  *     }
  */
 export interface AssetsUpdateRequest {

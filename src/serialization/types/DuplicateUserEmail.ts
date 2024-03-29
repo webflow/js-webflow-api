@@ -10,7 +10,7 @@ export const DuplicateUserEmail: core.serialization.ObjectSchema<
     serializers.DuplicateUserEmail.Raw,
     Webflow.DuplicateUserEmail
 > = core.serialization.object({
-    code: core.serialization.stringLiteral("duplicate_user_email").optional(),
+    code: core.serialization.string().optional(),
     message: core.serialization.string().optional(),
     externalReference: core.serialization.string().optional(),
     details: core.serialization
@@ -20,7 +20,7 @@ export const DuplicateUserEmail: core.serialization.ObjectSchema<
 
 export declare namespace DuplicateUserEmail {
     interface Raw {
-        code?: "duplicate_user_email" | null;
+        code?: string | null;
         message?: string | null;
         externalReference?: string | null;
         details?: serializers.ErrorDetailsItem.Raw[] | null;

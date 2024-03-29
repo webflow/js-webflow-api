@@ -25,7 +25,7 @@ export class Scripts {
     constructor(protected readonly _options: Scripts.Options) {}
 
     /**
-     * Get all registered scripts that have been applied to a specific Page. </br></br> In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts must first be registered to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate `custom_code` endpoints. </br></br> Required scope | `custom_code:read`
+     * Get all registered scripts that have been applied to a specific Page. </br></br> In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts must first be registered to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate `custom_code` endpoints. </br></br> Access to this endpoint requires a bearer token from a Data Client App. Required scope | `custom_code:read`
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
@@ -49,7 +49,7 @@ export class Scripts {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.1.2",
+                "X-Fern-SDK-Version": "v2.1.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -103,7 +103,7 @@ export class Scripts {
     }
 
     /**
-     * Add a registered script to a Page. </br></br> In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts must first be registered to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate `custom_code` endpoints. </br></br> Required scope | `custom_code:write`
+     * Add a registered script to a Page. </br></br> In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts must first be registered to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate `custom_code` endpoints. </br></br> Access to this endpoint requires a bearer token from a Data Client App. Required scope | `custom_code:write`
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
@@ -145,7 +145,7 @@ export class Scripts {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.1.2",
+                "X-Fern-SDK-Version": "v2.1.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -200,7 +200,7 @@ export class Scripts {
     }
 
     /**
-     * Delete the custom code block that an app has created for a page </br></br> In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts must first be registered to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate `custom_code` endpoints. </br></br> Required scope | `custom_code:write`
+     * Delete the custom code block that an app has created for a page </br></br> In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts must first be registered to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate `custom_code` endpoints. </br></br> Access to this endpoint requires a bearer token from a Data Client App. Required scope | `custom_code:write`
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
@@ -221,7 +221,7 @@ export class Scripts {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.1.2",
+                "X-Fern-SDK-Version": "v2.1.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },

@@ -5,7 +5,8 @@
 import * as Webflow from "..";
 
 export interface DuplicateUserEmail {
-    code?: "duplicate_user_email";
+    /** Error code */
+    code?: string;
     /** Error message */
     message?: string;
     /** Link to more information */

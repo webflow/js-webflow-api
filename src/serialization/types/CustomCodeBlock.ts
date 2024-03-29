@@ -13,9 +13,7 @@ export const CustomCodeBlock: core.serialization.ObjectSchema<
     siteId: core.serialization.string().optional(),
     pageId: core.serialization.string().optional(),
     type: core.serialization.lazy(async () => (await import("..")).CustomCodeBlockType).optional(),
-    scripts: core.serialization
-        .list(core.serialization.lazyObject(async () => (await import("..")).ScriptApply))
-        .optional(),
+    scripts: core.serialization.lazy(async () => (await import("..")).Scripts).optional(),
     createdOn: core.serialization.date().optional(),
     lastUpdated: core.serialization.date().optional(),
 });
@@ -25,7 +23,7 @@ export declare namespace CustomCodeBlock {
         siteId?: string | null;
         pageId?: string | null;
         type?: serializers.CustomCodeBlockType.Raw | null;
-        scripts?: serializers.ScriptApply.Raw[] | null;
+        scripts?: serializers.Scripts.Raw | null;
         createdOn?: string | null;
         lastUpdated?: string | null;
     }

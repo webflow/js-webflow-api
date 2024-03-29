@@ -68,7 +68,7 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.1.2",
+                "X-Fern-SDK-Version": "v2.1.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -132,14 +132,16 @@ export class Items {
      *
      * @example
      *     await webflow.collections.items.createItem("collection_id", {
-     *         id: "580e64008c9a982ac9b8b754",
+     *         id: "42b720ef280c7a7a3be8cabe",
      *         cmsLocaleId: "653ad57de882f528b32e810e",
-     *         lastPublished: "2023-03-17T18:47:35.560Z",
-     *         lastUpdated: "2023-03-17T18:47:35.560Z",
-     *         createdOn: "2023-03-17T18:47:35.560Z",
+     *         lastPublished: "2022-11-29T16:22:43.159Z",
+     *         lastUpdated: "2022-11-17T17:19:43.282Z",
+     *         createdOn: "2022-11-17T17:11:57.148Z",
+     *         isArchived: false,
+     *         isDraft: false,
      *         fieldData: {
-     *             name: "My new item",
-     *             slug: "my-new-item"
+     *             name: "Pan Galactic Gargle Blaster Recipe",
+     *             slug: "pan-galactic-gargle-blaster"
      *         }
      *     })
      */
@@ -158,7 +160,7 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.1.2",
+                "X-Fern-SDK-Version": "v2.1.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -216,14 +218,16 @@ export class Items {
      *
      * @example
      *     await webflow.collections.items.createItemLive("collection_id", {
-     *         id: "580e64008c9a982ac9b8b754",
+     *         id: "42b720ef280c7a7a3be8cabe",
      *         cmsLocaleId: "653ad57de882f528b32e810e",
-     *         lastPublished: "2023-03-17T18:47:35.560Z",
-     *         lastUpdated: "2023-03-17T18:47:35.560Z",
-     *         createdOn: "2023-03-17T18:47:35.560Z",
+     *         lastPublished: "2022-11-29T16:22:43.159Z",
+     *         lastUpdated: "2022-11-17T17:19:43.282Z",
+     *         createdOn: "2022-11-17T17:11:57.148Z",
+     *         isArchived: false,
+     *         isDraft: false,
      *         fieldData: {
-     *             name: "My new item",
-     *             slug: "my-new-item"
+     *             name: "Pan Galactic Gargle Blaster Recipe",
+     *             slug: "pan-galactic-gargle-blaster"
      *         }
      *     })
      */
@@ -242,7 +246,7 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.1.2",
+                "X-Fern-SDK-Version": "v2.1.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -325,7 +329,7 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.1.2",
+                "X-Fern-SDK-Version": "v2.1.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -408,7 +412,7 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.1.2",
+                "X-Fern-SDK-Version": "v2.1.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -499,7 +503,7 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.1.2",
+                "X-Fern-SDK-Version": "v2.1.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -557,14 +561,16 @@ export class Items {
      *
      * @example
      *     await webflow.collections.items.updateItem("collection_id", "item_id", {
-     *         id: "580e64008c9a982ac9b8b754",
+     *         id: "42b720ef280c7a7a3be8cabe",
      *         cmsLocaleId: "653ad57de882f528b32e810e",
-     *         lastPublished: "2023-03-17T18:47:35.560Z",
-     *         lastUpdated: "2023-03-17T18:47:35.560Z",
-     *         createdOn: "2023-03-17T18:47:35.560Z",
+     *         lastPublished: "2022-11-29T16:22:43.159Z",
+     *         lastUpdated: "2022-11-17T17:19:43.282Z",
+     *         createdOn: "2022-11-17T17:11:57.148Z",
+     *         isArchived: false,
+     *         isDraft: false,
      *         fieldData: {
-     *             name: "My new item",
-     *             slug: "my-new-item"
+     *             name: "Pan Galactic Gargle Blaster Recipe",
+     *             slug: "pan-galactic-gargle-blaster"
      *         }
      *     })
      */
@@ -584,7 +590,7 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.1.2",
+                "X-Fern-SDK-Version": "v2.1.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -664,7 +670,7 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.1.2",
+                "X-Fern-SDK-Version": "v2.1.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -721,14 +727,16 @@ export class Items {
      *
      * @example
      *     await webflow.collections.items.updateItemLive("collection_id", "item_id", {
-     *         id: "580e64008c9a982ac9b8b754",
+     *         id: "42b720ef280c7a7a3be8cabe",
      *         cmsLocaleId: "653ad57de882f528b32e810e",
-     *         lastPublished: "2023-03-17T18:47:35.560Z",
-     *         lastUpdated: "2023-03-17T18:47:35.560Z",
-     *         createdOn: "2023-03-17T18:47:35.560Z",
+     *         lastPublished: "2022-11-29T16:22:43.159Z",
+     *         lastUpdated: "2022-11-17T17:19:43.282Z",
+     *         createdOn: "2022-11-17T17:11:57.148Z",
+     *         isArchived: false,
+     *         isDraft: false,
      *         fieldData: {
-     *             name: "My new item",
-     *             slug: "my-new-item"
+     *             name: "Pan Galactic Gargle Blaster Recipe",
+     *             slug: "pan-galactic-gargle-blaster"
      *         }
      *     })
      */
@@ -748,7 +756,7 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.1.2",
+                "X-Fern-SDK-Version": "v2.1.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -830,7 +838,7 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.1.2",
+                "X-Fern-SDK-Version": "v2.1.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },

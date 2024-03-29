@@ -43,7 +43,7 @@ export class Token {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.1.2",
+                "X-Fern-SDK-Version": "v2.1.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -91,7 +91,7 @@ export class Token {
     }
 
     /**
-     * Information about the authorization token
+     * Information about the authorization token </br></br> Access to this endpoint requires a bearer token from a Data Client App.
      * @throws {@link Webflow.UnauthorizedError}
      *
      * @example
@@ -108,7 +108,7 @@ export class Token {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.1.2",
+                "X-Fern-SDK-Version": "v2.1.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },

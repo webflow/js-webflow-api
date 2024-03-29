@@ -4,6 +4,6 @@
 
 import * as Webflow from "..";
 
-export interface Sites {
-    sites?: Webflow.Site[];
+export interface Domains {
+    customDomains?: Webflow.Domain[];
 }
