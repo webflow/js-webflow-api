@@ -72,7 +72,7 @@ export class WebflowClient extends FernClient {
             body,
         });
         if (response.ok) {
-            return (response as any)["access_token"];
+            return (response.body as any)["access_token"];
         }
 
         switch (response.error.reason) {
