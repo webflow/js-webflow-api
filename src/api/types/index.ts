@@ -47,6 +47,7 @@ export * from "./CustomCodeBlock";
 export * from "./ListCustomCodeBlocks";
 export * from "./AssetVariant";
 export * from "./Asset";
+export * from "./Assets";
 export * from "./AssetUploadUploadDetails";
 export * from "./AssetUpload";
 export * from "./AssetFolder";
