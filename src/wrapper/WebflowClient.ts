@@ -33,7 +33,7 @@ export class WebflowClient extends FernClient {
         if (typeof scope === "string") {
             params["scope"] = scope;
         } else {
-            params["scope"] = scope.join("+");
+            params["scope"] = scope.join(" ");
         }
         return `https://webflow.com/oauth/authorize?${qs.stringify(params)}`;
     }
