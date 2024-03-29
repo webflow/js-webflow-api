@@ -37,7 +37,7 @@ export class Sites {
      * @example
      *     await webflow.sites.list()
      */
-    public async list(requestOptions?: Sites.RequestOptions): Promise<Webflow.Sites> {
+    public async list(requestOptions?: Sites.RequestOptions): Promise<Webflow.Site> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -48,7 +48,7 @@ export class Sites {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.1.2",
+                "X-Fern-SDK-Version": "v2.2.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -57,7 +57,7 @@ export class Sites {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.Sites.parseOrThrow(_response.body, {
+            return await serializers.Site.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -123,7 +123,7 @@ export class Sites {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.1.2",
+                "X-Fern-SDK-Version": "v2.2.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -187,7 +187,7 @@ export class Sites {
      * @example
      *     await webflow.sites.getCustomDomain("site_id")
      */
-    public async getCustomDomain(siteId: string, requestOptions?: Sites.RequestOptions): Promise<Webflow.Domain> {
+    public async getCustomDomain(siteId: string, requestOptions?: Sites.RequestOptions): Promise<Webflow.Domains> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -198,7 +198,7 @@ export class Sites {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.1.2",
+                "X-Fern-SDK-Version": "v2.2.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -207,7 +207,7 @@ export class Sites {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.Domain.parseOrThrow(_response.body, {
+            return await serializers.Domains.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -279,7 +279,7 @@ export class Sites {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.1.2",
+                "X-Fern-SDK-Version": "v2.2.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },

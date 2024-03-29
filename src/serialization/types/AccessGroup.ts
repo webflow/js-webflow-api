@@ -8,7 +8,7 @@ import * as core from "../../core";
 
 export const AccessGroup: core.serialization.ObjectSchema<serializers.AccessGroup.Raw, Webflow.AccessGroup> =
     core.serialization.object({
-        id: core.serialization.property("_id", core.serialization.string().optional()),
+        id: core.serialization.string().optional(),
         name: core.serialization.string().optional(),
         shortId: core.serialization.string().optional(),
         slug: core.serialization.string().optional(),
@@ -17,7 +17,7 @@ export const AccessGroup: core.serialization.ObjectSchema<serializers.AccessGrou
 
 export declare namespace AccessGroup {
     interface Raw {
-        _id?: string | null;
+        id?: string | null;
         name?: string | null;
         shortId?: string | null;
         slug?: string | null;

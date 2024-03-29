@@ -32,8 +32,8 @@ import * as Webflow from "../../../..";
  *                                 slug: "crimson-red"
  *                             }, {
  *                                 id: "forrest-green",
- *                                 name: "Forrst Green",
- *                                 slug: "forrest-green"
+ *                                 name: "name",
+ *                                 slug: "slug"
  *                             }, {
  *                                 id: "id",
  *                                 name: "name",

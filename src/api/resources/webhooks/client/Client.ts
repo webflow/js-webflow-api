@@ -25,7 +25,7 @@ export class Webhooks {
     constructor(protected readonly _options: Webhooks.Options) {}
 
     /**
-     * List all App-created Webhooks registered for a given site
+     * List all App-created Webhooks registered for a given site </br></br> Required scope | `sites:read`
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
@@ -35,7 +35,7 @@ export class Webhooks {
      * @example
      *     await webflow.webhooks.list("site_id")
      */
-    public async list(siteId: string, requestOptions?: Webhooks.RequestOptions): Promise<Webflow.Webhook[]> {
+    public async list(siteId: string, requestOptions?: Webhooks.RequestOptions): Promise<Webflow.WebhookList> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -46,7 +46,7 @@ export class Webhooks {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.1.2",
+                "X-Fern-SDK-Version": "v2.2.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -55,7 +55,7 @@ export class Webhooks {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.webhooks.list.Response.parseOrThrow(_response.body, {
+            return await serializers.WebhookList.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -100,7 +100,7 @@ export class Webhooks {
     }
 
     /**
-     * Create a new Webhook, to be notified when Webflow resources change. Limit of 75 registrations per `triggerType`, per site.
+     * Create a new Webhook, to be notified when Webflow resources change. Limit of 75 registrations per `triggerType`, per site. </br></br> Access to this endpoint requires a bearer token from a Data Client App. The only exceptions are for creating webhooks with `site_publish` or `form_submission` triggers, which can be done with Site Tokens </br> Required scope | `sites:write`
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
@@ -128,7 +128,7 @@ export class Webhooks {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.1.2",
+                "X-Fern-SDK-Version": "v2.2.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -204,7 +204,7 @@ export class Webhooks {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.1.2",
+                "X-Fern-SDK-Version": "v2.2.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -279,7 +279,7 @@ export class Webhooks {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.1.2",
+                "X-Fern-SDK-Version": "v2.2.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },

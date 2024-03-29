@@ -4,7 +4,4 @@
 
 import * as Webflow from "..";
 
-/**
- * The list of fields in the Collection
- */
-export type Fields = Webflow.Field[];
+export type Scripts = Webflow.ScriptApply[];
