@@ -9,31 +9,43 @@ import * as core from "../../core";
 export const OauthScope: core.serialization.Schema<serializers.OauthScope.Raw, Webflow.OauthScope> =
     core.serialization.enum_([
         "authorized_user:read",
-        "read:pages",
-        "sites:read",
-        "sites:write",
+        "assets:read",
+        "assets:write",
+        "cms:read",
+        "cms:write",
         "custom_code:read",
         "custom_code:write",
-        "custom_code:delete",
-        "users:read",
-        "users:write",
         "ecommerce:read",
         "ecommerce:write",
+        "forms:read",
+        "forms:write",
+        "pages:read",
+        "pages:write",
+        "sites:read",
+        "sites:write",
+        "users:read",
         "site_activity:read",
+        "users:write",
     ]);
 
 export declare namespace OauthScope {
     type Raw =
         | "authorized_user:read"
-        | "read:pages"
-        | "sites:read"
-        | "sites:write"
+        | "assets:read"
+        | "assets:write"
+        | "cms:read"
+        | "cms:write"
         | "custom_code:read"
         | "custom_code:write"
-        | "custom_code:delete"
-        | "users:read"
-        | "users:write"
         | "ecommerce:read"
         | "ecommerce:write"
-        | "site_activity:read";
+        | "forms:read"
+        | "forms:write"
+        | "pages:read"
+        | "pages:write"
+        | "sites:read"
+        | "sites:write"
+        | "users:read"
+        | "site_activity:read"
+        | "users:write";
 }

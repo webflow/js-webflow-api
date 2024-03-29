@@ -7,14 +7,17 @@ export type OauthScope =
      * read details about the authorized user */
     | "authorized_user:read"
     /**
-     * read pages on the site */
-    | "read:pages"
+     * read assets on the site */
+    | "assets:read"
     /**
-     * read sites on the site */
-    | "sites:read"
+     * write assets on a site */
+    | "assets:write"
     /**
-     * modify pages on the site */
-    | "sites:write"
+     * read collections and items for a site */
+    | "cms:read"
+    /**
+     * write to collections and items for a site */
+    | "cms:write"
     /**
      * read custom code on the site */
     | "custom_code:read"
@@ -22,35 +25,56 @@ export type OauthScope =
      * modify custom code on the site */
     | "custom_code:write"
     /**
-     * delete custom code on the site */
-    | "custom_code:delete"
-    /**
-     * read users on the site */
-    | "users:read"
-    /**
-     * modify users on the site */
-    | "users:write"
-    /**
      * read ecommerce data */
     | "ecommerce:read"
     /**
      * edit ecommerce data */
     | "ecommerce:write"
     /**
+     * read form data */
+    | "forms:read"
+    /**
+     * write form data */
+    | "forms:write"
+    /**
+     * read pages on the site */
+    | "pages:read"
+    /**
+     * write to pages on the site */
+    | "pages:write"
+    /**
+     * read sites on the site */
+    | "sites:read"
+    /**
+     * modify pages on the site */
+    | "sites:write"
+    /**
+     * read users on the site */
+    | "users:read"
+    /**
      * read site activity logs */
-    | "site_activity:read";
+    | "site_activity:read"
+    /**
+     * modify users on the site */
+    | "users:write";
 
 export const OauthScope = {
     AuthorizedUserRead: "authorized_user:read",
-    ReadPages: "read:pages",
-    SitesRead: "sites:read",
-    SitesWrite: "sites:write",
+    AssetsRead: "assets:read",
+    AssetsWrite: "assets:write",
+    CmsRead: "cms:read",
+    CmsWrite: "cms:write",
     CustomCodeRead: "custom_code:read",
     CustomCodeWrite: "custom_code:write",
-    CustomCodeDelete: "custom_code:delete",
-    UsersRead: "users:read",
-    UsersWrite: "users:write",
     EcommerceRead: "ecommerce:read",
     EcommerceWrite: "ecommerce:write",
+    FormsRead: "forms:read",
+    FormsWrite: "forms:write",
+    PagesRead: "pages:read",
+    PagesWrite: "pages:write",
+    SitesRead: "sites:read",
+    SitesWrite: "sites:write",
+    UsersRead: "users:read",
     SiteActivityRead: "site_activity:read",
+    UsersWrite: "users:write",
 } as const;
