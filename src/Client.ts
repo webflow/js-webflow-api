@@ -9,8 +9,8 @@ import { Sites } from "./api/resources/sites/client/Client";
 import { Collections } from "./api/resources/collections/client/Client";
 import { Pages } from "./api/resources/pages/client/Client";
 import { Scripts } from "./api/resources/scripts/client/Client";
-import { Webhooks } from "./api/resources/webhooks/client/Client";
 import { Assets } from "./api/resources/assets/client/Client";
+import { Webhooks } from "./api/resources/webhooks/client/Client";
 import { Forms } from "./api/resources/forms/client/Client";
 import { Users } from "./api/resources/users/client/Client";
 import { AccessGroups } from "./api/resources/accessGroups/client/Client";
@@ -64,16 +64,16 @@ export class WebflowClient {
         return (this._scripts ??= new Scripts(this._options));
     }
 
-    protected _webhooks: Webhooks | undefined;
-
-    public get webhooks(): Webhooks {
-        return (this._webhooks ??= new Webhooks(this._options));
-    }
-
     protected _assets: Assets | undefined;
 
     public get assets(): Assets {
         return (this._assets ??= new Assets(this._options));
+    }
+
+    protected _webhooks: Webhooks | undefined;
+
+    public get webhooks(): Webhooks {
+        return (this._webhooks ??= new Webhooks(this._options));
     }
 
     protected _forms: Forms | undefined;

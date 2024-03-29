@@ -10,7 +10,7 @@ export const UserLimitReached: core.serialization.ObjectSchema<
     serializers.UserLimitReached.Raw,
     Webflow.UserLimitReached
 > = core.serialization.object({
-    code: core.serialization.stringLiteral("user_limit_reached").optional(),
+    code: core.serialization.string().optional(),
     message: core.serialization.string().optional(),
     externalReference: core.serialization.string().optional(),
     details: core.serialization
@@ -20,7 +20,7 @@ export const UserLimitReached: core.serialization.ObjectSchema<
 
 export declare namespace UserLimitReached {
     interface Raw {
-        code?: "user_limit_reached" | null;
+        code?: string | null;
         message?: string | null;
         externalReference?: string | null;
         details?: serializers.ErrorDetailsItem.Raw[] | null;

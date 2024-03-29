@@ -10,7 +10,7 @@ export const UsersNotEnabled: core.serialization.ObjectSchema<
     serializers.UsersNotEnabled.Raw,
     Webflow.UsersNotEnabled
 > = core.serialization.object({
-    code: core.serialization.stringLiteral("users_not_enabled").optional(),
+    code: core.serialization.string().optional(),
     message: core.serialization.string().optional(),
     externalReference: core.serialization.string().optional(),
     details: core.serialization
@@ -20,7 +20,7 @@ export const UsersNotEnabled: core.serialization.ObjectSchema<
 
 export declare namespace UsersNotEnabled {
     interface Raw {
-        code?: "users_not_enabled" | null;
+        code?: string | null;
         message?: string | null;
         externalReference?: string | null;
         details?: serializers.ErrorDetailsItem.Raw[] | null;

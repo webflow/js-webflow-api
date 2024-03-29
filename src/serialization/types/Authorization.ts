@@ -11,12 +11,12 @@ export const Authorization: core.serialization.ObjectSchema<serializers.Authoriz
         authorization: core.serialization
             .lazyObject(async () => (await import("..")).AuthorizationAuthorization)
             .optional(),
-        application: core.serialization.lazyObject(async () => (await import("..")).Application).optional(),
+        application: core.serialization.lazy(async () => (await import("..")).Application).optional(),
     });
 
 export declare namespace Authorization {
     interface Raw {
         authorization?: serializers.AuthorizationAuthorization.Raw | null;
-        application?: serializers.Application.Raw | null;
+        application?: (serializers.Application.Raw | undefined) | null;
     }
 }

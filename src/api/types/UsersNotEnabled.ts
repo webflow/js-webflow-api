@@ -5,7 +5,8 @@
 import * as Webflow from "..";
 
 export interface UsersNotEnabled {
-    code?: "users_not_enabled";
+    /** Error code */
+    code?: string;
     /** Error message */
     message?: string;
     /** Link to more information */
