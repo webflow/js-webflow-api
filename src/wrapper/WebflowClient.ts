@@ -1,4 +1,4 @@
-import { WebflowClient as FernClient } from "../Client";
+import { Client as FernClient } from "../WebflowClient";
 import { OauthScope } from "../api/types";
 import * as errors from "../errors";
 import * as core from "../core";
