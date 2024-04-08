@@ -1,10 +1,21 @@
+import qs from "qs";
 import { WebflowClient as FernClient } from "../Client";
 import { OauthScope } from "../api/types";
-import * as errors from "../errors";
 import * as core from "../core";
-import qs from "qs";
+import * as errors from "../errors";
+import { Client as Collections } from "./CollectionsClient";
 
 export class WebflowClient extends FernClient {
+    constructor(protected readonly _options: FernClient.Options) {
+        super(_options);
+    }
+
+    protected _collections: Collections | undefined;
+
+    public get collections(): Collections {
+        return (this._collections ??= new Collections(this._options));
+    }
+
     /**
      * @param clientId The OAuth client ID
      * @param state The state
