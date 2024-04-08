@@ -1,8 +1,8 @@
-import { Client as FernClient } from "../WebflowClient";
-import { OauthScope } from "../api/types";
-import * as errors from "../errors";
-import * as core from "../core";
 import qs from "qs";
+import { OauthScope } from "../api/types";
+import * as core from "../core";
+import * as errors from "../errors";
+import { Client as FernClient } from "./Client";
 
 export class WebflowClient extends FernClient {
     /**

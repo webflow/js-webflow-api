@@ -1,5 +1,5 @@
-import { Client as Items } from "../resources/items/client/ItemsClient";
-import { Collections } from "./Client";
+import { Collections } from "../api/resources/collections/client/Client";
+import { Client as Items } from "./ItemsClient";
 
 // Client adapts the base client to permit extra properties in
 // the client.Collections.Items.createItem request.

@@ -1,6 +1,5 @@
-
-import { WebflowClient } from "./Client";
-import { Client as Collections } from "./api/resources/collections/client/CollectionsClient";
+import { WebflowClient } from "../Client";
+import { Client as Collections } from "./CollectionsClient";
 
 // Client adapts the base client to permit extra properties in
 // the client.Collections.Items.createItem request.

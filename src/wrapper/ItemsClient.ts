@@ -1,10 +1,10 @@
 import urlJoin from "url-join";
-import * as Webflow from "../../../../..";
-import * as core from "../../../../../../core";
-import * as environments from "../../../../../../environments";
-import * as errors from "../../../../../../errors";
-import * as serializers from "../../../../../../serialization";
-import { Items } from "./Client";
+import * as Webflow from "../api";
+import { Items } from "../api/resources/collections/resources/items/client/Client";
+import * as core from "../core";
+import * as environments from "../environments";
+import * as errors from "../errors";
+import * as serializers from "../serialization";
 
 // Client adapts the base client to permit extra properties in
 // the client.Collections.Items.createItem request.
