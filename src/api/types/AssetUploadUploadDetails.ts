@@ -8,13 +8,11 @@
 export interface AssetUploadUploadDetails {
     acl?: string;
     bucket?: string;
-    key?: string;
-    policy?: string;
     xAmzAlgorithm?: string;
     xAmzCredential?: string;
     xAmzDate?: string;
-    /** (optional) Temporary security token obtained when authenticated through AWS STS */
-    xAmzSecurityToken?: string;
+    key?: string;
+    policy?: string;
     xAmzSignature?: string;
     successActionStatus?: string;
     contentType?: string;

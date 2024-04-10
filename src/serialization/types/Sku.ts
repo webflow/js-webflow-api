@@ -8,6 +8,7 @@ import * as core from "../../core";
 
 export const Sku: core.serialization.ObjectSchema<serializers.Sku.Raw, Webflow.Sku> = core.serialization.object({
     id: core.serialization.string().optional(),
+    cmsLocaleId: core.serialization.string().optional(),
     lastPublished: core.serialization.date().optional(),
     lastUpdated: core.serialization.date().optional(),
     createdOn: core.serialization.date().optional(),
@@ -17,6 +18,7 @@ export const Sku: core.serialization.ObjectSchema<serializers.Sku.Raw, Webflow.S
 export declare namespace Sku {
     interface Raw {
         id?: string | null;
+        cmsLocaleId?: string | null;
         lastPublished?: string | null;
         lastUpdated?: string | null;
         createdOn?: string | null;

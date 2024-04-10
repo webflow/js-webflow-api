@@ -12,12 +12,11 @@ export const AssetUploadUploadDetails: core.serialization.ObjectSchema<
 > = core.serialization.object({
     acl: core.serialization.string().optional(),
     bucket: core.serialization.string().optional(),
-    key: core.serialization.string().optional(),
-    policy: core.serialization.property("Policy", core.serialization.string().optional()),
     xAmzAlgorithm: core.serialization.property("X-Amz-Algorithm", core.serialization.string().optional()),
     xAmzCredential: core.serialization.property("X-Amz-Credential", core.serialization.string().optional()),
     xAmzDate: core.serialization.property("X-Amz-Date", core.serialization.string().optional()),
-    xAmzSecurityToken: core.serialization.property("X-Amz-Security-Token", core.serialization.string().optional()),
+    key: core.serialization.string().optional(),
+    policy: core.serialization.property("Policy", core.serialization.string().optional()),
     xAmzSignature: core.serialization.property("X-Amz-Signature", core.serialization.string().optional()),
     successActionStatus: core.serialization.property("success_action_status", core.serialization.string().optional()),
     contentType: core.serialization.property("content-type", core.serialization.string().optional()),
@@ -28,12 +27,11 @@ export declare namespace AssetUploadUploadDetails {
     interface Raw {
         acl?: string | null;
         bucket?: string | null;
-        key?: string | null;
-        Policy?: string | null;
         "X-Amz-Algorithm"?: string | null;
         "X-Amz-Credential"?: string | null;
         "X-Amz-Date"?: string | null;
-        "X-Amz-Security-Token"?: string | null;
+        key?: string | null;
+        Policy?: string | null;
         "X-Amz-Signature"?: string | null;
         success_action_status?: string | null;
         "content-type"?: string | null;

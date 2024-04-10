@@ -11,28 +11,28 @@ export const AssetUpload: core.serialization.ObjectSchema<serializers.AssetUploa
         uploadDetails: core.serialization
             .lazyObject(async () => (await import("..")).AssetUploadUploadDetails)
             .optional(),
-        id: core.serialization.string().optional(),
         contentType: core.serialization.string().optional(),
+        id: core.serialization.string().optional(),
         parentFolder: core.serialization.string().optional(),
-        hostedUrl: core.serialization.string().optional(),
         uploadUrl: core.serialization.string().optional(),
         assetUrl: core.serialization.string().optional(),
+        hostedUrl: core.serialization.string().optional(),
         originalFileName: core.serialization.string().optional(),
-        lastUpdated: core.serialization.date().optional(),
         createdOn: core.serialization.date().optional(),
+        lastUpdated: core.serialization.date().optional(),
     });
 
 export declare namespace AssetUpload {
     interface Raw {
         uploadDetails?: serializers.AssetUploadUploadDetails.Raw | null;
-        id?: string | null;
         contentType?: string | null;
+        id?: string | null;
         parentFolder?: string | null;
-        hostedUrl?: string | null;
         uploadUrl?: string | null;
         assetUrl?: string | null;
+        hostedUrl?: string | null;
         originalFileName?: string | null;
-        lastUpdated?: string | null;
         createdOn?: string | null;
+        lastUpdated?: string | null;
     }
 }

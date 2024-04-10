@@ -5,6 +5,7 @@
 /**
  * @example
  *     {
+ *         customDomains: ["589a331aa51e760df7ccb89d"],
  *         publishToWebflowSubdomain: false
  *     }
  */

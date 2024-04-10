@@ -6,10 +6,10 @@
  * Asset Folder details
  */
 export interface AssetFolder {
-    /** User visible name for the Asset Folder */
-    displayName?: string;
     /** Unique identifier for the Asset Folder */
     id?: string;
+    /** User visible name for the Asset Folder */
+    displayName?: string;
     /** Pointer to parent Asset Folder (or null if root) */
     parentFolder?: string;
     /** Array of Asset instances in the folder */

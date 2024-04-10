@@ -5,21 +5,21 @@
 /**
  * Registered custom code for application
  */
-export interface CustomCodeResponse {
+export interface CustomCodeInlineResponse {
     /** Human readable id, derived from the user-specified display name */
     id?: string;
-    /** Timestamp when the script version was created */
-    createdOn?: string;
-    /** Timestamp when the script version was last updated */
-    lastUpdated?: string;
+    /** Define whether the script can be copied on site duplication and transfer */
+    canCopy?: boolean;
+    /** User-facing name for the script */
+    displayName?: string;
     /** URI for an externally hosted script location */
     hostedLocation?: string;
     /** Sub-Resource Integrity Hash. Only required for externally hosted scripts (passed via hostedLocation) */
     integrityHash?: string;
-    /** Define whether the script can be copied on site duplication and transfer */
-    canCopy?: boolean;
+    /** Timestamp when the script version was created */
+    createdOn?: string;
+    /** Timestamp when the script version was last updated */
+    lastUpdated?: string;
     /** A Semantic Version (SemVer) string, denoting the version of the script */
     version?: string;
-    /** User-facing name for the script */
-    displayName?: string;
 }

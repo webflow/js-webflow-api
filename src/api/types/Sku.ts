@@ -10,12 +10,13 @@ import * as Webflow from "..";
 export interface Sku {
     /** Unique identifier for the Product */
     id?: string;
+    /** Identifier for the locale of the CMS item */
+    cmsLocaleId?: string;
     /** The date the Product was last published */
     lastPublished?: Date;
     /** The date the Product was last updated */
     lastUpdated?: Date;
     /** The date the Product was created */
     createdOn?: Date;
-    /** Standard and Custom fields for a SKU */
     fieldData?: Webflow.SkuFieldData;
 }

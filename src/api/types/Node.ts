@@ -13,5 +13,6 @@ export interface Node {
     type?: Webflow.NodeType;
     text?: Webflow.TextNode;
     image?: Webflow.ImageNode;
+    /** The custom attributes of the node */
     attributes?: Record<string, string>;
 }

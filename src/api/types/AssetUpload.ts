@@ -7,19 +7,19 @@ import * as Webflow from "..";
 export interface AssetUpload {
     /** Metadata for uploading the asset binary */
     uploadDetails?: Webflow.AssetUploadUploadDetails;
-    id?: string;
     contentType?: string;
+    id?: string;
     /** Parent folder for the asset */
     parentFolder?: string;
-    /** Represents the link to the asset */
-    hostedUrl?: string;
     uploadUrl?: string;
     /** S3 link to the asset */
     assetUrl?: string;
+    /** Represents the link to the asset */
+    hostedUrl?: string;
     /** Original file name when uploaded. If not specified at time of upload, it may be extracted from the raw file name */
     originalFileName?: string;
-    /** Date the asset metadata was last updated */
-    lastUpdated?: Date;
     /** Date the asset metadata was created */
     createdOn?: Date;
+    /** Date the asset metadata was last updated */
+    lastUpdated?: Date;
 }

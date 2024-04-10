@@ -5,6 +5,6 @@
 export interface DomWriteNodesItem {
     /** Node UUID */
     nodeId: string;
-    /** HTML content of the node */
+    /** HTML content of the node, including the HTML tag. The HTML tags must be the same as what's returned from the Get Content endpoint. */
     text: string;
 }

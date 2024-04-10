@@ -7,21 +7,21 @@ import * as Webflow from "..";
 export interface Asset {
     /** Unique identifier for this asset */
     id?: string;
+    /** Original file name at the time of upload */
+    originalFileName?: string;
+    /** Display name of the asset */
+    displayName?: string;
     /** File format type */
     contentType?: string;
     /** size in bytes */
     size?: number;
     /** Unique identifier for the site that hosts this asset */
     siteId?: string;
-    /** Link to the asset */
-    hostedUrl?: string;
-    /** Original file name at the time of upload */
-    originalFileName?: string;
-    /** Display name of the asset */
-    displayName?: string;
-    /** Date the asset metadata was last updated */
-    lastUpdated?: Date;
     /** Date the asset metadata was created */
     createdOn?: Date;
+    /** Date the asset metadata was last updated */
+    lastUpdated?: Date;
+    /** Link to the asset */
+    hostedUrl?: string;
     variants?: Webflow.AssetVariant[];
 }

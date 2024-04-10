@@ -64,7 +64,7 @@ export class Products {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "v2.2.1",
+                "X-Fern-SDK-Version": "2.3.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -141,7 +141,32 @@ export class Products {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.products.create("site_id", {})
+     *     await webflow.products.create("site_id", {
+     *         product: {
+     *             id: "660eb7a486d1d6e0412292d7",
+     *             cmsLocaleId: "653ad57de882f528b32e810e",
+     *             lastPublished: new Date("2024-04-04T14:24:19.000Z"),
+     *             lastUpdated: new Date("2024-04-04T14:30:19.000Z"),
+     *             createdOn: new Date("2024-04-04T14:22:28.000Z"),
+     *             isArchived: false,
+     *             isDraft: false,
+     *             fieldData: {
+     *                 name: "T-Shirt",
+     *                 slug: "t-shirt",
+     *                 description: "A plain cotton t-shirt.",
+     *                 shippable: true,
+     *                 skuProperties: [{
+     *                         id: "Color",
+     *                         name: "Color",
+     *                         enum: [{
+     *                                 id: "id",
+     *                                 name: "name",
+     *                                 slug: "slug"
+     *                             }]
+     *                     }]
+     *             }
+     *         }
+     *     })
      */
     public async create(
         siteId: string,
@@ -158,7 +183,7 @@ export class Products {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "v2.2.1",
+                "X-Fern-SDK-Version": "2.3.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -246,7 +271,7 @@ export class Products {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "v2.2.1",
+                "X-Fern-SDK-Version": "2.3.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -318,10 +343,11 @@ export class Products {
      * @example
      *     await webflow.products.update("site_id", "product_id", {
      *         product: {
-     *             id: "580e63fc8c9a982ac9b8b745",
-     *             lastPublished: new Date("2023-03-17T18:47:35.000Z"),
-     *             lastUpdated: new Date("2023-03-17T18:47:35.000Z"),
-     *             createdOn: new Date("2023-03-17T18:47:35.000Z"),
+     *             id: "660eb7a486d1d6e0412292d7",
+     *             cmsLocaleId: "653ad57de882f528b32e810e",
+     *             lastPublished: new Date("2024-04-04T14:24:19.000Z"),
+     *             lastUpdated: new Date("2024-04-04T14:30:19.000Z"),
+     *             createdOn: new Date("2024-04-04T14:22:28.000Z"),
      *             isArchived: false,
      *             isDraft: false,
      *             fieldData: {
@@ -330,26 +356,6 @@ export class Products {
      *                 description: "A plain cotton t-shirt.",
      *                 shippable: true,
      *                 skuProperties: [{
-     *                         id: "color",
-     *                         name: "Color",
-     *                         enum: [{
-     *                                 id: "royal-blue",
-     *                                 name: "Royal Blue",
-     *                                 slug: "royal-blue"
-     *                             }, {
-     *                                 id: "crimson-red",
-     *                                 name: "Crimson Red",
-     *                                 slug: "crimson-red"
-     *                             }, {
-     *                                 id: "forrest-green",
-     *                                 name: "name",
-     *                                 slug: "slug"
-     *                             }, {
-     *                                 id: "id",
-     *                                 name: "name",
-     *                                 slug: "slug"
-     *                             }]
-     *                     }, {
      *                         id: "Color",
      *                         name: "Color",
      *                         enum: [{
@@ -365,7 +371,7 @@ export class Products {
     public async update(
         siteId: string,
         productId: string,
-        request: Webflow.ProductsUpdateRequest,
+        request: Webflow.ProductSkuUpdate = {},
         requestOptions?: Products.RequestOptions
     ): Promise<Webflow.Product> {
         const _response = await core.fetcher({
@@ -378,12 +384,12 @@ export class Products {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "v2.2.1",
+                "X-Fern-SDK-Version": "2.3.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
-            body: await serializers.ProductsUpdateRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: await serializers.ProductSkuUpdate.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
         });
@@ -454,6 +460,7 @@ export class Products {
      *     await webflow.products.createSku("site_id", "product_id", {
      *         skus: [{
      *                 id: "580e63fc8c9a982ac9b8b745",
+     *                 cmsLocaleId: "653ad57de882f528b32e810e",
      *                 lastPublished: new Date("2023-03-17T18:47:35.000Z"),
      *                 lastUpdated: new Date("2023-03-17T18:47:35.000Z"),
      *                 createdOn: new Date("2023-03-17T18:47:35.000Z"),
@@ -485,7 +492,7 @@ export class Products {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "v2.2.1",
+                "X-Fern-SDK-Version": "2.3.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -559,6 +566,7 @@ export class Products {
      *     await webflow.products.updateSku("site_id", "product_id", "sku_id", {
      *         sku: {
      *             id: "580e63fc8c9a982ac9b8b745",
+     *             cmsLocaleId: "653ad57de882f528b32e810e",
      *             lastPublished: new Date("2023-03-17T18:47:35.000Z"),
      *             lastUpdated: new Date("2023-03-17T18:47:35.000Z"),
      *             createdOn: new Date("2023-03-17T18:47:35.000Z"),
@@ -591,7 +599,7 @@ export class Products {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "v2.2.1",
+                "X-Fern-SDK-Version": "2.3.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },

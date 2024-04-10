@@ -9,6 +9,7 @@ import * as core from "../../core";
 export const Product: core.serialization.ObjectSchema<serializers.Product.Raw, Webflow.Product> =
     core.serialization.object({
         id: core.serialization.string().optional(),
+        cmsLocaleId: core.serialization.string().optional(),
         lastPublished: core.serialization.date().optional(),
         lastUpdated: core.serialization.date().optional(),
         createdOn: core.serialization.date().optional(),
@@ -20,6 +21,7 @@ export const Product: core.serialization.ObjectSchema<serializers.Product.Raw, W
 export declare namespace Product {
     interface Raw {
         id?: string | null;
+        cmsLocaleId?: string | null;
         lastPublished?: string | null;
         lastUpdated?: string | null;
         createdOn?: string | null;

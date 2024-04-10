@@ -6,29 +6,29 @@ import * as serializers from "..";
 import * as Webflow from "../../api";
 import * as core from "../../core";
 
-export const CustomCodeResponse: core.serialization.ObjectSchema<
-    serializers.CustomCodeResponse.Raw,
-    Webflow.CustomCodeResponse
+export const CustomCodeInlineResponse: core.serialization.ObjectSchema<
+    serializers.CustomCodeInlineResponse.Raw,
+    Webflow.CustomCodeInlineResponse
 > = core.serialization.object({
     id: core.serialization.string().optional(),
-    createdOn: core.serialization.string().optional(),
-    lastUpdated: core.serialization.string().optional(),
+    canCopy: core.serialization.boolean().optional(),
+    displayName: core.serialization.string().optional(),
     hostedLocation: core.serialization.string().optional(),
     integrityHash: core.serialization.string().optional(),
-    canCopy: core.serialization.boolean().optional(),
+    createdOn: core.serialization.string().optional(),
+    lastUpdated: core.serialization.string().optional(),
     version: core.serialization.string().optional(),
-    displayName: core.serialization.string().optional(),
 });
 
-export declare namespace CustomCodeResponse {
+export declare namespace CustomCodeInlineResponse {
     interface Raw {
         id?: string | null;
-        createdOn?: string | null;
-        lastUpdated?: string | null;
+        canCopy?: boolean | null;
+        displayName?: string | null;
         hostedLocation?: string | null;
         integrityHash?: string | null;
-        canCopy?: boolean | null;
+        createdOn?: string | null;
+        lastUpdated?: string | null;
         version?: string | null;
-        displayName?: string | null;
     }
 }

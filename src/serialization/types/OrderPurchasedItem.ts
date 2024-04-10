@@ -18,6 +18,7 @@ export const OrderPurchasedItem: core.serialization.ObjectSchema<
     variantId: core.serialization.string().optional(),
     variantName: core.serialization.string().optional(),
     variantSlug: core.serialization.string().optional(),
+    variantSku: core.serialization.property("variantSKU", core.serialization.string().optional()),
     variantImage: core.serialization
         .lazyObject(async () => (await import("..")).OrderPurchasedItemVariantImage)
         .optional(),
@@ -38,6 +39,7 @@ export declare namespace OrderPurchasedItem {
         variantId?: string | null;
         variantName?: string | null;
         variantSlug?: string | null;
+        variantSKU?: string | null;
         variantImage?: serializers.OrderPurchasedItemVariantImage.Raw | null;
         variantPrice?: serializers.OrderPrice.Raw | null;
         weight?: number | null;

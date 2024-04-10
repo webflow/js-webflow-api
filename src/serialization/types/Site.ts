@@ -16,9 +16,11 @@ export const Site: core.serialization.ObjectSchema<serializers.Site.Raw, Webflow
     lastUpdated: core.serialization.date().optional(),
     previewUrl: core.serialization.string().optional(),
     timeZone: core.serialization.string().optional(),
+    parentFolderId: core.serialization.string().optional(),
     customDomains: core.serialization
         .list(core.serialization.lazyObject(async () => (await import("..")).Domain))
         .optional(),
+    locales: core.serialization.lazyObject(async () => (await import("..")).Locales).optional(),
 });
 
 export declare namespace Site {
@@ -32,6 +34,8 @@ export declare namespace Site {
         lastUpdated?: string | null;
         previewUrl?: string | null;
         timeZone?: string | null;
+        parentFolderId?: string | null;
         customDomains?: serializers.Domain.Raw[] | null;
+        locales?: serializers.Locales.Raw | null;
     }
 }
