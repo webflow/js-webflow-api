@@ -4,6 +4,9 @@
 
 import * as Webflow from "..";
 
+/**
+ * A list of scripts registered to the site
+ */
 export interface RegisteredScriptList {
-    registeredScripts?: Webflow.CustomCodeResponse[];
+    registeredScripts?: Webflow.CustomCodeHostedResponse[];
 }

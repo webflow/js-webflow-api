@@ -9,6 +9,6 @@ import * as Webflow from "..";
  */
 export interface OrderList {
     /** List of orders */
-    items?: Webflow.Order[];
+    orders?: Webflow.Order[];
     pagination?: Webflow.Pagination;
 }

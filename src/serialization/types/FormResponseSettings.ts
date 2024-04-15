@@ -10,17 +10,17 @@ export const FormResponseSettings: core.serialization.ObjectSchema<
     serializers.FormResponseSettings.Raw,
     Webflow.FormResponseSettings
 > = core.serialization.object({
-    sendEmailConfirmation: core.serialization.boolean().optional(),
     redirectUrl: core.serialization.string().optional(),
     redirectMethod: core.serialization.string().optional(),
     redirectAction: core.serialization.string().optional(),
+    sendEmailConfirmation: core.serialization.boolean().optional(),
 });
 
 export declare namespace FormResponseSettings {
     interface Raw {
-        sendEmailConfirmation?: boolean | null;
         redirectUrl?: string | null;
         redirectMethod?: string | null;
         redirectAction?: string | null;
+        sendEmailConfirmation?: boolean | null;
     }
 }

@@ -3,9 +3,13 @@
  */
 
 export interface AssetVariant {
+    /** URL of where the asset variant is hosted */
     hostedUrl?: string;
+    /** Original file name of the variant */
     originalFileName?: string;
+    /** Display name of the variant */
     displayName?: string;
+    /** format of the variant */
     format?: string;
     /** Width in pixels */
     width?: number;

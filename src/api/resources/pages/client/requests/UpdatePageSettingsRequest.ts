@@ -8,27 +8,27 @@ import * as Webflow from "../../../..";
  * @example
  *     {
  *         body: {
- *             id: "6390c49774a71f0e3c1a08ee",
- *             siteId: "6390c49674a71f84b51a08d8",
- *             title: "Blog Categories Template",
- *             slug: "detail_blog-category",
+ *             id: "6596da6045e56dee495bcbba",
+ *             siteId: "6258612d1ee792848f805dcf",
+ *             title: "Guide to the Galaxy",
+ *             slug: "guide-to-the-galaxy",
  *             parentId: "6419db964a9c435aa3af6251",
  *             collectionId: "6390c49774a71f12831a08e3",
- *             createdOn: new Date("2018-10-14T21:55:49.000Z"),
- *             lastUpdated: new Date("2022-12-07T16:51:37.000Z"),
+ *             createdOn: new Date("2024-03-11T10:42:00.000Z"),
+ *             lastUpdated: new Date("2024-03-11T10:42:42.000Z"),
  *             archived: false,
  *             draft: false,
  *             canBranch: true,
  *             isMembersOnly: false,
  *             seo: {
- *                 title: "CoffeeStyle eCommerce - Webflow HTML website template",
- *                 description: "This Webflow template offers a quick start into an e-commerce / memberships site"
+ *                 title: "The Ultimate Hitchhiker's Guide to the Galaxy",
+ *                 description: "Everything you need to know about the galaxy, from avoiding Vogon poetry to the importance of towels."
  *             },
  *             openGraph: {
- *                 title: "CoffeeStyle eCommerce - Webflow HTML website template",
- *                 titleCopied: true,
- *                 description: "This Webflow template offers a quick start into an e-commerce / memberships site",
- *                 descriptionCopied: true
+ *                 title: "Explore the Cosmos with The Ultimate Guide",
+ *                 titleCopied: false,
+ *                 description: "Dive deep into the mysteries of the universe with your guide to everything galactic.",
+ *                 descriptionCopied: false
  *             }
  *         }
  *     }

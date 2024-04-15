@@ -37,7 +37,7 @@ export class Sites {
      * @example
      *     await webflow.sites.list()
      */
-    public async list(requestOptions?: Sites.RequestOptions): Promise<Webflow.Site> {
+    public async list(requestOptions?: Sites.RequestOptions): Promise<Webflow.Sites> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -48,7 +48,7 @@ export class Sites {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "v2.2.1",
+                "X-Fern-SDK-Version": "2.3.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -57,7 +57,7 @@ export class Sites {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.Site.parseOrThrow(_response.body, {
+            return await serializers.Sites.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -123,7 +123,7 @@ export class Sites {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "v2.2.1",
+                "X-Fern-SDK-Version": "2.3.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -198,7 +198,7 @@ export class Sites {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "v2.2.1",
+                "X-Fern-SDK-Version": "2.3.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -261,6 +261,7 @@ export class Sites {
      *
      * @example
      *     await webflow.sites.publish("site_id", {
+     *         customDomains: ["589a331aa51e760df7ccb89d"],
      *         publishToWebflowSubdomain: false
      *     })
      */
@@ -279,7 +280,7 @@ export class Sites {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "v2.2.1",
+                "X-Fern-SDK-Version": "2.3.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },

@@ -3,7 +3,7 @@
  */
 
 /**
- * Japan-only address format
+ * Represents a Japan-only address format. This field will only appear on orders placed from Japan.
  */
 export type OrderAddressJapanType = "kana" | "kanji";
 

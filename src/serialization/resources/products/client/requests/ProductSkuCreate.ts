@@ -9,16 +9,14 @@ import * as core from "../../../../../core";
 export const ProductSkuCreate: core.serialization.Schema<serializers.ProductSkuCreate.Raw, Webflow.ProductSkuCreate> =
     core.serialization.object({
         publishStatus: core.serialization.lazy(async () => (await import("../../../..")).PublishStatus).optional(),
-        product: core.serialization
-            .lazyObject(async () => (await import("../../../..")).ProductSkuCreateProduct)
-            .optional(),
-        sku: core.serialization.lazyObject(async () => (await import("../../../..")).ProductSkuCreateSku).optional(),
+        product: core.serialization.lazyObject(async () => (await import("../../../..")).Product).optional(),
+        sku: core.serialization.lazyObject(async () => (await import("../../../..")).Sku).optional(),
     });
 
 export declare namespace ProductSkuCreate {
     interface Raw {
         publishStatus?: serializers.PublishStatus.Raw | null;
-        product?: serializers.ProductSkuCreateProduct.Raw | null;
-        sku?: serializers.ProductSkuCreateSku.Raw | null;
+        product?: serializers.Product.Raw | null;
+        sku?: serializers.Sku.Raw | null;
     }
 }

@@ -10,8 +10,8 @@ export const ProductFieldData: core.serialization.ObjectSchema<
     serializers.ProductFieldData.Raw,
     Webflow.ProductFieldData
 > = core.serialization.object({
-    name: core.serialization.string(),
-    slug: core.serialization.string(),
+    name: core.serialization.string().optional(),
+    slug: core.serialization.string().optional(),
     description: core.serialization.string().optional(),
     shippable: core.serialization.boolean().optional(),
     skuProperties: core.serialization.property(
@@ -30,13 +30,12 @@ export const ProductFieldData: core.serialization.ObjectSchema<
         "ec-product-type",
         core.serialization.lazy(async () => (await import("..")).ProductFieldDataEcProductType).optional()
     ),
-    additionalProperties: core.serialization.string().optional(),
 });
 
 export declare namespace ProductFieldData {
     interface Raw {
-        name: string;
-        slug: string;
+        name?: string | null;
+        slug?: string | null;
         description?: string | null;
         shippable?: boolean | null;
         "sku-properties"?: serializers.SkuPropertyList.Raw[] | null;
@@ -44,6 +43,5 @@ export declare namespace ProductFieldData {
         "tax-category"?: serializers.ProductFieldDataTaxCategory.Raw | null;
         "default-sku"?: string | null;
         "ec-product-type"?: serializers.ProductFieldDataEcProductType.Raw | null;
-        additionalProperties?: string | null;
     }
 }

@@ -15,6 +15,11 @@ export const SkuFieldDataEcSkuSubscriptionPlan: core.serialization.ObjectSchema<
         .optional(),
     frequency: core.serialization.number().optional(),
     trial: core.serialization.number().optional(),
+    plans: core.serialization
+        .list(
+            core.serialization.lazyObject(async () => (await import("..")).SkuFieldDataEcSkuSubscriptionPlanPlansItem)
+        )
+        .optional(),
 });
 
 export declare namespace SkuFieldDataEcSkuSubscriptionPlan {
@@ -22,5 +27,6 @@ export declare namespace SkuFieldDataEcSkuSubscriptionPlan {
         interval?: serializers.SkuFieldDataEcSkuSubscriptionPlanInterval.Raw | null;
         frequency?: number | null;
         trial?: number | null;
+        plans?: serializers.SkuFieldDataEcSkuSubscriptionPlanPlansItem.Raw[] | null;
     }
 }

@@ -23,5 +23,8 @@ export interface Site {
     previewUrl?: string;
     /** Site timezone set under Site Settings */
     timeZone?: string;
+    /** The ID of the parent folder the Site exists in */
+    parentFolderId?: string;
     customDomains?: Webflow.Domain[];
+    locales?: Webflow.Locales;
 }

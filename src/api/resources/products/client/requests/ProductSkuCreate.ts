@@ -6,12 +6,35 @@ import * as Webflow from "../../../..";
 
 /**
  * @example
- *     {}
+ *     {
+ *         product: {
+ *             id: "660eb7a486d1d6e0412292d7",
+ *             cmsLocaleId: "653ad57de882f528b32e810e",
+ *             lastPublished: new Date("2024-04-04T14:24:19.000Z"),
+ *             lastUpdated: new Date("2024-04-04T14:30:19.000Z"),
+ *             createdOn: new Date("2024-04-04T14:22:28.000Z"),
+ *             isArchived: false,
+ *             isDraft: false,
+ *             fieldData: {
+ *                 name: "T-Shirt",
+ *                 slug: "t-shirt",
+ *                 description: "A plain cotton t-shirt.",
+ *                 shippable: true,
+ *                 skuProperties: [{
+ *                         id: "Color",
+ *                         name: "Color",
+ *                         enum: [{
+ *                                 id: "id",
+ *                                 name: "name",
+ *                                 slug: "slug"
+ *                             }]
+ *                     }]
+ *             }
+ *         }
+ *     }
  */
 export interface ProductSkuCreate {
     publishStatus?: Webflow.PublishStatus;
-    /** The Product Object */
-    product?: Webflow.ProductSkuCreateProduct;
-    /** The SKU object */
-    sku?: Webflow.ProductSkuCreateSku;
+    product?: Webflow.Product;
+    sku?: Webflow.Sku;
 }

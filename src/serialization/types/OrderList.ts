@@ -8,7 +8,7 @@ import * as core from "../../core";
 
 export const OrderList: core.serialization.ObjectSchema<serializers.OrderList.Raw, Webflow.OrderList> =
     core.serialization.object({
-        items: core.serialization
+        orders: core.serialization
             .list(core.serialization.lazyObject(async () => (await import("..")).Order))
             .optional(),
         pagination: core.serialization.lazyObject(async () => (await import("..")).Pagination).optional(),
@@ -16,7 +16,7 @@ export const OrderList: core.serialization.ObjectSchema<serializers.OrderList.Ra
 
 export declare namespace OrderList {
     interface Raw {
-        items?: serializers.Order.Raw[] | null;
+        orders?: serializers.Order.Raw[] | null;
         pagination?: serializers.Pagination.Raw | null;
     }
 }

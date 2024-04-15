@@ -65,7 +65,7 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "v2.2.1",
+                "X-Fern-SDK-Version": "2.3.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -151,7 +151,7 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "v2.2.1",
+                "X-Fern-SDK-Version": "2.3.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -216,27 +216,27 @@ export class Pages {
      * @example
      *     await webflow.pages.updatePageSettings("page_id", {
      *         body: {
-     *             id: "6390c49774a71f0e3c1a08ee",
-     *             siteId: "6390c49674a71f84b51a08d8",
-     *             title: "Blog Categories Template",
-     *             slug: "detail_blog-category",
+     *             id: "6596da6045e56dee495bcbba",
+     *             siteId: "6258612d1ee792848f805dcf",
+     *             title: "Guide to the Galaxy",
+     *             slug: "guide-to-the-galaxy",
      *             parentId: "6419db964a9c435aa3af6251",
      *             collectionId: "6390c49774a71f12831a08e3",
-     *             createdOn: new Date("2018-10-14T21:55:49.000Z"),
-     *             lastUpdated: new Date("2022-12-07T16:51:37.000Z"),
+     *             createdOn: new Date("2024-03-11T10:42:00.000Z"),
+     *             lastUpdated: new Date("2024-03-11T10:42:42.000Z"),
      *             archived: false,
      *             draft: false,
      *             canBranch: true,
      *             isMembersOnly: false,
      *             seo: {
-     *                 title: "CoffeeStyle eCommerce - Webflow HTML website template",
-     *                 description: "This Webflow template offers a quick start into an e-commerce / memberships site"
+     *                 title: "The Ultimate Hitchhiker's Guide to the Galaxy",
+     *                 description: "Everything you need to know about the galaxy, from avoiding Vogon poetry to the importance of towels."
      *             },
      *             openGraph: {
-     *                 title: "CoffeeStyle eCommerce - Webflow HTML website template",
-     *                 titleCopied: true,
-     *                 description: "This Webflow template offers a quick start into an e-commerce / memberships site",
-     *                 descriptionCopied: true
+     *                 title: "Explore the Cosmos with The Ultimate Guide",
+     *                 titleCopied: false,
+     *                 description: "Dive deep into the mysteries of the universe with your guide to everything galactic.",
+     *                 descriptionCopied: false
      *             }
      *         }
      *     })
@@ -262,7 +262,7 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "v2.2.1",
+                "X-Fern-SDK-Version": "2.3.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -350,7 +350,7 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "v2.2.1",
+                "X-Fern-SDK-Version": "2.3.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -419,7 +419,16 @@ export class Pages {
      *     await webflow.pages.updateStaticContent("page_id", {
      *         locale: "locale",
      *         nodes: [{
-     *                 nodeId: "guide-title-id",
+     *                 nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad623",
+     *                 text: "<h1>The Hitchhiker's Guide to the Galaxy</h1>"
+     *             }, {
+     *                 nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad627",
+     *                 text: "<div><h3>Don't Panic!</h3><p>Always know where your towel is.</p></div>"
+     *             }, {
+     *                 nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad629",
+     *                 text: "<img alt='Marvin, the Paranoid Android' src='path/to/image/with/assetId/659595234426a9fcbad57043'/>"
+     *             }, {
+     *                 nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad623",
      *                 text: "<h1>Hello world</h1>"
      *             }]
      *     })
@@ -428,7 +437,7 @@ export class Pages {
         pageId: string,
         request: Webflow.DomWrite,
         requestOptions?: Pages.RequestOptions
-    ): Promise<Webflow.Dom> {
+    ): Promise<Webflow.UpdateStaticContentResponse> {
         const { locale, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         _queryParams["locale"] = locale;
@@ -442,7 +451,7 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "v2.2.1",
+                "X-Fern-SDK-Version": "2.3.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -453,7 +462,7 @@ export class Pages {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.Dom.parseOrThrow(_response.body, {
+            return await serializers.UpdateStaticContentResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,

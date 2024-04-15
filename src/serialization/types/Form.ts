@@ -7,31 +7,31 @@ import * as Webflow from "../../api";
 import * as core from "../../core";
 
 export const Form: core.serialization.ObjectSchema<serializers.Form.Raw, Webflow.Form> = core.serialization.object({
-    id: core.serialization.string().optional(),
     displayName: core.serialization.string().optional(),
+    createdOn: core.serialization.date().optional(),
+    lastUpdated: core.serialization.date().optional(),
+    fields: core.serialization.list(core.serialization.lazy(async () => (await import("..")).FormField)).optional(),
+    responseSettings: core.serialization.lazyObject(async () => (await import("..")).FormResponseSettings).optional(),
+    id: core.serialization.string().optional(),
     siteId: core.serialization.string().optional(),
     siteDomainId: core.serialization.string().optional(),
     pageId: core.serialization.string().optional(),
     pageName: core.serialization.string().optional(),
     workspaceId: core.serialization.string().optional(),
-    createdOn: core.serialization.date().optional(),
-    lastUpdated: core.serialization.date().optional(),
-    fields: core.serialization.list(core.serialization.lazy(async () => (await import("..")).FormField)).optional(),
-    responseSettings: core.serialization.lazyObject(async () => (await import("..")).FormResponseSettings).optional(),
 });
 
 export declare namespace Form {
     interface Raw {
-        id?: string | null;
         displayName?: string | null;
+        createdOn?: string | null;
+        lastUpdated?: string | null;
+        fields?: serializers.FormField.Raw[] | null;
+        responseSettings?: serializers.FormResponseSettings.Raw | null;
+        id?: string | null;
         siteId?: string | null;
         siteDomainId?: string | null;
         pageId?: string | null;
         pageName?: string | null;
         workspaceId?: string | null;
-        createdOn?: string | null;
-        lastUpdated?: string | null;
-        fields?: serializers.FormField.Raw[] | null;
-        responseSettings?: serializers.FormResponseSettings.Raw | null;
     }
 }

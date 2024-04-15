@@ -9,19 +9,19 @@ export interface Order {
     orderId?: string;
     /** The status of the Order */
     status?: Webflow.OrderStatus;
-    /** A comment string for this Order editable by API user (not used by Webflow). */
+    /** A comment string for this Order, which is editable by API user (not used by Webflow). */
     comment?: string;
     /** A comment that the customer left when making their Order */
     orderComment?: string;
     /** The ISO8601 timestamp that an Order was placed. */
     acceptedOn?: Date;
-    /** If an Order was marked as 'fulfilled', then this is the ISO8601 timestamp when that happened. */
+    /** When an Order is marked as 'fulfilled', this field represents the timestamp of the fulfillment in ISO8601 format. Otherwise, it is null. */
     fulfilledOn?: Date;
-    /** If an Order was refunded, this is the ISO8601 of when that happened. */
+    /** When an Order is marked as 'refunded', this field represents the timestamp of the fulfillment in ISO8601 format. Otherwise, it is null. */
     refundedOn?: Date;
-    /** If an Order was disputed by the customer, then this key will be set with the ISO8601 timestamp that Stripe notifies Webflow. Null if not disputed. */
+    /** When an Order is marked as 'disputed', this field represents the timestamp of the fulfillment in ISO8601 format. Otherwise, it is null. */
     disputedOn?: Date;
-    /** If an Order was disputed by the customer, then this key will be set with the ISO8601 timestamp of the last time that we got an update. Null if not disputed. */
+    /** If an Order has been disputed by the customer, this key will be set to the ISO8601 timestamp of the last update received. If the Order is not disputed, the key will be null. */
     disputeUpdatedOn?: Date;
     /** If an order was disputed by the customer, then this key will be set with the [dispute's status](https://stripe.com/docs/api#dispute_object-status). */
     disputeLastStatus?: Webflow.OrderDisputeLastStatus;

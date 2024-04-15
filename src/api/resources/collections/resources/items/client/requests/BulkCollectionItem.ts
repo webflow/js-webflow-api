@@ -8,7 +8,6 @@ import * as Webflow from "../../../../../..";
  * @example
  *     {
  *         id: "580e64008c9a982ac9b8b754",
- *         lastPublished: "2023-03-17T18:47:35.560Z",
  *         lastUpdated: "2023-03-17T18:47:35.560Z",
  *         createdOn: "2023-03-17T18:47:35.560Z",
  *         fieldData: {

@@ -9,6 +9,7 @@ import * as Webflow from "../../../..";
  *     {
  *         sku: {
  *             id: "580e63fc8c9a982ac9b8b745",
+ *             cmsLocaleId: "653ad57de882f528b32e810e",
  *             lastPublished: new Date("2023-03-17T18:47:35.000Z"),
  *             lastUpdated: new Date("2023-03-17T18:47:35.000Z"),
  *             createdOn: new Date("2023-03-17T18:47:35.000Z"),

@@ -24,6 +24,8 @@ export interface OrderPurchasedItem {
     variantName?: string;
     /** Slug for the Product Variant (SKU) */
     variantSlug?: string;
+    /** The user-defined custom SKU of the Product Variant (SKU) */
+    variantSku?: string;
     variantImage?: Webflow.OrderPurchasedItemVariantImage;
     /** The price corresponding to the variant */
     variantPrice?: Webflow.OrderPrice;

@@ -11,12 +11,12 @@ export const RegisteredScriptList: core.serialization.ObjectSchema<
     Webflow.RegisteredScriptList
 > = core.serialization.object({
     registeredScripts: core.serialization
-        .list(core.serialization.lazyObject(async () => (await import("..")).CustomCodeResponse))
+        .list(core.serialization.lazyObject(async () => (await import("..")).CustomCodeHostedResponse))
         .optional(),
 });
 
 export declare namespace RegisteredScriptList {
     interface Raw {
-        registeredScripts?: serializers.CustomCodeResponse.Raw[] | null;
+        registeredScripts?: serializers.CustomCodeHostedResponse.Raw[] | null;
     }
 }

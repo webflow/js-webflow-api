@@ -5,7 +5,7 @@
 import * as Webflow from "..";
 
 export interface ScriptApply {
-    /** Id of the registered custom code script */
+    /** ID of the registered custom code script */
     id: string;
     /** Location of the script, either in the header or footer of the published site */
     location: Webflow.ScriptApplyLocation;

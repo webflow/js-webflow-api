@@ -46,7 +46,7 @@ export class Scripts {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "v2.2.1",
+                "X-Fern-SDK-Version": "2.3.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -119,7 +119,7 @@ export class Scripts {
         siteId: string,
         request: Webflow.CustomCodeHostedRequest,
         requestOptions?: Scripts.RequestOptions
-    ): Promise<Webflow.CustomCodeResponse> {
+    ): Promise<Webflow.CustomCodeHostedResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -130,7 +130,7 @@ export class Scripts {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "v2.2.1",
+                "X-Fern-SDK-Version": "2.3.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -140,7 +140,7 @@ export class Scripts {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.CustomCodeResponse.parseOrThrow(_response.body, {
+            return await serializers.CustomCodeHostedResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -203,7 +203,7 @@ export class Scripts {
         siteId: string,
         request: Webflow.CustomCodeInlineRequest,
         requestOptions?: Scripts.RequestOptions
-    ): Promise<Webflow.CustomCodeResponse> {
+    ): Promise<Webflow.CustomCodeInlineResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -214,7 +214,7 @@ export class Scripts {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "v2.2.1",
+                "X-Fern-SDK-Version": "2.3.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -224,7 +224,7 @@ export class Scripts {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.CustomCodeResponse.parseOrThrow(_response.body, {
+            return await serializers.CustomCodeInlineResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,

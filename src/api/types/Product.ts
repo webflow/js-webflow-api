@@ -10,6 +10,8 @@ import * as Webflow from "..";
 export interface Product {
     /** Unique identifier for the Product */
     id?: string;
+    /** Identifier for the locale of the CMS item */
+    cmsLocaleId?: string;
     /** The date the Product was last published */
     lastPublished?: Date;
     /** The date the Product was last updated */

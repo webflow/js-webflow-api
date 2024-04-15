@@ -11,4 +11,5 @@ export interface SkuFieldDataEcSkuSubscriptionPlan {
     frequency?: number;
     /** Number of days of a trial */
     trial?: number;
+    plans?: Webflow.SkuFieldDataEcSkuSubscriptionPlanPlansItem[];
 }

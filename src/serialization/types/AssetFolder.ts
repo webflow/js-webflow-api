@@ -8,8 +8,8 @@ import * as core from "../../core";
 
 export const AssetFolder: core.serialization.ObjectSchema<serializers.AssetFolder.Raw, Webflow.AssetFolder> =
     core.serialization.object({
-        displayName: core.serialization.string().optional(),
         id: core.serialization.string().optional(),
+        displayName: core.serialization.string().optional(),
         parentFolder: core.serialization.string().optional(),
         assets: core.serialization.list(core.serialization.string()).optional(),
         siteId: core.serialization.string().optional(),
@@ -19,8 +19,8 @@ export const AssetFolder: core.serialization.ObjectSchema<serializers.AssetFolde
 
 export declare namespace AssetFolder {
     interface Raw {
-        displayName?: string | null;
         id?: string | null;
+        displayName?: string | null;
         parentFolder?: string | null;
         assets?: string[] | null;
         siteId?: string | null;

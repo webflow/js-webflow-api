@@ -1,6 +1,6 @@
 {
     "name": "webflow-api",
-    "version": "v2.2.1",
+    "version": "2.3.1",
     "private": false,
     "repository": "https://github.com/webflow/js-webflow-api",
     "main": "./index.js",

@@ -4,11 +4,14 @@
 
 import * as Webflow from "..";
 
+/**
+ * Contains content-specific details for a product, covering both standard (e.g., title, description) and custom fields tailored to the product setup.
+ */
 export interface ProductFieldData {
     /** Name of the Product */
-    name: string;
+    name?: string;
     /** URL structure of the Product in your site. */
-    slug: string;
+    slug?: string;
     /** A description of your product */
     description?: string;
     /** Boolean determining if the Product is shippable */
@@ -23,6 +26,4 @@ export interface ProductFieldData {
     defaultSku?: string;
     /** <a href="https://university.webflow.com/lesson/add-and-manage-products-and-categories?topics=ecommerce#how-to-understand-product-types">Product types.</a> Enums reflect the following values in order: Physical, Digital, Service, Advanced" */
     ecProductType?: Webflow.ProductFieldDataEcProductType;
-    /** Custom fields for your product. */
-    additionalProperties?: string;
 }

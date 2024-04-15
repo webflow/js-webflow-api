@@ -4,4 +4,7 @@
 
 import * as Webflow from "..";
 
+/**
+ * A list of scripts applied to a Site or a Page
+ */
 export type Scripts = Webflow.ScriptApply[];
