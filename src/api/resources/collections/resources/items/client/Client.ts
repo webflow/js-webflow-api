@@ -68,7 +68,7 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.1",
+                "X-Fern-SDK-Version": "2.3.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -160,7 +160,7 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.1",
+                "X-Fern-SDK-Version": "2.3.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -171,6 +171,104 @@ export class Items {
         });
         if (_response.ok) {
             return;
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Webflow.BadRequestError(_response.error.body);
+                case 401:
+                    throw new Webflow.UnauthorizedError(_response.error.body);
+                case 404:
+                    throw new Webflow.NotFoundError(_response.error.body);
+                case 429:
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
+                case 500:
+                    throw new Webflow.InternalServerError(_response.error.body);
+                default:
+                    throw new errors.WebflowError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.WebflowError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.WebflowTimeoutError();
+            case "unknown":
+                throw new errors.WebflowError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * List of all live Items within a Collection. </br></br> Required scope | `CMS:read`
+     * @throws {@link Webflow.BadRequestError}
+     * @throws {@link Webflow.UnauthorizedError}
+     * @throws {@link Webflow.NotFoundError}
+     * @throws {@link Webflow.TooManyRequestsError}
+     * @throws {@link Webflow.InternalServerError}
+     *
+     * @example
+     *     await webflow.collections.items.listItemsLive("collection_id", {})
+     */
+    public async listItemsLive(
+        collectionId: string,
+        request: Webflow.collections.ItemsListItemsLiveRequest = {},
+        requestOptions?: Items.RequestOptions
+    ): Promise<Webflow.CollectionItemList> {
+        const { cmsLocaleIds, offset, limit } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (cmsLocaleIds != null) {
+            if (Array.isArray(cmsLocaleIds)) {
+                _queryParams["cmsLocaleIds"] = cmsLocaleIds.map((item) => item);
+            } else {
+                _queryParams["cmsLocaleIds"] = cmsLocaleIds;
+            }
+        }
+
+        if (offset != null) {
+            _queryParams["offset"] = offset.toString();
+        }
+
+        if (limit != null) {
+            _queryParams["limit"] = limit.toString();
+        }
+
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                `collections/${collectionId}/items/live`
+            ),
+            method: "GET",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "webflow-api",
+                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            queryParameters: _queryParams,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+        });
+        if (_response.ok) {
+            return await serializers.CollectionItemList.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -246,7 +344,7 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.1",
+                "X-Fern-SDK-Version": "2.3.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -328,7 +426,7 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.1",
+                "X-Fern-SDK-Version": "2.3.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -411,7 +509,7 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.1",
+                "X-Fern-SDK-Version": "2.3.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -502,7 +600,7 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.1",
+                "X-Fern-SDK-Version": "2.3.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -589,7 +687,7 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.1",
+                "X-Fern-SDK-Version": "2.3.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -669,7 +767,7 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.1",
+                "X-Fern-SDK-Version": "2.3.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -755,7 +853,7 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.1",
+                "X-Fern-SDK-Version": "2.3.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -837,7 +935,7 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.1",
+                "X-Fern-SDK-Version": "2.3.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
