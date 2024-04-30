@@ -56,7 +56,13 @@ export type OauthScope =
     | "site_activity:read"
     /**
      * modify users on the site */
-    | "users:write";
+    | "users:write"
+    /**
+     * read workspace resource data */
+    | "workspace:read"
+    /**
+     * write workspace resource data */
+    | "workspace:write";
 
 export const OauthScope = {
     AuthorizedUserRead: "authorized_user:read",
@@ -77,4 +83,6 @@ export const OauthScope = {
     UsersRead: "users:read",
     SiteActivityRead: "site_activity:read",
     UsersWrite: "users:write",
+    WorkspaceRead: "workspace:read",
+    WorkspaceWrite: "workspace:write",
 } as const;
