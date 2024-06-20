@@ -16,7 +16,7 @@ export type FieldCreateType =
     | "Phone"
     | "Number"
     | "DateTime"
-    | "Boolean"
+    | "Switch"
     | "Color"
     | "File";
 
@@ -31,7 +31,7 @@ export const FieldCreateType = {
     Phone: "Phone",
     Number: "Number",
     DateTime: "DateTime",
-    Boolean: "Boolean",
+    Switch: "Switch",
     Color: "Color",
     File: "File",
 } as const;
