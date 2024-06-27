@@ -18,7 +18,7 @@ export const FieldType: core.serialization.Schema<serializers.FieldType.Raw, Web
         "Phone",
         "Number",
         "DateTime",
-        "Boolean",
+        "Switch",
         "Color",
         "ExtFileRef",
     ]);
@@ -35,7 +35,7 @@ export declare namespace FieldType {
         | "Phone"
         | "Number"
         | "DateTime"
-        | "Boolean"
+        | "Switch"
         | "Color"
         | "ExtFileRef";
 }

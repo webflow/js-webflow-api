@@ -11,4 +11,12 @@ export interface PagesGetContentRequest {
      * Unique identifier for a specific locale. Applicable, when using localization.
      */
     locale?: string;
+    /**
+     * Maximum number of records to be returned (max limit: 100)
+     */
+    limit?: number;
+    /**
+     * Offset used for pagination if the results have more than limit records
+     */
+    offset?: number;
 }

@@ -6,7 +6,7 @@
  * @example
  *     {}
  */
-export interface ItemsDeleteItemRequest {
+export interface ItemsGetItemLiveRequest {
     /**
      * Unique identifier for a CMS Locale. This UID is different from the Site locale identifier and is listed as `cmsLocaleId` in the Sites response. To query multiple locales, input a comma separated string.
      */

@@ -20,7 +20,7 @@ export const FieldCreateType: core.serialization.Schema<
     "Phone",
     "Number",
     "DateTime",
-    "Boolean",
+    "Switch",
     "Color",
     "File",
 ]);
@@ -37,7 +37,7 @@ export declare namespace FieldCreateType {
         | "Phone"
         | "Number"
         | "DateTime"
-        | "Boolean"
+        | "Switch"
         | "Color"
         | "File";
 }
