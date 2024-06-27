@@ -65,7 +65,7 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -134,7 +134,7 @@ export class Pages {
         pageId: string,
         request: Webflow.PagesGetMetadataRequest = {},
         requestOptions?: Pages.RequestOptions
-    ): Promise<Webflow.Page> {
+    ): Promise<Webflow.PageDetails> {
         const { locale } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (locale != null) {
@@ -151,7 +151,7 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -161,7 +161,7 @@ export class Pages {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.Page.parseOrThrow(_response.body, {
+            return await serializers.PageDetails.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -245,7 +245,7 @@ export class Pages {
         pageId: string,
         request: Webflow.UpdatePageSettingsRequest,
         requestOptions?: Pages.RequestOptions
-    ): Promise<Webflow.Page> {
+    ): Promise<Webflow.PageDetails> {
         const { locale, body: _body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (locale != null) {
@@ -262,7 +262,7 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -273,7 +273,7 @@ export class Pages {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.Page.parseOrThrow(_response.body, {
+            return await serializers.PageDetails.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -334,10 +334,18 @@ export class Pages {
         request: Webflow.PagesGetContentRequest = {},
         requestOptions?: Pages.RequestOptions
     ): Promise<Webflow.Dom> {
-        const { locale } = request;
+        const { locale, limit, offset } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (locale != null) {
             _queryParams["locale"] = locale;
+        }
+
+        if (limit != null) {
+            _queryParams["limit"] = limit.toString();
+        }
+
+        if (offset != null) {
+            _queryParams["offset"] = offset.toString();
         }
 
         const _response = await core.fetcher({
@@ -350,7 +358,7 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -451,7 +459,7 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },

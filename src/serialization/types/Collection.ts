@@ -14,7 +14,7 @@ export const Collection: core.serialization.ObjectSchema<serializers.Collection.
         slug: core.serialization.string().optional(),
         createdOn: core.serialization.date().optional(),
         lastUpdated: core.serialization.date().optional(),
-        fields: core.serialization.record(core.serialization.string(), core.serialization.unknown()),
+        fields: core.serialization.list(core.serialization.lazyObject(async () => (await import("..")).Field)),
     });
 
 export declare namespace Collection {
@@ -25,6 +25,6 @@ export declare namespace Collection {
         slug?: string | null;
         createdOn?: string | null;
         lastUpdated?: string | null;
-        fields: Record<string, unknown>;
+        fields: serializers.Field.Raw[];
     }
 }

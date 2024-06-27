@@ -8,7 +8,7 @@
  */
 export interface ItemsGetItemRequest {
     /**
-     * Unique identifier for a CMS Locale. These UID is different from the Site locale identifier and is listed as `cmsLocaleId` in the Sites response. Applicable when using localization.
+     * Unique identifier for a CMS Locale. This UID is different from the Site locale identifier and is listed as `cmsLocaleId` in the Sites response. To query multiple locales, input a comma separated string.
      */
     cmsLocaleId?: string;
 }
