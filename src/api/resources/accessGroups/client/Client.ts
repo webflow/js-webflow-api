@@ -4,10 +4,10 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import * as Webflow from "../../..";
+import * as Webflow from "../../../index";
 import urlJoin from "url-join";
-import * as serializers from "../../../../serialization";
-import * as errors from "../../../../errors";
+import * as serializers from "../../../../serialization/index";
+import * as errors from "../../../../errors/index";
 
 export declare namespace AccessGroups {
     interface Options {
@@ -16,8 +16,12 @@ export declare namespace AccessGroups {
     }
 
     interface RequestOptions {
+        /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
+        /** The number of times to retry the request. Defaults to 2. */
         maxRetries?: number;
+        /** A hook to abort the request. */
+        abortSignal?: AbortSignal;
     }
 }
 
@@ -26,6 +30,11 @@ export class AccessGroups {
 
     /**
      * Get a list of access groups for a site <br><br> Required scope | `users:read`
+     *
+     * @param {string} siteId - Unique identifier for a Site
+     * @param {Webflow.AccessGroupsListRequest} request
+     * @param {AccessGroups.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.ForbiddenError}
@@ -34,7 +43,7 @@ export class AccessGroups {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.accessGroups.list("site_id", {})
+     *     await client.accessGroups.list("site_id")
      */
     public async list(
         siteId: string,
@@ -58,14 +67,14 @@ export class AccessGroups {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${siteId}/accessgroups`
+                `sites/${encodeURIComponent(siteId)}/accessgroups`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -73,6 +82,7 @@ export class AccessGroups {
             queryParameters: _queryParams,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.AccessGroupList.parseOrThrow(_response.body, {
@@ -121,7 +131,7 @@ export class AccessGroups {
         }
     }
 
-    protected async _getAuthorizationHeader() {
+    protected async _getAuthorizationHeader(): Promise<string> {
         return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
     }
 }

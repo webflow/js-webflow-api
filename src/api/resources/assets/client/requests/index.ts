@@ -1,3 +1,3 @@
-export { AssetsCreateRequest } from "./AssetsCreateRequest";
-export { AssetsUpdateRequest } from "./AssetsUpdateRequest";
-export { AssetsCreateFolderRequest } from "./AssetsCreateFolderRequest";
+export { type AssetsCreateRequest } from "./AssetsCreateRequest";
+export { type AssetsUpdateRequest } from "./AssetsUpdateRequest";
+export { type AssetsCreateFolderRequest } from "./AssetsCreateFolderRequest";

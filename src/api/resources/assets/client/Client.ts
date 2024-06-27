@@ -4,10 +4,10 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import * as Webflow from "../../..";
+import * as Webflow from "../../../index";
 import urlJoin from "url-join";
-import * as serializers from "../../../../serialization";
-import * as errors from "../../../../errors";
+import * as serializers from "../../../../serialization/index";
+import * as errors from "../../../../errors/index";
 
 export declare namespace Assets {
     interface Options {
@@ -16,8 +16,12 @@ export declare namespace Assets {
     }
 
     interface RequestOptions {
+        /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
+        /** The number of times to retry the request. Defaults to 2. */
         maxRetries?: number;
+        /** A hook to abort the request. */
+        abortSignal?: AbortSignal;
     }
 }
 
@@ -26,6 +30,10 @@ export class Assets {
 
     /**
      * List assets for a given site </br></br> Required scope | `assets:read`
+     *
+     * @param {string} siteId - Unique identifier for a Site
+     * @param {Assets.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
@@ -33,26 +41,27 @@ export class Assets {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.assets.list("site_id")
+     *     await client.assets.list("site_id")
      */
     public async list(siteId: string, requestOptions?: Assets.RequestOptions): Promise<Webflow.Assets> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${siteId}/assets`
+                `sites/${encodeURIComponent(siteId)}/assets`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.Assets.parseOrThrow(_response.body, {
@@ -101,6 +110,11 @@ export class Assets {
 
     /**
      * Create a new asset entry. </br></br> This endpoint generates a response with the following information: `uploadUrl` and `uploadDetails`. You can use these two properties to [upload the file to Amazon s3 by making a POST](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectPOST.html) request to the `uploadUrl` with the `uploadDetails` object as your header information in the request. </br></br> Required scope | `assets:write`
+     *
+     * @param {string} siteId - Unique identifier for a Site
+     * @param {Webflow.AssetsCreateRequest} request
+     * @param {Assets.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
@@ -108,10 +122,9 @@ export class Assets {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.assets.create("site_id", {
+     *     await client.assets.create("site_id", {
      *         fileName: "file.png",
-     *         fileHash: "3c7d87c9575702bc3b1e991f4d3c638e",
-     *         parentFolder: "6436b1ce5281cace05b65aea"
+     *         fileHash: "3c7d87c9575702bc3b1e991f4d3c638e"
      *     })
      */
     public async create(
@@ -122,14 +135,14 @@ export class Assets {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${siteId}/assets`
+                `sites/${encodeURIComponent(siteId)}/assets`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -137,6 +150,7 @@ export class Assets {
             body: await serializers.AssetsCreateRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.AssetUpload.parseOrThrow(_response.body, {
@@ -185,6 +199,10 @@ export class Assets {
 
     /**
      * Get an Asset </br></br> Required scope | `assets:read`
+     *
+     * @param {string} assetId - Unique identifier for an Asset on a site
+     * @param {Assets.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
@@ -192,26 +210,27 @@ export class Assets {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.assets.get("asset_id")
+     *     await client.assets.get("asset_id")
      */
     public async get(assetId: string, requestOptions?: Assets.RequestOptions): Promise<Webflow.Asset> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `assets/${assetId}`
+                `assets/${encodeURIComponent(assetId)}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.Asset.parseOrThrow(_response.body, {
@@ -260,6 +279,10 @@ export class Assets {
 
     /**
      * Delete an Asset
+     *
+     * @param {string} assetId - Unique identifier for an Asset on a site
+     * @param {Assets.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
@@ -267,26 +290,27 @@ export class Assets {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.assets.delete("asset_id")
+     *     await client.assets.delete("asset_id")
      */
     public async delete(assetId: string, requestOptions?: Assets.RequestOptions): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `assets/${assetId}`
+                `assets/${encodeURIComponent(assetId)}`
             ),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return;
@@ -329,6 +353,11 @@ export class Assets {
 
     /**
      * Update an Asset </br></br> Required scope | `assets:write`
+     *
+     * @param {string} assetId - Unique identifier for an Asset on a site
+     * @param {Webflow.AssetsUpdateRequest} request
+     * @param {Assets.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
@@ -336,7 +365,7 @@ export class Assets {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.assets.update("asset_id", {
+     *     await client.assets.update("asset_id", {
      *         displayName: "bulldoze.png"
      *     })
      */
@@ -348,14 +377,14 @@ export class Assets {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `assets/${assetId}`
+                `assets/${encodeURIComponent(assetId)}`
             ),
             method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -363,6 +392,7 @@ export class Assets {
             body: await serializers.AssetsUpdateRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.Asset.parseOrThrow(_response.body, {
@@ -411,6 +441,10 @@ export class Assets {
 
     /**
      * List Asset Folders within a given site <br><br> Required scope | `assets:read`
+     *
+     * @param {string} siteId - Unique identifier for a Site
+     * @param {Assets.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
@@ -418,26 +452,27 @@ export class Assets {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.assets.listFolders("site_id")
+     *     await client.assets.listFolders("site_id")
      */
     public async listFolders(siteId: string, requestOptions?: Assets.RequestOptions): Promise<Webflow.AssetFolderList> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${siteId}/asset_folders`
+                `sites/${encodeURIComponent(siteId)}/asset_folders`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.AssetFolderList.parseOrThrow(_response.body, {
@@ -486,6 +521,11 @@ export class Assets {
 
     /**
      * Create an Asset Folder within a given site <br><br> Required scope | `assets:write`
+     *
+     * @param {string} siteId - Unique identifier for a Site
+     * @param {Webflow.AssetsCreateFolderRequest} request
+     * @param {Assets.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
@@ -493,9 +533,8 @@ export class Assets {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.assets.createFolder("site_id", {
-     *         displayName: "my asset folder",
-     *         parentFolder: "6390c49774a71f99f21a08eb"
+     *     await client.assets.createFolder("site_id", {
+     *         displayName: "my asset folder"
      *     })
      */
     public async createFolder(
@@ -506,14 +545,14 @@ export class Assets {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${siteId}/asset_folders`
+                `sites/${encodeURIComponent(siteId)}/asset_folders`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -521,6 +560,7 @@ export class Assets {
             body: await serializers.AssetsCreateFolderRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.AssetFolder.parseOrThrow(_response.body, {
@@ -569,6 +609,10 @@ export class Assets {
 
     /**
      * Get details about a specific Asset Folder <br><br> Required scope | `assets:read`
+     *
+     * @param {string} assetFolderId - Unique identifier for an Asset Folder
+     * @param {Assets.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
@@ -576,7 +620,7 @@ export class Assets {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.assets.getFolder("asset_folder_id")
+     *     await client.assets.getFolder("asset_folder_id")
      */
     public async getFolder(
         assetFolderId: string,
@@ -585,20 +629,21 @@ export class Assets {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `asset_folders/${assetFolderId}`
+                `asset_folders/${encodeURIComponent(assetFolderId)}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.AssetFolder.parseOrThrow(_response.body, {
@@ -645,7 +690,7 @@ export class Assets {
         }
     }
 
-    protected async _getAuthorizationHeader() {
+    protected async _getAuthorizationHeader(): Promise<string> {
         return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
     }
 }

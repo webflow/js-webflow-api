@@ -4,10 +4,10 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import * as Webflow from "../../..";
+import * as Webflow from "../../../index";
 import urlJoin from "url-join";
-import * as serializers from "../../../../serialization";
-import * as errors from "../../../../errors";
+import * as serializers from "../../../../serialization/index";
+import * as errors from "../../../../errors/index";
 
 export declare namespace Forms {
     interface Options {
@@ -16,8 +16,12 @@ export declare namespace Forms {
     }
 
     interface RequestOptions {
+        /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
+        /** The number of times to retry the request. Defaults to 2. */
         maxRetries?: number;
+        /** A hook to abort the request. */
+        abortSignal?: AbortSignal;
     }
 }
 
@@ -26,6 +30,11 @@ export class Forms {
 
     /**
      * List forms for a given site </br></br> Required scope | `forms:read`
+     *
+     * @param {string} siteId - Unique identifier for a Site
+     * @param {Webflow.FormsListRequest} request
+     * @param {Forms.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.ForbiddenError}
@@ -35,7 +44,7 @@ export class Forms {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.forms.list("site_id", {})
+     *     await client.forms.list("site_id")
      */
     public async list(
         siteId: string,
@@ -55,14 +64,14 @@ export class Forms {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${siteId}/forms`
+                `sites/${encodeURIComponent(siteId)}/forms`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -70,6 +79,7 @@ export class Forms {
             queryParameters: _queryParams,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.FormList.parseOrThrow(_response.body, {
@@ -122,6 +132,10 @@ export class Forms {
 
     /**
      * Get information about a given form</br></br> Required scope | `forms:read`
+     *
+     * @param {string} formId - Unique identifier for a Form
+     * @param {Forms.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.ForbiddenError}
@@ -130,26 +144,27 @@ export class Forms {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.forms.get("form_id")
+     *     await client.forms.get("form_id")
      */
     public async get(formId: string, requestOptions?: Forms.RequestOptions): Promise<Webflow.Form> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `forms/${formId}`
+                `forms/${encodeURIComponent(formId)}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.Form.parseOrThrow(_response.body, {
@@ -200,6 +215,10 @@ export class Forms {
 
     /**
      * List form submissions for a given form </br></br> Required scope | `forms:read`
+     *
+     * @param {string} formId - Unique identifier for a Form
+     * @param {Forms.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.ForbiddenError}
@@ -208,7 +227,7 @@ export class Forms {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.forms.listSubmissions("form_id")
+     *     await client.forms.listSubmissions("form_id")
      */
     public async listSubmissions(
         formId: string,
@@ -217,20 +236,21 @@ export class Forms {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `forms/${formId}/submissions`
+                `forms/${encodeURIComponent(formId)}/submissions`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.FormSubmissionList.parseOrThrow(_response.body, {
@@ -281,6 +301,10 @@ export class Forms {
 
     /**
      * Get information about a given form submission</br></br> Required scope | `forms:read`
+     *
+     * @param {string} formSubmissionId - Unique identifier for a Form Submission
+     * @param {Forms.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.ForbiddenError}
@@ -289,7 +313,7 @@ export class Forms {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.forms.getSubmission("form_submission_id")
+     *     await client.forms.getSubmission("form_submission_id")
      */
     public async getSubmission(
         formSubmissionId: string,
@@ -298,20 +322,21 @@ export class Forms {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `form_submissions/${formSubmissionId}`
+                `form_submissions/${encodeURIComponent(formSubmissionId)}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.FormSubmission.parseOrThrow(_response.body, {
@@ -362,6 +387,11 @@ export class Forms {
 
     /**
      * Update hidden fields on a form submission</br></br> Required scope | `forms:write`
+     *
+     * @param {string} formSubmissionId - Unique identifier for a Form Submission
+     * @param {Webflow.FormsUpdateSubmissionRequest} request
+     * @param {Forms.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.ForbiddenError}
@@ -371,7 +401,7 @@ export class Forms {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.forms.updateSubmission("form_submission_id", {})
+     *     await client.forms.updateSubmission("form_submission_id")
      */
     public async updateSubmission(
         formSubmissionId: string,
@@ -381,14 +411,14 @@ export class Forms {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `form_submissions/${formSubmissionId}`
+                `form_submissions/${encodeURIComponent(formSubmissionId)}`
             ),
             method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -398,6 +428,7 @@ export class Forms {
             }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.FormSubmission.parseOrThrow(_response.body, {
@@ -448,7 +479,7 @@ export class Forms {
         }
     }
 
-    protected async _getAuthorizationHeader() {
+    protected async _getAuthorizationHeader(): Promise<string> {
         return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
     }
 }

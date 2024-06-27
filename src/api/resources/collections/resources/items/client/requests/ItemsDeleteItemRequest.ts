@@ -8,7 +8,7 @@
  */
 export interface ItemsDeleteItemRequest {
     /**
-     * Unique identifiers for CMS Locales. These UIDs are different from the Site locale identifier and are listed as `cmsLocaleId` in the Sites response. Applicable when using localization.
+     * Unique identifier for a CMS Locale. This UID is different from the Site locale identifier and is listed as `cmsLocaleId` in the Sites response. To query multiple locales, input a comma separated string.
      */
-    cmsLocaleIds?: string | string[];
+    cmsLocaleId?: string;
 }

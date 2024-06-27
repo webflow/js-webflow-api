@@ -16,7 +16,7 @@ export type FieldType =
     | "Phone"
     | "Number"
     | "DateTime"
-    | "Boolean"
+    | "Switch"
     | "Color"
     | "ExtFileRef";
 
@@ -31,7 +31,7 @@ export const FieldType = {
     Phone: "Phone",
     Number: "Number",
     DateTime: "DateTime",
-    Boolean: "Boolean",
+    Switch: "Switch",
     Color: "Color",
     ExtFileRef: "ExtFileRef",
 } as const;

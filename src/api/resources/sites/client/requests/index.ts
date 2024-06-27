@@ -1,1 +1,1 @@
-export { SitesPublishRequest } from "./SitesPublishRequest";
+export { type SitesPublishRequest } from "./SitesPublishRequest";
