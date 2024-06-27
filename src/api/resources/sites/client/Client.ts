@@ -4,10 +4,10 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import * as Webflow from "../../..";
+import * as Webflow from "../../../index";
 import urlJoin from "url-join";
-import * as serializers from "../../../../serialization";
-import * as errors from "../../../../errors";
+import * as serializers from "../../../../serialization/index";
+import * as errors from "../../../../errors/index";
 import { ActivityLogs } from "../resources/activityLogs/client/Client";
 import { Scripts } from "../resources/scripts/client/Client";
 
@@ -18,8 +18,12 @@ export declare namespace Sites {
     }
 
     interface RequestOptions {
+        /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
+        /** The number of times to retry the request. Defaults to 2. */
         maxRetries?: number;
+        /** A hook to abort the request. */
+        abortSignal?: AbortSignal;
     }
 }
 
@@ -28,6 +32,9 @@ export class Sites {
 
     /**
      * List of all sites the provided access token is able to access. </br></br> Required scope | `sites:read`
+     *
+     * @param {Sites.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
@@ -35,7 +42,7 @@ export class Sites {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.sites.list()
+     *     await client.sites.list()
      */
     public async list(requestOptions?: Sites.RequestOptions): Promise<Webflow.Sites> {
         const _response = await core.fetcher({
@@ -48,13 +55,14 @@ export class Sites {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.Sites.parseOrThrow(_response.body, {
@@ -103,6 +111,10 @@ export class Sites {
 
     /**
      * Get a site by site id </br></br> Required scope | `sites:read`
+     *
+     * @param {string} siteId - Unique identifier for a Site
+     * @param {Sites.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
@@ -110,26 +122,27 @@ export class Sites {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.sites.get("site_id")
+     *     await client.sites.get("site_id")
      */
     public async get(siteId: string, requestOptions?: Sites.RequestOptions): Promise<Webflow.Site> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${siteId}`
+                `sites/${encodeURIComponent(siteId)}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.Site.parseOrThrow(_response.body, {
@@ -178,6 +191,10 @@ export class Sites {
 
     /**
      * Get a list of all custom domains related to site. </br></br> Required scope | `sites:read`
+     *
+     * @param {string} siteId - Unique identifier for a Site
+     * @param {Sites.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.ForbiddenError}
      * @throws {@link Webflow.NotFoundError}
@@ -185,26 +202,27 @@ export class Sites {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.sites.getCustomDomain("site_id")
+     *     await client.sites.getCustomDomain("site_id")
      */
     public async getCustomDomain(siteId: string, requestOptions?: Sites.RequestOptions): Promise<Webflow.Domains> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${siteId}/custom_domains`
+                `sites/${encodeURIComponent(siteId)}/custom_domains`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.Domains.parseOrThrow(_response.body, {
@@ -253,6 +271,11 @@ export class Sites {
 
     /**
      * Publish a site to one more more domains. </br></br> Required scope | `sites:write`
+     *
+     * @param {string} siteId - Unique identifier for a Site
+     * @param {Webflow.SitesPublishRequest} request
+     * @param {Sites.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.ForbiddenError}
@@ -260,10 +283,7 @@ export class Sites {
      * @throws {@link Webflow.TooManyRequestsError}
      *
      * @example
-     *     await webflow.sites.publish("site_id", {
-     *         customDomains: ["589a331aa51e760df7ccb89d"],
-     *         publishToWebflowSubdomain: false
-     *     })
+     *     await client.sites.publish("site_id")
      */
     public async publish(
         siteId: string,
@@ -273,14 +293,14 @@ export class Sites {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${siteId}/publish`
+                `sites/${encodeURIComponent(siteId)}/publish`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -288,6 +308,7 @@ export class Sites {
             body: await serializers.SitesPublishRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return;
@@ -340,7 +361,7 @@ export class Sites {
         return (this._scripts ??= new Scripts(this._options));
     }
 
-    protected async _getAuthorizationHeader() {
+    protected async _getAuthorizationHeader(): Promise<string> {
         return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
     }
 }

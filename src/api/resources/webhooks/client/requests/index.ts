@@ -1,1 +1,1 @@
-export { WebhooksCreateRequest } from "./WebhooksCreateRequest";
+export { type WebhooksCreateRequest } from "./WebhooksCreateRequest";

@@ -4,10 +4,10 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import * as Webflow from "../../..";
+import * as Webflow from "../../../index";
 import urlJoin from "url-join";
-import * as serializers from "../../../../serialization";
-import * as errors from "../../../../errors";
+import * as serializers from "../../../../serialization/index";
+import * as errors from "../../../../errors/index";
 
 export declare namespace Products {
     interface Options {
@@ -16,8 +16,12 @@ export declare namespace Products {
     }
 
     interface RequestOptions {
+        /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
+        /** The number of times to retry the request. Defaults to 2. */
         maxRetries?: number;
+        /** A hook to abort the request. */
+        abortSignal?: AbortSignal;
     }
 }
 
@@ -28,6 +32,11 @@ export class Products {
      * Retrieve all products for a site. Use `limit` and `offset` to page through all products with subsequent requests. All SKUs for each product will also be fetched and returned. The `limit`, `offset` and `total` values represent Products only and do not include any SKUs.
      *
      * Required scope | `ecommerce:read`
+     *
+     * @param {string} siteId - Unique identifier for a Site
+     * @param {Webflow.ProductsListRequest} request
+     * @param {Products.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.ForbiddenError}
@@ -37,7 +46,7 @@ export class Products {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.products.list("site_id", {})
+     *     await client.products.list("site_id")
      */
     public async list(
         siteId: string,
@@ -57,14 +66,14 @@ export class Products {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${siteId}/products`
+                `sites/${encodeURIComponent(siteId)}/products`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -72,6 +81,7 @@ export class Products {
             queryParameters: _queryParams,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.ProductAndSkUsList.parseOrThrow(_response.body, {
@@ -132,6 +142,11 @@ export class Products {
      * Upon creation, the default product type will be `Advanced`. The product type is used to determine which Product and SKU fields are shown to users in the `Designer` and the `Editor`. Setting it to `Advanced` ensures that all Product and SKU fields will be shown.
      *
      * Required scope | `ecommerce:write`
+     *
+     * @param {string} siteId - Unique identifier for a Site
+     * @param {Webflow.ProductSkuCreate} request
+     * @param {Products.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.ForbiddenError}
@@ -141,32 +156,7 @@ export class Products {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.products.create("site_id", {
-     *         product: {
-     *             id: "660eb7a486d1d6e0412292d7",
-     *             cmsLocaleId: "653ad57de882f528b32e810e",
-     *             lastPublished: new Date("2024-04-04T14:24:19.000Z"),
-     *             lastUpdated: new Date("2024-04-04T14:30:19.000Z"),
-     *             createdOn: new Date("2024-04-04T14:22:28.000Z"),
-     *             isArchived: false,
-     *             isDraft: false,
-     *             fieldData: {
-     *                 name: "T-Shirt",
-     *                 slug: "t-shirt",
-     *                 description: "A plain cotton t-shirt.",
-     *                 shippable: true,
-     *                 skuProperties: [{
-     *                         id: "Color",
-     *                         name: "Color",
-     *                         enum: [{
-     *                                 id: "id",
-     *                                 name: "name",
-     *                                 slug: "slug"
-     *                             }]
-     *                     }]
-     *             }
-     *         }
-     *     })
+     *     await client.products.create("site_id")
      */
     public async create(
         siteId: string,
@@ -176,14 +166,14 @@ export class Products {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${siteId}/products`
+                `sites/${encodeURIComponent(siteId)}/products`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -191,6 +181,7 @@ export class Products {
             body: await serializers.ProductSkuCreate.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.ProductAndSkUs.parseOrThrow(_response.body, {
@@ -245,6 +236,11 @@ export class Products {
      * Retrieve a single product by its id. All of its SKUs will also be retrieved.
      *
      * Required scope | `ecommerce:read`
+     *
+     * @param {string} siteId - Unique identifier for a Site
+     * @param {string} productId - Unique identifier for a Product
+     * @param {Products.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.ForbiddenError}
@@ -254,7 +250,7 @@ export class Products {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.products.get("site_id", "product_id")
+     *     await client.products.get("site_id", "product_id")
      */
     public async get(
         siteId: string,
@@ -264,20 +260,21 @@ export class Products {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${siteId}/products/${productId}`
+                `sites/${encodeURIComponent(siteId)}/products/${encodeURIComponent(productId)}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.ProductAndSkUs.parseOrThrow(_response.body, {
@@ -332,6 +329,12 @@ export class Products {
      * Updating an existing Product will set the product type to `Advanced`. The product type is used to determine which Product and SKU fields are shown to users in the `Designer` and the `Editor`. Setting it to `Advanced` ensures that all Product and SKU fields will be shown. The product type can be edited in the `Designer` or the `Editor`.
      *
      * Required scope | `ecommerce:write`
+     *
+     * @param {string} siteId - Unique identifier for a Site
+     * @param {string} productId - Unique identifier for a Product
+     * @param {Webflow.ProductSkuUpdate} request
+     * @param {Products.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.ForbiddenError}
@@ -341,32 +344,7 @@ export class Products {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.products.update("site_id", "product_id", {
-     *         product: {
-     *             id: "660eb7a486d1d6e0412292d7",
-     *             cmsLocaleId: "653ad57de882f528b32e810e",
-     *             lastPublished: new Date("2024-04-04T14:24:19.000Z"),
-     *             lastUpdated: new Date("2024-04-04T14:30:19.000Z"),
-     *             createdOn: new Date("2024-04-04T14:22:28.000Z"),
-     *             isArchived: false,
-     *             isDraft: false,
-     *             fieldData: {
-     *                 name: "T-Shirt",
-     *                 slug: "t-shirt",
-     *                 description: "A plain cotton t-shirt.",
-     *                 shippable: true,
-     *                 skuProperties: [{
-     *                         id: "Color",
-     *                         name: "Color",
-     *                         enum: [{
-     *                                 id: "id",
-     *                                 name: "name",
-     *                                 slug: "slug"
-     *                             }]
-     *                     }]
-     *             }
-     *         }
-     *     })
+     *     await client.products.update("site_id", "product_id")
      */
     public async update(
         siteId: string,
@@ -377,14 +355,14 @@ export class Products {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${siteId}/products/${productId}`
+                `sites/${encodeURIComponent(siteId)}/products/${encodeURIComponent(productId)}`
             ),
             method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -392,6 +370,7 @@ export class Products {
             body: await serializers.ProductSkuUpdate.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.Product.parseOrThrow(_response.body, {
@@ -448,6 +427,12 @@ export class Products {
      * Creating additional SKUs will set the product type to `Advanced` for the product associated with the SKUs. The product type is used to determine which Product and SKU fields are shown to users in the `Designer` and the `Editor`. Setting it to `Advanced` ensures that all Product and SKU fields will be shown. The product type can be edited in the `Designer` or the `Editor`.
      *
      * Required scope | `ecommerce:write`
+     *
+     * @param {string} siteId - Unique identifier for a Site
+     * @param {string} productId - Unique identifier for a Product
+     * @param {Webflow.ProductsCreateSkuRequest} request
+     * @param {Products.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.ForbiddenError}
@@ -457,23 +442,8 @@ export class Products {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.products.createSku("site_id", "product_id", {
-     *         skus: [{
-     *                 id: "580e63fc8c9a982ac9b8b745",
-     *                 cmsLocaleId: "653ad57de882f528b32e810e",
-     *                 lastPublished: new Date("2023-03-17T18:47:35.000Z"),
-     *                 lastUpdated: new Date("2023-03-17T18:47:35.000Z"),
-     *                 createdOn: new Date("2023-03-17T18:47:35.000Z"),
-     *                 fieldData: {
-     *                     name: "Blue T-shirt",
-     *                     slug: "t-shirt-blue",
-     *                     price: {
-     *                         value: 100,
-     *                         unit: "USD"
-     *                     },
-     *                     quantity: 10
-     *                 }
-     *             }]
+     *     await client.products.createSku("site_id", "product_id", {
+     *         skus: [{}]
      *     })
      */
     public async createSku(
@@ -485,14 +455,14 @@ export class Products {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${siteId}/products/${productId}/skus`
+                `sites/${encodeURIComponent(siteId)}/products/${encodeURIComponent(productId)}/skus`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -500,6 +470,7 @@ export class Products {
             body: await serializers.ProductsCreateSkuRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.ProductsCreateSkuResponse.parseOrThrow(_response.body, {
@@ -554,6 +525,13 @@ export class Products {
      * Updating an existing SKU will set the product type to `Advanced` for the product associated with the SKU. The product type is used to determine which Product and SKU fields are shown to users in the `Designer` and the `Editor`. Setting it to `Advanced` ensures that all Product and SKU fields will be shown. The product type can be edited in the `Designer` or the `Editor`.
      *
      * Required scope | `ecommerce:write`
+     *
+     * @param {string} siteId - Unique identifier for a Site
+     * @param {string} productId - Unique identifier for a Product
+     * @param {string} skuId - Unique identifier for a SKU
+     * @param {Webflow.ProductsUpdateSkuRequest} request
+     * @param {Products.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.ForbiddenError}
@@ -563,23 +541,8 @@ export class Products {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.products.updateSku("site_id", "product_id", "sku_id", {
-     *         sku: {
-     *             id: "580e63fc8c9a982ac9b8b745",
-     *             cmsLocaleId: "653ad57de882f528b32e810e",
-     *             lastPublished: new Date("2023-03-17T18:47:35.000Z"),
-     *             lastUpdated: new Date("2023-03-17T18:47:35.000Z"),
-     *             createdOn: new Date("2023-03-17T18:47:35.000Z"),
-     *             fieldData: {
-     *                 name: "Blue T-shirt",
-     *                 slug: "t-shirt-blue",
-     *                 price: {
-     *                     value: 100,
-     *                     unit: "USD"
-     *                 },
-     *                 quantity: 10
-     *             }
-     *         }
+     *     await client.products.updateSku("site_id", "product_id", "sku_id", {
+     *         sku: {}
      *     })
      */
     public async updateSku(
@@ -592,14 +555,16 @@ export class Products {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${siteId}/products/${productId}/skus/${skuId}`
+                `sites/${encodeURIComponent(siteId)}/products/${encodeURIComponent(
+                    productId
+                )}/skus/${encodeURIComponent(skuId)}`
             ),
             method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -607,6 +572,7 @@ export class Products {
             body: await serializers.ProductsUpdateSkuRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.Sku.parseOrThrow(_response.body, {
@@ -657,7 +623,7 @@ export class Products {
         }
     }
 
-    protected async _getAuthorizationHeader() {
+    protected async _getAuthorizationHeader(): Promise<string> {
         return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
     }
 }

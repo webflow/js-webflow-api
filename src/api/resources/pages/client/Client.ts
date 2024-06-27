@@ -4,10 +4,10 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import * as Webflow from "../../..";
+import * as Webflow from "../../../index";
 import urlJoin from "url-join";
-import * as serializers from "../../../../serialization";
-import * as errors from "../../../../errors";
+import * as serializers from "../../../../serialization/index";
+import * as errors from "../../../../errors/index";
 import { Scripts } from "../resources/scripts/client/Client";
 
 export declare namespace Pages {
@@ -17,8 +17,12 @@ export declare namespace Pages {
     }
 
     interface RequestOptions {
+        /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
+        /** The number of times to retry the request. Defaults to 2. */
         maxRetries?: number;
+        /** A hook to abort the request. */
+        abortSignal?: AbortSignal;
     }
 }
 
@@ -27,6 +31,11 @@ export class Pages {
 
     /**
      * List of all pages for a site </br></br> Required scope | `pages:read`
+     *
+     * @param {string} siteId - Unique identifier for a Site
+     * @param {Webflow.PagesListRequest} request
+     * @param {Pages.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
@@ -34,7 +43,7 @@ export class Pages {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.pages.list("site_id", {})
+     *     await client.pages.list("site_id")
      */
     public async list(
         siteId: string,
@@ -58,14 +67,14 @@ export class Pages {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${siteId}/pages`
+                `sites/${encodeURIComponent(siteId)}/pages`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -73,6 +82,7 @@ export class Pages {
             queryParameters: _queryParams,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.PageList.parseOrThrow(_response.body, {
@@ -121,6 +131,11 @@ export class Pages {
 
     /**
      * Get metadata information for a single page </br></br> Required scope | `pages:read`
+     *
+     * @param {string} pageId - Unique identifier for a Page
+     * @param {Webflow.PagesGetMetadataRequest} request
+     * @param {Pages.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
@@ -128,13 +143,13 @@ export class Pages {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.pages.getMetadata("page_id", {})
+     *     await client.pages.getMetadata("page_id")
      */
     public async getMetadata(
         pageId: string,
         request: Webflow.PagesGetMetadataRequest = {},
         requestOptions?: Pages.RequestOptions
-    ): Promise<Webflow.Page> {
+    ): Promise<Webflow.PageDetails> {
         const { locale } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (locale != null) {
@@ -144,14 +159,14 @@ export class Pages {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `pages/${pageId}`
+                `pages/${encodeURIComponent(pageId)}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -159,9 +174,10 @@ export class Pages {
             queryParameters: _queryParams,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.Page.parseOrThrow(_response.body, {
+            return await serializers.PageDetails.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -207,6 +223,11 @@ export class Pages {
 
     /**
      * Update Page-level metadata, including SEO and Open Graph fields. </br></br> Required scope | `pages:write`
+     *
+     * @param {string} pageId - Unique identifier for a Page
+     * @param {Webflow.UpdatePageSettingsRequest} request
+     * @param {Pages.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
@@ -214,7 +235,7 @@ export class Pages {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.pages.updatePageSettings("page_id", {
+     *     await client.pages.updatePageSettings("page_id", {
      *         body: {
      *             id: "6596da6045e56dee495bcbba",
      *             siteId: "6258612d1ee792848f805dcf",
@@ -227,7 +248,6 @@ export class Pages {
      *             archived: false,
      *             draft: false,
      *             canBranch: true,
-     *             isMembersOnly: false,
      *             seo: {
      *                 title: "The Ultimate Hitchhiker's Guide to the Galaxy",
      *                 description: "Everything you need to know about the galaxy, from avoiding Vogon poetry to the importance of towels."
@@ -245,7 +265,7 @@ export class Pages {
         pageId: string,
         request: Webflow.UpdatePageSettingsRequest,
         requestOptions?: Pages.RequestOptions
-    ): Promise<Webflow.Page> {
+    ): Promise<Webflow.PageDetails> {
         const { locale, body: _body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (locale != null) {
@@ -255,14 +275,14 @@ export class Pages {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `pages/${pageId}`
+                `pages/${encodeURIComponent(pageId)}`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -271,9 +291,10 @@ export class Pages {
             body: await serializers.Page.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.Page.parseOrThrow(_response.body, {
+            return await serializers.PageDetails.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -319,6 +340,11 @@ export class Pages {
 
     /**
      * Get static content from a static page. </br> If you do not provide a Locale ID in your request, the response will return any content that can be localized from the Primary locale</br></br> Required scope | `pages:read`
+     *
+     * @param {string} pageId - Unique identifier for a Page
+     * @param {Webflow.PagesGetContentRequest} request
+     * @param {Pages.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.ForbiddenError}
@@ -327,30 +353,38 @@ export class Pages {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.pages.getContent("page_id", {})
+     *     await client.pages.getContent("page_id")
      */
     public async getContent(
         pageId: string,
         request: Webflow.PagesGetContentRequest = {},
         requestOptions?: Pages.RequestOptions
     ): Promise<Webflow.Dom> {
-        const { locale } = request;
+        const { locale, limit, offset } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (locale != null) {
             _queryParams["locale"] = locale;
         }
 
+        if (limit != null) {
+            _queryParams["limit"] = limit.toString();
+        }
+
+        if (offset != null) {
+            _queryParams["offset"] = offset.toString();
+        }
+
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `pages/${pageId}/dom`
+                `pages/${encodeURIComponent(pageId)}/dom`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -358,6 +392,7 @@ export class Pages {
             queryParameters: _queryParams,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.Dom.parseOrThrow(_response.body, {
@@ -408,6 +443,11 @@ export class Pages {
 
     /**
      * Update static content on a static page. This endpoint supports sending 1000 nodes per request. </br></br> Required scope | `pages:write`
+     *
+     * @param {string} pageId - Unique identifier for a Page
+     * @param {Webflow.DomWrite} request
+     * @param {Pages.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.ForbiddenError}
@@ -416,7 +456,7 @@ export class Pages {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.pages.updateStaticContent("page_id", {
+     *     await client.pages.updateStaticContent("page_id", {
      *         locale: "locale",
      *         nodes: [{
      *                 nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad623",
@@ -427,9 +467,6 @@ export class Pages {
      *             }, {
      *                 nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad629",
      *                 text: "<img alt='Marvin, the Paranoid Android' src='path/to/image/with/assetId/659595234426a9fcbad57043'/>"
-     *             }, {
-     *                 nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad623",
-     *                 text: "<h1>Hello world</h1>"
      *             }]
      *     })
      */
@@ -444,14 +481,14 @@ export class Pages {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `pages/${pageId}/dom`
+                `pages/${encodeURIComponent(pageId)}/dom`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -460,6 +497,7 @@ export class Pages {
             body: await serializers.DomWrite.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.UpdateStaticContentResponse.parseOrThrow(_response.body, {
@@ -514,7 +552,7 @@ export class Pages {
         return (this._scripts ??= new Scripts(this._options));
     }
 
-    protected async _getAuthorizationHeader() {
+    protected async _getAuthorizationHeader(): Promise<string> {
         return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
     }
 }

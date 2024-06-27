@@ -4,10 +4,10 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import * as Webflow from "../../..";
+import * as Webflow from "../../../index";
 import urlJoin from "url-join";
-import * as serializers from "../../../../serialization";
-import * as errors from "../../../../errors";
+import * as serializers from "../../../../serialization/index";
+import * as errors from "../../../../errors/index";
 
 export declare namespace Orders {
     interface Options {
@@ -16,8 +16,12 @@ export declare namespace Orders {
     }
 
     interface RequestOptions {
+        /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
+        /** The number of times to retry the request. Defaults to 2. */
         maxRetries?: number;
+        /** A hook to abort the request. */
+        abortSignal?: AbortSignal;
     }
 }
 
@@ -28,6 +32,11 @@ export class Orders {
      * List all orders created for a given site.
      *
      * Required scope | `ecommerce:read`
+     *
+     * @param {string} siteId - Unique identifier for a Site
+     * @param {Webflow.OrdersListRequest} request
+     * @param {Orders.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.ForbiddenError}
@@ -37,7 +46,7 @@ export class Orders {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.orders.list("site_id", {})
+     *     await client.orders.list("site_id")
      */
     public async list(
         siteId: string,
@@ -61,14 +70,14 @@ export class Orders {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${siteId}/orders`
+                `sites/${encodeURIComponent(siteId)}/orders`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -76,6 +85,7 @@ export class Orders {
             queryParameters: _queryParams,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.OrderList.parseOrThrow(_response.body, {
@@ -130,6 +140,11 @@ export class Orders {
      * Retrieve a single product by its id. All of its SKUs will also be retrieved.
      *
      * Required scope | `ecommerce:read`
+     *
+     * @param {string} siteId - Unique identifier for a Site
+     * @param {string} orderId - Unique identifier for an Order
+     * @param {Orders.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.ForbiddenError}
@@ -139,26 +154,27 @@ export class Orders {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.orders.get("site_id", "order_id")
+     *     await client.orders.get("site_id", "order_id")
      */
     public async get(siteId: string, orderId: string, requestOptions?: Orders.RequestOptions): Promise<Webflow.Order> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${siteId}/orders/${orderId}`
+                `sites/${encodeURIComponent(siteId)}/orders/${encodeURIComponent(orderId)}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.Order.parseOrThrow(_response.body, {
@@ -213,6 +229,12 @@ export class Orders {
      * This API lets you update the fields, `comment`, `shippingProvider`, and/or `shippingTracking` for a given order. All three fields can be updated simultaneously or independently.
      *
      * Required scope | `ecommerce:write`
+     *
+     * @param {string} siteId - Unique identifier for a Site
+     * @param {string} orderId - Unique identifier for an Order
+     * @param {Webflow.OrdersUpdateRequest} request
+     * @param {Orders.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.ForbiddenError}
@@ -222,12 +244,7 @@ export class Orders {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.orders.update("site_id", "order_id", {
-     *         comment: "Example comment to myself",
-     *         shippingProvider: "Shipping Company, Co.",
-     *         shippingTracking: "tr00000000001",
-     *         shippingTrackingUrl: "https://www.shippingcompany.com/tracking/tr00000000001"
-     *     })
+     *     await client.orders.update("site_id", "order_id")
      */
     public async update(
         siteId: string,
@@ -238,14 +255,14 @@ export class Orders {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${siteId}/orders/${orderId}`
+                `sites/${encodeURIComponent(siteId)}/orders/${encodeURIComponent(orderId)}`
             ),
             method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -253,6 +270,7 @@ export class Orders {
             body: await serializers.OrdersUpdateRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.Order.parseOrThrow(_response.body, {
@@ -307,6 +325,12 @@ export class Orders {
      * Updates an order's status to fulfilled
      *
      * Required scope | `ecommerce:write`
+     *
+     * @param {string} siteId - Unique identifier for a Site
+     * @param {string} orderId - Unique identifier for an Order
+     * @param {Webflow.OrdersUpdateFulfillRequest} request
+     * @param {Orders.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.ForbiddenError}
@@ -316,7 +340,7 @@ export class Orders {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.orders.updateFulfill("site_id", "order_id", {})
+     *     await client.orders.updateFulfill("site_id", "order_id")
      */
     public async updateFulfill(
         siteId: string,
@@ -327,14 +351,14 @@ export class Orders {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${siteId}/orders/${orderId}/fulfill`
+                `sites/${encodeURIComponent(siteId)}/orders/${encodeURIComponent(orderId)}/fulfill`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -344,6 +368,7 @@ export class Orders {
             }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.Order.parseOrThrow(_response.body, {
@@ -398,6 +423,11 @@ export class Orders {
      * Updates an order's status to unfulfilled
      *
      * Required scope | `ecommerce:write`
+     *
+     * @param {string} siteId - Unique identifier for a Site
+     * @param {string} orderId - Unique identifier for an Order
+     * @param {Orders.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.ForbiddenError}
@@ -407,7 +437,7 @@ export class Orders {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.orders.updateUnfulfill("site_id", "order_id")
+     *     await client.orders.updateUnfulfill("site_id", "order_id")
      */
     public async updateUnfulfill(
         siteId: string,
@@ -417,20 +447,21 @@ export class Orders {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${siteId}/orders/${orderId}/unfulfill`
+                `sites/${encodeURIComponent(siteId)}/orders/${encodeURIComponent(orderId)}/unfulfill`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.Order.parseOrThrow(_response.body, {
@@ -486,6 +517,12 @@ export class Orders {
      * customer. It will also set the order's status to `refunded`.
      *
      * Required scope | `ecommerce:write`
+     *
+     * @param {string} siteId - Unique identifier for a Site
+     * @param {string} orderId - Unique identifier for an Order
+     * @param {Webflow.OrdersRefundRequest} request
+     * @param {Orders.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.ForbiddenError}
@@ -495,7 +532,7 @@ export class Orders {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.orders.refund("site_id", "order_id", {})
+     *     await client.orders.refund("site_id", "order_id")
      */
     public async refund(
         siteId: string,
@@ -506,14 +543,14 @@ export class Orders {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${siteId}/orders/${orderId}/refund`
+                `sites/${encodeURIComponent(siteId)}/orders/${encodeURIComponent(orderId)}/refund`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -521,6 +558,7 @@ export class Orders {
             body: await serializers.OrdersRefundRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.Order.parseOrThrow(_response.body, {
@@ -571,7 +609,7 @@ export class Orders {
         }
     }
 
-    protected async _getAuthorizationHeader() {
+    protected async _getAuthorizationHeader(): Promise<string> {
         return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
     }
 }

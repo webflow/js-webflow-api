@@ -1,5 +1,5 @@
-export { ProductsListRequest } from "./ProductsListRequest";
-export { ProductSkuCreate } from "./ProductSkuCreate";
-export { ProductSkuUpdate } from "./ProductSkuUpdate";
-export { ProductsCreateSkuRequest } from "./ProductsCreateSkuRequest";
-export { ProductsUpdateSkuRequest } from "./ProductsUpdateSkuRequest";
+export { type ProductsListRequest } from "./ProductsListRequest";
+export { type ProductSkuCreate } from "./ProductSkuCreate";
+export { type ProductSkuUpdate } from "./ProductSkuUpdate";
+export { type ProductsCreateSkuRequest } from "./ProductsCreateSkuRequest";
+export { type ProductsUpdateSkuRequest } from "./ProductsUpdateSkuRequest";

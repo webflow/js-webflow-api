@@ -4,12 +4,7 @@
 
 /**
  * @example
- *     {
- *         comment: "Example comment to myself",
- *         shippingProvider: "Shipping Company, Co.",
- *         shippingTracking: "tr00000000001",
- *         shippingTrackingUrl: "https://www.shippingcompany.com/tracking/tr00000000001"
- *     }
+ *     {}
  */
 export interface OrdersUpdateRequest {
     /** Arbitrary data for your records */

@@ -4,10 +4,10 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import * as Webflow from "../../..";
+import * as Webflow from "../../../index";
 import urlJoin from "url-join";
-import * as serializers from "../../../../serialization";
-import * as errors from "../../../../errors";
+import * as serializers from "../../../../serialization/index";
+import * as errors from "../../../../errors/index";
 
 export declare namespace Token {
     interface Options {
@@ -16,8 +16,12 @@ export declare namespace Token {
     }
 
     interface RequestOptions {
+        /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
+        /** The number of times to retry the request. Defaults to 2. */
         maxRetries?: number;
+        /** A hook to abort the request. */
+        abortSignal?: AbortSignal;
     }
 }
 
@@ -26,11 +30,14 @@ export class Token {
 
     /**
      * Information about the Authorized User <br><br> Required Scope | `authorized_user:read`
+     *
+     * @param {Token.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.ForbiddenError}
      *
      * @example
-     *     await webflow.token.authorizedBy()
+     *     await client.token.authorizedBy()
      */
     public async authorizedBy(requestOptions?: Token.RequestOptions): Promise<Webflow.AuthorizedUser> {
         const _response = await core.fetcher({
@@ -43,13 +50,14 @@ export class Token {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.AuthorizedUser.parseOrThrow(_response.body, {
@@ -91,11 +99,14 @@ export class Token {
     }
 
     /**
-     * Information about the authorization token </br></br> Access to this endpoint requires a bearer token from a Data Client App.
+     * Information about the authorization token <blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote>
+     *
+     * @param {Token.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.UnauthorizedError}
      *
      * @example
-     *     await webflow.token.introspect()
+     *     await client.token.introspect()
      */
     public async introspect(requestOptions?: Token.RequestOptions): Promise<Webflow.Authorization> {
         const _response = await core.fetcher({
@@ -108,13 +119,14 @@ export class Token {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.Authorization.parseOrThrow(_response.body, {
@@ -153,7 +165,7 @@ export class Token {
         }
     }
 
-    protected async _getAuthorizationHeader() {
+    protected async _getAuthorizationHeader(): Promise<string> {
         return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
     }
 }

@@ -10,7 +10,7 @@ export interface CustomCodeHostedResponse {
     id?: string;
     /** Define whether the script can be copied on site duplication and transfer */
     canCopy?: boolean;
-    /** User-facing name for the script */
+    /** User-facing name for the script. Must be between 1 and 50 alphanumeric characters */
     displayName?: string;
     /** URI for an externally hosted script location */
     hostedLocation?: string;

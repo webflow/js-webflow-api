@@ -4,10 +4,10 @@
 
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
-import * as Webflow from "../../../../..";
+import * as Webflow from "../../../../../index";
 import urlJoin from "url-join";
-import * as serializers from "../../../../../../serialization";
-import * as errors from "../../../../../../errors";
+import * as serializers from "../../../../../../serialization/index";
+import * as errors from "../../../../../../errors/index";
 
 export declare namespace Scripts {
     interface Options {
@@ -16,8 +16,12 @@ export declare namespace Scripts {
     }
 
     interface RequestOptions {
+        /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
+        /** The number of times to retry the request. Defaults to 2. */
         maxRetries?: number;
+        /** A hook to abort the request. */
+        abortSignal?: AbortSignal;
     }
 }
 
@@ -25,7 +29,11 @@ export class Scripts {
     constructor(protected readonly _options: Scripts.Options) {}
 
     /**
-     * Get all registered scripts that have been applied to a specific Page. </br></br> In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts must first be registered to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate `custom_code` endpoints. </br></br> Access to this endpoint requires a bearer token from a Data Client App. Required scope | `custom_code:read`
+     * Get all registered scripts that have been applied to a specific Page. </br></br> In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts must first be registered to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate `custom_code` endpoints. <blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote> Required scope | `custom_code:read`
+     *
+     * @param {string} pageId - Unique identifier for a Page
+     * @param {Scripts.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
@@ -33,7 +41,7 @@ export class Scripts {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.pages.scripts.getCustomCode("page_id")
+     *     await client.pages.scripts.getCustomCode("page_id")
      */
     public async getCustomCode(
         pageId: string,
@@ -42,20 +50,21 @@ export class Scripts {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `pages/${pageId}/custom_code`
+                `pages/${encodeURIComponent(pageId)}/custom_code`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.ScriptApplyList.parseOrThrow(_response.body, {
@@ -103,7 +112,12 @@ export class Scripts {
     }
 
     /**
-     * Add a registered script to a Page. </br></br> In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts must first be registered to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate `custom_code` endpoints. </br></br> Access to this endpoint requires a bearer token from a Data Client App. Required scope | `custom_code:write`
+     * Add a registered script to a Page. </br></br> In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts must first be registered to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate `custom_code` endpoints. <blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote> Required scope | `custom_code:write`
+     *
+     * @param {string} pageId - Unique identifier for a Page
+     * @param {Webflow.ScriptApplyList} request
+     * @param {Scripts.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
@@ -111,7 +125,7 @@ export class Scripts {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.pages.scripts.upsertCustomCode("page_id", {
+     *     await client.pages.scripts.upsertCustomCode("page_id", {
      *         scripts: [{
      *                 id: "cms_slider",
      *                 location: Webflow.ScriptApplyLocation.Header,
@@ -123,10 +137,6 @@ export class Scripts {
      *                 id: "alert",
      *                 location: Webflow.ScriptApplyLocation.Header,
      *                 version: "0.0.1"
-     *             }, {
-     *                 id: "id",
-     *                 location: Webflow.ScriptApplyLocation.Header,
-     *                 version: "version"
      *             }]
      *     })
      */
@@ -138,14 +148,14 @@ export class Scripts {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `pages/${pageId}/custom_code`
+                `pages/${encodeURIComponent(pageId)}/custom_code`
             ),
             method: "PUT",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -153,6 +163,7 @@ export class Scripts {
             body: await serializers.ScriptApplyList.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.ScriptApplyList.parseOrThrow(_response.body, {
@@ -200,7 +211,11 @@ export class Scripts {
     }
 
     /**
-     * Delete the custom code block that an app has created for a page </br></br> In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts must first be registered to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate `custom_code` endpoints. </br></br> Access to this endpoint requires a bearer token from a Data Client App. Required scope | `custom_code:write`
+     * Delete the custom code block that an app has created for a page </br></br> In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts must first be registered to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate `custom_code` endpoints. <blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote> Required scope | `custom_code:write`
+     *
+     * @param {string} pageId - Unique identifier for a Page
+     * @param {Scripts.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
@@ -208,26 +223,27 @@ export class Scripts {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.pages.scripts.deleteCustomCode("page_id")
+     *     await client.pages.scripts.deleteCustomCode("page_id")
      */
     public async deleteCustomCode(pageId: string, requestOptions?: Scripts.RequestOptions): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `pages/${pageId}/custom_code`
+                `pages/${encodeURIComponent(pageId)}/custom_code`
             ),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return;
@@ -268,7 +284,7 @@ export class Scripts {
         }
     }
 
-    protected async _getAuthorizationHeader() {
+    protected async _getAuthorizationHeader(): Promise<string> {
         return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
     }
 }

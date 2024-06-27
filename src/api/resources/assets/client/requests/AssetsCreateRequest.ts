@@ -6,8 +6,7 @@
  * @example
  *     {
  *         fileName: "file.png",
- *         fileHash: "3c7d87c9575702bc3b1e991f4d3c638e",
- *         parentFolder: "6436b1ce5281cace05b65aea"
+ *         fileHash: "3c7d87c9575702bc3b1e991f4d3c638e"
  *     }
  */
 export interface AssetsCreateRequest {

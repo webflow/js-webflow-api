@@ -1,5 +1,5 @@
-export { PagesListRequest } from "./PagesListRequest";
-export { PagesGetMetadataRequest } from "./PagesGetMetadataRequest";
-export { UpdatePageSettingsRequest } from "./UpdatePageSettingsRequest";
-export { PagesGetContentRequest } from "./PagesGetContentRequest";
-export { DomWrite } from "./DomWrite";
+export { type PagesListRequest } from "./PagesListRequest";
+export { type PagesGetMetadataRequest } from "./PagesGetMetadataRequest";
+export { type UpdatePageSettingsRequest } from "./UpdatePageSettingsRequest";
+export { type PagesGetContentRequest } from "./PagesGetContentRequest";
+export { type DomWrite } from "./DomWrite";

@@ -1,4 +1,7 @@
 export * from "./OauthScope";
+export * from "./ForbiddenErrorBody";
+export * from "./BadRequestErrorBody";
+export * from "./ConflictErrorBody";
 export * from "./AuthorizedUser";
 export * from "./Application";
 export * from "./AuthorizationAuthorizationAuthorizedTo";
@@ -34,6 +37,9 @@ export * from "./PageSeo";
 export * from "./PageOpenGraph";
 export * from "./Page";
 export * from "./PageList";
+export * from "./PageDetailsSeo";
+export * from "./PageDetailsOpenGraph";
+export * from "./PageDetails";
 export * from "./TextNode";
 export * from "./ImageNode";
 export * from "./NodeType";

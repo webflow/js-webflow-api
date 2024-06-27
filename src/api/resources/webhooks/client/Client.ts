@@ -4,10 +4,10 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import * as Webflow from "../../..";
+import * as Webflow from "../../../index";
 import urlJoin from "url-join";
-import * as serializers from "../../../../serialization";
-import * as errors from "../../../../errors";
+import * as serializers from "../../../../serialization/index";
+import * as errors from "../../../../errors/index";
 
 export declare namespace Webhooks {
     interface Options {
@@ -16,8 +16,12 @@ export declare namespace Webhooks {
     }
 
     interface RequestOptions {
+        /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
+        /** The number of times to retry the request. Defaults to 2. */
         maxRetries?: number;
+        /** A hook to abort the request. */
+        abortSignal?: AbortSignal;
     }
 }
 
@@ -26,6 +30,10 @@ export class Webhooks {
 
     /**
      * List all App-created Webhooks registered for a given site </br></br> Required scope | `sites:read`
+     *
+     * @param {string} siteId - Unique identifier for a Site
+     * @param {Webhooks.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
@@ -33,26 +41,27 @@ export class Webhooks {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.webhooks.list("site_id")
+     *     await client.webhooks.list("site_id")
      */
     public async list(siteId: string, requestOptions?: Webhooks.RequestOptions): Promise<Webflow.WebhookList> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${siteId}/webhooks`
+                `sites/${encodeURIComponent(siteId)}/webhooks`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.WebhookList.parseOrThrow(_response.body, {
@@ -100,7 +109,12 @@ export class Webhooks {
     }
 
     /**
-     * Create a new Webhook, to be notified when Webflow resources change. Limit of 75 registrations per `triggerType`, per site. </br></br> Access to this endpoint requires a bearer token from a Data Client App. The only exceptions are for creating webhooks with `site_publish` or `form_submission` triggers, which can be done with Site Tokens </br> Required scope | `sites:write`
+     * Create a new Webhook, to be notified when Webflow resources change. Limit of 75 registrations per `triggerType`, per site. <blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote> Required scope | `sites:write`
+     *
+     * @param {string} siteId - Unique identifier for a Site
+     * @param {Webflow.WebhooksCreateRequest} request
+     * @param {Webhooks.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
@@ -108,7 +122,7 @@ export class Webhooks {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.webhooks.create("site_id", {
+     *     await client.webhooks.create("site_id", {
      *         triggerType: Webflow.TriggerType.FormSubmission,
      *         url: "https://api.mydomain.com/webhook"
      *     })
@@ -121,14 +135,14 @@ export class Webhooks {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${siteId}/webhooks`
+                `sites/${encodeURIComponent(siteId)}/webhooks`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -136,6 +150,7 @@ export class Webhooks {
             body: await serializers.WebhooksCreateRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.Webhook.parseOrThrow(_response.body, {
@@ -184,6 +199,10 @@ export class Webhooks {
 
     /**
      * Get a specific Webhook instance
+     *
+     * @param {string} webhookId - Unique identifier for a Webhook
+     * @param {Webhooks.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
@@ -191,26 +210,27 @@ export class Webhooks {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.webhooks.get("webhook_id")
+     *     await client.webhooks.get("webhook_id")
      */
     public async get(webhookId: string, requestOptions?: Webhooks.RequestOptions): Promise<Webflow.Webhook> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `webhooks/${webhookId}`
+                `webhooks/${encodeURIComponent(webhookId)}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.Webhook.parseOrThrow(_response.body, {
@@ -259,6 +279,10 @@ export class Webhooks {
 
     /**
      * Remove a Webhook
+     *
+     * @param {string} webhookId - Unique identifier for a Webhook
+     * @param {Webhooks.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
@@ -266,26 +290,27 @@ export class Webhooks {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.webhooks.delete("webhook_id")
+     *     await client.webhooks.delete("webhook_id")
      */
     public async delete(webhookId: string, requestOptions?: Webhooks.RequestOptions): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `webhooks/${webhookId}`
+                `webhooks/${encodeURIComponent(webhookId)}`
             ),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return;
@@ -326,7 +351,7 @@ export class Webhooks {
         }
     }
 
-    protected async _getAuthorizationHeader() {
+    protected async _getAuthorizationHeader(): Promise<string> {
         return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
     }
 }

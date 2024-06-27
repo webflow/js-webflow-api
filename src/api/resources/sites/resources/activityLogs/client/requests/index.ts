@@ -1,1 +1,1 @@
-export { ActivityLogsListRequest } from "./ActivityLogsListRequest";
+export { type ActivityLogsListRequest } from "./ActivityLogsListRequest";

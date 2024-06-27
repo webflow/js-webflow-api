@@ -4,10 +4,10 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import * as Webflow from "../../..";
+import * as Webflow from "../../../index";
 import urlJoin from "url-join";
-import * as serializers from "../../../../serialization";
-import * as errors from "../../../../errors";
+import * as serializers from "../../../../serialization/index";
+import * as errors from "../../../../errors/index";
 import { Fields } from "../resources/fields/client/Client";
 import { Items } from "../resources/items/client/Client";
 
@@ -18,8 +18,12 @@ export declare namespace Collections {
     }
 
     interface RequestOptions {
+        /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
+        /** The number of times to retry the request. Defaults to 2. */
         maxRetries?: number;
+        /** A hook to abort the request. */
+        abortSignal?: AbortSignal;
     }
 }
 
@@ -28,6 +32,10 @@ export class Collections {
 
     /**
      * List of all Collections within a Site. </br></br> Required scope | `cms:read`
+     *
+     * @param {string} siteId - Unique identifier for a Site
+     * @param {Collections.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
@@ -35,26 +43,27 @@ export class Collections {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.collections.list("site_id")
+     *     await client.collections.list("site_id")
      */
     public async list(siteId: string, requestOptions?: Collections.RequestOptions): Promise<Webflow.CollectionList> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${siteId}/collections`
+                `sites/${encodeURIComponent(siteId)}/collections`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.CollectionList.parseOrThrow(_response.body, {
@@ -103,6 +112,11 @@ export class Collections {
 
     /**
      * Create a Collection for a site. </br></br> Required scope | `cms:write`
+     *
+     * @param {string} siteId - Unique identifier for a Site
+     * @param {Webflow.CollectionsCreateRequest} request
+     * @param {Collections.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
@@ -110,7 +124,7 @@ export class Collections {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.collections.create("site_id", {
+     *     await client.collections.create("site_id", {
      *         displayName: "Blog Posts",
      *         singularName: "Blog Post",
      *         slug: "posts"
@@ -124,14 +138,14 @@ export class Collections {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${siteId}/collections`
+                `sites/${encodeURIComponent(siteId)}/collections`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -139,6 +153,7 @@ export class Collections {
             body: await serializers.CollectionsCreateRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.Collection.parseOrThrow(_response.body, {
@@ -187,6 +202,10 @@ export class Collections {
 
     /**
      * Get the full details of a collection from its ID. </br></br> Required scope | `cms:read`
+     *
+     * @param {string} collectionId - Unique identifier for a Collection
+     * @param {Collections.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
@@ -194,26 +213,27 @@ export class Collections {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.collections.get("collection_id")
+     *     await client.collections.get("collection_id")
      */
     public async get(collectionId: string, requestOptions?: Collections.RequestOptions): Promise<Webflow.Collection> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `collections/${collectionId}`
+                `collections/${encodeURIComponent(collectionId)}`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.Collection.parseOrThrow(_response.body, {
@@ -262,6 +282,10 @@ export class Collections {
 
     /**
      * Delete a collection using its ID. </br></br> Required scope | `cms:write`
+     *
+     * @param {string} collectionId - Unique identifier for a Collection
+     * @param {Collections.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
@@ -269,26 +293,27 @@ export class Collections {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.collections.deleteCollection("collection_id")
+     *     await client.collections.deleteCollection("collection_id")
      */
     public async deleteCollection(collectionId: string, requestOptions?: Collections.RequestOptions): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `collections/${collectionId}`
+                `collections/${encodeURIComponent(collectionId)}`
             ),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return;
@@ -331,6 +356,11 @@ export class Collections {
 
     /**
      * Delete a custom field in a collection. This endpoint does not currently support bulk deletion. </br></br> Required scope | `cms:write`
+     *
+     * @param {string} collectionId - Unique identifier for a Collection
+     * @param {string} fieldId - Unique identifier for a Field in a collection
+     * @param {Collections.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
@@ -338,7 +368,7 @@ export class Collections {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.collections.delete("collection_id", "field_id")
+     *     await client.collections.delete("collection_id", "field_id")
      */
     public async delete(
         collectionId: string,
@@ -348,20 +378,21 @@ export class Collections {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `collections/${collectionId}/fields/${fieldId}`
+                `collections/${encodeURIComponent(collectionId)}/fields/${encodeURIComponent(fieldId)}`
             ),
             method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return;
@@ -414,7 +445,7 @@ export class Collections {
         return (this._items ??= new Items(this._options));
     }
 
-    protected async _getAuthorizationHeader() {
+    protected async _getAuthorizationHeader(): Promise<string> {
         return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
     }
 }

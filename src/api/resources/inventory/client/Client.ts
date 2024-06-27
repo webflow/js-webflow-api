@@ -4,10 +4,10 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import * as Webflow from "../../..";
+import * as Webflow from "../../../index";
 import urlJoin from "url-join";
-import * as serializers from "../../../../serialization";
-import * as errors from "../../../../errors";
+import * as serializers from "../../../../serialization/index";
+import * as errors from "../../../../errors/index";
 
 export declare namespace Inventory {
     interface Options {
@@ -16,8 +16,12 @@ export declare namespace Inventory {
     }
 
     interface RequestOptions {
+        /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
+        /** The number of times to retry the request. Defaults to 2. */
         maxRetries?: number;
+        /** A hook to abort the request. */
+        abortSignal?: AbortSignal;
     }
 }
 
@@ -28,6 +32,11 @@ export class Inventory {
      * List the current inventory levels for a particular SKU item.
      *
      * Required scope | `ecommerce:read`
+     *
+     * @param {string} collectionId - Unique identifier for a Collection
+     * @param {string} itemId - Unique identifier for an Item
+     * @param {Inventory.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.ForbiddenError}
@@ -37,7 +46,7 @@ export class Inventory {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.inventory.list("collection_id", "item_id")
+     *     await client.inventory.list("collection_id", "item_id")
      */
     public async list(
         collectionId: string,
@@ -47,20 +56,21 @@ export class Inventory {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `collections/${collectionId}/items/${itemId}/inventory`
+                `collections/${encodeURIComponent(collectionId)}/items/${encodeURIComponent(itemId)}/inventory`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.InventoryItem.parseOrThrow(_response.body, {
@@ -115,6 +125,12 @@ export class Inventory {
      * Updates the current inventory levels for a particular SKU item. Updates may be given in one or two methods, absolutely or incrementally. Absolute updates are done by setting `quantity` directly. Incremental updates are by specifying the inventory delta in `updateQuantity` which is then added to the `quantity` stored on the server.
      *
      * Required scope | `ecommerce:write`
+     *
+     * @param {string} collectionId - Unique identifier for a Collection
+     * @param {string} itemId - Unique identifier for an Item
+     * @param {Webflow.InventoryUpdateRequest} request
+     * @param {Inventory.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.ForbiddenError}
@@ -124,10 +140,8 @@ export class Inventory {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.inventory.update("collection_id", "item_id", {
-     *         inventoryType: Webflow.InventoryUpdateRequestInventoryType.Infinite,
-     *         updateQuantity: 1,
-     *         quantity: 100
+     *     await client.inventory.update("collection_id", "item_id", {
+     *         inventoryType: Webflow.InventoryUpdateRequestInventoryType.Infinite
      *     })
      */
     public async update(
@@ -139,14 +153,14 @@ export class Inventory {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `collections/${collectionId}/items/${itemId}/inventory`
+                `collections/${encodeURIComponent(collectionId)}/items/${encodeURIComponent(itemId)}/inventory`
             ),
             method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -154,6 +168,7 @@ export class Inventory {
             body: await serializers.InventoryUpdateRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.InventoryItem.parseOrThrow(_response.body, {
@@ -204,7 +219,7 @@ export class Inventory {
         }
     }
 
-    protected async _getAuthorizationHeader() {
+    protected async _getAuthorizationHeader(): Promise<string> {
         return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
     }
 }

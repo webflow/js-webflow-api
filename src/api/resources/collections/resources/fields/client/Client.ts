@@ -4,10 +4,10 @@
 
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
-import * as Webflow from "../../../../..";
-import * as serializers from "../../../../../../serialization";
+import * as Webflow from "../../../../../index";
+import * as serializers from "../../../../../../serialization/index";
 import urlJoin from "url-join";
-import * as errors from "../../../../../../errors";
+import * as errors from "../../../../../../errors/index";
 
 export declare namespace Fields {
     interface Options {
@@ -16,8 +16,12 @@ export declare namespace Fields {
     }
 
     interface RequestOptions {
+        /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
+        /** The number of times to retry the request. Defaults to 2. */
         maxRetries?: number;
+        /** A hook to abort the request. */
+        abortSignal?: AbortSignal;
     }
 }
 
@@ -26,6 +30,11 @@ export class Fields {
 
     /**
      * Create a custom field in a collection. </br></br> Slugs must be all lowercase letters without spaces. If you pass a string with uppercase letters and/or spaces to the "Slug" property, Webflow will convert the slug to lowercase and replace spaces with "-." </br></br> Only some field types can be created through the API. This endpoint does not currently support bulk creation. </br></br> Required scope | `cms:write`
+     *
+     * @param {string} collectionId - Unique identifier for a Collection
+     * @param {Webflow.collections.FieldCreate} request
+     * @param {Fields.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
@@ -33,7 +42,7 @@ export class Fields {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.collections.fields.create("collection_id", {
+     *     await client.collections.fields.create("collection_id", {
      *         isRequired: false,
      *         type: Webflow.collections.FieldCreateType.RichText,
      *         displayName: "Post Body",
@@ -48,14 +57,14 @@ export class Fields {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `collections/${collectionId}/fields`
+                `collections/${encodeURIComponent(collectionId)}/fields`
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -63,6 +72,7 @@ export class Fields {
             body: await serializers.collections.FieldCreate.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.Field.parseOrThrow(_response.body, {
@@ -111,6 +121,12 @@ export class Fields {
 
     /**
      * Update a custom field in a collection. </br></br> Required scope | `cms:write`
+     *
+     * @param {string} collectionId - Unique identifier for a Collection
+     * @param {string} fieldId - Unique identifier for a Field in a collection
+     * @param {Webflow.collections.FieldUpdate} request
+     * @param {Fields.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
@@ -118,7 +134,7 @@ export class Fields {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.collections.fields.update("collection_id", "field_id", {
+     *     await client.collections.fields.update("collection_id", "field_id", {
      *         isRequired: false,
      *         displayName: "Post Body",
      *         helpText: "Add the body of your post here"
@@ -133,14 +149,14 @@ export class Fields {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `collections/${collectionId}/fields/${fieldId}`
+                `collections/${encodeURIComponent(collectionId)}/fields/${encodeURIComponent(fieldId)}`
             ),
             method: "PATCH",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -148,6 +164,7 @@ export class Fields {
             body: await serializers.collections.FieldUpdate.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.Field.parseOrThrow(_response.body, {
@@ -194,7 +211,7 @@ export class Fields {
         }
     }
 
-    protected async _getAuthorizationHeader() {
+    protected async _getAuthorizationHeader(): Promise<string> {
         return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
     }
 }

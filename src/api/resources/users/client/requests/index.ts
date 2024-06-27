@@ -1,3 +1,3 @@
-export { UsersListRequest } from "./UsersListRequest";
-export { UsersUpdateRequest } from "./UsersUpdateRequest";
-export { UsersInviteRequest } from "./UsersInviteRequest";
+export { type UsersListRequest } from "./UsersListRequest";
+export { type UsersUpdateRequest } from "./UsersUpdateRequest";
+export { type UsersInviteRequest } from "./UsersInviteRequest";
