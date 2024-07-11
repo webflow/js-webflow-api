@@ -19,6 +19,6 @@ export interface CustomCodeInlineRequest {
     canCopy?: boolean;
     /** A Semantic Version (SemVer) string, denoting the version of the script */
     version: string;
-    /** User-facing name for the script */
+    /** User-facing name for the script. Must be between 1 and 50 alphanumeric characters */
     displayName: string;
 }

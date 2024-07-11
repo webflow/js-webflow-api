@@ -1,1 +1,1 @@
-export { ScriptsListCustomCodeBlocksRequest } from "./ScriptsListCustomCodeBlocksRequest";
+export { type ScriptsListCustomCodeBlocksRequest } from "./ScriptsListCustomCodeBlocksRequest";

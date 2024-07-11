@@ -1,4 +1,4 @@
-export { OrdersListRequest } from "./OrdersListRequest";
-export { OrdersUpdateRequest } from "./OrdersUpdateRequest";
-export { OrdersUpdateFulfillRequest } from "./OrdersUpdateFulfillRequest";
-export { OrdersRefundRequest } from "./OrdersRefundRequest";
+export { type OrdersListRequest } from "./OrdersListRequest";
+export { type OrdersUpdateRequest } from "./OrdersUpdateRequest";
+export { type OrdersUpdateFulfillRequest } from "./OrdersUpdateFulfillRequest";
+export { type OrdersRefundRequest } from "./OrdersRefundRequest";

@@ -1,1 +1,1 @@
-export { InventoryUpdateRequest } from "./InventoryUpdateRequest";
+export { type InventoryUpdateRequest } from "./InventoryUpdateRequest";

@@ -5,8 +5,7 @@
 /**
  * @example
  *     {
- *         displayName: "my asset folder",
- *         parentFolder: "6390c49774a71f99f21a08eb"
+ *         displayName: "my asset folder"
  *     }
  */
 export interface AssetsCreateFolderRequest {

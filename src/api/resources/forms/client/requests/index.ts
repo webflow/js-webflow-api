@@ -1,2 +1,2 @@
-export { FormsListRequest } from "./FormsListRequest";
-export { FormsUpdateSubmissionRequest } from "./FormsUpdateSubmissionRequest";
+export { type FormsListRequest } from "./FormsListRequest";
+export { type FormsUpdateSubmissionRequest } from "./FormsUpdateSubmissionRequest";

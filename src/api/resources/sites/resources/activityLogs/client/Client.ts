@@ -4,10 +4,10 @@
 
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
-import * as Webflow from "../../../../..";
+import * as Webflow from "../../../../../index";
 import urlJoin from "url-join";
-import * as serializers from "../../../../../../serialization";
-import * as errors from "../../../../../../errors";
+import * as serializers from "../../../../../../serialization/index";
+import * as errors from "../../../../../../errors/index";
 
 export declare namespace ActivityLogs {
     interface Options {
@@ -16,8 +16,12 @@ export declare namespace ActivityLogs {
     }
 
     interface RequestOptions {
+        /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
+        /** The number of times to retry the request. Defaults to 2. */
         maxRetries?: number;
+        /** A hook to abort the request. */
+        abortSignal?: AbortSignal;
     }
 }
 
@@ -26,13 +30,18 @@ export class ActivityLogs {
 
     /**
      * Retrieve Activity Logs for a specific Site. Requires Site to be on an Enterprise plan. </br></br> Required scope | `site_activity:read`
+     *
+     * @param {string} siteId - Unique identifier for a Site
+     * @param {Webflow.sites.ActivityLogsListRequest} request
+     * @param {ActivityLogs.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Webflow.ForbiddenError}
      * @throws {@link Webflow.NotFoundError}
      * @throws {@link Webflow.TooManyRequestsError}
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await webflow.sites.activityLogs.list("site_id", {})
+     *     await client.sites.activityLogs.list("site_id")
      */
     public async list(
         siteId: string,
@@ -52,14 +61,14 @@ export class ActivityLogs {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${siteId}/activity_logs`
+                `sites/${encodeURIComponent(siteId)}/activity_logs`
             ),
             method: "GET",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.2",
+                "X-Fern-SDK-Version": "2.3.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -67,6 +76,7 @@ export class ActivityLogs {
             queryParameters: _queryParams,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.SiteActivityLogResponse.parseOrThrow(_response.body, {
@@ -111,7 +121,7 @@ export class ActivityLogs {
         }
     }
 
-    protected async _getAuthorizationHeader() {
+    protected async _getAuthorizationHeader(): Promise<string> {
         return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
     }
 }
