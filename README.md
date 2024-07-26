@@ -85,7 +85,7 @@ const authorizeUrl = WebflowClient.authorizeURL({
     state: "your_state",
     scope: "sites:read",
     clientId: "your_client_id",
-    redirctUri: "your_redirect_uri",
+    redirectUri: "your_redirect_uri",
 });
 
 console.log(authorizeUrl);
