@@ -23,7 +23,6 @@ export * from "./collections/client/requests";
 export * from "./pages/client/requests";
 export * from "./scripts/client/requests";
 export * from "./assets/client/requests";
-export * from "./webhooks/client/requests";
 export * from "./forms/client/requests";
 export * from "./users/client/requests";
 export * from "./accessGroups/client/requests";

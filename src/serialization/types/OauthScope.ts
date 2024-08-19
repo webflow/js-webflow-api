@@ -28,6 +28,8 @@ export const OauthScope: core.serialization.Schema<serializers.OauthScope.Raw, W
         "users:write",
         "workspace:read",
         "workspace:write",
+        "site_config:read",
+        "site_config:write",
     ]);
 
 export declare namespace OauthScope {
@@ -51,5 +53,7 @@ export declare namespace OauthScope {
         | "site_activity:read"
         | "users:write"
         | "workspace:read"
-        | "workspace:write";
+        | "workspace:write"
+        | "site_config:read"
+        | "site_config:write";
 }

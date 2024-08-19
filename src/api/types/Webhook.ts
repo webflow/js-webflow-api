@@ -7,17 +7,17 @@ import * as Webflow from "../index";
 export interface Webhook {
     /** Unique identifier for the Webhook registration */
     id?: string;
+    triggerType?: Webflow.TriggerType;
+    /** URL to send the Webhook payload to */
+    url?: string;
     /** Unique identifier for the Workspace the Webhook is registered in */
     workspaceId?: string;
     /** Unique identifier for the Site the Webhook is registered in */
     siteId?: string;
-    triggerType?: Webflow.TriggerType;
-    /** Filter for selecting which events you want Webhooks to be sent for. Only supported for form_submission trigger types. */
-    filter?: Record<string, unknown>;
+    /** Only supported for the `form_submission` trigger type. Filter for the form you want Webhooks to be sent for. */
+    filter?: Webflow.WebhookFilter;
     /** Date the Webhook instance was last triggered */
     lastTriggered?: Date;
     /** Date the Webhook registration was created */
     createdOn?: Date;
-    /** URL to send the Webhook payload to */
-    url?: string;
 }

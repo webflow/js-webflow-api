@@ -12,13 +12,13 @@ export const FormSubmissionList: core.serialization.ObjectSchema<
     serializers.FormSubmissionList.Raw,
     Webflow.FormSubmissionList
 > = core.serialization.object({
-    submissions: core.serialization.list(FormSubmission).optional(),
+    formSubmissions: core.serialization.list(FormSubmission).optional(),
     pagination: Pagination.optional(),
 });
 
 export declare namespace FormSubmissionList {
     interface Raw {
-        submissions?: FormSubmission.Raw[] | null;
+        formSubmissions?: FormSubmission.Raw[] | null;
         pagination?: Pagination.Raw | null;
     }
 }
