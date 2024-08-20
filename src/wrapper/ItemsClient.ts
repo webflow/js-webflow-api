@@ -56,14 +56,12 @@ export class Client extends Items {
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
-            body: await serializers.CollectionItem.jsonOrThrow(
-                request, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
-                },
-            ),
+            body: await serializers.CollectionItem.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+            }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
         });
@@ -80,7 +78,15 @@ export class Client extends Items {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(_response.error.body);
+                    throw new Webflow.TooManyRequestsError(
+                        await serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
