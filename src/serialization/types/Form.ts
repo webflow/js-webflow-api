@@ -20,6 +20,7 @@ export const Form: core.serialization.ObjectSchema<serializers.Form.Raw, Webflow
     siteDomainId: core.serialization.string().optional(),
     pageId: core.serialization.string().optional(),
     pageName: core.serialization.string().optional(),
+    formElementId: core.serialization.string().optional(),
     workspaceId: core.serialization.string().optional(),
 });
 
@@ -35,6 +36,7 @@ export declare namespace Form {
         siteDomainId?: string | null;
         pageId?: string | null;
         pageName?: string | null;
+        formElementId?: string | null;
         workspaceId?: string | null;
     }
 }

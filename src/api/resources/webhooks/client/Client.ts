@@ -54,7 +54,7 @@ export class Webhooks {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.5",
+                "X-Fern-SDK-Version": "2.3.6",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -82,7 +82,15 @@ export class Webhooks {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(_response.error.body);
+                    throw new Webflow.TooManyRequestsError(
+                        await serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -112,7 +120,7 @@ export class Webhooks {
      * Create a new Webhook, to be notified when Webflow resources change. Limit of 75 registrations per `triggerType`, per site. <blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote> Required scope | `sites:write`
      *
      * @param {string} siteId - Unique identifier for a Site
-     * @param {Webflow.WebhooksCreateRequest} request
+     * @param {Webflow.Webhook} request
      * @param {Webhooks.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Webflow.BadRequestError}
@@ -123,13 +131,18 @@ export class Webhooks {
      *
      * @example
      *     await client.webhooks.create("site_id", {
+     *         id: "582266e0cd48de0f0e3c6d8b",
      *         triggerType: Webflow.TriggerType.FormSubmission,
-     *         url: "https://api.mydomain.com/webhook"
+     *         url: "https://webhook.site/7f7f7f7f-7f7f-7f7f-7f7f-7f7f7f7f7f7f",
+     *         workspaceId: "4f4e46fd476ea8c507000001",
+     *         siteId: "562ac0395358780a1f5e6fbd",
+     *         lastTriggered: new Date("2023-02-08T23:59:28.000Z"),
+     *         createdOn: new Date("2022-11-08T23:59:28.000Z")
      *     })
      */
     public async create(
         siteId: string,
-        request: Webflow.WebhooksCreateRequest,
+        request: Webflow.Webhook,
         requestOptions?: Webhooks.RequestOptions
     ): Promise<Webflow.Webhook> {
         const _response = await core.fetcher({
@@ -142,12 +155,12 @@ export class Webhooks {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.5",
+                "X-Fern-SDK-Version": "2.3.6",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
-            body: await serializers.WebhooksCreateRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: await serializers.Webhook.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -171,7 +184,15 @@ export class Webhooks {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(_response.error.body);
+                    throw new Webflow.TooManyRequestsError(
+                        await serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -223,7 +244,7 @@ export class Webhooks {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.5",
+                "X-Fern-SDK-Version": "2.3.6",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -251,7 +272,15 @@ export class Webhooks {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(_response.error.body);
+                    throw new Webflow.TooManyRequestsError(
+                        await serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -303,7 +332,7 @@ export class Webhooks {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.5",
+                "X-Fern-SDK-Version": "2.3.6",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -325,7 +354,15 @@ export class Webhooks {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(_response.error.body);
+                    throw new Webflow.TooManyRequestsError(
+                        await serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:

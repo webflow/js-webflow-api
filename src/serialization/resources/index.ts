@@ -19,8 +19,6 @@ export * as scripts from "./scripts";
 export * from "./scripts/client/requests";
 export * as assets from "./assets";
 export * from "./assets/client/requests";
-export * as webhooks from "./webhooks";
-export * from "./webhooks/client/requests";
 export * as forms from "./forms";
 export * from "./forms/client/requests";
 export * from "./users/client/requests";

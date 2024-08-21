@@ -62,7 +62,13 @@ export type OauthScope =
     | "workspace:read"
     /**
      * write workspace resource data */
-    | "workspace:write";
+    | "workspace:write"
+    /**
+     * read site configuration data */
+    | "site_config:read"
+    /**
+     * write site configuration data */
+    | "site_config:write";
 
 export const OauthScope = {
     AuthorizedUserRead: "authorized_user:read",
@@ -85,4 +91,6 @@ export const OauthScope = {
     UsersWrite: "users:write",
     WorkspaceRead: "workspace:read",
     WorkspaceWrite: "workspace:write",
+    SiteConfigRead: "site_config:read",
+    SiteConfigWrite: "site_config:write",
 } as const;

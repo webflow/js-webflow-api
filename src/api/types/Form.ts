@@ -28,6 +28,8 @@ export interface Form {
     pageId?: string;
     /** The user-visible name of the Page where the Form is placed */
     pageName?: string;
+    /** The unique id of the Form element */
+    formElementId?: string;
     /** The unique id of the Workspace the Site belongs to */
     workspaceId?: string;
 }

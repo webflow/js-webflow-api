@@ -57,7 +57,7 @@ export class Scripts {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.5",
+                "X-Fern-SDK-Version": "2.3.6",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -85,7 +85,15 @@ export class Scripts {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(_response.error.body);
+                    throw new Webflow.TooManyRequestsError(
+                        await serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -155,7 +163,7 @@ export class Scripts {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.5",
+                "X-Fern-SDK-Version": "2.3.6",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -184,7 +192,15 @@ export class Scripts {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(_response.error.body);
+                    throw new Webflow.TooManyRequestsError(
+                        await serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -236,7 +252,7 @@ export class Scripts {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.5",
+                "X-Fern-SDK-Version": "2.3.6",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -258,7 +274,15 @@ export class Scripts {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(_response.error.body);
+                    throw new Webflow.TooManyRequestsError(
+                        await serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -325,7 +349,7 @@ export class Scripts {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.5",
+                "X-Fern-SDK-Version": "2.3.6",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -354,7 +378,15 @@ export class Scripts {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(_response.error.body);
+                    throw new Webflow.TooManyRequestsError(
+                        await serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:

@@ -35,11 +35,9 @@ export class Sites {
      *
      * @param {Sites.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
      * @throws {@link Webflow.TooManyRequestsError}
-     * @throws {@link Webflow.InternalServerError}
      *
      * @example
      *     await client.sites.list()
@@ -55,7 +53,7 @@ export class Sites {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.5",
+                "X-Fern-SDK-Version": "2.3.6",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -76,16 +74,20 @@ export class Sites {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
-                case 400:
-                    throw new Webflow.BadRequestError(_response.error.body);
                 case 401:
                     throw new Webflow.UnauthorizedError(_response.error.body);
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(_response.error.body);
-                case 500:
-                    throw new Webflow.InternalServerError(_response.error.body);
+                    throw new Webflow.TooManyRequestsError(
+                        await serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 default:
                     throw new errors.WebflowError({
                         statusCode: _response.error.statusCode,
@@ -135,7 +137,7 @@ export class Sites {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.5",
+                "X-Fern-SDK-Version": "2.3.6",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -163,7 +165,15 @@ export class Sites {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(_response.error.body);
+                    throw new Webflow.TooManyRequestsError(
+                        await serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -215,7 +225,7 @@ export class Sites {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.5",
+                "X-Fern-SDK-Version": "2.3.6",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -243,7 +253,15 @@ export class Sites {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(_response.error.body);
+                    throw new Webflow.TooManyRequestsError(
+                        await serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -270,7 +288,7 @@ export class Sites {
     }
 
     /**
-     * Publish a site to one more more domains. </br></br> Required scope | `sites:write`
+     * Publish a site to one more more domains. </br></br> Required scope | `sites:write` <blockquote class="callout callout_info" theme="📘"><h2 class="callout-heading"><span class="callout-icon">📘</span><p>Endpoint-specific rate limit</p></h2><p>This endpoint has a limit of one successful publish queue per minute.</p></blockquote>
      *
      * @param {string} siteId - Unique identifier for a Site
      * @param {Webflow.SitesPublishRequest} request
@@ -300,7 +318,7 @@ export class Sites {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.5",
+                "X-Fern-SDK-Version": "2.3.6",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -325,7 +343,15 @@ export class Sites {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(_response.error.body);
+                    throw new Webflow.TooManyRequestsError(
+                        await serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 default:
                     throw new errors.WebflowError({
                         statusCode: _response.error.statusCode,

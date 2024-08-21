@@ -5,6 +5,6 @@
 import * as Webflow from "../index";
 
 export interface FormSubmissionList {
-    submissions?: Webflow.FormSubmission[];
+    formSubmissions?: Webflow.FormSubmission[];
     pagination?: Webflow.Pagination;
 }
