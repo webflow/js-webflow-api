@@ -12,7 +12,7 @@ import * as errors from "../../../../errors/index";
 export declare namespace Token {
     interface Options {
         environment?: core.Supplier<environments.WebflowEnvironment | string>;
-        accessToken: core.Supplier<core.BearerToken>;
+        token: core.Supplier<core.BearerToken>;
     }
 
     interface RequestOptions {
@@ -50,17 +50,19 @@ export class Token {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.6",
+                "X-Fern-SDK-Version": "2.3.7",
+                "User-Agent": "webflow-api/2.3.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
+            requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.AuthorizedUser.parseOrThrow(_response.body, {
+            return serializers.AuthorizedUser.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -119,17 +121,19 @@ export class Token {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.6",
+                "X-Fern-SDK-Version": "2.3.7",
+                "User-Agent": "webflow-api/2.3.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
+            requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.Authorization.parseOrThrow(_response.body, {
+            return serializers.Authorization.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -166,6 +170,6 @@ export class Token {
     }
 
     protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }

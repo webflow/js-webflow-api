@@ -9,7 +9,7 @@ import { PageSeo } from "./PageSeo";
 import { PageOpenGraph } from "./PageOpenGraph";
 
 export const Page: core.serialization.ObjectSchema<serializers.Page.Raw, Webflow.Page> = core.serialization.object({
-    id: core.serialization.string().optional(),
+    id: core.serialization.string(),
     siteId: core.serialization.string().optional(),
     title: core.serialization.string().optional(),
     slug: core.serialization.string().optional(),
@@ -27,7 +27,7 @@ export const Page: core.serialization.ObjectSchema<serializers.Page.Raw, Webflow
 
 export declare namespace Page {
     interface Raw {
-        id?: string | null;
+        id: string;
         siteId?: string | null;
         title?: string | null;
         slug?: string | null;

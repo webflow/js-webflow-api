@@ -14,7 +14,7 @@ import { Items } from "../resources/items/client/Client";
 export declare namespace Collections {
     interface Options {
         environment?: core.Supplier<environments.WebflowEnvironment | string>;
-        accessToken: core.Supplier<core.BearerToken>;
+        token: core.Supplier<core.BearerToken>;
     }
 
     interface RequestOptions {
@@ -43,7 +43,7 @@ export class Collections {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.collections.list("site_id")
+     *     await client.collections.list("580e63e98c9a982ac9b8b741")
      */
     public async list(siteId: string, requestOptions?: Collections.RequestOptions): Promise<Webflow.CollectionList> {
         const _response = await core.fetcher({
@@ -56,17 +56,19 @@ export class Collections {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.6",
+                "X-Fern-SDK-Version": "2.3.7",
+                "User-Agent": "webflow-api/2.3.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
+            requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.CollectionList.parseOrThrow(_response.body, {
+            return serializers.CollectionList.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -85,7 +87,7 @@ export class Collections {
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
-                        await serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
+                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -132,7 +134,7 @@ export class Collections {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.collections.create("site_id", {
+     *     await client.collections.create("580e63e98c9a982ac9b8b741", {
      *         displayName: "Blog Posts",
      *         singularName: "Blog Post",
      *         slug: "posts"
@@ -153,18 +155,20 @@ export class Collections {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.6",
+                "X-Fern-SDK-Version": "2.3.7",
+                "User-Agent": "webflow-api/2.3.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
-            body: await serializers.CollectionsCreateRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            requestType: "json",
+            body: serializers.CollectionsCreateRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.Collection.parseOrThrow(_response.body, {
+            return serializers.Collection.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -183,7 +187,7 @@ export class Collections {
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
-                        await serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
+                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -229,7 +233,7 @@ export class Collections {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.collections.get("collection_id")
+     *     await client.collections.get("580e63fc8c9a982ac9b8b745")
      */
     public async get(collectionId: string, requestOptions?: Collections.RequestOptions): Promise<Webflow.Collection> {
         const _response = await core.fetcher({
@@ -242,17 +246,19 @@ export class Collections {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.6",
+                "X-Fern-SDK-Version": "2.3.7",
+                "User-Agent": "webflow-api/2.3.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
+            requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.Collection.parseOrThrow(_response.body, {
+            return serializers.Collection.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -271,7 +277,7 @@ export class Collections {
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
-                        await serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
+                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -317,7 +323,7 @@ export class Collections {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.collections.deleteCollection("collection_id")
+     *     await client.collections.deleteCollection("580e63fc8c9a982ac9b8b745")
      */
     public async deleteCollection(collectionId: string, requestOptions?: Collections.RequestOptions): Promise<void> {
         const _response = await core.fetcher({
@@ -330,11 +336,13 @@ export class Collections {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.6",
+                "X-Fern-SDK-Version": "2.3.7",
+                "User-Agent": "webflow-api/2.3.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
+            requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -353,7 +361,7 @@ export class Collections {
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
-                        await serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
+                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -400,7 +408,7 @@ export class Collections {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.collections.delete("collection_id", "field_id")
+     *     await client.collections.delete("580e63fc8c9a982ac9b8b745", "580e63fc8c9a982ac9b8b745")
      */
     public async delete(
         collectionId: string,
@@ -417,11 +425,13 @@ export class Collections {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.6",
+                "X-Fern-SDK-Version": "2.3.7",
+                "User-Agent": "webflow-api/2.3.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
+            requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -440,7 +450,7 @@ export class Collections {
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
-                        await serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
+                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -486,6 +496,6 @@ export class Collections {
     }
 
     protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }

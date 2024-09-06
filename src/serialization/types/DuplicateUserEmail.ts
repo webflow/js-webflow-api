@@ -5,13 +5,23 @@
 import * as serializers from "../index";
 import * as Webflow from "../../api/index";
 import * as core from "../../core";
-import { Error_ } from "./Error_";
+import { ErrorDetailsItem } from "./ErrorDetailsItem";
 
 export const DuplicateUserEmail: core.serialization.ObjectSchema<
     serializers.DuplicateUserEmail.Raw,
     Webflow.DuplicateUserEmail
-> = Error_;
+> = core.serialization.object({
+    code: core.serialization.string().optional(),
+    message: core.serialization.string().optional(),
+    externalReference: core.serialization.string().optional(),
+    details: core.serialization.list(ErrorDetailsItem).optional(),
+});
 
 export declare namespace DuplicateUserEmail {
-    type Raw = Error_.Raw;
+    interface Raw {
+        code?: string | null;
+        message?: string | null;
+        externalReference?: string | null;
+        details?: ErrorDetailsItem.Raw[] | null;
+    }
 }

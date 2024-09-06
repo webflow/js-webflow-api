@@ -12,7 +12,7 @@ import * as errors from "../../../../errors/index";
 export declare namespace Ecommerce {
     interface Options {
         environment?: core.Supplier<environments.WebflowEnvironment | string>;
-        accessToken: core.Supplier<core.BearerToken>;
+        token: core.Supplier<core.BearerToken>;
     }
 
     interface RequestOptions {
@@ -45,7 +45,7 @@ export class Ecommerce {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.ecommerce.getSettings("site_id")
+     *     await client.ecommerce.getSettings("580e63e98c9a982ac9b8b741")
      */
     public async getSettings(
         siteId: string,
@@ -61,17 +61,19 @@ export class Ecommerce {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.6",
+                "X-Fern-SDK-Version": "2.3.7",
+                "User-Agent": "webflow-api/2.3.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
+            requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.EcommerceSettings.parseOrThrow(_response.body, {
+            return serializers.EcommerceSettings.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -94,7 +96,7 @@ export class Ecommerce {
                     throw new Webflow.ConflictError(_response.error.body);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
-                        await serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
+                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -128,6 +130,6 @@ export class Ecommerce {
     }
 
     protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }

@@ -10,7 +10,7 @@ import { PageDetailsOpenGraph } from "./PageDetailsOpenGraph";
 
 export const PageDetails: core.serialization.ObjectSchema<serializers.PageDetails.Raw, Webflow.PageDetails> =
     core.serialization.object({
-        id: core.serialization.string().optional(),
+        id: core.serialization.string(),
         siteId: core.serialization.string().optional(),
         title: core.serialization.string().optional(),
         slug: core.serialization.string().optional(),
@@ -30,7 +30,7 @@ export const PageDetails: core.serialization.ObjectSchema<serializers.PageDetail
 
 export declare namespace PageDetails {
     interface Raw {
-        id?: string | null;
+        id: string;
         siteId?: string | null;
         title?: string | null;
         slug?: string | null;

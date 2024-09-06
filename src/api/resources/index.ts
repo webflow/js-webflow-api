@@ -1,3 +1,5 @@
+export * as sites from "./sites";
+export * from "./sites/types";
 export * as collections from "./collections";
 export * as pages from "./pages";
 export * from "./pages/types";
@@ -12,7 +14,6 @@ export * from "./orders/types";
 export * as inventory from "./inventory";
 export * from "./inventory/types";
 export * as token from "./token";
-export * as sites from "./sites";
 export * as scripts from "./scripts";
 export * as assets from "./assets";
 export * as webhooks from "./webhooks";

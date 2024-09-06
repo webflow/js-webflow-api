@@ -7,6 +7,7 @@ import * as Webflow from "../../../../index";
 /**
  * @example
  *     {
+ *         locale: "65427cf400e02b306eaa04a0",
  *         body: {
  *             id: "6596da6045e56dee495bcbba",
  *             siteId: "6258612d1ee792848f805dcf",
@@ -14,8 +15,8 @@ import * as Webflow from "../../../../index";
  *             slug: "guide-to-the-galaxy",
  *             parentId: "6419db964a9c435aa3af6251",
  *             collectionId: "6390c49774a71f12831a08e3",
- *             createdOn: new Date("2024-03-11T10:42:00.000Z"),
- *             lastUpdated: new Date("2024-03-11T10:42:42.000Z"),
+ *             createdOn: "2024-03-11T10:42:00Z",
+ *             lastUpdated: "2024-03-11T10:42:42Z",
  *             archived: false,
  *             draft: false,
  *             canBranch: true,
