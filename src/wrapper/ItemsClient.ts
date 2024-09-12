@@ -40,7 +40,7 @@ export class Client extends Items {
         collectionId: string,
         request: Webflow.CollectionItem,
         requestOptions?: Items.RequestOptions
-    ): Promise<void> {
+    ): Promise<Webflow.CollectionItem> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -51,7 +51,8 @@ export class Client extends Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "v2.2.1",
+                "X-Fern-SDK-Version": "v2.3.7",
+                "User-Agent": "webflow-api/2.3.7",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -66,7 +67,13 @@ export class Client extends Items {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return;
+            return serializers.CollectionItem.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
