@@ -4,4 +4,13 @@
 
 import * as Webflow from "../index";
 
-export type UserLimitReached = Webflow.Error_;
+export interface UserLimitReached {
+    /** Error code */
+    code?: string;
+    /** Error message */
+    message?: string;
+    /** Link to more information */
+    externalReference?: string;
+    /** Array of errors */
+    details?: Webflow.ErrorDetailsItem[];
+}

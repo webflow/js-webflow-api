@@ -4,4 +4,13 @@
 
 import * as Webflow from "../index";
 
-export type MissingScopes = Webflow.Error_;
+export interface MissingScopes {
+    /** Error code */
+    code?: "missing_scopes";
+    /** Error message */
+    message?: string;
+    /** Link to more information */
+    externalReference?: string;
+    /** Array of errors */
+    details?: Webflow.ErrorDetailsItem[];
+}

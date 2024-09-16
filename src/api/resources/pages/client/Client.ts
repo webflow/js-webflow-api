@@ -43,7 +43,9 @@ export class Pages {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.pages.list("site_id")
+     *     await client.pages.list("580e63e98c9a982ac9b8b741", {
+     *         locale: "65427cf400e02b306eaa04a0"
+     *     })
      */
     public async list(
         siteId: string,
@@ -74,18 +76,20 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.6",
+                "X-Fern-SDK-Version": "2.4.0",
+                "User-Agent": "webflow-api/2.4.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
+            requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.PageList.parseOrThrow(_response.body, {
+            return serializers.PageList.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -104,7 +108,7 @@ export class Pages {
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
-                        await serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
+                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -151,13 +155,15 @@ export class Pages {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.pages.getMetadata("page_id")
+     *     await client.pages.getMetadata("63c720f9347c2139b248e552", {
+     *         locale: "65427cf400e02b306eaa04a0"
+     *     })
      */
     public async getMetadata(
         pageId: string,
         request: Webflow.PagesGetMetadataRequest = {},
         requestOptions?: Pages.RequestOptions
-    ): Promise<Webflow.PageDetails> {
+    ): Promise<Webflow.Page> {
         const { locale } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (locale != null) {
@@ -174,18 +180,20 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.6",
+                "X-Fern-SDK-Version": "2.4.0",
+                "User-Agent": "webflow-api/2.4.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
+            requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.PageDetails.parseOrThrow(_response.body, {
+            return serializers.Page.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -204,7 +212,7 @@ export class Pages {
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
-                        await serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
+                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -251,7 +259,8 @@ export class Pages {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.pages.updatePageSettings("page_id", {
+     *     await client.pages.updatePageSettings("63c720f9347c2139b248e552", {
+     *         locale: "65427cf400e02b306eaa04a0",
      *         body: {
      *             id: "6596da6045e56dee495bcbba",
      *             siteId: "6258612d1ee792848f805dcf",
@@ -259,8 +268,8 @@ export class Pages {
      *             slug: "guide-to-the-galaxy",
      *             parentId: "6419db964a9c435aa3af6251",
      *             collectionId: "6390c49774a71f12831a08e3",
-     *             createdOn: new Date("2024-03-11T10:42:00.000Z"),
-     *             lastUpdated: new Date("2024-03-11T10:42:42.000Z"),
+     *             createdOn: "2024-03-11T10:42:00Z",
+     *             lastUpdated: "2024-03-11T10:42:42Z",
      *             archived: false,
      *             draft: false,
      *             canBranch: true,
@@ -273,7 +282,9 @@ export class Pages {
      *                 titleCopied: false,
      *                 description: "Dive deep into the mysteries of the universe with your guide to everything galactic.",
      *                 descriptionCopied: false
-     *             }
+     *             },
+     *             localeId: "653fd9af6a07fc9cfd7a5e57",
+     *             publishedPath: "/en-us/guide-to-the-galaxy"
      *         }
      *     })
      */
@@ -281,7 +292,7 @@ export class Pages {
         pageId: string,
         request: Webflow.UpdatePageSettingsRequest,
         requestOptions?: Pages.RequestOptions
-    ): Promise<Webflow.PageDetails> {
+    ): Promise<Webflow.Page> {
         const { locale, body: _body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (locale != null) {
@@ -298,19 +309,21 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.6",
+                "X-Fern-SDK-Version": "2.4.0",
+                "User-Agent": "webflow-api/2.4.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
-            body: await serializers.Page.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            requestType: "json",
+            body: serializers.Page.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.PageDetails.parseOrThrow(_response.body, {
+            return serializers.Page.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -329,7 +342,7 @@ export class Pages {
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
-                        await serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
+                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -377,7 +390,9 @@ export class Pages {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.pages.getContent("page_id")
+     *     await client.pages.getContent("63c720f9347c2139b248e552", {
+     *         locale: "65427cf400e02b306eaa04a0"
+     *     })
      */
     public async getContent(
         pageId: string,
@@ -408,18 +423,20 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.6",
+                "X-Fern-SDK-Version": "2.4.0",
+                "User-Agent": "webflow-api/2.4.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
+            requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.Dom.parseOrThrow(_response.body, {
+            return serializers.Dom.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -440,7 +457,7 @@ export class Pages {
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
-                        await serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
+                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -492,7 +509,7 @@ export class Pages {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.pages.updateStaticContent("page_id", {
+     *     await client.pages.updateStaticContent("63c720f9347c2139b248e552", {
      *         locale: "locale",
      *         nodes: [{
      *                 nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad623",
@@ -524,19 +541,21 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.6",
+                "X-Fern-SDK-Version": "2.4.0",
+                "User-Agent": "webflow-api/2.4.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
-            body: await serializers.DomWrite.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            requestType: "json",
+            body: serializers.DomWrite.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.UpdateStaticContentResponse.parseOrThrow(_response.body, {
+            return serializers.UpdateStaticContentResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -557,7 +576,7 @@ export class Pages {
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
-                        await serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
+                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,

@@ -4,4 +4,13 @@
 
 import * as Webflow from "../index";
 
-export type NotEnterprisePlanSite = Webflow.Error_;
+export interface NotEnterprisePlanSite {
+    /** Error code */
+    code?: "missing_scopes";
+    /** Error message */
+    message?: string;
+    /** Link to more information */
+    externalReference?: string;
+    /** Array of errors */
+    details?: Webflow.ErrorDetailsItem[];
+}

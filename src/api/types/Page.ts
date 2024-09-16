@@ -9,7 +9,7 @@ import * as Webflow from "../index";
  */
 export interface Page {
     /** Unique identifier for the Page */
-    id?: string;
+    id: string;
     /** Unique identifier for the Site */
     siteId?: string;
     /** Title of the Page */
@@ -36,4 +36,8 @@ export interface Page {
     seo?: Webflow.PageSeo;
     /** Open Graph fields for the Page */
     openGraph?: Webflow.PageOpenGraph;
+    /** Unique ID of the page locale */
+    localeId?: string;
+    /** Relative path of the published page URL */
+    publishedPath?: string;
 }

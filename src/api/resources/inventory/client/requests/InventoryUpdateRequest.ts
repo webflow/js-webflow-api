@@ -7,7 +7,7 @@ import * as Webflow from "../../../../index";
 /**
  * @example
  *     {
- *         inventoryType: Webflow.InventoryUpdateRequestInventoryType.Infinite
+ *         inventoryType: "infinite"
  *     }
  */
 export interface InventoryUpdateRequest {

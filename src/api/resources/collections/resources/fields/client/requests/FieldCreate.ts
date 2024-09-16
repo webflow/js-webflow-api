@@ -8,7 +8,7 @@ import * as Webflow from "../../../../../../index";
  * @example
  *     {
  *         isRequired: false,
- *         type: Webflow.collections.FieldCreateType.RichText,
+ *         type: "RichText",
  *         displayName: "Post Body",
  *         helpText: "Add the body of your post here"
  *     }
