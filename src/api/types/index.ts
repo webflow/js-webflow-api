@@ -130,3 +130,4 @@ export * from "./OrderList";
 export * from "./InventoryItemInventoryType";
 export * from "./InventoryItem";
 export * from "./EcommerceSettings";
+export * from "./OAuthScope";
