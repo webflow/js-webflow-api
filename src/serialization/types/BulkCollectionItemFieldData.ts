@@ -18,5 +18,6 @@ export declare namespace BulkCollectionItemFieldData {
     interface Raw {
         name?: string | null;
         slug?: string | null;
+        [key: string]: any;
     }
 }
