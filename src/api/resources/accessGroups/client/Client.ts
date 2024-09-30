@@ -43,7 +43,7 @@ export class AccessGroups {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.accessGroups.list("site_id")
+     *     await client.accessGroups.list("580e63e98c9a982ac9b8b741")
      */
     public async list(
         siteId: string,
@@ -74,18 +74,20 @@ export class AccessGroups {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.3.6",
+                "X-Fern-SDK-Version": "2.4.0",
+                "User-Agent": "webflow-api/2.4.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
+            requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.AccessGroupList.parseOrThrow(_response.body, {
+            return serializers.AccessGroupList.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -106,7 +108,7 @@ export class AccessGroups {
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
-                        await serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
+                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,

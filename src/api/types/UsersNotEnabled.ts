@@ -4,4 +4,13 @@
 
 import * as Webflow from "../index";
 
-export type UsersNotEnabled = Webflow.Error_;
+export interface UsersNotEnabled {
+    /** Error code */
+    code?: string;
+    /** Error message */
+    message?: string;
+    /** Link to more information */
+    externalReference?: string;
+    /** Array of errors */
+    details?: Webflow.ErrorDetailsItem[];
+}

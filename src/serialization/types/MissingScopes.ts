@@ -5,11 +5,21 @@
 import * as serializers from "../index";
 import * as Webflow from "../../api/index";
 import * as core from "../../core";
-import { Error_ } from "./Error_";
+import { ErrorDetailsItem } from "./ErrorDetailsItem";
 
 export const MissingScopes: core.serialization.ObjectSchema<serializers.MissingScopes.Raw, Webflow.MissingScopes> =
-    Error_;
+    core.serialization.object({
+        code: core.serialization.stringLiteral("missing_scopes").optional(),
+        message: core.serialization.string().optional(),
+        externalReference: core.serialization.string().optional(),
+        details: core.serialization.list(ErrorDetailsItem).optional(),
+    });
 
 export declare namespace MissingScopes {
-    type Raw = Error_.Raw;
+    interface Raw {
+        code?: "missing_scopes" | null;
+        message?: string | null;
+        externalReference?: string | null;
+        details?: ErrorDetailsItem.Raw[] | null;
+    }
 }
