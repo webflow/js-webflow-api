@@ -81,6 +81,15 @@ export class WebflowClient extends FernClient {
             method: "POST",
             contentType: "application/json",
             body,
+            headers: {
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "webflow-api",
+                "X-Fern-SDK-Version": "2.4.0",
+                "User-Agent": "webflow-api/2.4.0",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            requestType: "json",
         });
         if (response.ok) {
             return (response.body as any)["access_token"];
