@@ -84,8 +84,8 @@ export class WebflowClient extends FernClient {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.0",
-                "User-Agent": "webflow-api/2.4.0",
+                "X-Fern-SDK-Version": "2.4.2",
+                "User-Agent": "webflow-api/2.4.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
