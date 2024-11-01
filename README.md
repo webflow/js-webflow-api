@@ -65,7 +65,22 @@ import { WebflowClient } from "webflow-api";
 
 const webflow = new WebflowClient({ accessToken });
 
+// Sites
+
+// List Sites
+const sites = await webflow.sites.list();
+
+// Get Site
 const site = await webflow.sites.get("site-id");
+
+// Get Custom Domains
+const customDomains = await webflow.sites.getCustomDomain(site-id);
+
+// Publish Site
+const site = await webflow.sites.publish(site_id, {
+      customDomains: [custom_domain_id_1, custom_domain_id_2],
+      publishToWebflowSubdomain: true,
+    });
 ```
 
 ## OAuth
