@@ -77,8 +77,8 @@ const site = await webflow.sites.get("site-id");
 const customDomains = await webflow.sites.getCustomDomain(site-id);
 
 // Publish Site
-const site = await webflow.sites.publish(site_id, {
-      customDomains: [custom_domain_id_1, custom_domain_id_2],
+const site = await webflow.sites.publish(site-id, {
+      customDomains: [custom-domain-id-1, custom-domain-id-2],
       publishToWebflowSubdomain: true,
     });
 ```
