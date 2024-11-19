@@ -1,1 +1,2 @@
-export { DomWrite } from "./DomWrite";
+export { UpdatePageSettingsRequest } from "./UpdatePageSettingsRequest";
+export { UpdateStaticContentRequest } from "./UpdateStaticContentRequest";

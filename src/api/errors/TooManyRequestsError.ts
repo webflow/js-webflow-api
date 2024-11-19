@@ -3,10 +3,9 @@
  */
 
 import * as errors from "../../errors/index";
-import * as Webflow from "../index";
 
 export class TooManyRequestsError extends errors.WebflowError {
-    constructor(body: Webflow.TooManyRequestsErrorBody) {
+    constructor(body?: unknown) {
         super({
             message: "TooManyRequestsError",
             statusCode: 429,

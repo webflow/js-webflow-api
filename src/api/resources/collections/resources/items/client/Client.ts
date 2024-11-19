@@ -29,7 +29,9 @@ export class Items {
     constructor(protected readonly _options: Items.Options) {}
 
     /**
-     * List of all Items within a Collection. </br></br> Required scope | `CMS:read`
+     * List of all Items within a Collection.
+     *
+     * Required scope | `CMS:read`
      *
      * @param {string} collectionId - Unique identifier for a Collection
      * @param {Webflow.collections.ItemsListItemsRequest} request
@@ -48,7 +50,7 @@ export class Items {
         collectionId: string,
         request: Webflow.collections.ItemsListItemsRequest = {},
         requestOptions?: Items.RequestOptions
-    ): Promise<Webflow.CollectionItemList> {
+    ): Promise<Webflow.collections.ItemsListItemsResponse> {
         const { cmsLocaleId, offset, limit, name, slug, sortBy, sortOrder } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (cmsLocaleId != null) {
@@ -89,8 +91,8 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -102,7 +104,7 @@ export class Items {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.CollectionItemList.parseOrThrow(_response.body, {
+            return serializers.collections.ItemsListItemsResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -120,15 +122,7 @@ export class Items {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -155,10 +149,14 @@ export class Items {
     }
 
     /**
-     * <style>.rm-Markdown.markdown-body a{color: #146EF5 !important;}</style> Create Item in a Collection.</br></br> To create items across multiple locales, <a href="https://developers.webflow.com/data/reference/create-item-for-multiple-locales"> please use the bulk item endpoint.</a> </br></br> Required scope | <code>CMS:write</code>
+     * Create Item(s) in a Collection.
+     *
+     * To create items across multiple locales, please use [this endpoint.](/data/v2.0.0/reference/cms/collection-items/bulk-items/create-items)
+     *
+     * Required scope | `CMS:write`
      *
      * @param {string} collectionId - Unique identifier for a Collection
-     * @param {Webflow.CollectionItem} request
+     * @param {Webflow.collections.ItemsCreateItemRequest} request
      * @param {Items.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Webflow.BadRequestError}
@@ -169,11 +167,6 @@ export class Items {
      *
      * @example
      *     await client.collections.items.createItem("580e63fc8c9a982ac9b8b745", {
-     *         id: "42b720ef280c7a7a3be8cabe",
-     *         cmsLocaleId: "653ad57de882f528b32e810e",
-     *         lastPublished: "2022-11-29T16:22:43.159Z",
-     *         lastUpdated: "2022-11-17T17:19:43.282Z",
-     *         createdOn: "2022-11-17T17:11:57.148Z",
      *         isArchived: false,
      *         isDraft: false,
      *         fieldData: {
@@ -181,12 +174,31 @@ export class Items {
      *             slug: "pan-galactic-gargle-blaster"
      *         }
      *     })
+     *
+     * @example
+     *     await client.collections.items.createItem("580e63fc8c9a982ac9b8b745", {
+     *         items: [{
+     *                 isArchived: false,
+     *                 isDraft: false,
+     *                 fieldData: {
+     *                     name: "Senior Data Analyst",
+     *                     slug: "senior-data-analyst"
+     *                 }
+     *             }, {
+     *                 isArchived: false,
+     *                 isDraft: false,
+     *                 fieldData: {
+     *                     name: "Product Manager",
+     *                     slug: "product-manager"
+     *                 }
+     *             }]
+     *     })
      */
     public async createItem(
         collectionId: string,
-        request: Webflow.CollectionItem,
+        request: Webflow.collections.ItemsCreateItemRequest,
         requestOptions?: Items.RequestOptions
-    ): Promise<Webflow.CollectionItem> {
+    ): Promise<Webflow.collections.ItemsCreateItemResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -197,20 +209,22 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.CollectionItem.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: serializers.collections.ItemsCreateItemRequest.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "strip",
+            }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.CollectionItem.parseOrThrow(_response.body, {
+            return serializers.collections.ItemsCreateItemResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -228,15 +242,7 @@ export class Items {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -263,7 +269,242 @@ export class Items {
     }
 
     /**
-     * List of all live Items within a Collection. </br></br> Required scope | `CMS:read`
+     * Delete Items from a Collection.
+     *
+     * **Note:** If the `cmsLocaleId` parameter is undefined or empty and the items are localized, items will be deleted only in the primary locale.
+     *
+     * Required scope | `CMS:write`
+     *
+     * @param {string} collectionId - Unique identifier for a Collection
+     * @param {Webflow.collections.ItemsDeleteItemsRequest} request
+     * @param {Items.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Webflow.BadRequestError}
+     * @throws {@link Webflow.UnauthorizedError}
+     * @throws {@link Webflow.NotFoundError}
+     * @throws {@link Webflow.TooManyRequestsError}
+     * @throws {@link Webflow.InternalServerError}
+     *
+     * @example
+     *     await client.collections.items.deleteItems("580e63fc8c9a982ac9b8b745")
+     */
+    public async deleteItems(
+        collectionId: string,
+        request: Webflow.collections.ItemsDeleteItemsRequest = {},
+        requestOptions?: Items.RequestOptions
+    ): Promise<void> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                `collections/${encodeURIComponent(collectionId)}/items`
+            ),
+            method: "DELETE",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "webflow-api",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.collections.ItemsDeleteItemsRequest.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "strip",
+            }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return;
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Webflow.BadRequestError(_response.error.body);
+                case 401:
+                    throw new Webflow.UnauthorizedError(_response.error.body);
+                case 404:
+                    throw new Webflow.NotFoundError(_response.error.body);
+                case 429:
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
+                case 500:
+                    throw new Webflow.InternalServerError(_response.error.body);
+                default:
+                    throw new errors.WebflowError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.WebflowError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.WebflowTimeoutError();
+            case "unknown":
+                throw new errors.WebflowError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Update a single item or multiple items (up to 100) in a Collection.
+     *
+     * **Note:** If the `cmsLocaleId` parameter is undefined or empty and the items are localized, items will be updated only in the primary locale.
+     *
+     * Required scope | `CMS:write`
+     *
+     * @param {string} collectionId - Unique identifier for a Collection
+     * @param {Webflow.collections.ItemsUpdateItemsRequest} request
+     * @param {Items.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Webflow.BadRequestError}
+     * @throws {@link Webflow.UnauthorizedError}
+     * @throws {@link Webflow.NotFoundError}
+     * @throws {@link Webflow.TooManyRequestsError}
+     * @throws {@link Webflow.InternalServerError}
+     *
+     * @example
+     *     await client.collections.items.updateItems("580e63fc8c9a982ac9b8b745", {
+     *         items: [{
+     *                 id: "66f6ed9576ddacf3149d5ea6",
+     *                 cmsLocaleId: "66f6e966c9e1dc700a857ca5",
+     *                 fieldData: {
+     *                     name: "Ne Paniquez Pas",
+     *                     slug: "ne-paniquez-pas"
+     *                 }
+     *             }, {
+     *                 id: "66f6ed9576ddacf3149d5ea6",
+     *                 cmsLocaleId: "66f6e966c9e1dc700a857ca4",
+     *                 fieldData: {
+     *                     name: "No Entrar en P\u00E1nico",
+     *                     slug: "no-entrar-en-panico"
+     *                 }
+     *             }, {
+     *                 id: "66f6ed9576ddacf3149d5eaa",
+     *                 cmsLocaleId: "66f6e966c9e1dc700a857ca5",
+     *                 fieldData: {
+     *                     name: "Au Revoir et Merci pour Tous les Poissons",
+     *                     slug: "au-revoir-et-merci"
+     *                 }
+     *             }, {
+     *                 id: "66f6ed9576ddacf3149d5eaa",
+     *                 cmsLocaleId: "66f6e966c9e1dc700a857ca4",
+     *                 fieldData: {
+     *                     name: "Hasta Luego y Gracias por Todo el Pescado",
+     *                     slug: "hasta-luego-y-gracias"
+     *                 }
+     *             }]
+     *     })
+     *
+     * @example
+     *     await client.collections.items.updateItems("580e63fc8c9a982ac9b8b745", {
+     *         items: [{
+     *                 id: "580e64008c9a982ac9b8b754",
+     *                 isArchived: false,
+     *                 isDraft: false,
+     *                 fieldData: {
+     *                     name: "Senior Data Analyst",
+     *                     slug: "senior-data-analyst"
+     *                 }
+     *             }, {
+     *                 id: "580e64008c9a982ac9b8b754",
+     *                 isArchived: false,
+     *                 isDraft: false,
+     *                 fieldData: {
+     *                     name: "Product Manager",
+     *                     slug: "product-manager"
+     *                 }
+     *             }]
+     *     })
+     */
+    public async updateItems(
+        collectionId: string,
+        request: Webflow.collections.ItemsUpdateItemsRequest = {},
+        requestOptions?: Items.RequestOptions
+    ): Promise<Webflow.collections.ItemsUpdateItemsResponse> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                `collections/${encodeURIComponent(collectionId)}/items`
+            ),
+            method: "PATCH",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "webflow-api",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.collections.ItemsUpdateItemsRequest.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "strip",
+            }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.collections.ItemsUpdateItemsResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Webflow.BadRequestError(_response.error.body);
+                case 401:
+                    throw new Webflow.UnauthorizedError(_response.error.body);
+                case 404:
+                    throw new Webflow.NotFoundError(_response.error.body);
+                case 429:
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
+                case 500:
+                    throw new Webflow.InternalServerError(_response.error.body);
+                default:
+                    throw new errors.WebflowError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.WebflowError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.WebflowTimeoutError();
+            case "unknown":
+                throw new errors.WebflowError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * List of all live Items within a Collection.
+     *
+     * Required scope | `CMS:read`
      *
      * @param {string} collectionId - Unique identifier for a Collection
      * @param {Webflow.collections.ItemsListItemsLiveRequest} request
@@ -282,7 +523,7 @@ export class Items {
         collectionId: string,
         request: Webflow.collections.ItemsListItemsLiveRequest = {},
         requestOptions?: Items.RequestOptions
-    ): Promise<Webflow.CollectionItemList> {
+    ): Promise<Webflow.collections.ItemsListItemsLiveResponse> {
         const { cmsLocaleId, offset, limit, name, slug, sortBy, sortOrder } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (cmsLocaleId != null) {
@@ -323,8 +564,8 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -336,7 +577,7 @@ export class Items {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.CollectionItemList.parseOrThrow(_response.body, {
+            return serializers.collections.ItemsListItemsLiveResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -354,15 +595,7 @@ export class Items {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -389,10 +622,14 @@ export class Items {
     }
 
     /**
-     * Create live Item in a Collection. This Item will be published to the live site. </br></br> To create items across multiple locales, <a href="https://developers.webflow.com/data/reference/create-item-for-multiple-locales"> please use this endpoint.</a> </br></br> Required scope | `CMS:write`
+     * Create live Item(s) in a Collection. The Item(s) will be published to the live site.
+     *
+     * To create items across multiple locales, [please use this endpoint.](/v2.0.0/data/reference/cms/collection-items/bulk-items/create-items)
+     *
+     * Required scope | `CMS:write`
      *
      * @param {string} collectionId - Unique identifier for a Collection
-     * @param {Webflow.CollectionItem} request
+     * @param {Webflow.collections.ItemsCreateItemLiveRequest} request
      * @param {Items.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Webflow.BadRequestError}
@@ -403,11 +640,6 @@ export class Items {
      *
      * @example
      *     await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
-     *         id: "42b720ef280c7a7a3be8cabe",
-     *         cmsLocaleId: "653ad57de882f528b32e810e",
-     *         lastPublished: "2022-11-29T16:22:43.159Z",
-     *         lastUpdated: "2022-11-17T17:19:43.282Z",
-     *         createdOn: "2022-11-17T17:11:57.148Z",
      *         isArchived: false,
      *         isDraft: false,
      *         fieldData: {
@@ -415,12 +647,31 @@ export class Items {
      *             slug: "pan-galactic-gargle-blaster"
      *         }
      *     })
+     *
+     * @example
+     *     await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
+     *         items: [{
+     *                 isArchived: false,
+     *                 isDraft: false,
+     *                 fieldData: {
+     *                     name: "Senior Data Analyst",
+     *                     slug: "senior-data-analyst"
+     *                 }
+     *             }, {
+     *                 isArchived: false,
+     *                 isDraft: false,
+     *                 fieldData: {
+     *                     name: "Product Manager",
+     *                     slug: "product-manager"
+     *                 }
+     *             }]
+     *     })
      */
     public async createItemLive(
         collectionId: string,
-        request: Webflow.CollectionItem,
+        request: Webflow.collections.ItemsCreateItemLiveRequest,
         requestOptions?: Items.RequestOptions
-    ): Promise<Webflow.CollectionItem> {
+    ): Promise<Webflow.collections.ItemsCreateItemLiveResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -431,20 +682,22 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.CollectionItem.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: serializers.collections.ItemsCreateItemLiveRequest.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "strip",
+            }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.CollectionItem.parseOrThrow(_response.body, {
+            return serializers.collections.ItemsCreateItemLiveResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -462,15 +715,7 @@ export class Items {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -497,10 +742,14 @@ export class Items {
     }
 
     /**
-     * Create single Item in a Collection with multiple corresponding locales. </br></br> Required scope | `CMS:write`
+     * Remove an item or multiple items (up to 100 items) from the live site. Deleting published items will unpublish the items from the live site and set them to draft.
+     *
+     * **Note:** If the `cmsLocaleId` parameter is undefined or empty and the items are localized, items will be unpublished only in the primary locale.
+     *
+     * Required scope | `CMS:write`
      *
      * @param {string} collectionId - Unique identifier for a Collection
-     * @param {Webflow.BulkCollectionItem} request
+     * @param {Webflow.collections.ItemsDeleteItemsLiveRequest} request
      * @param {Items.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Webflow.BadRequestError}
@@ -510,15 +759,271 @@ export class Items {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.collections.items.createItemForMultipleLocales("580e63fc8c9a982ac9b8b745", {
-     *         id: "580e64008c9a982ac9b8b754"
+     *     await client.collections.items.deleteItemsLive("580e63fc8c9a982ac9b8b745")
+     */
+    public async deleteItemsLive(
+        collectionId: string,
+        request: Webflow.collections.ItemsDeleteItemsLiveRequest = {},
+        requestOptions?: Items.RequestOptions
+    ): Promise<void> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                `collections/${encodeURIComponent(collectionId)}/items/live`
+            ),
+            method: "DELETE",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "webflow-api",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.collections.ItemsDeleteItemsLiveRequest.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "strip",
+            }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return;
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Webflow.BadRequestError(_response.error.body);
+                case 401:
+                    throw new Webflow.UnauthorizedError(_response.error.body);
+                case 404:
+                    throw new Webflow.NotFoundError(_response.error.body);
+                case 429:
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
+                case 500:
+                    throw new Webflow.InternalServerError(_response.error.body);
+                default:
+                    throw new errors.WebflowError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.WebflowError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.WebflowTimeoutError();
+            case "unknown":
+                throw new errors.WebflowError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Update a single live item or multiple live items (up to 100) in a Collection
+     *
+     * **Note:** If the `cmsLocaleId` parameter is undefined or empty and the items are localized, items will be updated only in the primary locale.
+     *
+     * Required scope | `CMS:write`
+     *
+     * @param {string} collectionId - Unique identifier for a Collection
+     * @param {Webflow.collections.ItemsUpdateItemsLiveRequest} request
+     * @param {Items.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Webflow.BadRequestError}
+     * @throws {@link Webflow.UnauthorizedError}
+     * @throws {@link Webflow.NotFoundError}
+     * @throws {@link Webflow.TooManyRequestsError}
+     * @throws {@link Webflow.InternalServerError}
+     *
+     * @example
+     *     await client.collections.items.updateItemsLive("580e63fc8c9a982ac9b8b745", {
+     *         items: [{
+     *                 id: "66f6ed9576ddacf3149d5ea6",
+     *                 cmsLocaleId: "66f6e966c9e1dc700a857ca5",
+     *                 fieldData: {
+     *                     name: "Ne Paniquez Pas",
+     *                     slug: "ne-paniquez-pas"
+     *                 }
+     *             }, {
+     *                 id: "66f6ed9576ddacf3149d5ea6",
+     *                 cmsLocaleId: "66f6e966c9e1dc700a857ca4",
+     *                 fieldData: {
+     *                     name: "No Entrar en P\u00E1nico",
+     *                     slug: "no-entrar-en-panico"
+     *                 }
+     *             }, {
+     *                 id: "66f6ed9576ddacf3149d5eaa",
+     *                 cmsLocaleId: "66f6e966c9e1dc700a857ca5",
+     *                 fieldData: {
+     *                     name: "Au Revoir et Merci pour Tous les Poissons",
+     *                     slug: "au-revoir-et-merci"
+     *                 }
+     *             }, {
+     *                 id: "66f6ed9576ddacf3149d5eaa",
+     *                 cmsLocaleId: "66f6e966c9e1dc700a857ca4",
+     *                 fieldData: {
+     *                     name: "Hasta Luego y Gracias por Todo el Pescado",
+     *                     slug: "hasta-luego-y-gracias"
+     *                 }
+     *             }]
+     *     })
+     *
+     * @example
+     *     await client.collections.items.updateItemsLive("580e63fc8c9a982ac9b8b745", {
+     *         items: [{
+     *                 id: "580e64008c9a982ac9b8b754",
+     *                 isArchived: false,
+     *                 isDraft: false,
+     *                 fieldData: {
+     *                     name: "Senior Data Analyst",
+     *                     slug: "senior-data-analyst"
+     *                 }
+     *             }, {
+     *                 id: "580e64008c9a982ac9b8b754",
+     *                 isArchived: false,
+     *                 isDraft: false,
+     *                 fieldData: {
+     *                     name: "Product Manager",
+     *                     slug: "product-manager"
+     *                 }
+     *             }]
      *     })
      */
-    public async createItemForMultipleLocales(
+    public async updateItemsLive(
         collectionId: string,
-        request: Webflow.BulkCollectionItem,
+        request: Webflow.collections.ItemsUpdateItemsLiveRequest = {},
         requestOptions?: Items.RequestOptions
-    ): Promise<Webflow.BulkCollectionItem> {
+    ): Promise<Webflow.collections.ItemsUpdateItemsLiveResponse> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                `collections/${encodeURIComponent(collectionId)}/items/live`
+            ),
+            method: "PATCH",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "webflow-api",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.collections.ItemsUpdateItemsLiveRequest.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "strip",
+            }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.collections.ItemsUpdateItemsLiveResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Webflow.BadRequestError(_response.error.body);
+                case 401:
+                    throw new Webflow.UnauthorizedError(_response.error.body);
+                case 404:
+                    throw new Webflow.NotFoundError(_response.error.body);
+                case 429:
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
+                case 500:
+                    throw new Webflow.InternalServerError(_response.error.body);
+                default:
+                    throw new errors.WebflowError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.WebflowError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.WebflowTimeoutError();
+            case "unknown":
+                throw new errors.WebflowError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Create an item or multiple items in a CMS Collection across multiple corresponding locales.
+     *
+     * **Notes:**
+     *
+     * - This endpoint can create up to 100 items in a request.
+     * - If the `cmsLocaleIds` parameter is undefined or empty and localization is enabled, items will only be created in the primary locale.
+     *
+     * Required scope | `CMS:write`
+     *
+     * @param {string} collectionId - Unique identifier for a Collection
+     * @param {Webflow.collections.ItemsCreateItemsRequest} request
+     * @param {Items.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Webflow.BadRequestError}
+     * @throws {@link Webflow.UnauthorizedError}
+     * @throws {@link Webflow.NotFoundError}
+     * @throws {@link Webflow.TooManyRequestsError}
+     * @throws {@link Webflow.InternalServerError}
+     *
+     * @example
+     *     await client.collections.items.createItems("580e63fc8c9a982ac9b8b745", {
+     *         cmsLocaleIds: ["66f6e966c9e1dc700a857ca3", "66f6e966c9e1dc700a857ca4", "66f6e966c9e1dc700a857ca5"],
+     *         isArchived: false,
+     *         isDraft: false,
+     *         fieldData: {
+     *             name: "Don\u2019t Panic",
+     *             slug: "dont-panic"
+     *         }
+     *     })
+     *
+     * @example
+     *     await client.collections.items.createItems("580e63fc8c9a982ac9b8b745", {
+     *         cmsLocaleIds: ["66f6e966c9e1dc700a857ca3", "66f6e966c9e1dc700a857ca4"],
+     *         isArchived: false,
+     *         isDraft: false,
+     *         fieldData: [{
+     *                 name: "Don\u2019t Panic",
+     *                 slug: "dont-panic"
+     *             }, {
+     *                 name: "So Long and Thanks for All the Fish",
+     *                 slug: "so-long-and-thanks"
+     *             }]
+     *     })
+     */
+    public async createItems(
+        collectionId: string,
+        request: Webflow.collections.ItemsCreateItemsRequest = {},
+        requestOptions?: Items.RequestOptions
+    ): Promise<Webflow.collections.ItemsCreateItemsResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -529,20 +1034,22 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.BulkCollectionItem.jsonOrThrow(request, { unrecognizedObjectKeys: "passthrough" }),
+            body: serializers.collections.ItemsCreateItemsRequest.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "strip",
+            }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.BulkCollectionItem.parseOrThrow(_response.body, {
+            return serializers.collections.ItemsCreateItemsResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -560,15 +1067,7 @@ export class Items {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -595,7 +1094,9 @@ export class Items {
     }
 
     /**
-     * Get details of a selected Collection Item. </br></br> Required scope | `CMS:read`
+     * Get details of a selected Collection Item.
+     *
+     * Required scope | `CMS:read`
      *
      * @param {string} collectionId - Unique identifier for a Collection
      * @param {string} itemId - Unique identifier for an Item
@@ -616,7 +1117,7 @@ export class Items {
         itemId: string,
         request: Webflow.collections.ItemsGetItemRequest = {},
         requestOptions?: Items.RequestOptions
-    ): Promise<Webflow.CollectionItem> {
+    ): Promise<Webflow.collections.ItemsGetItemResponse> {
         const { cmsLocaleId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (cmsLocaleId != null) {
@@ -633,8 +1134,8 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -646,7 +1147,7 @@ export class Items {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.CollectionItem.parseOrThrow(_response.body, {
+            return serializers.collections.ItemsGetItemResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -664,15 +1165,7 @@ export class Items {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -699,7 +1192,9 @@ export class Items {
     }
 
     /**
-     * Delete an Item from a Collection. This endpoint does not currently support bulk deletion. </br></br> Required scope | `CMS:write`
+     * Delete an Item from a Collection. This endpoint does not currently support bulk deletion.
+     *
+     * Required scope | `CMS:write`
      *
      * @param {string} collectionId - Unique identifier for a Collection
      * @param {string} itemId - Unique identifier for an Item
@@ -737,8 +1232,8 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -762,15 +1257,7 @@ export class Items {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -797,11 +1284,13 @@ export class Items {
     }
 
     /**
-     * Update a selected Item in a Collection. </br></br> Required scope | `CMS:write`
+     * Update a selected Item in a Collection.
+     *
+     * Required scope | `CMS:write`
      *
      * @param {string} collectionId - Unique identifier for a Collection
      * @param {string} itemId - Unique identifier for an Item
-     * @param {Webflow.CollectionItem} request
+     * @param {Webflow.collections.ItemsUpdateItemRequest} request
      * @param {Items.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Webflow.BadRequestError}
@@ -828,9 +1317,9 @@ export class Items {
     public async updateItem(
         collectionId: string,
         itemId: string,
-        request: Webflow.CollectionItem,
+        request: Webflow.collections.ItemsUpdateItemRequest,
         requestOptions?: Items.RequestOptions
-    ): Promise<Webflow.CollectionItem> {
+    ): Promise<Webflow.collections.ItemsUpdateItemResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -841,20 +1330,22 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.CollectionItem.jsonOrThrow(request, { unrecognizedObjectKeys: "passthrough" }),
+            body: serializers.collections.ItemsUpdateItemRequest.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "strip",
+            }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.CollectionItem.parseOrThrow(_response.body, {
+            return serializers.collections.ItemsUpdateItemResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -872,15 +1363,7 @@ export class Items {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -907,7 +1390,9 @@ export class Items {
     }
 
     /**
-     * Get details of a selected Collection live Item. </br></br> Required scope | `CMS:read`
+     * Get details of a selected Collection live Item.
+     *
+     * Required scope | `CMS:read`
      *
      * @param {string} collectionId - Unique identifier for a Collection
      * @param {string} itemId - Unique identifier for an Item
@@ -928,7 +1413,7 @@ export class Items {
         itemId: string,
         request: Webflow.collections.ItemsGetItemLiveRequest = {},
         requestOptions?: Items.RequestOptions
-    ): Promise<Webflow.CollectionItem> {
+    ): Promise<Webflow.collections.ItemsGetItemLiveResponse> {
         const { cmsLocaleId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (cmsLocaleId != null) {
@@ -945,8 +1430,8 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -958,7 +1443,7 @@ export class Items {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.CollectionItem.parseOrThrow(_response.body, {
+            return serializers.collections.ItemsGetItemLiveResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -976,15 +1461,7 @@ export class Items {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -1011,7 +1488,11 @@ export class Items {
     }
 
     /**
-     * Remove a live item from the site. Removing a published item will unpublish the item from the live site and set it to draft. This endpoint does not currently support bulk deletion.</br></br> Required scope | `CMS:write`
+     * Remove a live item from the site. Removing a published item will unpublish the item from the live site and set it to draft.
+     *
+     * This endpoint does not currently support bulk deletion.
+     *
+     * Required scope | `CMS:write`
      *
      * @param {string} collectionId - Unique identifier for a Collection
      * @param {string} itemId - Unique identifier for an Item
@@ -1049,8 +1530,8 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -1074,15 +1555,7 @@ export class Items {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -1109,11 +1582,13 @@ export class Items {
     }
 
     /**
-     * Update a selected live Item in a Collection. The updates for this Item will be published to the live site. </br></br> Required scope | `CMS:write`
+     * Update a selected live Item in a Collection. The updates for this Item will be published to the live site.
+     *
+     * Required scope | `CMS:write`
      *
      * @param {string} collectionId - Unique identifier for a Collection
      * @param {string} itemId - Unique identifier for an Item
-     * @param {Webflow.CollectionItem} request
+     * @param {Webflow.collections.ItemsUpdateItemLiveRequest} request
      * @param {Items.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Webflow.BadRequestError}
@@ -1140,9 +1615,9 @@ export class Items {
     public async updateItemLive(
         collectionId: string,
         itemId: string,
-        request: Webflow.CollectionItem,
+        request: Webflow.collections.ItemsUpdateItemLiveRequest,
         requestOptions?: Items.RequestOptions
-    ): Promise<Webflow.CollectionItem> {
+    ): Promise<Webflow.collections.ItemsUpdateItemLiveResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -1153,20 +1628,22 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.CollectionItem.jsonOrThrow(request, { unrecognizedObjectKeys: "passthrough" }),
+            body: serializers.collections.ItemsUpdateItemLiveRequest.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "strip",
+            }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.CollectionItem.parseOrThrow(_response.body, {
+            return serializers.collections.ItemsUpdateItemLiveResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -1184,15 +1661,7 @@ export class Items {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -1219,7 +1688,9 @@ export class Items {
     }
 
     /**
-     * Publish an item or multiple items. </br></br> Required scope | `cms:write`
+     * Publish an item or multiple items.
+     *
+     * Required scope | `cms:write`
      *
      * @param {string} collectionId - Unique identifier for a Collection
      * @param {Webflow.collections.ItemsPublishItemRequest} request
@@ -1228,6 +1699,7 @@ export class Items {
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
+     * @throws {@link Webflow.ConflictError}
      * @throws {@link Webflow.TooManyRequestsError}
      * @throws {@link Webflow.InternalServerError}
      *
@@ -1251,8 +1723,8 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -1283,16 +1755,10 @@ export class Items {
                     throw new Webflow.UnauthorizedError(_response.error.body);
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
+                case 409:
+                    throw new Webflow.ConflictError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:

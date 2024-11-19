@@ -4,4 +4,13 @@
 
 import * as Webflow from "../index";
 
-export type BadRequestErrorBody = Webflow.InvalidDomain | undefined | Webflow.NoDomains | undefined;
+export interface BadRequestErrorBody {
+    /** Error code */
+    code?: Webflow.BadRequestErrorBodyCode;
+    /** Error message */
+    message?: string;
+    /** Link to more information */
+    externalReference?: string;
+    /** Array of errors */
+    details?: Webflow.BadRequestErrorBodyDetailsItem[];
+}

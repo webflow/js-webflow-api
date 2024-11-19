@@ -6,7 +6,7 @@ import * as Webflow from "../../../index";
 
 export interface SitesPublishResponse {
     /** Array of domains objects */
-    customDomains?: Webflow.Domain[];
+    customDomains?: Webflow.SitesPublishResponseCustomDomainsItem[];
     /** Flag for publishing to webflow.io subdomain */
     publishToWebflowSubdomain?: boolean;
 }

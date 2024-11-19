@@ -5,20 +5,20 @@
 import * as serializers from "../../../../index";
 import * as Webflow from "../../../../../api/index";
 import * as core from "../../../../../core";
-import { PublishStatus } from "../../../../types/PublishStatus";
-import { Sku } from "../../../../types/Sku";
+import { ProductsCreateSkuRequestPublishStatus } from "../../types/ProductsCreateSkuRequestPublishStatus";
+import { ProductsCreateSkuRequestSkusItem } from "../../types/ProductsCreateSkuRequestSkusItem";
 
 export const ProductsCreateSkuRequest: core.serialization.Schema<
     serializers.ProductsCreateSkuRequest.Raw,
     Webflow.ProductsCreateSkuRequest
 > = core.serialization.object({
-    publishStatus: PublishStatus.optional(),
-    skus: core.serialization.list(Sku),
+    publishStatus: ProductsCreateSkuRequestPublishStatus.optional(),
+    skus: core.serialization.list(ProductsCreateSkuRequestSkusItem),
 });
 
 export declare namespace ProductsCreateSkuRequest {
     interface Raw {
-        publishStatus?: PublishStatus.Raw | null;
-        skus: Sku.Raw[];
+        publishStatus?: ProductsCreateSkuRequestPublishStatus.Raw | null;
+        skus: ProductsCreateSkuRequestSkusItem.Raw[];
     }
 }

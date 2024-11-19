@@ -5,14 +5,24 @@
 import * as serializers from "../index";
 import * as Webflow from "../../api/index";
 import * as core from "../../core";
-import { InvalidDomain } from "./InvalidDomain";
-import { NoDomains } from "./NoDomains";
+import { BadRequestErrorBodyCode } from "./BadRequestErrorBodyCode";
+import { BadRequestErrorBodyDetailsItem } from "./BadRequestErrorBodyDetailsItem";
 
-export const BadRequestErrorBody: core.serialization.Schema<
+export const BadRequestErrorBody: core.serialization.ObjectSchema<
     serializers.BadRequestErrorBody.Raw,
     Webflow.BadRequestErrorBody
-> = core.serialization.undiscriminatedUnion([InvalidDomain, NoDomains]);
+> = core.serialization.object({
+    code: BadRequestErrorBodyCode.optional(),
+    message: core.serialization.string().optional(),
+    externalReference: core.serialization.string().optional(),
+    details: core.serialization.list(BadRequestErrorBodyDetailsItem).optional(),
+});
 
 export declare namespace BadRequestErrorBody {
-    type Raw = (InvalidDomain.Raw | undefined) | (NoDomains.Raw | undefined);
+    interface Raw {
+        code?: BadRequestErrorBodyCode.Raw | null;
+        message?: string | null;
+        externalReference?: string | null;
+        details?: BadRequestErrorBodyDetailsItem.Raw[] | null;
+    }
 }

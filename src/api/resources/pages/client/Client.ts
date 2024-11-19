@@ -30,7 +30,9 @@ export class Pages {
     constructor(protected readonly _options: Pages.Options) {}
 
     /**
-     * List of all pages for a site </br></br> Required scope | `pages:read`
+     * List of all pages for a site.
+     *
+     * Required scope | `pages:read`
      *
      * @param {string} siteId - Unique identifier for a Site
      * @param {Webflow.PagesListRequest} request
@@ -44,18 +46,18 @@ export class Pages {
      *
      * @example
      *     await client.pages.list("580e63e98c9a982ac9b8b741", {
-     *         locale: "65427cf400e02b306eaa04a0"
+     *         localeId: "65427cf400e02b306eaa04a0"
      *     })
      */
     public async list(
         siteId: string,
         request: Webflow.PagesListRequest = {},
         requestOptions?: Pages.RequestOptions
-    ): Promise<Webflow.PageList> {
-        const { locale, limit, offset } = request;
+    ): Promise<Webflow.PagesListResponse> {
+        const { localeId, limit, offset } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (locale != null) {
-            _queryParams["locale"] = locale;
+        if (localeId != null) {
+            _queryParams["localeId"] = localeId;
         }
 
         if (limit != null) {
@@ -76,8 +78,8 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -89,7 +91,7 @@ export class Pages {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.PageList.parseOrThrow(_response.body, {
+            return serializers.PagesListResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -107,15 +109,7 @@ export class Pages {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -142,7 +136,9 @@ export class Pages {
     }
 
     /**
-     * Get metadata information for a single page </br></br> Required scope | `pages:read`
+     * Get metadata information for a single page.
+     *
+     * Required scope | `pages:read`
      *
      * @param {string} pageId - Unique identifier for a Page
      * @param {Webflow.PagesGetMetadataRequest} request
@@ -156,18 +152,18 @@ export class Pages {
      *
      * @example
      *     await client.pages.getMetadata("63c720f9347c2139b248e552", {
-     *         locale: "65427cf400e02b306eaa04a0"
+     *         localeId: "65427cf400e02b306eaa04a0"
      *     })
      */
     public async getMetadata(
         pageId: string,
         request: Webflow.PagesGetMetadataRequest = {},
         requestOptions?: Pages.RequestOptions
-    ): Promise<Webflow.Page> {
-        const { locale } = request;
+    ): Promise<Webflow.PagesGetMetadataResponse> {
+        const { localeId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (locale != null) {
-            _queryParams["locale"] = locale;
+        if (localeId != null) {
+            _queryParams["localeId"] = localeId;
         }
 
         const _response = await core.fetcher({
@@ -180,8 +176,8 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -193,7 +189,7 @@ export class Pages {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.Page.parseOrThrow(_response.body, {
+            return serializers.PagesGetMetadataResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -211,15 +207,7 @@ export class Pages {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -246,7 +234,9 @@ export class Pages {
     }
 
     /**
-     * Update Page-level metadata, including SEO and Open Graph fields. </br></br> Required scope | `pages:write`
+     * Update Page-level metadata, including SEO and Open Graph fields.
+     *
+     * Required scope | `pages:write`
      *
      * @param {string} pageId - Unique identifier for a Page
      * @param {Webflow.UpdatePageSettingsRequest} request
@@ -260,43 +250,28 @@ export class Pages {
      *
      * @example
      *     await client.pages.updatePageSettings("63c720f9347c2139b248e552", {
-     *         locale: "65427cf400e02b306eaa04a0",
-     *         body: {
-     *             id: "6596da6045e56dee495bcbba",
-     *             siteId: "6258612d1ee792848f805dcf",
-     *             title: "Guide to the Galaxy",
-     *             slug: "guide-to-the-galaxy",
-     *             parentId: "6419db964a9c435aa3af6251",
-     *             collectionId: "6390c49774a71f12831a08e3",
-     *             createdOn: "2024-03-11T10:42:00Z",
-     *             lastUpdated: "2024-03-11T10:42:42Z",
-     *             archived: false,
-     *             draft: false,
-     *             canBranch: true,
-     *             seo: {
-     *                 title: "The Ultimate Hitchhiker's Guide to the Galaxy",
-     *                 description: "Everything you need to know about the galaxy, from avoiding Vogon poetry to the importance of towels."
-     *             },
-     *             openGraph: {
-     *                 title: "Explore the Cosmos with The Ultimate Guide",
-     *                 titleCopied: false,
-     *                 description: "Dive deep into the mysteries of the universe with your guide to everything galactic.",
-     *                 descriptionCopied: false
-     *             },
-     *             localeId: "653fd9af6a07fc9cfd7a5e57",
-     *             publishedPath: "/en-us/guide-to-the-galaxy"
+     *         localeId: "65427cf400e02b306eaa04a0",
+     *         title: "Guide to the Galaxy",
+     *         slug: "guide-to-the-galaxy",
+     *         seo: {
+     *             title: "The Ultimate Hitchhiker's Guide to the Galaxy",
+     *             description: "Everything you need to know about the galaxy, from avoiding Vogon poetry to the importance of towels."
+     *         },
+     *         openGraph: {
+     *             title: "Explore the Cosmos with The Ultimate Guide",
+     *             description: "Dive deep into the mysteries of the universe with your guide to everything galactic."
      *         }
      *     })
      */
     public async updatePageSettings(
         pageId: string,
-        request: Webflow.UpdatePageSettingsRequest,
+        request: Webflow.UpdatePageSettingsRequest = {},
         requestOptions?: Pages.RequestOptions
-    ): Promise<Webflow.Page> {
-        const { locale, body: _body } = request;
+    ): Promise<Webflow.UpdatePageSettingsResponse> {
+        const { localeId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (locale != null) {
-            _queryParams["locale"] = locale;
+        if (localeId != null) {
+            _queryParams["localeId"] = localeId;
         }
 
         const _response = await core.fetcher({
@@ -309,21 +284,21 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.Page.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            body: serializers.UpdatePageSettingsRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.Page.parseOrThrow(_response.body, {
+            return serializers.UpdatePageSettingsResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -341,15 +316,7 @@ export class Pages {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -376,7 +343,11 @@ export class Pages {
     }
 
     /**
-     * Get static content from a static page. </br> If you do not provide a Locale ID in your request, the response will return any content that can be localized from the Primary locale</br></br> Required scope | `pages:read`
+     * Get static content from a static page.
+     *
+     * If you do not provide a Locale ID in your request, the response will return any content that can be localized from the Primary locale.
+     *
+     * Required scope | `pages:read`
      *
      * @param {string} pageId - Unique identifier for a Page
      * @param {Webflow.PagesGetContentRequest} request
@@ -391,18 +362,18 @@ export class Pages {
      *
      * @example
      *     await client.pages.getContent("63c720f9347c2139b248e552", {
-     *         locale: "65427cf400e02b306eaa04a0"
+     *         localeId: "65427cf400e02b306eaa04a0"
      *     })
      */
     public async getContent(
         pageId: string,
         request: Webflow.PagesGetContentRequest = {},
         requestOptions?: Pages.RequestOptions
-    ): Promise<Webflow.Dom> {
-        const { locale, limit, offset } = request;
+    ): Promise<Webflow.PagesGetContentResponse> {
+        const { localeId, limit, offset } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (locale != null) {
-            _queryParams["locale"] = locale;
+        if (localeId != null) {
+            _queryParams["localeId"] = localeId;
         }
 
         if (limit != null) {
@@ -423,8 +394,8 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -436,7 +407,7 @@ export class Pages {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.Dom.parseOrThrow(_response.body, {
+            return serializers.PagesGetContentResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -456,15 +427,7 @@ export class Pages {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -498,7 +461,7 @@ export class Pages {
      * Required scope | `pages:write`
      *
      * @param {string} pageId - Unique identifier for a Page
-     * @param {Webflow.DomWrite} request
+     * @param {Webflow.UpdateStaticContentRequest} request
      * @param {Pages.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Webflow.BadRequestError}
@@ -510,27 +473,30 @@ export class Pages {
      *
      * @example
      *     await client.pages.updateStaticContent("63c720f9347c2139b248e552", {
-     *         locale: "locale",
+     *         localeId: "65427cf400e02b306eaa04a0",
      *         nodes: [{
      *                 nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad623",
-     *                 text: "<h1>The Hitchhiker's Guide to the Galaxy</h1>"
+     *                 text: "<h1>The Hitchhiker\u2019s Guide to the Galaxy</h1>"
      *             }, {
      *                 nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad627",
-     *                 text: "<div><h3>Don't Panic!</h3><p>Always know where your towel is.</p></div>"
+     *                 text: "<div><h3>Don\u2019t Panic!</h3><p>Always know where your towel is.</p></div>"
      *             }, {
      *                 nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad629",
-     *                 text: "<img alt='Marvin, the Paranoid Android' src='path/to/image/with/assetId/659595234426a9fcbad57043'/>"
+     *                 text: "<img alt=\"Marvin, the Paranoid Android\" src=\"path/to/image/with/assetId/659595234426a9fcbad57043\"/>"
      *             }]
      *     })
      */
     public async updateStaticContent(
         pageId: string,
-        request: Webflow.DomWrite,
+        request: Webflow.UpdateStaticContentRequest,
         requestOptions?: Pages.RequestOptions
     ): Promise<Webflow.UpdateStaticContentResponse> {
-        const { locale, ..._body } = request;
+        const { localeId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        _queryParams["locale"] = locale;
+        if (localeId != null) {
+            _queryParams["localeId"] = localeId;
+        }
+
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -541,15 +507,15 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.DomWrite.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            body: serializers.UpdateStaticContentRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -575,15 +541,7 @@ export class Pages {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:

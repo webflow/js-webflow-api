@@ -29,7 +29,16 @@ export class Scripts {
     constructor(protected readonly _options: Scripts.Options) {}
 
     /**
-     * List of scripts registered to a Site. </br></br> In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts must first be registered to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate `custom_code` endpoints. Additionally, Scripts can be remotely hosted, or registered as inline snippets. <blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote> Required scope | `custom_code:read`
+     * List of scripts registered to a Site.
+     *
+     * In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts must first be registered
+     * to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate
+     * `custom_code` endpoints.
+     * Additionally, Scripts can be remotely hosted, or registered as inline snippets.
+     *
+     * <blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote>
+     *
+     * Required scope | `custom_code:read`
      *
      * @param {string} siteId - Unique identifier for a Site
      * @param {Scripts.RequestOptions} requestOptions - Request-specific configuration.
@@ -43,7 +52,7 @@ export class Scripts {
      * @example
      *     await client.scripts.list("580e63e98c9a982ac9b8b741")
      */
-    public async list(siteId: string, requestOptions?: Scripts.RequestOptions): Promise<Webflow.RegisteredScriptList> {
+    public async list(siteId: string, requestOptions?: Scripts.RequestOptions): Promise<Webflow.ScriptsListResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -54,8 +63,8 @@ export class Scripts {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -66,7 +75,7 @@ export class Scripts {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.RegisteredScriptList.parseOrThrow(_response.body, {
+            return serializers.ScriptsListResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -84,15 +93,7 @@ export class Scripts {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -119,10 +120,19 @@ export class Scripts {
     }
 
     /**
-     * Add a script to a Site's Custom Code registry. </br></br> In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts must first be registered to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate `custom_code` endpoints. Additionally, Scripts can be remotely hosted, or registered as inline snippets. <blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote> </br></br> Required scope | `custom_code:write`
+     * Add a script to a Site's Custom Code registry.
+     *
+     * In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts must first be registered
+     * to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate
+     * `custom_code` endpoints.
+     * Additionally, Scripts can be remotely hosted, or registered as inline snippets.
+     *
+     * <blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote>
+     *
+     * Required scope | `custom_code:write`
      *
      * @param {string} siteId - Unique identifier for a Site
-     * @param {Webflow.CustomCodeHostedRequest} request
+     * @param {Webflow.ScriptsRegisterHostedRequest} request
      * @param {Scripts.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Webflow.BadRequestError}
@@ -133,17 +143,18 @@ export class Scripts {
      *
      * @example
      *     await client.scripts.registerHosted("580e63e98c9a982ac9b8b741", {
-     *         hostedLocation: "hostedLocation",
-     *         integrityHash: "integrityHash",
-     *         version: "version",
-     *         displayName: "displayName"
+     *         hostedLocation: "https://cdn.jsdelivr.net/.../cmsslider.js",
+     *         integrityHash: "sha384-J+YlJ8v0gpaRoKH7SbFbEmxOZlAxLiwNjfSsBhDooGa5roXlPPpXbEevck4J7YZ+",
+     *         canCopy: true,
+     *         version: "1.0.0",
+     *         displayName: "CMS Slider"
      *     })
      */
     public async registerHosted(
         siteId: string,
-        request: Webflow.CustomCodeHostedRequest,
+        request: Webflow.ScriptsRegisterHostedRequest,
         requestOptions?: Scripts.RequestOptions
-    ): Promise<Webflow.CustomCodeHostedResponse> {
+    ): Promise<Webflow.ScriptsRegisterHostedResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -154,20 +165,20 @@ export class Scripts {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.CustomCodeHostedRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: serializers.ScriptsRegisterHostedRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.CustomCodeHostedResponse.parseOrThrow(_response.body, {
+            return serializers.ScriptsRegisterHostedResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -185,15 +196,7 @@ export class Scripts {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -220,10 +223,18 @@ export class Scripts {
     }
 
     /**
-     * Add a script to a Site's Custom Code registry. Inline scripts can be between 1 and 2000 characters. </br></br> In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts must first be registered to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate `custom_code` endpoints. </br></br> <blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote> Required scope | `custom_code:write`
+     * Add a script to a Site's Custom Code registry. Inline scripts can be between 1 and 2000 characters.
+     *
+     * In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts must first be registered
+     * to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate
+     * `custom_code` endpoints.
+     *
+     * <blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote>
+     *
+     * Required scope | `custom_code:write`
      *
      * @param {string} siteId - Unique identifier for a Site
-     * @param {Webflow.CustomCodeInlineRequest} request
+     * @param {Webflow.ScriptsRegisterInlineRequest} request
      * @param {Scripts.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Webflow.BadRequestError}
@@ -241,9 +252,9 @@ export class Scripts {
      */
     public async registerInline(
         siteId: string,
-        request: Webflow.CustomCodeInlineRequest,
+        request: Webflow.ScriptsRegisterInlineRequest,
         requestOptions?: Scripts.RequestOptions
-    ): Promise<Webflow.CustomCodeInlineResponse> {
+    ): Promise<Webflow.ScriptsRegisterInlineResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -254,20 +265,20 @@ export class Scripts {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.CustomCodeInlineRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: serializers.ScriptsRegisterInlineRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.CustomCodeInlineResponse.parseOrThrow(_response.body, {
+            return serializers.ScriptsRegisterInlineResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -285,15 +296,7 @@ export class Scripts {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:

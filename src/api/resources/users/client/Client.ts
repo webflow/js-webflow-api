@@ -29,7 +29,9 @@ export class Users {
     constructor(protected readonly _options: Users.Options) {}
 
     /**
-     * Get a list of users for a site <br><br> Required scope | `users:read`
+     * Get a list of users for a site
+     *
+     * Required scope | `users:read`
      *
      * @param {string} siteId - Unique identifier for a Site
      * @param {Webflow.UsersListRequest} request
@@ -49,7 +51,7 @@ export class Users {
         siteId: string,
         request: Webflow.UsersListRequest = {},
         requestOptions?: Users.RequestOptions
-    ): Promise<Webflow.UserList> {
+    ): Promise<Webflow.UsersListResponse> {
         const { offset, limit, sort } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (offset != null) {
@@ -74,8 +76,8 @@ export class Users {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -87,7 +89,7 @@ export class Users {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.UserList.parseOrThrow(_response.body, {
+            return serializers.UsersListResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -107,15 +109,7 @@ export class Users {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -142,7 +136,9 @@ export class Users {
     }
 
     /**
-     * Get a User by ID <br><br> Required scope | `users:read`
+     * Get a User by ID
+     *
+     * Required scope | `users:read`
      *
      * @param {string} siteId - Unique identifier for a Site
      * @param {string} userId - Unique identifier for a User
@@ -158,7 +154,11 @@ export class Users {
      * @example
      *     await client.users.get("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741")
      */
-    public async get(siteId: string, userId: string, requestOptions?: Users.RequestOptions): Promise<Webflow.User> {
+    public async get(
+        siteId: string,
+        userId: string,
+        requestOptions?: Users.RequestOptions
+    ): Promise<Webflow.UsersGetResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -169,8 +169,8 @@ export class Users {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -181,7 +181,7 @@ export class Users {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.User.parseOrThrow(_response.body, {
+            return serializers.UsersGetResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -201,15 +201,7 @@ export class Users {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -236,7 +228,9 @@ export class Users {
     }
 
     /**
-     * Delete a User by ID <br><br> Required scope | `users:write`
+     * Delete a User by ID
+     *
+     * Required scope | `users:write`
      *
      * @param {string} siteId - Unique identifier for a Site
      * @param {string} userId - Unique identifier for a User
@@ -263,8 +257,8 @@ export class Users {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -289,15 +283,7 @@ export class Users {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -324,9 +310,12 @@ export class Users {
     }
 
     /**
-     * Update a User by ID <br><br> Required scope | `users:write`
+     * Update a User by ID
      *
-     * <aside class="notice">The <code>email</code> and <code>password</code> fields cannot be updated using this endpoint</aside>
+     * Required scope | `users:write`
+     *
+     * <Note class="notice">The <code>email</code> and <code>password</code>
+     * fields cannot be updated using this endpoint</Note>
      *
      * @param {string} siteId - Unique identifier for a Site
      * @param {string} userId - Unique identifier for a User
@@ -355,7 +344,7 @@ export class Users {
         userId: string,
         request: Webflow.UsersUpdateRequest = {},
         requestOptions?: Users.RequestOptions
-    ): Promise<Webflow.User> {
+    ): Promise<Webflow.UsersUpdateResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -366,8 +355,8 @@ export class Users {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -379,7 +368,7 @@ export class Users {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.User.parseOrThrow(_response.body, {
+            return serializers.UsersUpdateResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -399,15 +388,7 @@ export class Users {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -434,7 +415,11 @@ export class Users {
     }
 
     /**
-     * Create and invite a user with an email address. The user will be sent and invite via email, which they will need to accept in order to join paid Access Groups. <br><br> Required scope | `users:write`
+     * Create and invite a user with an email address.
+     *
+     * The user will be sent and invite via email, which they will need to accept in order to join paid any paid access group.
+     *
+     * Required scope | `users:write`
      *
      * @param {string} siteId - Unique identifier for a Site
      * @param {Webflow.UsersInviteRequest} request
@@ -458,7 +443,7 @@ export class Users {
         siteId: string,
         request: Webflow.UsersInviteRequest,
         requestOptions?: Users.RequestOptions
-    ): Promise<Webflow.User> {
+    ): Promise<Webflow.UsersInviteResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -469,8 +454,8 @@ export class Users {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -482,7 +467,7 @@ export class Users {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.User.parseOrThrow(_response.body, {
+            return serializers.UsersInviteResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -504,15 +489,7 @@ export class Users {
                 case 409:
                     throw new Webflow.ConflictError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:

@@ -1,2 +1,2 @@
-export { CustomCodeHostedRequest } from "./CustomCodeHostedRequest";
-export { CustomCodeInlineRequest } from "./CustomCodeInlineRequest";
+export { ScriptsRegisterHostedRequest } from "./ScriptsRegisterHostedRequest";
+export { ScriptsRegisterInlineRequest } from "./ScriptsRegisterInlineRequest";

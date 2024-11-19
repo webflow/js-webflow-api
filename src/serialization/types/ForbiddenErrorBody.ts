@@ -5,24 +5,24 @@
 import * as serializers from "../index";
 import * as Webflow from "../../api/index";
 import * as core from "../../core";
+import { ForbiddenErrorBodyCode } from "./ForbiddenErrorBodyCode";
+import { ForbiddenErrorBodyDetailsItem } from "./ForbiddenErrorBodyDetailsItem";
 
 export const ForbiddenErrorBody: core.serialization.ObjectSchema<
     serializers.ForbiddenErrorBody.Raw,
     Webflow.ForbiddenErrorBody
 > = core.serialization.object({
-    status: core.serialization.number().optional(),
+    code: ForbiddenErrorBodyCode.optional(),
     message: core.serialization.string().optional(),
-    publicErrorCode: core.serialization.string().optional(),
     externalReference: core.serialization.string().optional(),
-    details: core.serialization.list(core.serialization.string()).optional(),
+    details: core.serialization.list(ForbiddenErrorBodyDetailsItem).optional(),
 });
 
 export declare namespace ForbiddenErrorBody {
     interface Raw {
-        status?: number | null;
+        code?: ForbiddenErrorBodyCode.Raw | null;
         message?: string | null;
-        publicErrorCode?: string | null;
         externalReference?: string | null;
-        details?: string[] | null;
+        details?: ForbiddenErrorBodyDetailsItem.Raw[] | null;
     }
 }

@@ -29,7 +29,9 @@ export class AccessGroups {
     constructor(protected readonly _options: AccessGroups.Options) {}
 
     /**
-     * Get a list of access groups for a site <br><br> Required scope | `users:read`
+     * Get a list of access groups for a site
+     *
+     * Required scope | `users:read`
      *
      * @param {string} siteId - Unique identifier for a Site
      * @param {Webflow.AccessGroupsListRequest} request
@@ -49,7 +51,7 @@ export class AccessGroups {
         siteId: string,
         request: Webflow.AccessGroupsListRequest = {},
         requestOptions?: AccessGroups.RequestOptions
-    ): Promise<Webflow.AccessGroupList> {
+    ): Promise<Webflow.AccessGroupsListResponse> {
         const { offset, limit, sort } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (offset != null) {
@@ -74,8 +76,8 @@ export class AccessGroups {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -87,7 +89,7 @@ export class AccessGroups {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.AccessGroupList.parseOrThrow(_response.body, {
+            return serializers.AccessGroupsListResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -107,15 +109,7 @@ export class AccessGroups {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:

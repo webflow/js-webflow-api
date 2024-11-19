@@ -1,0 +1,13 @@
+name: api
+error-discrimination:
+  strategy: status-code
+display-name: Data API
+environments:
+  Default: https://api.webflow.com/v2
+default-environment: Default
+auth-schemes:
+  BearerToken:
+    scheme: bearer
+    token:
+      name: accessToken
+auth: BearerToken

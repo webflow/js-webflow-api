@@ -1,0 +1,135 @@
+types:
+  TokenAuthorizedByResponse:
+    properties:
+      id:
+        type: optional<string>
+        docs: The unique ID of the user
+      email:
+        type: optional<string>
+        docs: The user's email address
+        validation:
+          format: email
+      firstName:
+        type: optional<string>
+        docs: The user's first name
+      lastName:
+        type: optional<string>
+        docs: The user's last name
+    source:
+      openapi: v2-data.yml
+  TokenIntrospectResponseAuthorizationAuthorizedTo:
+    properties:
+      siteIds:
+        type: optional<list<unknown>>
+        docs: Array of Sites this app is authorized to
+      workspaceIds:
+        type: optional<list<unknown>>
+        docs: Array of Workspaces this app is authorized to
+      userIds:
+        type: optional<list<unknown>>
+        docs: Array of Users this app is authorized to
+    source:
+      openapi: v2-data.yml
+  TokenIntrospectResponseAuthorization:
+    docs: The Authorization object
+    properties:
+      id:
+        type: optional<string>
+        docs: The unique ID of the Authorization instance
+      createdOn:
+        type: optional<datetime>
+        docs: The date the Authorization was created
+      lastUsed:
+        type: optional<datetime>
+        docs: The date the Authorization was last used
+      grantType:
+        type: optional<string>
+        docs: The grant type of the Authorization
+      rateLimit:
+        type: optional<integer>
+        docs: The default rate limit for the Authorization (requests/min)
+      scope:
+        type: optional<string>
+        docs: Comma separted list of OAuth scopes corresponding to the Authorization
+      authorizedTo: optional<TokenIntrospectResponseAuthorizationAuthorizedTo>
+    source:
+      openapi: v2-data.yml
+  TokenIntrospectResponse:
+    properties:
+      authorization:
+        type: optional<TokenIntrospectResponseAuthorization>
+        docs: The Authorization object
+      application: optional<unknown>
+    source:
+      openapi: v2-data.yml
+imports:
+  root: __package__.yml
+service:
+  auth: false
+  base-path: ''
+  endpoints:
+    authorized-by:
+      path: /token/authorized_by
+      method: GET
+      auth: true
+      docs: |
+        Information about the Authorized User
+
+        Required Scope | `authorized_user:read`
+      source:
+        openapi: v2-data.yml
+      display-name: Get Authorization User Info
+      response:
+        docs: Request was successful
+        type: TokenAuthorizedByResponse
+      errors:
+        - root.UnauthorizedError
+        - root.ForbiddenError
+      examples:
+        - response:
+            body:
+              id: 545bbecb7bdd6769632504a7
+              email: some@email.com
+              firstName: Some
+              lastName: One
+    introspect:
+      path: /token/introspect
+      method: GET
+      auth: true
+      docs: >
+        Information about the authorization token
+
+        <Note>Access to this endpoint requires a bearer token from a []>Data
+        Client App](/data/docs/getting-started-data-clients).</Note>
+      source:
+        openapi: v2-data.yml
+      display-name: Get Authorization Info
+      response:
+        docs: Request was successful
+        type: TokenIntrospectResponse
+      errors:
+        - root.UnauthorizedError
+      examples:
+        - response:
+            body:
+              authorization:
+                id: 55818d58616600637b9a5786
+                createdOn: '2016-10-03T23:12:00Z'
+                lastUsed: '2016-10-10T21:41:12Z'
+                grantType: authorization_code
+                rateLimit: 60
+                scope: assets:read,assets:write
+                authorizedTo:
+                  siteIds:
+                    - 62f3b1f7eafac55d0c64ef91
+                  workspaceIds:
+                    - 52f3b1f7eafac55d0c64ef91
+                  userIds:
+                    - 545bbecb7bdd6769632504a7
+              application:
+                id: 55131cd036c09f7d07883dfc
+                description: My Amazing App
+                homepage: https://webflow.com
+                displayName: My Amazing App
+  source:
+    openapi: v2-data.yml

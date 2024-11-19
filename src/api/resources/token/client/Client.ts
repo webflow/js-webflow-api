@@ -29,7 +29,9 @@ export class Token {
     constructor(protected readonly _options: Token.Options) {}
 
     /**
-     * Information about the Authorized User <br><br> Required Scope | `authorized_user:read`
+     * Information about the Authorized User
+     *
+     * Required Scope | `authorized_user:read`
      *
      * @param {Token.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -39,7 +41,7 @@ export class Token {
      * @example
      *     await client.token.authorizedBy()
      */
-    public async authorizedBy(requestOptions?: Token.RequestOptions): Promise<Webflow.AuthorizedUser> {
+    public async authorizedBy(requestOptions?: Token.RequestOptions): Promise<Webflow.TokenAuthorizedByResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -50,8 +52,8 @@ export class Token {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -62,7 +64,7 @@ export class Token {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.AuthorizedUser.parseOrThrow(_response.body, {
+            return serializers.TokenAuthorizedByResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -101,7 +103,8 @@ export class Token {
     }
 
     /**
-     * Information about the authorization token <blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote>
+     * Information about the authorization token
+     * <Note>Access to this endpoint requires a bearer token from a []>Data Client App](/data/docs/getting-started-data-clients).</Note>
      *
      * @param {Token.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -110,7 +113,7 @@ export class Token {
      * @example
      *     await client.token.introspect()
      */
-    public async introspect(requestOptions?: Token.RequestOptions): Promise<Webflow.Authorization> {
+    public async introspect(requestOptions?: Token.RequestOptions): Promise<Webflow.TokenIntrospectResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -121,8 +124,8 @@ export class Token {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -133,7 +136,7 @@ export class Token {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.Authorization.parseOrThrow(_response.body, {
+            return serializers.TokenIntrospectResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,

@@ -7,31 +7,16 @@ import * as Webflow from "../../../../index";
 /**
  * @example
  *     {
- *         locale: "65427cf400e02b306eaa04a0",
- *         body: {
- *             id: "6596da6045e56dee495bcbba",
- *             siteId: "6258612d1ee792848f805dcf",
- *             title: "Guide to the Galaxy",
- *             slug: "guide-to-the-galaxy",
- *             parentId: "6419db964a9c435aa3af6251",
- *             collectionId: "6390c49774a71f12831a08e3",
- *             createdOn: "2024-03-11T10:42:00Z",
- *             lastUpdated: "2024-03-11T10:42:42Z",
- *             archived: false,
- *             draft: false,
- *             canBranch: true,
- *             seo: {
- *                 title: "The Ultimate Hitchhiker's Guide to the Galaxy",
- *                 description: "Everything you need to know about the galaxy, from avoiding Vogon poetry to the importance of towels."
- *             },
- *             openGraph: {
- *                 title: "Explore the Cosmos with The Ultimate Guide",
- *                 titleCopied: false,
- *                 description: "Dive deep into the mysteries of the universe with your guide to everything galactic.",
- *                 descriptionCopied: false
- *             },
- *             localeId: "653fd9af6a07fc9cfd7a5e57",
- *             publishedPath: "/en-us/guide-to-the-galaxy"
+ *         localeId: "65427cf400e02b306eaa04a0",
+ *         title: "Guide to the Galaxy",
+ *         slug: "guide-to-the-galaxy",
+ *         seo: {
+ *             title: "The Ultimate Hitchhiker's Guide to the Galaxy",
+ *             description: "Everything you need to know about the galaxy, from avoiding Vogon poetry to the importance of towels."
+ *         },
+ *         openGraph: {
+ *             title: "Explore the Cosmos with The Ultimate Guide",
+ *             description: "Dive deep into the mysteries of the universe with your guide to everything galactic."
  *         }
  *     }
  */
@@ -39,6 +24,13 @@ export interface UpdatePageSettingsRequest {
     /**
      * Unique identifier for a specific locale. Applicable, when using localization.
      */
-    locale?: string;
-    body: Webflow.Page;
+    localeId?: string;
+    /** Title of the Page */
+    title?: string;
+    /** slug of the Page (derived from title) */
+    slug?: string;
+    /** SEO-related fields for the Page */
+    seo?: Webflow.UpdatePageSettingsRequestSeo;
+    /** Open Graph fields for the Page */
+    openGraph?: Webflow.UpdatePageSettingsRequestOpenGraph;
 }

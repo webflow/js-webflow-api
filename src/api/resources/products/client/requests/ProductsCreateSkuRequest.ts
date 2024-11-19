@@ -11,7 +11,8 @@ import * as Webflow from "../../../../index";
  *     }
  */
 export interface ProductsCreateSkuRequest {
-    publishStatus?: Webflow.PublishStatus;
+    /** Indicate whether your Product should be set as "staging" or "live" */
+    publishStatus?: Webflow.ProductsCreateSkuRequestPublishStatus;
     /** An array of the SKU data your are adding */
-    skus: Webflow.Sku[];
+    skus: Webflow.ProductsCreateSkuRequestSkusItem[];
 }

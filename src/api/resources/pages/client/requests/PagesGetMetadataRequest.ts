@@ -5,12 +5,12 @@
 /**
  * @example
  *     {
- *         locale: "65427cf400e02b306eaa04a0"
+ *         localeId: "65427cf400e02b306eaa04a0"
  *     }
  */
 export interface PagesGetMetadataRequest {
     /**
      * Unique identifier for a specific locale. Applicable, when using localization.
      */
-    locale?: string;
+    localeId?: string;
 }
