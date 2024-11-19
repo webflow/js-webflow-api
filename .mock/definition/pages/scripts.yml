@@ -1,0 +1,294 @@
+types:
+  ScriptsGetCustomCodeResponseScriptsItemLocation:
+    enum:
+      - header
+      - footer
+    docs: >-
+      Location of the script, either in the header or footer of the published
+      site
+    default: header
+    source:
+      openapi: v2-data.yml
+  ScriptsGetCustomCodeResponseScriptsItem:
+    properties:
+      id:
+        type: string
+        docs: ID of the registered custom code script
+      location:
+        type: ScriptsGetCustomCodeResponseScriptsItemLocation
+        docs: >-
+          Location of the script, either in the header or footer of the
+          published site
+        default: header
+      version:
+        type: string
+        docs: Semantic Version String for the registered script *e.g. 0.0.1*
+      attributes:
+        type: optional<map<string, unknown>>
+        docs: >-
+          Developer-specified key/value pairs to be applied as attributes to the
+          script
+    source:
+      openapi: v2-data.yml
+  ScriptsGetCustomCodeResponse:
+    properties:
+      scripts:
+        type: optional<list<ScriptsGetCustomCodeResponseScriptsItem>>
+        docs: A list of scripts applied to a Site or a Page
+      lastUpdated:
+        type: optional<string>
+        docs: Date when the Site's scripts were last updated
+      createdOn:
+        type: optional<string>
+        docs: Date when the Site's scripts were created
+    source:
+      openapi: v2-data.yml
+  ScriptsUpsertCustomCodeRequestScriptsItemLocation:
+    enum:
+      - header
+      - footer
+    docs: >-
+      Location of the script, either in the header or footer of the published
+      site
+    default: header
+    source:
+      openapi: v2-data.yml
+  ScriptsUpsertCustomCodeRequestScriptsItem:
+    properties:
+      id:
+        type: string
+        docs: ID of the registered custom code script
+      location:
+        type: ScriptsUpsertCustomCodeRequestScriptsItemLocation
+        docs: >-
+          Location of the script, either in the header or footer of the
+          published site
+        default: header
+      version:
+        type: string
+        docs: Semantic Version String for the registered script *e.g. 0.0.1*
+      attributes:
+        type: optional<map<string, unknown>>
+        docs: >-
+          Developer-specified key/value pairs to be applied as attributes to the
+          script
+    source:
+      openapi: v2-data.yml
+  ScriptsUpsertCustomCodeResponseScriptsItemLocation:
+    enum:
+      - header
+      - footer
+    docs: >-
+      Location of the script, either in the header or footer of the published
+      site
+    default: header
+    source:
+      openapi: v2-data.yml
+  ScriptsUpsertCustomCodeResponseScriptsItem:
+    properties:
+      id:
+        type: string
+        docs: ID of the registered custom code script
+      location:
+        type: ScriptsUpsertCustomCodeResponseScriptsItemLocation
+        docs: >-
+          Location of the script, either in the header or footer of the
+          published site
+        default: header
+      version:
+        type: string
+        docs: Semantic Version String for the registered script *e.g. 0.0.1*
+      attributes:
+        type: optional<map<string, unknown>>
+        docs: >-
+          Developer-specified key/value pairs to be applied as attributes to the
+          script
+    source:
+      openapi: v2-data.yml
+  ScriptsUpsertCustomCodeResponse:
+    properties:
+      scripts:
+        type: optional<list<ScriptsUpsertCustomCodeResponseScriptsItem>>
+        docs: A list of scripts applied to a Site or a Page
+      lastUpdated:
+        type: optional<string>
+        docs: Date when the Site's scripts were last updated
+      createdOn:
+        type: optional<string>
+        docs: Date when the Site's scripts were created
+    source:
+      openapi: v2-data.yml
+imports:
+  root: ../__package__.yml
+service:
+  auth: false
+  base-path: ''
+  endpoints:
+    get-custom-code:
+      path: /pages/{page_id}/custom_code
+      method: GET
+      auth: true
+      docs: >
+        Get all registered scripts that have been applied to a specific Page. 
+
+
+        In order to use the Custom Code APIs for Sites and Pages, Custom Code
+        Scripts must first be registered 
+
+        to a Site via the `registered_scripts` endpoints, and then applied to a
+        Site or Page using the appropriate
+
+        `custom_code` endpoints. 
+
+        <blockquote class="callout callout_info" theme="📘">Access to this
+        endpoint requires a bearer token from a <a
+        href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data
+        Client App</a>.</blockquote>
+
+
+        Required scope | `custom_code:read`
+      source:
+        openapi: v2-data.yml
+      path-parameters:
+        page_id:
+          type: string
+          docs: Unique identifier for a Page
+      display-name: Get Custom Code
+      response:
+        docs: Request was successful
+        type: ScriptsGetCustomCodeResponse
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            page_id: 63c720f9347c2139b248e552
+          response:
+            body:
+              scripts:
+                - id: id
+                  location: header
+                  version: version
+                  attributes:
+                    key: value
+              lastUpdated: lastUpdated
+              createdOn: createdOn
+    upsert-custom-code:
+      path: /pages/{page_id}/custom_code
+      method: PUT
+      auth: true
+      docs: >
+        Add a registered script to a Page. 
+
+
+        In order to use the Custom Code APIs for Sites and Pages, Custom Code
+        Scripts must first be registered 
+
+        to a Site via the `registered_scripts` endpoints, and then applied to a
+        Site or Page using the appropriate
+
+        `custom_code` endpoints. 
+
+        <blockquote class="callout callout_info" theme="📘">Access to this
+        endpoint requires a bearer token from a <a
+        href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data
+        Client App</a>.</blockquote>
+
+
+        Required scope | `custom_code:write`
+      source:
+        openapi: v2-data.yml
+      path-parameters:
+        page_id:
+          type: string
+          docs: Unique identifier for a Page
+      display-name: Add/Update Custom Code
+      request:
+        name: ScriptsUpsertCustomCodeRequest
+        body:
+          properties:
+            scripts:
+              type: optional<list<ScriptsUpsertCustomCodeRequestScriptsItem>>
+              docs: A list of scripts applied to a Site or a Page
+        content-type: application/json
+      response:
+        docs: Request was successful
+        type: ScriptsUpsertCustomCodeResponse
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            page_id: 63c720f9347c2139b248e552
+          request:
+            scripts:
+              - id: cms_slider
+                location: header
+                version: 1.0.0
+                attributes:
+                  my-attribute: some-value
+              - id: alert
+                location: header
+                version: 0.0.1
+          response:
+            body:
+              scripts:
+                - id: cms_slider
+                  location: header
+                  version: 1.0.0
+                  attributes:
+                    my-attribute: some-value
+                - id: alert
+                  location: header
+                  version: 0.0.1
+                  attributes:
+                    key: value
+              lastUpdated: '2022-10-26T00:28:54.191Z'
+              createdOn: '2022-10-26T00:28:54.191Z'
+    delete-custom-code:
+      path: /pages/{page_id}/custom_code
+      method: DELETE
+      auth: true
+      docs: >
+        Delete the custom code block that an app has created for a page
+
+
+        In order to use the Custom Code APIs for Sites and Pages, Custom Code
+        Scripts must first be registered 
+
+        to a Site via the `registered_scripts` endpoints, and then applied to a
+        Site or Page using the appropriate
+
+        `custom_code` endpoints. 
+
+        <blockquote class="callout callout_info" theme="📘">Access to this
+        endpoint requires a bearer token from a <a
+        href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data
+        Client App</a>.</blockquote>
+
+
+        Required scope | `custom_code:write`
+      source:
+        openapi: v2-data.yml
+      path-parameters:
+        page_id:
+          type: string
+          docs: Unique identifier for a Page
+      display-name: Delete Custom Code
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            page_id: 63c720f9347c2139b248e552
+  source:
+    openapi: v2-data.yml

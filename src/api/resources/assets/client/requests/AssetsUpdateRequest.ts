@@ -4,11 +4,11 @@
 
 /**
  * @example
- *     {
- *         displayName: "bulldoze.png"
- *     }
+ *     {}
  */
 export interface AssetsUpdateRequest {
-    /** file name including file extension */
-    displayName: string;
+    /** Unique identifier for a specific locale. Applicable, when using localization. */
+    localeId?: string;
+    /** A human readable name for the asset */
+    displayName?: string;
 }

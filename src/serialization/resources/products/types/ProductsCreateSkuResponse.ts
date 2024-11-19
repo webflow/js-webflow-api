@@ -5,17 +5,17 @@
 import * as serializers from "../../../index";
 import * as Webflow from "../../../../api/index";
 import * as core from "../../../../core";
-import { Sku } from "../../../types/Sku";
+import { ProductsCreateSkuResponseSkusItem } from "./ProductsCreateSkuResponseSkusItem";
 
 export const ProductsCreateSkuResponse: core.serialization.ObjectSchema<
     serializers.ProductsCreateSkuResponse.Raw,
     Webflow.ProductsCreateSkuResponse
 > = core.serialization.object({
-    skus: core.serialization.list(Sku).optional(),
+    skus: core.serialization.list(ProductsCreateSkuResponseSkusItem).optional(),
 });
 
 export declare namespace ProductsCreateSkuResponse {
     interface Raw {
-        skus?: Sku.Raw[] | null;
+        skus?: ProductsCreateSkuResponseSkusItem.Raw[] | null;
     }
 }

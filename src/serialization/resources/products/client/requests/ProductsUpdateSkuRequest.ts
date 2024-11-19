@@ -5,20 +5,20 @@
 import * as serializers from "../../../../index";
 import * as Webflow from "../../../../../api/index";
 import * as core from "../../../../../core";
-import { PublishStatus } from "../../../../types/PublishStatus";
-import { Sku } from "../../../../types/Sku";
+import { ProductsUpdateSkuRequestPublishStatus } from "../../types/ProductsUpdateSkuRequestPublishStatus";
+import { ProductsUpdateSkuRequestSku } from "../../types/ProductsUpdateSkuRequestSku";
 
 export const ProductsUpdateSkuRequest: core.serialization.Schema<
     serializers.ProductsUpdateSkuRequest.Raw,
     Webflow.ProductsUpdateSkuRequest
 > = core.serialization.object({
-    publishStatus: PublishStatus.optional(),
-    sku: Sku,
+    publishStatus: ProductsUpdateSkuRequestPublishStatus.optional(),
+    sku: ProductsUpdateSkuRequestSku,
 });
 
 export declare namespace ProductsUpdateSkuRequest {
     interface Raw {
-        publishStatus?: PublishStatus.Raw | null;
-        sku: Sku.Raw;
+        publishStatus?: ProductsUpdateSkuRequestPublishStatus.Raw | null;
+        sku: ProductsUpdateSkuRequestSku.Raw;
     }
 }

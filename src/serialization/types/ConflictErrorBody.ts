@@ -5,23 +5,24 @@
 import * as serializers from "../index";
 import * as Webflow from "../../api/index";
 import * as core from "../../core";
-import { ErrorDetailsItem } from "./ErrorDetailsItem";
+import { ConflictErrorBodyCode } from "./ConflictErrorBodyCode";
+import { ConflictErrorBodyDetailsItem } from "./ConflictErrorBodyDetailsItem";
 
 export const ConflictErrorBody: core.serialization.ObjectSchema<
     serializers.ConflictErrorBody.Raw,
     Webflow.ConflictErrorBody
 > = core.serialization.object({
-    code: core.serialization.stringLiteral("ecommerce_not_enabled").optional(),
+    code: ConflictErrorBodyCode.optional(),
     message: core.serialization.string().optional(),
     externalReference: core.serialization.string().optional(),
-    details: core.serialization.list(ErrorDetailsItem).optional(),
+    details: core.serialization.list(ConflictErrorBodyDetailsItem).optional(),
 });
 
 export declare namespace ConflictErrorBody {
     interface Raw {
-        code?: "ecommerce_not_enabled" | null;
+        code?: ConflictErrorBodyCode.Raw | null;
         message?: string | null;
         externalReference?: string | null;
-        details?: ErrorDetailsItem.Raw[] | null;
+        details?: ConflictErrorBodyDetailsItem.Raw[] | null;
     }
 }

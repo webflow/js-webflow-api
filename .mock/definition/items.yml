@@ -1,0 +1,220 @@
+types:
+  CollectionItemCreatedPayloadFieldData:
+    properties:
+      name:
+        type: optional<string>
+        docs: Name of the Item
+      slug:
+        type: optional<string>
+        docs: >-
+          URL structure of the Item in your site. Note: Updates to an item slug
+          will break all links referencing the old slug.
+    extra-properties: true
+    source:
+      openapi: v2-data.yml
+  CollectionItemCreatedPayload:
+    docs: >
+      The fields that define the schema for a given Item are based on the
+      Collection that Item belongs to. Beyond the user defined fields, there are
+      a handful of additional fields that are automatically created for all
+      items
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the Item
+      cmsLocaleId:
+        type: optional<string>
+        docs: Identifier for the locale of the CMS item
+      lastPublished:
+        type: optional<string>
+        docs: The date the item was last published
+      lastUpdated:
+        type: optional<string>
+        docs: The date the item was last updated
+      createdOn:
+        type: optional<string>
+        docs: The date the item was created
+      isArchived:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to archived
+        default: false
+      isDraft:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to draft
+        default: false
+      fieldData: optional<CollectionItemCreatedPayloadFieldData>
+    source:
+      openapi: v2-data.yml
+  CollectionItemChangedPayloadFieldData:
+    properties:
+      name:
+        type: optional<string>
+        docs: Name of the Item
+      slug:
+        type: optional<string>
+        docs: >-
+          URL structure of the Item in your site. Note: Updates to an item slug
+          will break all links referencing the old slug.
+    extra-properties: true
+    source:
+      openapi: v2-data.yml
+  CollectionItemChangedPayload:
+    docs: >
+      The fields that define the schema for a given Item are based on the
+      Collection that Item belongs to. Beyond the user defined fields, there are
+      a handful of additional fields that are automatically created for all
+      items
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the Item
+      cmsLocaleId:
+        type: optional<string>
+        docs: Identifier for the locale of the CMS item
+      lastPublished:
+        type: optional<string>
+        docs: The date the item was last published
+      lastUpdated:
+        type: optional<string>
+        docs: The date the item was last updated
+      createdOn:
+        type: optional<string>
+        docs: The date the item was created
+      isArchived:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to archived
+        default: false
+      isDraft:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to draft
+        default: false
+      fieldData: optional<CollectionItemChangedPayloadFieldData>
+    source:
+      openapi: v2-data.yml
+  CollectionItemDeletedPayloadPayload:
+    docs: The payload of data sent from Webflow
+    properties:
+      id:
+        type: optional<string>
+        docs: The ID of the collection item that was deleted
+      siteId:
+        type: optional<string>
+        docs: The ID of the site
+      workspaceId:
+        type: optional<string>
+        docs: The ID of the workspace
+      collectionId:
+        type: optional<string>
+        docs: The ID of the collection
+    source:
+      openapi: v2-data.yml
+  CollectionItemDeletedPayload:
+    properties:
+      triggerType:
+        type: optional<string>
+        docs: The type of event that triggered the request
+      payload:
+        type: optional<CollectionItemDeletedPayloadPayload>
+        docs: The payload of data sent from Webflow
+    source:
+      openapi: v2-data.yml
+  CollectionItemUnpublishedPayloadPayload:
+    docs: The payload of data sent from Webflow
+    properties:
+      id:
+        type: optional<string>
+        docs: The ID of the collection item that was deleted
+      siteId:
+        type: optional<string>
+        docs: The ID of the site
+      workspaceId:
+        type: optional<string>
+        docs: The ID of the workspace
+      collectionId:
+        type: optional<string>
+        docs: The ID of the collection
+    source:
+      openapi: v2-data.yml
+  CollectionItemUnpublishedPayload:
+    properties:
+      triggerType:
+        type: optional<string>
+        docs: The type of event that triggered the request
+      payload:
+        type: optional<CollectionItemUnpublishedPayloadPayload>
+        docs: The payload of data sent from Webflow
+    source:
+      openapi: v2-data.yml
+webhooks:
+  collection_item_created:
+    method: POST
+    display-name: Item Created
+    headers: {}
+    payload:
+      type: CollectionItemCreatedPayload
+      docs: >
+        The fields that define the schema for a given Item are based on the
+        Collection that Item belongs to. Beyond the user defined fields, there
+        are a handful of additional fields that are automatically created for
+        all items
+    examples:
+      - payload:
+          id: 42b720ef280c7a7a3be8cabe
+          cmsLocaleId: 653ad57de882f528b32e810e
+          lastPublished: '2022-11-29T16:22:43.159Z'
+          lastUpdated: '2022-11-17T17:19:43.282Z'
+          createdOn: '2022-11-17T17:11:57.148Z'
+          isArchived: false
+          isDraft: false
+          fieldData:
+            name: Pan Galactic Gargle Blaster Recipe
+            slug: pan-galactic-gargle-blaster
+  collection_item_changed:
+    method: POST
+    display-name: Item Updated
+    headers: {}
+    payload:
+      type: CollectionItemChangedPayload
+      docs: >
+        The fields that define the schema for a given Item are based on the
+        Collection that Item belongs to. Beyond the user defined fields, there
+        are a handful of additional fields that are automatically created for
+        all items
+    examples:
+      - payload:
+          id: 42b720ef280c7a7a3be8cabe
+          cmsLocaleId: 653ad57de882f528b32e810e
+          lastPublished: '2022-11-29T16:22:43.159Z'
+          lastUpdated: '2022-11-17T17:19:43.282Z'
+          createdOn: '2022-11-17T17:11:57.148Z'
+          isArchived: false
+          isDraft: false
+          fieldData:
+            name: Pan Galactic Gargle Blaster Recipe
+            slug: pan-galactic-gargle-blaster
+  collection_item_deleted:
+    method: POST
+    display-name: Item Deleted
+    headers: {}
+    payload: CollectionItemDeletedPayload
+    examples:
+      - payload:
+          triggerType: collection_item_deleted,
+          payload:
+            id: 66424365e972c886137a1cf1
+            siteId: 65427cf400e02b306eaa049c
+            workspaceId: 625860a7a6c16d624927122f
+            collectionId: 664243617fcc8b464b23c4ee
+  collection_item_unpublished:
+    method: POST
+    display-name: Item Unpublished
+    headers: {}
+    payload: CollectionItemUnpublishedPayload
+    examples:
+      - payload:
+          triggerType: collection_item_deleted,
+          payload:
+            id: 66424365e972c886137a1cf1
+            siteId: 65427cf400e02b306eaa049c
+            workspaceId: 625860a7a6c16d624927122f
+            collectionId: 664243617fcc8b464b23c4ee

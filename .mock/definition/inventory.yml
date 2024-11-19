@@ -1,0 +1,201 @@
+types:
+  InventoryListResponseInventoryType:
+    enum:
+      - infinite
+      - finite
+    docs: infinite or finite
+    source:
+      openapi: v2-data.yml
+  InventoryListResponse:
+    docs: The availabile inventory for an item
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for a SKU item
+      quantity:
+        type: optional<double>
+        docs: >-
+          Total quantity of items remaining in inventory (if inventoryType is
+          finite)
+      inventoryType:
+        type: optional<InventoryListResponseInventoryType>
+        docs: infinite or finite
+    source:
+      openapi: v2-data.yml
+  InventoryUpdateRequestInventoryType:
+    enum:
+      - infinite
+      - finite
+    docs: infinite or finite
+    source:
+      openapi: v2-data.yml
+  InventoryUpdateResponseInventoryType:
+    enum:
+      - infinite
+      - finite
+    docs: infinite or finite
+    source:
+      openapi: v2-data.yml
+  InventoryUpdateResponse:
+    docs: The availabile inventory for an item
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for a SKU item
+      quantity:
+        type: optional<double>
+        docs: >-
+          Total quantity of items remaining in inventory (if inventoryType is
+          finite)
+      inventoryType:
+        type: optional<InventoryUpdateResponseInventoryType>
+        docs: infinite or finite
+    source:
+      openapi: v2-data.yml
+  EcommInventoryChangedPayloadInventoryType:
+    enum:
+      - infinite
+      - finite
+    docs: infinite or finite
+    source:
+      openapi: v2-data.yml
+  EcommInventoryChangedPayload:
+    docs: The availabile inventory for an item
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for a SKU item
+      quantity:
+        type: optional<double>
+        docs: >-
+          Total quantity of items remaining in inventory (if inventoryType is
+          finite)
+      inventoryType:
+        type: optional<EcommInventoryChangedPayloadInventoryType>
+        docs: infinite or finite
+    source:
+      openapi: v2-data.yml
+imports:
+  root: __package__.yml
+service:
+  auth: false
+  base-path: ''
+  endpoints:
+    list:
+      path: /collections/{collection_id}/items/{item_id}/inventory
+      method: GET
+      auth: true
+      docs: |
+        List the current inventory levels for a particular SKU item.
+
+        Required scope | `ecommerce:read`
+      source:
+        openapi: v2-data.yml
+      path-parameters:
+        collection_id:
+          type: string
+          docs: Unique identifier for a Collection
+        item_id:
+          type: string
+          docs: Unique identifier for an Item
+      display-name: List Inventory
+      response:
+        docs: Request was successful
+        type: InventoryListResponse
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.ForbiddenError
+        - root.NotFoundError
+        - root.ConflictError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+            item_id: 580e64008c9a982ac9b8b754
+          response:
+            body:
+              id: 5bfedb42bab0ad90fa7dad39
+              quantity: 100
+              inventoryType: infinite
+    update:
+      path: /collections/{collection_id}/items/{item_id}/inventory
+      method: PATCH
+      auth: true
+      docs: >
+        Updates the current inventory levels for a particular SKU item. 
+
+
+        Updates may be given in one or two methods, absolutely or
+        incrementally. 
+
+        - Absolute updates are done by setting `quantity` directly. 
+
+        - Incremental updates are by specifying the inventory delta in
+        `updateQuantity` which is then added to the `quantity` stored on the
+        server.
+
+
+        Required scope | `ecommerce:write`
+      source:
+        openapi: v2-data.yml
+      path-parameters:
+        collection_id:
+          type: string
+          docs: Unique identifier for a Collection
+        item_id:
+          type: string
+          docs: Unique identifier for an Item
+      display-name: Update Item Inventory
+      request:
+        name: InventoryUpdateRequest
+        body:
+          properties:
+            inventoryType:
+              type: InventoryUpdateRequestInventoryType
+              docs: infinite or finite
+            updateQuantity:
+              type: optional<double>
+              docs: Adds this quantity to currently store quantity. Can be negative.
+            quantity:
+              type: optional<double>
+              docs: Immediately sets quantity to this value.
+        content-type: application/json
+      response:
+        docs: Request was successful
+        type: InventoryUpdateResponse
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.ForbiddenError
+        - root.NotFoundError
+        - root.ConflictError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+            item_id: 580e64008c9a982ac9b8b754
+          request:
+            inventoryType: infinite
+          response:
+            body:
+              id: 5bfedb42bab0ad90fa7dad39
+              quantity: 100
+              inventoryType: infinite
+  source:
+    openapi: v2-data.yml
+  display-name: Inventory
+webhooks:
+  ecomm_inventory_changed:
+    method: POST
+    display-name: Updated eComm Inventory
+    headers: {}
+    payload:
+      type: EcommInventoryChangedPayload
+      docs: The availabile inventory for an item
+    examples:
+      - payload:
+          id: 5bfedb42bab0ad90fa7dad39
+          quantity: 100

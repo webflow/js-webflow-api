@@ -1,0 +1,755 @@
+types:
+  WebhooksListResponsePagination:
+    docs: Pagination object
+    properties:
+      limit:
+        type: optional<double>
+        docs: The limit used for pagination
+      offset:
+        type: optional<double>
+        docs: The offset used for pagination
+      total:
+        type: optional<double>
+        docs: The total number of records
+    source:
+      openapi: v2-data.yml
+  WebhooksListResponseWebhooksItemTriggerType:
+    enum:
+      - form_submission
+      - site_publish
+      - page_created
+      - page_metadata_updated
+      - page_deleted
+      - ecomm_new_order
+      - ecomm_order_changed
+      - ecomm_inventory_changed
+      - user_account_added
+      - user_account_updated
+      - user_account_deleted
+      - collection_item_created
+      - collection_item_changed
+      - collection_item_deleted
+      - collection_item_unpublished
+    docs: >
+      * `form_submission` - Sends the [form_submission](#form_submission) event
+
+      * `site_publish` - Sends a [site_publish](#site_publish) event
+
+      * `page_created` - Send the [page_created](#page_created) event
+
+      * `page_metadata_updated` - Sends the
+      [page_metadata_updated](#page_metadata_updated) event
+
+      * `page_deleted` - Sends the [page_deleted](#page_deleted) event
+
+      * `ecomm_new_order` - Sends the new [ecomm_new_order](#ecomm_new_order)
+      event
+
+      * `ecomm_order_changed` - Sends the
+      [ecomm_order_changed](#ecomm_order_changed) event
+
+      * `ecomm_inventory_changed` - Sends the
+      [ecomm_inventory_changed](#ecomm_inventory_changed) event
+
+      * `user_account_added` - Sends the
+      [user_account_added](#user_account_added) event
+
+      * `user_account_updated` - Sends the
+      [user_account_updated](#user_account_updated) event
+
+      * `user_account_deleted` - Sends the
+      [user_account_deleted](#user_account_deleted) event
+
+      * `collection_item_created` - Sends the
+      [collection_item_created](#collection_item_created) event
+
+      * `collection_item_changed` - Sends the
+      [collection_item_changed](#collection_item_changed) event
+
+      * `collection_item_deleted` - Sends the
+      [collection_item_deleted](#collection_item_deleted) event
+
+      * `collection_item_unpublished` - Sends the
+      [collection_item_unpublished](#collection_item_unpublished) event
+    source:
+      openapi: v2-data.yml
+  WebhooksListResponseWebhooksItemFilter:
+    docs: >-
+      Only supported for the `form_submission` trigger type. Filter for the form
+      you want Webhooks to be sent for. 
+    properties:
+      name:
+        type: optional<string>
+        docs: The name of the form you'd like to recieve notifications for.
+    source:
+      openapi: v2-data.yml
+  WebhooksListResponseWebhooksItem:
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Webhook registration
+      triggerType:
+        type: optional<WebhooksListResponseWebhooksItemTriggerType>
+        docs: >
+          * `form_submission` - Sends the [form_submission](#form_submission)
+          event
+
+          * `site_publish` - Sends a [site_publish](#site_publish) event
+
+          * `page_created` - Send the [page_created](#page_created) event
+
+          * `page_metadata_updated` - Sends the
+          [page_metadata_updated](#page_metadata_updated) event
+
+          * `page_deleted` - Sends the [page_deleted](#page_deleted) event
+
+          * `ecomm_new_order` - Sends the new
+          [ecomm_new_order](#ecomm_new_order) event
+
+          * `ecomm_order_changed` - Sends the
+          [ecomm_order_changed](#ecomm_order_changed) event
+
+          * `ecomm_inventory_changed` - Sends the
+          [ecomm_inventory_changed](#ecomm_inventory_changed) event
+
+          * `user_account_added` - Sends the
+          [user_account_added](#user_account_added) event
+
+          * `user_account_updated` - Sends the
+          [user_account_updated](#user_account_updated) event
+
+          * `user_account_deleted` - Sends the
+          [user_account_deleted](#user_account_deleted) event
+
+          * `collection_item_created` - Sends the
+          [collection_item_created](#collection_item_created) event
+
+          * `collection_item_changed` - Sends the
+          [collection_item_changed](#collection_item_changed) event
+
+          * `collection_item_deleted` - Sends the
+          [collection_item_deleted](#collection_item_deleted) event
+
+          * `collection_item_unpublished` - Sends the
+          [collection_item_unpublished](#collection_item_unpublished) event
+      url:
+        type: optional<string>
+        docs: URL to send the Webhook payload to
+      workspaceId:
+        type: optional<string>
+        docs: Unique identifier for the Workspace the Webhook is registered in
+      siteId:
+        type: optional<string>
+        docs: Unique identifier for the Site the Webhook is registered in
+      filter:
+        type: optional<WebhooksListResponseWebhooksItemFilter>
+        docs: >-
+          Only supported for the `form_submission` trigger type. Filter for the
+          form you want Webhooks to be sent for. 
+      lastTriggered:
+        type: optional<datetime>
+        docs: Date the Webhook instance was last triggered
+      createdOn:
+        type: optional<datetime>
+        docs: Date the Webhook registration was created
+    source:
+      openapi: v2-data.yml
+  WebhooksListResponse:
+    properties:
+      pagination:
+        type: optional<WebhooksListResponsePagination>
+        docs: Pagination object
+      webhooks: optional<list<WebhooksListResponseWebhooksItem>>
+    source:
+      openapi: v2-data.yml
+  WebhooksCreateRequestTriggerType:
+    enum:
+      - form_submission
+      - site_publish
+      - page_created
+      - page_metadata_updated
+      - page_deleted
+      - ecomm_new_order
+      - ecomm_order_changed
+      - ecomm_inventory_changed
+      - user_account_added
+      - user_account_updated
+      - user_account_deleted
+      - collection_item_created
+      - collection_item_changed
+      - collection_item_deleted
+      - collection_item_unpublished
+    docs: >
+      * `form_submission` - Sends the [form_submission](#form_submission) event
+
+      * `site_publish` - Sends a [site_publish](#site_publish) event
+
+      * `page_created` - Send the [page_created](#page_created) event
+
+      * `page_metadata_updated` - Sends the
+      [page_metadata_updated](#page_metadata_updated) event
+
+      * `page_deleted` - Sends the [page_deleted](#page_deleted) event
+
+      * `ecomm_new_order` - Sends the new [ecomm_new_order](#ecomm_new_order)
+      event
+
+      * `ecomm_order_changed` - Sends the
+      [ecomm_order_changed](#ecomm_order_changed) event
+
+      * `ecomm_inventory_changed` - Sends the
+      [ecomm_inventory_changed](#ecomm_inventory_changed) event
+
+      * `user_account_added` - Sends the
+      [user_account_added](#user_account_added) event
+
+      * `user_account_updated` - Sends the
+      [user_account_updated](#user_account_updated) event
+
+      * `user_account_deleted` - Sends the
+      [user_account_deleted](#user_account_deleted) event
+
+      * `collection_item_created` - Sends the
+      [collection_item_created](#collection_item_created) event
+
+      * `collection_item_changed` - Sends the
+      [collection_item_changed](#collection_item_changed) event
+
+      * `collection_item_deleted` - Sends the
+      [collection_item_deleted](#collection_item_deleted) event
+
+      * `collection_item_unpublished` - Sends the
+      [collection_item_unpublished](#collection_item_unpublished) event
+    source:
+      openapi: v2-data.yml
+  WebhooksCreateRequestFilter:
+    docs: >-
+      Only supported for the `form_submission` trigger type. Filter for the form
+      you want Webhooks to be sent for. 
+    properties:
+      name:
+        type: optional<string>
+        docs: The name of the form you'd like to recieve notifications for.
+    source:
+      openapi: v2-data.yml
+  WebhooksCreateResponseTriggerType:
+    enum:
+      - form_submission
+      - site_publish
+      - page_created
+      - page_metadata_updated
+      - page_deleted
+      - ecomm_new_order
+      - ecomm_order_changed
+      - ecomm_inventory_changed
+      - user_account_added
+      - user_account_updated
+      - user_account_deleted
+      - collection_item_created
+      - collection_item_changed
+      - collection_item_deleted
+      - collection_item_unpublished
+    docs: >
+      * `form_submission` - Sends the [form_submission](#form_submission) event
+
+      * `site_publish` - Sends a [site_publish](#site_publish) event
+
+      * `page_created` - Send the [page_created](#page_created) event
+
+      * `page_metadata_updated` - Sends the
+      [page_metadata_updated](#page_metadata_updated) event
+
+      * `page_deleted` - Sends the [page_deleted](#page_deleted) event
+
+      * `ecomm_new_order` - Sends the new [ecomm_new_order](#ecomm_new_order)
+      event
+
+      * `ecomm_order_changed` - Sends the
+      [ecomm_order_changed](#ecomm_order_changed) event
+
+      * `ecomm_inventory_changed` - Sends the
+      [ecomm_inventory_changed](#ecomm_inventory_changed) event
+
+      * `user_account_added` - Sends the
+      [user_account_added](#user_account_added) event
+
+      * `user_account_updated` - Sends the
+      [user_account_updated](#user_account_updated) event
+
+      * `user_account_deleted` - Sends the
+      [user_account_deleted](#user_account_deleted) event
+
+      * `collection_item_created` - Sends the
+      [collection_item_created](#collection_item_created) event
+
+      * `collection_item_changed` - Sends the
+      [collection_item_changed](#collection_item_changed) event
+
+      * `collection_item_deleted` - Sends the
+      [collection_item_deleted](#collection_item_deleted) event
+
+      * `collection_item_unpublished` - Sends the
+      [collection_item_unpublished](#collection_item_unpublished) event
+    source:
+      openapi: v2-data.yml
+  WebhooksCreateResponseFilter:
+    docs: >-
+      Only supported for the `form_submission` trigger type. Filter for the form
+      you want Webhooks to be sent for. 
+    properties:
+      name:
+        type: optional<string>
+        docs: The name of the form you'd like to recieve notifications for.
+    source:
+      openapi: v2-data.yml
+  WebhooksCreateResponse:
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Webhook registration
+      triggerType:
+        type: optional<WebhooksCreateResponseTriggerType>
+        docs: >
+          * `form_submission` - Sends the [form_submission](#form_submission)
+          event
+
+          * `site_publish` - Sends a [site_publish](#site_publish) event
+
+          * `page_created` - Send the [page_created](#page_created) event
+
+          * `page_metadata_updated` - Sends the
+          [page_metadata_updated](#page_metadata_updated) event
+
+          * `page_deleted` - Sends the [page_deleted](#page_deleted) event
+
+          * `ecomm_new_order` - Sends the new
+          [ecomm_new_order](#ecomm_new_order) event
+
+          * `ecomm_order_changed` - Sends the
+          [ecomm_order_changed](#ecomm_order_changed) event
+
+          * `ecomm_inventory_changed` - Sends the
+          [ecomm_inventory_changed](#ecomm_inventory_changed) event
+
+          * `user_account_added` - Sends the
+          [user_account_added](#user_account_added) event
+
+          * `user_account_updated` - Sends the
+          [user_account_updated](#user_account_updated) event
+
+          * `user_account_deleted` - Sends the
+          [user_account_deleted](#user_account_deleted) event
+
+          * `collection_item_created` - Sends the
+          [collection_item_created](#collection_item_created) event
+
+          * `collection_item_changed` - Sends the
+          [collection_item_changed](#collection_item_changed) event
+
+          * `collection_item_deleted` - Sends the
+          [collection_item_deleted](#collection_item_deleted) event
+
+          * `collection_item_unpublished` - Sends the
+          [collection_item_unpublished](#collection_item_unpublished) event
+      url:
+        type: optional<string>
+        docs: URL to send the Webhook payload to
+      workspaceId:
+        type: optional<string>
+        docs: Unique identifier for the Workspace the Webhook is registered in
+      siteId:
+        type: optional<string>
+        docs: Unique identifier for the Site the Webhook is registered in
+      filter:
+        type: optional<WebhooksCreateResponseFilter>
+        docs: >-
+          Only supported for the `form_submission` trigger type. Filter for the
+          form you want Webhooks to be sent for. 
+      lastTriggered:
+        type: optional<datetime>
+        docs: Date the Webhook instance was last triggered
+      createdOn:
+        type: optional<datetime>
+        docs: Date the Webhook registration was created
+    source:
+      openapi: v2-data.yml
+  WebhooksGetResponseTriggerType:
+    enum:
+      - form_submission
+      - site_publish
+      - page_created
+      - page_metadata_updated
+      - page_deleted
+      - ecomm_new_order
+      - ecomm_order_changed
+      - ecomm_inventory_changed
+      - user_account_added
+      - user_account_updated
+      - user_account_deleted
+      - collection_item_created
+      - collection_item_changed
+      - collection_item_deleted
+      - collection_item_unpublished
+    docs: >
+      * `form_submission` - Sends the [form_submission](#form_submission) event
+
+      * `site_publish` - Sends a [site_publish](#site_publish) event
+
+      * `page_created` - Send the [page_created](#page_created) event
+
+      * `page_metadata_updated` - Sends the
+      [page_metadata_updated](#page_metadata_updated) event
+
+      * `page_deleted` - Sends the [page_deleted](#page_deleted) event
+
+      * `ecomm_new_order` - Sends the new [ecomm_new_order](#ecomm_new_order)
+      event
+
+      * `ecomm_order_changed` - Sends the
+      [ecomm_order_changed](#ecomm_order_changed) event
+
+      * `ecomm_inventory_changed` - Sends the
+      [ecomm_inventory_changed](#ecomm_inventory_changed) event
+
+      * `user_account_added` - Sends the
+      [user_account_added](#user_account_added) event
+
+      * `user_account_updated` - Sends the
+      [user_account_updated](#user_account_updated) event
+
+      * `user_account_deleted` - Sends the
+      [user_account_deleted](#user_account_deleted) event
+
+      * `collection_item_created` - Sends the
+      [collection_item_created](#collection_item_created) event
+
+      * `collection_item_changed` - Sends the
+      [collection_item_changed](#collection_item_changed) event
+
+      * `collection_item_deleted` - Sends the
+      [collection_item_deleted](#collection_item_deleted) event
+
+      * `collection_item_unpublished` - Sends the
+      [collection_item_unpublished](#collection_item_unpublished) event
+    source:
+      openapi: v2-data.yml
+  WebhooksGetResponseFilter:
+    docs: >-
+      Only supported for the `form_submission` trigger type. Filter for the form
+      you want Webhooks to be sent for. 
+    properties:
+      name:
+        type: optional<string>
+        docs: The name of the form you'd like to recieve notifications for.
+    source:
+      openapi: v2-data.yml
+  WebhooksGetResponse:
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Webhook registration
+      triggerType:
+        type: optional<WebhooksGetResponseTriggerType>
+        docs: >
+          * `form_submission` - Sends the [form_submission](#form_submission)
+          event
+
+          * `site_publish` - Sends a [site_publish](#site_publish) event
+
+          * `page_created` - Send the [page_created](#page_created) event
+
+          * `page_metadata_updated` - Sends the
+          [page_metadata_updated](#page_metadata_updated) event
+
+          * `page_deleted` - Sends the [page_deleted](#page_deleted) event
+
+          * `ecomm_new_order` - Sends the new
+          [ecomm_new_order](#ecomm_new_order) event
+
+          * `ecomm_order_changed` - Sends the
+          [ecomm_order_changed](#ecomm_order_changed) event
+
+          * `ecomm_inventory_changed` - Sends the
+          [ecomm_inventory_changed](#ecomm_inventory_changed) event
+
+          * `user_account_added` - Sends the
+          [user_account_added](#user_account_added) event
+
+          * `user_account_updated` - Sends the
+          [user_account_updated](#user_account_updated) event
+
+          * `user_account_deleted` - Sends the
+          [user_account_deleted](#user_account_deleted) event
+
+          * `collection_item_created` - Sends the
+          [collection_item_created](#collection_item_created) event
+
+          * `collection_item_changed` - Sends the
+          [collection_item_changed](#collection_item_changed) event
+
+          * `collection_item_deleted` - Sends the
+          [collection_item_deleted](#collection_item_deleted) event
+
+          * `collection_item_unpublished` - Sends the
+          [collection_item_unpublished](#collection_item_unpublished) event
+      url:
+        type: optional<string>
+        docs: URL to send the Webhook payload to
+      workspaceId:
+        type: optional<string>
+        docs: Unique identifier for the Workspace the Webhook is registered in
+      siteId:
+        type: optional<string>
+        docs: Unique identifier for the Site the Webhook is registered in
+      filter:
+        type: optional<WebhooksGetResponseFilter>
+        docs: >-
+          Only supported for the `form_submission` trigger type. Filter for the
+          form you want Webhooks to be sent for. 
+      lastTriggered:
+        type: optional<datetime>
+        docs: Date the Webhook instance was last triggered
+      createdOn:
+        type: optional<datetime>
+        docs: Date the Webhook registration was created
+    source:
+      openapi: v2-data.yml
+imports:
+  root: __package__.yml
+service:
+  auth: false
+  base-path: ''
+  endpoints:
+    list:
+      path: /sites/{site_id}/webhooks
+      method: GET
+      auth: true
+      docs: |
+        List all App-created Webhooks registered for a given site
+
+        Required scope | `sites:read`
+      source:
+        openapi: v2-data.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+      display-name: List Webhooks
+      response:
+        docs: Request was successful
+        type: WebhooksListResponse
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+          response:
+            body:
+              pagination:
+                limit: 100
+                offset: 0
+                total: 100
+              webhooks:
+                - id: 57ca0a9e418c504a6e1acbb6
+                  triggerType: form_submission
+                  url: https://webhook.site/7f7f7f7f-7f7f-7f7f-7f7f-7f7f7f7f7f7f
+                  workspaceId: 4f4e46fd476ea8c507000001
+                  siteId: 562ac0395358780a1f5e6fbd
+                  filter:
+                    name: Email Form
+                  lastTriggered: '2023-02-08T23:59:28Z'
+                  createdOn: '2016-09-02T23:26:22Z'
+                - id: 578d85cce0c47cd2865f4cf2
+                  triggerType: form_submission
+                  url: https://webhook.site/7f7f7f7f-7f7f-7f7f-7f7f-7f7f7f7f7f7f
+                  workspaceId: 4f4e46fd476ea8c507000001
+                  siteId: 562ac0395358780a1f5e6fbd
+                  filter:
+                    name: Email Form
+                  lastTriggered: '2023-02-08T23:59:28Z'
+                  createdOn: '2016-07-19T01:43:40Z'
+                - id: 578d85cce0c47cd2865f4cf3
+                  triggerType: form_submission
+                  url: https://webhook.site/7f7f7f7f-7f7f-7f7f-7f7f-7f7f7f7f7f7f
+                  workspaceId: 4f4e46fd476ea8c507000001
+                  siteId: 562ac0395358780a1f5e6fbd
+                  filter:
+                    name: Email Form
+                  lastTriggered: '2023-02-08T23:59:28Z'
+                  createdOn: '2016-07-19T01:43:40Z'
+    create:
+      path: /sites/{site_id}/webhooks
+      method: POST
+      auth: true
+      docs: >
+        Create a new Webhook.
+
+
+        Limit of 75 registrations per `triggerType`, per site.
+
+        <blockquote class="callout callout_info" theme="📘">Access to this
+        endpoint requires a bearer token from a <a
+        href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data
+        Client App</a>.</blockquote>    
+
+        Required scope | `sites:write`
+      source:
+        openapi: v2-data.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+      display-name: Create Webhook
+      request:
+        name: WebhooksCreateRequest
+        body:
+          properties:
+            triggerType:
+              type: optional<WebhooksCreateRequestTriggerType>
+              docs: >
+                * `form_submission` - Sends the
+                [form_submission](#form_submission) event
+
+                * `site_publish` - Sends a [site_publish](#site_publish) event
+
+                * `page_created` - Send the [page_created](#page_created) event
+
+                * `page_metadata_updated` - Sends the
+                [page_metadata_updated](#page_metadata_updated) event
+
+                * `page_deleted` - Sends the [page_deleted](#page_deleted) event
+
+                * `ecomm_new_order` - Sends the new
+                [ecomm_new_order](#ecomm_new_order) event
+
+                * `ecomm_order_changed` - Sends the
+                [ecomm_order_changed](#ecomm_order_changed) event
+
+                * `ecomm_inventory_changed` - Sends the
+                [ecomm_inventory_changed](#ecomm_inventory_changed) event
+
+                * `user_account_added` - Sends the
+                [user_account_added](#user_account_added) event
+
+                * `user_account_updated` - Sends the
+                [user_account_updated](#user_account_updated) event
+
+                * `user_account_deleted` - Sends the
+                [user_account_deleted](#user_account_deleted) event
+
+                * `collection_item_created` - Sends the
+                [collection_item_created](#collection_item_created) event
+
+                * `collection_item_changed` - Sends the
+                [collection_item_changed](#collection_item_changed) event
+
+                * `collection_item_deleted` - Sends the
+                [collection_item_deleted](#collection_item_deleted) event
+
+                * `collection_item_unpublished` - Sends the
+                [collection_item_unpublished](#collection_item_unpublished)
+                event
+            url:
+              type: optional<string>
+              docs: URL to send the Webhook payload to
+            filter:
+              type: optional<WebhooksCreateRequestFilter>
+              docs: >-
+                Only supported for the `form_submission` trigger type. Filter
+                for the form you want Webhooks to be sent for. 
+        content-type: application/json
+      response:
+        docs: Request was successful
+        type: WebhooksCreateResponse
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+          request:
+            triggerType: form_submission
+            url: https://webhook.site/7f7f7f7f-7f7f-7f7f-7f7f-7f7f7f7f7f7f
+          response:
+            body:
+              id: 582266e0cd48de0f0e3c6d8b
+              triggerType: form_submission
+              url: https://webhook.site/7f7f7f7f-7f7f-7f7f-7f7f-7f7f7f7f7f7f
+              workspaceId: 4f4e46fd476ea8c507000001
+              siteId: 562ac0395358780a1f5e6fbd
+              filter:
+                name: My Form
+              lastTriggered: '2023-02-08T23:59:28Z'
+              createdOn: '2022-11-08T23:59:28Z'
+    get:
+      path: /webhooks/{webhook_id}
+      method: GET
+      auth: true
+      docs: |
+        Get a specific Webhook instance
+
+        Required scope: `sites:read`
+      source:
+        openapi: v2-data.yml
+      path-parameters:
+        webhook_id:
+          type: string
+          docs: Unique identifier for a Webhook
+      display-name: Get Webhook
+      response:
+        docs: Request was successful
+        type: WebhooksGetResponse
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            webhook_id: 580e64008c9a982ac9b8b754
+          response:
+            body:
+              id: 582266e0cd48de0f0e3c6d8b
+              triggerType: form_submission
+              url: https://webhook.site/7f7f7f7f-7f7f-7f7f-7f7f-7f7f7f7f7f7f
+              workspaceId: 4f4e46fd476ea8c507000001
+              siteId: 562ac0395358780a1f5e6fbd
+              filter:
+                name: My Form
+              lastTriggered: '2023-02-08T23:59:28Z'
+              createdOn: '2022-11-08T23:59:28Z'
+    delete:
+      path: /webhooks/{webhook_id}
+      method: DELETE
+      auth: true
+      docs: |
+        Remove a Webhook
+
+        Required scope: `sites:read`
+      source:
+        openapi: v2-data.yml
+      path-parameters:
+        webhook_id:
+          type: string
+          docs: Unique identifier for a Webhook
+      display-name: Remove Webhook
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            webhook_id: 580e64008c9a982ac9b8b754
+  source:
+    openapi: v2-data.yml
+  display-name: Webhooks

@@ -1,2 +1,2 @@
-export { type FieldCreate } from "./FieldCreate";
-export { type FieldUpdate } from "./FieldUpdate";
+export { type FieldsCreateRequest } from "./FieldsCreateRequest";
+export { type FieldsUpdateRequest } from "./FieldsUpdateRequest";

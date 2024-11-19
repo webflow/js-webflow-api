@@ -29,10 +29,19 @@ export class Fields {
     constructor(protected readonly _options: Fields.Options) {}
 
     /**
-     * Create a custom field in a collection. </br></br> Slugs must be all lowercase letters without spaces. If you pass a string with uppercase letters and/or spaces to the "Slug" property, Webflow will convert the slug to lowercase and replace spaces with "-." </br></br> Only some field types can be created through the API. This endpoint does not currently support bulk creation. </br></br> Required scope | `cms:write`
+     * Create a custom field in a collection.
+     *
+     * Slugs must be all lowercase letters without spaces.
+     * If you pass a string with uppercase letters and/or spaces to the "Slug" property, Webflow will
+     * convert the slug to lowercase and replace spaces with "-."
+     *
+     * Only some field types can be created through the API.
+     * This endpoint does not currently support bulk creation.
+     *
+     * Required scope | `cms:write`
      *
      * @param {string} collectionId - Unique identifier for a Collection
-     * @param {Webflow.collections.FieldCreate} request
+     * @param {Webflow.collections.FieldsCreateRequest} request
      * @param {Fields.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Webflow.BadRequestError}
@@ -51,9 +60,9 @@ export class Fields {
      */
     public async create(
         collectionId: string,
-        request: Webflow.collections.FieldCreate,
+        request: Webflow.collections.FieldsCreateRequest,
         requestOptions?: Fields.RequestOptions
-    ): Promise<Webflow.Field> {
+    ): Promise<Webflow.collections.FieldsCreateResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -64,20 +73,20 @@ export class Fields {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.collections.FieldCreate.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: serializers.collections.FieldsCreateRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.Field.parseOrThrow(_response.body, {
+            return serializers.collections.FieldsCreateResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -95,15 +104,7 @@ export class Fields {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -130,11 +131,92 @@ export class Fields {
     }
 
     /**
-     * Update a custom field in a collection. </br></br> Required scope | `cms:write`
+     * Delete a custom field in a collection. This endpoint does not currently support bulk deletion.
+     *
+     * Required scope | `cms:write`
      *
      * @param {string} collectionId - Unique identifier for a Collection
      * @param {string} fieldId - Unique identifier for a Field in a collection
-     * @param {Webflow.collections.FieldUpdate} request
+     * @param {Fields.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Webflow.BadRequestError}
+     * @throws {@link Webflow.UnauthorizedError}
+     * @throws {@link Webflow.NotFoundError}
+     * @throws {@link Webflow.TooManyRequestsError}
+     * @throws {@link Webflow.InternalServerError}
+     *
+     * @example
+     *     await client.collections.fields.delete("580e63fc8c9a982ac9b8b745", "580e63fc8c9a982ac9b8b745")
+     */
+    public async delete(collectionId: string, fieldId: string, requestOptions?: Fields.RequestOptions): Promise<void> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                `collections/${encodeURIComponent(collectionId)}/fields/${encodeURIComponent(fieldId)}`
+            ),
+            method: "DELETE",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "webflow-api",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return;
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Webflow.BadRequestError(_response.error.body);
+                case 401:
+                    throw new Webflow.UnauthorizedError(_response.error.body);
+                case 404:
+                    throw new Webflow.NotFoundError(_response.error.body);
+                case 429:
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
+                case 500:
+                    throw new Webflow.InternalServerError(_response.error.body);
+                default:
+                    throw new errors.WebflowError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.WebflowError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.WebflowTimeoutError();
+            case "unknown":
+                throw new errors.WebflowError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Update a custom field in a collection.
+     *
+     * Required scope | `cms:write`
+     *
+     * @param {string} collectionId - Unique identifier for a Collection
+     * @param {string} fieldId - Unique identifier for a Field in a collection
+     * @param {Webflow.collections.FieldsUpdateRequest} request
      * @param {Fields.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Webflow.BadRequestError}
@@ -153,9 +235,9 @@ export class Fields {
     public async update(
         collectionId: string,
         fieldId: string,
-        request: Webflow.collections.FieldUpdate = {},
+        request: Webflow.collections.FieldsUpdateRequest = {},
         requestOptions?: Fields.RequestOptions
-    ): Promise<Webflow.Field> {
+    ): Promise<Webflow.collections.FieldsUpdateResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -166,20 +248,20 @@ export class Fields {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.collections.FieldUpdate.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: serializers.collections.FieldsUpdateRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.Field.parseOrThrow(_response.body, {
+            return serializers.collections.FieldsUpdateResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -197,15 +279,7 @@ export class Fields {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:

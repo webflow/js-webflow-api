@@ -52,7 +52,7 @@ export class Inventory {
         collectionId: string,
         itemId: string,
         requestOptions?: Inventory.RequestOptions
-    ): Promise<Webflow.InventoryItem> {
+    ): Promise<Webflow.InventoryListResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -63,8 +63,8 @@ export class Inventory {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -75,7 +75,7 @@ export class Inventory {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.InventoryItem.parseOrThrow(_response.body, {
+            return serializers.InventoryListResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -97,15 +97,7 @@ export class Inventory {
                 case 409:
                     throw new Webflow.ConflictError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -132,7 +124,12 @@ export class Inventory {
     }
 
     /**
-     * Updates the current inventory levels for a particular SKU item. Updates may be given in one or two methods, absolutely or incrementally. Absolute updates are done by setting `quantity` directly. Incremental updates are by specifying the inventory delta in `updateQuantity` which is then added to the `quantity` stored on the server.
+     * Updates the current inventory levels for a particular SKU item.
+     *
+     * Updates may be given in one or two methods, absolutely or incrementally.
+     *
+     * - Absolute updates are done by setting `quantity` directly.
+     * - Incremental updates are by specifying the inventory delta in `updateQuantity` which is then added to the `quantity` stored on the server.
      *
      * Required scope | `ecommerce:write`
      *
@@ -159,7 +156,7 @@ export class Inventory {
         itemId: string,
         request: Webflow.InventoryUpdateRequest,
         requestOptions?: Inventory.RequestOptions
-    ): Promise<Webflow.InventoryItem> {
+    ): Promise<Webflow.InventoryUpdateResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -170,8 +167,8 @@ export class Inventory {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -183,7 +180,7 @@ export class Inventory {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.InventoryItem.parseOrThrow(_response.body, {
+            return serializers.InventoryUpdateResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -205,15 +202,7 @@ export class Inventory {
                 case 409:
                     throw new Webflow.ConflictError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:

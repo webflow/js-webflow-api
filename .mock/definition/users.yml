@@ -1,0 +1,1213 @@
+types:
+  UsersListRequestSort:
+    enum:
+      - value: CreatedOn
+        name: CreatedOnAscending
+        docs: Sorts users in ascending order based on their created date
+      - value: '-CreatedOn'
+        name: CreatedOnDescending
+        docs: Sorts users in descending order based on their created date
+      - value: Email
+        name: EmailAscending
+        docs: Sorts users in ascending order based on their email
+      - value: '-Email'
+        name: EmailDescending
+        docs: Sorts users in descending order based on their email
+      - value: Status
+        name: StatusAscending
+        docs: Sorts users in ascending order based on their status
+      - value: '-Status'
+        name: StatusDescending
+        docs: Sorts users in descending order based on their status
+      - value: LastLogin
+        name: LastLoginAscending
+        docs: Sorts users in ascending order based on their last login date
+      - value: '-LastLogin'
+        name: LastLoginDescending
+        docs: Sorts users in descending order based on their last login date
+      - value: UpdatedOn
+        name: UpdatedOnAscending
+        docs: Sorts users in ascending order based on their update date
+      - value: '-UpdatedOn'
+        name: UpdatedOnDescending
+        docs: Sorts users in descending order based on their update date
+    source:
+      openapi: v2-data.yml
+  UsersListResponseUsersItemStatus:
+    enum:
+      - invited
+      - verified
+      - unverified
+    docs: The status of the user
+    source:
+      openapi: v2-data.yml
+  UsersListResponseUsersItemAccessGroupsItemType:
+    enum:
+      - admin
+      - ecommerce
+    docs: |
+      The type of access group based on how it was assigned to the user.
+      * `admin` - Assigned to the user via API or in the designer
+      * `ecommerce` - Assigned to the user via an ecommerce purchase
+    source:
+      openapi: v2-data.yml
+  UsersListResponseUsersItemAccessGroupsItem:
+    docs: Access group slugs and types
+    properties:
+      slug:
+        type: optional<string>
+        docs: Access group identifier for APIs
+      type:
+        type: optional<UsersListResponseUsersItemAccessGroupsItemType>
+        docs: |
+          The type of access group based on how it was assigned to the user.
+          * `admin` - Assigned to the user via API or in the designer
+          * `ecommerce` - Assigned to the user via an ecommerce purchase
+    source:
+      openapi: v2-data.yml
+  UsersListResponseUsersItemDataData:
+    properties:
+      name:
+        type: optional<string>
+        docs: |
+          The name of the user
+      email:
+        type: optional<string>
+        docs: |
+          The email address of the user
+      accept-privacy:
+        type: optional<boolean>
+        docs: |
+          Boolean indicating if the user has accepted the privacy policy
+      accept-communications:
+        type: optional<boolean>
+        docs: |
+          Boolean indicating if the user has accepted to receive communications
+      additionalProperties:
+        type: optional<string>
+        docs: Custom user attributes
+    source:
+      openapi: v2-data.yml
+  UsersListResponseUsersItemData:
+    docs: An object containing the User's basic info and custom fields
+    properties:
+      data: optional<UsersListResponseUsersItemDataData>
+    source:
+      openapi: v2-data.yml
+  UsersListResponseUsersItem:
+    docs: >
+      The fields that define the schema for a given Item are based on the
+      Collection that Item belongs to. Beyond the user defined fields, there are
+      a handful of additional fields that are automatically created for all
+      items
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the User
+      isEmailVerified:
+        type: optional<boolean>
+        docs: Shows whether the user has verified their email address
+      lastUpdated:
+        type: optional<datetime>
+        docs: The timestamp the user was updated
+      invitedOn:
+        type: optional<datetime>
+        docs: The timestamp the user was invited
+      createdOn:
+        type: optional<datetime>
+        docs: The timestamp the user was created
+      lastLogin:
+        type: optional<datetime>
+        docs: The timestamp the user was logged in
+      status:
+        type: optional<UsersListResponseUsersItemStatus>
+        docs: The status of the user
+      accessGroups:
+        type: optional<list<UsersListResponseUsersItemAccessGroupsItem>>
+        docs: Access groups the user belongs to
+      data:
+        type: optional<UsersListResponseUsersItemData>
+        docs: An object containing the User's basic info and custom fields
+    source:
+      openapi: v2-data.yml
+  UsersListResponse:
+    docs: The list users results
+    properties:
+      count:
+        type: optional<double>
+        docs: Number of users returned
+      limit:
+        type: optional<double>
+        docs: The limit specified in the request
+        default: 10
+      offset:
+        type: optional<double>
+        docs: The offset specified for pagination
+        default: 0
+      total:
+        type: optional<double>
+        docs: Total number of users in the collection
+      users:
+        type: optional<list<UsersListResponseUsersItem>>
+        docs: List of Users for a Site
+    source:
+      openapi: v2-data.yml
+  UsersGetResponseStatus:
+    enum:
+      - invited
+      - verified
+      - unverified
+    docs: The status of the user
+    source:
+      openapi: v2-data.yml
+  UsersGetResponseAccessGroupsItemType:
+    enum:
+      - admin
+      - ecommerce
+    docs: |
+      The type of access group based on how it was assigned to the user.
+      * `admin` - Assigned to the user via API or in the designer
+      * `ecommerce` - Assigned to the user via an ecommerce purchase
+    source:
+      openapi: v2-data.yml
+  UsersGetResponseAccessGroupsItem:
+    docs: Access group slugs and types
+    properties:
+      slug:
+        type: optional<string>
+        docs: Access group identifier for APIs
+      type:
+        type: optional<UsersGetResponseAccessGroupsItemType>
+        docs: |
+          The type of access group based on how it was assigned to the user.
+          * `admin` - Assigned to the user via API or in the designer
+          * `ecommerce` - Assigned to the user via an ecommerce purchase
+    source:
+      openapi: v2-data.yml
+  UsersGetResponseDataData:
+    properties:
+      name:
+        type: optional<string>
+        docs: |
+          The name of the user
+      email:
+        type: optional<string>
+        docs: |
+          The email address of the user
+      accept-privacy:
+        type: optional<boolean>
+        docs: |
+          Boolean indicating if the user has accepted the privacy policy
+      accept-communications:
+        type: optional<boolean>
+        docs: |
+          Boolean indicating if the user has accepted to receive communications
+      additionalProperties:
+        type: optional<string>
+        docs: Custom user attributes
+    source:
+      openapi: v2-data.yml
+  UsersGetResponseData:
+    docs: An object containing the User's basic info and custom fields
+    properties:
+      data: optional<UsersGetResponseDataData>
+    source:
+      openapi: v2-data.yml
+  UsersGetResponse:
+    docs: >
+      The fields that define the schema for a given Item are based on the
+      Collection that Item belongs to. Beyond the user defined fields, there are
+      a handful of additional fields that are automatically created for all
+      items
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the User
+      isEmailVerified:
+        type: optional<boolean>
+        docs: Shows whether the user has verified their email address
+      lastUpdated:
+        type: optional<datetime>
+        docs: The timestamp the user was updated
+      invitedOn:
+        type: optional<datetime>
+        docs: The timestamp the user was invited
+      createdOn:
+        type: optional<datetime>
+        docs: The timestamp the user was created
+      lastLogin:
+        type: optional<datetime>
+        docs: The timestamp the user was logged in
+      status:
+        type: optional<UsersGetResponseStatus>
+        docs: The status of the user
+      accessGroups:
+        type: optional<list<UsersGetResponseAccessGroupsItem>>
+        docs: Access groups the user belongs to
+      data:
+        type: optional<UsersGetResponseData>
+        docs: An object containing the User's basic info and custom fields
+    source:
+      openapi: v2-data.yml
+  UsersUpdateRequestData:
+    properties:
+      name:
+        type: optional<string>
+        docs: |
+          The name of the user
+      accept-privacy:
+        type: optional<boolean>
+        docs: |
+          Boolean indicating if the user has accepted the privacy policy
+      accept-communications:
+        type: optional<boolean>
+        docs: |
+          Boolean indicating if the user has accepted to receive communications
+    source:
+      openapi: v2-data.yml
+  UsersUpdateResponseStatus:
+    enum:
+      - invited
+      - verified
+      - unverified
+    docs: The status of the user
+    source:
+      openapi: v2-data.yml
+  UsersUpdateResponseAccessGroupsItemType:
+    enum:
+      - admin
+      - ecommerce
+    docs: |
+      The type of access group based on how it was assigned to the user.
+      * `admin` - Assigned to the user via API or in the designer
+      * `ecommerce` - Assigned to the user via an ecommerce purchase
+    source:
+      openapi: v2-data.yml
+  UsersUpdateResponseAccessGroupsItem:
+    docs: Access group slugs and types
+    properties:
+      slug:
+        type: optional<string>
+        docs: Access group identifier for APIs
+      type:
+        type: optional<UsersUpdateResponseAccessGroupsItemType>
+        docs: |
+          The type of access group based on how it was assigned to the user.
+          * `admin` - Assigned to the user via API or in the designer
+          * `ecommerce` - Assigned to the user via an ecommerce purchase
+    source:
+      openapi: v2-data.yml
+  UsersUpdateResponseDataData:
+    properties:
+      name:
+        type: optional<string>
+        docs: |
+          The name of the user
+      email:
+        type: optional<string>
+        docs: |
+          The email address of the user
+      accept-privacy:
+        type: optional<boolean>
+        docs: |
+          Boolean indicating if the user has accepted the privacy policy
+      accept-communications:
+        type: optional<boolean>
+        docs: |
+          Boolean indicating if the user has accepted to receive communications
+      additionalProperties:
+        type: optional<string>
+        docs: Custom user attributes
+    source:
+      openapi: v2-data.yml
+  UsersUpdateResponseData:
+    docs: An object containing the User's basic info and custom fields
+    properties:
+      data: optional<UsersUpdateResponseDataData>
+    source:
+      openapi: v2-data.yml
+  UsersUpdateResponse:
+    docs: >
+      The fields that define the schema for a given Item are based on the
+      Collection that Item belongs to. Beyond the user defined fields, there are
+      a handful of additional fields that are automatically created for all
+      items
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the User
+      isEmailVerified:
+        type: optional<boolean>
+        docs: Shows whether the user has verified their email address
+      lastUpdated:
+        type: optional<datetime>
+        docs: The timestamp the user was updated
+      invitedOn:
+        type: optional<datetime>
+        docs: The timestamp the user was invited
+      createdOn:
+        type: optional<datetime>
+        docs: The timestamp the user was created
+      lastLogin:
+        type: optional<datetime>
+        docs: The timestamp the user was logged in
+      status:
+        type: optional<UsersUpdateResponseStatus>
+        docs: The status of the user
+      accessGroups:
+        type: optional<list<UsersUpdateResponseAccessGroupsItem>>
+        docs: Access groups the user belongs to
+      data:
+        type: optional<UsersUpdateResponseData>
+        docs: An object containing the User's basic info and custom fields
+    source:
+      openapi: v2-data.yml
+  UsersInviteResponseStatus:
+    enum:
+      - invited
+      - verified
+      - unverified
+    docs: The status of the user
+    source:
+      openapi: v2-data.yml
+  UsersInviteResponseAccessGroupsItemType:
+    enum:
+      - admin
+      - ecommerce
+    docs: |
+      The type of access group based on how it was assigned to the user.
+      * `admin` - Assigned to the user via API or in the designer
+      * `ecommerce` - Assigned to the user via an ecommerce purchase
+    source:
+      openapi: v2-data.yml
+  UsersInviteResponseAccessGroupsItem:
+    docs: Access group slugs and types
+    properties:
+      slug:
+        type: optional<string>
+        docs: Access group identifier for APIs
+      type:
+        type: optional<UsersInviteResponseAccessGroupsItemType>
+        docs: |
+          The type of access group based on how it was assigned to the user.
+          * `admin` - Assigned to the user via API or in the designer
+          * `ecommerce` - Assigned to the user via an ecommerce purchase
+    source:
+      openapi: v2-data.yml
+  UsersInviteResponseDataData:
+    properties:
+      name:
+        type: optional<string>
+        docs: |
+          The name of the user
+      email:
+        type: optional<string>
+        docs: |
+          The email address of the user
+      accept-privacy:
+        type: optional<boolean>
+        docs: |
+          Boolean indicating if the user has accepted the privacy policy
+      accept-communications:
+        type: optional<boolean>
+        docs: |
+          Boolean indicating if the user has accepted to receive communications
+      additionalProperties:
+        type: optional<string>
+        docs: Custom user attributes
+    source:
+      openapi: v2-data.yml
+  UsersInviteResponseData:
+    docs: An object containing the User's basic info and custom fields
+    properties:
+      data: optional<UsersInviteResponseDataData>
+    source:
+      openapi: v2-data.yml
+  UsersInviteResponse:
+    docs: >
+      The fields that define the schema for a given Item are based on the
+      Collection that Item belongs to. Beyond the user defined fields, there are
+      a handful of additional fields that are automatically created for all
+      items
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the User
+      isEmailVerified:
+        type: optional<boolean>
+        docs: Shows whether the user has verified their email address
+      lastUpdated:
+        type: optional<datetime>
+        docs: The timestamp the user was updated
+      invitedOn:
+        type: optional<datetime>
+        docs: The timestamp the user was invited
+      createdOn:
+        type: optional<datetime>
+        docs: The timestamp the user was created
+      lastLogin:
+        type: optional<datetime>
+        docs: The timestamp the user was logged in
+      status:
+        type: optional<UsersInviteResponseStatus>
+        docs: The status of the user
+      accessGroups:
+        type: optional<list<UsersInviteResponseAccessGroupsItem>>
+        docs: Access groups the user belongs to
+      data:
+        type: optional<UsersInviteResponseData>
+        docs: An object containing the User's basic info and custom fields
+    source:
+      openapi: v2-data.yml
+  UserAccountAddedPayloadTriggerType:
+    enum:
+      - user_account_added
+      - user_account_updated
+      - user_account_deleted
+    docs: The type of event that triggered the request
+    source:
+      openapi: v2-data.yml
+  UserAccountAddedPayloadPayloadStatus:
+    enum:
+      - invited
+      - verified
+      - unverified
+    docs: The status of the user
+    source:
+      openapi: v2-data.yml
+  UserAccountAddedPayloadPayloadAccessGroupsItemType:
+    enum:
+      - admin
+      - ecommerce
+    docs: |
+      The type of access group based on how it was assigned to the user.
+      * `admin` - Assigned to the user via API or in the designer
+      * `ecommerce` - Assigned to the user via an ecommerce purchase
+    source:
+      openapi: v2-data.yml
+  UserAccountAddedPayloadPayloadAccessGroupsItem:
+    docs: Access group slugs and types
+    properties:
+      slug:
+        type: optional<string>
+        docs: Access group identifier for APIs
+      type:
+        type: optional<UserAccountAddedPayloadPayloadAccessGroupsItemType>
+        docs: |
+          The type of access group based on how it was assigned to the user.
+          * `admin` - Assigned to the user via API or in the designer
+          * `ecommerce` - Assigned to the user via an ecommerce purchase
+    source:
+      openapi: v2-data.yml
+  UserAccountAddedPayloadPayloadDataData:
+    properties:
+      name:
+        type: optional<string>
+        docs: |
+          The name of the user
+      email:
+        type: optional<string>
+        docs: |
+          The email address of the user
+      accept-privacy:
+        type: optional<boolean>
+        docs: |
+          Boolean indicating if the user has accepted the privacy policy
+      accept-communications:
+        type: optional<boolean>
+        docs: |
+          Boolean indicating if the user has accepted to receive communications
+      additionalProperties:
+        type: optional<string>
+        docs: Custom user attributes
+    source:
+      openapi: v2-data.yml
+  UserAccountAddedPayloadPayloadData:
+    docs: An object containing the User's basic info and custom fields
+    properties:
+      data: optional<UserAccountAddedPayloadPayloadDataData>
+    source:
+      openapi: v2-data.yml
+  UserAccountAddedPayloadPayload:
+    docs: >
+      The fields that define the schema for a given Item are based on the
+      Collection that Item belongs to. Beyond the user defined fields, there are
+      a handful of additional fields that are automatically created for all
+      items
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the User
+      isEmailVerified:
+        type: optional<boolean>
+        docs: Shows whether the user has verified their email address
+      lastUpdated:
+        type: optional<datetime>
+        docs: The timestamp the user was updated
+      invitedOn:
+        type: optional<datetime>
+        docs: The timestamp the user was invited
+      createdOn:
+        type: optional<datetime>
+        docs: The timestamp the user was created
+      lastLogin:
+        type: optional<datetime>
+        docs: The timestamp the user was logged in
+      status:
+        type: optional<UserAccountAddedPayloadPayloadStatus>
+        docs: The status of the user
+      accessGroups:
+        type: optional<list<UserAccountAddedPayloadPayloadAccessGroupsItem>>
+        docs: Access groups the user belongs to
+      data:
+        type: optional<UserAccountAddedPayloadPayloadData>
+        docs: An object containing the User's basic info and custom fields
+    source:
+      openapi: v2-data.yml
+  UserAccountAddedPayload:
+    properties:
+      triggerType:
+        type: optional<UserAccountAddedPayloadTriggerType>
+        docs: The type of event that triggered the request
+      payload:
+        type: optional<UserAccountAddedPayloadPayload>
+        docs: >
+          The fields that define the schema for a given Item are based on the
+          Collection that Item belongs to. Beyond the user defined fields, there
+          are a handful of additional fields that are automatically created for
+          all items
+    source:
+      openapi: v2-data.yml
+  UserAccountUpdatedPayloadTriggerType:
+    enum:
+      - user_account_added
+      - user_account_updated
+      - user_account_deleted
+    docs: The type of event that triggered the request
+    source:
+      openapi: v2-data.yml
+  UserAccountUpdatedPayloadPayloadStatus:
+    enum:
+      - invited
+      - verified
+      - unverified
+    docs: The status of the user
+    source:
+      openapi: v2-data.yml
+  UserAccountUpdatedPayloadPayloadAccessGroupsItemType:
+    enum:
+      - admin
+      - ecommerce
+    docs: |
+      The type of access group based on how it was assigned to the user.
+      * `admin` - Assigned to the user via API or in the designer
+      * `ecommerce` - Assigned to the user via an ecommerce purchase
+    source:
+      openapi: v2-data.yml
+  UserAccountUpdatedPayloadPayloadAccessGroupsItem:
+    docs: Access group slugs and types
+    properties:
+      slug:
+        type: optional<string>
+        docs: Access group identifier for APIs
+      type:
+        type: optional<UserAccountUpdatedPayloadPayloadAccessGroupsItemType>
+        docs: |
+          The type of access group based on how it was assigned to the user.
+          * `admin` - Assigned to the user via API or in the designer
+          * `ecommerce` - Assigned to the user via an ecommerce purchase
+    source:
+      openapi: v2-data.yml
+  UserAccountUpdatedPayloadPayloadDataData:
+    properties:
+      name:
+        type: optional<string>
+        docs: |
+          The name of the user
+      email:
+        type: optional<string>
+        docs: |
+          The email address of the user
+      accept-privacy:
+        type: optional<boolean>
+        docs: |
+          Boolean indicating if the user has accepted the privacy policy
+      accept-communications:
+        type: optional<boolean>
+        docs: |
+          Boolean indicating if the user has accepted to receive communications
+      additionalProperties:
+        type: optional<string>
+        docs: Custom user attributes
+    source:
+      openapi: v2-data.yml
+  UserAccountUpdatedPayloadPayloadData:
+    docs: An object containing the User's basic info and custom fields
+    properties:
+      data: optional<UserAccountUpdatedPayloadPayloadDataData>
+    source:
+      openapi: v2-data.yml
+  UserAccountUpdatedPayloadPayload:
+    docs: >
+      The fields that define the schema for a given Item are based on the
+      Collection that Item belongs to. Beyond the user defined fields, there are
+      a handful of additional fields that are automatically created for all
+      items
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the User
+      isEmailVerified:
+        type: optional<boolean>
+        docs: Shows whether the user has verified their email address
+      lastUpdated:
+        type: optional<datetime>
+        docs: The timestamp the user was updated
+      invitedOn:
+        type: optional<datetime>
+        docs: The timestamp the user was invited
+      createdOn:
+        type: optional<datetime>
+        docs: The timestamp the user was created
+      lastLogin:
+        type: optional<datetime>
+        docs: The timestamp the user was logged in
+      status:
+        type: optional<UserAccountUpdatedPayloadPayloadStatus>
+        docs: The status of the user
+      accessGroups:
+        type: optional<list<UserAccountUpdatedPayloadPayloadAccessGroupsItem>>
+        docs: Access groups the user belongs to
+      data:
+        type: optional<UserAccountUpdatedPayloadPayloadData>
+        docs: An object containing the User's basic info and custom fields
+    source:
+      openapi: v2-data.yml
+  UserAccountUpdatedPayload:
+    properties:
+      triggerType:
+        type: optional<UserAccountUpdatedPayloadTriggerType>
+        docs: The type of event that triggered the request
+      payload:
+        type: optional<UserAccountUpdatedPayloadPayload>
+        docs: >
+          The fields that define the schema for a given Item are based on the
+          Collection that Item belongs to. Beyond the user defined fields, there
+          are a handful of additional fields that are automatically created for
+          all items
+    source:
+      openapi: v2-data.yml
+  UserAccountDeletedPayloadTriggerType:
+    enum:
+      - user_account_added
+      - user_account_updated
+      - user_account_deleted
+    docs: The type of event that triggered the request
+    source:
+      openapi: v2-data.yml
+  UserAccountDeletedPayloadPayloadStatus:
+    enum:
+      - invited
+      - verified
+      - unverified
+    docs: The status of the user
+    source:
+      openapi: v2-data.yml
+  UserAccountDeletedPayloadPayloadAccessGroupsItemType:
+    enum:
+      - admin
+      - ecommerce
+    docs: |
+      The type of access group based on how it was assigned to the user.
+      * `admin` - Assigned to the user via API or in the designer
+      * `ecommerce` - Assigned to the user via an ecommerce purchase
+    source:
+      openapi: v2-data.yml
+  UserAccountDeletedPayloadPayloadAccessGroupsItem:
+    docs: Access group slugs and types
+    properties:
+      slug:
+        type: optional<string>
+        docs: Access group identifier for APIs
+      type:
+        type: optional<UserAccountDeletedPayloadPayloadAccessGroupsItemType>
+        docs: |
+          The type of access group based on how it was assigned to the user.
+          * `admin` - Assigned to the user via API or in the designer
+          * `ecommerce` - Assigned to the user via an ecommerce purchase
+    source:
+      openapi: v2-data.yml
+  UserAccountDeletedPayloadPayloadDataData:
+    properties:
+      name:
+        type: optional<string>
+        docs: |
+          The name of the user
+      email:
+        type: optional<string>
+        docs: |
+          The email address of the user
+      accept-privacy:
+        type: optional<boolean>
+        docs: |
+          Boolean indicating if the user has accepted the privacy policy
+      accept-communications:
+        type: optional<boolean>
+        docs: |
+          Boolean indicating if the user has accepted to receive communications
+      additionalProperties:
+        type: optional<string>
+        docs: Custom user attributes
+    source:
+      openapi: v2-data.yml
+  UserAccountDeletedPayloadPayloadData:
+    docs: An object containing the User's basic info and custom fields
+    properties:
+      data: optional<UserAccountDeletedPayloadPayloadDataData>
+    source:
+      openapi: v2-data.yml
+  UserAccountDeletedPayloadPayload:
+    docs: >
+      The fields that define the schema for a given Item are based on the
+      Collection that Item belongs to. Beyond the user defined fields, there are
+      a handful of additional fields that are automatically created for all
+      items
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the User
+      isEmailVerified:
+        type: optional<boolean>
+        docs: Shows whether the user has verified their email address
+      lastUpdated:
+        type: optional<datetime>
+        docs: The timestamp the user was updated
+      invitedOn:
+        type: optional<datetime>
+        docs: The timestamp the user was invited
+      createdOn:
+        type: optional<datetime>
+        docs: The timestamp the user was created
+      lastLogin:
+        type: optional<datetime>
+        docs: The timestamp the user was logged in
+      status:
+        type: optional<UserAccountDeletedPayloadPayloadStatus>
+        docs: The status of the user
+      accessGroups:
+        type: optional<list<UserAccountDeletedPayloadPayloadAccessGroupsItem>>
+        docs: Access groups the user belongs to
+      data:
+        type: optional<UserAccountDeletedPayloadPayloadData>
+        docs: An object containing the User's basic info and custom fields
+    source:
+      openapi: v2-data.yml
+  UserAccountDeletedPayload:
+    properties:
+      triggerType:
+        type: optional<UserAccountDeletedPayloadTriggerType>
+        docs: The type of event that triggered the request
+      payload:
+        type: optional<UserAccountDeletedPayloadPayload>
+        docs: >
+          The fields that define the schema for a given Item are based on the
+          Collection that Item belongs to. Beyond the user defined fields, there
+          are a handful of additional fields that are automatically created for
+          all items
+    source:
+      openapi: v2-data.yml
+imports:
+  root: __package__.yml
+service:
+  auth: false
+  base-path: ''
+  endpoints:
+    list:
+      path: /sites/{site_id}/users
+      method: GET
+      auth: true
+      docs: |
+        Get a list of users for a site
+
+        Required scope | `users:read`
+      source:
+        openapi: v2-data.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+      display-name: List Users
+      request:
+        name: UsersListRequest
+        query-parameters:
+          offset:
+            type: optional<double>
+            docs: >-
+              Offset used for pagination if the results have more than limit
+              records
+          limit:
+            type: optional<double>
+            docs: 'Maximum number of records to be returned (max limit: 100)'
+          sort:
+            type: optional<UsersListRequestSort>
+            docs: |
+              Sort string to use when ordering users
+
+              Example(`CreatedOn`, `Email`, `Status`, `LastLogin`, `UpdatedOn`).
+
+              Can be prefixed with a `-` to reverse the sort (ex. `-CreatedOn`)
+      response:
+        docs: Request was successful
+        type: UsersListResponse
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.ForbiddenError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+          response:
+            body:
+              count: 5
+              limit: 5
+              offset: 0
+              total: 201
+              users:
+                - id: 6287ec36a841b25637c663df
+                  isEmailVerified: false
+                  lastUpdated: '2022-05-20T13:46:12Z'
+                  invitedOn: '2016-10-24T19:41:29Z'
+                  createdOn: '2022-05-20T13:46:12Z'
+                  lastLogin: '2016-10-24T19:41:29Z'
+                  status: unverified
+                  accessGroups:
+                    - slug: vogon-construction-crew
+                      type: admin
+                - id: 6287ec36a841b25637c663f0
+                  isEmailVerified: false
+                  lastUpdated: '2022-05-19T05:32:04Z'
+                  invitedOn: '2016-10-24T19:41:29Z'
+                  createdOn: '2022-05-19T05:32:04Z'
+                  lastLogin: '2016-10-24T19:41:29Z'
+                  status: unverified
+                  accessGroups:
+                    - slug: improbability-drive-test-subjects
+                      type: admin
+                - id: 6287ec36a841b25637c663d9
+                  isEmailVerified: true
+                  lastUpdated: '2022-05-17T03:34:06Z'
+                  invitedOn: '2016-10-24T19:41:29Z'
+                  createdOn: '2022-05-17T03:34:06Z'
+                  lastLogin: '2016-10-24T19:41:29Z'
+                  status: verified
+                  accessGroups:
+                    - slug: heart-of-gold-crew
+                      type: admin
+                - id: 6287ec37a841b25637c6641b
+                  isEmailVerified: false
+                  lastUpdated: '2022-05-15T03:46:09Z'
+                  invitedOn: '2016-10-24T19:41:29Z'
+                  createdOn: '2022-05-15T03:46:09Z'
+                  lastLogin: '2016-10-24T19:41:29Z'
+                  status: unverified
+                  accessGroups:
+                    - slug: hitchhikers-guide-research-team
+                      type: admin
+                - id: 6287ec37a841b25637c66449
+                  isEmailVerified: true
+                  lastUpdated: '2022-05-15T02:55:38Z'
+                  invitedOn: '2016-10-24T19:41:29Z'
+                  createdOn: '2022-05-15T02:55:38Z'
+                  lastLogin: '2016-10-24T19:41:29Z'
+                  status: verified
+                  accessGroups:
+                    - slug: milliways-reservationists
+                      type: admin
+    get:
+      path: /sites/{site_id}/users/{user_id}
+      method: GET
+      auth: true
+      docs: |
+        Get a User by ID
+
+        Required scope | `users:read`
+      source:
+        openapi: v2-data.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+        user_id:
+          type: string
+          docs: Unique identifier for a User
+      display-name: Get User
+      response:
+        docs: Request was successful
+        type: UsersGetResponse
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.ForbiddenError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+            user_id: 580e63e98c9a982ac9b8b741
+          response:
+            body:
+              id: 6287ec36a841b25637c663df
+              isEmailVerified: true
+              lastUpdated: '2022-05-20T13:46:12Z'
+              invitedOn: '2022-05-20T13:46:12Z'
+              createdOn: '2022-05-20T13:46:12Z'
+              lastLogin: '2022-05-20T13:46:12Z'
+              status: verified
+              accessGroups:
+                - slug: webflowers
+                  type: admin
+              data:
+                data:
+                  name: name
+                  email: email
+                  accept-privacy: true
+                  accept-communications: true
+                  additionalProperties: additionalProperties
+    delete:
+      path: /sites/{site_id}/users/{user_id}
+      method: DELETE
+      auth: true
+      docs: |
+        Delete a User by ID
+
+        Required scope | `users:write`
+      source:
+        openapi: v2-data.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+        user_id:
+          type: string
+          docs: Unique identifier for a User
+      display-name: Delete User
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.ForbiddenError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+            user_id: 580e63e98c9a982ac9b8b741
+    update:
+      path: /sites/{site_id}/users/{user_id}
+      method: PATCH
+      auth: true
+      docs: |
+        Update a User by ID 
+
+          Required scope | `users:write`
+
+        <Note class="notice">The <code>email</code> and <code>password</code>
+        fields cannot be updated using this endpoint</Note>
+      source:
+        openapi: v2-data.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+        user_id:
+          type: string
+          docs: Unique identifier for a User
+      display-name: Update User
+      request:
+        name: UsersUpdateRequest
+        body:
+          properties:
+            data: optional<UsersUpdateRequestData>
+            accessGroups:
+              type: optional<list<string>>
+              docs: >
+                An array of access group slugs. Access groups are assigned to
+                the user as type `admin` and the user remains in the group until
+                removed.
+        content-type: application/json
+      response:
+        docs: Request was successful
+        type: UsersUpdateResponse
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.ForbiddenError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+            user_id: 580e63e98c9a982ac9b8b741
+          request:
+            data:
+              name: Some One
+              accept-privacy: false
+              accept-communications: false
+            accessGroups:
+              - webflowers
+              - platinum
+              - free-tier
+          response:
+            body:
+              id: 6287ec36a841b25637c663df
+              isEmailVerified: true
+              lastUpdated: '2022-05-20T13:46:12Z'
+              invitedOn: '2022-05-20T13:46:12Z'
+              createdOn: '2022-05-20T13:46:12Z'
+              lastLogin: '2022-05-20T13:46:12Z'
+              status: verified
+              accessGroups:
+                - slug: webflowers
+                  type: admin
+              data:
+                data:
+                  name: name
+                  email: email
+                  accept-privacy: true
+                  accept-communications: true
+                  additionalProperties: additionalProperties
+    invite:
+      path: /sites/{site_id}/users/invite
+      method: POST
+      auth: true
+      docs: >
+        Create and invite a user with an email address. 
+
+
+        The user will be sent and invite via email, which they will need to
+        accept in order to join paid any paid access group. 
+
+
+        Required scope | `users:write`
+      source:
+        openapi: v2-data.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+      display-name: Create and Invite a User
+      request:
+        name: UsersInviteRequest
+        body:
+          properties:
+            email:
+              type: string
+              docs: Email address of user to send invite to
+              validation:
+                format: email
+            accessGroups:
+              type: optional<list<string>>
+              docs: >
+                An array of access group slugs. Access groups are assigned to
+                the user as type `admin` and the user remains in the group until
+                removed.
+        content-type: application/json
+      response:
+        docs: Request was successful
+        type: UsersInviteResponse
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.ForbiddenError
+        - root.NotFoundError
+        - root.ConflictError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+          request:
+            email: some.one@home.com
+            accessGroups:
+              - webflowers
+          response:
+            body:
+              id: 6287ec36a841b25637c663df
+              isEmailVerified: true
+              lastUpdated: '2022-05-20T13:46:12Z'
+              invitedOn: '2022-05-20T13:46:12Z'
+              createdOn: '2022-05-20T13:46:12Z'
+              lastLogin: '2022-05-20T13:46:12Z'
+              status: verified
+              accessGroups:
+                - slug: webflowers
+                  type: admin
+              data:
+                data:
+                  name: name
+                  email: email
+                  accept-privacy: true
+                  accept-communications: true
+                  additionalProperties: additionalProperties
+  source:
+    openapi: v2-data.yml
+webhooks:
+  user_account_added:
+    method: POST
+    display-name: New User Added
+    headers: {}
+    payload: UserAccountAddedPayload
+    examples:
+      - payload:
+          payload:
+            id: 6287ec36a841b25637c663df
+            isEmailVerified: true
+            lastUpdated: '2022-05-20T13:46:12Z'
+            invitedOn: '2022-05-20T13:46:12Z'
+            createdOn: '2022-05-20T13:46:12Z'
+            lastLogin: '2022-05-20T13:46:12Z'
+            status: verified
+            accessGroups:
+              - slug: webflowers
+                type: admin
+  user_account_updated:
+    method: POST
+    display-name: Account Updated
+    headers: {}
+    payload: UserAccountUpdatedPayload
+    examples:
+      - payload:
+          payload:
+            id: 6287ec36a841b25637c663df
+            isEmailVerified: true
+            lastUpdated: '2022-05-20T13:46:12Z'
+            invitedOn: '2022-05-20T13:46:12Z'
+            createdOn: '2022-05-20T13:46:12Z'
+            lastLogin: '2022-05-20T13:46:12Z'
+            status: verified
+            accessGroups:
+              - slug: webflowers
+                type: admin
+  user_account_deleted:
+    method: POST
+    display-name: Account Deleted
+    headers: {}
+    payload: UserAccountDeletedPayload
+    examples:
+      - payload:
+          payload:
+            id: 6287ec36a841b25637c663df
+            isEmailVerified: true
+            lastUpdated: '2022-05-20T13:46:12Z'
+            invitedOn: '2022-05-20T13:46:12Z'
+            createdOn: '2022-05-20T13:46:12Z'
+            lastLogin: '2022-05-20T13:46:12Z'
+            status: verified
+            accessGroups:
+              - slug: webflowers
+                type: admin

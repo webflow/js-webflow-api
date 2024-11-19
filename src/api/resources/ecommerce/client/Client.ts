@@ -50,7 +50,7 @@ export class Ecommerce {
     public async getSettings(
         siteId: string,
         requestOptions?: Ecommerce.RequestOptions
-    ): Promise<Webflow.EcommerceSettings> {
+    ): Promise<Webflow.EcommerceGetSettingsResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -61,8 +61,8 @@ export class Ecommerce {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -73,7 +73,7 @@ export class Ecommerce {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.EcommerceSettings.parseOrThrow(_response.body, {
+            return serializers.EcommerceGetSettingsResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -95,15 +95,7 @@ export class Ecommerce {
                 case 409:
                     throw new Webflow.ConflictError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:

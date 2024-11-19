@@ -1,0 +1,366 @@
+types:
+  CollectionsListResponseCollectionsItem:
+    docs: A collection object
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a Collection
+      displayName:
+        type: optional<string>
+        docs: Name given to the Collection
+      singularName:
+        type: optional<string>
+        docs: >-
+          The name of one Item in Collection (e.g. ”Blog Post” if the Collection
+          is called “Blog Posts”)
+      slug:
+        type: optional<string>
+        docs: Slug of Collection in Site URL structure
+      createdOn:
+        type: optional<datetime>
+        docs: The date the collection was created
+      lastUpdated:
+        type: optional<datetime>
+        docs: The date the collection was last updated
+    source:
+      openapi: v2-data.yml
+  CollectionsListResponse:
+    properties:
+      collections:
+        type: optional<list<CollectionsListResponseCollectionsItem>>
+        docs: An array of Collections
+    source:
+      openapi: v2-data.yml
+  CollectionsCreateResponseFieldsItemType:
+    enum:
+      - PlainText
+      - RichText
+      - Image
+      - MultiImage
+      - Video
+      - Link
+      - Email
+      - Phone
+      - Number
+      - DateTime
+      - Switch
+      - Color
+      - ExtFileRef
+    docs: Choose these appropriate field type for your collection data
+    source:
+      openapi: v2-data.yml
+  CollectionsCreateResponseFieldsItem:
+    docs: The details of a field in a collection
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a Field
+      isRequired:
+        type: boolean
+        docs: define whether a field is required in a collection
+      isEditable:
+        type: optional<boolean>
+        docs: Define whether the field is editable
+      type:
+        type: CollectionsCreateResponseFieldsItemType
+        docs: Choose these appropriate field type for your collection data
+      slug:
+        type: optional<string>
+        docs: >-
+          Slug of Field in Site URL structure. Slugs should be all lowercase
+          with no spaces. Any spaces will be converted to "-."
+      displayName:
+        type: string
+        docs: The name of a field
+      helpText:
+        type: optional<string>
+        docs: Additional text to help anyone filling out this field
+    source:
+      openapi: v2-data.yml
+  CollectionsCreateResponse:
+    docs: A collection object
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a Collection
+      displayName:
+        type: optional<string>
+        docs: Name given to the Collection
+      singularName:
+        type: optional<string>
+        docs: >-
+          The name of one Item in Collection (e.g. ”Blog Post” if the Collection
+          is called “Blog Posts”)
+      slug:
+        type: optional<string>
+        docs: Slug of Collection in Site URL structure
+      createdOn:
+        type: optional<datetime>
+        docs: The date the collection was created
+      lastUpdated:
+        type: optional<datetime>
+        docs: The date the collection was last updated
+      fields:
+        docs: The list of fields in the Collection
+        type: list<CollectionsCreateResponseFieldsItem>
+    source:
+      openapi: v2-data.yml
+  CollectionsGetResponseFieldsItemType:
+    enum:
+      - PlainText
+      - RichText
+      - Image
+      - MultiImage
+      - Video
+      - Link
+      - Email
+      - Phone
+      - Number
+      - DateTime
+      - Switch
+      - Color
+      - ExtFileRef
+    docs: Choose these appropriate field type for your collection data
+    source:
+      openapi: v2-data.yml
+  CollectionsGetResponseFieldsItem:
+    docs: The details of a field in a collection
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a Field
+      isRequired:
+        type: boolean
+        docs: define whether a field is required in a collection
+      isEditable:
+        type: optional<boolean>
+        docs: Define whether the field is editable
+      type:
+        type: CollectionsGetResponseFieldsItemType
+        docs: Choose these appropriate field type for your collection data
+      slug:
+        type: optional<string>
+        docs: >-
+          Slug of Field in Site URL structure. Slugs should be all lowercase
+          with no spaces. Any spaces will be converted to "-."
+      displayName:
+        type: string
+        docs: The name of a field
+      helpText:
+        type: optional<string>
+        docs: Additional text to help anyone filling out this field
+    source:
+      openapi: v2-data.yml
+  CollectionsGetResponse:
+    docs: A collection object
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a Collection
+      displayName:
+        type: optional<string>
+        docs: Name given to the Collection
+      singularName:
+        type: optional<string>
+        docs: >-
+          The name of one Item in Collection (e.g. ”Blog Post” if the Collection
+          is called “Blog Posts”)
+      slug:
+        type: optional<string>
+        docs: Slug of Collection in Site URL structure
+      createdOn:
+        type: optional<datetime>
+        docs: The date the collection was created
+      lastUpdated:
+        type: optional<datetime>
+        docs: The date the collection was last updated
+      fields:
+        docs: The list of fields in the Collection
+        type: list<CollectionsGetResponseFieldsItem>
+    source:
+      openapi: v2-data.yml
+imports:
+  root: __package__.yml
+service:
+  auth: false
+  base-path: ''
+  endpoints:
+    list:
+      path: /sites/{site_id}/collections
+      method: GET
+      auth: true
+      docs: |
+        List of all Collections within a Site.
+
+        Required scope | `cms:read`
+      source:
+        openapi: v2-data.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+      display-name: List Collections
+      response:
+        docs: Request was successful
+        type: CollectionsListResponse
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+          response:
+            body:
+              collections:
+                - id: 63692ab61fb2852f582ba8f5
+                  displayName: Products
+                  singularName: Product
+                  slug: product
+                  createdOn: '2019-06-12T13:35:14Z'
+                  lastUpdated: '2022-11-17T15:08:50Z'
+                - id: 63692ab61fb2856e6a2ba8f6
+                  displayName: Categories
+                  singularName: Category
+                  slug: category
+                  createdOn: '2019-06-12T13:35:14Z'
+                  lastUpdated: '2022-11-17T15:08:50Z'
+                - id: 63692ab61fb285a8562ba8f4
+                  displayName: SKUs
+                  singularName: SKU
+                  slug: sku
+                  createdOn: '2019-06-12T13:35:14Z'
+                  lastUpdated: '2022-11-17T15:08:50Z'
+    create:
+      path: /sites/{site_id}/collections
+      method: POST
+      auth: true
+      docs: |
+        Create a Collection for a site.
+
+        Required scope | `cms:write`
+      source:
+        openapi: v2-data.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+      display-name: Create Collection
+      request:
+        name: CollectionsCreateRequest
+        body:
+          properties:
+            displayName:
+              type: string
+              docs: Name of the collection. Each collection name must be distinct.
+            singularName:
+              type: string
+              docs: Singular name of each item.
+            slug:
+              type: optional<string>
+              docs: Part of a URL that identifier
+        content-type: application/json
+      response:
+        docs: Request was successful
+        type: CollectionsCreateResponse
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+          request:
+            displayName: Blog Posts
+            singularName: Blog Post
+            slug: posts
+          response:
+            body:
+              id: 580e63fc8c9a982ac9b8b745
+              displayName: Blog Posts
+              singularName: Blog Post
+              slug: post
+              createdOn: '2016-10-24T19:41:48Z'
+              lastUpdated: '2016-10-24T19:42:38Z'
+              fields:
+                - id: 23cc2d952d4e4631ffd4345d2743db4e
+                  isRequired: true
+                  isEditable: true
+                  type: PlainText
+                  slug: name
+                  displayName: Name
+                  helpText: helpText
+    get:
+      path: /collections/{collection_id}
+      method: GET
+      auth: true
+      docs: |
+        Get the full details of a collection from its ID.
+
+        Required scope | `cms:read`
+      source:
+        openapi: v2-data.yml
+      path-parameters:
+        collection_id:
+          type: string
+          docs: Unique identifier for a Collection
+      display-name: Get Collection Details
+      response:
+        docs: Request was successful
+        type: CollectionsGetResponse
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+          response:
+            body:
+              id: 580e63fc8c9a982ac9b8b745
+              displayName: Blog Posts
+              singularName: Blog Post
+              slug: post
+              createdOn: '2016-10-24T19:41:48Z'
+              lastUpdated: '2016-10-24T19:42:38Z'
+              fields:
+                - id: 23cc2d952d4e4631ffd4345d2743db4e
+                  isRequired: true
+                  isEditable: true
+                  type: PlainText
+                  slug: name
+                  displayName: Name
+                  helpText: helpText
+    delete:
+      path: /collections/{collection_id}
+      method: DELETE
+      auth: true
+      docs: |
+        Delete a collection using its ID.
+
+        Required scope | `cms:write`
+      source:
+        openapi: v2-data.yml
+      path-parameters:
+        collection_id:
+          type: string
+          docs: Unique identifier for a Collection
+      display-name: Delete Collection
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+  source:
+    openapi: v2-data.yml
+  display-name: Collections

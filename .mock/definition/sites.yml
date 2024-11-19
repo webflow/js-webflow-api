@@ -1,0 +1,605 @@
+types:
+  SitesListResponseSitesItemCustomDomainsItem:
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the Domain
+      url:
+        type: optional<string>
+        docs: The registered Domain name
+    source:
+      openapi: v2-data.yml
+  SitesListResponseSitesItemLocalesPrimary:
+    docs: The primary locale for the site or application.
+    properties:
+      id:
+        type: optional<string>
+        docs: The unique identifier for the locale.
+      cmsLocaleId:
+        type: optional<string>
+        docs: A CMS-specific identifier for the locale.
+      enabled:
+        type: optional<boolean>
+        docs: Indicates if the locale is enabled.
+      displayName:
+        type: optional<string>
+        docs: The display name of the locale, typically in English.
+      displayImageId:
+        type: optional<string>
+        docs: An optional ID for an image associated with the locale, nullable.
+      redirect:
+        type: optional<boolean>
+        docs: Determines if requests should redirect to the locale's subdirectory.
+      subdirectory:
+        type: optional<string>
+        docs: The subdirectory path for the locale, used in URLs.
+      tag:
+        type: optional<string>
+        docs: >-
+          A tag or code representing the locale, often following a standard
+          format like 'en-US'.
+    source:
+      openapi: v2-data.yml
+  SitesListResponseSitesItemLocalesSecondaryItem:
+    properties:
+      id:
+        type: optional<string>
+        docs: The unique identifier for the locale.
+      cmsLocaleId:
+        type: optional<string>
+        docs: A CMS-specific identifier for the locale.
+      enabled:
+        type: optional<boolean>
+        docs: Indicates if the locale is enabled.
+      displayName:
+        type: optional<string>
+        docs: The display name of the locale, typically in English.
+      displayImageId:
+        type: optional<string>
+        docs: An optional ID for an image associated with the locale, nullable.
+      redirect:
+        type: optional<boolean>
+        docs: Determines if requests should redirect to the locale's subdirectory.
+      subdirectory:
+        type: optional<string>
+        docs: The subdirectory path for the locale, used in URLs.
+      tag:
+        type: optional<string>
+        docs: >-
+          A tag or code representing the locale, often following a standard
+          format like 'en-US'.
+    source:
+      openapi: v2-data.yml
+  SitesListResponseSitesItemLocales:
+    properties:
+      primary:
+        type: optional<SitesListResponseSitesItemLocalesPrimary>
+        docs: The primary locale for the site or application.
+      secondary:
+        type: optional<list<SitesListResponseSitesItemLocalesSecondaryItem>>
+        docs: A list of secondary locales available for the site or application.
+    source:
+      openapi: v2-data.yml
+  SitesListResponseSitesItem:
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the Site
+      workspaceId:
+        type: optional<string>
+        docs: Unique identifier for the Workspace
+      createdOn:
+        type: optional<datetime>
+        docs: Date the Site was created
+      displayName:
+        type: optional<string>
+        docs: Name given to Site
+      shortName:
+        type: optional<string>
+        docs: Slugified version of name
+      lastPublished:
+        type: optional<datetime>
+        docs: Date the Site was last published
+      lastUpdated:
+        type: optional<datetime>
+        docs: Date the Site was last updated
+      previewUrl:
+        type: optional<string>
+        docs: URL of a generated image for the given Site
+        validation:
+          format: uri
+      timeZone:
+        type: optional<string>
+        docs: Site timezone set under Site Settings
+      parentFolderId:
+        type: optional<string>
+        docs: The ID of the parent folder the Site exists in
+      customDomains: optional<list<SitesListResponseSitesItemCustomDomainsItem>>
+      locales: optional<SitesListResponseSitesItemLocales>
+    source:
+      openapi: v2-data.yml
+  SitesListResponse:
+    properties:
+      sites: optional<list<SitesListResponseSitesItem>>
+    source:
+      openapi: v2-data.yml
+  SitesGetResponseCustomDomainsItem:
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the Domain
+      url:
+        type: optional<string>
+        docs: The registered Domain name
+    source:
+      openapi: v2-data.yml
+  SitesGetResponseLocalesPrimary:
+    docs: The primary locale for the site or application.
+    properties:
+      id:
+        type: optional<string>
+        docs: The unique identifier for the locale.
+      cmsLocaleId:
+        type: optional<string>
+        docs: A CMS-specific identifier for the locale.
+      enabled:
+        type: optional<boolean>
+        docs: Indicates if the locale is enabled.
+      displayName:
+        type: optional<string>
+        docs: The display name of the locale, typically in English.
+      displayImageId:
+        type: optional<string>
+        docs: An optional ID for an image associated with the locale, nullable.
+      redirect:
+        type: optional<boolean>
+        docs: Determines if requests should redirect to the locale's subdirectory.
+      subdirectory:
+        type: optional<string>
+        docs: The subdirectory path for the locale, used in URLs.
+      tag:
+        type: optional<string>
+        docs: >-
+          A tag or code representing the locale, often following a standard
+          format like 'en-US'.
+    source:
+      openapi: v2-data.yml
+  SitesGetResponseLocalesSecondaryItem:
+    properties:
+      id:
+        type: optional<string>
+        docs: The unique identifier for the locale.
+      cmsLocaleId:
+        type: optional<string>
+        docs: A CMS-specific identifier for the locale.
+      enabled:
+        type: optional<boolean>
+        docs: Indicates if the locale is enabled.
+      displayName:
+        type: optional<string>
+        docs: The display name of the locale, typically in English.
+      displayImageId:
+        type: optional<string>
+        docs: An optional ID for an image associated with the locale, nullable.
+      redirect:
+        type: optional<boolean>
+        docs: Determines if requests should redirect to the locale's subdirectory.
+      subdirectory:
+        type: optional<string>
+        docs: The subdirectory path for the locale, used in URLs.
+      tag:
+        type: optional<string>
+        docs: >-
+          A tag or code representing the locale, often following a standard
+          format like 'en-US'.
+    source:
+      openapi: v2-data.yml
+  SitesGetResponseLocales:
+    properties:
+      primary:
+        type: optional<SitesGetResponseLocalesPrimary>
+        docs: The primary locale for the site or application.
+      secondary:
+        type: optional<list<SitesGetResponseLocalesSecondaryItem>>
+        docs: A list of secondary locales available for the site or application.
+    source:
+      openapi: v2-data.yml
+  SitesGetResponse:
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the Site
+      workspaceId:
+        type: optional<string>
+        docs: Unique identifier for the Workspace
+      createdOn:
+        type: optional<datetime>
+        docs: Date the Site was created
+      displayName:
+        type: optional<string>
+        docs: Name given to Site
+      shortName:
+        type: optional<string>
+        docs: Slugified version of name
+      lastPublished:
+        type: optional<datetime>
+        docs: Date the Site was last published
+      lastUpdated:
+        type: optional<datetime>
+        docs: Date the Site was last updated
+      previewUrl:
+        type: optional<string>
+        docs: URL of a generated image for the given Site
+        validation:
+          format: uri
+      timeZone:
+        type: optional<string>
+        docs: Site timezone set under Site Settings
+      parentFolderId:
+        type: optional<string>
+        docs: The ID of the parent folder the Site exists in
+      customDomains: optional<list<SitesGetResponseCustomDomainsItem>>
+      locales: optional<SitesGetResponseLocales>
+    source:
+      openapi: v2-data.yml
+  SitesGetCustomDomainResponseCustomDomainsItem:
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the Domain
+      url:
+        type: optional<string>
+        docs: The registered Domain name
+    source:
+      openapi: v2-data.yml
+  SitesGetCustomDomainResponse:
+    properties:
+      customDomains: optional<list<SitesGetCustomDomainResponseCustomDomainsItem>>
+    source:
+      openapi: v2-data.yml
+  SitesPublishResponseCustomDomainsItem:
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the Domain
+      url:
+        type: optional<string>
+        docs: The registered Domain name
+    source:
+      openapi: v2-data.yml
+  SitesPublishResponse:
+    properties:
+      customDomains:
+        type: optional<list<SitesPublishResponseCustomDomainsItem>>
+        docs: Array of domains objects
+      publishToWebflowSubdomain:
+        type: optional<boolean>
+        docs: Flag for publishing to webflow.io subdomain
+        default: false
+    source:
+      openapi: v2-data.yml
+  SitePublishPayloadPayload:
+    docs: The payload of data sent from Webflow
+    properties:
+      siteId:
+        type: optional<string>
+        docs: The ID of the site that was published
+      publishedOn:
+        type: optional<datetime>
+        docs: The timestamp of the publish event
+      domains:
+        type: optional<list<string>>
+        docs: The domains that were published
+      publishedBy:
+        type: optional<map<string, unknown>>
+        docs: The name andID of the user who published the site
+    source:
+      openapi: v2-data.yml
+  SitePublishPayload:
+    docs: The Webhook payload for when a Site is published
+    properties:
+      triggerType:
+        type: optional<string>
+        docs: The type of event that triggered the request
+      payload:
+        type: optional<SitePublishPayloadPayload>
+        docs: The payload of data sent from Webflow
+    source:
+      openapi: v2-data.yml
+imports:
+  root: __package__.yml
+service:
+  auth: false
+  base-path: ''
+  endpoints:
+    list:
+      path: /sites
+      method: GET
+      auth: true
+      docs: |
+        List of all sites the provided access token is able to access.
+
+        Required scope | `sites:read`
+      source:
+        openapi: v2-data.yml
+      display-name: List Sites
+      response:
+        docs: Request was successful
+        type: SitesListResponse
+      errors:
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+      examples:
+        - response:
+            body:
+              sites:
+                - id: 42e63e98c9a982ac9b8b741
+                  workspaceId: 42e63fc8c9a982ac9b8b744
+                  createdOn: '1979-10-12T12:00:00Z'
+                  displayName: Heart of Gold Spaceship
+                  shortName: heart-of-gold
+                  lastPublished: '2023-04-02T12:42:00Z'
+                  lastUpdated: '2016-10-24T19:43:17Z'
+                  previewUrl: >-
+                    https://d1otoma47x30pg.cloudfront.net/42e63e98c9a982ac9b8b741/197910121200.png
+                  timeZone: DeepSpace/InfiniteImprobability
+                  parentFolderId: 1as2d3f4g5h6j7k8l9z0x1c2v3b4n5m6
+                  customDomains:
+                    - id: 589a331aa51e760df7ccb89e
+                      url: heartofgold.galaxy
+                  locales:
+                    primary:
+                      id: 653fd9af6a07fc9cfd7a5e57
+                      cmsLocaleId: 653ad57de882f528b32e810e
+                      enabled: true
+                      displayName: English - Heart of Gold Standard
+                      redirect: false
+                      subdirectory: /en
+                      tag: The Ultimate Answer
+                    secondary:
+                      - id: 653fd9af6a07fc9cfd7a5e58
+                        cmsLocaleId: 653ad57de882f528b32e810g
+                        enabled: true
+                        displayName: Betelgeusian - Vogon Liaison
+                        redirect: true
+                        subdirectory: /bet
+                        tag: Vogon
+                      - id: 653fd9af6a07fc9cfd7a5e59
+                        cmsLocaleId: 653ad57de882f528b32e810h
+                        enabled: false
+                        displayName: Magrathean - Custom Planet Designs
+                        redirect: true
+                        subdirectory: /mg
+                        tag: Magrathean
+                - id: 42e63e98c9a982ac9b8b742
+                  workspaceId: 42e63fc8c9a982ac9b8b745
+                  createdOn: '1981-10-12T12:00:00Z'
+                  displayName: Marvin's Personal Blog
+                  shortName: paranoid-android
+                  lastPublished: '2023-04-02T12:45:00Z'
+                  lastUpdated: '2016-10-24T19:43:17Z'
+                  previewUrl: >-
+                    https://d1otoma47x30pg.cloudfront.net/42e63e98c9a982ac9b8b742/198110121200.png
+                  timeZone: DeepSpace/Depression
+                  parentFolderId: 1as2d3f4g5h6j7k8l9z0x1c2v3b4n5m6
+                  customDomains:
+                    - id: 589a331aa51e760df7ccb89f
+                      url: marvin.blog
+                  locales:
+                    primary:
+                      id: 653fd9af6a07fc9cfd7a5e57
+                      cmsLocaleId: 653ad57de882f528b32e810e
+                      enabled: true
+                      displayName: English - Marvin's Musings
+                      redirect: false
+                      subdirectory: /en
+                      tag: English
+                    secondary:
+                      - id: 653fd9af6a07fc9cfd7a5e56
+                        cmsLocaleId: 653ad57de882f528b32e810f
+                        enabled: true
+                        displayName: Squornshellous - Mattress Speak
+                        redirect: true
+                        subdirectory: /sr
+                        tag: Squornshellous
+                - id: 42e63e98c9a982ac9b8b743
+                  workspaceId: 42e63fc8c9a982ac9b8b746
+                  createdOn: '1982-10-12T12:00:00Z'
+                  displayName: Vogon Poetry Archive
+                  shortName: vogon-poetry
+                  lastPublished: '2023-04-02T12:50:00Z'
+                  lastUpdated: '2016-10-24T19:43:17Z'
+                  previewUrl: >-
+                    https://d1otoma47x30pg.cloudfront.net/42e63e98c9a982ac9b8b743/198210121200.png
+                  timeZone: Vogsphere/PoetryHall
+                  parentFolderId: 1as2d3f4g5h6j7k8l9z0x1c2v3b4n5m6
+                  customDomains:
+                    - id: 589a331aa51e760df7ccb8a0
+                      url: vogonpoetry.galaxy
+                  locales:
+                    primary:
+                      id: 653fd9af6a07fc9cfd7a5e55
+                      cmsLocaleId: 653ad57de882f528b32e810d
+                      enabled: true
+                      displayName: English - Vogon Verse
+                      redirect: false
+                      subdirectory: /en
+                      tag: Third Worst Poetry
+                    secondary:
+                      - id: 653fd9af6a07fc9cfd7a5e54
+                        cmsLocaleId: 653ad57de882f528b32e810c
+                        enabled: true
+                        displayName: Galactic - Universal Language
+                        redirect: true
+                        subdirectory: /gl
+                        tag: Pan-Galactic Gargle Blaster
+    get:
+      path: /sites/{site_id}
+      method: GET
+      auth: true
+      docs: |
+        Get details of a site.
+
+        Required scope | `sites:read`
+      source:
+        openapi: v2-data.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+      display-name: Get Site
+      response:
+        docs: Request was successful
+        type: SitesGetResponse
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+          response:
+            body:
+              id: 42e98c9a982ac9b8b742
+              workspaceId: 42e63e98c9a982ac9b8b742
+              createdOn: '1979-10-12T12:00:00Z'
+              displayName: The Hitchhiker's Guide to the Galaxy
+              shortName: hitchhikers-guide
+              lastPublished: '2023-04-02T12:42:00Z'
+              lastUpdated: '2023-04-02T12:42:00Z'
+              previewUrl: >-
+                https://screenshots.webflow.com/sites/6258612d1ee792848f805dcf/20231219211811_d5990556c743f33b7071300a03bf67e6.png
+              timeZone: Magrathea/FactoryFloor
+              parentFolderId: 1as2d3f4g5h6j7k8l9z0x1c2v3b4n5m6
+              customDomains:
+                - id: 589a331aa51e760df7ccb89d
+                  url: hitchhikersguide.galaxy
+                - id: 589a331aa51e760df7ccb89e
+                  url: heartofgold.spaceship
+              locales:
+                primary:
+                  id: 653fd9af6a07fc9cfd7a5e57
+                  cmsLocaleId: 653ad57de882f528b32e810e
+                  enabled: false
+                  displayName: English (United States)
+                  displayImageId: displayImageId
+                  redirect: true
+                  subdirectory: ''
+                  tag: en-US
+                secondary:
+                  - id: 653fd9af6a07fc9cfd7a5e57
+                    cmsLocaleId: 653ad57de882f528b32e810e
+                    enabled: false
+                    displayName: English (United States)
+                    redirect: true
+                    subdirectory: ''
+                    tag: en-US
+    get-custom-domain:
+      path: /sites/{site_id}/custom_domains
+      method: GET
+      auth: true
+      docs: |
+        Get a list of all custom domains related to site.
+
+        Required scope | `sites:read`
+      source:
+        openapi: v2-data.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+      display-name: Get Custom Domains
+      response:
+        docs: Request was successful
+        type: SitesGetCustomDomainResponse
+      errors:
+        - root.UnauthorizedError
+        - root.ForbiddenError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+          response:
+            body:
+              customDomains:
+                - id: 589a331aa51e760df7ccb89d
+                  url: hitchhikersguide.galaxy
+                - id: 589a331aa51e760df7ccb89e
+                  url: heartofgold.spaceship
+    publish:
+      path: /sites/{site_id}/publish
+      method: POST
+      auth: true
+      docs: >
+        Publishes a site to one or more more domains.
+
+
+        <Note title="Endpoint-specific rate limit">This endpoint has a limit of
+        one successful publish queue per minute.</Note>
+
+
+        Required scope | `sites:write`
+      source:
+        openapi: v2-data.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+      display-name: Publish Site
+      request:
+        name: SitesPublishRequest
+        body:
+          properties:
+            customDomains:
+              type: optional<list<string>>
+              docs: Array of Custom Domain IDs to publish
+            publishToWebflowSubdomain:
+              type: optional<boolean>
+              docs: Choice of whether to publish to the default Webflow Subdomain
+              default: false
+        content-type: application/json
+      response:
+        docs: Request accepted
+        type: SitesPublishResponse
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.ForbiddenError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+          request: {}
+          response:
+            body:
+              customDomains:
+                - id: 589a331aa51e760df7ccb89d
+                  url: test-api-domain.com
+              publishToWebflowSubdomain: true
+  source:
+    openapi: v2-data.yml
+  display-name: Sites
+webhooks:
+  site_publish:
+    method: POST
+    display-name: Site Publish
+    headers: {}
+    payload:
+      type: SitePublishPayload
+      docs: The Webhook payload for when a Site is published
+    examples:
+      - payload:
+          triggerType: site_publish
+          payload:
+            siteId: 62749158efef318abc8d5a0f
+            publishedOn: '2024-07-26T16:43:20Z'
+            domains:
+              - my-website.webflow.io
+            publishedBy:
+              displayName: Zaphod BeebleBrox

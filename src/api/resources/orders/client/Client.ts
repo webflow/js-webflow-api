@@ -52,7 +52,7 @@ export class Orders {
         siteId: string,
         request: Webflow.OrdersListRequest = {},
         requestOptions?: Orders.RequestOptions
-    ): Promise<Webflow.OrderList> {
+    ): Promise<Webflow.OrdersListResponse> {
         const { status, offset, limit } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (status != null) {
@@ -77,8 +77,8 @@ export class Orders {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -90,7 +90,7 @@ export class Orders {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.OrderList.parseOrThrow(_response.body, {
+            return serializers.OrdersListResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -112,15 +112,7 @@ export class Orders {
                 case 409:
                     throw new Webflow.ConflictError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -147,7 +139,8 @@ export class Orders {
     }
 
     /**
-     * Retrieve a single product by its id. All of its SKUs will also be retrieved.
+     * Retrieve a single product by its ID. All of its SKUs will also be
+     * retrieved.
      *
      * Required scope | `ecommerce:read`
      *
@@ -166,7 +159,11 @@ export class Orders {
      * @example
      *     await client.orders.get("580e63e98c9a982ac9b8b741", "5e8518516e147040726cc415")
      */
-    public async get(siteId: string, orderId: string, requestOptions?: Orders.RequestOptions): Promise<Webflow.Order> {
+    public async get(
+        siteId: string,
+        orderId: string,
+        requestOptions?: Orders.RequestOptions
+    ): Promise<Webflow.OrdersGetResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -177,8 +174,8 @@ export class Orders {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -189,7 +186,7 @@ export class Orders {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.Order.parseOrThrow(_response.body, {
+            return serializers.OrdersGetResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -211,15 +208,7 @@ export class Orders {
                 case 409:
                     throw new Webflow.ConflictError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -246,7 +235,9 @@ export class Orders {
     }
 
     /**
-     * This API lets you update the fields, `comment`, `shippingProvider`, and/or `shippingTracking` for a given order. All three fields can be updated simultaneously or independently.
+     * This API lets you update the fields, `comment`, `shippingProvider`,
+     * and/or `shippingTracking` for a given order. All three fields can be
+     * updated simultaneously or independently.
      *
      * Required scope | `ecommerce:write`
      *
@@ -271,7 +262,7 @@ export class Orders {
         orderId: string,
         request: Webflow.OrdersUpdateRequest = {},
         requestOptions?: Orders.RequestOptions
-    ): Promise<Webflow.Order> {
+    ): Promise<Webflow.OrdersUpdateResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -282,8 +273,8 @@ export class Orders {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -295,7 +286,7 @@ export class Orders {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.Order.parseOrThrow(_response.body, {
+            return serializers.OrdersUpdateResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -317,15 +308,7 @@ export class Orders {
                 case 409:
                     throw new Webflow.ConflictError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -377,7 +360,7 @@ export class Orders {
         orderId: string,
         request: Webflow.OrdersUpdateFulfillRequest = {},
         requestOptions?: Orders.RequestOptions
-    ): Promise<Webflow.Order> {
+    ): Promise<Webflow.OrdersUpdateFulfillResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -388,8 +371,8 @@ export class Orders {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -401,7 +384,7 @@ export class Orders {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.Order.parseOrThrow(_response.body, {
+            return serializers.OrdersUpdateFulfillResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -423,15 +406,7 @@ export class Orders {
                 case 409:
                     throw new Webflow.ConflictError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -481,7 +456,7 @@ export class Orders {
         siteId: string,
         orderId: string,
         requestOptions?: Orders.RequestOptions
-    ): Promise<Webflow.Order> {
+    ): Promise<Webflow.OrdersUpdateUnfulfillResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -492,8 +467,8 @@ export class Orders {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -504,7 +479,7 @@ export class Orders {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.Order.parseOrThrow(_response.body, {
+            return serializers.OrdersUpdateUnfulfillResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -526,15 +501,7 @@ export class Orders {
                 case 409:
                     throw new Webflow.ConflictError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -587,7 +554,7 @@ export class Orders {
         orderId: string,
         request: Webflow.OrdersRefundRequest = {},
         requestOptions?: Orders.RequestOptions
-    ): Promise<Webflow.Order> {
+    ): Promise<Webflow.OrdersRefundResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -598,8 +565,8 @@ export class Orders {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -611,7 +578,7 @@ export class Orders {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.Order.parseOrThrow(_response.body, {
+            return serializers.OrdersRefundResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -633,15 +600,7 @@ export class Orders {
                 case 409:
                     throw new Webflow.ConflictError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:

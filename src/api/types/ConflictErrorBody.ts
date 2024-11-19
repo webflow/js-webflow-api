@@ -6,11 +6,11 @@ import * as Webflow from "../index";
 
 export interface ConflictErrorBody {
     /** Error code */
-    code?: "ecommerce_not_enabled";
+    code?: Webflow.ConflictErrorBodyCode;
     /** Error message */
     message?: string;
     /** Link to more information */
     externalReference?: string;
     /** Array of errors */
-    details?: Webflow.ErrorDetailsItem[];
+    details?: Webflow.ConflictErrorBodyDetailsItem[];
 }

@@ -1,0 +1,481 @@
+types:
+  UnauthorizedErrorBodyCode:
+    enum:
+      - bad_request
+      - collection_not_found
+      - conflict
+      - duplicate_collection
+      - duplicate_user_email
+      - ecommerce_not_enabled
+      - forbidden
+      - forms_require_republish
+      - incompatible_webhook_filter
+      - internal_error
+      - invalid_auth_version
+      - invalid_credentials
+      - invalid_domain
+      - invalid_user_email
+      - item_not_found
+      - missing_scopes
+      - no_domains
+      - not_authorized
+      - not_enterprise_plan_site
+      - not_enterprise_plan_workspace
+      - order_not_found
+      - resource_not_found
+      - too_many_requests
+      - unsupported_version
+      - unsupported_webhook_trigger_type
+      - user_limit_reached
+      - user_not_found
+      - users_not_enabled
+      - validation_error
+    docs: Error code
+    source:
+      openapi: v2-data.yml
+  UnauthorizedErrorBodyDetailsItem:
+    discriminated: false
+    union:
+      - string
+      - map<string, unknown>
+    source:
+      openapi: v2-data.yml
+  UnauthorizedErrorBody:
+    properties:
+      code:
+        type: optional<UnauthorizedErrorBodyCode>
+        docs: Error code
+      message:
+        type: optional<string>
+        docs: Error message
+      externalReference:
+        type: optional<string>
+        docs: Link to more information
+      details:
+        type: optional<list<UnauthorizedErrorBodyDetailsItem>>
+        docs: Array of errors
+    source:
+      openapi: v2-data.yml
+  ForbiddenErrorBodyCode:
+    enum:
+      - bad_request
+      - collection_not_found
+      - conflict
+      - duplicate_collection
+      - duplicate_user_email
+      - ecommerce_not_enabled
+      - forbidden
+      - forms_require_republish
+      - incompatible_webhook_filter
+      - internal_error
+      - invalid_auth_version
+      - invalid_credentials
+      - invalid_domain
+      - invalid_user_email
+      - item_not_found
+      - missing_scopes
+      - no_domains
+      - not_authorized
+      - not_enterprise_plan_site
+      - not_enterprise_plan_workspace
+      - order_not_found
+      - resource_not_found
+      - too_many_requests
+      - unsupported_version
+      - unsupported_webhook_trigger_type
+      - user_limit_reached
+      - user_not_found
+      - users_not_enabled
+      - validation_error
+    docs: Error code
+    source:
+      openapi: v2-data.yml
+  ForbiddenErrorBodyDetailsItem:
+    discriminated: false
+    union:
+      - string
+      - map<string, unknown>
+    source:
+      openapi: v2-data.yml
+  ForbiddenErrorBody:
+    properties:
+      code:
+        type: optional<ForbiddenErrorBodyCode>
+        docs: Error code
+      message:
+        type: optional<string>
+        docs: Error message
+      externalReference:
+        type: optional<string>
+        docs: Link to more information
+      details:
+        type: optional<list<ForbiddenErrorBodyDetailsItem>>
+        docs: Array of errors
+    source:
+      openapi: v2-data.yml
+  NotFoundErrorBodyCode:
+    enum:
+      - bad_request
+      - collection_not_found
+      - conflict
+      - duplicate_collection
+      - duplicate_user_email
+      - ecommerce_not_enabled
+      - forbidden
+      - forms_require_republish
+      - incompatible_webhook_filter
+      - internal_error
+      - invalid_auth_version
+      - invalid_credentials
+      - invalid_domain
+      - invalid_user_email
+      - item_not_found
+      - missing_scopes
+      - no_domains
+      - not_authorized
+      - not_enterprise_plan_site
+      - not_enterprise_plan_workspace
+      - order_not_found
+      - resource_not_found
+      - too_many_requests
+      - unsupported_version
+      - unsupported_webhook_trigger_type
+      - user_limit_reached
+      - user_not_found
+      - users_not_enabled
+      - validation_error
+    docs: Error code
+    source:
+      openapi: v2-data.yml
+  NotFoundErrorBodyDetailsItem:
+    discriminated: false
+    union:
+      - string
+      - map<string, unknown>
+    source:
+      openapi: v2-data.yml
+  NotFoundErrorBody:
+    properties:
+      code:
+        type: optional<NotFoundErrorBodyCode>
+        docs: Error code
+      message:
+        type: optional<string>
+        docs: Error message
+      externalReference:
+        type: optional<string>
+        docs: Link to more information
+      details:
+        type: optional<list<NotFoundErrorBodyDetailsItem>>
+        docs: Array of errors
+    source:
+      openapi: v2-data.yml
+  TooManyRequestsErrorBodyCode:
+    enum:
+      - bad_request
+      - collection_not_found
+      - conflict
+      - duplicate_collection
+      - duplicate_user_email
+      - ecommerce_not_enabled
+      - forbidden
+      - forms_require_republish
+      - incompatible_webhook_filter
+      - internal_error
+      - invalid_auth_version
+      - invalid_credentials
+      - invalid_domain
+      - invalid_user_email
+      - item_not_found
+      - missing_scopes
+      - no_domains
+      - not_authorized
+      - not_enterprise_plan_site
+      - not_enterprise_plan_workspace
+      - order_not_found
+      - resource_not_found
+      - too_many_requests
+      - unsupported_version
+      - unsupported_webhook_trigger_type
+      - user_limit_reached
+      - user_not_found
+      - users_not_enabled
+      - validation_error
+    docs: Error code
+    source:
+      openapi: v2-data.yml
+  TooManyRequestsErrorBodyDetailsItem:
+    discriminated: false
+    union:
+      - string
+      - map<string, unknown>
+    source:
+      openapi: v2-data.yml
+  TooManyRequestsErrorBody:
+    properties:
+      code:
+        type: optional<TooManyRequestsErrorBodyCode>
+        docs: Error code
+      message:
+        type: optional<string>
+        docs: Error message
+      externalReference:
+        type: optional<string>
+        docs: Link to more information
+      details:
+        type: optional<list<TooManyRequestsErrorBodyDetailsItem>>
+        docs: Array of errors
+    source:
+      openapi: v2-data.yml
+  BadRequestErrorBodyCode:
+    enum:
+      - bad_request
+      - collection_not_found
+      - conflict
+      - duplicate_collection
+      - duplicate_user_email
+      - ecommerce_not_enabled
+      - forbidden
+      - forms_require_republish
+      - incompatible_webhook_filter
+      - internal_error
+      - invalid_auth_version
+      - invalid_credentials
+      - invalid_domain
+      - invalid_user_email
+      - item_not_found
+      - missing_scopes
+      - no_domains
+      - not_authorized
+      - not_enterprise_plan_site
+      - not_enterprise_plan_workspace
+      - order_not_found
+      - resource_not_found
+      - too_many_requests
+      - unsupported_version
+      - unsupported_webhook_trigger_type
+      - user_limit_reached
+      - user_not_found
+      - users_not_enabled
+      - validation_error
+    docs: Error code
+    source:
+      openapi: v2-data.yml
+  BadRequestErrorBodyDetailsItem:
+    discriminated: false
+    union:
+      - string
+      - map<string, unknown>
+    source:
+      openapi: v2-data.yml
+  BadRequestErrorBody:
+    properties:
+      code:
+        type: optional<BadRequestErrorBodyCode>
+        docs: Error code
+      message:
+        type: optional<string>
+        docs: Error message
+      externalReference:
+        type: optional<string>
+        docs: Link to more information
+      details:
+        type: optional<list<BadRequestErrorBodyDetailsItem>>
+        docs: Array of errors
+    source:
+      openapi: v2-data.yml
+  InternalServerErrorBodyCode:
+    enum:
+      - bad_request
+      - collection_not_found
+      - conflict
+      - duplicate_collection
+      - duplicate_user_email
+      - ecommerce_not_enabled
+      - forbidden
+      - forms_require_republish
+      - incompatible_webhook_filter
+      - internal_error
+      - invalid_auth_version
+      - invalid_credentials
+      - invalid_domain
+      - invalid_user_email
+      - item_not_found
+      - missing_scopes
+      - no_domains
+      - not_authorized
+      - not_enterprise_plan_site
+      - not_enterprise_plan_workspace
+      - order_not_found
+      - resource_not_found
+      - too_many_requests
+      - unsupported_version
+      - unsupported_webhook_trigger_type
+      - user_limit_reached
+      - user_not_found
+      - users_not_enabled
+      - validation_error
+    docs: Error code
+    source:
+      openapi: v2-data.yml
+  InternalServerErrorBodyDetailsItem:
+    discriminated: false
+    union:
+      - string
+      - map<string, unknown>
+    source:
+      openapi: v2-data.yml
+  InternalServerErrorBody:
+    properties:
+      code:
+        type: optional<InternalServerErrorBodyCode>
+        docs: Error code
+      message:
+        type: optional<string>
+        docs: Error message
+      externalReference:
+        type: optional<string>
+        docs: Link to more information
+      details:
+        type: optional<list<InternalServerErrorBodyDetailsItem>>
+        docs: Array of errors
+    source:
+      openapi: v2-data.yml
+  ConflictErrorBodyCode:
+    enum:
+      - bad_request
+      - collection_not_found
+      - conflict
+      - duplicate_collection
+      - duplicate_user_email
+      - ecommerce_not_enabled
+      - forbidden
+      - forms_require_republish
+      - incompatible_webhook_filter
+      - internal_error
+      - invalid_auth_version
+      - invalid_credentials
+      - invalid_domain
+      - invalid_user_email
+      - item_not_found
+      - missing_scopes
+      - no_domains
+      - not_authorized
+      - not_enterprise_plan_site
+      - not_enterprise_plan_workspace
+      - order_not_found
+      - resource_not_found
+      - too_many_requests
+      - unsupported_version
+      - unsupported_webhook_trigger_type
+      - user_limit_reached
+      - user_not_found
+      - users_not_enabled
+      - validation_error
+    docs: Error code
+    source:
+      openapi: v2-data.yml
+  ConflictErrorBodyDetailsItem:
+    discriminated: false
+    union:
+      - string
+      - map<string, unknown>
+    source:
+      openapi: v2-data.yml
+  ConflictErrorBody:
+    properties:
+      code:
+        type: optional<ConflictErrorBodyCode>
+        docs: Error code
+      message:
+        type: optional<string>
+        docs: Error message
+      externalReference:
+        type: optional<string>
+        docs: Link to more information
+      details:
+        type: optional<list<ConflictErrorBodyDetailsItem>>
+        docs: Array of errors
+    source:
+      openapi: v2-data.yml
+errors:
+  UnauthorizedError:
+    status-code: 401
+    type: unknown
+    docs: >-
+      Provided access token is invalid or does not have access to requested
+      resource
+    examples:
+      - value:
+          code: not_authorized
+          message: Request not authorized
+  ForbiddenError:
+    status-code: 403
+    type: unknown
+    docs: Provided access token is valid, but is missing the required scopes.
+    examples:
+      - value:
+          code: missing_scopes
+          message: >-
+            OAuthForbidden: You are missing the following scopes -
+            components:write
+      - value:
+          code: forbidden
+          message: User is not authorized to perform this action
+      - value:
+          key: value
+  NotFoundError:
+    status-code: 404
+    type: unknown
+    docs: Requested resource not found
+    examples:
+      - value:
+          code: resource_not_found
+          message: 'Requested resource not found: The site cannot be found'
+  TooManyRequestsError:
+    status-code: 429
+    type: unknown
+    docs: >-
+      The rate limit of the provided access_token has been reached. Please have
+      your application respect the X-RateLimit-Remaining header we include on
+      API responses.
+    examples:
+      - value:
+          code: too_many_requests
+          message: Too many requests
+  BadRequestError:
+    status-code: 400
+    type: unknown
+    docs: Request body was incorrectly formatted.
+    examples:
+      - value:
+          code: bad_request
+          message: 'Bad Request: Request is malformed'
+      - value:
+          key: value
+      - value:
+          code: validation_error
+          message: 'Validation Error: Provided ID is invalid'
+  InternalServerError:
+    status-code: 500
+    type: unknown
+    docs: We had a problem with our server. Try again later.
+    examples:
+      - value:
+          code: internal_error
+          message: An Internal Error occurred
+  ConflictError:
+    status-code: 409
+    type: unknown
+    docs: Site is published to multiple domains at different times
+    examples:
+      - value:
+          message: '''Site is published to multiple domains at different times'
+      - value:
+          code: forms_require_republish
+          message: To access this feature, the site needs to be republished.
+      - value:
+          key: value
+      - value:
+          code: ecommerce_not_enabled
+          message: Ecommerce is not yet initialized

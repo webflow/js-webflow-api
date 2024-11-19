@@ -5,19 +5,19 @@
 import * as serializers from "../../../index";
 import * as Webflow from "../../../../api/index";
 import * as core from "../../../../core";
-import { Domain } from "../../../types/Domain";
+import { SitesPublishResponseCustomDomainsItem } from "./SitesPublishResponseCustomDomainsItem";
 
 export const SitesPublishResponse: core.serialization.ObjectSchema<
     serializers.SitesPublishResponse.Raw,
     Webflow.SitesPublishResponse
 > = core.serialization.object({
-    customDomains: core.serialization.list(Domain).optional(),
+    customDomains: core.serialization.list(SitesPublishResponseCustomDomainsItem).optional(),
     publishToWebflowSubdomain: core.serialization.boolean().optional(),
 });
 
 export declare namespace SitesPublishResponse {
     interface Raw {
-        customDomains?: Domain.Raw[] | null;
+        customDomains?: SitesPublishResponseCustomDomainsItem.Raw[] | null;
         publishToWebflowSubdomain?: boolean | null;
     }
 }

@@ -10,11 +10,13 @@ export const AssetsUpdateRequest: core.serialization.Schema<
     serializers.AssetsUpdateRequest.Raw,
     Webflow.AssetsUpdateRequest
 > = core.serialization.object({
-    displayName: core.serialization.string(),
+    localeId: core.serialization.string().optional(),
+    displayName: core.serialization.string().optional(),
 });
 
 export declare namespace AssetsUpdateRequest {
     interface Raw {
-        displayName: string;
+        localeId?: string | null;
+        displayName?: string | null;
     }
 }

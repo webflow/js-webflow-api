@@ -29,7 +29,9 @@ export class Assets {
     constructor(protected readonly _options: Assets.Options) {}
 
     /**
-     * List assets for a given site </br></br> Required scope | `assets:read`
+     * List assets for a given site
+     *
+     * Required scope | `assets:read`
      *
      * @param {string} siteId - Unique identifier for a Site
      * @param {Assets.RequestOptions} requestOptions - Request-specific configuration.
@@ -43,7 +45,7 @@ export class Assets {
      * @example
      *     await client.assets.list("580e63e98c9a982ac9b8b741")
      */
-    public async list(siteId: string, requestOptions?: Assets.RequestOptions): Promise<Webflow.Assets> {
+    public async list(siteId: string, requestOptions?: Assets.RequestOptions): Promise<Webflow.AssetsListResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -54,8 +56,8 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -66,7 +68,7 @@ export class Assets {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.Assets.parseOrThrow(_response.body, {
+            return serializers.AssetsListResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -84,15 +86,7 @@ export class Assets {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -119,7 +113,13 @@ export class Assets {
     }
 
     /**
-     * Create a new asset entry. </br></br> This endpoint generates a response with the following information: `uploadUrl` and `uploadDetails`. You can use these two properties to [upload the file to Amazon s3 by making a POST](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectPOST.html) request to the `uploadUrl` with the `uploadDetails` object as your header information in the request. </br></br> Required scope | `assets:write`
+     * Create a new asset entry.
+     *
+     * This endpoint generates a response with the following information: `uploadUrl` and `uploadDetails`.
+     * You can use these two properties to [upload the file to Amazon s3 by making a POST](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectPOST.html)
+     * request to the `uploadUrl` with the `uploadDetails` object as your header information in the request.
+     *
+     * Required scope | `assets:write`
      *
      * @param {string} siteId - Unique identifier for a Site
      * @param {Webflow.AssetsCreateRequest} request
@@ -141,7 +141,7 @@ export class Assets {
         siteId: string,
         request: Webflow.AssetsCreateRequest,
         requestOptions?: Assets.RequestOptions
-    ): Promise<Webflow.AssetUpload> {
+    ): Promise<Webflow.AssetsCreateResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -152,8 +152,8 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -165,7 +165,7 @@ export class Assets {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.AssetUpload.parseOrThrow(_response.body, {
+            return serializers.AssetsCreateResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -183,15 +183,7 @@ export class Assets {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -218,7 +210,9 @@ export class Assets {
     }
 
     /**
-     * Get an Asset </br></br> Required scope | `assets:read`
+     * Get an Asset
+     *
+     * Required scope | `assets:read`
      *
      * @param {string} assetId - Unique identifier for an Asset on a site
      * @param {Assets.RequestOptions} requestOptions - Request-specific configuration.
@@ -232,7 +226,7 @@ export class Assets {
      * @example
      *     await client.assets.get("580e63fc8c9a982ac9b8b745")
      */
-    public async get(assetId: string, requestOptions?: Assets.RequestOptions): Promise<Webflow.Asset> {
+    public async get(assetId: string, requestOptions?: Assets.RequestOptions): Promise<Webflow.AssetsGetResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -243,8 +237,8 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -255,7 +249,7 @@ export class Assets {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.Asset.parseOrThrow(_response.body, {
+            return serializers.AssetsGetResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -273,15 +267,7 @@ export class Assets {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -310,6 +296,8 @@ export class Assets {
     /**
      * Delete an Asset
      *
+     * Required Scope: `assets: write`
+     *
      * @param {string} assetId - Unique identifier for an Asset on a site
      * @param {Assets.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -333,8 +321,8 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -357,15 +345,7 @@ export class Assets {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -392,7 +372,9 @@ export class Assets {
     }
 
     /**
-     * Update an Asset </br></br> Required scope | `assets:write`
+     * Update an Asset
+     *
+     * Required scope | `assets:write`
      *
      * @param {string} assetId - Unique identifier for an Asset on a site
      * @param {Webflow.AssetsUpdateRequest} request
@@ -405,15 +387,13 @@ export class Assets {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.assets.update("580e63fc8c9a982ac9b8b745", {
-     *         displayName: "bulldoze.png"
-     *     })
+     *     await client.assets.update("580e63fc8c9a982ac9b8b745")
      */
     public async update(
         assetId: string,
-        request: Webflow.AssetsUpdateRequest,
+        request: Webflow.AssetsUpdateRequest = {},
         requestOptions?: Assets.RequestOptions
-    ): Promise<Webflow.Asset> {
+    ): Promise<Webflow.AssetsUpdateResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -424,8 +404,8 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -437,7 +417,7 @@ export class Assets {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.Asset.parseOrThrow(_response.body, {
+            return serializers.AssetsUpdateResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -455,15 +435,7 @@ export class Assets {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -490,7 +462,9 @@ export class Assets {
     }
 
     /**
-     * List Asset Folders within a given site <br><br> Required scope | `assets:read`
+     * List Asset Folders within a given site
+     *
+     * Required scope | `assets:read`
      *
      * @param {string} siteId - Unique identifier for a Site
      * @param {Assets.RequestOptions} requestOptions - Request-specific configuration.
@@ -504,7 +478,10 @@ export class Assets {
      * @example
      *     await client.assets.listFolders("580e63e98c9a982ac9b8b741")
      */
-    public async listFolders(siteId: string, requestOptions?: Assets.RequestOptions): Promise<Webflow.AssetFolderList> {
+    public async listFolders(
+        siteId: string,
+        requestOptions?: Assets.RequestOptions
+    ): Promise<Webflow.AssetsListFoldersResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -515,8 +492,8 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -527,7 +504,7 @@ export class Assets {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.AssetFolderList.parseOrThrow(_response.body, {
+            return serializers.AssetsListFoldersResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -545,15 +522,7 @@ export class Assets {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -580,7 +549,9 @@ export class Assets {
     }
 
     /**
-     * Create an Asset Folder within a given site <br><br> Required scope | `assets:write`
+     * Create an Asset Folder within a given site
+     *
+     * Required scope | `assets:write`
      *
      * @param {string} siteId - Unique identifier for a Site
      * @param {Webflow.AssetsCreateFolderRequest} request
@@ -601,7 +572,7 @@ export class Assets {
         siteId: string,
         request: Webflow.AssetsCreateFolderRequest,
         requestOptions?: Assets.RequestOptions
-    ): Promise<Webflow.AssetFolder> {
+    ): Promise<Webflow.AssetsCreateFolderResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -612,8 +583,8 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -625,7 +596,7 @@ export class Assets {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.AssetFolder.parseOrThrow(_response.body, {
+            return serializers.AssetsCreateFolderResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -643,15 +614,7 @@ export class Assets {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:
@@ -678,7 +641,9 @@ export class Assets {
     }
 
     /**
-     * Get details about a specific Asset Folder <br><br> Required scope | `assets:read`
+     * Get details about a specific Asset Folder
+     *
+     * Required scope | `assets:read`
      *
      * @param {string} assetFolderId - Unique identifier for an Asset Folder
      * @param {Assets.RequestOptions} requestOptions - Request-specific configuration.
@@ -695,7 +660,7 @@ export class Assets {
     public async getFolder(
         assetFolderId: string,
         requestOptions?: Assets.RequestOptions
-    ): Promise<Webflow.AssetFolder> {
+    ): Promise<Webflow.AssetsGetFolderResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -706,8 +671,8 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -718,7 +683,7 @@ export class Assets {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.AssetFolder.parseOrThrow(_response.body, {
+            return serializers.AssetsGetFolderResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -736,15 +701,7 @@ export class Assets {
                 case 404:
                     throw new Webflow.NotFoundError(_response.error.body);
                 case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
+                    throw new Webflow.TooManyRequestsError(_response.error.body);
                 case 500:
                     throw new Webflow.InternalServerError(_response.error.body);
                 default:

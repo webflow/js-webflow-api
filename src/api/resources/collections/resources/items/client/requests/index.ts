@@ -1,7 +1,14 @@
 export { type ItemsListItemsRequest } from "./ItemsListItemsRequest";
+export { type ItemsDeleteItemsRequest } from "./ItemsDeleteItemsRequest";
+export { type ItemsUpdateItemsRequest } from "./ItemsUpdateItemsRequest";
 export { type ItemsListItemsLiveRequest } from "./ItemsListItemsLiveRequest";
+export { type ItemsDeleteItemsLiveRequest } from "./ItemsDeleteItemsLiveRequest";
+export { type ItemsUpdateItemsLiveRequest } from "./ItemsUpdateItemsLiveRequest";
+export { type ItemsCreateItemsRequest } from "./ItemsCreateItemsRequest";
 export { type ItemsGetItemRequest } from "./ItemsGetItemRequest";
 export { type ItemsDeleteItemRequest } from "./ItemsDeleteItemRequest";
+export { type ItemsUpdateItemRequest } from "./ItemsUpdateItemRequest";
 export { type ItemsGetItemLiveRequest } from "./ItemsGetItemLiveRequest";
 export { type ItemsDeleteItemLiveRequest } from "./ItemsDeleteItemLiveRequest";
+export { type ItemsUpdateItemLiveRequest } from "./ItemsUpdateItemLiveRequest";
 export { type ItemsPublishItemRequest } from "./ItemsPublishItemRequest";

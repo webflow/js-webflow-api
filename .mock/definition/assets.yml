@@ -1,0 +1,778 @@
+types:
+  AssetsListResponseAssetsItemVariantsItem:
+    properties:
+      hostedUrl:
+        type: optional<string>
+        docs: URL of where the asset variant is hosted
+        validation:
+          format: uri
+      originalFileName:
+        type: optional<string>
+        docs: Original file name of the variant
+      displayName:
+        type: optional<string>
+        docs: Display name of the variant
+      format:
+        type: optional<string>
+        docs: format of the variant
+      width:
+        type: optional<integer>
+        docs: Width in pixels
+      height:
+        type: optional<integer>
+        docs: Height in pixels
+      quality:
+        type: optional<integer>
+        docs: Value between 0 and 100 representing the image quality
+      error:
+        type: optional<string>
+        docs: Any associated validation errors
+    source:
+      openapi: v2-data.yml
+  AssetsListResponseAssetsItem:
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for this asset
+      contentType:
+        type: optional<string>
+        docs: File format type
+      size:
+        type: optional<integer>
+        docs: size in bytes
+      siteId:
+        type: optional<string>
+        docs: Unique identifier for the site that hosts this asset
+      hostedUrl:
+        type: optional<string>
+        docs: Link to the asset
+        validation:
+          format: uri
+      originalFileName:
+        type: optional<string>
+        docs: Original file name at the time of upload
+      displayName:
+        type: optional<string>
+        docs: Display name of the asset
+      lastUpdated:
+        type: optional<datetime>
+        docs: Date the asset metadata was last updated
+      createdOn:
+        type: optional<datetime>
+        docs: Date the asset metadata was created
+      variants: optional<list<AssetsListResponseAssetsItemVariantsItem>>
+      altText:
+        type: optional<string>
+        docs: The visual description of the asset
+    source:
+      openapi: v2-data.yml
+  AssetsListResponse:
+    docs: A list of assets
+    properties:
+      assets: optional<list<AssetsListResponseAssetsItem>>
+    source:
+      openapi: v2-data.yml
+  AssetsCreateResponseUploadDetails:
+    docs: Metadata for uploading the asset binary
+    properties:
+      acl: optional<string>
+      bucket: optional<string>
+      X-Amz-Algorithm: optional<string>
+      X-Amz-Credential: optional<string>
+      X-Amz-Date: optional<string>
+      key: optional<string>
+      Policy: optional<string>
+      X-Amz-Signature: optional<string>
+      success_action_status: optional<string>
+      content-type: optional<string>
+      Cache-Control: optional<string>
+    source:
+      openapi: v2-data.yml
+  AssetsCreateResponse:
+    properties:
+      uploadDetails:
+        type: optional<AssetsCreateResponseUploadDetails>
+        docs: Metadata for uploading the asset binary
+      contentType: optional<string>
+      id: optional<string>
+      parentFolder:
+        type: optional<string>
+        docs: Parent folder for the asset
+      uploadUrl:
+        type: optional<string>
+        validation:
+          format: uri
+      assetUrl:
+        type: optional<string>
+        docs: S3 link to the asset
+        validation:
+          format: uri
+      hostedUrl:
+        type: optional<string>
+        docs: Represents the link to the asset
+        validation:
+          format: uri
+      originalFileName:
+        type: optional<string>
+        docs: >-
+          Original file name when uploaded. If not specified at time of upload,
+          it may be extracted from the raw file name
+      createdOn:
+        type: optional<datetime>
+        docs: Date the asset metadata was created
+      lastUpdated:
+        type: optional<datetime>
+        docs: Date the asset metadata was last updated
+    source:
+      openapi: v2-data.yml
+  AssetsGetResponseVariantsItem:
+    properties:
+      hostedUrl:
+        type: optional<string>
+        docs: URL of where the asset variant is hosted
+        validation:
+          format: uri
+      originalFileName:
+        type: optional<string>
+        docs: Original file name of the variant
+      displayName:
+        type: optional<string>
+        docs: Display name of the variant
+      format:
+        type: optional<string>
+        docs: format of the variant
+      width:
+        type: optional<integer>
+        docs: Width in pixels
+      height:
+        type: optional<integer>
+        docs: Height in pixels
+      quality:
+        type: optional<integer>
+        docs: Value between 0 and 100 representing the image quality
+      error:
+        type: optional<string>
+        docs: Any associated validation errors
+    source:
+      openapi: v2-data.yml
+  AssetsGetResponse:
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for this asset
+      contentType:
+        type: optional<string>
+        docs: File format type
+      size:
+        type: optional<integer>
+        docs: size in bytes
+      siteId:
+        type: optional<string>
+        docs: Unique identifier for the site that hosts this asset
+      hostedUrl:
+        type: optional<string>
+        docs: Link to the asset
+        validation:
+          format: uri
+      originalFileName:
+        type: optional<string>
+        docs: Original file name at the time of upload
+      displayName:
+        type: optional<string>
+        docs: Display name of the asset
+      lastUpdated:
+        type: optional<datetime>
+        docs: Date the asset metadata was last updated
+      createdOn:
+        type: optional<datetime>
+        docs: Date the asset metadata was created
+      variants: optional<list<AssetsGetResponseVariantsItem>>
+      altText:
+        type: optional<string>
+        docs: The visual description of the asset
+    source:
+      openapi: v2-data.yml
+  AssetsUpdateResponseVariantsItem:
+    properties:
+      hostedUrl:
+        type: optional<string>
+        docs: URL of where the asset variant is hosted
+        validation:
+          format: uri
+      originalFileName:
+        type: optional<string>
+        docs: Original file name of the variant
+      displayName:
+        type: optional<string>
+        docs: Display name of the variant
+      format:
+        type: optional<string>
+        docs: format of the variant
+      width:
+        type: optional<integer>
+        docs: Width in pixels
+      height:
+        type: optional<integer>
+        docs: Height in pixels
+      quality:
+        type: optional<integer>
+        docs: Value between 0 and 100 representing the image quality
+      error:
+        type: optional<string>
+        docs: Any associated validation errors
+    source:
+      openapi: v2-data.yml
+  AssetsUpdateResponse:
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for this asset
+      contentType:
+        type: optional<string>
+        docs: File format type
+      size:
+        type: optional<integer>
+        docs: size in bytes
+      siteId:
+        type: optional<string>
+        docs: Unique identifier for the site that hosts this asset
+      hostedUrl:
+        type: optional<string>
+        docs: Link to the asset
+        validation:
+          format: uri
+      originalFileName:
+        type: optional<string>
+        docs: Original file name at the time of upload
+      displayName:
+        type: optional<string>
+        docs: Display name of the asset
+      lastUpdated:
+        type: optional<datetime>
+        docs: Date the asset metadata was last updated
+      createdOn:
+        type: optional<datetime>
+        docs: Date the asset metadata was created
+      variants: optional<list<AssetsUpdateResponseVariantsItem>>
+      altText:
+        type: optional<string>
+        docs: The visual description of the asset
+    source:
+      openapi: v2-data.yml
+  AssetsListFoldersResponseAssetFoldersItem:
+    docs: Asset Folder details
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Asset Folder
+      displayName:
+        type: optional<string>
+        docs: User visible name for the Asset Folder
+      parentFolder:
+        type: optional<string>
+        docs: Pointer to parent Asset Folder (or null if root)
+      assets:
+        type: optional<list<string>>
+        docs: Array of Asset instances in the folder
+      siteId:
+        type: optional<string>
+        docs: The unique ID of the site the Asset Folder belongs to
+      createdOn:
+        type: optional<datetime>
+        docs: Date that the Asset Folder was created on
+      lastUpdated:
+        type: optional<datetime>
+        docs: Date that the Asset Folder was last updated on
+    source:
+      openapi: v2-data.yml
+  AssetsListFoldersResponsePagination:
+    docs: Pagination object
+    properties:
+      limit:
+        type: optional<double>
+        docs: The limit used for pagination
+      offset:
+        type: optional<double>
+        docs: The offset used for pagination
+      total:
+        type: optional<double>
+        docs: The total number of records
+    source:
+      openapi: v2-data.yml
+  AssetsListFoldersResponse:
+    docs: The Asset Folders object
+    properties:
+      assetFolders:
+        type: optional<list<AssetsListFoldersResponseAssetFoldersItem>>
+        docs: A list of Asset folders
+      pagination:
+        type: optional<AssetsListFoldersResponsePagination>
+        docs: Pagination object
+    source:
+      openapi: v2-data.yml
+  AssetsCreateFolderResponse:
+    docs: Asset Folder details
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Asset Folder
+      displayName:
+        type: optional<string>
+        docs: User visible name for the Asset Folder
+      parentFolder:
+        type: optional<string>
+        docs: Pointer to parent Asset Folder (or null if root)
+      assets:
+        type: optional<list<string>>
+        docs: Array of Asset instances in the folder
+      siteId:
+        type: optional<string>
+        docs: The unique ID of the site the Asset Folder belongs to
+      createdOn:
+        type: optional<datetime>
+        docs: Date that the Asset Folder was created on
+      lastUpdated:
+        type: optional<datetime>
+        docs: Date that the Asset Folder was last updated on
+    source:
+      openapi: v2-data.yml
+  AssetsGetFolderResponse:
+    docs: Asset Folder details
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Asset Folder
+      displayName:
+        type: optional<string>
+        docs: User visible name for the Asset Folder
+      parentFolder:
+        type: optional<string>
+        docs: Pointer to parent Asset Folder (or null if root)
+      assets:
+        type: optional<list<string>>
+        docs: Array of Asset instances in the folder
+      siteId:
+        type: optional<string>
+        docs: The unique ID of the site the Asset Folder belongs to
+      createdOn:
+        type: optional<datetime>
+        docs: Date that the Asset Folder was created on
+      lastUpdated:
+        type: optional<datetime>
+        docs: Date that the Asset Folder was last updated on
+    source:
+      openapi: v2-data.yml
+imports:
+  root: __package__.yml
+service:
+  auth: false
+  base-path: ''
+  endpoints:
+    list:
+      path: /sites/{site_id}/assets
+      method: GET
+      auth: true
+      docs: |
+        List assets for a given site
+
+        Required scope | `assets:read`
+      source:
+        openapi: v2-data.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+      display-name: List Assets
+      response:
+        docs: Request was successful
+        type: AssetsListResponse
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+          response:
+            body:
+              assets:
+                - id: 63e5889e7fe4eafa7384cea4
+                  contentType: image/png
+                  size: 2212772
+                  siteId: 63938b302ea6b0aa6f3d8745
+                  hostedUrl: >-
+                    https://s3.amazonaws.com/webflow-prod-assets/63938b302ea6b0aa6f3d8745/63e5889e7fe4eafa7384cea4_Vectors-Wrapper.svg
+                  originalFileName: Candy-Wrapper.svg
+                  displayName: 63e5889e7fe4eafa7384cea4_Candy-Wrapper.png
+                  lastUpdated: '2023-03-01T23:42:57Z'
+                  createdOn: '2023-02-09T23:58:22Z'
+                  variants:
+                    - hostedUrl: >-
+                        https://s3.amazonaws.com/webflow-prod-assets/6258612d1ee792848f805dcf/660d83ce30f3a599ddb0bdb3_Screenshot%202024-03-20%20at%209.03.24%E2%80%AFPM-p-500.png
+                      originalFileName: >-
+                        Screenshot%202024-03-20%20at%209.03.24%E2%80%AFPM-p-500.png
+                      displayName: >-
+                        660d83ce30f3a599ddb0bdb3_Screenshot%202024-03-20%20at%209.03.24%E2%80%AFPM-p-500.png
+                      format: png
+                      width: 500
+                      height: 900
+                      quality: 100
+                  altText: A red chair
+    create:
+      path: /sites/{site_id}/assets
+      method: POST
+      auth: true
+      docs: >
+        Create a new asset entry. 
+
+
+
+        This endpoint generates a response with the following information:
+        `uploadUrl` and `uploadDetails`. 
+
+        You can use these two properties to [upload the file to Amazon s3 by
+        making a
+        POST](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectPOST.html)
+
+        request to the `uploadUrl` with the `uploadDetails` object as your
+        header information in the request.
+
+         
+        Required scope | `assets:write`
+      source:
+        openapi: v2-data.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+      display-name: Create Asset Metadata
+      request:
+        name: AssetsCreateRequest
+        body:
+          properties:
+            fileName:
+              type: string
+              docs: >-
+                File name including file extension. File names must be less than
+                100 characters.
+            fileHash:
+              type: string
+              docs: MD5 hash of the file
+            parentFolder:
+              type: optional<string>
+              docs: ID of the Asset folder (optional)
+        content-type: application/json
+      response:
+        docs: Request was successful
+        type: AssetsCreateResponse
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+          request:
+            fileName: file.png
+            fileHash: 3c7d87c9575702bc3b1e991f4d3c638e
+          response:
+            body:
+              uploadDetails:
+                acl: public-read
+                bucket: webflow-bucket-name
+                X-Amz-Algorithm: AWS4-HMAC-SHA256
+                X-Amz-Credential: <credential-key>/<date>/<region-zone>/s3/aws4_request
+                X-Amz-Date: <date-in-iso-like-string>
+                key: <siteId>/<fileId>_<filename-with-extension>
+                Policy: <a-very-long-alphanumeric-token-with-equal-sign-at-the-end>
+                X-Amz-Signature: <one-line-ling-alphanumeric-signature>
+                success_action_status: '201'
+                content-type: image/png
+                Cache-Control: max-age=31536000, must-revalidate
+              contentType: image/png
+              id: 64358b9544249dc43d37d2b7
+              parentFolder: 6436b1ce5281cace05b65aea
+              uploadUrl: >-
+                https://s3.amazonaws.com/webflow-dev-assets/643021114e290e0d3a0602b2/64358b9544249dc43d37d2b7_Screenshot%202023-04-11%20at%209.50.42%20AM.png
+              assetUrl: >-
+                https://s3.amazonaws.com/webflow-prod-assets/6258612d1ee792848f805dcf/660d907ab9e91e3e9f56385e_paranoidAndroid-2024.png
+              hostedUrl: >-
+                https://d1otoma47x30pg.cloudfront.net/643021114e290e0d3a0602b2/64358b9544249dc43d37d2b7_Screenshot%202023-04-11%20at%209.50.42%20AM.png
+              originalFileName: file.png
+              createdOn: '2023-04-11T16:32:21Z'
+              lastUpdated: '2023-04-12T20:31:03Z'
+    get:
+      path: /assets/{asset_id}
+      method: GET
+      auth: true
+      docs: |
+        Get an Asset
+
+        Required scope | `assets:read`
+      source:
+        openapi: v2-data.yml
+      path-parameters:
+        asset_id:
+          type: string
+          docs: Unique identifier for an Asset on a site
+      display-name: Get Asset
+      response:
+        docs: Request was successful
+        type: AssetsGetResponse
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            asset_id: 580e63fc8c9a982ac9b8b745
+          response:
+            body:
+              id: 55131cd036c09f7d07883dfc
+              contentType: image/png
+              size: 1500
+              siteId: 62749158efef318abc8d5a0f
+              hostedUrl: example.com/hostedimage.png
+              originalFileName: image.png
+              displayName: example-image-123.png
+              lastUpdated: '2016-09-06T21:12:22Z'
+              createdOn: '2016-09-02T23:26:22Z'
+              variants:
+                - hostedUrl: example.com/hostedimage.png
+                  originalFileName: image.png
+                  displayName: A brown dog
+                  format: format
+                  width: 1500
+                  height: 900
+                  quality: 1
+                  error: error
+              altText: A red chair
+    delete:
+      path: /assets/{asset_id}
+      method: DELETE
+      auth: true
+      docs: |
+        Delete an Asset
+
+        Required Scope: `assets: write`
+      source:
+        openapi: v2-data.yml
+      path-parameters:
+        asset_id:
+          type: string
+          docs: Unique identifier for an Asset on a site
+      display-name: Delete Asset
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            asset_id: 580e63fc8c9a982ac9b8b745
+    update:
+      path: /assets/{asset_id}
+      method: PATCH
+      auth: true
+      docs: |
+        Update an Asset
+
+        Required scope | `assets:write`
+      source:
+        openapi: v2-data.yml
+      path-parameters:
+        asset_id:
+          type: string
+          docs: Unique identifier for an Asset on a site
+      display-name: Update Asset
+      request:
+        name: AssetsUpdateRequest
+        body:
+          properties:
+            localeId:
+              type: optional<string>
+              docs: >-
+                Unique identifier for a specific locale. Applicable, when using
+                localization.
+            displayName:
+              type: optional<string>
+              docs: A human readable name for the asset
+        content-type: application/json
+      response:
+        docs: Request was successful
+        type: AssetsUpdateResponse
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            asset_id: 580e63fc8c9a982ac9b8b745
+          request: {}
+          response:
+            body:
+              id: 55131cd036c09f7d07883dfc
+              contentType: image/png
+              size: 1500
+              siteId: 62749158efef318abc8d5a0f
+              hostedUrl: example.com/hostedimage.png
+              originalFileName: image.png
+              displayName: example-image-123.png
+              lastUpdated: '2016-09-06T21:12:22Z'
+              createdOn: '2016-09-02T23:26:22Z'
+              variants:
+                - hostedUrl: example.com/hostedimage.png
+                  originalFileName: image.png
+                  displayName: A brown dog
+                  format: format
+                  width: 1500
+                  height: 900
+                  quality: 1
+                  error: error
+              altText: A red chair
+    list-folders:
+      path: /sites/{site_id}/asset_folders
+      method: GET
+      auth: true
+      docs: |
+        List Asset Folders within a given site
+
+        Required scope | `assets:read`
+      source:
+        openapi: v2-data.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+      display-name: List Asset Folders
+      response:
+        docs: Request was successful
+        type: AssetsListFoldersResponse
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+          response:
+            body:
+              assetFolders:
+                - id: 6390c49774a71f0e3c1a08ee
+                  displayName: emoji icons
+                  parentFolder: 6390c49774a71f99f21a08eb
+                  assets:
+                    - 63e5889e7fe4eafa7384cea4
+                    - 659595234426a9fcbad57043
+                  siteId: 6390c49674a71f84b51a08d8
+                  createdOn: '2018-10-14T21:55:49Z'
+                  lastUpdated: '2022-12-07T16:51:37Z'
+              pagination:
+                limit: 1
+                offset: 0
+                total: 1
+    create-folder:
+      path: /sites/{site_id}/asset_folders
+      method: POST
+      auth: true
+      docs: |
+        Create an Asset Folder within a given site
+
+        Required scope | `assets:write`
+      source:
+        openapi: v2-data.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+      display-name: Create Asset Folder
+      request:
+        name: AssetsCreateFolderRequest
+        body:
+          properties:
+            displayName:
+              type: string
+              docs: A human readable name for the Asset Folder
+            parentFolder:
+              type: optional<string>
+              docs: >-
+                An (optional) pointer to a parent Asset Folder (or null for
+                root)
+        content-type: application/json
+      response:
+        docs: Request was successful
+        type: AssetsCreateFolderResponse
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+          request:
+            displayName: my asset folder
+          response:
+            body:
+              id: 6390c49774a71f0e3c1a08ee
+              displayName: emoji icons
+              parentFolder: 6390c49774a71f99f21a08eb
+              assets:
+                - 63e5889e7fe4eafa7384cea4
+                - 659595234426a9fcbad57043
+              siteId: 6390c49674a71f84b51a08d8
+              createdOn: '2018-10-14T21:55:49Z'
+              lastUpdated: '2022-12-07T16:51:37Z'
+    get-folder:
+      path: /asset_folders/{asset_folder_id}
+      method: GET
+      auth: true
+      docs: |
+        Get details about a specific Asset Folder
+
+        Required scope | `assets:read`
+      source:
+        openapi: v2-data.yml
+      path-parameters:
+        asset_folder_id:
+          type: string
+          docs: Unique identifier for an Asset Folder
+      display-name: Get Asset Folder
+      response:
+        docs: Request was successful
+        type: AssetsGetFolderResponse
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            asset_folder_id: 6390c49774a71f0e3c1a08ee
+          response:
+            body:
+              id: 6390c49774a71f0e3c1a08ee
+              displayName: emoji icons
+              parentFolder: 6390c49774a71f99f21a08eb
+              assets:
+                - 63e5889e7fe4eafa7384cea4
+                - 659595234426a9fcbad57043
+              siteId: 6390c49674a71f84b51a08d8
+              createdOn: '2018-10-14T21:55:49Z'
+              lastUpdated: '2022-12-07T16:51:37Z'
+  source:
+    openapi: v2-data.yml
+  display-name: Assets
