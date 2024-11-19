@@ -65,7 +65,28 @@ import { WebflowClient } from "webflow-api";
 
 const webflow = new WebflowClient({ accessToken });
 
-const site = await webflow.sites.get("site-id");
+// Env. variables
+// in format of string, e.g.: "639656400769508adc12fe42"
+const site_id = process.env.SITE_ID;
+const custom_domain_id_1 = process.env.CUSTOM_DOMAIN_ID_1;
+const custom_domain_id_2 = process.env.CUSTOM_DOMAIN_ID_2;
+
+// Sites
+
+// List Sites
+const sites = await webflow.sites.list();
+
+// Get Site
+const site = await webflow.sites.get("site_id");
+
+// Get Custom Domains
+const customDomains = await webflow.sites.getCustomDomain(site_id);
+
+// Publish Site
+const site = await webflow.sites.publish(site_id, {
+  customDomains: [custom_domain_id_1, custom_domain_id_2],
+  publishToWebflowSubdomain: true,
+});
 ```
 
 ## OAuth
