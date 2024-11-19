@@ -12,34 +12,6 @@ The SDK contains typings and request builders for the Webflow Data API.
 
 Explore the [API reference documentation](https://developers.webflow.com/reference/rest-introduction).
 
-## V2 Migration Guide
-
-> The SDK was rewritten in V2 and is now programatically generated from our OpenAPI spec. As part of this release there are some breaking changes.
-
-#### Client Instantiation
-The SDK exports `WebflowClient` instead of `Webflow`. The client now takes `accessToken` instead of `token`. 
-
-```ts
-const webflow = new WebflowClient({ accessToken: "..." }); 
-```
-
-#### Oauth 
-The `WebflowClient` exports static methods that you can use for OAuth. These were previously on `Webflow`. 
-
-`webflow.authorizeUrl` -> `WebflowClient.authorizeURL`
-
-`webflow.accessToken` -> `WebflowClient.getAccessToken`
-
-`webflow.revokeToken` -> `WebflowClient.revokeToken`
-
-#### HTTP Client
-The SDK no longer uses Axios and defaults to fetch. The SDK supports multiple runtimes and will handle
-using a fetch implementation if available or will default to `node-fetch`. 
-
-### Resources
-Previously the SDK only supported the most important resources, such as site and user. Now the SDK supports
-methods on a variety of different endpoints such as `collections`, `assets`, `forms`, `inventory`, `orders`, etc. 
-
 ## Installation
 
 Add this dependency to your project's package.json file:
