@@ -7,7 +7,7 @@
  *     {}
  */
 export interface SitesPublishRequest {
-    /** Array of Custom Domain ids to publish */
+    /** Array of Custom Domain IDs to publish */
     customDomains?: string[];
     /** Choice of whether to publish to the default Webflow Subdomain */
     publishToWebflowSubdomain?: boolean;
