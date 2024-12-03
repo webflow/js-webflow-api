@@ -1,5 +1,10 @@
 export { type ItemsListItemsRequest } from "./ItemsListItemsRequest";
+export { type ItemsDeleteItemsRequest } from "./ItemsDeleteItemsRequest";
+export { type ItemsUpdateItemsRequest } from "./ItemsUpdateItemsRequest";
 export { type ItemsListItemsLiveRequest } from "./ItemsListItemsLiveRequest";
+export { type ItemsDeleteItemsLiveRequest } from "./ItemsDeleteItemsLiveRequest";
+export { type ItemsUpdateItemsLiveRequest } from "./ItemsUpdateItemsLiveRequest";
+export { type CreateBulkCollectionItemRequestBody } from "./CreateBulkCollectionItemRequestBody";
 export { type ItemsGetItemRequest } from "./ItemsGetItemRequest";
 export { type ItemsDeleteItemRequest } from "./ItemsDeleteItemRequest";
 export { type ItemsGetItemLiveRequest } from "./ItemsGetItemLiveRequest";

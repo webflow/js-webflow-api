@@ -9,7 +9,7 @@ import { CollectionItemFieldData } from "./CollectionItemFieldData";
 
 export const CollectionItem: core.serialization.ObjectSchema<serializers.CollectionItem.Raw, Webflow.CollectionItem> =
     core.serialization.object({
-        id: core.serialization.string(),
+        id: core.serialization.string().optional(),
         cmsLocaleId: core.serialization.string().optional(),
         lastPublished: core.serialization.string().optional(),
         lastUpdated: core.serialization.string().optional(),
@@ -21,7 +21,7 @@ export const CollectionItem: core.serialization.ObjectSchema<serializers.Collect
 
 export declare namespace CollectionItem {
     interface Raw {
-        id: string;
+        id?: string | null;
         cmsLocaleId?: string | null;
         lastPublished?: string | null;
         lastUpdated?: string | null;

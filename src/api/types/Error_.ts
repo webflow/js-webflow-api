@@ -6,7 +6,7 @@ import * as Webflow from "../index";
 
 export interface Error_ {
     /** Error code */
-    code?: string;
+    code?: Webflow.ErrorCode;
     /** Error message */
     message?: string;
     /** Link to more information */

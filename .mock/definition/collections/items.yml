@@ -1,0 +1,1511 @@
+types:
+  ItemsListItemsRequestSortBy:
+    enum:
+      - lastPublished
+      - name
+      - slug
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+  ItemsListItemsRequestSortOrder:
+    enum:
+      - asc
+      - desc
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+  ItemsCreateItemRequestItems:
+    properties:
+      items:
+        type: optional<list<root.CollectionItem>>
+        docs: An array of items to create
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+    inline: true
+  ItemsCreateItemRequest:
+    discriminated: false
+    union:
+      - root.CollectionItem
+      - ItemsCreateItemRequestItems
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+  ItemsDeleteItemsRequestItemsItem:
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the Item
+      cmsLocaleIds:
+        type: optional<list<string>>
+        docs: Array of identifiers for the locales where the item will be created
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+    inline: true
+  ItemsListItemsLiveRequestSortBy:
+    enum:
+      - lastPublished
+      - name
+      - slug
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+  ItemsListItemsLiveRequestSortOrder:
+    enum:
+      - asc
+      - desc
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+  ItemsCreateItemLiveRequestItems:
+    properties:
+      items:
+        type: optional<list<root.CollectionItem>>
+        docs: List of collection items to create
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+    inline: true
+  ItemsCreateItemLiveRequest:
+    discriminated: false
+    union:
+      - root.CollectionItem
+      - ItemsCreateItemLiveRequestItems
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+  ItemsDeleteItemsLiveRequestItemsItem:
+    properties:
+      itemId:
+        type: string
+        docs: Unique identifier for the Item
+      cmsLocaleIds:
+        type: optional<list<string>>
+        docs: Array of identifiers for the locales where the item will be created
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+    inline: true
+  CreateBulkCollectionItemRequestBodyFieldDataName:
+    properties:
+      name:
+        type: string
+        docs: The name of the item.
+      slug:
+        type: string
+        docs: >-
+          URL slug for the item in your site. 
+
+          Note: Updating the item slug will break all links referencing the old
+          slug.
+    extra-properties: true
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+    inline: true
+  CreateBulkCollectionItemRequestBodyFieldDataItem:
+    properties:
+      name:
+        type: string
+        docs: The name of the item.
+      slug:
+        type: string
+        docs: >-
+          URL slug for the item in your site. 
+
+          Note: Updating the item slug will break all links referencing the old
+          slug.
+    extra-properties: true
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+    inline: true
+  CreateBulkCollectionItemRequestBodyFieldData:
+    discriminated: false
+    union:
+      - CreateBulkCollectionItemRequestBodyFieldDataName
+      - list<CreateBulkCollectionItemRequestBodyFieldDataItem>
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+    inline: true
+  ItemsPublishItemResponse:
+    properties:
+      publishedItemIds: optional<list<string>>
+      errors: optional<list<string>>
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+imports:
+  root: ../__package__.yml
+service:
+  auth: false
+  base-path: ''
+  endpoints:
+    list-items:
+      path: /collections/{collection_id}/items
+      method: GET
+      auth: true
+      docs: |
+        List of all Items within a Collection.
+
+        Required scope | `CMS:read`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        collection_id:
+          type: string
+          docs: Unique identifier for a Collection
+      display-name: List Collection Items
+      request:
+        name: ItemsListItemsRequest
+        query-parameters:
+          cmsLocaleId:
+            type: optional<string>
+            docs: >-
+              Unique identifier for a CMS Locale. This UID is different from the
+              Site locale identifier and is listed as `cmsLocaleId` in the Sites
+              response. To query multiple locales, input a comma separated
+              string.
+          offset:
+            type: optional<double>
+            docs: >-
+              Offset used for pagination if the results have more than limit
+              records
+          limit:
+            type: optional<double>
+            docs: 'Maximum number of records to be returned (max limit: 100)'
+          name:
+            type: optional<string>
+            docs: The name of the item(s)
+          slug:
+            type: optional<string>
+            docs: The slug of the item
+          sortBy:
+            type: optional<ItemsListItemsRequestSortBy>
+            docs: Sort results by the provided value
+          sortOrder:
+            type: optional<ItemsListItemsRequestSortOrder>
+            docs: Sorts the results by asc or desc
+      response:
+        docs: Request was successful
+        type: root.CollectionItemList
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+          response:
+            body:
+              items:
+                - id: 62b720ef280c7a7a3be8cabe
+                  cmsLocaleId: 66f6e966c9e1dc700a857ca3
+                  lastPublished: '2022-06-30T13:35:20.878Z'
+                  lastUpdated: '2022-06-25T14:51:27.809Z'
+                  createdOn: '2022-06-25T14:51:27.809Z'
+                  isArchived: false
+                  isDraft: false
+                  fieldData:
+                    name: Senior Data Analyst
+                    slug: senior-data-analyst
+                - id: 62c880ef281c7b7b4cf9dabc
+                  cmsLocaleId: 66f6e966c9e1dc700a857ca3
+                  lastPublished: '2023-04-15T10:25:18.123Z'
+                  lastUpdated: '2023-04-10T11:45:30.567Z'
+                  createdOn: '2023-04-10T11:45:30.567Z'
+                  isArchived: false
+                  isDraft: false
+                  fieldData:
+                    name: Product Manager
+                    slug: product-manager
+              pagination:
+                limit: 25
+                offset: 0
+                total: 2
+    create-item:
+      path: /collections/{collection_id}/items
+      method: POST
+      auth: true
+      docs: >
+        Create Item(s) in a Collection.
+
+
+
+        To create items across multiple locales, please use [this
+        endpoint.](/data/v2.0.0/reference/cms/collection-items/bulk-items/create-items)
+
+
+        Required scope | `CMS:write`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        collection_id:
+          type: string
+          docs: Unique identifier for a Collection
+      display-name: Create Collection Item(s)
+      request:
+        body: ItemsCreateItemRequest
+        content-type: application/json
+      response:
+        docs: Request was successful
+        type: root.CollectionItem
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - name: SingleItem
+          path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+          request:
+            isArchived: false
+            isDraft: false
+            fieldData:
+              name: Pan Galactic Gargle Blaster Recipe
+              slug: pan-galactic-gargle-blaster
+          response:
+            body:
+              id: 42b720ef280c7a7a3be8cabe
+              cmsLocaleId: 653ad57de882f528b32e810e
+              lastPublished: '2022-11-29T16:22:43.159Z'
+              lastUpdated: '2022-11-17T17:19:43.282Z'
+              createdOn: '2022-11-17T17:11:57.148Z'
+              isArchived: false
+              isDraft: false
+              fieldData:
+                name: Pan Galactic Gargle Blaster Recipe
+                slug: pan-galactic-gargle-blaster
+        - name: MultipleItems
+          path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+          request:
+            items:
+              - isArchived: false
+                isDraft: false
+                fieldData:
+                  name: Senior Data Analyst
+                  slug: senior-data-analyst
+              - isArchived: false
+                isDraft: false
+                fieldData:
+                  name: Product Manager
+                  slug: product-manager
+          response:
+            body:
+              id: 42b720ef280c7a7a3be8cabe
+              cmsLocaleId: 653ad57de882f528b32e810e
+              lastPublished: '2022-11-29T16:22:43.159Z'
+              lastUpdated: '2022-11-17T17:19:43.282Z'
+              createdOn: '2022-11-17T17:11:57.148Z'
+              isArchived: false
+              isDraft: false
+              fieldData:
+                name: Pan Galactic Gargle Blaster Recipe
+                slug: pan-galactic-gargle-blaster
+    delete-items:
+      path: /collections/{collection_id}/items
+      method: DELETE
+      auth: true
+      docs: >
+        Delete Items from a Collection.
+
+
+        **Note:** If the `cmsLocaleId` parameter is undefined or empty and the
+        items are localized, items will be deleted only in the primary locale.
+
+
+        Required scope | `CMS:write`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        collection_id:
+          type: string
+          docs: Unique identifier for a Collection
+      display-name: Delete Collection Items
+      request:
+        name: ItemsDeleteItemsRequest
+        body:
+          properties:
+            items: optional<list<ItemsDeleteItemsRequestItemsItem>>
+        content-type: application/json
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+          request: {}
+    update-items:
+      path: /collections/{collection_id}/items
+      method: PATCH
+      auth: true
+      docs: >
+        Update a single item or multiple items (up to 100) in a Collection.
+
+
+        **Note:** If the `cmsLocaleId` parameter is undefined or empty and the
+        items are localized, items will be updated only in the primary locale.
+
+
+        Required scope | `CMS:write`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        collection_id:
+          type: string
+          docs: Unique identifier for a Collection
+      display-name: Update Collection Items
+      request:
+        name: ItemsUpdateItemsRequest
+        body:
+          properties:
+            items: optional<list<root.CollectionItemWithIdInput>>
+        content-type: application/json
+      response:
+        docs: Request was successful
+        type: root.CollectionItem
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - name: LocalizedItems
+          path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+          request:
+            items:
+              - id: 66f6ed9576ddacf3149d5ea6
+                cmsLocaleId: 66f6e966c9e1dc700a857ca5
+                fieldData:
+                  name: Ne Paniquez Pas
+                  slug: ne-paniquez-pas
+              - id: 66f6ed9576ddacf3149d5ea6
+                cmsLocaleId: 66f6e966c9e1dc700a857ca4
+                fieldData:
+                  name: No Entrar en Pánico
+                  slug: no-entrar-en-panico
+              - id: 66f6ed9576ddacf3149d5eaa
+                cmsLocaleId: 66f6e966c9e1dc700a857ca5
+                fieldData:
+                  name: Au Revoir et Merci pour Tous les Poissons
+                  slug: au-revoir-et-merci
+              - id: 66f6ed9576ddacf3149d5eaa
+                cmsLocaleId: 66f6e966c9e1dc700a857ca4
+                fieldData:
+                  name: Hasta Luego y Gracias por Todo el Pescado
+                  slug: hasta-luego-y-gracias
+          response:
+            body:
+              id: id
+              cmsLocaleId: 653ad57de882f528b32e810e
+              lastPublished: '2023-03-17T18:47:35.560Z'
+              lastUpdated: '2023-03-17T18:47:35.560Z'
+              createdOn: '2023-03-17T18:47:35.560Z'
+              isArchived: true
+              isDraft: true
+              fieldData:
+                name: My new item
+                slug: my-new-item
+        - name: MultipleItems
+          path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+          request:
+            items:
+              - id: 580e64008c9a982ac9b8b754
+                isArchived: false
+                isDraft: false
+                fieldData:
+                  name: Senior Data Analyst
+                  slug: senior-data-analyst
+              - id: 580e64008c9a982ac9b8b754
+                isArchived: false
+                isDraft: false
+                fieldData:
+                  name: Product Manager
+                  slug: product-manager
+          response:
+            body:
+              id: id
+              cmsLocaleId: 653ad57de882f528b32e810e
+              lastPublished: '2023-03-17T18:47:35.560Z'
+              lastUpdated: '2023-03-17T18:47:35.560Z'
+              createdOn: '2023-03-17T18:47:35.560Z'
+              isArchived: true
+              isDraft: true
+              fieldData:
+                name: My new item
+                slug: my-new-item
+        - name: Multiple items updated across multiple locales
+          path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+          request:
+            items:
+              - id: 66f6ed9576ddacf3149d5ea6
+                cmsLocaleId: 66f6e966c9e1dc700a857ca5
+                fieldData:
+                  name: Ne Paniquez Pas
+                  slug: ne-paniquez-pas
+              - id: 66f6ed9576ddacf3149d5ea6
+                cmsLocaleId: 66f6e966c9e1dc700a857ca4
+                fieldData:
+                  name: No Entrar en Pánico
+                  slug: no-entrar-en-panico
+              - id: 66f6ed9576ddacf3149d5eaa
+                cmsLocaleId: 66f6e966c9e1dc700a857ca5
+                fieldData:
+                  name: Au Revoir et Merci pour Tous les Poissons
+                  slug: au-revoir-et-merci
+              - id: 66f6ed9576ddacf3149d5eaa
+                cmsLocaleId: 66f6e966c9e1dc700a857ca4
+                fieldData:
+                  name: Hasta Luego y Gracias por Todo el Pescado
+                  slug: hasta-luego-y-gracias
+          response:
+            body:
+              id: id
+              cmsLocaleId: 653ad57de882f528b32e810e
+              lastPublished: '2023-03-17T18:47:35.560Z'
+              lastUpdated: '2023-03-17T18:47:35.560Z'
+              createdOn: '2023-03-17T18:47:35.560Z'
+              isArchived: true
+              isDraft: true
+              fieldData:
+                name: My new item
+                slug: my-new-item
+        - name: Mulitple items updated in a single locale
+          path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+          request:
+            items:
+              - id: 66f6ed9576ddacf3149d5ea6
+                cmsLocaleId: 66f6e966c9e1dc700a857ca5
+                fieldData:
+                  name: Ne Paniquez Pas
+                  slug: ne-paniquez-pas
+              - id: 66f6ed9576ddacf3149d5ea6
+                cmsLocaleId: 66f6e966c9e1dc700a857ca4
+                fieldData:
+                  name: No Entrar en Pánico
+                  slug: no-entrar-en-panico
+              - id: 66f6ed9576ddacf3149d5eaa
+                cmsLocaleId: 66f6e966c9e1dc700a857ca5
+                fieldData:
+                  name: Au Revoir et Merci pour Tous les Poissons
+                  slug: au-revoir-et-merci
+              - id: 66f6ed9576ddacf3149d5eaa
+                cmsLocaleId: 66f6e966c9e1dc700a857ca4
+                fieldData:
+                  name: Hasta Luego y Gracias por Todo el Pescado
+                  slug: hasta-luego-y-gracias
+          response:
+            body:
+              id: id
+              cmsLocaleId: 653ad57de882f528b32e810e
+              lastPublished: '2023-03-17T18:47:35.560Z'
+              lastUpdated: '2023-03-17T18:47:35.560Z'
+              createdOn: '2023-03-17T18:47:35.560Z'
+              isArchived: true
+              isDraft: true
+              fieldData:
+                name: My new item
+                slug: my-new-item
+    list-items-live:
+      path: /collections/{collection_id}/items/live
+      method: GET
+      auth: true
+      docs: |
+        List of all live Items within a Collection.
+
+        Required scope | `CMS:read`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        collection_id:
+          type: string
+          docs: Unique identifier for a Collection
+      display-name: List Live Collection Items
+      request:
+        name: ItemsListItemsLiveRequest
+        query-parameters:
+          cmsLocaleId:
+            type: optional<string>
+            docs: >-
+              Unique identifier for a CMS Locale. This UID is different from the
+              Site locale identifier and is listed as `cmsLocaleId` in the Sites
+              response. To query multiple locales, input a comma separated
+              string.
+          offset:
+            type: optional<double>
+            docs: >-
+              Offset used for pagination if the results have more than limit
+              records
+          limit:
+            type: optional<double>
+            docs: 'Maximum number of records to be returned (max limit: 100)'
+          name:
+            type: optional<string>
+            docs: The name of the item(s)
+          slug:
+            type: optional<string>
+            docs: The slug of the item
+          sortBy:
+            type: optional<ItemsListItemsLiveRequestSortBy>
+            docs: Sort results by the provided value
+          sortOrder:
+            type: optional<ItemsListItemsLiveRequestSortOrder>
+            docs: Sorts the results by asc or desc
+      response:
+        docs: Request was successful
+        type: root.CollectionItemList
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+          response:
+            body:
+              items:
+                - id: 62b720ef280c7a7a3be8cabe
+                  cmsLocaleId: 66f6e966c9e1dc700a857ca3
+                  lastPublished: '2022-06-30T13:35:20.878Z'
+                  lastUpdated: '2022-06-25T14:51:27.809Z'
+                  createdOn: '2022-06-25T14:51:27.809Z'
+                  isArchived: false
+                  isDraft: false
+                  fieldData:
+                    name: Senior Data Analyst
+                    slug: senior-data-analyst
+                - id: 62c880ef281c7b7b4cf9dabc
+                  cmsLocaleId: 66f6e966c9e1dc700a857ca3
+                  lastPublished: '2023-04-15T10:25:18.123Z'
+                  lastUpdated: '2023-04-10T11:45:30.567Z'
+                  createdOn: '2023-04-10T11:45:30.567Z'
+                  isArchived: false
+                  isDraft: false
+                  fieldData:
+                    name: Product Manager
+                    slug: product-manager
+              pagination:
+                limit: 25
+                offset: 0
+                total: 2
+    create-item-live:
+      path: /collections/{collection_id}/items/live
+      method: POST
+      auth: true
+      docs: >
+        Create live Item(s) in a Collection. The Item(s) will be published to
+        the live site.
+
+
+
+        To create items across multiple locales, [please use this
+        endpoint.](/v2.0.0/data/reference/cms/collection-items/bulk-items/create-items)
+
+
+
+        Required scope | `CMS:write`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        collection_id:
+          type: string
+          docs: Unique identifier for a Collection
+      display-name: Create Live Collection Item(s)
+      request:
+        body: ItemsCreateItemLiveRequest
+        content-type: application/json
+      response:
+        docs: Request was successful
+        type: root.CollectionItem
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - name: SingleItem
+          path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+          request:
+            isArchived: false
+            isDraft: false
+            fieldData:
+              name: Pan Galactic Gargle Blaster Recipe
+              slug: pan-galactic-gargle-blaster
+          response:
+            body:
+              id: 42b720ef280c7a7a3be8cabe
+              cmsLocaleId: 653ad57de882f528b32e810e
+              lastPublished: '2022-11-29T16:22:43.159Z'
+              lastUpdated: '2022-11-17T17:19:43.282Z'
+              createdOn: '2022-11-17T17:11:57.148Z'
+              isArchived: false
+              isDraft: false
+              fieldData:
+                name: Pan Galactic Gargle Blaster Recipe
+                slug: pan-galactic-gargle-blaster
+        - name: MultipleItems
+          path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+          request:
+            items:
+              - isArchived: false
+                isDraft: false
+                fieldData:
+                  name: Senior Data Analyst
+                  slug: senior-data-analyst
+              - isArchived: false
+                isDraft: false
+                fieldData:
+                  name: Product Manager
+                  slug: product-manager
+          response:
+            body:
+              id: 42b720ef280c7a7a3be8cabe
+              cmsLocaleId: 653ad57de882f528b32e810e
+              lastPublished: '2022-11-29T16:22:43.159Z'
+              lastUpdated: '2022-11-17T17:19:43.282Z'
+              createdOn: '2022-11-17T17:11:57.148Z'
+              isArchived: false
+              isDraft: false
+              fieldData:
+                name: Pan Galactic Gargle Blaster Recipe
+                slug: pan-galactic-gargle-blaster
+    delete-items-live:
+      path: /collections/{collection_id}/items/live
+      method: DELETE
+      auth: true
+      docs: >
+        Remove an item or multiple items (up to 100 items) from the live site.
+        Deleting published items will unpublish the items from the live site and
+        set them to draft. 
+
+
+        **Note:** If the `cmsLocaleId` parameter is undefined or empty and the
+        items are localized, items will be unpublished only in the primary
+        locale.
+
+
+        Required scope | `CMS:write`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        collection_id:
+          type: string
+          docs: Unique identifier for a Collection
+      display-name: Delete Live Collection Items
+      request:
+        name: ItemsDeleteItemsLiveRequest
+        body:
+          properties:
+            items: optional<list<ItemsDeleteItemsLiveRequestItemsItem>>
+        content-type: application/json
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+          request: {}
+    update-items-live:
+      path: /collections/{collection_id}/items/live
+      method: PATCH
+      auth: true
+      docs: >
+        Update a single live item or multiple live items (up to 100) in a
+        Collection
+
+
+        **Note:** If the `cmsLocaleId` parameter is undefined or empty and the
+        items are localized, items will be updated only in the primary locale. 
+
+
+        Required scope | `CMS:write`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        collection_id:
+          type: string
+          docs: Unique identifier for a Collection
+      display-name: Update Live Collection Items
+      request:
+        name: ItemsUpdateItemsLiveRequest
+        body:
+          properties:
+            items: optional<list<root.CollectionItemWithIdInput>>
+        content-type: application/json
+      response:
+        docs: Request was successful
+        type: root.CollectionItemListNoPagination
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - name: LocalizedItems
+          path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+          request:
+            items:
+              - id: 66f6ed9576ddacf3149d5ea6
+                cmsLocaleId: 66f6e966c9e1dc700a857ca5
+                fieldData:
+                  name: Ne Paniquez Pas
+                  slug: ne-paniquez-pas
+              - id: 66f6ed9576ddacf3149d5ea6
+                cmsLocaleId: 66f6e966c9e1dc700a857ca4
+                fieldData:
+                  name: No Entrar en Pánico
+                  slug: no-entrar-en-panico
+              - id: 66f6ed9576ddacf3149d5eaa
+                cmsLocaleId: 66f6e966c9e1dc700a857ca5
+                fieldData:
+                  name: Au Revoir et Merci pour Tous les Poissons
+                  slug: au-revoir-et-merci
+              - id: 66f6ed9576ddacf3149d5eaa
+                cmsLocaleId: 66f6e966c9e1dc700a857ca4
+                fieldData:
+                  name: Hasta Luego y Gracias por Todo el Pescado
+                  slug: hasta-luego-y-gracias
+          response:
+            body:
+              items:
+                - id: 66f6ed9576ddacf3149d5ea6
+                  cmsLocaleId: 66f6e966c9e1dc700a857ca5
+                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastUpdated: '2024-09-27T17:38:29.066Z'
+                  createdOn: '2024-09-27T17:38:29.066Z'
+                  isArchived: true
+                  isDraft: true
+                  fieldData:
+                    name: Ne Paniquez Pas
+                    slug: ne-paniquez-pas
+                - id: 66f6ed9576ddacf3149d5ea6
+                  cmsLocaleId: 66f6e966c9e1dc700a857ca4
+                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastUpdated: '2024-09-27T17:38:29.066Z'
+                  createdOn: '2024-09-27T17:38:29.066Z'
+                  isArchived: true
+                  isDraft: true
+                  fieldData:
+                    name: No Entrar en Pánico
+                    slug: no-entrar-en-panico
+                - id: 66f6ed9576ddacf3149d5eaa
+                  cmsLocaleId: 66f6e966c9e1dc700a857ca5
+                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastUpdated: '2024-09-27T17:38:29.066Z'
+                  createdOn: '2024-09-27T17:38:29.066Z'
+                  isArchived: true
+                  isDraft: true
+                  fieldData:
+                    name: Au Revoir et Merci pour Tous les Poissons
+                    slug: au-revoir-et-merci
+                - id: 66f6ed9576ddacf3149d5eaa
+                  cmsLocaleId: 66f6e966c9e1dc700a857ca4
+                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastUpdated: '2024-09-27T17:38:29.066Z'
+                  createdOn: '2024-09-27T17:38:29.066Z'
+                  isArchived: true
+                  isDraft: true
+                  fieldData:
+                    name: Hasta Luego y Gracias por Todo el Pescado
+                    slug: hasta-luego-y-gracias
+        - name: MultipleItems
+          path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+          request:
+            items:
+              - id: 580e64008c9a982ac9b8b754
+                isArchived: false
+                isDraft: false
+                fieldData:
+                  name: Senior Data Analyst
+                  slug: senior-data-analyst
+              - id: 580e64008c9a982ac9b8b754
+                isArchived: false
+                isDraft: false
+                fieldData:
+                  name: Product Manager
+                  slug: product-manager
+          response:
+            body:
+              items:
+                - id: 66f6ed9576ddacf3149d5ea6
+                  cmsLocaleId: 66f6e966c9e1dc700a857ca5
+                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastUpdated: '2024-09-27T17:38:29.066Z'
+                  createdOn: '2024-09-27T17:38:29.066Z'
+                  isArchived: true
+                  isDraft: true
+                  fieldData:
+                    name: Ne Paniquez Pas
+                    slug: ne-paniquez-pas
+                - id: 66f6ed9576ddacf3149d5ea6
+                  cmsLocaleId: 66f6e966c9e1dc700a857ca4
+                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastUpdated: '2024-09-27T17:38:29.066Z'
+                  createdOn: '2024-09-27T17:38:29.066Z'
+                  isArchived: true
+                  isDraft: true
+                  fieldData:
+                    name: No Entrar en Pánico
+                    slug: no-entrar-en-panico
+                - id: 66f6ed9576ddacf3149d5eaa
+                  cmsLocaleId: 66f6e966c9e1dc700a857ca5
+                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastUpdated: '2024-09-27T17:38:29.066Z'
+                  createdOn: '2024-09-27T17:38:29.066Z'
+                  isArchived: true
+                  isDraft: true
+                  fieldData:
+                    name: Au Revoir et Merci pour Tous les Poissons
+                    slug: au-revoir-et-merci
+                - id: 66f6ed9576ddacf3149d5eaa
+                  cmsLocaleId: 66f6e966c9e1dc700a857ca4
+                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastUpdated: '2024-09-27T17:38:29.066Z'
+                  createdOn: '2024-09-27T17:38:29.066Z'
+                  isArchived: true
+                  isDraft: true
+                  fieldData:
+                    name: Hasta Luego y Gracias por Todo el Pescado
+                    slug: hasta-luego-y-gracias
+        - name: Multiple items updated across multiple locales
+          path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+          request:
+            items:
+              - id: 66f6ed9576ddacf3149d5ea6
+                cmsLocaleId: 66f6e966c9e1dc700a857ca5
+                fieldData:
+                  name: Ne Paniquez Pas
+                  slug: ne-paniquez-pas
+              - id: 66f6ed9576ddacf3149d5ea6
+                cmsLocaleId: 66f6e966c9e1dc700a857ca4
+                fieldData:
+                  name: No Entrar en Pánico
+                  slug: no-entrar-en-panico
+              - id: 66f6ed9576ddacf3149d5eaa
+                cmsLocaleId: 66f6e966c9e1dc700a857ca5
+                fieldData:
+                  name: Au Revoir et Merci pour Tous les Poissons
+                  slug: au-revoir-et-merci
+              - id: 66f6ed9576ddacf3149d5eaa
+                cmsLocaleId: 66f6e966c9e1dc700a857ca4
+                fieldData:
+                  name: Hasta Luego y Gracias por Todo el Pescado
+                  slug: hasta-luego-y-gracias
+          response:
+            body:
+              items:
+                - id: 66f6ed9576ddacf3149d5ea6
+                  cmsLocaleId: 66f6e966c9e1dc700a857ca5
+                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastUpdated: '2024-09-27T17:38:29.066Z'
+                  createdOn: '2024-09-27T17:38:29.066Z'
+                  isArchived: true
+                  isDraft: true
+                  fieldData:
+                    name: Ne Paniquez Pas
+                    slug: ne-paniquez-pas
+                - id: 66f6ed9576ddacf3149d5ea6
+                  cmsLocaleId: 66f6e966c9e1dc700a857ca4
+                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastUpdated: '2024-09-27T17:38:29.066Z'
+                  createdOn: '2024-09-27T17:38:29.066Z'
+                  isArchived: true
+                  isDraft: true
+                  fieldData:
+                    name: No Entrar en Pánico
+                    slug: no-entrar-en-panico
+                - id: 66f6ed9576ddacf3149d5eaa
+                  cmsLocaleId: 66f6e966c9e1dc700a857ca5
+                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastUpdated: '2024-09-27T17:38:29.066Z'
+                  createdOn: '2024-09-27T17:38:29.066Z'
+                  isArchived: true
+                  isDraft: true
+                  fieldData:
+                    name: Au Revoir et Merci pour Tous les Poissons
+                    slug: au-revoir-et-merci
+                - id: 66f6ed9576ddacf3149d5eaa
+                  cmsLocaleId: 66f6e966c9e1dc700a857ca4
+                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastUpdated: '2024-09-27T17:38:29.066Z'
+                  createdOn: '2024-09-27T17:38:29.066Z'
+                  isArchived: true
+                  isDraft: true
+                  fieldData:
+                    name: Hasta Luego y Gracias por Todo el Pescado
+                    slug: hasta-luego-y-gracias
+        - name: Mulitple items updated in a single locale
+          path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+          request:
+            items:
+              - id: 66f6ed9576ddacf3149d5ea6
+                cmsLocaleId: 66f6e966c9e1dc700a857ca5
+                fieldData:
+                  name: Ne Paniquez Pas
+                  slug: ne-paniquez-pas
+              - id: 66f6ed9576ddacf3149d5ea6
+                cmsLocaleId: 66f6e966c9e1dc700a857ca4
+                fieldData:
+                  name: No Entrar en Pánico
+                  slug: no-entrar-en-panico
+              - id: 66f6ed9576ddacf3149d5eaa
+                cmsLocaleId: 66f6e966c9e1dc700a857ca5
+                fieldData:
+                  name: Au Revoir et Merci pour Tous les Poissons
+                  slug: au-revoir-et-merci
+              - id: 66f6ed9576ddacf3149d5eaa
+                cmsLocaleId: 66f6e966c9e1dc700a857ca4
+                fieldData:
+                  name: Hasta Luego y Gracias por Todo el Pescado
+                  slug: hasta-luego-y-gracias
+          response:
+            body:
+              items:
+                - id: 62b720ef280c7a7a3be8cabe
+                  cmsLocaleId: 66f6e966c9e1dc700a857ca3
+                  lastPublished: '2022-06-30T13:35:20.878Z'
+                  lastUpdated: '2022-06-25T14:51:27.809Z'
+                  createdOn: '2022-06-25T14:51:27.809Z'
+                  isArchived: false
+                  isDraft: false
+                  fieldData:
+                    name: Senior Data Analyst
+                    slug: senior-data-analyst
+                - id: 62c880ef281c7b7b4cf9dabc
+                  cmsLocaleId: 66f6e966c9e1dc700a857ca3
+                  lastPublished: '2023-04-15T10:25:18.123Z'
+                  lastUpdated: '2023-04-10T11:45:30.567Z'
+                  createdOn: '2023-04-10T11:45:30.567Z'
+                  isArchived: false
+                  isDraft: false
+                  fieldData:
+                    name: Product Manager
+                    slug: product-manager
+    create-items:
+      path: /collections/{collection_id}/items/bulk
+      method: POST
+      auth: true
+      docs: >
+        Create an item or multiple items in a CMS Collection across multiple
+        corresponding locales.
+
+
+        **Notes:**
+          - This endpoint can create up to 100 items in a request.
+          - If the `cmsLocaleIds` parameter is undefined or empty and localization is enabled, items will only be created in the primary locale.
+
+        Required scope | `CMS:write`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        collection_id:
+          type: string
+          docs: Unique identifier for a Collection
+      display-name: Create Collection Items
+      request:
+        name: CreateBulkCollectionItemRequestBody
+        body:
+          properties:
+            cmsLocaleIds:
+              type: optional<list<string>>
+              docs: >-
+                Array of identifiers for the locales where the item will be
+                created
+            isArchived:
+              type: optional<boolean>
+              docs: Indicates whether the item is archived.
+              default: false
+            isDraft:
+              type: optional<boolean>
+              docs: Indicates whether the item is in draft state.
+              default: false
+            fieldData: optional<CreateBulkCollectionItemRequestBodyFieldData>
+        content-type: application/json
+      response:
+        docs: Request was successful
+        type: root.BulkCollectionItem
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - name: Create a single item across multiple locales
+          path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+          request:
+            cmsLocaleIds:
+              - 66f6e966c9e1dc700a857ca3
+              - 66f6e966c9e1dc700a857ca4
+              - 66f6e966c9e1dc700a857ca5
+            isArchived: false
+            isDraft: false
+            fieldData:
+              name: Don’t Panic
+              slug: dont-panic
+          response:
+            body:
+              id: 580e64008c9a982ac9b8b754
+              cmsLocaleIds:
+                - 653ad57de882f528b32e810e
+                - 6514390aea353fc691d69827
+                - 65143930ea353fc691d69cd8
+              lastPublished: '2023-03-17T18:47:35.560Z'
+              lastUpdated: '2023-03-17T18:47:35.560Z'
+              createdOn: '2023-03-17T18:47:35.560Z'
+              isArchived: true
+              isDraft: true
+              fieldData:
+                name: My new item
+                slug: my-new-item
+        - name: Create multiple items across multipel locales
+          path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+          request:
+            cmsLocaleIds:
+              - 66f6e966c9e1dc700a857ca3
+              - 66f6e966c9e1dc700a857ca4
+            isArchived: false
+            isDraft: false
+            fieldData:
+              - name: Don’t Panic
+                slug: dont-panic
+              - name: So Long and Thanks for All the Fish
+                slug: so-long-and-thanks
+          response:
+            body:
+              id: 580e64008c9a982ac9b8b754
+              cmsLocaleIds:
+                - 653ad57de882f528b32e810e
+                - 6514390aea353fc691d69827
+                - 65143930ea353fc691d69cd8
+              lastPublished: '2023-03-17T18:47:35.560Z'
+              lastUpdated: '2023-03-17T18:47:35.560Z'
+              createdOn: '2023-03-17T18:47:35.560Z'
+              isArchived: true
+              isDraft: true
+              fieldData:
+                name: My new item
+                slug: my-new-item
+        - name: Single item created across multiple locales
+          path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+          request:
+            cmsLocaleIds:
+              - 66f6e966c9e1dc700a857ca3
+              - 66f6e966c9e1dc700a857ca4
+              - 66f6e966c9e1dc700a857ca5
+            isArchived: false
+            isDraft: false
+            fieldData:
+              name: Don’t Panic
+              slug: dont-panic
+          response:
+            body:
+              id: 580e64008c9a982ac9b8b754
+              cmsLocaleIds:
+                - 653ad57de882f528b32e810e
+                - 6514390aea353fc691d69827
+                - 65143930ea353fc691d69cd8
+              lastPublished: '2023-03-17T18:47:35.560Z'
+              lastUpdated: '2023-03-17T18:47:35.560Z'
+              createdOn: '2023-03-17T18:47:35.560Z'
+              isArchived: true
+              isDraft: true
+              fieldData:
+                name: My new item
+                slug: my-new-item
+        - name: Multiple items created across multiple locales
+          path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+          request:
+            cmsLocaleIds:
+              - 66f6e966c9e1dc700a857ca3
+              - 66f6e966c9e1dc700a857ca4
+              - 66f6e966c9e1dc700a857ca5
+            isArchived: false
+            isDraft: false
+            fieldData:
+              name: Don’t Panic
+              slug: dont-panic
+          response:
+            body:
+              id: 580e64008c9a982ac9b8b754
+              cmsLocaleIds:
+                - 653ad57de882f528b32e810e
+                - 6514390aea353fc691d69827
+                - 65143930ea353fc691d69cd8
+              lastPublished: '2023-03-17T18:47:35.560Z'
+              lastUpdated: '2023-03-17T18:47:35.560Z'
+              createdOn: '2023-03-17T18:47:35.560Z'
+              isArchived: true
+              isDraft: true
+              fieldData:
+                name: My new item
+                slug: my-new-item
+    get-item:
+      path: /collections/{collection_id}/items/{item_id}
+      method: GET
+      auth: true
+      docs: |
+        Get details of a selected Collection Item.
+
+        Required scope | `CMS:read`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        collection_id:
+          type: string
+          docs: Unique identifier for a Collection
+        item_id:
+          type: string
+          docs: Unique identifier for an Item
+      display-name: Get Collection Item
+      request:
+        name: ItemsGetItemRequest
+        query-parameters:
+          cmsLocaleId:
+            type: optional<string>
+            docs: >-
+              Unique identifier for a CMS Locale. This UID is different from the
+              Site locale identifier and is listed as `cmsLocaleId` in the Sites
+              response. To query multiple locales, input a comma separated
+              string.
+      response:
+        docs: Request was successful
+        type: root.CollectionItem
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+            item_id: 580e64008c9a982ac9b8b754
+          response:
+            body:
+              id: 42b720ef280c7a7a3be8cabe
+              cmsLocaleId: 653ad57de882f528b32e810e
+              lastPublished: '2022-11-29T16:22:43.159Z'
+              lastUpdated: '2022-11-17T17:19:43.282Z'
+              createdOn: '2022-11-17T17:11:57.148Z'
+              isArchived: false
+              isDraft: false
+              fieldData:
+                name: Pan Galactic Gargle Blaster Recipe
+                slug: pan-galactic-gargle-blaster
+    delete-item:
+      path: /collections/{collection_id}/items/{item_id}
+      method: DELETE
+      auth: true
+      docs: >
+        Delete an Item from a Collection. This endpoint does not currently
+        support bulk deletion.
+
+
+        Required scope | `CMS:write`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        collection_id:
+          type: string
+          docs: Unique identifier for a Collection
+        item_id:
+          type: string
+          docs: Unique identifier for an Item
+      display-name: Delete Collection Item
+      request:
+        name: ItemsDeleteItemRequest
+        query-parameters:
+          cmsLocaleId:
+            type: optional<string>
+            docs: >-
+              Unique identifier for a CMS Locale. This UID is different from the
+              Site locale identifier and is listed as `cmsLocaleId` in the Sites
+              response. To query multiple locales, input a comma separated
+              string.
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+            item_id: 580e64008c9a982ac9b8b754
+    update-item:
+      path: /collections/{collection_id}/items/{item_id}
+      method: PATCH
+      auth: true
+      docs: |
+        Update a selected Item in a Collection.
+
+        Required scope | `CMS:write`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        collection_id:
+          type: string
+          docs: Unique identifier for a Collection
+        item_id:
+          type: string
+          docs: Unique identifier for an Item
+      display-name: Update Collection Item
+      request:
+        body: root.CollectionItem
+        content-type: application/json
+      response:
+        docs: Request was successful
+        type: root.CollectionItem
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+            item_id: 580e64008c9a982ac9b8b754
+          request:
+            id: 42b720ef280c7a7a3be8cabe
+            cmsLocaleId: 653ad57de882f528b32e810e
+            lastPublished: '2022-11-29T16:22:43.159Z'
+            lastUpdated: '2022-11-17T17:19:43.282Z'
+            createdOn: '2022-11-17T17:11:57.148Z'
+            isArchived: false
+            isDraft: false
+            fieldData:
+              name: Pan Galactic Gargle Blaster Recipe
+              slug: pan-galactic-gargle-blaster
+          response:
+            body:
+              id: 42b720ef280c7a7a3be8cabe
+              cmsLocaleId: 653ad57de882f528b32e810e
+              lastPublished: '2022-11-29T16:22:43.159Z'
+              lastUpdated: '2022-11-17T17:19:43.282Z'
+              createdOn: '2022-11-17T17:11:57.148Z'
+              isArchived: false
+              isDraft: false
+              fieldData:
+                name: Pan Galactic Gargle Blaster Recipe
+                slug: pan-galactic-gargle-blaster
+    get-item-live:
+      path: /collections/{collection_id}/items/{item_id}/live
+      method: GET
+      auth: true
+      docs: |
+        Get details of a selected Collection live Item.
+
+        Required scope | `CMS:read`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        collection_id:
+          type: string
+          docs: Unique identifier for a Collection
+        item_id:
+          type: string
+          docs: Unique identifier for an Item
+      display-name: Get Live Collection Item
+      request:
+        name: ItemsGetItemLiveRequest
+        query-parameters:
+          cmsLocaleId:
+            type: optional<string>
+            docs: >-
+              Unique identifier for a CMS Locale. This UID is different from the
+              Site locale identifier and is listed as `cmsLocaleId` in the Sites
+              response. To query multiple locales, input a comma separated
+              string.
+      response:
+        docs: Request was successful
+        type: root.CollectionItem
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+            item_id: 580e64008c9a982ac9b8b754
+          response:
+            body:
+              id: 42b720ef280c7a7a3be8cabe
+              cmsLocaleId: 653ad57de882f528b32e810e
+              lastPublished: '2022-11-29T16:22:43.159Z'
+              lastUpdated: '2022-11-17T17:19:43.282Z'
+              createdOn: '2022-11-17T17:11:57.148Z'
+              isArchived: false
+              isDraft: false
+              fieldData:
+                name: Pan Galactic Gargle Blaster Recipe
+                slug: pan-galactic-gargle-blaster
+    delete-item-live:
+      path: /collections/{collection_id}/items/{item_id}/live
+      method: DELETE
+      auth: true
+      docs: >
+        Remove a live item from the site. Removing a published item will
+        unpublish the item from the live site and set it to draft. 
+
+
+        This endpoint does not currently support bulk deletion.
+
+
+        Required scope | `CMS:write`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        collection_id:
+          type: string
+          docs: Unique identifier for a Collection
+        item_id:
+          type: string
+          docs: Unique identifier for an Item
+      display-name: Delete Live Collection Item
+      request:
+        name: ItemsDeleteItemLiveRequest
+        query-parameters:
+          cmsLocaleId:
+            type: optional<string>
+            docs: >-
+              Unique identifier for a CMS Locale. This UID is different from the
+              Site locale identifier and is listed as `cmsLocaleId` in the Sites
+              response. To query multiple locales, input a comma separated
+              string.
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+            item_id: 580e64008c9a982ac9b8b754
+    update-item-live:
+      path: /collections/{collection_id}/items/{item_id}/live
+      method: PATCH
+      auth: true
+      docs: >
+        Update a selected live Item in a Collection. The updates for this Item
+        will be published to the live site.
+
+
+        Required scope | `CMS:write`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        collection_id:
+          type: string
+          docs: Unique identifier for a Collection
+        item_id:
+          type: string
+          docs: Unique identifier for an Item
+      display-name: Update Live Collection Item
+      request:
+        body: root.CollectionItem
+        content-type: application/json
+      response:
+        docs: Request was successful
+        type: root.CollectionItem
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+            item_id: 580e64008c9a982ac9b8b754
+          request:
+            id: 42b720ef280c7a7a3be8cabe
+            cmsLocaleId: 653ad57de882f528b32e810e
+            lastPublished: '2022-11-29T16:22:43.159Z'
+            lastUpdated: '2022-11-17T17:19:43.282Z'
+            createdOn: '2022-11-17T17:11:57.148Z'
+            isArchived: false
+            isDraft: false
+            fieldData:
+              name: Pan Galactic Gargle Blaster Recipe
+              slug: pan-galactic-gargle-blaster
+          response:
+            body:
+              id: 42b720ef280c7a7a3be8cabe
+              cmsLocaleId: 653ad57de882f528b32e810e
+              lastPublished: '2022-11-29T16:22:43.159Z'
+              lastUpdated: '2022-11-17T17:19:43.282Z'
+              createdOn: '2022-11-17T17:11:57.148Z'
+              isArchived: false
+              isDraft: false
+              fieldData:
+                name: Pan Galactic Gargle Blaster Recipe
+                slug: pan-galactic-gargle-blaster
+    publish-item:
+      path: /collections/{collection_id}/items/publish
+      method: POST
+      auth: true
+      docs: |
+        Publish an item or multiple items.
+
+        Required scope | `cms:write`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        collection_id:
+          type: string
+          docs: Unique identifier for a Collection
+      display-name: Publish Collection Item
+      request:
+        name: ItemsPublishItemRequest
+        body:
+          properties:
+            itemIds: list<string>
+        content-type: application/json
+      response:
+        docs: Request was successful
+        type: ItemsPublishItemResponse
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.ConflictError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+          request:
+            itemIds:
+              - itemIds
+          response:
+            body:
+              publishedItemIds:
+                - 643fd856d66b6528195ee2ca
+                - 643fd856d66b6528195ee2cb
+              errors:
+                - Staging item ID 643fd856d66b6528195ee2cf not found.
+  source:
+    openapi: ../../../referenced-specs/v2.yml

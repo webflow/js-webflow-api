@@ -9,7 +9,7 @@ import * as Webflow from "../index";
  */
 export interface CollectionItem {
     /** Unique identifier for the Item */
-    id: string;
+    id?: string;
     /** Identifier for the locale of the CMS item */
     cmsLocaleId?: string;
     /** The date the item was last published */

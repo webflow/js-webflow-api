@@ -14,22 +14,22 @@ export interface Form {
     createdOn?: Date;
     /** Date that the Form was last updated on */
     lastUpdated?: Date;
-    /** A list of form fields */
-    fields?: Webflow.FormField[];
+    /** A collection of form field objects */
+    fields?: Webflow.FormField;
     /** Settings for form responses */
     responseSettings?: Webflow.FormResponseSettings;
-    /** The unique id for the Form */
+    /** The unique ID for the Form */
     id?: string;
-    /** The unique id of the Site the Form belongs to */
+    /** The unique ID of the Site the Form belongs to */
     siteId?: string;
-    /** The unique id corresponding to the site's Domain name */
+    /** The unique ID corresponding to the site's Domain name */
     siteDomainId?: string;
-    /** The unique id for the Page on which the Form is placed */
+    /** The unique ID for the Page on which the Form is placed */
     pageId?: string;
     /** The user-visible name of the Page where the Form is placed */
     pageName?: string;
-    /** The unique id of the Form element */
+    /** The unique ID of the Form element */
     formElementId?: string;
-    /** The unique id of the Workspace the Site belongs to */
+    /** The unique ID of the Workspace the Site belongs to */
     workspaceId?: string;
 }

@@ -7,19 +7,18 @@ import * as Webflow from "../../../../index";
 /**
  * @example
  *     {
- *         locale: "65427cf400e02b306eaa04a0",
+ *         localeId: "65427cf400e02b306eaa04a0",
  *         body: {
  *             id: "6596da6045e56dee495bcbba",
  *             siteId: "6258612d1ee792848f805dcf",
  *             title: "Guide to the Galaxy",
  *             slug: "guide-to-the-galaxy",
- *             parentId: "6419db964a9c435aa3af6251",
- *             collectionId: "6390c49774a71f12831a08e3",
  *             createdOn: "2024-03-11T10:42:00Z",
  *             lastUpdated: "2024-03-11T10:42:42Z",
  *             archived: false,
  *             draft: false,
  *             canBranch: true,
+ *             isBranch: false,
  *             seo: {
  *                 title: "The Ultimate Hitchhiker's Guide to the Galaxy",
  *                 description: "Everything you need to know about the galaxy, from avoiding Vogon poetry to the importance of towels."
@@ -39,6 +38,6 @@ export interface UpdatePageSettingsRequest {
     /**
      * Unique identifier for a specific locale. Applicable, when using localization.
      */
-    locale?: string;
+    localeId?: string;
     body: Webflow.Page;
 }
