@@ -8,7 +8,7 @@ import * as Webflow from "../index";
  * The Authorization object
  */
 export interface AuthorizationAuthorization {
-    /** The unique id of the Authorization instance */
+    /** The unique ID of the Authorization instance */
     id?: string;
     /** The date the Authorization was created */
     createdOn?: Date;

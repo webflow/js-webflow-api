@@ -1,0 +1,187 @@
+types:
+  FieldCreateType:
+    enum:
+      - PlainText
+      - RichText
+      - Image
+      - MultiImage
+      - Video
+      - Link
+      - Email
+      - Phone
+      - Number
+      - DateTime
+      - Switch
+      - Color
+      - File
+    docs: Choose these appropriate field type for your collection data
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+imports:
+  root: ../__package__.yml
+service:
+  auth: false
+  base-path: ''
+  endpoints:
+    create:
+      path: /collections/{collection_id}/fields
+      method: POST
+      auth: true
+      docs: >
+        Create a custom field in a collection. 
+
+
+        Slugs must be all lowercase letters without spaces.
+
+        If you pass a string with uppercase letters and/or spaces to the "Slug"
+        property, Webflow will
+
+        convert the slug to lowercase and replace spaces with "-."
+
+
+        Only some field types can be created through the API. 
+
+        This endpoint does not currently support bulk creation. 
+
+
+        Required scope | `cms:write`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        collection_id:
+          type: string
+          docs: Unique identifier for a Collection
+      display-name: Create Collection Field
+      request:
+        name: FieldCreate
+        body:
+          properties:
+            isRequired:
+              type: optional<boolean>
+              docs: define whether a field is required in a collection
+            type:
+              type: FieldCreateType
+              docs: Choose these appropriate field type for your collection data
+            displayName:
+              type: string
+              docs: The name of a field
+            helpText:
+              type: optional<string>
+              docs: Additional text to help anyone filling out this field
+        content-type: application/json
+      response:
+        docs: Request was successful
+        type: root.Field
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+          request:
+            isRequired: false
+            type: RichText
+            displayName: Post Body
+            helpText: Add the body of your post here
+          response:
+            body:
+              id: 75821f618da60c18383330bcc0ca488b
+              isRequired: false
+              isEditable: true
+              type: RichText
+              slug: post-body
+              displayName: Post Body
+              helpText: Add the body of your post here
+    delete:
+      path: /collections/{collection_id}/fields/{field_id}
+      method: DELETE
+      auth: true
+      docs: >
+        Delete a custom field in a collection. This endpoint does not currently
+        support bulk deletion.
+
+
+        Required scope | `cms:write`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        collection_id:
+          type: string
+          docs: Unique identifier for a Collection
+        field_id:
+          type: string
+          docs: Unique identifier for a Field in a collection
+      display-name: Delete Collection Field
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+            field_id: 580e63fc8c9a982ac9b8b745
+    update:
+      path: /collections/{collection_id}/fields/{field_id}
+      method: PATCH
+      auth: true
+      docs: |
+        Update a custom field in a collection.
+
+        Required scope | `cms:write`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        collection_id:
+          type: string
+          docs: Unique identifier for a Collection
+        field_id:
+          type: string
+          docs: Unique identifier for a Field in a collection
+      display-name: Update Collection Field
+      request:
+        name: FieldUpdate
+        body:
+          properties:
+            isRequired:
+              type: optional<boolean>
+              docs: Define whether a field is required in a collection
+            displayName:
+              type: optional<string>
+              docs: The name of a field
+            helpText:
+              type: optional<string>
+              docs: Additional text to help anyone filling out this field
+        content-type: application/json
+      response:
+        docs: Request was successful
+        type: root.Field
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+            field_id: 580e63fc8c9a982ac9b8b745
+          request:
+            isRequired: false
+            displayName: Post Body
+            helpText: Add the body of your post here
+          response:
+            body:
+              id: 75821f618da60c18383330bcc0ca488b
+              isRequired: false
+              isEditable: true
+              type: RichText
+              slug: post-body
+              displayName: Post Body
+              helpText: Add the body of your post here
+  source:
+    openapi: ../../../referenced-specs/v2.yml

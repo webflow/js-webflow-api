@@ -13,7 +13,7 @@ export const Form: core.serialization.ObjectSchema<serializers.Form.Raw, Webflow
     displayName: core.serialization.string().optional(),
     createdOn: core.serialization.date().optional(),
     lastUpdated: core.serialization.date().optional(),
-    fields: core.serialization.list(FormField).optional(),
+    fields: FormField.optional(),
     responseSettings: FormResponseSettings.optional(),
     id: core.serialization.string().optional(),
     siteId: core.serialization.string().optional(),
@@ -29,7 +29,7 @@ export declare namespace Form {
         displayName?: string | null;
         createdOn?: string | null;
         lastUpdated?: string | null;
-        fields?: FormField.Raw[] | null;
+        fields?: FormField.Raw | null;
         responseSettings?: FormResponseSettings.Raw | null;
         id?: string | null;
         siteId?: string | null;

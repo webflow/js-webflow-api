@@ -27,4 +27,8 @@ export interface Site {
     parentFolderId?: string;
     customDomains?: Webflow.Domain[];
     locales?: Webflow.Locales;
+    /** Indicates if data collection is enabled for the site. */
+    dataCollectionEnabled?: boolean;
+    /** The type of data collection enabled for the site. */
+    dataCollectionType?: Webflow.SiteDataCollectionType;
 }

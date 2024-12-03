@@ -8,9 +8,9 @@ import * as Webflow from "../index";
  * A specific instance of Custom Code applied to a Site or Page
  */
 export interface CustomCodeBlock {
-    /** The Site id where the custom code was applied */
+    /** The Site ID where the custom code was applied */
     siteId?: string;
-    /** The Page id (if applied at Page-level) */
+    /** The Page ID (if applied at Page-level) */
     pageId?: string;
     /** Whether the Custom Code script is applied at the Site-level or Page-level */
     type?: Webflow.CustomCodeBlockType;

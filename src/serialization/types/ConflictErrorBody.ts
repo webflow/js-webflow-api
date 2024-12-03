@@ -5,23 +5,14 @@
 import * as serializers from "../index";
 import * as Webflow from "../../api/index";
 import * as core from "../../core";
-import { ErrorDetailsItem } from "./ErrorDetailsItem";
+import { DuplicateUserEmail } from "./DuplicateUserEmail";
+import { UserLimitReached } from "./UserLimitReached";
 
-export const ConflictErrorBody: core.serialization.ObjectSchema<
+export const ConflictErrorBody: core.serialization.Schema<
     serializers.ConflictErrorBody.Raw,
     Webflow.ConflictErrorBody
-> = core.serialization.object({
-    code: core.serialization.stringLiteral("ecommerce_not_enabled").optional(),
-    message: core.serialization.string().optional(),
-    externalReference: core.serialization.string().optional(),
-    details: core.serialization.list(ErrorDetailsItem).optional(),
-});
+> = core.serialization.undiscriminatedUnion([DuplicateUserEmail, UserLimitReached]);
 
 export declare namespace ConflictErrorBody {
-    interface Raw {
-        code?: "ecommerce_not_enabled" | null;
-        message?: string | null;
-        externalReference?: string | null;
-        details?: ErrorDetailsItem.Raw[] | null;
-    }
+    type Raw = (DuplicateUserEmail.Raw | undefined) | (UserLimitReached.Raw | undefined);
 }

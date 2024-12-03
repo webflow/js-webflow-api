@@ -9,8 +9,27 @@ import * as core from "../../core";
 export const SiteActivityLogItemResourceOperation: core.serialization.Schema<
     serializers.SiteActivityLogItemResourceOperation.Raw,
     Webflow.SiteActivityLogItemResourceOperation
-> = core.serialization.enum_(["CREATED", "MODIFIED", "PUBLISHED", "UNPUBLISHED", "DELETED"]);
+> = core.serialization.enum_([
+    "CREATED",
+    "MODIFIED",
+    "PUBLISHED",
+    "UNPUBLISHED",
+    "DELETED",
+    "GROUP_REORDERED",
+    "GROUP_CREATED",
+    "GROUP_DELETED",
+    "REORDERED",
+]);
 
 export declare namespace SiteActivityLogItemResourceOperation {
-    type Raw = "CREATED" | "MODIFIED" | "PUBLISHED" | "UNPUBLISHED" | "DELETED";
+    type Raw =
+        | "CREATED"
+        | "MODIFIED"
+        | "PUBLISHED"
+        | "UNPUBLISHED"
+        | "DELETED"
+        | "GROUP_REORDERED"
+        | "GROUP_CREATED"
+        | "GROUP_DELETED"
+        | "REORDERED";
 }

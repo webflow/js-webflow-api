@@ -1,0 +1,500 @@
+imports:
+  root: __package__.yml
+service:
+  auth: false
+  base-path: ''
+  endpoints:
+    list:
+      path: /sites/{site_id}/products
+      method: GET
+      auth: true
+      docs: >
+        Retrieve all products for a site. 
+
+
+        Use `limit` and `offset` to page through all products with subsequent
+        requests. All SKUs for each product
+
+        will also be fetched and returned. The `limit`, `offset` and `total`
+        values represent Products only and do not include any SKUs.
+
+
+        Required scope | `ecommerce:read`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+      display-name: List Products & SKUs
+      request:
+        name: ProductsListRequest
+        query-parameters:
+          offset:
+            type: optional<double>
+            docs: >-
+              Offset used for pagination if the results have more than limit
+              records
+          limit:
+            type: optional<double>
+            docs: 'Maximum number of records to be returned (max limit: 100)'
+      response:
+        docs: Request was successful
+        type: root.ProductAndSkUsList
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.ForbiddenError
+        - root.NotFoundError
+        - root.ConflictError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+          response:
+            body:
+              items:
+                - product:
+                    id: 660eb7a486d1d6e0412292d7
+                    cmsLocaleId: 653ad57de882f528b32e810e
+                    lastPublished: '2024-04-04T14:24:19Z'
+                    lastUpdated: '2024-04-04T14:30:19Z'
+                    createdOn: '2024-04-04T14:22:28Z'
+                    isArchived: false
+                    isDraft: false
+                    fieldData:
+                      name: T-Shirt
+                      slug: t-shirt
+                      description: A plain cotton t-shirt.
+                      shippable: true
+                      sku-properties:
+                        - id: Color
+                          name: Color
+                          enum:
+                            - id: id
+                              name: Royal Blue
+                              slug: royal-blue
+                  skus:
+                    - id: 580e63fc8c9a982ac9b8b745
+                      cmsLocaleId: 653ad57de882f528b32e810e
+                      lastPublished: '2023-03-17T18:47:35Z'
+                      lastUpdated: '2023-03-17T18:47:35Z'
+                      createdOn: '2023-03-17T18:47:35Z'
+                      fieldData:
+                        sku-values:
+                          ff42fee0113744f693a764e3431a9cc2: 64a74715c456e36762fc39a1
+                        name: Blue T-shirt
+                        slug: t-shirt-blue
+                        price:
+                          value: 100
+                          unit: USD
+                        quantity: 10
+              pagination:
+                limit: 100
+                offset: 0
+                total: 100
+    create:
+      path: /sites/{site_id}/products
+      method: POST
+      auth: true
+      docs: >
+        Create a new product and SKU.
+
+
+        When you create a product, you will always create a SKU, since a Product
+        Item must have, at minimum, a single SKU.
+
+
+        To create a Product with multiple SKUs - for example a T-shirt in sizes
+        small, medium and large:
+          - Create parameters in `sku-properties`, also known as [product options and variants.](https://help.webflow.com/hc/en-us/articles/33961334531347-Create-product-options-and-variants).
+          - A single `sku-property` would be `color`. Within the `color` property, list the various colors of T-shirts as an array of `enum` values: `royal-blue`, `crimson-red`, and `forrest-green`. 
+          - Once, you've created a Product and its `sku-properties` with `enum` values, Webflow will create a **default SKU**, which will automatically be a combination of the first `sku-properties` you've created.
+          - In our example, the default SKU will be a Royal Blue T-Shirt, because our first `enum` of our Color `sku-property` is Royal Blue. 
+          - After you've created your product, you can create additional SKUs using the [Create SKU endpoint.](/data/reference/ecommerce/products-sk-us/create-sku)
+
+        Upon creation, the default product type will be `Advanced`, which
+        ensures all Product and SKU fields will be shown to users in the
+        Designer.
+
+
+        Required scope | `ecommerce:write`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+      display-name: Create Product & SKU
+      request:
+        name: ProductSkuCreate
+        body:
+          properties:
+            publishStatus: optional<root.PublishStatus>
+            product: optional<root.Product>
+            sku: optional<root.Sku>
+        content-type: application/json
+      response:
+        docs: Request was successful
+        type: root.ProductAndSkUs
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.ForbiddenError
+        - root.NotFoundError
+        - root.ConflictError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+          request: {}
+          response:
+            body:
+              product:
+                id: 660eb7a486d1d6e0412292d7
+                cmsLocaleId: 653ad57de882f528b32e810e
+                lastPublished: '2024-04-04T14:24:19Z'
+                lastUpdated: '2024-04-04T14:30:19Z'
+                createdOn: '2024-04-04T14:22:28Z'
+                isArchived: false
+                isDraft: false
+                fieldData:
+                  name: T-Shirt
+                  slug: t-shirt
+                  description: A plain cotton t-shirt.
+                  shippable: true
+                  sku-properties:
+                    - id: Color
+                      name: Color
+                      enum:
+                        - id: id
+                          name: Royal Blue
+                          slug: royal-blue
+                  categories:
+                    - categories
+                  tax-category: standard-taxable
+                  default-sku: default-sku
+                  ec-product-type: ff42fee0113744f693a764e3431a9cc2
+              skus:
+                - id: 580e63fc8c9a982ac9b8b745
+                  cmsLocaleId: 653ad57de882f528b32e810e
+                  lastPublished: '2023-03-17T18:47:35Z'
+                  lastUpdated: '2023-03-17T18:47:35Z'
+                  createdOn: '2023-03-17T18:47:35Z'
+                  fieldData:
+                    sku-values:
+                      ff42fee0113744f693a764e3431a9cc2: 64a74715c456e36762fc39a1
+                    name: Blue T-shirt
+                    slug: t-shirt-blue
+                    price:
+                      value: 100
+                      unit: USD
+                    quantity: 10
+    get:
+      path: /sites/{site_id}/products/{product_id}
+      method: GET
+      auth: true
+      docs: |
+        Retrieve a single product by its ID. All of its SKUs will also be
+        retrieved.
+
+        Required scope | `ecommerce:read`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+        product_id:
+          type: string
+          docs: Unique identifier for a Product
+      display-name: Get Product and SKUs
+      response:
+        docs: Request was successful
+        type: root.ProductAndSkUs
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.ForbiddenError
+        - root.NotFoundError
+        - root.ConflictError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+            product_id: 580e63fc8c9a982ac9b8b745
+          response:
+            body:
+              product:
+                id: 660eb7a486d1d6e0412292d7
+                cmsLocaleId: 653ad57de882f528b32e810e
+                lastPublished: '2024-04-04T14:24:19Z'
+                lastUpdated: '2024-04-04T14:30:19Z'
+                createdOn: '2024-04-04T14:22:28Z'
+                isArchived: false
+                isDraft: false
+                fieldData:
+                  name: T-Shirt
+                  slug: t-shirt
+                  description: A plain cotton t-shirt.
+                  shippable: true
+                  sku-properties:
+                    - id: Color
+                      name: Color
+                      enum:
+                        - id: id
+                          name: Royal Blue
+                          slug: royal-blue
+                  categories:
+                    - categories
+                  tax-category: standard-taxable
+                  default-sku: default-sku
+                  ec-product-type: ff42fee0113744f693a764e3431a9cc2
+              skus:
+                - id: 580e63fc8c9a982ac9b8b745
+                  cmsLocaleId: 653ad57de882f528b32e810e
+                  lastPublished: '2023-03-17T18:47:35Z'
+                  lastUpdated: '2023-03-17T18:47:35Z'
+                  createdOn: '2023-03-17T18:47:35Z'
+                  fieldData:
+                    sku-values:
+                      ff42fee0113744f693a764e3431a9cc2: 64a74715c456e36762fc39a1
+                    name: Blue T-shirt
+                    slug: t-shirt-blue
+                    price:
+                      value: 100
+                      unit: USD
+                    quantity: 10
+    update:
+      path: /sites/{site_id}/products/{product_id}
+      method: PATCH
+      auth: true
+      docs: >
+        Update an existing Product.
+
+
+        Updating an existing Product will set the product type to `Advanced`,
+        which ensures all Product and SKU fields will be shown to users in the
+        Designer.
+
+
+        Required scope | `ecommerce:write`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+        product_id:
+          type: string
+          docs: Unique identifier for a Product
+      display-name: Update Product
+      request:
+        name: ProductSkuUpdate
+        body:
+          properties:
+            publishStatus: optional<root.PublishStatus>
+            product: optional<root.Product>
+            sku: optional<root.Sku>
+        content-type: application/json
+      response:
+        docs: Request was successful
+        type: root.Product
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.ForbiddenError
+        - root.NotFoundError
+        - root.ConflictError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+            product_id: 580e63fc8c9a982ac9b8b745
+          request: {}
+          response:
+            body:
+              id: 660eb7a486d1d6e0412292d7
+              cmsLocaleId: 653ad57de882f528b32e810e
+              lastPublished: '2024-04-04T14:24:19Z'
+              lastUpdated: '2024-04-04T14:30:19Z'
+              createdOn: '2024-04-04T14:22:28Z'
+              isArchived: false
+              isDraft: false
+              fieldData:
+                name: T-Shirt
+                slug: t-shirt
+                description: A plain cotton t-shirt.
+                shippable: true
+                sku-properties:
+                  - id: Color
+                    name: Color
+                    enum:
+                      - id: id
+                        name: Royal Blue
+                        slug: royal-blue
+                categories:
+                  - categories
+                tax-category: standard-taxable
+                default-sku: default-sku
+                ec-product-type: ff42fee0113744f693a764e3431a9cc2
+    create-sku:
+      path: /sites/{site_id}/products/{product_id}/skus
+      method: POST
+      auth: true
+      docs: >
+        Create additional SKUs to manage every [option and variant of your
+        Product.](https://help.webflow.com/hc/en-us/articles/33961334531347-Create-product-options-and-variants)
+
+
+        Creating SKUs through the API will set the product type to `Advanced`,
+        which ensures all Product and SKU fields will be shown to users in the
+        Designer.
+
+
+        Required scope | `ecommerce:write`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+        product_id:
+          type: string
+          docs: Unique identifier for a Product
+      display-name: Create SKU
+      request:
+        name: ProductsCreateSkuRequest
+        body:
+          properties:
+            publishStatus: optional<root.PublishStatus>
+            skus:
+              docs: An array of the SKU data your are adding
+              type: list<root.Sku>
+        content-type: application/json
+      response:
+        docs: Request was successful
+        type: ProductsCreateSkuResponse
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.ForbiddenError
+        - root.NotFoundError
+        - root.ConflictError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+            product_id: 580e63fc8c9a982ac9b8b745
+          request:
+            skus:
+              - {}
+          response:
+            body:
+              skus:
+                - id: 580e63fc8c9a982ac9b8b745
+                  cmsLocaleId: 653ad57de882f528b32e810e
+                  lastPublished: '2023-03-17T18:47:35Z'
+                  lastUpdated: '2023-03-17T18:47:35Z'
+                  createdOn: '2023-03-17T18:47:35Z'
+                  fieldData:
+                    sku-values:
+                      ff42fee0113744f693a764e3431a9cc2: 64a74715c456e36762fc39a1
+                    name: Blue T-shirt
+                    slug: t-shirt-blue
+                    price:
+                      value: 100
+                      unit: USD
+                    quantity: 10
+    update-sku:
+      path: /sites/{site_id}/products/{product_id}/skus/{sku_id}
+      method: PATCH
+      auth: true
+      docs: >
+        Update a specified SKU.
+
+
+        Updating an existing SKU will set the Product type to `Advanced`, which
+        ensures all Product and SKU fields will be shown to users in the
+        Designer.
+
+
+        Required scope | `ecommerce:write`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+        product_id:
+          type: string
+          docs: Unique identifier for a Product
+        sku_id:
+          type: string
+          docs: Unique identifier for a SKU
+      display-name: Update SKU
+      request:
+        name: ProductsUpdateSkuRequest
+        body:
+          properties:
+            publishStatus: optional<root.PublishStatus>
+            sku: root.Sku
+        content-type: application/json
+      response:
+        docs: Request was successful
+        type: root.Sku
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.ForbiddenError
+        - root.NotFoundError
+        - root.ConflictError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+            product_id: 580e63fc8c9a982ac9b8b745
+            sku_id: 5e8518516e147040726cc415
+          request:
+            sku: {}
+          response:
+            body:
+              id: 580e63fc8c9a982ac9b8b745
+              cmsLocaleId: 653ad57de882f528b32e810e
+              lastPublished: '2023-03-17T18:47:35Z'
+              lastUpdated: '2023-03-17T18:47:35Z'
+              createdOn: '2023-03-17T18:47:35Z'
+              fieldData:
+                sku-values:
+                  ff42fee0113744f693a764e3431a9cc2: 64a74715c456e36762fc39a1
+                name: Blue T-shirt
+                slug: t-shirt-blue
+                price:
+                  value: 100
+                  unit: USD
+                compare-at-price:
+                  value: 100
+                  unit: USD
+                ec-sku-billing-method: one-time
+                ec-sku-subscription-plan:
+                  interval: day
+                  frequency: 1
+                  trial: 7
+                  plans:
+                    - {}
+                track-inventory: true
+                quantity: 10
+  source:
+    openapi: ../../../referenced-specs/v2.yml
+types:
+  ProductsCreateSkuResponse:
+    properties:
+      skus: optional<list<root.Sku>>
+    source:
+      openapi: ../../../referenced-specs/v2.yml

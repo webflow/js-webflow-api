@@ -1,0 +1,227 @@
+imports:
+  root: ../__package__.yml
+service:
+  auth: false
+  base-path: ''
+  endpoints:
+    get-custom-code:
+      path: /sites/{site_id}/custom_code
+      method: GET
+      auth: true
+      docs: >
+        Get all registered scripts that have been applied to a specific Site. 
+
+        <blockquote class="callout callout_info" theme="📘">Access to this
+        endpoint requires a bearer token from a <a
+        href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data
+        Client App</a>.</blockquote>    
+
+
+        Required scope | `custom_code:read`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+      display-name: Get Custom Code
+      response:
+        docs: Request was successful
+        type: root.ScriptApplyList
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+          response:
+            body:
+              scripts:
+                - id: cms_slider
+                  location: header
+                  version: 1.0.0
+                  attributes:
+                    my-attribute: some-value
+                - id: alert
+                  location: header
+                  version: 0.0.1
+                  attributes:
+                    key: value
+              lastUpdated: '2022-10-26T00:28:54.191Z'
+              createdOn: '2022-10-26T00:28:54.191Z'
+    upsert-custom-code:
+      path: /sites/{site_id}/custom_code
+      method: PUT
+      auth: true
+      docs: >
+        Add a registered script to a Site. 
+
+
+        In order to use the Custom Code APIs for Sites and Pages, Custom Code
+        Scripts must first be registered 
+
+        to a Site via the `registered_scripts` endpoints, and then applied to a
+        Site or Page using the appropriate
+
+        `custom_code` endpoints. 
+
+        <blockquote class="callout callout_info" theme="📘">Access to this
+        endpoint requires a bearer token from a <a
+        href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data
+        Client App</a>.</blockquote>    
+
+
+        Required scope | `custom_code:write`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+      display-name: Add/Update Custom Code
+      request:
+        body: root.ScriptApplyList
+        content-type: application/json
+      response:
+        docs: Request was successful
+        type: root.ScriptApplyList
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+          request:
+            scripts:
+              - id: cms_slider
+                location: header
+                version: 1.0.0
+                attributes:
+                  my-attribute: some-value
+              - id: alert
+                location: header
+                version: 0.0.1
+          response:
+            body:
+              scripts:
+                - id: cms_slider
+                  location: header
+                  version: 1.0.0
+                  attributes:
+                    my-attribute: some-value
+                - id: alert
+                  location: header
+                  version: 0.0.1
+                  attributes:
+                    key: value
+              lastUpdated: lastUpdated
+              createdOn: createdOn
+    delete-custom-code:
+      path: /sites/{site_id}/custom_code
+      method: DELETE
+      auth: true
+      docs: >
+        Delete the custom code block that an app created for a Site
+
+
+        <blockquote class="callout callout_info" theme="📘">Access to this
+        endpoint requires a bearer token from a <a
+        href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data
+        Client App</a>.</blockquote>    
+
+
+        Required scope | `custom_code:write`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+      display-name: Delete Custom Code
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+    list-custom-code-blocks:
+      path: /sites/{site_id}/custom_code/blocks
+      method: GET
+      auth: true
+      docs: >
+        Get all instances of Custom Code applied to a Site or Pages. 
+
+        <blockquote class="callout callout_info" theme="📘">Access to this
+        endpoint requires a bearer token from a <a
+        href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data
+        Client App</a>.</blockquote>    
+
+
+        Required scope | `custom_code:read`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+      display-name: List Custom Code Blocks
+      request:
+        name: ScriptsListCustomCodeBlocksRequest
+        query-parameters:
+          offset:
+            type: optional<double>
+            docs: >-
+              Offset used for pagination if the results have more than limit
+              records
+          limit:
+            type: optional<double>
+            docs: 'Maximum number of records to be returned (max limit: 100)'
+      response:
+        docs: Request was successful
+        type: root.ListCustomCodeBlocks
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+          response:
+            body:
+              blocks:
+                - siteId: 6258612d1ee792848f805dcf
+                  type: site
+                  scripts:
+                    - id: chartjs
+                      location: header
+                      version: 4.4.2
+                      attributes:
+                        key: value
+                  createdOn: '2024-04-03T16:49:15Z'
+                  lastUpdated: '2024-04-03T16:49:15Z'
+                - siteId: 6390c49674a71f84b51a08d8
+                  pageId: 6419db964a9c43f6a3af6348
+                  type: page
+                  scripts:
+                    - id: id
+                      location: header
+                      version: version
+                  createdOn: '2022-10-26T00:28:54Z'
+                  lastUpdated: '2022-10-26T00:28:54Z'
+              pagination:
+                limit: 10
+                offset: 0
+                total: 1
+  source:
+    openapi: ../../../referenced-specs/v2.yml

@@ -3,7 +3,7 @@
  */
 
 export interface AuthorizedUser {
-    /** The unique id of the user */
+    /** The unique ID of the user */
     id?: string;
     /** The user's email address */
     email?: string;
