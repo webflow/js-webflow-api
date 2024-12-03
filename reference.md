@@ -4515,7 +4515,6 @@ Required scope | `CMS:write`
 
 ```typescript
 await client.collections.items.createItem("580e63fc8c9a982ac9b8b745", {
-    id: "580e64008c9a982ac9b8b754",
     isArchived: false,
     isDraft: false,
     fieldData: {
@@ -4856,7 +4855,6 @@ Required scope | `CMS:write`
 
 ```typescript
 await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
-    id: "580e64008c9a982ac9b8b754",
     isArchived: false,
     isDraft: false,
     fieldData: {

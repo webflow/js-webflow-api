@@ -201,6 +201,7 @@ service:
             body:
               blocks:
                 - siteId: 6258612d1ee792848f805dcf
+                  pageId: pageId
                   type: site
                   scripts:
                     - id: chartjs

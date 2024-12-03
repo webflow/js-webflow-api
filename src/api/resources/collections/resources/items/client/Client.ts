@@ -204,7 +204,6 @@ export class Items {
      *
      * @example
      *     await client.collections.items.createItem("580e63fc8c9a982ac9b8b745", {
-     *         id: "580e64008c9a982ac9b8b754",
      *         isArchived: false,
      *         isDraft: false,
      *         fieldData: {
@@ -216,7 +215,6 @@ export class Items {
      * @example
      *     await client.collections.items.createItem("580e63fc8c9a982ac9b8b745", {
      *         items: [{
-     *                 id: "580e64008c9a982ac9b8b754",
      *                 isArchived: false,
      *                 isDraft: false,
      *                 fieldData: {
@@ -224,7 +222,6 @@ export class Items {
      *                     slug: "senior-data-analyst"
      *                 }
      *             }, {
-     *                 id: "580e64008c9a982ac9b8b754",
      *                 isArchived: false,
      *                 isDraft: false,
      *                 fieldData: {
@@ -826,7 +823,6 @@ export class Items {
      *
      * @example
      *     await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
-     *         id: "580e64008c9a982ac9b8b754",
      *         isArchived: false,
      *         isDraft: false,
      *         fieldData: {
@@ -838,7 +834,6 @@ export class Items {
      * @example
      *     await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
      *         items: [{
-     *                 id: "580e64008c9a982ac9b8b754",
      *                 isArchived: false,
      *                 isDraft: false,
      *                 fieldData: {
@@ -846,7 +841,6 @@ export class Items {
      *                     slug: "senior-data-analyst"
      *                 }
      *             }, {
-     *                 id: "580e64008c9a982ac9b8b754",
      *                 isArchived: false,
      *                 isDraft: false,
      *                 fieldData: {

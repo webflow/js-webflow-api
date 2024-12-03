@@ -251,7 +251,6 @@ service:
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
           request:
-            id: 580e64008c9a982ac9b8b754
             isArchived: false
             isDraft: false
             fieldData:
@@ -274,14 +273,12 @@ service:
             collection_id: 580e63fc8c9a982ac9b8b745
           request:
             items:
-              - id: 580e64008c9a982ac9b8b754
-                isArchived: false
+              - isArchived: false
                 isDraft: false
                 fieldData:
                   name: Senior Data Analyst
                   slug: senior-data-analyst
-              - id: 580e64008c9a982ac9b8b754
-                isArchived: false
+              - isArchived: false
                 isDraft: false
                 fieldData:
                   name: Product Manager
@@ -397,7 +394,7 @@ service:
                   slug: hasta-luego-y-gracias
           response:
             body:
-              id: 580e64008c9a982ac9b8b754
+              id: id
               cmsLocaleId: 653ad57de882f528b32e810e
               lastPublished: '2023-03-17T18:47:35.560Z'
               lastUpdated: '2023-03-17T18:47:35.560Z'
@@ -426,7 +423,7 @@ service:
                   slug: product-manager
           response:
             body:
-              id: 580e64008c9a982ac9b8b754
+              id: id
               cmsLocaleId: 653ad57de882f528b32e810e
               lastPublished: '2023-03-17T18:47:35.560Z'
               lastUpdated: '2023-03-17T18:47:35.560Z'
@@ -463,7 +460,7 @@ service:
                   slug: hasta-luego-y-gracias
           response:
             body:
-              id: 580e64008c9a982ac9b8b754
+              id: id
               cmsLocaleId: 653ad57de882f528b32e810e
               lastPublished: '2023-03-17T18:47:35.560Z'
               lastUpdated: '2023-03-17T18:47:35.560Z'
@@ -500,7 +497,7 @@ service:
                   slug: hasta-luego-y-gracias
           response:
             body:
-              id: 580e64008c9a982ac9b8b754
+              id: id
               cmsLocaleId: 653ad57de882f528b32e810e
               lastPublished: '2023-03-17T18:47:35.560Z'
               lastUpdated: '2023-03-17T18:47:35.560Z'
@@ -634,7 +631,6 @@ service:
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
           request:
-            id: 580e64008c9a982ac9b8b754
             isArchived: false
             isDraft: false
             fieldData:
@@ -657,14 +653,12 @@ service:
             collection_id: 580e63fc8c9a982ac9b8b745
           request:
             items:
-              - id: 580e64008c9a982ac9b8b754
-                isArchived: false
+              - isArchived: false
                 isDraft: false
                 fieldData:
                   name: Senior Data Analyst
                   slug: senior-data-analyst
-              - id: 580e64008c9a982ac9b8b754
-                isArchived: false
+              - isArchived: false
                 isDraft: false
                 fieldData:
                   name: Product Manager
@@ -787,6 +781,7 @@ service:
               items:
                 - id: 66f6ed9576ddacf3149d5ea6
                   cmsLocaleId: 66f6e966c9e1dc700a857ca5
+                  lastPublished: '2023-03-17T18:47:35.560Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
                   isArchived: true
@@ -796,6 +791,7 @@ service:
                     slug: ne-paniquez-pas
                 - id: 66f6ed9576ddacf3149d5ea6
                   cmsLocaleId: 66f6e966c9e1dc700a857ca4
+                  lastPublished: '2023-03-17T18:47:35.560Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
                   isArchived: true
@@ -805,6 +801,7 @@ service:
                     slug: no-entrar-en-panico
                 - id: 66f6ed9576ddacf3149d5eaa
                   cmsLocaleId: 66f6e966c9e1dc700a857ca5
+                  lastPublished: '2023-03-17T18:47:35.560Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
                   isArchived: true
@@ -814,6 +811,7 @@ service:
                     slug: au-revoir-et-merci
                 - id: 66f6ed9576ddacf3149d5eaa
                   cmsLocaleId: 66f6e966c9e1dc700a857ca4
+                  lastPublished: '2023-03-17T18:47:35.560Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
                   isArchived: true
@@ -843,6 +841,7 @@ service:
               items:
                 - id: 66f6ed9576ddacf3149d5ea6
                   cmsLocaleId: 66f6e966c9e1dc700a857ca5
+                  lastPublished: '2023-03-17T18:47:35.560Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
                   isArchived: true
@@ -852,6 +851,7 @@ service:
                     slug: ne-paniquez-pas
                 - id: 66f6ed9576ddacf3149d5ea6
                   cmsLocaleId: 66f6e966c9e1dc700a857ca4
+                  lastPublished: '2023-03-17T18:47:35.560Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
                   isArchived: true
@@ -861,6 +861,7 @@ service:
                     slug: no-entrar-en-panico
                 - id: 66f6ed9576ddacf3149d5eaa
                   cmsLocaleId: 66f6e966c9e1dc700a857ca5
+                  lastPublished: '2023-03-17T18:47:35.560Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
                   isArchived: true
@@ -870,6 +871,7 @@ service:
                     slug: au-revoir-et-merci
                 - id: 66f6ed9576ddacf3149d5eaa
                   cmsLocaleId: 66f6e966c9e1dc700a857ca4
+                  lastPublished: '2023-03-17T18:47:35.560Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
                   isArchived: true
@@ -907,6 +909,7 @@ service:
               items:
                 - id: 66f6ed9576ddacf3149d5ea6
                   cmsLocaleId: 66f6e966c9e1dc700a857ca5
+                  lastPublished: '2023-03-17T18:47:35.560Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
                   isArchived: true
@@ -916,6 +919,7 @@ service:
                     slug: ne-paniquez-pas
                 - id: 66f6ed9576ddacf3149d5ea6
                   cmsLocaleId: 66f6e966c9e1dc700a857ca4
+                  lastPublished: '2023-03-17T18:47:35.560Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
                   isArchived: true
@@ -925,6 +929,7 @@ service:
                     slug: no-entrar-en-panico
                 - id: 66f6ed9576ddacf3149d5eaa
                   cmsLocaleId: 66f6e966c9e1dc700a857ca5
+                  lastPublished: '2023-03-17T18:47:35.560Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
                   isArchived: true
@@ -934,6 +939,7 @@ service:
                     slug: au-revoir-et-merci
                 - id: 66f6ed9576ddacf3149d5eaa
                   cmsLocaleId: 66f6e966c9e1dc700a857ca4
+                  lastPublished: '2023-03-17T18:47:35.560Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
                   isArchived: true

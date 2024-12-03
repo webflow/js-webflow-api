@@ -53,6 +53,7 @@ service:
                         660d83ce30f3a599ddb0bdb3_Screenshot%202024-03-20%20at%209.03.24%E2%80%AFPM-p-500.png
                       format: png
                       width: 500
+                      height: 900
                       quality: 100
                   altText: A red chair
     create:
@@ -306,6 +307,7 @@ service:
               assetFolders:
                 - id: 6390c49774a71f0e3c1a08ee
                   displayName: emoji icons
+                  parentFolder: 6390c49774a71f99f21a08eb
                   assets:
                     - 63e5889e7fe4eafa7384cea4
                     - 659595234426a9fcbad57043

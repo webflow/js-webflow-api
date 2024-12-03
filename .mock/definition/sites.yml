@@ -76,6 +76,7 @@ service:
                   previewUrl: >-
                     https://d1otoma47x30pg.cloudfront.net/42e63e98c9a982ac9b8b742/198110121200.png
                   timeZone: DeepSpace/Depression
+                  parentFolderId: 1as2d3f4g5h6j7k8l9z0x1c2v3b4n5m6
                   customDomains:
                     - id: 589a331aa51e760df7ccb89f
                       url: marvin.blog
@@ -108,6 +109,7 @@ service:
                   previewUrl: >-
                     https://d1otoma47x30pg.cloudfront.net/42e63e98c9a982ac9b8b743/198210121200.png
                   timeZone: Vogsphere/PoetryHall
+                  parentFolderId: 1as2d3f4g5h6j7k8l9z0x1c2v3b4n5m6
                   customDomains:
                     - id: 589a331aa51e760df7ccb8a0
                       url: vogonpoetry.galaxy

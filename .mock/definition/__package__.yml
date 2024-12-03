@@ -570,7 +570,7 @@ types:
       items
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Unique identifier for the Item
       cmsLocaleId:
         type: optional<string>

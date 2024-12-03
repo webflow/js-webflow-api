@@ -127,6 +127,7 @@ service:
                 660d5bcc9c0772150459dfb1:
                   displayName: Name
                   type: Plain
+                  placeholder: Enter your email
                   userVisible: true
                 589a331aa51e760df7ccb89d:
                   displayName: Email
@@ -136,6 +137,7 @@ service:
               responseSettings:
                 redirectUrl: https://example.com
                 redirectMethod: GET
+                redirectAction: POST https://example.com
                 sendEmailConfirmation: true
               id: 589a331aa51e760df7ccb89e
               siteId: 580e63e98c9a982ac9b8b741
