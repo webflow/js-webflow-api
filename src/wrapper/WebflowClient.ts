@@ -1,19 +1,12 @@
 import qs from "qs";
 import { WebflowClient as FernClient } from "../Client";
-import { OauthScope } from "../api/types";
+import { OauthScope } from "../api/types/OAuthScope";
 import * as core from "../core";
 import * as errors from "../errors";
-import { Client as Collections } from "./CollectionsClient";
 
 export class WebflowClient extends FernClient {
     constructor(protected readonly _options: FernClient.Options) {
         super(_options);
-    }
-
-    protected _collections: Collections | undefined;
-
-    public get collections(): Collections {
-        return (this._collections ??= new Collections(this._options));
     }
 
     /**
@@ -107,7 +100,9 @@ export class WebflowClient extends FernClient {
                     body: response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.WebflowTimeoutError();
+                throw new errors.WebflowTimeoutError(
+                    "Timeout exceeded when calling POST /oauth/token"
+                );
             case "unknown":
                 throw new errors.WebflowError({
                     message: response.error.errorMessage,
