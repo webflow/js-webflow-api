@@ -5,7 +5,11 @@
 import * as Webflow from "../index";
 
 export interface Order {
-    /** The order id. Will usually be 6 hex characters, but can also be 9 hex characters if the site has a very large number of Orders. Randomly assigned. */
+    /**
+     * The order ID. Will usually be 6 hex characters, but can also be 9
+     * hex characters if the site has a very large number of Orders.
+     * Randomly assigned.
+     */
     orderId?: string;
     /** The status of the Order */
     status?: Webflow.OrderStatus;

@@ -10,10 +10,10 @@
  *     }
  */
 export interface AssetsCreateRequest {
-    /** file name including file extension */
+    /** File name including file extension. File names must be less than 100 characters. */
     fileName: string;
     /** MD5 hash of the file */
     fileHash: string;
-    /** id of the Asset folder (optional) */
+    /** ID of the Asset folder (optional) */
     parentFolder?: string;
 }

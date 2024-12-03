@@ -3,9 +3,10 @@
  */
 
 import * as errors from "../../errors/index";
+import * as Webflow from "../index";
 
 export class UnauthorizedError extends errors.WebflowError {
-    constructor(body?: unknown) {
+    constructor(body: Webflow.Error_) {
         super({
             message: "UnauthorizedError",
             statusCode: 401,
