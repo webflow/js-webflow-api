@@ -7,6 +7,7 @@ import * as Webflow from "../../api/index";
 import * as core from "../../core";
 import { Domain } from "./Domain";
 import { Locales } from "./Locales";
+import { SiteDataCollectionType } from "./SiteDataCollectionType";
 
 export const Site: core.serialization.ObjectSchema<serializers.Site.Raw, Webflow.Site> = core.serialization.object({
     id: core.serialization.string(),
@@ -21,6 +22,8 @@ export const Site: core.serialization.ObjectSchema<serializers.Site.Raw, Webflow
     parentFolderId: core.serialization.string().optional(),
     customDomains: core.serialization.list(Domain).optional(),
     locales: Locales.optional(),
+    dataCollectionEnabled: core.serialization.boolean().optional(),
+    dataCollectionType: SiteDataCollectionType.optional(),
 });
 
 export declare namespace Site {
@@ -37,5 +40,7 @@ export declare namespace Site {
         parentFolderId?: string | null;
         customDomains?: Domain.Raw[] | null;
         locales?: Locales.Raw | null;
+        dataCollectionEnabled?: boolean | null;
+        dataCollectionType?: SiteDataCollectionType.Raw | null;
     }
 }

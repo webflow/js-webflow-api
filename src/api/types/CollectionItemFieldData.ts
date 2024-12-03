@@ -7,6 +7,4 @@ export interface CollectionItemFieldData {
     name?: string;
     /** URL structure of the Item in your site. Note: Updates to an item slug will break all links referencing the old slug. */
     slug?: string;
-    /** Additional CMS Item field properties with any name and any type */
-    [key: string]: any;
 }
