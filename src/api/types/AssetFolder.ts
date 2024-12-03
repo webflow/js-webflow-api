@@ -14,7 +14,7 @@ export interface AssetFolder {
     parentFolder?: string;
     /** Array of Asset instances in the folder */
     assets?: string[];
-    /** The unique id of the site the Asset Folder belongs to */
+    /** The unique ID of the site the Asset Folder belongs to */
     siteId?: string;
     /** Date that the Asset Folder was created on */
     createdOn?: Date;

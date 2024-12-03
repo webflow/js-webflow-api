@@ -7,23 +7,23 @@ import * as Webflow from "../../../../index";
 /**
  * @example
  *     {
- *         locale: "locale",
+ *         localeId: "65427cf400e02b306eaa04a0",
  *         nodes: [{
  *                 nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad623",
- *                 text: "<h1>The Hitchhiker's Guide to the Galaxy</h1>"
+ *                 text: "<h1>The Hitchhiker\u2019s Guide to the Galaxy</h1>"
  *             }, {
  *                 nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad627",
- *                 text: "<div><h3>Don't Panic!</h3><p>Always know where your towel is.</p></div>"
+ *                 text: "<div><h3>Don\u2019t Panic!</h3><p>Always know where your towel is.</p></div>"
  *             }, {
  *                 nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad629",
- *                 text: "<img alt='Marvin, the Paranoid Android' src='path/to/image/with/assetId/659595234426a9fcbad57043'/>"
+ *                 text: "<img alt=\"Marvin, the Paranoid Android\" src=\"path/to/image/with/assetId/659595234426a9fcbad57043\"/>"
  *             }]
  *     }
  */
 export interface DomWrite {
     /**
-     * The locale identifier.
+     * Unique identifier for a specific locale. Applicable, when using localization.
      */
-    locale: string;
+    localeId?: string;
     nodes: Webflow.DomWriteNodesItem[];
 }

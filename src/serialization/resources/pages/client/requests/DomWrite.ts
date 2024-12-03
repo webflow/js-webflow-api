@@ -9,7 +9,7 @@ import { DomWriteNodesItem } from "../../types/DomWriteNodesItem";
 
 export const DomWrite: core.serialization.Schema<
     serializers.DomWrite.Raw,
-    Omit<Webflow.DomWrite, "locale">
+    Omit<Webflow.DomWrite, "localeId">
 > = core.serialization.object({
     nodes: core.serialization.list(DomWriteNodesItem),
 });
