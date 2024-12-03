@@ -9,10 +9,12 @@ import * as core from "../../core";
 export const BulkCollectionItemFieldData: core.serialization.ObjectSchema<
     serializers.BulkCollectionItemFieldData.Raw,
     Webflow.BulkCollectionItemFieldData
-> = core.serialization.object({
-    name: core.serialization.string().optional(),
-    slug: core.serialization.string().optional(),
-});
+> = core.serialization
+    .object({
+        name: core.serialization.string().optional(),
+        slug: core.serialization.string().optional(),
+    })
+    .passthrough();
 
 export declare namespace BulkCollectionItemFieldData {
     interface Raw {

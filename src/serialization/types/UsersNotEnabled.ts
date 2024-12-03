@@ -5,23 +5,10 @@
 import * as serializers from "../index";
 import * as Webflow from "../../api/index";
 import * as core from "../../core";
-import { ErrorDetailsItem } from "./ErrorDetailsItem";
 
-export const UsersNotEnabled: core.serialization.ObjectSchema<
-    serializers.UsersNotEnabled.Raw,
-    Webflow.UsersNotEnabled
-> = core.serialization.object({
-    code: core.serialization.string().optional(),
-    message: core.serialization.string().optional(),
-    externalReference: core.serialization.string().optional(),
-    details: core.serialization.list(ErrorDetailsItem).optional(),
-});
+export const UsersNotEnabled: core.serialization.Schema<serializers.UsersNotEnabled.Raw, Webflow.UsersNotEnabled> =
+    core.serialization.unknown();
 
 export declare namespace UsersNotEnabled {
-    interface Raw {
-        code?: string | null;
-        message?: string | null;
-        externalReference?: string | null;
-        details?: ErrorDetailsItem.Raw[] | null;
-    }
+    type Raw = unknown;
 }

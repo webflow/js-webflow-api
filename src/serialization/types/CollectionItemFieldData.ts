@@ -9,10 +9,12 @@ import * as core from "../../core";
 export const CollectionItemFieldData: core.serialization.ObjectSchema<
     serializers.CollectionItemFieldData.Raw,
     Webflow.CollectionItemFieldData
-> = core.serialization.object({
-    name: core.serialization.string().optional(),
-    slug: core.serialization.string().optional(),
-});
+> = core.serialization
+    .object({
+        name: core.serialization.string().optional(),
+        slug: core.serialization.string().optional(),
+    })
+    .passthrough();
 
 export declare namespace CollectionItemFieldData {
     interface Raw {
