@@ -18,6 +18,5 @@ export declare namespace CollectionItemFieldData {
     interface Raw {
         name?: string | null;
         slug?: string | null;
-        [key: string]: any;
     }
 }

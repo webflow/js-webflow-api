@@ -3,9 +3,10 @@
  */
 
 import * as errors from "../../errors/index";
+import * as Webflow from "../index";
 
 export class NotFoundError extends errors.WebflowError {
-    constructor(body?: unknown) {
+    constructor(body: Webflow.Error_) {
         super({
             message: "NotFoundError",
             statusCode: 404,

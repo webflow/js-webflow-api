@@ -5,6 +5,7 @@
 import * as serializers from "../index";
 import * as Webflow from "../../api/index";
 import * as core from "../../core";
+import { SiteActivityLogItemEvent } from "./SiteActivityLogItemEvent";
 import { SiteActivityLogItemResourceOperation } from "./SiteActivityLogItemResourceOperation";
 import { SiteActivityLogItemUser } from "./SiteActivityLogItemUser";
 
@@ -15,7 +16,7 @@ export const SiteActivityLogItem: core.serialization.ObjectSchema<
     id: core.serialization.string().optional(),
     createdOn: core.serialization.date().optional(),
     lastUpdated: core.serialization.date().optional(),
-    event: core.serialization.string().optional(),
+    event: SiteActivityLogItemEvent.optional(),
     resourceOperation: SiteActivityLogItemResourceOperation.optional(),
     user: SiteActivityLogItemUser.optional(),
     resourceId: core.serialization.string().optional(),
@@ -30,7 +31,7 @@ export declare namespace SiteActivityLogItem {
         id?: string | null;
         createdOn?: string | null;
         lastUpdated?: string | null;
-        event?: string | null;
+        event?: SiteActivityLogItemEvent.Raw | null;
         resourceOperation?: SiteActivityLogItemResourceOperation.Raw | null;
         user?: SiteActivityLogItemUser.Raw | null;
         resourceId?: string | null;

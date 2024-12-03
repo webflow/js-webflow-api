@@ -22,6 +22,8 @@ export declare namespace Ecommerce {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 
@@ -61,10 +63,11 @@ export class Ecommerce {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.4.3",
+                "User-Agent": "webflow-api/2.4.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -87,16 +90,32 @@ export class Ecommerce {
                 case 400:
                     throw new Webflow.BadRequestError(_response.error.body);
                 case 401:
-                    throw new Webflow.UnauthorizedError(_response.error.body);
+                    throw new Webflow.UnauthorizedError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 403:
                     throw new Webflow.ForbiddenError(_response.error.body);
                 case 404:
-                    throw new Webflow.NotFoundError(_response.error.body);
+                    throw new Webflow.NotFoundError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 409:
                     throw new Webflow.ConflictError(_response.error.body);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
+                        serializers.Error_.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -105,7 +124,15 @@ export class Ecommerce {
                         })
                     );
                 case 500:
-                    throw new Webflow.InternalServerError(_response.error.body);
+                    throw new Webflow.InternalServerError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 default:
                     throw new errors.WebflowError({
                         statusCode: _response.error.statusCode,
@@ -121,7 +148,9 @@ export class Ecommerce {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.WebflowTimeoutError();
+                throw new errors.WebflowTimeoutError(
+                    "Timeout exceeded when calling GET /sites/{site_id}/ecommerce/settings."
+                );
             case "unknown":
                 throw new errors.WebflowError({
                     message: _response.error.errorMessage,

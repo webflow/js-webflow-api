@@ -5,11 +5,12 @@
 import * as serializers from "../index";
 import * as Webflow from "../../api/index";
 import * as core from "../../core";
+import { ErrorCode } from "./ErrorCode";
 import { ErrorDetailsItem } from "./ErrorDetailsItem";
 
 export const Error_: core.serialization.ObjectSchema<serializers.Error_.Raw, Webflow.Error_> =
     core.serialization.object({
-        code: core.serialization.string().optional(),
+        code: ErrorCode.optional(),
         message: core.serialization.string().optional(),
         externalReference: core.serialization.string().optional(),
         details: core.serialization.list(ErrorDetailsItem).optional(),
@@ -17,7 +18,7 @@ export const Error_: core.serialization.ObjectSchema<serializers.Error_.Raw, Web
 
 export declare namespace Error_ {
     interface Raw {
-        code?: string | null;
+        code?: ErrorCode.Raw | null;
         message?: string | null;
         externalReference?: string | null;
         details?: ErrorDetailsItem.Raw[] | null;
