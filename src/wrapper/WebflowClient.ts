@@ -4,7 +4,7 @@ import { OauthScope } from "../api/types/OAuthScope";
 import * as core from "../core";
 import * as errors from "../errors";
 import { Client as Collections } from "./CollectionsClient";
-import { SDK_VERSION } from "version";
+import { SDK_VERSION } from "../version";
 
 export class WebflowClient extends FernClient {
     constructor(protected readonly _options: FernClient.Options) {
