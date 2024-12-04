@@ -3,10 +3,18 @@ import { WebflowClient as FernClient } from "../Client";
 import { OauthScope } from "../api/types/OAuthScope";
 import * as core from "../core";
 import * as errors from "../errors";
+import { Client as Collections } from "./CollectionsClient";
+import { SDK_VERSION } from "version";
 
 export class WebflowClient extends FernClient {
     constructor(protected readonly _options: FernClient.Options) {
         super(_options);
+    }
+
+    protected _collections: Collections | undefined;
+
+    public get collections(): Collections {
+        return (this._collections ??= new Collections(this._options));
     }
 
     /**
@@ -77,8 +85,8 @@ export class WebflowClient extends FernClient {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": SDK_VERSION,
+                "User-Agent": `webflow-api/${SDK_VERSION}`,
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
