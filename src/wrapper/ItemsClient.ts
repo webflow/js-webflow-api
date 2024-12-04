@@ -5,240 +5,27 @@ import * as core from "../core";
 import * as environments from "../environments";
 import * as errors from "../errors";
 import * as serializers from "../serialization";
+import {SDK_VERSION} from "../version";
 
-// Client adapts the base client to permit extra properties in
-// the client.Collections.Items.createItem, createItemLive, and createItemForMultipleLocales request.
+// Temporary wrapper for backwards compatibility keeping the createItemForMultipleLocales method
+// a mirror of the createItems API
 export class Client extends Items {
     constructor(protected readonly _options: Items.Options) {
         super(_options);
     }
 
     /**
-     * Create Item in a Collection.</br></br> To create items across multiple locales, <a href="https://developers.webflow.com/data/reference/create-item-for-multiple-locales"> please use this endpoint.</a> </br></br> Required scope | `CMS:write`
-     * @throws {@link Webflow.BadRequestError}
-     * @throws {@link Webflow.UnauthorizedError}
-     * @throws {@link Webflow.NotFoundError}
-     * @throws {@link Webflow.TooManyRequestsError}
-     * @throws {@link Webflow.InternalServerError}
+     * Create an item or multiple items in a CMS Collection across multiple corresponding locales.
      *
-     * @example
-     *     await webflow.collections.items.createItem("collection_id", {
-     *         id: "42b720ef280c7a7a3be8cabe",
-     *         cmsLocaleId: "653ad57de882f528b32e810e",
-     *         lastPublished: "2022-11-29T16:22:43.159Z",
-     *         lastUpdated: "2022-11-17T17:19:43.282Z",
-     *         createdOn: "2022-11-17T17:11:57.148Z",
-     *         isArchived: false,
-     *         isDraft: false,
-     *         fieldData: {
-     *             name: "Pan Galactic Gargle Blaster Recipe",
-     *             slug: "pan-galactic-gargle-blaster"
-     *         }
-     *     })
-     */
-    public async createItem(
-        collectionId: string,
-        request: Webflow.CollectionItem,
-        requestOptions?: Items.RequestOptions
-    ): Promise<Webflow.CollectionItem> {
-        const _response = await core.fetcher({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `collections/${encodeURIComponent(collectionId)}/items`
-            ),
-            method: "POST",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-            },
-            contentType: "application/json",
-            requestType: "json",
-            body: serializers.CollectionItem.jsonOrThrow(request, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-            }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return serializers.CollectionItem.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new Webflow.BadRequestError(_response.error.body);
-                case 401:
-                    throw new Webflow.UnauthorizedError(_response.error.body);
-                case 404:
-                    throw new Webflow.NotFoundError(_response.error.body);
-                case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                case 500:
-                    throw new Webflow.InternalServerError(_response.error.body);
-                default:
-                    throw new errors.WebflowError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.WebflowError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.WebflowTimeoutError();
-            case "unknown":
-                throw new errors.WebflowError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * Create live Item in a Collection. This Item will be published to the live site. </br></br> To create items across multiple locales, <a href="https://developers.webflow.com/data/reference/create-item-for-multiple-locales"> please use this endpoint.</a> </br></br> Required scope | `CMS:write`
+     * **Notes:**
+     *
+     * - This endpoint can create up to 100 items in a request.
+     * - If the `cmsLocaleIds` parameter is undefined or empty and localization is enabled, items will only be created in the primary locale.
+     *
+     * Required scope | `CMS:write`
      *
      * @param {string} collectionId - Unique identifier for a Collection
-     * @param {Webflow.CollectionItem} request
-     * @param {Items.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Webflow.BadRequestError}
-     * @throws {@link Webflow.UnauthorizedError}
-     * @throws {@link Webflow.NotFoundError}
-     * @throws {@link Webflow.TooManyRequestsError}
-     * @throws {@link Webflow.InternalServerError}
-     *
-     * @example
-     *     await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
-     *         id: "42b720ef280c7a7a3be8cabe",
-     *         cmsLocaleId: "653ad57de882f528b32e810e",
-     *         lastPublished: "2022-11-29T16:22:43.159Z",
-     *         lastUpdated: "2022-11-17T17:19:43.282Z",
-     *         createdOn: "2022-11-17T17:11:57.148Z",
-     *         isArchived: false,
-     *         isDraft: false,
-     *         fieldData: {
-     *             name: "Pan Galactic Gargle Blaster Recipe",
-     *             slug: "pan-galactic-gargle-blaster"
-     *         }
-     *     })
-     */
-    public async createItemLive(
-        collectionId: string,
-        request: Webflow.CollectionItem,
-        requestOptions?: Items.RequestOptions
-    ): Promise<Webflow.CollectionItem> {
-        const _response = await core.fetcher({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `collections/${encodeURIComponent(collectionId)}/items/live`
-            ),
-            method: "POST",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-            },
-            contentType: "application/json",
-            requestType: "json",
-            body: serializers.CollectionItem.jsonOrThrow(request, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-            }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return serializers.CollectionItem.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new Webflow.BadRequestError(_response.error.body);
-                case 401:
-                    throw new Webflow.UnauthorizedError(_response.error.body);
-                case 404:
-                    throw new Webflow.NotFoundError(_response.error.body);
-                case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                case 500:
-                    throw new Webflow.InternalServerError(_response.error.body);
-                default:
-                    throw new errors.WebflowError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.WebflowError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.WebflowTimeoutError();
-            case "unknown":
-                throw new errors.WebflowError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * Create single Item in a Collection with multiple corresponding locales. </br></br> Required scope | `CMS:write`
-     *
-     * @param {string} collectionId - Unique identifier for a Collection
-     * @param {Webflow.BulkCollectionItem} request
+     * @param {Webflow.collections.CreateBulkCollectionItemRequestBody} request
      * @param {Items.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Webflow.BadRequestError}
@@ -249,12 +36,32 @@ export class Client extends Items {
      *
      * @example
      *     await client.collections.items.createItemForMultipleLocales("580e63fc8c9a982ac9b8b745", {
-     *         id: "580e64008c9a982ac9b8b754"
+     *         cmsLocaleIds: ["66f6e966c9e1dc700a857ca3", "66f6e966c9e1dc700a857ca4", "66f6e966c9e1dc700a857ca5"],
+     *         isArchived: false,
+     *         isDraft: false,
+     *         fieldData: {
+     *             name: "Don\u2019t Panic",
+     *             slug: "dont-panic"
+     *         }
+     *     })
+     *
+     * @example
+     *     await client.collections.items.createItemForMultipleLocales("580e63fc8c9a982ac9b8b745", {
+     *         cmsLocaleIds: ["66f6e966c9e1dc700a857ca3", "66f6e966c9e1dc700a857ca4"],
+     *         isArchived: false,
+     *         isDraft: false,
+     *         fieldData: [{
+     *                 name: "Don\u2019t Panic",
+     *                 slug: "dont-panic"
+     *             }, {
+     *                 name: "So Long and Thanks for All the Fish",
+     *                 slug: "so-long-and-thanks"
+     *             }]
      *     })
      */
     public async createItemForMultipleLocales(
         collectionId: string,
-        request: Webflow.BulkCollectionItem,
+        request: Webflow.collections.CreateBulkCollectionItemRequestBody = {},
         requestOptions?: Items.RequestOptions
     ): Promise<Webflow.BulkCollectionItem> {
         const _response = await core.fetcher({
@@ -267,18 +74,18 @@ export class Client extends Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": SDK_VERSION,
+                "User-Agent": `webflow-api/${SDK_VERSION}`,
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.CollectionItem.jsonOrThrow(request, {
+            body: serializers.collections.CreateBulkCollectionItemRequestBody.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
-                skipValidation: true,
             }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
@@ -299,12 +106,28 @@ export class Client extends Items {
                 case 400:
                     throw new Webflow.BadRequestError(_response.error.body);
                 case 401:
-                    throw new Webflow.UnauthorizedError(_response.error.body);
+                    throw new Webflow.UnauthorizedError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 404:
-                    throw new Webflow.NotFoundError(_response.error.body);
+                    throw new Webflow.NotFoundError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 429:
                     throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
+                        serializers.Error_.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -313,7 +136,15 @@ export class Client extends Items {
                         })
                     );
                 case 500:
-                    throw new Webflow.InternalServerError(_response.error.body);
+                    throw new Webflow.InternalServerError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 default:
                     throw new errors.WebflowError({
                         statusCode: _response.error.statusCode,
@@ -329,11 +160,14 @@ export class Client extends Items {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.WebflowTimeoutError();
+                throw new errors.WebflowTimeoutError(
+                    "Timeout exceeded when calling POST /collections/{collection_id}/items/bulk."
+                );
             case "unknown":
                 throw new errors.WebflowError({
                     message: _response.error.errorMessage,
                 });
         }
     }
+
 }

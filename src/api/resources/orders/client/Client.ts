@@ -22,6 +22,8 @@ export declare namespace Orders {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 
@@ -77,10 +79,11 @@ export class Orders {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -104,16 +107,32 @@ export class Orders {
                 case 400:
                     throw new Webflow.BadRequestError(_response.error.body);
                 case 401:
-                    throw new Webflow.UnauthorizedError(_response.error.body);
+                    throw new Webflow.UnauthorizedError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 403:
                     throw new Webflow.ForbiddenError(_response.error.body);
                 case 404:
-                    throw new Webflow.NotFoundError(_response.error.body);
+                    throw new Webflow.NotFoundError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 409:
                     throw new Webflow.ConflictError(_response.error.body);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
+                        serializers.Error_.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -122,7 +141,15 @@ export class Orders {
                         })
                     );
                 case 500:
-                    throw new Webflow.InternalServerError(_response.error.body);
+                    throw new Webflow.InternalServerError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 default:
                     throw new errors.WebflowError({
                         statusCode: _response.error.statusCode,
@@ -138,7 +165,7 @@ export class Orders {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.WebflowTimeoutError();
+                throw new errors.WebflowTimeoutError("Timeout exceeded when calling GET /sites/{site_id}/orders.");
             case "unknown":
                 throw new errors.WebflowError({
                     message: _response.error.errorMessage,
@@ -147,7 +174,8 @@ export class Orders {
     }
 
     /**
-     * Retrieve a single product by its id. All of its SKUs will also be retrieved.
+     * Retrieve a single product by its ID. All of its SKUs will also be
+     * retrieved.
      *
      * Required scope | `ecommerce:read`
      *
@@ -177,10 +205,11 @@ export class Orders {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -203,16 +232,32 @@ export class Orders {
                 case 400:
                     throw new Webflow.BadRequestError(_response.error.body);
                 case 401:
-                    throw new Webflow.UnauthorizedError(_response.error.body);
+                    throw new Webflow.UnauthorizedError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 403:
                     throw new Webflow.ForbiddenError(_response.error.body);
                 case 404:
-                    throw new Webflow.NotFoundError(_response.error.body);
+                    throw new Webflow.NotFoundError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 409:
                     throw new Webflow.ConflictError(_response.error.body);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
+                        serializers.Error_.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -221,7 +266,15 @@ export class Orders {
                         })
                     );
                 case 500:
-                    throw new Webflow.InternalServerError(_response.error.body);
+                    throw new Webflow.InternalServerError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 default:
                     throw new errors.WebflowError({
                         statusCode: _response.error.statusCode,
@@ -237,7 +290,9 @@ export class Orders {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.WebflowTimeoutError();
+                throw new errors.WebflowTimeoutError(
+                    "Timeout exceeded when calling GET /sites/{site_id}/orders/{order_id}."
+                );
             case "unknown":
                 throw new errors.WebflowError({
                     message: _response.error.errorMessage,
@@ -246,7 +301,9 @@ export class Orders {
     }
 
     /**
-     * This API lets you update the fields, `comment`, `shippingProvider`, and/or `shippingTracking` for a given order. All three fields can be updated simultaneously or independently.
+     * This API lets you update the fields, `comment`, `shippingProvider`,
+     * and/or `shippingTracking` for a given order. All three fields can be
+     * updated simultaneously or independently.
      *
      * Required scope | `ecommerce:write`
      *
@@ -282,14 +339,19 @@ export class Orders {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.OrdersUpdateRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: serializers.OrdersUpdateRequest.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+            }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -309,16 +371,32 @@ export class Orders {
                 case 400:
                     throw new Webflow.BadRequestError(_response.error.body);
                 case 401:
-                    throw new Webflow.UnauthorizedError(_response.error.body);
+                    throw new Webflow.UnauthorizedError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 403:
                     throw new Webflow.ForbiddenError(_response.error.body);
                 case 404:
-                    throw new Webflow.NotFoundError(_response.error.body);
+                    throw new Webflow.NotFoundError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 409:
                     throw new Webflow.ConflictError(_response.error.body);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
+                        serializers.Error_.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -327,7 +405,15 @@ export class Orders {
                         })
                     );
                 case 500:
-                    throw new Webflow.InternalServerError(_response.error.body);
+                    throw new Webflow.InternalServerError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 default:
                     throw new errors.WebflowError({
                         statusCode: _response.error.statusCode,
@@ -343,7 +429,9 @@ export class Orders {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.WebflowTimeoutError();
+                throw new errors.WebflowTimeoutError(
+                    "Timeout exceeded when calling PATCH /sites/{site_id}/orders/{order_id}."
+                );
             case "unknown":
                 throw new errors.WebflowError({
                     message: _response.error.errorMessage,
@@ -388,14 +476,19 @@ export class Orders {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.OrdersUpdateFulfillRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: serializers.OrdersUpdateFulfillRequest.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+            }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -415,16 +508,32 @@ export class Orders {
                 case 400:
                     throw new Webflow.BadRequestError(_response.error.body);
                 case 401:
-                    throw new Webflow.UnauthorizedError(_response.error.body);
+                    throw new Webflow.UnauthorizedError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 403:
                     throw new Webflow.ForbiddenError(_response.error.body);
                 case 404:
-                    throw new Webflow.NotFoundError(_response.error.body);
+                    throw new Webflow.NotFoundError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 409:
                     throw new Webflow.ConflictError(_response.error.body);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
+                        serializers.Error_.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -433,7 +542,15 @@ export class Orders {
                         })
                     );
                 case 500:
-                    throw new Webflow.InternalServerError(_response.error.body);
+                    throw new Webflow.InternalServerError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 default:
                     throw new errors.WebflowError({
                         statusCode: _response.error.statusCode,
@@ -449,7 +566,9 @@ export class Orders {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.WebflowTimeoutError();
+                throw new errors.WebflowTimeoutError(
+                    "Timeout exceeded when calling POST /sites/{site_id}/orders/{order_id}/fulfill."
+                );
             case "unknown":
                 throw new errors.WebflowError({
                     message: _response.error.errorMessage,
@@ -492,10 +611,11 @@ export class Orders {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
@@ -518,16 +638,32 @@ export class Orders {
                 case 400:
                     throw new Webflow.BadRequestError(_response.error.body);
                 case 401:
-                    throw new Webflow.UnauthorizedError(_response.error.body);
+                    throw new Webflow.UnauthorizedError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 403:
                     throw new Webflow.ForbiddenError(_response.error.body);
                 case 404:
-                    throw new Webflow.NotFoundError(_response.error.body);
+                    throw new Webflow.NotFoundError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 409:
                     throw new Webflow.ConflictError(_response.error.body);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
+                        serializers.Error_.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -536,7 +672,15 @@ export class Orders {
                         })
                     );
                 case 500:
-                    throw new Webflow.InternalServerError(_response.error.body);
+                    throw new Webflow.InternalServerError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 default:
                     throw new errors.WebflowError({
                         statusCode: _response.error.statusCode,
@@ -552,7 +696,9 @@ export class Orders {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.WebflowTimeoutError();
+                throw new errors.WebflowTimeoutError(
+                    "Timeout exceeded when calling POST /sites/{site_id}/orders/{order_id}/unfulfill."
+                );
             case "unknown":
                 throw new errors.WebflowError({
                     message: _response.error.errorMessage,
@@ -598,14 +744,19 @@ export class Orders {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "2.4.2",
-                "User-Agent": "webflow-api/2.4.2",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "webflow-api/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.OrdersRefundRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: serializers.OrdersRefundRequest.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+            }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -625,16 +776,32 @@ export class Orders {
                 case 400:
                     throw new Webflow.BadRequestError(_response.error.body);
                 case 401:
-                    throw new Webflow.UnauthorizedError(_response.error.body);
+                    throw new Webflow.UnauthorizedError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 403:
                     throw new Webflow.ForbiddenError(_response.error.body);
                 case 404:
-                    throw new Webflow.NotFoundError(_response.error.body);
+                    throw new Webflow.NotFoundError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 409:
                     throw new Webflow.ConflictError(_response.error.body);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
-                        serializers.TooManyRequestsErrorBody.parseOrThrow(_response.error.body, {
+                        serializers.Error_.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -643,7 +810,15 @@ export class Orders {
                         })
                     );
                 case 500:
-                    throw new Webflow.InternalServerError(_response.error.body);
+                    throw new Webflow.InternalServerError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 default:
                     throw new errors.WebflowError({
                         statusCode: _response.error.statusCode,
@@ -659,7 +834,9 @@ export class Orders {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.WebflowTimeoutError();
+                throw new errors.WebflowTimeoutError(
+                    "Timeout exceeded when calling POST /sites/{site_id}/orders/{order_id}/refund."
+                );
             case "unknown":
                 throw new errors.WebflowError({
                     message: _response.error.errorMessage,

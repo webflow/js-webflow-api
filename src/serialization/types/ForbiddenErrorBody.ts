@@ -5,24 +5,14 @@
 import * as serializers from "../index";
 import * as Webflow from "../../api/index";
 import * as core from "../../core";
+import { InvalidScopes } from "./InvalidScopes";
+import { UsersNotEnabled } from "./UsersNotEnabled";
 
-export const ForbiddenErrorBody: core.serialization.ObjectSchema<
+export const ForbiddenErrorBody: core.serialization.Schema<
     serializers.ForbiddenErrorBody.Raw,
     Webflow.ForbiddenErrorBody
-> = core.serialization.object({
-    status: core.serialization.number().optional(),
-    message: core.serialization.string().optional(),
-    publicErrorCode: core.serialization.string().optional(),
-    externalReference: core.serialization.string().optional(),
-    details: core.serialization.list(core.serialization.string()).optional(),
-});
+> = core.serialization.undiscriminatedUnion([InvalidScopes, UsersNotEnabled]);
 
 export declare namespace ForbiddenErrorBody {
-    interface Raw {
-        status?: number | null;
-        message?: string | null;
-        publicErrorCode?: string | null;
-        externalReference?: string | null;
-        details?: string[] | null;
-    }
+    type Raw = (InvalidScopes.Raw | undefined) | (UsersNotEnabled.Raw | undefined);
 }

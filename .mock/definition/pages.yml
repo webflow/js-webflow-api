@@ -1,0 +1,443 @@
+imports:
+  root: __package__.yml
+service:
+  auth: false
+  base-path: ''
+  endpoints:
+    list:
+      path: /sites/{site_id}/pages
+      method: GET
+      auth: true
+      docs: |
+        List of all pages for a site.
+
+        Required scope | `pages:read`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+      display-name: List Pages
+      request:
+        name: PagesListRequest
+        query-parameters:
+          localeId:
+            type: optional<string>
+            docs: >-
+              Unique identifier for a specific locale. Applicable, when using
+              localization.
+          limit:
+            type: optional<double>
+            docs: 'Maximum number of records to be returned (max limit: 100)'
+          offset:
+            type: optional<double>
+            docs: >-
+              Offset used for pagination if the results have more than limit
+              records
+      response:
+        docs: Request was successful
+        type: root.PageList
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+          query-parameters:
+            localeId: 65427cf400e02b306eaa04a0
+          response:
+            body:
+              pages:
+                - id: 6596da6045e56dee495bcbba
+                  siteId: 6258612d1ee792848f805dcf
+                  title: Guide to the Galaxy
+                  slug: guide-to-the-galaxy
+                  parentId: 6419db964a9c435aa3af6251
+                  collectionId: 6390c49774a71f12831a08e3
+                  createdOn: '2024-03-11T10:42:00Z'
+                  lastUpdated: '2024-03-11T10:42:42Z'
+                  archived: false
+                  draft: false
+                  canBranch: true
+                  isBranch: false
+                  isMembersOnly: false
+                  seo:
+                    title: The Ultimate Hitchhiker's Guide to the Galaxy
+                    description: >-
+                      Everything you need to know about the galaxy, from
+                      avoiding Vogon poetry to the importance of towels.
+                  openGraph:
+                    title: Explore the Cosmos with The Ultimate Guide
+                    titleCopied: false
+                    description: >-
+                      Dive deep into the mysteries of the universe with your
+                      guide to everything galactic.
+                    descriptionCopied: false
+                  localeId: 653fd9af6a07fc9cfd7a5e57
+                  publishedPath: /en-us/guide-to-the-galaxy
+                - id: 6596da6045e56dee495bcbad
+                  siteId: 6258612d1ee792848f805dcf
+                  title: Towel Day Celebrations
+                  slug: towel-day
+                  parentId: 6419db964a9c435aa3af6251
+                  collectionId: 6390c49774a71f12831a08e3
+                  createdOn: '2024-05-25T09:00:00Z'
+                  lastUpdated: '2024-05-25T09:42:00Z'
+                  archived: false
+                  draft: false
+                  canBranch: true
+                  isBranch: false
+                  isMembersOnly: false
+                  seo:
+                    title: Celebrate Towel Day - The Hitchhiker's Guide to the Galaxy
+                    description: >-
+                      A guide to celebrating Towel Day, in honor of the most
+                      massively useful thing an interstellar hitchhiker can
+                      have.
+                  openGraph:
+                    title: Towel Day - Don't Panic
+                    titleCopied: false
+                    description: >-
+                      Join the galaxy in celebrating Towel Day, the day
+                      dedicated to carrying towels everywhere in memory of
+                      Douglas Adams.
+                    descriptionCopied: false
+                  localeId: 653fd9af6a07fc9cfd7a5e57
+                  publishedPath: /en-us/towel-day
+              pagination:
+                limit: 20
+                offset: 0
+                total: 2
+    get-metadata:
+      path: /pages/{page_id}
+      method: GET
+      auth: true
+      docs: |
+        Get metadata information for a single page.
+
+        Required scope | `pages:read`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        page_id:
+          type: string
+          docs: Unique identifier for a Page
+      display-name: Get Page Metadata
+      request:
+        name: PagesGetMetadataRequest
+        query-parameters:
+          localeId:
+            type: optional<string>
+            docs: >-
+              Unique identifier for a specific locale. Applicable, when using
+              localization.
+      response:
+        docs: Request was successful
+        type: root.Page
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            page_id: 63c720f9347c2139b248e552
+          query-parameters:
+            localeId: 65427cf400e02b306eaa04a0
+          response:
+            body:
+              id: 6596da6045e56dee495bcbba
+              siteId: 6258612d1ee792848f805dcf
+              title: Guide to the Galaxy
+              slug: guide-to-the-galaxy
+              parentId: 6419db964a9c435aa3af6251
+              collectionId: 6390c49774a71f12831a08e3
+              createdOn: '2024-03-11T10:42:00Z'
+              lastUpdated: '2024-03-11T10:42:42Z'
+              archived: false
+              draft: false
+              canBranch: true
+              isBranch: false
+              isMembersOnly: false
+              seo:
+                title: The Ultimate Hitchhiker's Guide to the Galaxy
+                description: >-
+                  Everything you need to know about the galaxy, from avoiding
+                  Vogon poetry to the importance of towels.
+              openGraph:
+                title: Explore the Cosmos with The Ultimate Guide
+                titleCopied: false
+                description: >-
+                  Dive deep into the mysteries of the universe with your guide
+                  to everything galactic.
+                descriptionCopied: false
+              localeId: 653fd9af6a07fc9cfd7a5e57
+              publishedPath: /en-us/guide-to-the-galaxy
+    update-page-settings:
+      path: /pages/{page_id}
+      method: PUT
+      auth: true
+      docs: |
+        Update Page-level metadata, including SEO and Open Graph fields.
+
+        Required scope | `pages:write`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        page_id:
+          type: string
+          docs: Unique identifier for a Page
+      display-name: Update Page Metadata
+      request:
+        body: root.Page
+        query-parameters:
+          localeId:
+            type: optional<string>
+            docs: >-
+              Unique identifier for a specific locale. Applicable, when using
+              localization.
+        name: UpdatePageSettingsRequest
+        content-type: application/json
+      response:
+        docs: Request was successful
+        type: root.Page
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            page_id: 63c720f9347c2139b248e552
+          query-parameters:
+            localeId: 65427cf400e02b306eaa04a0
+          request:
+            id: 6596da6045e56dee495bcbba
+            siteId: 6258612d1ee792848f805dcf
+            title: Guide to the Galaxy
+            slug: guide-to-the-galaxy
+            createdOn: '2024-03-11T10:42:00Z'
+            lastUpdated: '2024-03-11T10:42:42Z'
+            archived: false
+            draft: false
+            canBranch: true
+            isBranch: false
+            seo:
+              title: The Ultimate Hitchhiker's Guide to the Galaxy
+              description: >-
+                Everything you need to know about the galaxy, from avoiding
+                Vogon poetry to the importance of towels.
+            openGraph:
+              title: Explore the Cosmos with The Ultimate Guide
+              titleCopied: false
+              description: >-
+                Dive deep into the mysteries of the universe with your guide to
+                everything galactic.
+              descriptionCopied: false
+            localeId: 653fd9af6a07fc9cfd7a5e57
+            publishedPath: /en-us/guide-to-the-galaxy
+          response:
+            body:
+              id: 6596da6045e56dee495bcbba
+              siteId: 6258612d1ee792848f805dcf
+              title: Guide to the Galaxy
+              slug: guide-to-the-galaxy
+              parentId: 6419db964a9c435aa3af6251
+              collectionId: 6390c49774a71f12831a08e3
+              createdOn: '2024-03-11T10:42:00Z'
+              lastUpdated: '2024-03-11T10:42:42Z'
+              archived: false
+              draft: false
+              canBranch: true
+              isBranch: false
+              isMembersOnly: false
+              seo:
+                title: The Ultimate Hitchhiker's Guide to the Galaxy
+                description: >-
+                  Everything you need to know about the galaxy, from avoiding
+                  Vogon poetry to the importance of towels.
+              openGraph:
+                title: Explore the Cosmos with The Ultimate Guide
+                titleCopied: false
+                description: >-
+                  Dive deep into the mysteries of the universe with your guide
+                  to everything galactic.
+                descriptionCopied: false
+              localeId: 653fd9af6a07fc9cfd7a5e57
+              publishedPath: /en-us/guide-to-the-galaxy
+    get-content:
+      path: /pages/{page_id}/dom
+      method: GET
+      auth: true
+      docs: >
+        Get static content from a static page.
+
+
+        If you do not provide a Locale ID in your request, the response will
+        return any content that can be localized from the Primary locale.
+
+
+        Required scope | `pages:read`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        page_id:
+          type: string
+          docs: Unique identifier for a Page
+      display-name: Get Page Content
+      request:
+        name: PagesGetContentRequest
+        query-parameters:
+          localeId:
+            type: optional<string>
+            docs: >-
+              Unique identifier for a specific locale. Applicable, when using
+              localization.
+          limit:
+            type: optional<double>
+            docs: 'Maximum number of records to be returned (max limit: 100)'
+          offset:
+            type: optional<double>
+            docs: >-
+              Offset used for pagination if the results have more than limit
+              records
+      response:
+        docs: Request was successful
+        type: root.Dom
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.ForbiddenError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            page_id: 63c720f9347c2139b248e552
+          query-parameters:
+            localeId: 65427cf400e02b306eaa04a0
+          response:
+            body:
+              pageId: 658205daa3e8206a523b5ad4
+              nodes:
+                - id: a245c12d-995b-55ee-5ec7-aa36a6cad623
+                  type: text
+                  text:
+                    html: <h1>The Hitchhiker's Guide to the Galaxy</h1>
+                    text: The Hitchhiker's Guide to the Galaxy
+                  attributes:
+                    key: value
+                - id: a245c12d-995b-55ee-5ec7-aa36a6cad627
+                  type: text
+                  text:
+                    html: >-
+                      <div><h3>Don't Panic!</h3><p>Always know where your towel
+                      is.</p></div>
+                  attributes:
+                    key: value
+                - id: a245c12d-995b-55ee-5ec7-aa36a6cad629
+                  type: image
+                  image:
+                    alt: Marvin, the Paranoid Android
+                    assetId: 659595234426a9fcbad57043
+                  attributes:
+                    key: value
+              pagination:
+                limit: 3
+                offset: 0
+                total: 3
+    update-static-content:
+      path: /pages/{page_id}/dom
+      method: POST
+      auth: true
+      docs: >
+        This endpoint allows for updating static content on a static page within
+        a secondary locale. It is designed specifically for localized pages and
+        can handle up to 1000 nodes per request.
+
+        <blockquote class="callout callout_info"><p><strong>Note:</strong>This
+        endpoint is specifically for localized pages. Ensure that the locale
+        specified is a valid secondary locale for the site.</p></blockquote>
+
+
+        Required scope | `pages:write`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        page_id:
+          type: string
+          docs: Unique identifier for a Page
+      display-name: Update Page Content
+      request:
+        name: DomWrite
+        query-parameters:
+          localeId:
+            type: optional<string>
+            docs: >-
+              Unique identifier for a specific locale. Applicable, when using
+              localization.
+        body:
+          properties:
+            nodes: list<DomWriteNodesItem>
+        content-type: application/json
+      response:
+        docs: Request was successful
+        type: UpdateStaticContentResponse
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.ForbiddenError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            page_id: 63c720f9347c2139b248e552
+          query-parameters:
+            localeId: 65427cf400e02b306eaa04a0
+          request:
+            nodes:
+              - nodeId: a245c12d-995b-55ee-5ec7-aa36a6cad623
+                text: <h1>The Hitchhiker’s Guide to the Galaxy</h1>
+              - nodeId: a245c12d-995b-55ee-5ec7-aa36a6cad627
+                text: >-
+                  <div><h3>Don’t Panic!</h3><p>Always know where your towel
+                  is.</p></div>
+              - nodeId: a245c12d-995b-55ee-5ec7-aa36a6cad629
+                text: >-
+                  <img alt="Marvin, the Paranoid Android"
+                  src="path/to/image/with/assetId/659595234426a9fcbad57043"/>
+          response:
+            body:
+              errors:
+                - errors
+  source:
+    openapi: ../../../referenced-specs/v2.yml
+  display-name: Pages
+types:
+  DomWriteNodesItem:
+    properties:
+      nodeId:
+        type: string
+        docs: Node UUID
+      text:
+        type: string
+        docs: >-
+          HTML content of the node, including the HTML tag. The HTML tags must
+          be the same as what's returned from the Get Content endpoint.
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+    inline: true
+  UpdateStaticContentResponse:
+    properties:
+      errors:
+        docs: A list of error messages, if any.
+        type: list<string>
+    source:
+      openapi: ../../../referenced-specs/v2.yml

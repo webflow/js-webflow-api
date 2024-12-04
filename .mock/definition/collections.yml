@@ -1,0 +1,185 @@
+imports:
+  root: __package__.yml
+service:
+  auth: false
+  base-path: ''
+  endpoints:
+    list:
+      path: /sites/{site_id}/collections
+      method: GET
+      auth: true
+      docs: |
+        List of all Collections within a Site.
+
+        Required scope | `cms:read`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+      display-name: List Collections
+      response:
+        docs: Request was successful
+        type: root.CollectionList
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+          response:
+            body:
+              collections:
+                - id: 63692ab61fb2852f582ba8f5
+                  displayName: Products
+                  singularName: Product
+                  slug: product
+                  createdOn: '2019-06-12T13:35:14Z'
+                  lastUpdated: '2022-11-17T15:08:50Z'
+                - id: 63692ab61fb2856e6a2ba8f6
+                  displayName: Categories
+                  singularName: Category
+                  slug: category
+                  createdOn: '2019-06-12T13:35:14Z'
+                  lastUpdated: '2022-11-17T15:08:50Z'
+                - id: 63692ab61fb285a8562ba8f4
+                  displayName: SKUs
+                  singularName: SKU
+                  slug: sku
+                  createdOn: '2019-06-12T13:35:14Z'
+                  lastUpdated: '2022-11-17T15:08:50Z'
+    create:
+      path: /sites/{site_id}/collections
+      method: POST
+      auth: true
+      docs: |
+        Create a Collection for a site.
+
+        Required scope | `cms:write`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+      display-name: Create Collection
+      request:
+        name: CollectionsCreateRequest
+        body:
+          properties:
+            displayName:
+              type: string
+              docs: Name of the collection. Each collection name must be distinct.
+            singularName:
+              type: string
+              docs: Singular name of each item.
+            slug:
+              type: optional<string>
+              docs: Part of a URL that identifier
+        content-type: application/json
+      response:
+        docs: Request was successful
+        type: root.Collection
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+          request:
+            displayName: Blog Posts
+            singularName: Blog Post
+            slug: posts
+          response:
+            body:
+              id: 580e63fc8c9a982ac9b8b745
+              displayName: Blog Posts
+              singularName: Blog Post
+              slug: post
+              createdOn: '2016-10-24T19:41:48Z'
+              lastUpdated: '2016-10-24T19:42:38Z'
+              fields:
+                - id: 23cc2d952d4e4631ffd4345d2743db4e
+                  isRequired: true
+                  isEditable: true
+                  type: PlainText
+                  slug: name
+                  displayName: Name
+                  helpText: helpText
+    get:
+      path: /collections/{collection_id}
+      method: GET
+      auth: true
+      docs: |
+        Get the full details of a collection from its ID.
+
+        Required scope | `cms:read`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        collection_id:
+          type: string
+          docs: Unique identifier for a Collection
+      display-name: Get Collection Details
+      response:
+        docs: Request was successful
+        type: root.Collection
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+          response:
+            body:
+              id: 580e63fc8c9a982ac9b8b745
+              displayName: Blog Posts
+              singularName: Blog Post
+              slug: post
+              createdOn: '2016-10-24T19:41:48Z'
+              lastUpdated: '2016-10-24T19:42:38Z'
+              fields:
+                - id: 23cc2d952d4e4631ffd4345d2743db4e
+                  isRequired: true
+                  isEditable: true
+                  type: PlainText
+                  slug: name
+                  displayName: Name
+                  helpText: helpText
+    delete:
+      path: /collections/{collection_id}
+      method: DELETE
+      auth: true
+      docs: |
+        Delete a collection using its ID.
+
+        Required scope | `cms:write`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        collection_id:
+          type: string
+          docs: Unique identifier for a Collection
+      display-name: Delete Collection
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+  source:
+    openapi: ../../../referenced-specs/v2.yml
+  display-name: Collections

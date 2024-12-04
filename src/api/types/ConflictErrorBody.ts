@@ -4,13 +4,4 @@
 
 import * as Webflow from "../index";
 
-export interface ConflictErrorBody {
-    /** Error code */
-    code?: "ecommerce_not_enabled";
-    /** Error message */
-    message?: string;
-    /** Link to more information */
-    externalReference?: string;
-    /** Array of errors */
-    details?: Webflow.ErrorDetailsItem[];
-}
+export type ConflictErrorBody = Webflow.DuplicateUserEmail | undefined | Webflow.UserLimitReached | undefined;
