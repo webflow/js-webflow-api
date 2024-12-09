@@ -16,7 +16,7 @@ export const CollectionItem: core.serialization.ObjectSchema<serializers.Collect
         createdOn: core.serialization.string().optional(),
         isArchived: core.serialization.boolean().optional(),
         isDraft: core.serialization.boolean().optional(),
-        fieldData: CollectionItemFieldData.optional(),
+        fieldData: CollectionItemFieldData,
     });
 
 export declare namespace CollectionItem {
@@ -28,6 +28,6 @@ export declare namespace CollectionItem {
         createdOn?: string | null;
         isArchived?: boolean | null;
         isDraft?: boolean | null;
-        fieldData?: CollectionItemFieldData.Raw | null;
+        fieldData: CollectionItemFieldData.Raw;
     }
 }

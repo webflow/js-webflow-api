@@ -5,5 +5,7 @@
 import * as Webflow from "../../../../../index";
 
 export type CreateBulkCollectionItemRequestBodyFieldData =
-    | Webflow.collections.CreateBulkCollectionItemRequestBodyFieldDataName
+    | Webflow.collections.SingleCmsItem
+    /**
+     * A list of CMS items to create */
     | Webflow.collections.CreateBulkCollectionItemRequestBodyFieldDataItem[];

@@ -41,7 +41,7 @@ service:
             body:
               id: 5bfedb42bab0ad90fa7dad39
               quantity: 100
-              inventoryType: infinite
+              inventoryType: finite
     update:
       path: /collections/{collection_id}/items/{item_id}/inventory
       method: PATCH
@@ -106,7 +106,7 @@ service:
             body:
               id: 5bfedb42bab0ad90fa7dad39
               quantity: 100
-              inventoryType: infinite
+              inventoryType: finite
   source:
     openapi: ../../../referenced-specs/v2.yml
   display-name: Inventory

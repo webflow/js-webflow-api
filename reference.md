@@ -5368,11 +5368,6 @@ Required scope | `CMS:write`
 
 ```typescript
 await client.collections.items.updateItem("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754", {
-    id: "42b720ef280c7a7a3be8cabe",
-    cmsLocaleId: "653ad57de882f528b32e810e",
-    lastPublished: "2022-11-29T16:22:43.159Z",
-    lastUpdated: "2022-11-17T17:19:43.282Z",
-    createdOn: "2022-11-17T17:11:57.148Z",
     isArchived: false,
     isDraft: false,
     fieldData: {
@@ -5411,7 +5406,7 @@ await client.collections.items.updateItem("580e63fc8c9a982ac9b8b745", "580e64008
 <dl>
 <dd>
 
-**request:** `Webflow.CollectionItem`
+**request:** `Webflow.CollectionItemPatchSingle`
 
 </dd>
 </dl>
@@ -5625,11 +5620,6 @@ Required scope | `CMS:write`
 
 ```typescript
 await client.collections.items.updateItemLive("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754", {
-    id: "42b720ef280c7a7a3be8cabe",
-    cmsLocaleId: "653ad57de882f528b32e810e",
-    lastPublished: "2022-11-29T16:22:43.159Z",
-    lastUpdated: "2022-11-17T17:19:43.282Z",
-    createdOn: "2022-11-17T17:11:57.148Z",
     isArchived: false,
     isDraft: false,
     fieldData: {
@@ -5668,7 +5658,7 @@ await client.collections.items.updateItemLive("580e63fc8c9a982ac9b8b745", "580e6
 <dl>
 <dd>
 
-**request:** `Webflow.CollectionItem`
+**request:** `Webflow.CollectionItemPatchSingle`
 
 </dd>
 </dl>

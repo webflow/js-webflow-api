@@ -93,8 +93,8 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.0",
-                "User-Agent": "webflow-api/3.0.0",
+                "X-Fern-SDK-Version": "3.0.1",
+                "User-Agent": "webflow-api/3.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -246,8 +246,8 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.0",
-                "User-Agent": "webflow-api/3.0.0",
+                "X-Fern-SDK-Version": "3.0.1",
+                "User-Agent": "webflow-api/3.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -377,8 +377,8 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.0",
-                "User-Agent": "webflow-api/3.0.0",
+                "X-Fern-SDK-Version": "3.0.1",
+                "User-Agent": "webflow-api/3.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -553,8 +553,8 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.0",
-                "User-Agent": "webflow-api/3.0.0",
+                "X-Fern-SDK-Version": "3.0.1",
+                "User-Agent": "webflow-api/3.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -712,8 +712,8 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.0",
-                "User-Agent": "webflow-api/3.0.0",
+                "X-Fern-SDK-Version": "3.0.1",
+                "User-Agent": "webflow-api/3.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -865,8 +865,8 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.0",
-                "User-Agent": "webflow-api/3.0.0",
+                "X-Fern-SDK-Version": "3.0.1",
+                "User-Agent": "webflow-api/3.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -996,8 +996,8 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.0",
-                "User-Agent": "webflow-api/3.0.0",
+                "X-Fern-SDK-Version": "3.0.1",
+                "User-Agent": "webflow-api/3.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -1172,8 +1172,8 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.0",
-                "User-Agent": "webflow-api/3.0.0",
+                "X-Fern-SDK-Version": "3.0.1",
+                "User-Agent": "webflow-api/3.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -1315,7 +1315,7 @@ export class Items {
      */
     public async createItems(
         collectionId: string,
-        request: Webflow.collections.CreateBulkCollectionItemRequestBody = {},
+        request: Webflow.collections.CreateBulkCollectionItemRequestBody,
         requestOptions?: Items.RequestOptions
     ): Promise<Webflow.BulkCollectionItem> {
         const _response = await core.fetcher({
@@ -1328,8 +1328,8 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.0",
-                "User-Agent": "webflow-api/3.0.0",
+                "X-Fern-SDK-Version": "3.0.1",
+                "User-Agent": "webflow-api/3.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -1465,8 +1465,8 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.0",
-                "User-Agent": "webflow-api/3.0.0",
+                "X-Fern-SDK-Version": "3.0.1",
+                "User-Agent": "webflow-api/3.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -1598,8 +1598,8 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.0",
-                "User-Agent": "webflow-api/3.0.0",
+                "X-Fern-SDK-Version": "3.0.1",
+                "User-Agent": "webflow-api/3.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -1691,7 +1691,7 @@ export class Items {
      *
      * @param {string} collectionId - Unique identifier for a Collection
      * @param {string} itemId - Unique identifier for an Item
-     * @param {Webflow.CollectionItem} request
+     * @param {Webflow.CollectionItemPatchSingle} request
      * @param {Items.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Webflow.BadRequestError}
@@ -1702,11 +1702,6 @@ export class Items {
      *
      * @example
      *     await client.collections.items.updateItem("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754", {
-     *         id: "42b720ef280c7a7a3be8cabe",
-     *         cmsLocaleId: "653ad57de882f528b32e810e",
-     *         lastPublished: "2022-11-29T16:22:43.159Z",
-     *         lastUpdated: "2022-11-17T17:19:43.282Z",
-     *         createdOn: "2022-11-17T17:11:57.148Z",
      *         isArchived: false,
      *         isDraft: false,
      *         fieldData: {
@@ -1718,7 +1713,7 @@ export class Items {
     public async updateItem(
         collectionId: string,
         itemId: string,
-        request: Webflow.CollectionItem,
+        request: Webflow.CollectionItemPatchSingle,
         requestOptions?: Items.RequestOptions
     ): Promise<Webflow.CollectionItem> {
         const _response = await core.fetcher({
@@ -1731,15 +1726,15 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.0",
-                "User-Agent": "webflow-api/3.0.0",
+                "X-Fern-SDK-Version": "3.0.1",
+                "User-Agent": "webflow-api/3.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.CollectionItem.jsonOrThrow(request, {
+            body: serializers.CollectionItemPatchSingle.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -1868,8 +1863,8 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.0",
-                "User-Agent": "webflow-api/3.0.0",
+                "X-Fern-SDK-Version": "3.0.1",
+                "User-Agent": "webflow-api/3.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -2003,8 +1998,8 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.0",
-                "User-Agent": "webflow-api/3.0.0",
+                "X-Fern-SDK-Version": "3.0.1",
+                "User-Agent": "webflow-api/3.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -2096,7 +2091,7 @@ export class Items {
      *
      * @param {string} collectionId - Unique identifier for a Collection
      * @param {string} itemId - Unique identifier for an Item
-     * @param {Webflow.CollectionItem} request
+     * @param {Webflow.CollectionItemPatchSingle} request
      * @param {Items.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Webflow.BadRequestError}
@@ -2107,11 +2102,6 @@ export class Items {
      *
      * @example
      *     await client.collections.items.updateItemLive("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754", {
-     *         id: "42b720ef280c7a7a3be8cabe",
-     *         cmsLocaleId: "653ad57de882f528b32e810e",
-     *         lastPublished: "2022-11-29T16:22:43.159Z",
-     *         lastUpdated: "2022-11-17T17:19:43.282Z",
-     *         createdOn: "2022-11-17T17:11:57.148Z",
      *         isArchived: false,
      *         isDraft: false,
      *         fieldData: {
@@ -2123,7 +2113,7 @@ export class Items {
     public async updateItemLive(
         collectionId: string,
         itemId: string,
-        request: Webflow.CollectionItem,
+        request: Webflow.CollectionItemPatchSingle,
         requestOptions?: Items.RequestOptions
     ): Promise<Webflow.CollectionItem> {
         const _response = await core.fetcher({
@@ -2136,15 +2126,15 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.0",
-                "User-Agent": "webflow-api/3.0.0",
+                "X-Fern-SDK-Version": "3.0.1",
+                "User-Agent": "webflow-api/3.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.CollectionItem.jsonOrThrow(request, {
+            body: serializers.CollectionItemPatchSingle.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -2268,8 +2258,8 @@ export class Items {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.0",
-                "User-Agent": "webflow-api/3.0.0",
+                "X-Fern-SDK-Version": "3.0.1",
+                "User-Agent": "webflow-api/3.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
