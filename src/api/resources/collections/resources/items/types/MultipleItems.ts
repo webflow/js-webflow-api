@@ -4,7 +4,7 @@
 
 import * as Webflow from "../../../../../index";
 
-export interface ItemsCreateItemLiveRequestItems {
+export interface MultipleItems {
     /** List of collection items to create */
     items?: Webflow.CollectionItem[];
 }

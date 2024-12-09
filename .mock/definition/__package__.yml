@@ -551,10 +551,10 @@ types:
   CollectionItemFieldData:
     properties:
       name:
-        type: optional<string>
+        type: string
         docs: Name of the Item
       slug:
-        type: optional<string>
+        type: string
         docs: >-
           URL structure of the Item in your site. Note: Updates to an item slug
           will break all links referencing the old slug.
@@ -592,7 +592,7 @@ types:
         type: optional<boolean>
         docs: Boolean determining if the Item is set to draft
         default: false
-      fieldData: optional<CollectionItemFieldData>
+      fieldData: CollectionItemFieldData
     source:
       openapi: ../../../referenced-specs/v2.yml
   CollectionItemListPagination:
@@ -618,6 +618,53 @@ types:
         type: optional<list<CollectionItem>>
         docs: List of Items within the collection
       pagination: optional<CollectionItemListPagination>
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+  CollectionItemPostSingleFieldData:
+    properties:
+      name:
+        type: string
+        docs: Name of the Item
+      slug:
+        type: string
+        docs: >-
+          URL structure of the Item in your site. Note: Updates to an item slug
+          will break all links referencing the old slug.
+    extra-properties: true
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+    inline: true
+  CollectionItemPostSingle:
+    docs: >
+      The fields that define the schema for a given Item are based on the
+      Collection that Item belongs to. Beyond the user defined fields, there are
+      a handful of additional fields that are automatically created for all
+      items
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Item
+      cmsLocaleId:
+        type: optional<string>
+        docs: Identifier for the locale of the CMS item
+      lastPublished:
+        type: optional<string>
+        docs: The date the item was last published
+      lastUpdated:
+        type: optional<string>
+        docs: The date the item was last updated
+      createdOn:
+        type: optional<string>
+        docs: The date the item was created
+      isArchived:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to archived
+        default: false
+      isDraft:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to draft
+        default: false
+      fieldData: CollectionItemPostSingleFieldData
     source:
       openapi: ../../../referenced-specs/v2.yml
   CollectionItemWithIdInputFieldData:
@@ -720,6 +767,53 @@ types:
         docs: Boolean determining if the Item is set to draft
         default: false
       fieldData: optional<BulkCollectionItemFieldData>
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+  CollectionItemPatchSingleFieldData:
+    properties:
+      name:
+        type: optional<string>
+        docs: Name of the Item
+      slug:
+        type: optional<string>
+        docs: >-
+          URL structure of the Item in your site. Note: Updates to an item slug
+          will break all links referencing the old slug.
+    extra-properties: true
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+    inline: true
+  CollectionItemPatchSingle:
+    docs: >
+      The fields that define the schema for a given Item are based on the
+      Collection that Item belongs to. Beyond the user defined fields, there are
+      a handful of additional fields that are automatically created for all
+      items
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Item
+      cmsLocaleId:
+        type: optional<string>
+        docs: Identifier for the locale of the CMS item
+      lastPublished:
+        type: optional<string>
+        docs: The date the item was last published
+      lastUpdated:
+        type: optional<string>
+        docs: The date the item was last updated
+      createdOn:
+        type: optional<string>
+        docs: The date the item was created
+      isArchived:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to archived
+        default: false
+      isDraft:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to draft
+        default: false
+      fieldData: optional<CollectionItemPatchSingleFieldData>
     source:
       openapi: ../../../referenced-specs/v2.yml
   PageSeo:
@@ -1280,7 +1374,7 @@ types:
   WebhookFilter:
     docs: >-
       Only supported for the `form_submission` trigger type. Filter for the form
-      you want Webhooks to be sent for. 
+      you want Webhooks to be sent for.
     properties:
       name:
         type: optional<string>
@@ -1307,7 +1401,7 @@ types:
         type: optional<WebhookFilter>
         docs: >-
           Only supported for the `form_submission` trigger type. Filter for the
-          form you want Webhooks to be sent for. 
+          form you want Webhooks to be sent for.
       lastTriggered:
         type: optional<datetime>
         docs: Date the Webhook instance was last triggered

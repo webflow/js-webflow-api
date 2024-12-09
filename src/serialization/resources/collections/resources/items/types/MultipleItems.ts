@@ -7,14 +7,14 @@ import * as Webflow from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 import { CollectionItem } from "../../../../../types/CollectionItem";
 
-export const ItemsCreateItemRequestItems: core.serialization.ObjectSchema<
-    serializers.collections.ItemsCreateItemRequestItems.Raw,
-    Webflow.collections.ItemsCreateItemRequestItems
+export const MultipleItems: core.serialization.ObjectSchema<
+    serializers.collections.MultipleItems.Raw,
+    Webflow.collections.MultipleItems
 > = core.serialization.object({
     items: core.serialization.list(CollectionItem).optional(),
 });
 
-export declare namespace ItemsCreateItemRequestItems {
+export declare namespace MultipleItems {
     interface Raw {
         items?: CollectionItem.Raw[] | null;
     }

@@ -6,9 +6,9 @@ import * as serializers from "../index";
 import * as Webflow from "../../api/index";
 import * as core from "../../core";
 
-export const CollectionItemFieldData: core.serialization.ObjectSchema<
-    serializers.CollectionItemFieldData.Raw,
-    Webflow.CollectionItemFieldData
+export const CollectionItemPostSingleFieldData: core.serialization.ObjectSchema<
+    serializers.CollectionItemPostSingleFieldData.Raw,
+    Webflow.CollectionItemPostSingleFieldData
 > = core.serialization
     .object({
         name: core.serialization.string(),
@@ -16,7 +16,7 @@ export const CollectionItemFieldData: core.serialization.ObjectSchema<
     })
     .passthrough();
 
-export declare namespace CollectionItemFieldData {
+export declare namespace CollectionItemPostSingleFieldData {
     interface Raw {
         name: string;
         slug: string;

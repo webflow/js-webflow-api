@@ -6,9 +6,9 @@ import * as serializers from "../../../../../index";
 import * as Webflow from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 
-export const CreateBulkCollectionItemRequestBodyFieldDataName: core.serialization.ObjectSchema<
-    serializers.collections.CreateBulkCollectionItemRequestBodyFieldDataName.Raw,
-    Webflow.collections.CreateBulkCollectionItemRequestBodyFieldDataName
+export const SingleCmsItem: core.serialization.ObjectSchema<
+    serializers.collections.SingleCmsItem.Raw,
+    Webflow.collections.SingleCmsItem
 > = core.serialization
     .object({
         name: core.serialization.string(),
@@ -16,7 +16,7 @@ export const CreateBulkCollectionItemRequestBodyFieldDataName: core.serializatio
     })
     .passthrough();
 
-export declare namespace CreateBulkCollectionItemRequestBodyFieldDataName {
+export declare namespace SingleCmsItem {
     interface Raw {
         name: string;
         slug: string;

@@ -59,5 +59,5 @@ export interface CreateBulkCollectionItemRequestBody {
     isArchived?: boolean;
     /** Indicates whether the item is in draft state. */
     isDraft?: boolean;
-    fieldData?: Webflow.collections.CreateBulkCollectionItemRequestBodyFieldData;
+    fieldData: Webflow.collections.CreateBulkCollectionItemRequestBodyFieldData;
 }

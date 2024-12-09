@@ -12,19 +12,19 @@ types:
       - desc
     source:
       openapi: ../../../referenced-specs/v2.yml
-  ItemsCreateItemRequestItems:
+  Multiple Items:
     properties:
       items:
         type: optional<list<root.CollectionItem>>
-        docs: An array of items to create
+        docs: List of collection items to create
     source:
       openapi: ../../../referenced-specs/v2.yml
     inline: true
   ItemsCreateItemRequest:
     discriminated: false
     union:
-      - root.CollectionItem
-      - ItemsCreateItemRequestItems
+      - root.CollectionItemPostSingle
+      - Multiple Items
     source:
       openapi: ../../../referenced-specs/v2.yml
   ItemsDeleteItemsRequestItemsItem:
@@ -51,19 +51,11 @@ types:
       - desc
     source:
       openapi: ../../../referenced-specs/v2.yml
-  ItemsCreateItemLiveRequestItems:
-    properties:
-      items:
-        type: optional<list<root.CollectionItem>>
-        docs: List of collection items to create
-    source:
-      openapi: ../../../referenced-specs/v2.yml
-    inline: true
   ItemsCreateItemLiveRequest:
     discriminated: false
     union:
       - root.CollectionItem
-      - ItemsCreateItemLiveRequestItems
+      - Multiple Items
     source:
       openapi: ../../../referenced-specs/v2.yml
   ItemsDeleteItemsLiveRequestItemsItem:
@@ -77,7 +69,7 @@ types:
     source:
       openapi: ../../../referenced-specs/v2.yml
     inline: true
-  CreateBulkCollectionItemRequestBodyFieldDataName:
+  Single CMS Item:
     properties:
       name:
         type: string
@@ -94,6 +86,7 @@ types:
       openapi: ../../../referenced-specs/v2.yml
     inline: true
   CreateBulkCollectionItemRequestBodyFieldDataItem:
+    docs: A single CMS item to create
     properties:
       name:
         type: string
@@ -112,8 +105,9 @@ types:
   CreateBulkCollectionItemRequestBodyFieldData:
     discriminated: false
     union:
-      - CreateBulkCollectionItemRequestBodyFieldDataName
-      - list<CreateBulkCollectionItemRequestBodyFieldDataItem>
+      - Single CMS Item
+      - docs: A list of CMS items to create
+        type: list<CreateBulkCollectionItemRequestBodyFieldDataItem>
     source:
       openapi: ../../../referenced-specs/v2.yml
     inline: true
@@ -285,16 +279,16 @@ service:
                   slug: product-manager
           response:
             body:
-              id: 42b720ef280c7a7a3be8cabe
+              id: id
               cmsLocaleId: 653ad57de882f528b32e810e
-              lastPublished: '2022-11-29T16:22:43.159Z'
-              lastUpdated: '2022-11-17T17:19:43.282Z'
-              createdOn: '2022-11-17T17:11:57.148Z'
-              isArchived: false
-              isDraft: false
+              lastPublished: '2023-03-17T18:47:35.560Z'
+              lastUpdated: '2023-03-17T18:47:35.560Z'
+              createdOn: '2023-03-17T18:47:35.560Z'
+              isArchived: true
+              isDraft: true
               fieldData:
-                name: Pan Galactic Gargle Blaster Recipe
-                slug: pan-galactic-gargle-blaster
+                name: My new item
+                slug: my-new-item
     delete-items:
       path: /collections/{collection_id}/items
       method: DELETE
@@ -1033,7 +1027,7 @@ service:
               type: optional<boolean>
               docs: Indicates whether the item is in draft state.
               default: false
-            fieldData: optional<CreateBulkCollectionItemRequestBodyFieldData>
+            fieldData: CreateBulkCollectionItemRequestBodyFieldData
         content-type: application/json
       response:
         docs: Request was successful
@@ -1270,7 +1264,7 @@ service:
           docs: Unique identifier for an Item
       display-name: Update Collection Item
       request:
-        body: root.CollectionItem
+        body: root.CollectionItemPatchSingle
         content-type: application/json
       response:
         docs: Request was successful
@@ -1286,11 +1280,6 @@ service:
             collection_id: 580e63fc8c9a982ac9b8b745
             item_id: 580e64008c9a982ac9b8b754
           request:
-            id: 42b720ef280c7a7a3be8cabe
-            cmsLocaleId: 653ad57de882f528b32e810e
-            lastPublished: '2022-11-29T16:22:43.159Z'
-            lastUpdated: '2022-11-17T17:19:43.282Z'
-            createdOn: '2022-11-17T17:11:57.148Z'
             isArchived: false
             isDraft: false
             fieldData:
@@ -1425,7 +1414,7 @@ service:
           docs: Unique identifier for an Item
       display-name: Update Live Collection Item
       request:
-        body: root.CollectionItem
+        body: root.CollectionItemPatchSingle
         content-type: application/json
       response:
         docs: Request was successful
@@ -1441,11 +1430,6 @@ service:
             collection_id: 580e63fc8c9a982ac9b8b745
             item_id: 580e64008c9a982ac9b8b754
           request:
-            id: 42b720ef280c7a7a3be8cabe
-            cmsLocaleId: 653ad57de882f528b32e810e
-            lastPublished: '2022-11-29T16:22:43.159Z'
-            lastUpdated: '2022-11-17T17:19:43.282Z'
-            createdOn: '2022-11-17T17:11:57.148Z'
             isArchived: false
             isDraft: false
             fieldData:

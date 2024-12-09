@@ -1,6 +1,7 @@
 # Specify files that shouldn't be modified by Fern
 
 README.md
+MIGRATION.md
 
 # Oauth Helpers
 src/api/types/OAuthScope.ts

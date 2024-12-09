@@ -5,14 +5,14 @@
 import * as serializers from "../../../../../index";
 import * as Webflow from "../../../../../../api/index";
 import * as core from "../../../../../../core";
-import { CollectionItem } from "../../../../../types/CollectionItem";
-import { ItemsCreateItemRequestItems } from "./ItemsCreateItemRequestItems";
+import { CollectionItemPostSingle } from "../../../../../types/CollectionItemPostSingle";
+import { MultipleItems } from "./MultipleItems";
 
 export const ItemsCreateItemRequest: core.serialization.Schema<
     serializers.collections.ItemsCreateItemRequest.Raw,
     Webflow.collections.ItemsCreateItemRequest
-> = core.serialization.undiscriminatedUnion([CollectionItem, ItemsCreateItemRequestItems]);
+> = core.serialization.undiscriminatedUnion([CollectionItemPostSingle, MultipleItems]);
 
 export declare namespace ItemsCreateItemRequest {
-    type Raw = CollectionItem.Raw | ItemsCreateItemRequestItems.Raw;
+    type Raw = CollectionItemPostSingle.Raw | MultipleItems.Raw;
 }
