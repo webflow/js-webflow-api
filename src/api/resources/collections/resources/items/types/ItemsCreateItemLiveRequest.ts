@@ -4,4 +4,4 @@
 
 import * as Webflow from "../../../../../index";
 
-export type ItemsCreateItemLiveRequest = Webflow.CollectionItem | Webflow.collections.MultipleItems;
+export type ItemsCreateItemLiveRequest = Webflow.CollectionItem | Webflow.collections.MultipleLiveItems;

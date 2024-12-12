@@ -5,6 +5,7 @@ export * from "./ItemsCreateItemRequest";
 export * from "./ItemsDeleteItemsRequestItemsItem";
 export * from "./ItemsListItemsLiveRequestSortBy";
 export * from "./ItemsListItemsLiveRequestSortOrder";
+export * from "./MultipleLiveItems";
 export * from "./ItemsCreateItemLiveRequest";
 export * from "./ItemsDeleteItemsLiveRequestItemsItem";
 export * from "./SingleCmsItem";

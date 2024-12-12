@@ -564,10 +564,19 @@ types:
     inline: true
   CollectionItem:
     docs: >
-      The fields that define the schema for a given Item are based on the
-      Collection that Item belongs to. Beyond the user defined fields, there are
-      a handful of additional fields that are automatically created for all
-      items
+      A Collection Item represents a single entry in your collection. Each item
+      includes:
+
+
+      - **System metadata** - Automatically managed fields like IDs and
+      timestamp <br/>
+
+      - **Status flags** - Controls for managing content state: `isDraft`,
+      `isArchived `<br/> 
+
+      - **Content fields** - Stored in `fieldData`. Each item needs a `name` and
+      `slug`, and may include additional fields matching your collection's
+      schema definition.
     properties:
       id:
         type: optional<string>
@@ -636,10 +645,19 @@ types:
     inline: true
   CollectionItemPostSingle:
     docs: >
-      The fields that define the schema for a given Item are based on the
-      Collection that Item belongs to. Beyond the user defined fields, there are
-      a handful of additional fields that are automatically created for all
-      items
+      A Collection Item represents a single entry in your collection. Each item
+      includes:
+
+
+      - **System metadata** - Automatically managed fields like IDs and
+      timestamp <br/>
+
+      - **Status flags** - Controls for managing content state: `isDraft`,
+      `isArchived `<br/> 
+
+      - **Content fields** - Stored in `fieldData`. Each item needs a `name` and
+      `slug`, and may include additional fields matching your collection's
+      schema definition.
     properties:
       id:
         type: optional<string>
@@ -658,11 +676,11 @@ types:
         docs: The date the item was created
       isArchived:
         type: optional<boolean>
-        docs: Boolean determining if the Item is set to archived
+        docs: Boolean determining if the Item is in an archived state.
         default: false
       isDraft:
         type: optional<boolean>
-        docs: Boolean determining if the Item is set to draft
+        docs: Boolean determining if the Item is in a draft state.
         default: false
       fieldData: CollectionItemPostSingleFieldData
     source:
@@ -706,11 +724,9 @@ types:
       isArchived:
         type: optional<boolean>
         docs: Boolean determining if the Item is set to archived
-        default: false
       isDraft:
         type: optional<boolean>
         docs: Boolean determining if the Item is set to draft
-        default: false
       fieldData: optional<CollectionItemWithIdInputFieldData>
     source:
       openapi: ../../../referenced-specs/v2.yml
@@ -808,11 +824,9 @@ types:
       isArchived:
         type: optional<boolean>
         docs: Boolean determining if the Item is set to archived
-        default: false
       isDraft:
         type: optional<boolean>
         docs: Boolean determining if the Item is set to draft
-        default: false
       fieldData: optional<CollectionItemPatchSingleFieldData>
     source:
       openapi: ../../../referenced-specs/v2.yml

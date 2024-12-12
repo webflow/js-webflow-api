@@ -15,8 +15,8 @@ types:
   Multiple Items:
     properties:
       items:
-        type: optional<list<root.CollectionItem>>
-        docs: List of collection items to create
+        type: optional<list<root.CollectionItemPostSingle>>
+        docs: An array of items to create
     source:
       openapi: ../../../referenced-specs/v2.yml
     inline: true
@@ -51,11 +51,19 @@ types:
       - desc
     source:
       openapi: ../../../referenced-specs/v2.yml
+  Multiple Live Items:
+    properties:
+      items:
+        type: optional<list<root.CollectionItem>>
+        docs: List of collection items to create
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+    inline: true
   ItemsCreateItemLiveRequest:
     discriminated: false
     union:
       - root.CollectionItem
-      - Multiple Items
+      - Multiple Live Items
     source:
       openapi: ../../../referenced-specs/v2.yml
   ItemsDeleteItemsLiveRequestItemsItem:
@@ -319,6 +327,7 @@ service:
         - root.BadRequestError
         - root.UnauthorizedError
         - root.NotFoundError
+        - root.ConflictError
         - root.TooManyRequestsError
         - root.InternalServerError
       examples:

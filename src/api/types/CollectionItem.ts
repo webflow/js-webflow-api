@@ -5,7 +5,11 @@
 import * as Webflow from "../index";
 
 /**
- * The fields that define the schema for a given Item are based on the Collection that Item belongs to. Beyond the user defined fields, there are a handful of additional fields that are automatically created for all items
+ * A Collection Item represents a single entry in your collection. Each item includes:
+ *
+ * - **System metadata** - Automatically managed fields like IDs and timestamp <br/>
+ * - **Status flags** - Controls for managing content state: `isDraft`, `isArchived `<br/>
+ * - **Content fields** - Stored in `fieldData`. Each item needs a `name` and `slug`, and may include additional fields matching your collection's schema definition.
  */
 export interface CollectionItem {
     /** Unique identifier for the Item */
