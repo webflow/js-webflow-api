@@ -6,13 +6,13 @@ import * as serializers from "../../../../../index";
 import * as Webflow from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 import { CollectionItem } from "../../../../../types/CollectionItem";
-import { MultipleItems } from "./MultipleItems";
+import { MultipleLiveItems } from "./MultipleLiveItems";
 
 export const ItemsCreateItemLiveRequest: core.serialization.Schema<
     serializers.collections.ItemsCreateItemLiveRequest.Raw,
     Webflow.collections.ItemsCreateItemLiveRequest
-> = core.serialization.undiscriminatedUnion([CollectionItem, MultipleItems]);
+> = core.serialization.undiscriminatedUnion([CollectionItem, MultipleLiveItems]);
 
 export declare namespace ItemsCreateItemLiveRequest {
-    type Raw = CollectionItem.Raw | MultipleItems.Raw;
+    type Raw = CollectionItem.Raw | MultipleLiveItems.Raw;
 }

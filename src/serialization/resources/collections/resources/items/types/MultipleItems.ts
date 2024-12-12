@@ -5,17 +5,17 @@
 import * as serializers from "../../../../../index";
 import * as Webflow from "../../../../../../api/index";
 import * as core from "../../../../../../core";
-import { CollectionItem } from "../../../../../types/CollectionItem";
+import { CollectionItemPostSingle } from "../../../../../types/CollectionItemPostSingle";
 
 export const MultipleItems: core.serialization.ObjectSchema<
     serializers.collections.MultipleItems.Raw,
     Webflow.collections.MultipleItems
 > = core.serialization.object({
-    items: core.serialization.list(CollectionItem).optional(),
+    items: core.serialization.list(CollectionItemPostSingle).optional(),
 });
 
 export declare namespace MultipleItems {
     interface Raw {
-        items?: CollectionItem.Raw[] | null;
+        items?: CollectionItemPostSingle.Raw[] | null;
     }
 }
