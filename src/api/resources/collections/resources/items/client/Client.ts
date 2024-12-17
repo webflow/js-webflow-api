@@ -188,7 +188,7 @@ export class Items {
     /**
      * Create Item(s) in a Collection.
      *
-     * To create items across multiple locales, please use [this endpoint.](/data/v2.0.0/reference/cms/collection-items/bulk-items/create-items)
+     * To create items across multiple locales, please use [this endpoint.](/v2.0.0/data/reference/cms/collection-items/staged-items/create-items)
      *
      * Required scope | `CMS:write`
      *
@@ -810,7 +810,7 @@ export class Items {
     /**
      * Create live Item(s) in a Collection. The Item(s) will be published to the live site.
      *
-     * To create items across multiple locales, [please use this endpoint.](/v2.0.0/data/reference/cms/collection-items/bulk-items/create-items)
+     * To create items across multiple locales, [please use this endpoint.](/v2.0.0/data/reference/cms/collection-items/staged-items/create-items)
      *
      * Required scope | `CMS:write`
      *
