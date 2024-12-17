@@ -116,5 +116,6 @@ types:
       - infinite
       - finite
     docs: infinite or finite
+    inline: true
     source:
       openapi: ../../../referenced-specs/v2.yml

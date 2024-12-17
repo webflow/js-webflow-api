@@ -15,6 +15,7 @@ types:
       - Color
       - File
     docs: Choose these appropriate field type for your collection data
+    inline: true
     source:
       openapi: ../../../referenced-specs/v2.yml
 imports:

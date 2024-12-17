@@ -188,7 +188,8 @@ export class Items {
     /**
      * Create Item(s) in a Collection.
      *
-     * To create items across multiple locales, please use [this endpoint.](/data/v2.0.0/reference/cms/collection-items/bulk-items/create-items)
+     *
+     * To create items across multiple locales, please use [this endpoint.](/v2.0.0/data/reference/cms/collection-items/staged-items/create-items)
      *
      * Required scope | `CMS:write`
      *
@@ -810,7 +811,9 @@ export class Items {
     /**
      * Create live Item(s) in a Collection. The Item(s) will be published to the live site.
      *
-     * To create items across multiple locales, [please use this endpoint.](/v2.0.0/data/reference/cms/collection-items/bulk-items/create-items)
+     *
+     * To create items across multiple locales, [please use this endpoint.](/v2.0.0/data/reference/cms/collection-items/staged-items/create-items)
+     *
      *
      * Required scope | `CMS:write`
      *
@@ -1275,9 +1278,8 @@ export class Items {
      * Create an item or multiple items in a CMS Collection across multiple corresponding locales.
      *
      * **Notes:**
-     *
-     * - This endpoint can create up to 100 items in a request.
-     * - If the `cmsLocaleIds` parameter is undefined or empty and localization is enabled, items will only be created in the primary locale.
+     *   - This endpoint can create up to 100 items in a request.
+     *   - If the `cmsLocaleIds` parameter is undefined or empty and localization is enabled, items will only be created in the primary locale.
      *
      * Required scope | `CMS:write`
      *

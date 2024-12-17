@@ -413,7 +413,7 @@ export class Users {
     /**
      * Update a User by ID
      *
-     * Required scope | `users:write`
+     *   Required scope | `users:write`
      *
      * <Note class="notice">The <code>email</code> and <code>password</code>
      * fields cannot be updated using this endpoint</Note>
