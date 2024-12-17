@@ -9,7 +9,7 @@ import urlJoin from "url-join";
 import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
 
-export declare namespace Products {
+export declare namespace Redirects {
     interface Options {
         environment?: core.Supplier<environments.WebflowEnvironment | string>;
         accessToken: core.Supplier<core.BearerToken>;
@@ -27,51 +27,34 @@ export declare namespace Products {
     }
 }
 
-export class Products {
-    constructor(protected readonly _options: Products.Options) {}
+export class Redirects {
+    constructor(protected readonly _options: Redirects.Options) {}
 
     /**
-     * Retrieve all products for a site.
+     * Fetch a list of all URL redirect rules configured for a specific site.
      *
-     * Use `limit` and `offset` to page through all products with subsequent requests. All SKUs for each product
-     * will also be fetched and returned. The `limit`, `offset` and `total` values represent Products only and do not include any SKUs.
+     * Use this endpoint to review, audit, or manage the redirection rules that control how traffic is rerouted on your site.
      *
-     * Required scope | `ecommerce:read`
+     *
+     * Required scope: `sites:read`
      *
      * @param {string} siteId - Unique identifier for a Site
-     * @param {Webflow.ProductsListRequest} request
-     * @param {Products.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Redirects.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
-     * @throws {@link Webflow.ForbiddenError}
      * @throws {@link Webflow.NotFoundError}
-     * @throws {@link Webflow.ConflictError}
      * @throws {@link Webflow.TooManyRequestsError}
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.products.list("580e63e98c9a982ac9b8b741")
+     *     await client.redirects.get("580e63e98c9a982ac9b8b741")
      */
-    public async list(
-        siteId: string,
-        request: Webflow.ProductsListRequest = {},
-        requestOptions?: Products.RequestOptions
-    ): Promise<Webflow.ProductAndSkUsList> {
-        const { offset, limit } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (offset != null) {
-            _queryParams["offset"] = offset.toString();
-        }
-
-        if (limit != null) {
-            _queryParams["limit"] = limit.toString();
-        }
-
+    public async get(siteId: string, requestOptions?: Redirects.RequestOptions): Promise<Webflow.Redirects> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${encodeURIComponent(siteId)}/products`
+                `sites/${encodeURIComponent(siteId)}/redirects`
             ),
             method: "GET",
             headers: {
@@ -85,14 +68,13 @@ export class Products {
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
-            queryParameters: _queryParams,
             requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.ProductAndSkUsList.parseOrThrow(_response.body, {
+            return serializers.Redirects.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -115,8 +97,6 @@ export class Products {
                             breadcrumbsPrefix: ["response"],
                         })
                     );
-                case 403:
-                    throw new Webflow.ForbiddenError(_response.error.body);
                 case 404:
                     throw new Webflow.NotFoundError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -127,8 +107,6 @@ export class Products {
                             breadcrumbsPrefix: ["response"],
                         })
                     );
-                case 409:
-                    throw new Webflow.ConflictError(_response.error.body);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -164,7 +142,7 @@ export class Products {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.WebflowTimeoutError("Timeout exceeded when calling GET /sites/{site_id}/products.");
+                throw new errors.WebflowTimeoutError("Timeout exceeded when calling GET /sites/{site_id}/redirects.");
             case "unknown":
                 throw new errors.WebflowError({
                     message: _response.error.errorMessage,
@@ -173,45 +151,38 @@ export class Products {
     }
 
     /**
-     * Create a new product and SKU.
+     * Add a new URL redirection rule to a site.
      *
-     * When you create a product, you will always create a SKU, since a Product Item must have, at minimum, a single SKU.
+     * This endpoint allows you to define a source path (`fromUrl`) and its corresponding destination path (`toUrl`), which will dictate how traffic is rerouted on your site. This is useful for managing site changes, restructuring URLs, or handling outdated links.
      *
-     * To create a Product with multiple SKUs - for example a T-shirt in sizes small, medium and large:
-     *   - Create parameters in `sku-properties`, also known as [product options and variants.](https://help.webflow.com/hc/en-us/articles/33961334531347-Create-product-options-and-variants).
-     *   - A single `sku-property` would be `color`. Within the `color` property, list the various colors of T-shirts as an array of `enum` values: `royal-blue`, `crimson-red`, and `forrest-green`.
-     *   - Once, you've created a Product and its `sku-properties` with `enum` values, Webflow will create a **default SKU**, which will automatically be a combination of the first `sku-properties` you've created.
-     *   - In our example, the default SKU will be a Royal Blue T-Shirt, because our first `enum` of our Color `sku-property` is Royal Blue.
-     *   - After you've created your product, you can create additional SKUs using the [Create SKU endpoint.](/data/reference/ecommerce/products-sk-us/create-sku)
-     *
-     * Upon creation, the default product type will be `Advanced`, which ensures all Product and SKU fields will be shown to users in the Designer.
-     *
-     * Required scope | `ecommerce:write`
+     * Required scope: `sites:write`
      *
      * @param {string} siteId - Unique identifier for a Site
-     * @param {Webflow.ProductSkuCreate} request
-     * @param {Products.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Webflow.Redirect} request
+     * @param {Redirects.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
-     * @throws {@link Webflow.ForbiddenError}
      * @throws {@link Webflow.NotFoundError}
-     * @throws {@link Webflow.ConflictError}
      * @throws {@link Webflow.TooManyRequestsError}
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.products.create("580e63e98c9a982ac9b8b741")
+     *     await client.redirects.create("580e63e98c9a982ac9b8b741", {
+     *         id: "42e1a2b7aa1a13f768a0042a",
+     *         fromUrl: "/mostly-harmless",
+     *         toUrl: "/earth"
+     *     })
      */
     public async create(
         siteId: string,
-        request: Webflow.ProductSkuCreate = {},
-        requestOptions?: Products.RequestOptions
-    ): Promise<Webflow.ProductAndSkUs> {
+        request: Webflow.Redirect,
+        requestOptions?: Redirects.RequestOptions
+    ): Promise<Webflow.Redirect> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${encodeURIComponent(siteId)}/products`
+                `sites/${encodeURIComponent(siteId)}/redirects`
             ),
             method: "POST",
             headers: {
@@ -226,7 +197,7 @@ export class Products {
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.ProductSkuCreate.jsonOrThrow(request, {
+            body: serializers.Redirect.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -236,7 +207,7 @@ export class Products {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.ProductAndSkUs.parseOrThrow(_response.body, {
+            return serializers.Redirect.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -259,8 +230,6 @@ export class Products {
                             breadcrumbsPrefix: ["response"],
                         })
                     );
-                case 403:
-                    throw new Webflow.ForbiddenError(_response.error.body);
                 case 404:
                     throw new Webflow.NotFoundError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -271,8 +240,6 @@ export class Products {
                             breadcrumbsPrefix: ["response"],
                         })
                     );
-                case 409:
-                    throw new Webflow.ConflictError(_response.error.body);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -308,7 +275,7 @@ export class Products {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.WebflowTimeoutError("Timeout exceeded when calling POST /sites/{site_id}/products.");
+                throw new errors.WebflowTimeoutError("Timeout exceeded when calling POST /sites/{site_id}/redirects.");
             case "unknown":
                 throw new errors.WebflowError({
                     message: _response.error.errorMessage,
@@ -317,37 +284,34 @@ export class Products {
     }
 
     /**
-     * Retrieve a single product by its ID. All of its SKUs will also be
-     * retrieved.
-     *
-     * Required scope | `ecommerce:read`
+     * Remove a URL redirection rule from a site.
+     * This is useful for cleaning up outdated or unnecessary redirects, ensuring that your site's routing behavior remains efficient and up-to-date.
+     * Required scope: `sites:write`
      *
      * @param {string} siteId - Unique identifier for a Site
-     * @param {string} productId - Unique identifier for a Product
-     * @param {Products.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {string} redirectId - Unique identifier site rediect
+     * @param {Redirects.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
-     * @throws {@link Webflow.ForbiddenError}
      * @throws {@link Webflow.NotFoundError}
-     * @throws {@link Webflow.ConflictError}
      * @throws {@link Webflow.TooManyRequestsError}
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.products.get("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b8b745")
+     *     await client.redirects.delete("580e63e98c9a982ac9b8b741", "66c4cb9a20cac35ed19500e6")
      */
-    public async get(
+    public async delete(
         siteId: string,
-        productId: string,
-        requestOptions?: Products.RequestOptions
-    ): Promise<Webflow.ProductAndSkUs> {
+        redirectId: string,
+        requestOptions?: Redirects.RequestOptions
+    ): Promise<Webflow.Redirects> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${encodeURIComponent(siteId)}/products/${encodeURIComponent(productId)}`
+                `sites/${encodeURIComponent(siteId)}/redirects/${encodeURIComponent(redirectId)}`
             ),
-            method: "GET",
+            method: "DELETE",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
@@ -365,7 +329,7 @@ export class Products {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.ProductAndSkUs.parseOrThrow(_response.body, {
+            return serializers.Redirects.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -388,8 +352,6 @@ export class Products {
                             breadcrumbsPrefix: ["response"],
                         })
                     );
-                case 403:
-                    throw new Webflow.ForbiddenError(_response.error.body);
                 case 404:
                     throw new Webflow.NotFoundError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -400,8 +362,6 @@ export class Products {
                             breadcrumbsPrefix: ["response"],
                         })
                     );
-                case 409:
-                    throw new Webflow.ConflictError(_response.error.body);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -438,7 +398,7 @@ export class Products {
                 });
             case "timeout":
                 throw new errors.WebflowTimeoutError(
-                    "Timeout exceeded when calling GET /sites/{site_id}/products/{product_id}."
+                    "Timeout exceeded when calling DELETE /sites/{site_id}/redirects/{redirect_id}."
                 );
             case "unknown":
                 throw new errors.WebflowError({
@@ -448,38 +408,37 @@ export class Products {
     }
 
     /**
-     * Update an existing Product.
-     *
-     * Updating an existing Product will set the product type to `Advanced`, which ensures all Product and SKU fields will be shown to users in the Designer.
-     *
-     * Required scope | `ecommerce:write`
+     * Update a URL redirection rule from a site.
+     * Required scope: `sites:write`
      *
      * @param {string} siteId - Unique identifier for a Site
-     * @param {string} productId - Unique identifier for a Product
-     * @param {Webflow.ProductSkuUpdate} request
-     * @param {Products.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {string} redirectId - Unique identifier site rediect
+     * @param {Webflow.Redirect} request
+     * @param {Redirects.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
-     * @throws {@link Webflow.ForbiddenError}
      * @throws {@link Webflow.NotFoundError}
-     * @throws {@link Webflow.ConflictError}
      * @throws {@link Webflow.TooManyRequestsError}
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.products.update("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b8b745")
+     *     await client.redirects.patch("580e63e98c9a982ac9b8b741", "66c4cb9a20cac35ed19500e6", {
+     *         id: "42e1a2b7aa1a13f768a0042a",
+     *         fromUrl: "/mostly-harmless",
+     *         toUrl: "/earth"
+     *     })
      */
-    public async update(
+    public async patch(
         siteId: string,
-        productId: string,
-        request: Webflow.ProductSkuUpdate = {},
-        requestOptions?: Products.RequestOptions
-    ): Promise<Webflow.Product> {
+        redirectId: string,
+        request: Webflow.Redirect,
+        requestOptions?: Redirects.RequestOptions
+    ): Promise<Webflow.Redirect> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${encodeURIComponent(siteId)}/products/${encodeURIComponent(productId)}`
+                `sites/${encodeURIComponent(siteId)}/redirects/${encodeURIComponent(redirectId)}`
             ),
             method: "PATCH",
             headers: {
@@ -494,7 +453,7 @@ export class Products {
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.ProductSkuUpdate.jsonOrThrow(request, {
+            body: serializers.Redirect.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -504,7 +463,7 @@ export class Products {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.Product.parseOrThrow(_response.body, {
+            return serializers.Redirect.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -527,8 +486,6 @@ export class Products {
                             breadcrumbsPrefix: ["response"],
                         })
                     );
-                case 403:
-                    throw new Webflow.ForbiddenError(_response.error.body);
                 case 404:
                     throw new Webflow.NotFoundError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -539,8 +496,6 @@ export class Products {
                             breadcrumbsPrefix: ["response"],
                         })
                     );
-                case 409:
-                    throw new Webflow.ConflictError(_response.error.body);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -577,293 +532,7 @@ export class Products {
                 });
             case "timeout":
                 throw new errors.WebflowTimeoutError(
-                    "Timeout exceeded when calling PATCH /sites/{site_id}/products/{product_id}."
-                );
-            case "unknown":
-                throw new errors.WebflowError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * Create additional SKUs to manage every [option and variant of your Product.](https://help.webflow.com/hc/en-us/articles/33961334531347-Create-product-options-and-variants)
-     *
-     * Creating SKUs through the API will set the product type to `Advanced`, which ensures all Product and SKU fields will be shown to users in the Designer.
-     *
-     * Required scope | `ecommerce:write`
-     *
-     * @param {string} siteId - Unique identifier for a Site
-     * @param {string} productId - Unique identifier for a Product
-     * @param {Webflow.ProductsCreateSkuRequest} request
-     * @param {Products.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Webflow.BadRequestError}
-     * @throws {@link Webflow.UnauthorizedError}
-     * @throws {@link Webflow.ForbiddenError}
-     * @throws {@link Webflow.NotFoundError}
-     * @throws {@link Webflow.ConflictError}
-     * @throws {@link Webflow.TooManyRequestsError}
-     * @throws {@link Webflow.InternalServerError}
-     *
-     * @example
-     *     await client.products.createSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b8b745", {
-     *         skus: [{}]
-     *     })
-     */
-    public async createSku(
-        siteId: string,
-        productId: string,
-        request: Webflow.ProductsCreateSkuRequest,
-        requestOptions?: Products.RequestOptions
-    ): Promise<Webflow.ProductsCreateSkuResponse> {
-        const _response = await core.fetcher({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${encodeURIComponent(siteId)}/products/${encodeURIComponent(productId)}/skus`
-            ),
-            method: "POST",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.2",
-                "User-Agent": "webflow-api/3.0.2",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            requestType: "json",
-            body: serializers.ProductsCreateSkuRequest.jsonOrThrow(request, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-            }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return serializers.ProductsCreateSkuResponse.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new Webflow.BadRequestError(_response.error.body);
-                case 401:
-                    throw new Webflow.UnauthorizedError(
-                        serializers.Error_.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                case 403:
-                    throw new Webflow.ForbiddenError(_response.error.body);
-                case 404:
-                    throw new Webflow.NotFoundError(
-                        serializers.Error_.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                case 409:
-                    throw new Webflow.ConflictError(_response.error.body);
-                case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.Error_.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                case 500:
-                    throw new Webflow.InternalServerError(
-                        serializers.Error_.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                default:
-                    throw new errors.WebflowError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.WebflowError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.WebflowTimeoutError(
-                    "Timeout exceeded when calling POST /sites/{site_id}/products/{product_id}/skus."
-                );
-            case "unknown":
-                throw new errors.WebflowError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * Update a specified SKU.
-     *
-     * Updating an existing SKU will set the Product type to `Advanced`, which ensures all Product and SKU fields will be shown to users in the Designer.
-     *
-     * Required scope | `ecommerce:write`
-     *
-     * @param {string} siteId - Unique identifier for a Site
-     * @param {string} productId - Unique identifier for a Product
-     * @param {string} skuId - Unique identifier for a SKU
-     * @param {Webflow.ProductsUpdateSkuRequest} request
-     * @param {Products.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Webflow.BadRequestError}
-     * @throws {@link Webflow.UnauthorizedError}
-     * @throws {@link Webflow.ForbiddenError}
-     * @throws {@link Webflow.NotFoundError}
-     * @throws {@link Webflow.ConflictError}
-     * @throws {@link Webflow.TooManyRequestsError}
-     * @throws {@link Webflow.InternalServerError}
-     *
-     * @example
-     *     await client.products.updateSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b8b745", "5e8518516e147040726cc415", {
-     *         sku: {}
-     *     })
-     */
-    public async updateSku(
-        siteId: string,
-        productId: string,
-        skuId: string,
-        request: Webflow.ProductsUpdateSkuRequest,
-        requestOptions?: Products.RequestOptions
-    ): Promise<Webflow.Sku> {
-        const _response = await core.fetcher({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
-                `sites/${encodeURIComponent(siteId)}/products/${encodeURIComponent(
-                    productId
-                )}/skus/${encodeURIComponent(skuId)}`
-            ),
-            method: "PATCH",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.2",
-                "User-Agent": "webflow-api/3.0.2",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            requestType: "json",
-            body: serializers.ProductsUpdateSkuRequest.jsonOrThrow(request, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-            }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return serializers.Sku.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new Webflow.BadRequestError(_response.error.body);
-                case 401:
-                    throw new Webflow.UnauthorizedError(
-                        serializers.Error_.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                case 403:
-                    throw new Webflow.ForbiddenError(_response.error.body);
-                case 404:
-                    throw new Webflow.NotFoundError(
-                        serializers.Error_.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                case 409:
-                    throw new Webflow.ConflictError(_response.error.body);
-                case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.Error_.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                case 500:
-                    throw new Webflow.InternalServerError(
-                        serializers.Error_.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                default:
-                    throw new errors.WebflowError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.WebflowError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.WebflowTimeoutError(
-                    "Timeout exceeded when calling PATCH /sites/{site_id}/products/{product_id}/skus/{sku_id}."
+                    "Timeout exceeded when calling PATCH /sites/{site_id}/redirects/{redirect_id}."
                 );
             case "unknown":
                 throw new errors.WebflowError({

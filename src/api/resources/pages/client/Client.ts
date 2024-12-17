@@ -607,7 +607,6 @@ export class Pages {
 
     /**
      * This endpoint allows for updating static content on a static page within a secondary locale. It is designed specifically for localized pages and can handle up to 1000 nodes per request.
-     *
      * <blockquote class="callout callout_info"><p><strong>Note:</strong>This endpoint is specifically for localized pages. Ensure that the locale specified is a valid secondary locale for the site.</p></blockquote>
      *
      * Required scope | `pages:write`

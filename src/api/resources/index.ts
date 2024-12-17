@@ -14,6 +14,7 @@ export * as inventory from "./inventory";
 export * from "./inventory/types";
 export * as collections from "./collections";
 export * as token from "./token";
+export * as redirects from "./redirects";
 export * as scripts from "./scripts";
 export * as assets from "./assets";
 export * as webhooks from "./webhooks";

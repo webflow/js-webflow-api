@@ -6,6 +6,7 @@ import * as environments from "./environments";
 import * as core from "./core";
 import { Token } from "./api/resources/token/client/Client";
 import { Sites } from "./api/resources/sites/client/Client";
+import { Redirects } from "./api/resources/redirects/client/Client";
 import { Collections } from "./api/resources/collections/client/Client";
 import { Pages } from "./api/resources/pages/client/Client";
 import { Scripts } from "./api/resources/scripts/client/Client";
@@ -50,6 +51,12 @@ export class WebflowClient {
 
     public get sites(): Sites {
         return (this._sites ??= new Sites(this._options));
+    }
+
+    protected _redirects: Redirects | undefined;
+
+    public get redirects(): Redirects {
+        return (this._redirects ??= new Redirects(this._options));
     }
 
     protected _collections: Collections | undefined;
