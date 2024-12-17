@@ -379,6 +379,311 @@ await client.sites.publish("580e63e98c9a982ac9b8b741");
 </dl>
 </details>
 
+## Redirects
+
+<details><summary><code>client.redirects.<a href="/src/api/resources/redirects/client/Client.ts">get</a>(siteId) -> Webflow.Redirects</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Fetch a list of all URL redirect rules configured for a specific site.
+
+Use this endpoint to review, audit, or manage the redirection rules that control how traffic is rerouted on your site.
+
+Required scope: `sites:read`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.redirects.get("580e63e98c9a982ac9b8b741");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Redirects.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.redirects.<a href="/src/api/resources/redirects/client/Client.ts">create</a>(siteId, { ...params }) -> Webflow.Redirect</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Add a new URL redirection rule to a site.
+
+This endpoint allows you to define a source path (`fromUrl`) and its corresponding destination path (`toUrl`), which will dictate how traffic is rerouted on your site. This is useful for managing site changes, restructuring URLs, or handling outdated links.
+
+Required scope: `sites:write`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.redirects.create("580e63e98c9a982ac9b8b741", {
+    id: "42e1a2b7aa1a13f768a0042a",
+    fromUrl: "/mostly-harmless",
+    toUrl: "/earth",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.Redirect`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Redirects.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.redirects.<a href="/src/api/resources/redirects/client/Client.ts">delete</a>(siteId, redirectId) -> Webflow.Redirects</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Remove a URL redirection rule from a site.
+This is useful for cleaning up outdated or unnecessary redirects, ensuring that your site's routing behavior remains efficient and up-to-date.
+Required scope: `sites:write`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.redirects.delete("580e63e98c9a982ac9b8b741", "66c4cb9a20cac35ed19500e6");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**redirectId:** `string` — Unique identifier site rediect
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Redirects.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.redirects.<a href="/src/api/resources/redirects/client/Client.ts">patch</a>(siteId, redirectId, { ...params }) -> Webflow.Redirect</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update a URL redirection rule from a site.
+Required scope: `sites:write`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.redirects.patch("580e63e98c9a982ac9b8b741", "66c4cb9a20cac35ed19500e6", {
+    id: "42e1a2b7aa1a13f768a0042a",
+    fromUrl: "/mostly-harmless",
+    toUrl: "/earth",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**redirectId:** `string` — Unique identifier site rediect
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.Redirect`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Redirects.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Collections
 
 <details><summary><code>client.collections.<a href="/src/api/resources/collections/client/Client.ts">list</a>(siteId) -> Webflow.CollectionList</code></summary>
@@ -4496,7 +4801,7 @@ await client.collections.items.listItems("580e63fc8c9a982ac9b8b745");
 
 Create Item(s) in a Collection.
 
-To create items across multiple locales, please use [this endpoint.](/data/v2.0.0/reference/cms/collection-items/bulk-items/create-items)
+To create items across multiple locales, please use [this endpoint.](/v2.0.0/data/reference/cms/collection-items/staged-items/create-items)
 
 Required scope | `CMS:write`
 
@@ -4836,7 +5141,7 @@ await client.collections.items.listItemsLive("580e63fc8c9a982ac9b8b745");
 
 Create live Item(s) in a Collection. The Item(s) will be published to the live site.
 
-To create items across multiple locales, [please use this endpoint.](/v2.0.0/data/reference/cms/collection-items/bulk-items/create-items)
+To create items across multiple locales, [please use this endpoint.](/v2.0.0/data/reference/cms/collection-items/staged-items/create-items)
 
 Required scope | `CMS:write`
 

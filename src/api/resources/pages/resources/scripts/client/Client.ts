@@ -36,7 +36,6 @@ export class Scripts {
      * In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts must first be registered
      * to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate
      * `custom_code` endpoints.
-     *
      * <blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote>
      *
      * Required scope | `custom_code:read`
@@ -162,7 +161,6 @@ export class Scripts {
      * In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts must first be registered
      * to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate
      * `custom_code` endpoints.
-     *
      * <blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote>
      *
      * Required scope | `custom_code:write`
@@ -308,7 +306,6 @@ export class Scripts {
      * In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts must first be registered
      * to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate
      * `custom_code` endpoints.
-     *
      * <blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote>
      *
      * Required scope | `custom_code:write`
