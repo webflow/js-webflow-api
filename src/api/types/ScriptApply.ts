@@ -9,7 +9,7 @@ export interface ScriptApply {
     id: string;
     /** Location of the script, either in the header or footer of the published site */
     location: Webflow.ScriptApplyLocation;
-    /** Semantic Version String for the registered script _e.g. 0.0.1_ */
+    /** Semantic Version String for the registered script *e.g. 0.0.1* */
     version: string;
     /** Developer-specified key/value pairs to be applied as attributes to the script */
     attributes?: Record<string, unknown>;

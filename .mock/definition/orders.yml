@@ -16,6 +16,7 @@ types:
       - fraudulent
       - requested
     docs: The reason for the refund
+    inline: true
     source:
       openapi: ../../../referenced-specs/v2.yml
 imports:
