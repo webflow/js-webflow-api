@@ -32,7 +32,7 @@ types:
         name: UpdatedOnDescending
         docs: Sorts users in descending order based on their update date
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
   UsersUpdateRequestData:
     properties:
       name:
@@ -48,7 +48,7 @@ types:
         docs: |
           Boolean indicating if the user has accepted to receive communications
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
 imports:
   root: __package__.yml
@@ -65,7 +65,7 @@ service:
 
         Required scope | `users:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         site_id:
           type: string
@@ -169,7 +169,7 @@ service:
 
         Required scope | `users:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         site_id:
           type: string
@@ -220,7 +220,7 @@ service:
 
         Required scope | `users:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         site_id:
           type: string
@@ -252,7 +252,7 @@ service:
         <Note class="notice">The <code>email</code> and <code>password</code>
         fields cannot be updated using this endpoint</Note>
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         site_id:
           type: string
@@ -329,7 +329,7 @@ service:
 
         Required scope | `users:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         site_id:
           type: string
@@ -389,4 +389,4 @@ service:
                   accept-communications: true
                   additionalProperties: additionalProperties
   source:
-    openapi: ../../../referenced-specs/v2.yml
+    openapi: ../../../openapi/referenced-specs/v2.yml

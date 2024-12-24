@@ -13,7 +13,7 @@ service:
 
         Required scope | `cms:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         site_id:
           type: string
@@ -61,7 +61,7 @@ service:
 
         Required scope | `cms:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         site_id:
           type: string
@@ -122,7 +122,7 @@ service:
 
         Required scope | `cms:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -165,7 +165,7 @@ service:
 
         Required scope | `cms:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -181,5 +181,5 @@ service:
         - path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
   source:
-    openapi: ../../../referenced-specs/v2.yml
+    openapi: ../../../openapi/referenced-specs/v2.yml
   display-name: Collections

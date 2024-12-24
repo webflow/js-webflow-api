@@ -4,6 +4,87 @@ service:
   auth: false
   base-path: ''
   endpoints:
+    create:
+      path: /workspaces/{workspace_id}/sites
+      method: POST
+      auth: true
+      docs: |
+        Create a site. This endpoint requires an Enterprise workspace.
+
+        Required scope | `workspace:write`
+      source:
+        openapi: ../../../openapi/referenced-specs/v2.yml
+      path-parameters:
+        workspace_id:
+          type: string
+          docs: Unique identifier for a Workspace
+      display-name: Create Site
+      request:
+        name: SitesCreateRequest
+        body:
+          properties:
+            name:
+              type: string
+              docs: The name of the site
+            templateName:
+              type: optional<string>
+              docs: The workspace or marketplace template to use
+            parentFolderId:
+              type: optional<string>
+              docs: MegaDodo Publications - Potential Book Ideas
+        content-type: application/json
+      response:
+        docs: Request was successful
+        type: root.Site
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.ForbiddenError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - name: NewlyCreatedSite
+          path-parameters:
+            workspace_id: 580e63e98c9a982ac9b8b741
+          request:
+            name: The Hitchhiker's Guide to the Galaxy
+          response:
+            body:
+              id: 670ecf86817e3cc7a510eb6a
+              workspaceId: 625860a7a6c16d624927122f
+              createdOn: '2024-10-15T20:24:38Z'
+              displayName: The Hitchiker‘s Guide
+              shortName: hitchikers-guide
+              lastPublished: '2016-10-24T19:43:17Z'
+              lastUpdated: '2024-10-15T20:24:38Z'
+              previewUrl: >-
+                https://d1otoma47x30pg.cloudfront.net/580e63e98c9a982ac9b8b741/201610241243.png
+              timeZone: America/Los_Angeles
+              parentFolderId: 670ece123598db72d9648be1
+              customDomains:
+                - id: 589a331aa51e760df7ccb89d
+                  url: test-api-domain.com
+              locales:
+                primary:
+                  id: 653fd9af6a07fc9cfd7a5e57
+                  cmsLocaleId: 653ad57de882f528b32e810e
+                  enabled: false
+                  displayName: English (United States)
+                  displayImageId: displayImageId
+                  redirect: true
+                  subdirectory: ''
+                  tag: en-US
+                secondary:
+                  - id: 653fd9af6a07fc9cfd7a5e57
+                    cmsLocaleId: 653ad57de882f528b32e810e
+                    enabled: false
+                    displayName: English (United States)
+                    redirect: true
+                    subdirectory: ''
+                    tag: en-US
+              dataCollectionEnabled: false
+              dataCollectionType: always
     list:
       path: /sites
       method: GET
@@ -13,7 +94,7 @@ service:
 
         Required scope | `sites:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       display-name: List Sites
       response:
         docs: Request was successful
@@ -141,7 +222,7 @@ service:
 
         Required scope | `sites:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         site_id:
           type: string
@@ -197,6 +278,109 @@ service:
                     tag: en-US
               dataCollectionEnabled: true
               dataCollectionType: always
+    delete:
+      path: /sites/{site_id}
+      method: DELETE
+      auth: true
+      docs: |
+        Delete a site. This endpoint requires an Enterprise workspace.
+
+        Required scope | `sites:write`
+      source:
+        openapi: ../../../openapi/referenced-specs/v2.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+      display-name: Delete Site
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.ForbiddenError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+    update:
+      path: /sites/{site_id}
+      method: PATCH
+      auth: true
+      docs: |
+        Update a site. This endpoint requires an Enterprise workspace.
+
+        Required scope | `sites:write`
+      source:
+        openapi: ../../../openapi/referenced-specs/v2.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+      display-name: Update Site
+      request:
+        name: SitesUpdateRequest
+        body:
+          properties:
+            name:
+              type: optional<string>
+              docs: The name of the site
+            parentFolderId:
+              type: optional<string>
+              docs: The parent folder ID of the site
+        content-type: application/json
+      response:
+        docs: Request was successful
+        type: root.Site
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.ForbiddenError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+          request: {}
+          response:
+            body:
+              id: 42e98c9a982ac9b8b742
+              workspaceId: 42e63e98c9a982ac9b8b742
+              createdOn: '1979-10-12T12:00:00Z'
+              displayName: The Hitchhiker's Guide to the Galaxy
+              shortName: hitchhikers-guide
+              lastPublished: '2023-04-02T12:42:00Z'
+              lastUpdated: '2023-04-02T12:42:00Z'
+              previewUrl: >-
+                https://screenshots.webflow.com/sites/6258612d1ee792848f805dcf/20231219211811_d5990556c743f33b7071300a03bf67e6.png
+              timeZone: Magrathea/FactoryFloor
+              parentFolderId: 1as2d3f4g5h6j7k8l9z0x1c2v3b4n5m6
+              customDomains:
+                - id: 589a331aa51e760df7ccb89d
+                  url: hitchhikersguide.galaxy
+                - id: 589a331aa51e760df7ccb89e
+                  url: heartofgold.spaceship
+              locales:
+                primary:
+                  id: 653fd9af6a07fc9cfd7a5e57
+                  cmsLocaleId: 653ad57de882f528b32e810e
+                  enabled: false
+                  displayName: English (United States)
+                  displayImageId: displayImageId
+                  redirect: true
+                  subdirectory: ''
+                  tag: en-US
+                secondary:
+                  - id: 653fd9af6a07fc9cfd7a5e57
+                    cmsLocaleId: 653ad57de882f528b32e810e
+                    enabled: false
+                    displayName: English (United States)
+                    redirect: true
+                    subdirectory: ''
+                    tag: en-US
+              dataCollectionEnabled: true
+              dataCollectionType: always
     get-custom-domain:
       path: /sites/{site_id}/custom_domains
       method: GET
@@ -206,7 +390,7 @@ service:
 
         Required scope | `sites:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         site_id:
           type: string
@@ -245,7 +429,7 @@ service:
 
         Required scope | `sites:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         site_id:
           type: string
@@ -283,7 +467,7 @@ service:
                   url: test-api-domain.com
               publishToWebflowSubdomain: true
   source:
-    openapi: ../../../referenced-specs/v2.yml
+    openapi: ../../../openapi/referenced-specs/v2.yml
   display-name: Sites
 types:
   SitesPublishResponse:
@@ -296,4 +480,4 @@ types:
         docs: Flag for publishing to webflow.io subdomain
         default: false
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
