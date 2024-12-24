@@ -462,9 +462,10 @@ export class Pages {
     }
 
     /**
-     * Get static content from a static page.
+     * Get static content from a static page. This includes text nodes, image nodes and component instances.
+     * To retrieve the contents of components in the page use the [get component content](/data/reference/pages-and-components/components/get-content) endpoint.
      *
-     * If you do not provide a Locale ID in your request, the response will return any content that can be localized from the Primary locale.
+     * <Note>If you do not provide a Locale ID in your request, the response will return any content that can be localized from the Primary locale.</Note>
      *
      * Required scope | `pages:read`
      *
@@ -606,14 +607,20 @@ export class Pages {
     }
 
     /**
-     * This endpoint allows for updating static content on a static page within a secondary locale. It is designed specifically for localized pages and can handle up to 1000 nodes per request.
+     * This endpoint updates content on a static page in **secondary locales**. It supports updating up to 1000 nodes in a single request.
      *
-     * <blockquote class="callout callout_info"><p><strong>Note:</strong>This endpoint is specifically for localized pages. Ensure that the locale specified is a valid secondary locale for the site.</p></blockquote>
+     * Before making updates:
+     * 1. Use the [get page content](/data/reference/pages-and-components/pages/get-content) endpoint to identify available content nodes and their types
+     * 2. If the page has component instances, retrieve the component's properties that you'll override using the [get component properties](/data/reference/pages-and-components/components/get-properties) endpoint
+     *
+     * <Note>
+     *   This endpoint is specifically for localized pages. Ensure that the specified `localeId` is a valid **secondary locale** for the site otherwise the request will fail.
+     * </Note>
      *
      * Required scope | `pages:write`
      *
      * @param {string} pageId - Unique identifier for a Page
-     * @param {Webflow.DomWrite} request
+     * @param {Webflow.PageDomWrite} request
      * @param {Pages.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Webflow.BadRequestError}
@@ -625,30 +632,33 @@ export class Pages {
      *
      * @example
      *     await client.pages.updateStaticContent("63c720f9347c2139b248e552", {
-     *         localeId: "65427cf400e02b306eaa04a0",
+     *         localeId: "localeId",
      *         nodes: [{
      *                 nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad623",
-     *                 text: "<h1>The Hitchhiker\u2019s Guide to the Galaxy</h1>"
+     *                 text: "<h1>The Hitchhiker's Guide to the Galaxy</h1>"
      *             }, {
      *                 nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad627",
-     *                 text: "<div><h3>Don\u2019t Panic!</h3><p>Always know where your towel is.</p></div>"
+     *                 text: "<div><h3>Don't Panic!</h3><p>Always know where your towel is.</p></div>"
      *             }, {
      *                 nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad629",
-     *                 text: "<img alt=\"Marvin, the Paranoid Android\" src=\"path/to/image/with/assetId/659595234426a9fcbad57043\"/>"
+     *                 propertyOverrides: [{
+     *                         propertyId: "7dd14c08-2e96-8d3d-2b19-b5c03642a0f0",
+     *                         text: "<div><h1>Time is an <em>illusion</em></h1></div>"
+     *                     }, {
+     *                         propertyId: "7dd14c08-2e96-8d3d-2b19-b5c03642a0f1",
+     *                         text: "Life, the Universe and Everything"
+     *                     }]
      *             }]
      *     })
      */
     public async updateStaticContent(
         pageId: string,
-        request: Webflow.DomWrite,
+        request: Webflow.PageDomWrite,
         requestOptions?: Pages.RequestOptions
     ): Promise<Webflow.UpdateStaticContentResponse> {
         const { localeId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (localeId != null) {
-            _queryParams["localeId"] = localeId;
-        }
-
+        _queryParams["localeId"] = localeId;
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
@@ -668,7 +678,7 @@ export class Pages {
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.DomWrite.jsonOrThrow(_body, {
+            body: serializers.PageDomWrite.jsonOrThrow(_body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
