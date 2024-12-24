@@ -150,9 +150,11 @@ export class Assets {
     /**
      * Create a new asset entry.
      *
+     *
      * This endpoint generates a response with the following information: `uploadUrl` and `uploadDetails`.
      * You can use these two properties to [upload the file to Amazon s3 by making a POST](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectPOST.html)
      * request to the `uploadUrl` with the `uploadDetails` object as your header information in the request.
+     *
      *
      * Required scope | `assets:write`
      *

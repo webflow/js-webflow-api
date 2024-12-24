@@ -1,0 +1,476 @@
+imports:
+  root: __package__.yml
+service:
+  auth: false
+  base-path: ''
+  endpoints:
+    list:
+      path: /sites/{site_id}/components
+      method: GET
+      auth: true
+      docs: |
+        List of all components for a site.
+
+        Required scope | `components:read`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+      display-name: List Components
+      request:
+        name: ComponentsListRequest
+        query-parameters:
+          limit:
+            type: optional<double>
+            docs: 'Maximum number of records to be returned (max limit: 100)'
+          offset:
+            type: optional<double>
+            docs: >-
+              Offset used for pagination if the results have more than limit
+              records
+      response:
+        docs: Request was successful
+        type: root.ComponentList
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+          response:
+            body:
+              components:
+                - id: 6596da6045e56dee495bcbba
+                  name: Primary Button
+                  group: Buttons
+                  description: A default button component that can be used across the site
+                  readonly: true
+                - id: 658205daa3e8206a523b5ad4
+                  name: Secondary Button
+                  group: Buttons
+                  description: >-
+                    A secondary button component that can be used across the
+                    site
+                  readonly: true
+                - id: 6258612d1ee792848f805dcf
+                  name: Card
+                  group: Buttons
+                  description: A button component that can be used across the site
+                  readonly: true
+                - id: 68a2b1d1ee792848f805dcf
+                  name: Nav
+                  group: Buttons
+                  description: A button component that can be used across the site
+                  readonly: true
+              pagination:
+                limit: 20
+                offset: 0
+                total: 4
+    get-content:
+      path: /sites/{site_id}/components/{component_id}/dom
+      method: GET
+      auth: true
+      docs: >
+        Get static content from a component definition. This includes text
+        nodes, image nodes and nested component instances.
+
+        To retrieve dynamic content set by component properties, use the [get
+        component
+        properties](/data/reference/pages-and-components/components/get-properties)
+        endpoint.
+
+
+        <Note>If you do not provide a Locale ID in your request, the response
+        will return any content that can be localized from the Primary
+        locale.</Note>
+
+
+        Required scope | `components:read`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+        component_id:
+          type: string
+          docs: Unique identifier for a Component
+      display-name: Get Component Content
+      request:
+        name: ComponentsGetContentRequest
+        query-parameters:
+          localeId:
+            type: optional<string>
+            docs: >-
+              Unique identifier for a specific locale. Applicable, when using
+              localization.
+          limit:
+            type: optional<double>
+            docs: 'Maximum number of records to be returned (max limit: 100)'
+          offset:
+            type: optional<double>
+            docs: >-
+              Offset used for pagination if the results have more than limit
+              records
+      response:
+        docs: Request was successful
+        type: root.ComponentDom
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - name: ComponentDOM
+          path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+            component_id: 8505ba55-ef72-629e-f85c-33e4b703d48b
+          query-parameters:
+            localeId: 65427cf400e02b306eaa04a0
+          response:
+            body:
+              componentId: 69118560-d0bc-15fc-bbf8-b8fe5f6535b5
+              nodes:
+                - type: component-instance
+                  id: a245c12d-995b-55ee-5ec7-aa36a6cad623
+                  componentId: nodes
+                  propertyOverrides:
+                    - propertyId: 7dd14c08-2e96-8d3d-2b19-b5c03642a0f0
+                - type: component-instance
+                  id: a245c12d-995b-55ee-5ec7-aa36a6cad627
+                  componentId: nodes
+                  propertyOverrides:
+                    - propertyId: 7dd14c08-2e96-8d3d-2b19-b5c03642a0f0
+                - type: component-instance
+                  id: a245c12d-995b-55ee-5ec7-aa36a6cad629
+                  componentId: nodes
+                  propertyOverrides:
+                    - propertyId: 7dd14c08-2e96-8d3d-2b19-b5c03642a0f0
+                - type: component-instance
+                  id: a245c12d-995b-55ee-5ec7-aa36a6cad631
+                  componentId: 6258612d1ee792848f805dcf
+                  propertyOverrides:
+                    - propertyId: a245c12d-995b-55ee-5ec7-aa36a6cad633
+                      type: Plain Text
+                    - propertyId: a245c12d-995b-55ee-5ec7-aa36a6cad635
+                      type: Rich Text
+              pagination:
+                limit: 4
+                offset: 0
+                total: 4
+        - name: LocalizedComponentDOM
+          path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+            component_id: 8505ba55-ef72-629e-f85c-33e4b703d48b
+          query-parameters:
+            localeId: 65427cf400e02b306eaa04a0
+          response:
+            body:
+              componentId: 69118560-d0bc-15fc-bbf8-b8fe5f6535b5
+              nodes:
+                - type: component-instance
+                  id: 69118560-d0bc-15fc-bbf8-b8fe5f6535b8
+                  componentId: nodes
+                  propertyOverrides:
+                    - propertyId: 7dd14c08-2e96-8d3d-2b19-b5c03642a0f0
+                - type: component-instance
+                  id: 8ebfb409-7493-3bca-5d48-0e547befb960
+                  componentId: nodes
+                  propertyOverrides:
+                    - propertyId: 7dd14c08-2e96-8d3d-2b19-b5c03642a0f0
+                - type: component-instance
+                  id: 69118560-d0bc-15fc-bbf8-b8fe5f6535c2
+                  componentId: 69118560-d0bc-15fc-bbf8-b8fe5f6535b5
+                  propertyOverrides:
+                    - propertyId: a245c12d-995b-55ee-5ec7-aa36a6cad623
+              pagination:
+                limit: 100
+                offset: 0
+                total: 3
+    update-content:
+      path: /sites/{site_id}/components/{component_id}/dom
+      method: POST
+      auth: true
+      docs: >
+        This endpoint updates content within a component defintion for
+        **secondary locales**. It supports updating up to 1000 nodes in a single
+        request.
+
+
+        Before making updates:
+
+        1. Use the [get component
+        content](/data/reference/pages-and-components/components/get-content)
+        endpoint to identify available content nodes and their types
+
+        2. If your component definition has a component instance nested within
+        it, retrieve the nested component instance's properties that you'll
+        override using the [get component
+        properties](/data/reference/pages-and-components/components/get-properties)
+        endpoint
+
+
+        <Note>
+          This endpoint is specifically for localizing component definitions. Ensure that the specified `localeId` is a valid **secondary locale** for the site otherwise the request will fail.
+        </Note>
+
+
+        Required scope | `components:write`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+        component_id:
+          type: string
+          docs: Unique identifier for a Component
+      display-name: Update Component Content
+      request:
+        name: ComponentDomWrite
+        query-parameters:
+          localeId:
+            type: optional<string>
+            docs: >-
+              Unique identifier for a specific locale. Applicable, when using
+              localization.
+        body:
+          properties:
+            nodes:
+              docs: >-
+                List of DOM Nodes with the new content that will be updated in
+                each node.
+              type: list<ComponentDomWriteNodesItem>
+        content-type: application/json
+      response:
+        docs: Request was successful
+        type: ComponentsUpdateContentResponse
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.ForbiddenError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+            component_id: 8505ba55-ef72-629e-f85c-33e4b703d48b
+          query-parameters:
+            localeId: 65427cf400e02b306eaa04a0
+          request:
+            nodes:
+              - nodeId: a245c12d-995b-55ee-5ec7-aa36a6cad623
+                text: <h1>The Hitchhiker's Guide to the Galaxy</h1>
+              - nodeId: a245c12d-995b-55ee-5ec7-aa36a6cad627
+                text: >-
+                  <div><h3>Don't Panic!</h3><p>Always know where your towel
+                  is.</p></div>
+              - nodeId: a245c12d-995b-55ee-5ec7-aa36a6cad629
+                propertyOverrides:
+                  - propertyId: 7dd14c08-2e96-8d3d-2b19-b5c03642a0f0
+                    text: <div><h1>Time is an <em>illusion</em></h1></div>
+                  - propertyId: 7dd14c08-2e96-8d3d-2b19-b5c03642a0f1
+                    text: Life, the Universe and Everything
+          response:
+            body:
+              errors:
+                - errors
+    get-properties:
+      path: /sites/{site_id}/components/{component_id}/properties
+      method: GET
+      auth: true
+      docs: >
+        Get the property default values of a component definition.
+
+
+        <Note>If you do not provide a Locale ID in your request, the response
+        will return any properties that can be localized from the Primary
+        locale.</Note>
+
+
+        Required scope | `components:read`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+        component_id:
+          type: string
+          docs: Unique identifier for a Component
+      display-name: Get Component Properties
+      request:
+        name: ComponentsGetPropertiesRequest
+        query-parameters:
+          localeId:
+            type: optional<string>
+            docs: >-
+              Unique identifier for a specific locale. Applicable, when using
+              localization.
+          limit:
+            type: optional<double>
+            docs: 'Maximum number of records to be returned (max limit: 100)'
+          offset:
+            type: optional<double>
+            docs: >-
+              Offset used for pagination if the results have more than limit
+              records
+      response:
+        docs: Request was successful
+        type: root.ComponentProperties
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+            component_id: 8505ba55-ef72-629e-f85c-33e4b703d48b
+          query-parameters:
+            localeId: 65427cf400e02b306eaa04a0
+          response:
+            body:
+              componentId: 658205daa3e8206a523b5ad4
+              properties:
+                - propertyId: a245c12d-995b-55ee-5ec7-aa36a6cad623
+                  type: Plain Text
+                  label: Title
+                - propertyId: a245c12d-995b-55ee-5ec7-aa36a6cad627
+                  type: Rich Text
+                  label: Content
+              pagination:
+                limit: 2
+                offset: 0
+                total: 2
+    update-properties:
+      path: /sites/{site_id}/components/{component_id}/properties
+      method: POST
+      auth: true
+      docs: >
+        Update the property default values of a component definition in a
+        specificed locale.
+
+
+        Before making updates:
+
+        1. Use the [get component
+        properties](/data/reference/pages-and-components/components/get-properties)
+        endpoint to identify available properties
+
+
+        <Note>The request requires a secondary locale ID. If a locale is
+        missing, the request will not be processed and will result in an
+        error.</Note>
+
+
+        Required scope | `components:write`
+      source:
+        openapi: ../../../referenced-specs/v2.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+        component_id:
+          type: string
+          docs: Unique identifier for a Component
+      display-name: Update Component Properties
+      request:
+        name: ComponentPropertiesWrite
+        query-parameters:
+          localeId:
+            type: optional<string>
+            docs: >-
+              Unique identifier for a specific locale. Applicable, when using
+              localization.
+        body:
+          properties:
+            properties:
+              docs: >-
+                A list of component properties to update within the specified
+                secondary locale.
+              type: list<ComponentPropertiesWritePropertiesItem>
+        content-type: application/json
+      response:
+        docs: Request was successful
+        type: ComponentsUpdatePropertiesResponse
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+            component_id: 8505ba55-ef72-629e-f85c-33e4b703d48b
+          query-parameters:
+            localeId: 65427cf400e02b306eaa04a0
+          request:
+            properties:
+              - propertyId: a245c12d-995b-55ee-5ec7-aa36a6cad623
+                text: The Hitchhiker’s Guide to the Galaxy
+              - propertyId: a245c12d-995b-55ee-5ec7-aa36a6cad627
+                text: >-
+                  <div><h3>Dont Panic!</h3><p>Always know where your towel
+                  is.</p></div>
+          response:
+            body:
+              errors:
+                - errors
+  source:
+    openapi: ../../../referenced-specs/v2.yml
+types:
+  ComponentDomWriteNodesItem:
+    discriminated: false
+    union:
+      - root.TextNodeWrite
+      - root.ComponentInstanceNodePropertyOverridesWrite
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+    inline: true
+  ComponentsUpdateContentResponse:
+    properties:
+      errors:
+        docs: A list of error messages, if any.
+        type: list<string>
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+  ComponentPropertiesWritePropertiesItem:
+    properties:
+      propertyId:
+        type: string
+        docs: The ID of the property.
+      text:
+        type: string
+        docs: >
+          The new string or HTML value used to update the component property in
+          the secondary locale.
+
+
+          The provided value must be compatible with the type of the component
+          property.
+
+
+          For example, attempting to update a single-line plain-text property
+          with a multi-line 
+
+          value will result in an error.
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+    inline: true
+  ComponentsUpdatePropertiesResponse:
+    properties:
+      errors:
+        docs: A list of error messages, if any.
+        type: list<string>
+    source:
+      openapi: ../../../referenced-specs/v2.yml
