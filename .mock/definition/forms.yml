@@ -13,7 +13,7 @@ service:
 
         Required scope | `forms:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         site_id:
           type: string
@@ -99,7 +99,7 @@ service:
 
         Required scope | `forms:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         form_id:
           type: string
@@ -155,7 +155,7 @@ service:
 
         Required scope | `forms:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         form_id:
           type: string
@@ -217,7 +217,7 @@ service:
 
         Required scope | `forms:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         form_submission_id:
           type: string
@@ -255,7 +255,7 @@ service:
 
         Required scope | `forms:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         form_submission_id:
           type: string
@@ -297,5 +297,5 @@ service:
                 First Name: Arthur
                 Last Name: Dent
   source:
-    openapi: ../../../referenced-specs/v2.yml
+    openapi: ../../../openapi/referenced-specs/v2.yml
   display-name: Forms
