@@ -5,24 +5,33 @@
 import * as serializers from "../index";
 import * as Webflow from "../../api/index";
 import * as core from "../../core";
-import { NodeType } from "./NodeType";
 import { TextNode } from "./TextNode";
 import { ImageNode } from "./ImageNode";
+import { ComponentNode } from "./ComponentNode";
 
-export const Node: core.serialization.ObjectSchema<serializers.Node.Raw, Webflow.Node> = core.serialization.object({
-    id: core.serialization.string().optional(),
-    type: NodeType.optional(),
-    text: TextNode.optional(),
-    image: ImageNode.optional(),
-    attributes: core.serialization.record(core.serialization.string(), core.serialization.string()).optional(),
-});
+export const Node: core.serialization.Schema<serializers.Node.Raw, Webflow.Node> = core.serialization
+    .union("type", {
+        text: TextNode,
+        image: ImageNode,
+        "component-instance": ComponentNode,
+    })
+    .transform<Webflow.Node>({
+        transform: (value) => value,
+        untransform: (value) => value,
+    });
 
 export declare namespace Node {
-    interface Raw {
-        id?: string | null;
-        type?: NodeType.Raw | null;
-        text?: TextNode.Raw | null;
-        image?: ImageNode.Raw | null;
-        attributes?: Record<string, string> | null;
+    type Raw = Node.Text | Node.Image | Node.ComponentInstance;
+
+    interface Text extends TextNode.Raw {
+        type: "text";
+    }
+
+    interface Image extends ImageNode.Raw {
+        type: "image";
+    }
+
+    interface ComponentInstance extends ComponentNode.Raw {
+        type: "component-instance";
     }
 }

@@ -7,12 +7,18 @@ import * as Webflow from "../index";
 /**
  * A generic representation of a content element within the Document Object Model (DOM). Each node has a unique identifier and a specific type that determines its content structure and attributes.
  */
-export interface Node {
-    /** Node UUID */
-    id?: string;
-    type?: Webflow.NodeType;
-    text?: Webflow.TextNode;
-    image?: Webflow.ImageNode;
-    /** The custom attributes of the node */
-    attributes?: Record<string, string>;
+export type Node = Webflow.Node.Text | Webflow.Node.Image | Webflow.Node.ComponentInstance;
+
+export declare namespace Node {
+    interface Text extends Webflow.TextNode {
+        type: "text";
+    }
+
+    interface Image extends Webflow.ImageNode {
+        type: "image";
+    }
+
+    interface ComponentInstance extends Webflow.ComponentNode {
+        type: "component-instance";
+    }
 }

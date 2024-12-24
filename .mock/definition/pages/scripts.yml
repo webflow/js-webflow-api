@@ -20,15 +20,14 @@ service:
 
         `custom_code` endpoints. 
 
-        <blockquote class="callout callout_info" theme="📘">Access to this
-        endpoint requires a bearer token from a <a
-        href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data
-        Client App</a>.</blockquote>
+
+        <Note>Access to this endpoint requires a bearer token from a [Data
+        Client App](/data/docs/getting-started-data-clients).</Note>
 
 
         Required scope | `custom_code:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         page_id:
           type: string
@@ -70,17 +69,19 @@ service:
         to a Site via the `registered_scripts` endpoints, and then applied to a
         Site or Page using the appropriate
 
-        `custom_code` endpoints. 
+        `custom_code` endpoints.
 
-        <blockquote class="callout callout_info" theme="📘">Access to this
-        endpoint requires a bearer token from a <a
-        href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data
-        Client App</a>.</blockquote>
+
+        A site can have a maximum of 800 registered scripts.
+
+
+        <Note>Access to this endpoint requires a bearer token from a [Data
+        Client App](/data/docs/getting-started-data-clients).</Note>
 
 
         Required scope | `custom_code:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         page_id:
           type: string
@@ -96,6 +97,7 @@ service:
         - root.BadRequestError
         - root.UnauthorizedError
         - root.NotFoundError
+        - root.ConflictError
         - root.TooManyRequestsError
         - root.InternalServerError
       examples:
@@ -142,15 +144,14 @@ service:
 
         `custom_code` endpoints. 
 
-        <blockquote class="callout callout_info" theme="📘">Access to this
-        endpoint requires a bearer token from a <a
-        href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data
-        Client App</a>.</blockquote>
+
+        <Note>Access to this endpoint requires a bearer token from a [Data
+        Client App](/data/docs/getting-started-data-clients).</Note>
 
 
         Required scope | `custom_code:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         page_id:
           type: string
@@ -166,4 +167,4 @@ service:
         - path-parameters:
             page_id: 63c720f9347c2139b248e552
   source:
-    openapi: ../../../referenced-specs/v2.yml
+    openapi: ../../../openapi/referenced-specs/v2.yml

@@ -38,7 +38,7 @@ export class Scripts {
      * `custom_code` endpoints.
      * Additionally, Scripts can be remotely hosted, or registered as inline snippets.
      *
-     * <blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote>
+     * <Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
      *
      * Required scope | `custom_code:read`
      *
@@ -164,7 +164,7 @@ export class Scripts {
      * `custom_code` endpoints.
      * Additionally, Scripts can be remotely hosted, or registered as inline snippets.
      *
-     * <blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote>
+     * <Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
      *
      * Required scope | `custom_code:write`
      *
@@ -304,7 +304,7 @@ export class Scripts {
      * to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate
      * `custom_code` endpoints.
      *
-     * <blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote>
+     * <Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
      *
      * Required scope | `custom_code:write`
      *

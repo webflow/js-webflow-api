@@ -13,7 +13,7 @@ service:
 
         Required Scope | `authorized_user:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       display-name: Get Authorization User Info
       response:
         docs: Request was successful
@@ -35,10 +35,11 @@ service:
       docs: >
         Information about the authorization token
 
-        <Note>Access to this endpoint requires a bearer token from a []>Data
+
+        <Note>Access to this endpoint requires a bearer token from a [Data
         Client App](/data/docs/getting-started-data-clients).</Note>
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       display-name: Get Authorization Info
       response:
         docs: Request was successful
@@ -68,4 +69,4 @@ service:
                 homepage: https://webflow.com
                 displayName: My Amazing App
   source:
-    openapi: ../../../referenced-specs/v2.yml
+    openapi: ../../../openapi/referenced-specs/v2.yml

@@ -6,8 +6,11 @@ import * as environments from "./environments";
 import * as core from "./core";
 import { Token } from "./api/resources/token/client/Client";
 import { Sites } from "./api/resources/sites/client/Client";
+import { Redirects } from "./api/resources/redirects/client/Client";
+import { SitePlan } from "./api/resources/sitePlan/client/Client";
 import { Collections } from "./api/resources/collections/client/Client";
 import { Pages } from "./api/resources/pages/client/Client";
+import { Components } from "./api/resources/components/client/Client";
 import { Scripts } from "./api/resources/scripts/client/Client";
 import { Assets } from "./api/resources/assets/client/Client";
 import { Webhooks } from "./api/resources/webhooks/client/Client";
@@ -52,6 +55,18 @@ export class WebflowClient {
         return (this._sites ??= new Sites(this._options));
     }
 
+    protected _redirects: Redirects | undefined;
+
+    public get redirects(): Redirects {
+        return (this._redirects ??= new Redirects(this._options));
+    }
+
+    protected _sitePlan: SitePlan | undefined;
+
+    public get sitePlan(): SitePlan {
+        return (this._sitePlan ??= new SitePlan(this._options));
+    }
+
     protected _collections: Collections | undefined;
 
     public get collections(): Collections {
@@ -62,6 +77,12 @@ export class WebflowClient {
 
     public get pages(): Pages {
         return (this._pages ??= new Pages(this._options));
+    }
+
+    protected _components: Components | undefined;
+
+    public get components(): Components {
+        return (this._components ??= new Components(this._options));
     }
 
     protected _scripts: Scripts | undefined;
