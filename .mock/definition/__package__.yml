@@ -20,10 +20,23 @@ errors:
             OAuthForbidden: You are missing the following scopes -
             components:write
       - value:
+          key: value
+      - value:
           code: forbidden
           message: User is not authorized to perform this action
+  BadRequestError:
+    status-code: 400
+    type: unknown
+    docs: Request body was incorrectly formatted.
+    examples:
+      - value:
+          code: bad_request
+          message: 'Bad Request: Request is malformed'
       - value:
           key: value
+      - value:
+          code: validation_error
+          message: 'Validation Error: Provided ID is invalid'
   NotFoundError:
     status-code: 404
     type: Error
@@ -43,19 +56,6 @@ errors:
       - value:
           code: too_many_requests
           message: Too many requests
-  BadRequestError:
-    status-code: 400
-    type: unknown
-    docs: Request body was incorrectly formatted.
-    examples:
-      - value:
-          code: bad_request
-          message: 'Bad Request: Request is malformed'
-      - value:
-          key: value
-      - value:
-          code: validation_error
-          message: 'Validation Error: Provided ID is invalid'
   InternalServerError:
     status-code: 500
     type: Error
@@ -80,18 +80,18 @@ errors:
           code: ecommerce_not_enabled
           message: Ecommerce is not yet initialized
 types:
-  BadRequestErrorBody:
-    discriminated: false
-    union:
-      - InvalidDomain
-      - NoDomains
-    source:
-      openapi: ../../../referenced-specs/v2.yml
   ForbiddenErrorBody:
     discriminated: false
     union:
       - InvalidScopes
       - UsersNotEnabled
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+  BadRequestErrorBody:
+    discriminated: false
+    union:
+      - InvalidDomain
+      - NoDomains
     source:
       openapi: ../../../referenced-specs/v2.yml
   ConflictErrorBody:
@@ -151,6 +151,7 @@ types:
       - users_not_enabled
       - validation_error
     docs: Error code
+    inline: true
     source:
       openapi: ../../../referenced-specs/v2.yml
   ErrorDetailsItem:
@@ -281,6 +282,7 @@ types:
       - optOut
       - disabled
     docs: The type of data collection enabled for the site.
+    inline: true
     source:
       openapi: ../../../referenced-specs/v2.yml
   Site:
@@ -327,11 +329,14 @@ types:
         docs: The type of data collection enabled for the site.
     source:
       openapi: ../../../referenced-specs/v2.yml
+  InvalidScopes: unknown
+  NotEnterprisePlanWorkspace: unknown
   Sites:
     properties:
       sites: optional<list<Site>>
     source:
       openapi: ../../../referenced-specs/v2.yml
+  NotEnterprisePlanSite: unknown
   Domains:
     properties:
       customDomains: optional<list<Domain>>
@@ -339,6 +344,104 @@ types:
       openapi: ../../../referenced-specs/v2.yml
   InvalidDomain: unknown
   NoDomains: unknown
+  Redirect:
+    docs: A single redirection rule, specifying a source URL and a destination URL.
+    properties:
+      id:
+        type: optional<string>
+        docs: The ID of the specific redirect rule
+      fromUrl:
+        type: optional<string>
+        docs: The source URL path that will be redirected.
+      toUrl:
+        type: optional<string>
+        docs: The target URL path where the user or client will be redirected.
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+  Pagination:
+    docs: Pagination object
+    properties:
+      limit:
+        type: optional<double>
+        docs: The limit used for pagination
+      offset:
+        type: optional<double>
+        docs: The offset used for pagination
+      total:
+        type: optional<double>
+        docs: The total number of records
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+  Redirects:
+    docs: Site redirects response
+    properties:
+      redirects:
+        type: optional<list<Redirect>>
+        docs: List of redirects for a given site
+      pagination: optional<Pagination>
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+  SitePlanId:
+    enum:
+      - value: hosting-basic-v3
+        name: HostingBasicV3
+      - value: hosting-cms-v3
+        name: HostingCmsV3
+      - value: hosting-business-v3
+        name: HostingBusinessV3
+      - value: hosting-ecommerce-standard-v2
+        name: HostingEcommerceStandardV2
+      - value: hosting-ecommerce-plus-v2
+        name: HostingEcommercePlusV2
+      - value: hosting-ecommerce-advanced-v2
+        name: HostingEcommerceAdvancedV2
+      - value: hosting-basic-v4
+        name: HostingBasicV4
+      - value: hosting-cms-v4
+        name: HostingCmsV4
+      - value: hosting-business-v4
+        name: HostingBusinessV4
+      - value: hosting-ecommerce-standard-v3
+        name: HostingEcommerceStandardV3
+      - value: hosting-ecommerce-plus-v3
+        name: HostingEcommercePlusV3
+      - value: hosting-ecommerce-advanced-v3
+        name: HostingEcommerceAdvancedV3
+    docs: ID of the hosting plan.
+    inline: true
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+  SitePlanName:
+    enum:
+      - value: Basic Hosting
+        name: BasicHosting
+      - value: CMS Hosting
+        name: CmsHosting
+      - value: Business Hosting
+        name: BusinessHosting
+      - value: ECommerce Standard Hosting
+        name: ECommerceStandardHosting
+      - value: ECommerce Plus Hosting
+        name: ECommercePlusHosting
+      - value: ECommerce Advanced Hosting
+        name: ECommerceAdvancedHosting
+    docs: Name of the hosting plan.
+    inline: true
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+  SitePlan:
+    properties:
+      id:
+        type: optional<SitePlanId>
+        docs: ID of the hosting plan.
+      name:
+        type: optional<SitePlanName>
+        docs: Name of the hosting plan.
+      pricingInfo:
+        type: optional<string>
+        docs: URL for more information about Webflow hosting plan pricing.
+    source:
+      openapi: ../../../referenced-specs/v2.yml
   SiteActivityLogItemEvent:
     enum:
       - styles_modified
@@ -383,6 +486,7 @@ types:
       - branch_review_created
       - branch_review_approved
       - branch_review_canceled
+    inline: true
     source:
       openapi: ../../../referenced-specs/v2.yml
   SiteActivityLogItemResourceOperation:
@@ -396,6 +500,7 @@ types:
       - GROUP_CREATED
       - GROUP_DELETED
       - REORDERED
+    inline: true
     source:
       openapi: ../../../referenced-specs/v2.yml
   SiteActivityLogItemUser:
@@ -420,28 +525,12 @@ types:
       payload: optional<map<string, unknown>>
     source:
       openapi: ../../../referenced-specs/v2.yml
-  Pagination:
-    docs: Pagination object
-    properties:
-      limit:
-        type: optional<double>
-        docs: The limit used for pagination
-      offset:
-        type: optional<double>
-        docs: The offset used for pagination
-      total:
-        type: optional<double>
-        docs: The total number of records
-    source:
-      openapi: ../../../referenced-specs/v2.yml
   SiteActivityLogResponse:
     properties:
       items: optional<list<SiteActivityLogItem>>
       pagination: optional<Pagination>
     source:
       openapi: ../../../referenced-specs/v2.yml
-  InvalidScopes: unknown
-  NotEnterprisePlanSite: unknown
   CollectionListArrayItem:
     docs: A collection object
     properties:
@@ -490,6 +579,7 @@ types:
       - Color
       - ExtFileRef
     docs: Choose these appropriate field type for your collection data
+    inline: true
     source:
       openapi: ../../../referenced-specs/v2.yml
   Field:
@@ -940,17 +1030,35 @@ types:
       pagination: optional<Pagination>
     source:
       openapi: ../../../referenced-specs/v2.yml
-  TextNode:
-    docs: >
-      Represents textual content within the DOM. It contains both the raw text
-      and its HTML representation, allowing for flexibility in rendering and
-      processing. Additional attributes can be associated with the text for
-      styling or other purposes.
+  TextNodeText:
     properties:
       html: optional<string>
       text: optional<string>
     source:
       openapi: ../../../referenced-specs/v2.yml
+    inline: true
+  TextNode:
+    docs: >
+      Represents text content within the DOM. It contains both the raw text and
+      its HTML representation. Additional attributes can be associated with the
+      text for styling or other purposes.
+    properties:
+      id:
+        type: optional<string>
+        docs: Node UUID
+      text: optional<TextNodeText>
+      attributes:
+        type: optional<map<string, string>>
+        docs: The custom attributes of the node
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+  ImageNodeImage:
+    properties:
+      alt: optional<string>
+      assetId: optional<string>
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+    inline: true
   ImageNode:
     docs: >
       Represents an image within the DOM. It contains details about the image,
@@ -958,46 +1066,190 @@ types:
       identifier for fetching the actual image resource. Additional attributes
       can be associated with the image for styling or other purposes.
     properties:
-      alt: optional<string>
-      assetId: optional<string>
-    source:
-      openapi: ../../../referenced-specs/v2.yml
-  NodeType:
-    enum:
-      - text
-      - image
-    source:
-      openapi: ../../../referenced-specs/v2.yml
-  Node:
-    docs: >
-      A generic representation of a content element within the Document Object
-      Model (DOM). Each node has a unique identifier and a specific type that
-      determines its content structure and attributes.
-    properties:
       id:
         type: optional<string>
         docs: Node UUID
-      type: optional<NodeType>
-      text: optional<TextNode>
-      image: optional<ImageNode>
+      image: optional<ImageNodeImage>
       attributes:
         type: optional<map<string, string>>
         docs: The custom attributes of the node
     source:
       openapi: ../../../referenced-specs/v2.yml
+  ComponentPropertyType:
+    enum:
+      - value: Plain Text
+        name: PlainText
+      - value: Rich Text
+        name: RichText
+      - value: Alt Text
+        name: AltText
+    inline: true
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+  ComponentProperty:
+    docs: >
+      Represents a property of a component instance in the DOM. A property
+      contains a list of both the raw text and the HTML representation, allowing
+      for flexibility in rendering and processing. Additional attributes can be
+      associated with the text for styling or other purposes.
+    properties:
+      propertyId:
+        type: optional<string>
+        docs: The ID of the property.
+      type: optional<ComponentPropertyType>
+      label: optional<string>
+      text: optional<TextNode>
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+  ComponentNode:
+    docs: >
+      Represents a component instance within the DOM. It contains details about
+      the component instance, such as its type and properties.
+    properties:
+      id:
+        type: optional<string>
+        docs: Node UUID
+      componentId:
+        type: optional<string>
+        docs: Component ID
+      propertyOverrides:
+        type: optional<list<ComponentProperty>>
+        docs: List of component properties with overrides for a component instance.
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+  Node:
+    discriminant: type
+    base-properties: {}
+    docs: >
+      A generic representation of a content element within the Document Object
+      Model (DOM). Each node has a unique identifier and a specific type that
+      determines its content structure and attributes.
+    union:
+      text: TextNode
+      image: ImageNode
+      component-instance: ComponentNode
+    source:
+      openapi: ../../../referenced-specs/v2.yml
   Dom:
     docs: >
       The DOM (Document Object Model) schema represents the content structure of
-      a web page. It captures various content nodes, such as text and images,
-      along with their associated attributes. Each node has a unique identifier
-      and can be of different types like text or image. The schema also provides
-      pagination details for scenarios where the content nodes are too many to
-      be fetched in a single request.
+      a web page or component. It captures various content nodes along with
+      their associated attributes. Each node has a unique identifier and can be
+      of different types like text, image or component-instance. The schema also
+      provides pagination details for scenarios where the content nodes are too
+      many to be fetched in a single request.
     properties:
       pageId:
         type: optional<string>
         docs: Page ID
       nodes: optional<list<Node>>
+      pagination: optional<Pagination>
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+  TextNodeWrite:
+    docs: Update a text node
+    properties:
+      nodeId:
+        type: string
+        docs: Node UUID
+      text:
+        type: string
+        docs: >-
+          HTML content of the node, including the HTML tag. The HTML tags must
+          be the same as what's returned from the Get Content endpoint.
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+  ComponentInstanceNodePropertyOverridesWritePropertyOverridesItem:
+    properties:
+      propertyId:
+        type: string
+        docs: The ID of the property.
+      text:
+        type: string
+        docs: >
+          The new string or HTML value used to override the component instance
+          property value. 
+
+          The provided value must be compatible with the type of the component
+          instance property. 
+
+          For example, attempting to override a single-line plain-text property
+          with a multi-line 
+
+          value will result in an error.
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+    inline: true
+  ComponentInstanceNodePropertyOverridesWrite:
+    docs: Update text property overrides of a component instance
+    properties:
+      nodeId:
+        type: string
+        docs: Node UUID
+      propertyOverrides:
+        docs: >-
+          A list of component instance properties to override within the
+          specified secondary locale.
+        type: list<ComponentInstanceNodePropertyOverridesWritePropertyOverridesItem>
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+  Component:
+    docs: The Component object
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the Component
+      name:
+        type: optional<string>
+        docs: Component Name
+      group:
+        type: optional<string>
+        docs: The group that the component belongs to
+      description:
+        type: optional<string>
+        docs: Component Description
+      readonly:
+        type: optional<boolean>
+        docs: >-
+          Indicates whether the component is read-only. Components that cannot
+          be updated within this Site are set to readonly. Workspace Libraries
+          are a good example.
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+  ComponentList:
+    docs: List of Components on a site.
+    properties:
+      components: optional<list<Component>>
+      pagination: optional<Pagination>
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+  ComponentDom:
+    docs: >
+      The Component DOM schema represents the content structure of a component.
+      Similar to Page DOM, it captures various content nodes and their
+      associated attributes, but specifically for a component's structure. Each
+      node has a unique identifier and  can contain text, images, or nested
+      component instances.
+    properties:
+      componentId:
+        type: optional<string>
+        docs: Component ID
+      nodes: optional<list<Node>>
+      pagination: optional<Pagination>
+    source:
+      openapi: ../../../referenced-specs/v2.yml
+  ComponentProperties:
+    docs: >
+      The Component Properties schema represents a list of properties that store
+      text content. Each property has a unique identifier and can be of
+      different types like plain text or rich text. The schema also provides
+      pagination details for scenarios where there more properties than the
+      limit.
+    properties:
+      componentId:
+        type: optional<string>
+        docs: Component ID
+      properties: optional<list<ComponentProperty>>
       pagination: optional<Pagination>
     source:
       openapi: ../../../referenced-specs/v2.yml
@@ -1009,6 +1261,7 @@ types:
       Location of the script, either in the header or footer of the published
       site
     default: header
+    inline: true
     source:
       openapi: ../../../referenced-specs/v2.yml
   ScriptApply:
@@ -1131,6 +1384,7 @@ types:
       - page
       - site
     docs: Whether the Custom Code script is applied at the Site-level or Page-level
+    inline: true
     source:
       openapi: ../../../referenced-specs/v2.yml
   CustomCodeBlock:
@@ -1438,6 +1692,7 @@ types:
       - Phone
       - Number
     docs: The field type
+    inline: true
     source:
       openapi: ../../../referenced-specs/v2.yml
   FormFieldValue:
@@ -1457,6 +1712,7 @@ types:
         docs: Whether the field is visible to the user
     source:
       openapi: ../../../referenced-specs/v2.yml
+    inline: true
   FormField:
     type: map<string, FormFieldValue>
     docs: A collection of form fields with additional properties.
@@ -1589,6 +1845,7 @@ types:
       - verified
       - unverified
     docs: The status of the user
+    inline: true
     source:
       openapi: ../../../referenced-specs/v2.yml
   UserAccessGroupsItemType:
@@ -1599,6 +1856,7 @@ types:
       The type of access group based on how it was assigned to the user.
       * `admin` - Assigned to the user via API or in the designer
       * `ecommerce` - Assigned to the user via an ecommerce purchase
+    inline: true
     source:
       openapi: ../../../referenced-specs/v2.yml
   UserAccessGroupsItem:
@@ -1811,6 +2069,7 @@ types:
       - value: service-training
         name: ServiceTraining
     docs: Product tax class
+    inline: true
     source:
       openapi: ../../../referenced-specs/v2.yml
   ProductFieldDataEcProductType:
@@ -1824,6 +2083,7 @@ types:
       href="https://university.webflow.com/lesson/add-and-manage-products-and-categories?topics=ecommerce#how-to-understand-product-types">Product
       types.</a> Enums reflect the following values in order: Physical, Digital,
       Service, Advanced"
+    inline: true
     source:
       openapi: ../../../referenced-specs/v2.yml
   ProductFieldData:
@@ -1928,6 +2188,7 @@ types:
       - value: one-time
         name: OneTime
       - subscription
+    inline: true
     source:
       openapi: ../../../referenced-specs/v2.yml
   SkuFieldDataEcSkuSubscriptionPlanInterval:
@@ -1937,6 +2198,7 @@ types:
       - month
       - year
     docs: Interval of subscription renewal
+    inline: true
     source:
       openapi: ../../../referenced-specs/v2.yml
   SkuFieldDataEcSkuSubscriptionPlanPlansItemStatus:
@@ -1945,6 +2207,7 @@ types:
       - inactive
       - canceled
     docs: The status of the plan
+    inline: true
     source:
       openapi: ../../../referenced-specs/v2.yml
   SkuFieldDataEcSkuSubscriptionPlanPlansItem:
@@ -2072,6 +2335,7 @@ types:
       - shipping
       - billing
     docs: The type of the order address (billing or shipping)
+    inline: true
     source:
       openapi: ../../../referenced-specs/v2.yml
   OrderAddressJapanType:
@@ -2081,6 +2345,7 @@ types:
     docs: >-
       Represents a Japan-only address format. This field will only appear on
       orders placed from Japan.
+    inline: true
     source:
       openapi: ../../../referenced-specs/v2.yml
   OrderAddress:
@@ -2265,6 +2530,7 @@ types:
         name: DinersClub
       - Unknown
     docs: The card's brand (ie. credit card network)
+    inline: true
     source:
       openapi: ../../../referenced-specs/v2.yml
   StripeCardExpires:
@@ -2331,6 +2597,7 @@ types:
       - refunded
     docs: |
       The status of the Order
+    inline: true
     source:
       openapi: ../../../referenced-specs/v2.yml
   OrderDisputeLastStatus:
@@ -2346,6 +2613,7 @@ types:
     docs: >
       If an order was disputed by the customer, then this key will be set with
       the [dispute's status](https://stripe.com/docs/api#dispute_object-status).
+    inline: true
     source:
       openapi: ../../../referenced-specs/v2.yml
   OrderCustomerInfo:
@@ -2376,6 +2644,7 @@ types:
       - shipping
       - tax
     docs: The type of extra item this is.
+    inline: true
     source:
       openapi: ../../../referenced-specs/v2.yml
   OrderTotalsExtrasItem:
@@ -2569,6 +2838,7 @@ types:
       - infinite
       - finite
     docs: infinite or finite
+    inline: true
     source:
       openapi: ../../../referenced-specs/v2.yml
   InventoryItem:
