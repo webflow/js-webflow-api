@@ -5,20 +5,20 @@ types:
       - name
       - slug
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
   ItemsListItemsRequestSortOrder:
     enum:
       - asc
       - desc
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
   Multiple Items:
     properties:
       items:
         type: optional<list<root.CollectionItemPostSingle>>
         docs: An array of items to create
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
   ItemsCreateItemRequest:
     discriminated: false
@@ -26,7 +26,7 @@ types:
       - root.CollectionItemPostSingle
       - Multiple Items
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
   ItemsDeleteItemsRequestItemsItem:
     properties:
       id:
@@ -36,7 +36,7 @@ types:
         type: optional<list<string>>
         docs: Array of identifiers for the locales where the item will be created
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
   ItemsListItemsLiveRequestSortBy:
     enum:
@@ -44,20 +44,20 @@ types:
       - name
       - slug
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
   ItemsListItemsLiveRequestSortOrder:
     enum:
       - asc
       - desc
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
   Multiple Live Items:
     properties:
       items:
         type: optional<list<root.CollectionItem>>
         docs: List of collection items to create
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
   ItemsCreateItemLiveRequest:
     discriminated: false
@@ -65,7 +65,7 @@ types:
       - root.CollectionItem
       - Multiple Live Items
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
   ItemsDeleteItemsLiveRequestItemsItem:
     properties:
       itemId:
@@ -75,7 +75,7 @@ types:
         type: optional<list<string>>
         docs: Array of identifiers for the locales where the item will be created
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
   Single CMS Item:
     properties:
@@ -91,7 +91,7 @@ types:
           slug.
     extra-properties: true
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
   CreateBulkCollectionItemRequestBodyFieldDataItem:
     docs: A single CMS item to create
@@ -108,7 +108,7 @@ types:
           slug.
     extra-properties: true
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
   CreateBulkCollectionItemRequestBodyFieldData:
     discriminated: false
@@ -117,14 +117,14 @@ types:
       - docs: A list of CMS items to create
         type: list<CreateBulkCollectionItemRequestBodyFieldDataItem>
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
   ItemsPublishItemResponse:
     properties:
       publishedItemIds: optional<list<string>>
       errors: optional<list<string>>
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
 imports:
   root: ../__package__.yml
 service:
@@ -140,7 +140,7 @@ service:
 
         Required scope | `CMS:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -225,12 +225,12 @@ service:
 
 
         To create items across multiple locales, please use [this
-        endpoint.](/data/v2.0.0/reference/cms/collection-items/bulk-items/create-items)
+        endpoint.](/v2.0.0/data/reference/cms/collection-items/staged-items/create-items)
 
 
         Required scope | `CMS:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -311,7 +311,7 @@ service:
 
         Required scope | `CMS:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -348,7 +348,7 @@ service:
 
         Required scope | `CMS:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -519,7 +519,7 @@ service:
 
         Required scope | `CMS:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -605,13 +605,13 @@ service:
 
 
         To create items across multiple locales, [please use this
-        endpoint.](/v2.0.0/data/reference/cms/collection-items/bulk-items/create-items)
+        endpoint.](/v2.0.0/data/reference/cms/collection-items/staged-items/create-items)
 
 
 
         Required scope | `CMS:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -695,7 +695,7 @@ service:
 
         Required scope | `CMS:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -732,7 +732,7 @@ service:
 
         Required scope | `CMS:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -1013,7 +1013,7 @@ service:
 
         Required scope | `CMS:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -1170,7 +1170,7 @@ service:
 
         Required scope | `CMS:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -1225,7 +1225,7 @@ service:
 
         Required scope | `CMS:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -1263,7 +1263,7 @@ service:
 
         Required scope | `CMS:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -1315,7 +1315,7 @@ service:
 
         Required scope | `CMS:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -1373,7 +1373,7 @@ service:
 
         Required scope | `CMS:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -1413,7 +1413,7 @@ service:
 
         Required scope | `CMS:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -1465,7 +1465,7 @@ service:
 
         Required scope | `cms:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -1501,4 +1501,4 @@ service:
               errors:
                 - Staging item ID 643fd856d66b6528195ee2cf not found.
   source:
-    openapi: ../../../referenced-specs/v2.yml
+    openapi: ../../../openapi/referenced-specs/v2.yml

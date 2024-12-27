@@ -9,15 +9,16 @@ types:
       - disputed
       - unfulfilled
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
   OrdersRefundRequestReason:
     enum:
       - duplicate
       - fraudulent
       - requested
     docs: The reason for the refund
+    inline: true
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
 imports:
   root: __package__.yml
 service:
@@ -33,7 +34,7 @@ service:
 
         Required scope | `ecommerce:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         site_id:
           type: string
@@ -423,7 +424,7 @@ service:
 
         Required scope | `ecommerce:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         site_id:
           type: string
@@ -647,7 +648,7 @@ service:
 
         Required scope | `ecommerce:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         site_id:
           type: string
@@ -887,7 +888,7 @@ service:
 
         Required scope | `ecommerce:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         site_id:
           type: string
@@ -1119,7 +1120,7 @@ service:
 
         Required scope | `ecommerce:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         site_id:
           type: string
@@ -1342,7 +1343,7 @@ service:
 
         Required scope | `ecommerce:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         site_id:
           type: string
@@ -1565,5 +1566,6 @@ service:
                   url: >-
                     https://webflow.com/dashboard/download-digital-product?payload=5d93ba5e38c6b0160ab711d3;e7634a;5eb1aac72912ec06f561278c;5e9a5eba75e0ac242e1b6f63:ka2nehxy:4a1ee0a632feaab94294350087215ed89533f2f530903e3b933b638940e921aa
   source:
-    openapi: ../../../referenced-specs/v2.yml
+    openapi: ../../../openapi/referenced-specs/v2.yml
   display-name: Orders
+docs: Orders are the orders for your Webflow site.
