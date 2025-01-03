@@ -3,21 +3,21 @@
  */
 
 /**
- * - `form_submission` - Sends the [form_submission](#form_submission) event
- * - `site_publish` - Sends a [site_publish](#site_publish) event
- * - `page_created` - Send the [page_created](#page_created) event
- * - `page_metadata_updated` - Sends the [page_metadata_updated](#page_metadata_updated) event
- * - `page_deleted` - Sends the [page_deleted](#page_deleted) event
- * - `ecomm_new_order` - Sends the new [ecomm_new_order](#ecomm_new_order) event
- * - `ecomm_order_changed` - Sends the [ecomm_order_changed](#ecomm_order_changed) event
- * - `ecomm_inventory_changed` - Sends the [ecomm_inventory_changed](#ecomm_inventory_changed) event
- * - `user_account_added` - Sends the [user_account_added](#user_account_added) event
- * - `user_account_updated` - Sends the [user_account_updated](#user_account_updated) event
- * - `user_account_deleted` - Sends the [user_account_deleted](#user_account_deleted) event
- * - `collection_item_created` - Sends the [collection_item_created](#collection_item_created) event
- * - `collection_item_changed` - Sends the [collection_item_changed](#collection_item_changed) event
- * - `collection_item_deleted` - Sends the [collection_item_deleted](#collection_item_deleted) event
- * - `collection_item_unpublished` - Sends the [collection_item_unpublished](#collection_item_unpublished) event
+ * * `form_submission` - Sends the [form_submission](#form_submission) event
+ * * `site_publish` - Sends a [site_publish](#site_publish) event
+ * * `page_created` - Send the [page_created](#page_created) event
+ * * `page_metadata_updated` - Sends the [page_metadata_updated](#page_metadata_updated) event
+ * * `page_deleted` - Sends the [page_deleted](#page_deleted) event
+ * * `ecomm_new_order` - Sends the new [ecomm_new_order](#ecomm_new_order) event
+ * * `ecomm_order_changed` - Sends the [ecomm_order_changed](#ecomm_order_changed) event
+ * * `ecomm_inventory_changed` - Sends the [ecomm_inventory_changed](#ecomm_inventory_changed) event
+ * * `user_account_added` - Sends the [user_account_added](#user_account_added) event
+ * * `user_account_updated` - Sends the [user_account_updated](#user_account_updated) event
+ * * `user_account_deleted` - Sends the [user_account_deleted](#user_account_deleted) event
+ * * `collection_item_created` - Sends the [collection_item_created](#collection_item_created) event
+ * * `collection_item_changed` - Sends the [collection_item_changed](#collection_item_changed) event
+ * * `collection_item_deleted` - Sends the [collection_item_deleted](#collection_item_deleted) event
+ * * `collection_item_unpublished` - Sends the [collection_item_unpublished](#collection_item_unpublished) event
  */
 export type TriggerType =
     | "form_submission"

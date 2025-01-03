@@ -27,6 +27,9 @@ export declare namespace Orders {
     }
 }
 
+/**
+ * Orders are the orders for your Webflow site.
+ */
 export class Orders {
     constructor(protected readonly _options: Orders.Options) {}
 

@@ -1,2 +1,2 @@
-export * from "./DomWriteNodesItem";
+export * from "./PageDomWriteNodesItem";
 export * from "./UpdateStaticContentResponse";

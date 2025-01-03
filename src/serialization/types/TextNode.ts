@@ -5,16 +5,19 @@
 import * as serializers from "../index";
 import * as Webflow from "../../api/index";
 import * as core from "../../core";
+import { TextNodeText } from "./TextNodeText";
 
 export const TextNode: core.serialization.ObjectSchema<serializers.TextNode.Raw, Webflow.TextNode> =
     core.serialization.object({
-        html: core.serialization.string().optional(),
-        text: core.serialization.string().optional(),
+        id: core.serialization.string().optional(),
+        text: TextNodeText.optional(),
+        attributes: core.serialization.record(core.serialization.string(), core.serialization.string()).optional(),
     });
 
 export declare namespace TextNode {
     interface Raw {
-        html?: string | null;
-        text?: string | null;
+        id?: string | null;
+        text?: TextNodeText.Raw | null;
+        attributes?: Record<string, string> | null;
     }
 }

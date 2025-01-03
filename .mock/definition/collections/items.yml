@@ -5,20 +5,20 @@ types:
       - name
       - slug
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
   ItemsListItemsRequestSortOrder:
     enum:
       - asc
       - desc
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
   Multiple Items:
     properties:
       items:
         type: optional<list<root.CollectionItemPostSingle>>
         docs: An array of items to create
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
   ItemsCreateItemRequest:
     discriminated: false
@@ -26,7 +26,7 @@ types:
       - root.CollectionItemPostSingle
       - Multiple Items
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
   ItemsDeleteItemsRequestItemsItem:
     properties:
       id:
@@ -36,7 +36,7 @@ types:
         type: optional<list<string>>
         docs: Array of identifiers for the locales where the item will be created
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
   ItemsListItemsLiveRequestSortBy:
     enum:
@@ -44,20 +44,20 @@ types:
       - name
       - slug
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
   ItemsListItemsLiveRequestSortOrder:
     enum:
       - asc
       - desc
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
   Multiple Live Items:
     properties:
       items:
         type: optional<list<root.CollectionItem>>
         docs: List of collection items to create
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
   ItemsCreateItemLiveRequest:
     discriminated: false
@@ -65,7 +65,7 @@ types:
       - root.CollectionItem
       - Multiple Live Items
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
   ItemsDeleteItemsLiveRequestItemsItem:
     properties:
       itemId:
@@ -75,7 +75,7 @@ types:
         type: optional<list<string>>
         docs: Array of identifiers for the locales where the item will be created
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
   Single CMS Item:
     properties:
@@ -91,7 +91,7 @@ types:
           slug.
     extra-properties: true
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
   CreateBulkCollectionItemRequestBodyFieldDataItem:
     docs: A single CMS item to create
@@ -108,7 +108,7 @@ types:
           slug.
     extra-properties: true
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
   CreateBulkCollectionItemRequestBodyFieldData:
     discriminated: false
@@ -117,14 +117,14 @@ types:
       - docs: A list of CMS items to create
         type: list<CreateBulkCollectionItemRequestBodyFieldDataItem>
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
   ItemsPublishItemResponse:
     properties:
       publishedItemIds: optional<list<string>>
       errors: optional<list<string>>
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
 imports:
   root: ../__package__.yml
 service:
@@ -140,7 +140,7 @@ service:
 
         Required scope | `CMS:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -201,6 +201,8 @@ service:
                   fieldData:
                     name: Senior Data Analyst
                     slug: senior-data-analyst
+                    url: https://boards.greenhouse.io/webflow/jobs/26567701
+                    department: Data
                 - id: 62c880ef281c7b7b4cf9dabc
                   cmsLocaleId: 66f6e966c9e1dc700a857ca3
                   lastPublished: '2023-04-15T10:25:18.123Z'
@@ -211,6 +213,8 @@ service:
                   fieldData:
                     name: Product Manager
                     slug: product-manager
+                    url: https://boards.greenhouse.io/webflow/jobs/31234567
+                    department: Product
               pagination:
                 limit: 25
                 offset: 0
@@ -225,12 +229,12 @@ service:
 
 
         To create items across multiple locales, please use [this
-        endpoint.](/data/v2.0.0/reference/cms/collection-items/bulk-items/create-items)
+        endpoint.](/v2.0.0/data/reference/cms/collection-items/staged-items/create-items)
 
 
         Required scope | `CMS:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -258,6 +262,9 @@ service:
             fieldData:
               name: Pan Galactic Gargle Blaster Recipe
               slug: pan-galactic-gargle-blaster
+              date: '2022-11-18T00:00:00.000Z'
+              featured: true
+              color: '#db4b68'
           response:
             body:
               id: 42b720ef280c7a7a3be8cabe
@@ -270,6 +277,9 @@ service:
               fieldData:
                 name: Pan Galactic Gargle Blaster Recipe
                 slug: pan-galactic-gargle-blaster
+                color: '#db4b68'
+                date: '2022-11-18T00:00:00.000Z'
+                featured: true
         - name: MultipleItems
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
@@ -280,11 +290,15 @@ service:
                 fieldData:
                   name: Senior Data Analyst
                   slug: senior-data-analyst
+                  url: https://boards.greenhouse.io/webflow/jobs/26567701
+                  department: Data
               - isArchived: false
                 isDraft: false
                 fieldData:
                   name: Product Manager
                   slug: product-manager
+                  url: https://boards.greenhouse.io/webflow/jobs/31234567
+                  department: Product
           response:
             body:
               id: id
@@ -297,6 +311,9 @@ service:
               fieldData:
                 name: My new item
                 slug: my-new-item
+                date: '2022-11-18T00:00:00.000Z'
+                featured: false
+                color: '#db4b68'
     delete-items:
       path: /collections/{collection_id}/items
       method: DELETE
@@ -311,7 +328,7 @@ service:
 
         Required scope | `CMS:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -348,7 +365,7 @@ service:
 
         Required scope | `CMS:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -380,21 +397,25 @@ service:
                 fieldData:
                   name: Ne Paniquez Pas
                   slug: ne-paniquez-pas
+                  featured: false
               - id: 66f6ed9576ddacf3149d5ea6
                 cmsLocaleId: 66f6e966c9e1dc700a857ca4
                 fieldData:
                   name: No Entrar en Pánico
                   slug: no-entrar-en-panico
+                  featured: false
               - id: 66f6ed9576ddacf3149d5eaa
                 cmsLocaleId: 66f6e966c9e1dc700a857ca5
                 fieldData:
                   name: Au Revoir et Merci pour Tous les Poissons
                   slug: au-revoir-et-merci
+                  featured: false
               - id: 66f6ed9576ddacf3149d5eaa
                 cmsLocaleId: 66f6e966c9e1dc700a857ca4
                 fieldData:
                   name: Hasta Luego y Gracias por Todo el Pescado
                   slug: hasta-luego-y-gracias
+                  featured: false
           response:
             body:
               id: id
@@ -407,6 +428,9 @@ service:
               fieldData:
                 name: My new item
                 slug: my-new-item
+                date: '2022-11-18T00:00:00.000Z'
+                featured: false
+                color: '#db4b68'
         - name: MultipleItems
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
@@ -418,12 +442,16 @@ service:
                 fieldData:
                   name: Senior Data Analyst
                   slug: senior-data-analyst
+                  url: https://boards.greenhouse.io/webflow/jobs/26567701
+                  department: Data
               - id: 580e64008c9a982ac9b8b754
                 isArchived: false
                 isDraft: false
                 fieldData:
                   name: Product Manager
                   slug: product-manager
+                  url: https://boards.greenhouse.io/webflow/jobs/31234567
+                  department: Product
           response:
             body:
               id: id
@@ -436,6 +464,9 @@ service:
               fieldData:
                 name: My new item
                 slug: my-new-item
+                date: '2022-11-18T00:00:00.000Z'
+                featured: false
+                color: '#db4b68'
         - name: Multiple items updated across multiple locales
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
@@ -446,21 +477,25 @@ service:
                 fieldData:
                   name: Ne Paniquez Pas
                   slug: ne-paniquez-pas
+                  featured: false
               - id: 66f6ed9576ddacf3149d5ea6
                 cmsLocaleId: 66f6e966c9e1dc700a857ca4
                 fieldData:
                   name: No Entrar en Pánico
                   slug: no-entrar-en-panico
+                  featured: false
               - id: 66f6ed9576ddacf3149d5eaa
                 cmsLocaleId: 66f6e966c9e1dc700a857ca5
                 fieldData:
                   name: Au Revoir et Merci pour Tous les Poissons
                   slug: au-revoir-et-merci
+                  featured: false
               - id: 66f6ed9576ddacf3149d5eaa
                 cmsLocaleId: 66f6e966c9e1dc700a857ca4
                 fieldData:
                   name: Hasta Luego y Gracias por Todo el Pescado
                   slug: hasta-luego-y-gracias
+                  featured: false
           response:
             body:
               id: id
@@ -473,6 +508,9 @@ service:
               fieldData:
                 name: My new item
                 slug: my-new-item
+                date: '2022-11-18T00:00:00.000Z'
+                featured: false
+                color: '#db4b68'
         - name: Mulitple items updated in a single locale
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
@@ -483,21 +521,25 @@ service:
                 fieldData:
                   name: Ne Paniquez Pas
                   slug: ne-paniquez-pas
+                  featured: false
               - id: 66f6ed9576ddacf3149d5ea6
                 cmsLocaleId: 66f6e966c9e1dc700a857ca4
                 fieldData:
                   name: No Entrar en Pánico
                   slug: no-entrar-en-panico
+                  featured: false
               - id: 66f6ed9576ddacf3149d5eaa
                 cmsLocaleId: 66f6e966c9e1dc700a857ca5
                 fieldData:
                   name: Au Revoir et Merci pour Tous les Poissons
                   slug: au-revoir-et-merci
+                  featured: false
               - id: 66f6ed9576ddacf3149d5eaa
                 cmsLocaleId: 66f6e966c9e1dc700a857ca4
                 fieldData:
                   name: Hasta Luego y Gracias por Todo el Pescado
                   slug: hasta-luego-y-gracias
+                  featured: false
           response:
             body:
               id: id
@@ -510,6 +552,9 @@ service:
               fieldData:
                 name: My new item
                 slug: my-new-item
+                date: '2022-11-18T00:00:00.000Z'
+                featured: false
+                color: '#db4b68'
     list-items-live:
       path: /collections/{collection_id}/items/live
       method: GET
@@ -519,7 +564,7 @@ service:
 
         Required scope | `CMS:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -580,6 +625,8 @@ service:
                   fieldData:
                     name: Senior Data Analyst
                     slug: senior-data-analyst
+                    url: https://boards.greenhouse.io/webflow/jobs/26567701
+                    department: Data
                 - id: 62c880ef281c7b7b4cf9dabc
                   cmsLocaleId: 66f6e966c9e1dc700a857ca3
                   lastPublished: '2023-04-15T10:25:18.123Z'
@@ -590,6 +637,8 @@ service:
                   fieldData:
                     name: Product Manager
                     slug: product-manager
+                    url: https://boards.greenhouse.io/webflow/jobs/31234567
+                    department: Product
               pagination:
                 limit: 25
                 offset: 0
@@ -605,13 +654,13 @@ service:
 
 
         To create items across multiple locales, [please use this
-        endpoint.](/v2.0.0/data/reference/cms/collection-items/bulk-items/create-items)
+        endpoint.](/v2.0.0/data/reference/cms/collection-items/staged-items/create-items)
 
 
 
         Required scope | `CMS:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -639,6 +688,9 @@ service:
             fieldData:
               name: Pan Galactic Gargle Blaster Recipe
               slug: pan-galactic-gargle-blaster
+              date: '2022-11-18T00:00:00.000Z'
+              featured: true
+              color: '#db4b68'
           response:
             body:
               id: 42b720ef280c7a7a3be8cabe
@@ -651,6 +703,9 @@ service:
               fieldData:
                 name: Pan Galactic Gargle Blaster Recipe
                 slug: pan-galactic-gargle-blaster
+                color: '#db4b68'
+                date: '2022-11-18T00:00:00.000Z'
+                featured: true
         - name: MultipleItems
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
@@ -661,11 +716,15 @@ service:
                 fieldData:
                   name: Senior Data Analyst
                   slug: senior-data-analyst
+                  url: https://boards.greenhouse.io/webflow/jobs/26567701
+                  department: Data
               - isArchived: false
                 isDraft: false
                 fieldData:
                   name: Product Manager
                   slug: product-manager
+                  url: https://boards.greenhouse.io/webflow/jobs/31234567
+                  department: Product
           response:
             body:
               id: 42b720ef280c7a7a3be8cabe
@@ -678,6 +737,9 @@ service:
               fieldData:
                 name: Pan Galactic Gargle Blaster Recipe
                 slug: pan-galactic-gargle-blaster
+                color: '#db4b68'
+                date: '2022-11-18T00:00:00.000Z'
+                featured: true
     delete-items-live:
       path: /collections/{collection_id}/items/live
       method: DELETE
@@ -695,7 +757,7 @@ service:
 
         Required scope | `CMS:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -732,7 +794,7 @@ service:
 
         Required scope | `CMS:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -764,21 +826,25 @@ service:
                 fieldData:
                   name: Ne Paniquez Pas
                   slug: ne-paniquez-pas
+                  featured: false
               - id: 66f6ed9576ddacf3149d5ea6
                 cmsLocaleId: 66f6e966c9e1dc700a857ca4
                 fieldData:
                   name: No Entrar en Pánico
                   slug: no-entrar-en-panico
+                  featured: false
               - id: 66f6ed9576ddacf3149d5eaa
                 cmsLocaleId: 66f6e966c9e1dc700a857ca5
                 fieldData:
                   name: Au Revoir et Merci pour Tous les Poissons
                   slug: au-revoir-et-merci
+                  featured: false
               - id: 66f6ed9576ddacf3149d5eaa
                 cmsLocaleId: 66f6e966c9e1dc700a857ca4
                 fieldData:
                   name: Hasta Luego y Gracias por Todo el Pescado
                   slug: hasta-luego-y-gracias
+                  featured: false
           response:
             body:
               items:
@@ -792,6 +858,7 @@ service:
                   fieldData:
                     name: Ne Paniquez Pas
                     slug: ne-paniquez-pas
+                    featured: false
                 - id: 66f6ed9576ddacf3149d5ea6
                   cmsLocaleId: 66f6e966c9e1dc700a857ca4
                   lastPublished: '2023-03-17T18:47:35.560Z'
@@ -802,6 +869,7 @@ service:
                   fieldData:
                     name: No Entrar en Pánico
                     slug: no-entrar-en-panico
+                    featured: false
                 - id: 66f6ed9576ddacf3149d5eaa
                   cmsLocaleId: 66f6e966c9e1dc700a857ca5
                   lastPublished: '2023-03-17T18:47:35.560Z'
@@ -812,6 +880,7 @@ service:
                   fieldData:
                     name: Au Revoir et Merci pour Tous les Poissons
                     slug: au-revoir-et-merci
+                    featured: false
                 - id: 66f6ed9576ddacf3149d5eaa
                   cmsLocaleId: 66f6e966c9e1dc700a857ca4
                   lastPublished: '2023-03-17T18:47:35.560Z'
@@ -822,6 +891,7 @@ service:
                   fieldData:
                     name: Hasta Luego y Gracias por Todo el Pescado
                     slug: hasta-luego-y-gracias
+                    featured: false
         - name: MultipleItems
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
@@ -833,12 +903,16 @@ service:
                 fieldData:
                   name: Senior Data Analyst
                   slug: senior-data-analyst
+                  url: https://boards.greenhouse.io/webflow/jobs/26567701
+                  department: Data
               - id: 580e64008c9a982ac9b8b754
                 isArchived: false
                 isDraft: false
                 fieldData:
                   name: Product Manager
                   slug: product-manager
+                  url: https://boards.greenhouse.io/webflow/jobs/31234567
+                  department: Product
           response:
             body:
               items:
@@ -852,6 +926,7 @@ service:
                   fieldData:
                     name: Ne Paniquez Pas
                     slug: ne-paniquez-pas
+                    featured: false
                 - id: 66f6ed9576ddacf3149d5ea6
                   cmsLocaleId: 66f6e966c9e1dc700a857ca4
                   lastPublished: '2023-03-17T18:47:35.560Z'
@@ -862,6 +937,7 @@ service:
                   fieldData:
                     name: No Entrar en Pánico
                     slug: no-entrar-en-panico
+                    featured: false
                 - id: 66f6ed9576ddacf3149d5eaa
                   cmsLocaleId: 66f6e966c9e1dc700a857ca5
                   lastPublished: '2023-03-17T18:47:35.560Z'
@@ -872,6 +948,7 @@ service:
                   fieldData:
                     name: Au Revoir et Merci pour Tous les Poissons
                     slug: au-revoir-et-merci
+                    featured: false
                 - id: 66f6ed9576ddacf3149d5eaa
                   cmsLocaleId: 66f6e966c9e1dc700a857ca4
                   lastPublished: '2023-03-17T18:47:35.560Z'
@@ -882,6 +959,7 @@ service:
                   fieldData:
                     name: Hasta Luego y Gracias por Todo el Pescado
                     slug: hasta-luego-y-gracias
+                    featured: false
         - name: Multiple items updated across multiple locales
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
@@ -892,21 +970,25 @@ service:
                 fieldData:
                   name: Ne Paniquez Pas
                   slug: ne-paniquez-pas
+                  featured: false
               - id: 66f6ed9576ddacf3149d5ea6
                 cmsLocaleId: 66f6e966c9e1dc700a857ca4
                 fieldData:
                   name: No Entrar en Pánico
                   slug: no-entrar-en-panico
+                  featured: false
               - id: 66f6ed9576ddacf3149d5eaa
                 cmsLocaleId: 66f6e966c9e1dc700a857ca5
                 fieldData:
                   name: Au Revoir et Merci pour Tous les Poissons
                   slug: au-revoir-et-merci
+                  featured: false
               - id: 66f6ed9576ddacf3149d5eaa
                 cmsLocaleId: 66f6e966c9e1dc700a857ca4
                 fieldData:
                   name: Hasta Luego y Gracias por Todo el Pescado
                   slug: hasta-luego-y-gracias
+                  featured: false
           response:
             body:
               items:
@@ -920,6 +1002,7 @@ service:
                   fieldData:
                     name: Ne Paniquez Pas
                     slug: ne-paniquez-pas
+                    featured: false
                 - id: 66f6ed9576ddacf3149d5ea6
                   cmsLocaleId: 66f6e966c9e1dc700a857ca4
                   lastPublished: '2023-03-17T18:47:35.560Z'
@@ -930,6 +1013,7 @@ service:
                   fieldData:
                     name: No Entrar en Pánico
                     slug: no-entrar-en-panico
+                    featured: false
                 - id: 66f6ed9576ddacf3149d5eaa
                   cmsLocaleId: 66f6e966c9e1dc700a857ca5
                   lastPublished: '2023-03-17T18:47:35.560Z'
@@ -940,6 +1024,7 @@ service:
                   fieldData:
                     name: Au Revoir et Merci pour Tous les Poissons
                     slug: au-revoir-et-merci
+                    featured: false
                 - id: 66f6ed9576ddacf3149d5eaa
                   cmsLocaleId: 66f6e966c9e1dc700a857ca4
                   lastPublished: '2023-03-17T18:47:35.560Z'
@@ -950,6 +1035,7 @@ service:
                   fieldData:
                     name: Hasta Luego y Gracias por Todo el Pescado
                     slug: hasta-luego-y-gracias
+                    featured: false
         - name: Mulitple items updated in a single locale
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
@@ -960,21 +1046,25 @@ service:
                 fieldData:
                   name: Ne Paniquez Pas
                   slug: ne-paniquez-pas
+                  featured: false
               - id: 66f6ed9576ddacf3149d5ea6
                 cmsLocaleId: 66f6e966c9e1dc700a857ca4
                 fieldData:
                   name: No Entrar en Pánico
                   slug: no-entrar-en-panico
+                  featured: false
               - id: 66f6ed9576ddacf3149d5eaa
                 cmsLocaleId: 66f6e966c9e1dc700a857ca5
                 fieldData:
                   name: Au Revoir et Merci pour Tous les Poissons
                   slug: au-revoir-et-merci
+                  featured: false
               - id: 66f6ed9576ddacf3149d5eaa
                 cmsLocaleId: 66f6e966c9e1dc700a857ca4
                 fieldData:
                   name: Hasta Luego y Gracias por Todo el Pescado
                   slug: hasta-luego-y-gracias
+                  featured: false
           response:
             body:
               items:
@@ -988,6 +1078,8 @@ service:
                   fieldData:
                     name: Senior Data Analyst
                     slug: senior-data-analyst
+                    url: https://boards.greenhouse.io/webflow/jobs/26567701
+                    department: Data
                 - id: 62c880ef281c7b7b4cf9dabc
                   cmsLocaleId: 66f6e966c9e1dc700a857ca3
                   lastPublished: '2023-04-15T10:25:18.123Z'
@@ -998,6 +1090,8 @@ service:
                   fieldData:
                     name: Product Manager
                     slug: product-manager
+                    url: https://boards.greenhouse.io/webflow/jobs/31234567
+                    department: Product
     create-items:
       path: /collections/{collection_id}/items/bulk
       method: POST
@@ -1013,7 +1107,7 @@ service:
 
         Required scope | `CMS:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -1076,6 +1170,9 @@ service:
               fieldData:
                 name: My new item
                 slug: my-new-item
+                date: '2022-11-18T00:00:00.000Z'
+                featured: false
+                color: '#db4b68'
         - name: Create multiple items across multipel locales
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
@@ -1105,6 +1202,9 @@ service:
               fieldData:
                 name: My new item
                 slug: my-new-item
+                date: '2022-11-18T00:00:00.000Z'
+                featured: false
+                color: '#db4b68'
         - name: Single item created across multiple locales
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
@@ -1133,6 +1233,9 @@ service:
               fieldData:
                 name: My new item
                 slug: my-new-item
+                date: '2022-11-18T00:00:00.000Z'
+                featured: false
+                color: '#db4b68'
         - name: Multiple items created across multiple locales
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
@@ -1161,6 +1264,9 @@ service:
               fieldData:
                 name: My new item
                 slug: my-new-item
+                date: '2022-11-18T00:00:00.000Z'
+                featured: false
+                color: '#db4b68'
     get-item:
       path: /collections/{collection_id}/items/{item_id}
       method: GET
@@ -1170,7 +1276,7 @@ service:
 
         Required scope | `CMS:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -1214,6 +1320,9 @@ service:
               fieldData:
                 name: Pan Galactic Gargle Blaster Recipe
                 slug: pan-galactic-gargle-blaster
+                color: '#db4b68'
+                date: '2022-11-18T00:00:00.000Z'
+                featured: true
     delete-item:
       path: /collections/{collection_id}/items/{item_id}
       method: DELETE
@@ -1225,7 +1334,7 @@ service:
 
         Required scope | `CMS:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -1263,7 +1372,7 @@ service:
 
         Required scope | `CMS:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -1294,6 +1403,9 @@ service:
             fieldData:
               name: Pan Galactic Gargle Blaster Recipe
               slug: pan-galactic-gargle-blaster
+              date: '2022-11-18T00:00:00.000Z'
+              featured: true
+              color: '#db4b68'
           response:
             body:
               id: 42b720ef280c7a7a3be8cabe
@@ -1306,6 +1418,9 @@ service:
               fieldData:
                 name: Pan Galactic Gargle Blaster Recipe
                 slug: pan-galactic-gargle-blaster
+                color: '#db4b68'
+                date: '2022-11-18T00:00:00.000Z'
+                featured: true
     get-item-live:
       path: /collections/{collection_id}/items/{item_id}/live
       method: GET
@@ -1315,7 +1430,7 @@ service:
 
         Required scope | `CMS:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -1359,6 +1474,9 @@ service:
               fieldData:
                 name: Pan Galactic Gargle Blaster Recipe
                 slug: pan-galactic-gargle-blaster
+                color: '#db4b68'
+                date: '2022-11-18T00:00:00.000Z'
+                featured: true
     delete-item-live:
       path: /collections/{collection_id}/items/{item_id}/live
       method: DELETE
@@ -1373,7 +1491,7 @@ service:
 
         Required scope | `CMS:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -1413,7 +1531,7 @@ service:
 
         Required scope | `CMS:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -1444,6 +1562,9 @@ service:
             fieldData:
               name: Pan Galactic Gargle Blaster Recipe
               slug: pan-galactic-gargle-blaster
+              date: '2022-11-18T00:00:00.000Z'
+              featured: true
+              color: '#db4b68'
           response:
             body:
               id: 42b720ef280c7a7a3be8cabe
@@ -1456,6 +1577,9 @@ service:
               fieldData:
                 name: Pan Galactic Gargle Blaster Recipe
                 slug: pan-galactic-gargle-blaster
+                color: '#db4b68'
+                date: '2022-11-18T00:00:00.000Z'
+                featured: true
     publish-item:
       path: /collections/{collection_id}/items/publish
       method: POST
@@ -1465,7 +1589,7 @@ service:
 
         Required scope | `cms:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -1501,4 +1625,4 @@ service:
               errors:
                 - Staging item ID 643fd856d66b6528195ee2cf not found.
   source:
-    openapi: ../../../referenced-specs/v2.yml
+    openapi: ../../../openapi/referenced-specs/v2.yml

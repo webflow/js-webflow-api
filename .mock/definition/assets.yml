@@ -13,7 +13,7 @@ service:
 
         Required scope | `assets:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         site_id:
           type: string
@@ -78,7 +78,7 @@ service:
          
         Required scope | `assets:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         site_id:
           type: string
@@ -150,7 +150,7 @@ service:
 
         Required scope | `assets:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         asset_id:
           type: string
@@ -198,7 +198,7 @@ service:
 
         Required Scope: `assets: write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         asset_id:
           type: string
@@ -222,7 +222,7 @@ service:
 
         Required scope | `assets:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         asset_id:
           type: string
@@ -284,7 +284,7 @@ service:
 
         Required scope | `assets:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         site_id:
           type: string
@@ -327,7 +327,7 @@ service:
 
         Required scope | `assets:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         site_id:
           type: string
@@ -380,7 +380,7 @@ service:
 
         Required scope | `assets:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         asset_folder_id:
           type: string
@@ -410,5 +410,6 @@ service:
               createdOn: '2018-10-14T21:55:49Z'
               lastUpdated: '2022-12-07T16:51:37Z'
   source:
-    openapi: ../../../referenced-specs/v2.yml
+    openapi: ../../../openapi/referenced-specs/v2.yml
   display-name: Assets
+docs: Assets are files that are uploaded to your Webflow account.
