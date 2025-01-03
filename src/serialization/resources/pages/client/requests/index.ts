@@ -1,1 +1,1 @@
-export { DomWrite } from "./DomWrite";
+export { PageDomWrite } from "./PageDomWrite";

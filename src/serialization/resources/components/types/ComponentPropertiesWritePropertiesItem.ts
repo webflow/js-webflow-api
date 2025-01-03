@@ -6,17 +6,17 @@ import * as serializers from "../../../index";
 import * as Webflow from "../../../../api/index";
 import * as core from "../../../../core";
 
-export const DomWriteNodesItem: core.serialization.ObjectSchema<
-    serializers.DomWriteNodesItem.Raw,
-    Webflow.DomWriteNodesItem
+export const ComponentPropertiesWritePropertiesItem: core.serialization.ObjectSchema<
+    serializers.ComponentPropertiesWritePropertiesItem.Raw,
+    Webflow.ComponentPropertiesWritePropertiesItem
 > = core.serialization.object({
-    nodeId: core.serialization.string(),
+    propertyId: core.serialization.string(),
     text: core.serialization.string(),
 });
 
-export declare namespace DomWriteNodesItem {
+export declare namespace ComponentPropertiesWritePropertiesItem {
     interface Raw {
-        nodeId: string;
+        propertyId: string;
         text: string;
     }
 }
