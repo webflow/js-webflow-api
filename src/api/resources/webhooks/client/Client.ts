@@ -27,6 +27,9 @@ export declare namespace Webhooks {
     }
 }
 
+/**
+ * Webhooks are the webhooks in your Webflow site.
+ */
 export class Webhooks {
     constructor(protected readonly _options: Webhooks.Options) {}
 
@@ -152,7 +155,7 @@ export class Webhooks {
      *
      * Limit of 75 registrations per `triggerType`, per site.
      *
-     * <blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote>
+     * <Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
      * Required scope | `sites:write`
      *
      * @param {string} siteId - Unique identifier for a Site

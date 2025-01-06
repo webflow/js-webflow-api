@@ -37,7 +37,7 @@ export class Scripts {
      * to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate
      * `custom_code` endpoints.
      *
-     * <blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote>
+     * <Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
      *
      * Required scope | `custom_code:read`
      *
@@ -163,7 +163,9 @@ export class Scripts {
      * to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate
      * `custom_code` endpoints.
      *
-     * <blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote>
+     * A site can have a maximum of 800 registered scripts.
+     *
+     * <Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
      *
      * Required scope | `custom_code:write`
      *
@@ -174,6 +176,7 @@ export class Scripts {
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
+     * @throws {@link Webflow.ConflictError}
      * @throws {@link Webflow.TooManyRequestsError}
      * @throws {@link Webflow.InternalServerError}
      *
@@ -259,6 +262,8 @@ export class Scripts {
                             breadcrumbsPrefix: ["response"],
                         })
                     );
+                case 409:
+                    throw new Webflow.ConflictError(_response.error.body);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -309,7 +314,7 @@ export class Scripts {
      * to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate
      * `custom_code` endpoints.
      *
-     * <blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote>
+     * <Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
      *
      * Required scope | `custom_code:write`
      *

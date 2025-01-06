@@ -5,7 +5,7 @@
 import * as Webflow from "../index";
 
 /**
- * Contains content-specific details for a product, covering both standard (e.g., title, description) and custom fields tailored to the product setup.
+ * Contains content-specific details for a product, covering both standard (e.g., title, description)  and custom fields tailored to the product setup.
  */
 export interface ProductFieldData {
     /** Name of the Product */
