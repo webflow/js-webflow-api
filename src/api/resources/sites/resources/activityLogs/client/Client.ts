@@ -31,7 +31,7 @@ export class ActivityLogs {
     constructor(protected readonly _options: ActivityLogs.Options) {}
 
     /**
-     * Retrieve Activity Logs for a specific Site. Requires Site to be on an Enterprise plan. </br></br> Required scope | `site_activity:read`
+     * Retrieve Activity Logs for a specific Site. Requires Site to be on an Enterprise plan. </br></br>  Required scope | `site_activity:read`
      *
      * @param {string} siteId - Unique identifier for a Site
      * @param {Webflow.sites.ActivityLogsListRequest} request

@@ -6,32 +6,32 @@
  * Choose these appropriate field type for your collection data
  */
 export type FieldType =
+    | "Color"
+    | "DateTime"
+    | "Email"
+    | "ExtFileRef"
+    | "Image"
+    | "Link"
+    | "MultiImage"
+    | "Number"
+    | "Phone"
     | "PlainText"
     | "RichText"
-    | "Image"
-    | "MultiImage"
-    | "Video"
-    | "Link"
-    | "Email"
-    | "Phone"
-    | "Number"
-    | "DateTime"
     | "Switch"
-    | "Color"
-    | "ExtFileRef";
+    | "Video";
 
 export const FieldType = {
+    Color: "Color",
+    DateTime: "DateTime",
+    Email: "Email",
+    ExtFileRef: "ExtFileRef",
+    Image: "Image",
+    Link: "Link",
+    MultiImage: "MultiImage",
+    Number: "Number",
+    Phone: "Phone",
     PlainText: "PlainText",
     RichText: "RichText",
-    Image: "Image",
-    MultiImage: "MultiImage",
-    Video: "Video",
-    Link: "Link",
-    Email: "Email",
-    Phone: "Phone",
-    Number: "Number",
-    DateTime: "DateTime",
     Switch: "Switch",
-    Color: "Color",
-    ExtFileRef: "ExtFileRef",
+    Video: "Video",
 } as const;
