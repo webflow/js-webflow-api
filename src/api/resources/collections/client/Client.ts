@@ -29,6 +29,9 @@ export declare namespace Collections {
     }
 }
 
+/**
+ * Collections are CMS collections of items.
+ */
 export class Collections {
     constructor(protected readonly _options: Collections.Options) {}
 

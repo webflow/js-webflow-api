@@ -27,6 +27,9 @@ export declare namespace Inventory {
     }
 }
 
+/**
+ * Inventory is the stock of e-commerce items in your Webflow site.
+ */
 export class Inventory {
     constructor(protected readonly _options: Inventory.Options) {}
 
@@ -164,7 +167,6 @@ export class Inventory {
      * Updates the current inventory levels for a particular SKU item.
      *
      * Updates may be given in one or two methods, absolutely or incrementally.
-     *
      * - Absolute updates are done by setting `quantity` directly.
      * - Incremental updates are by specifying the inventory delta in `updateQuantity` which is then added to the `quantity` stored on the server.
      *
