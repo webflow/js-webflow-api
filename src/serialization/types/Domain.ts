@@ -10,11 +10,13 @@ export const Domain: core.serialization.ObjectSchema<serializers.Domain.Raw, Web
     core.serialization.object({
         id: core.serialization.string(),
         url: core.serialization.string().optional(),
+        lastPublished: core.serialization.date().optional(),
     });
 
 export declare namespace Domain {
     interface Raw {
         id: string;
         url?: string | null;
+        lastPublished?: string | null;
     }
 }

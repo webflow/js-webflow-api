@@ -12,5 +12,5 @@ export interface Error_ {
     /** Link to more information */
     externalReference?: string;
     /** Array of errors */
-    details?: Webflow.ErrorDetailsItem[];
+    details?: unknown[];
 }

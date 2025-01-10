@@ -10,34 +10,36 @@ export const FieldCreateType: core.serialization.Schema<
     serializers.collections.FieldCreateType.Raw,
     Webflow.collections.FieldCreateType
 > = core.serialization.enum_([
+    "Color",
+    "DateTime",
+    "Email",
+    "ExtFileRef",
+    "File",
+    "Image",
+    "Link",
+    "MultiImage",
+    "Number",
+    "Phone",
     "PlainText",
     "RichText",
-    "Image",
-    "MultiImage",
-    "Video",
-    "Link",
-    "Email",
-    "Phone",
-    "Number",
-    "DateTime",
     "Switch",
-    "Color",
-    "File",
+    "Video",
 ]);
 
 export declare namespace FieldCreateType {
     type Raw =
+        | "Color"
+        | "DateTime"
+        | "Email"
+        | "ExtFileRef"
+        | "File"
+        | "Image"
+        | "Link"
+        | "MultiImage"
+        | "Number"
+        | "Phone"
         | "PlainText"
         | "RichText"
-        | "Image"
-        | "MultiImage"
-        | "Video"
-        | "Link"
-        | "Email"
-        | "Phone"
-        | "Number"
-        | "DateTime"
         | "Switch"
-        | "Color"
-        | "File";
+        | "Video";
 }

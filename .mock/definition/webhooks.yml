@@ -13,7 +13,7 @@ service:
 
         Required scope | `sites:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         site_id:
           type: string
@@ -75,14 +75,13 @@ service:
 
         Limit of 75 registrations per `triggerType`, per site.
 
-        <blockquote class="callout callout_info" theme="📘">Access to this
-        endpoint requires a bearer token from a <a
-        href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data
-        Client App</a>.</blockquote>    
+
+        <Note>Access to this endpoint requires a bearer token from a [Data
+        Client App](/data/docs/getting-started-data-clients).</Note>
 
         Required scope | `sites:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         site_id:
           type: string
@@ -131,7 +130,7 @@ service:
 
         Required scope: `sites:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         webhook_id:
           type: string
@@ -169,7 +168,7 @@ service:
 
         Required scope: `sites:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         webhook_id:
           type: string
@@ -185,5 +184,6 @@ service:
         - path-parameters:
             webhook_id: 580e64008c9a982ac9b8b754
   source:
-    openapi: ../../../referenced-specs/v2.yml
+    openapi: ../../../openapi/referenced-specs/v2.yml
   display-name: Webhooks
+docs: Webhooks are the webhooks in your Webflow site.
