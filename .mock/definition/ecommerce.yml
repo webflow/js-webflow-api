@@ -13,7 +13,7 @@ service:
 
         Required scope | `ecommerce:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         site_id:
           type: string
@@ -39,4 +39,4 @@ service:
               createdOn: '2018-10-04T15:21:02Z'
               defaultCurrency: USD
   source:
-    openapi: ../../../referenced-specs/v2.yml
+    openapi: ../../../openapi/referenced-specs/v2.yml

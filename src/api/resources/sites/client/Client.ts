@@ -5,9 +5,11 @@
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
 import * as Webflow from "../../../index";
-import urlJoin from "url-join";
 import * as serializers from "../../../../serialization/index";
+import urlJoin from "url-join";
 import * as errors from "../../../../errors/index";
+import { Redirects } from "../resources/redirects/client/Client";
+import { Plans } from "../resources/plans/client/Client";
 import { ActivityLogs } from "../resources/activityLogs/client/Client";
 import { Scripts } from "../resources/scripts/client/Client";
 
@@ -29,8 +31,145 @@ export declare namespace Sites {
     }
 }
 
+/**
+ * Sites are the sites in your Webflow workspace.
+ */
 export class Sites {
     constructor(protected readonly _options: Sites.Options) {}
+
+    /**
+     * Create a site. This endpoint requires an Enterprise workspace.
+     *
+     * Required scope | `workspace:write`
+     *
+     * @param {string} workspaceId - Unique identifier for a Workspace
+     * @param {Webflow.SitesCreateRequest} request
+     * @param {Sites.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Webflow.BadRequestError}
+     * @throws {@link Webflow.UnauthorizedError}
+     * @throws {@link Webflow.ForbiddenError}
+     * @throws {@link Webflow.NotFoundError}
+     * @throws {@link Webflow.TooManyRequestsError}
+     * @throws {@link Webflow.InternalServerError}
+     *
+     * @example
+     *     await client.sites.create("580e63e98c9a982ac9b8b741", {
+     *         name: "The Hitchhiker's Guide to the Galaxy"
+     *     })
+     */
+    public async create(
+        workspaceId: string,
+        request: Webflow.SitesCreateRequest,
+        requestOptions?: Sites.RequestOptions
+    ): Promise<Webflow.Site> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                `workspaces/${encodeURIComponent(workspaceId)}/sites`
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "webflow-api",
+                "X-Fern-SDK-Version": "3.1.0",
+                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.SitesCreateRequest.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+            }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.Site.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Webflow.BadRequestError(_response.error.body);
+                case 401:
+                    throw new Webflow.UnauthorizedError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 403:
+                    throw new Webflow.ForbiddenError(_response.error.body);
+                case 404:
+                    throw new Webflow.NotFoundError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 429:
+                    throw new Webflow.TooManyRequestsError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Webflow.InternalServerError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.WebflowError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.WebflowError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.WebflowTimeoutError(
+                    "Timeout exceeded when calling POST /workspaces/{workspace_id}/sites."
+                );
+            case "unknown":
+                throw new errors.WebflowError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
 
     /**
      * List of all sites the provided access token is able to access.
@@ -57,8 +196,8 @@ export class Sites {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.2",
-                "User-Agent": "webflow-api/3.0.2",
+                "X-Fern-SDK-Version": "3.1.0",
+                "User-Agent": "webflow-api/3.1.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -162,8 +301,8 @@ export class Sites {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.2",
-                "User-Agent": "webflow-api/3.0.2",
+                "X-Fern-SDK-Version": "3.1.0",
+                "User-Agent": "webflow-api/3.1.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -252,6 +391,250 @@ export class Sites {
     }
 
     /**
+     * Delete a site. This endpoint requires an Enterprise workspace.
+     *
+     * Required scope | `sites:write`
+     *
+     * @param {string} siteId - Unique identifier for a Site
+     * @param {Sites.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Webflow.BadRequestError}
+     * @throws {@link Webflow.UnauthorizedError}
+     * @throws {@link Webflow.ForbiddenError}
+     * @throws {@link Webflow.NotFoundError}
+     * @throws {@link Webflow.TooManyRequestsError}
+     * @throws {@link Webflow.InternalServerError}
+     *
+     * @example
+     *     await client.sites.delete("580e63e98c9a982ac9b8b741")
+     */
+    public async delete(siteId: string, requestOptions?: Sites.RequestOptions): Promise<void> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                `sites/${encodeURIComponent(siteId)}`
+            ),
+            method: "DELETE",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "webflow-api",
+                "X-Fern-SDK-Version": "3.1.0",
+                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return;
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Webflow.BadRequestError(_response.error.body);
+                case 401:
+                    throw new Webflow.UnauthorizedError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 403:
+                    throw new Webflow.ForbiddenError(_response.error.body);
+                case 404:
+                    throw new Webflow.NotFoundError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 429:
+                    throw new Webflow.TooManyRequestsError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Webflow.InternalServerError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.WebflowError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.WebflowError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.WebflowTimeoutError("Timeout exceeded when calling DELETE /sites/{site_id}.");
+            case "unknown":
+                throw new errors.WebflowError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Update a site. This endpoint requires an Enterprise workspace.
+     *
+     * Required scope | `sites:write`
+     *
+     * @param {string} siteId - Unique identifier for a Site
+     * @param {Webflow.SitesUpdateRequest} request
+     * @param {Sites.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Webflow.BadRequestError}
+     * @throws {@link Webflow.UnauthorizedError}
+     * @throws {@link Webflow.ForbiddenError}
+     * @throws {@link Webflow.NotFoundError}
+     * @throws {@link Webflow.TooManyRequestsError}
+     * @throws {@link Webflow.InternalServerError}
+     *
+     * @example
+     *     await client.sites.update("580e63e98c9a982ac9b8b741")
+     */
+    public async update(
+        siteId: string,
+        request: Webflow.SitesUpdateRequest = {},
+        requestOptions?: Sites.RequestOptions
+    ): Promise<Webflow.Site> {
+        const _response = await core.fetcher({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                `sites/${encodeURIComponent(siteId)}`
+            ),
+            method: "PATCH",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "webflow-api",
+                "X-Fern-SDK-Version": "3.1.0",
+                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.SitesUpdateRequest.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+            }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.Site.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Webflow.BadRequestError(_response.error.body);
+                case 401:
+                    throw new Webflow.UnauthorizedError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 403:
+                    throw new Webflow.ForbiddenError(_response.error.body);
+                case 404:
+                    throw new Webflow.NotFoundError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 429:
+                    throw new Webflow.TooManyRequestsError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Webflow.InternalServerError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.WebflowError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.WebflowError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.WebflowTimeoutError("Timeout exceeded when calling PATCH /sites/{site_id}.");
+            case "unknown":
+                throw new errors.WebflowError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
      * Get a list of all custom domains related to site.
      *
      * Required scope | `sites:read`
@@ -279,8 +662,8 @@ export class Sites {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.2",
-                "User-Agent": "webflow-api/3.0.2",
+                "X-Fern-SDK-Version": "3.1.0",
+                "User-Agent": "webflow-api/3.1.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -405,8 +788,8 @@ export class Sites {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.2",
-                "User-Agent": "webflow-api/3.0.2",
+                "X-Fern-SDK-Version": "3.1.0",
+                "User-Agent": "webflow-api/3.1.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -489,6 +872,18 @@ export class Sites {
                     message: _response.error.errorMessage,
                 });
         }
+    }
+
+    protected _redirects: Redirects | undefined;
+
+    public get redirects(): Redirects {
+        return (this._redirects ??= new Redirects(this._options));
+    }
+
+    protected _plans: Plans | undefined;
+
+    public get plans(): Plans {
+        return (this._plans ??= new Plans(this._options));
     }
 
     protected _activityLogs: ActivityLogs | undefined;

@@ -13,7 +13,7 @@ service:
 
         Required scope | `ecommerce:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -62,7 +62,7 @@ service:
 
         Required scope | `ecommerce:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -108,13 +108,15 @@ service:
               quantity: 100
               inventoryType: finite
   source:
-    openapi: ../../../referenced-specs/v2.yml
+    openapi: ../../../openapi/referenced-specs/v2.yml
   display-name: Inventory
+docs: Inventory is the stock of e-commerce items in your Webflow site.
 types:
   InventoryUpdateRequestInventoryType:
     enum:
       - infinite
       - finite
     docs: infinite or finite
+    inline: true
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml

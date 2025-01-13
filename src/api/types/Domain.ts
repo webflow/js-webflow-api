@@ -7,4 +7,6 @@ export interface Domain {
     id: string;
     /** The registered Domain name */
     url?: string;
+    /** The date the custom domain was last published to */
+    lastPublished?: Date;
 }

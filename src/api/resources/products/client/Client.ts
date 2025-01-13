@@ -78,8 +78,8 @@ export class Products {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.2",
-                "User-Agent": "webflow-api/3.0.2",
+                "X-Fern-SDK-Version": "3.1.0",
+                "User-Agent": "webflow-api/3.1.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -178,12 +178,11 @@ export class Products {
      * When you create a product, you will always create a SKU, since a Product Item must have, at minimum, a single SKU.
      *
      * To create a Product with multiple SKUs - for example a T-shirt in sizes small, medium and large:
-     *
-     * - Create parameters in `sku-properties`, also known as [product options and variants.](https://help.webflow.com/hc/en-us/articles/33961334531347-Create-product-options-and-variants).
-     * - A single `sku-property` would be `color`. Within the `color` property, list the various colors of T-shirts as an array of `enum` values: `royal-blue`, `crimson-red`, and `forrest-green`.
-     * - Once, you've created a Product and its `sku-properties` with `enum` values, Webflow will create a **default SKU**, which will automatically be a combination of the first `sku-properties` you've created.
-     * - In our example, the default SKU will be a Royal Blue T-Shirt, because our first `enum` of our Color `sku-property` is Royal Blue.
-     * - After you've created your product, you can create additional SKUs using the [Create SKU endpoint.](/data/reference/ecommerce/products-sk-us/create-sku)
+     *   - Create parameters in `sku-properties`, also known as [product options and variants.](https://help.webflow.com/hc/en-us/articles/33961334531347-Create-product-options-and-variants).
+     *   - A single `sku-property` would be `color`. Within the `color` property, list the various colors of T-shirts as an array of `enum` values: `royal-blue`, `crimson-red`, and `forrest-green`.
+     *   - Once, you've created a Product and its `sku-properties` with `enum` values, Webflow will create a **default SKU**, which will automatically be a combination of the first `sku-properties` you've created.
+     *   - In our example, the default SKU will be a Royal Blue T-Shirt, because our first `enum` of our Color `sku-property` is Royal Blue.
+     *   - After you've created your product, you can create additional SKUs using the [Create SKU endpoint.](/data/reference/ecommerce/products/create-sku)
      *
      * Upon creation, the default product type will be `Advanced`, which ensures all Product and SKU fields will be shown to users in the Designer.
      *
@@ -219,8 +218,8 @@ export class Products {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.2",
-                "User-Agent": "webflow-api/3.0.2",
+                "X-Fern-SDK-Version": "3.1.0",
+                "User-Agent": "webflow-api/3.1.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -353,8 +352,8 @@ export class Products {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.2",
-                "User-Agent": "webflow-api/3.0.2",
+                "X-Fern-SDK-Version": "3.1.0",
+                "User-Agent": "webflow-api/3.1.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -487,8 +486,8 @@ export class Products {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.2",
-                "User-Agent": "webflow-api/3.0.2",
+                "X-Fern-SDK-Version": "3.1.0",
+                "User-Agent": "webflow-api/3.1.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -628,8 +627,8 @@ export class Products {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.2",
-                "User-Agent": "webflow-api/3.0.2",
+                "X-Fern-SDK-Version": "3.1.0",
+                "User-Agent": "webflow-api/3.1.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -773,8 +772,8 @@ export class Products {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.2",
-                "User-Agent": "webflow-api/3.0.2",
+                "X-Fern-SDK-Version": "3.1.0",
+                "User-Agent": "webflow-api/3.1.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,

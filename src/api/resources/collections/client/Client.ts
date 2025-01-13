@@ -29,6 +29,9 @@ export declare namespace Collections {
     }
 }
 
+/**
+ * Collections are CMS collections of items.
+ */
 export class Collections {
     constructor(protected readonly _options: Collections.Options) {}
 
@@ -60,8 +63,8 @@ export class Collections {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.2",
-                "User-Agent": "webflow-api/3.0.2",
+                "X-Fern-SDK-Version": "3.1.0",
+                "User-Agent": "webflow-api/3.1.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -186,8 +189,8 @@ export class Collections {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.2",
-                "User-Agent": "webflow-api/3.0.2",
+                "X-Fern-SDK-Version": "3.1.0",
+                "User-Agent": "webflow-api/3.1.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -310,8 +313,8 @@ export class Collections {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.2",
-                "User-Agent": "webflow-api/3.0.2",
+                "X-Fern-SDK-Version": "3.1.0",
+                "User-Agent": "webflow-api/3.1.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -427,8 +430,8 @@ export class Collections {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.2",
-                "User-Agent": "webflow-api/3.0.2",
+                "X-Fern-SDK-Version": "3.1.0",
+                "User-Agent": "webflow-api/3.1.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,

@@ -27,6 +27,9 @@ export declare namespace Inventory {
     }
 }
 
+/**
+ * Inventory is the stock of e-commerce items in your Webflow site.
+ */
 export class Inventory {
     constructor(protected readonly _options: Inventory.Options) {}
 
@@ -65,8 +68,8 @@ export class Inventory {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.2",
-                "User-Agent": "webflow-api/3.0.2",
+                "X-Fern-SDK-Version": "3.1.0",
+                "User-Agent": "webflow-api/3.1.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -164,7 +167,6 @@ export class Inventory {
      * Updates the current inventory levels for a particular SKU item.
      *
      * Updates may be given in one or two methods, absolutely or incrementally.
-     *
      * - Absolute updates are done by setting `quantity` directly.
      * - Incremental updates are by specifying the inventory delta in `updateQuantity` which is then added to the `quantity` stored on the server.
      *
@@ -204,8 +206,8 @@ export class Inventory {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.0.2",
-                "User-Agent": "webflow-api/3.0.2",
+                "X-Fern-SDK-Version": "3.1.0",
+                "User-Agent": "webflow-api/3.1.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
