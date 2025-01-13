@@ -8,7 +8,7 @@ types:
         name: CreatedOnDescending
         docs: Sorts users in descending order based on their created date
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
 imports:
   root: __package__.yml
 service:
@@ -24,7 +24,7 @@ service:
 
         Required scope | `users:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         site_id:
           type: string
@@ -77,4 +77,4 @@ service:
                   slug: admin
                   createdOn: '2022-08-01T19:41:48Z'
   source:
-    openapi: ../../../referenced-specs/v2.yml
+    openapi: ../../../openapi/referenced-specs/v2.yml

@@ -1,22 +1,24 @@
 types:
   FieldCreateType:
     enum:
+      - Color
+      - DateTime
+      - Email
+      - ExtFileRef
+      - File
+      - Image
+      - Link
+      - MultiImage
+      - Number
+      - Phone
       - PlainText
       - RichText
-      - Image
-      - MultiImage
-      - Video
-      - Link
-      - Email
-      - Phone
-      - Number
-      - DateTime
       - Switch
-      - Color
-      - File
+      - Video
     docs: Choose these appropriate field type for your collection data
+    inline: true
     source:
-      openapi: ../../../referenced-specs/v2.yml
+      openapi: ../../../openapi/referenced-specs/v2.yml
 imports:
   root: ../__package__.yml
 service:
@@ -46,7 +48,7 @@ service:
 
         Required scope | `cms:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -106,7 +108,7 @@ service:
 
         Required scope | `cms:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -134,7 +136,7 @@ service:
 
         Required scope | `cms:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         collection_id:
           type: string
@@ -184,4 +186,4 @@ service:
               displayName: Post Body
               helpText: Add the body of your post here
   source:
-    openapi: ../../../referenced-specs/v2.yml
+    openapi: ../../../openapi/referenced-specs/v2.yml

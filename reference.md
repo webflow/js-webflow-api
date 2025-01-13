@@ -72,7 +72,8 @@ await client.token.authorizedBy();
 <dd>
 
 Information about the authorization token
-<Note>Access to this endpoint requires a bearer token from a []>Data Client App](/data/docs/getting-started-data-clients).</Note>
+
+<Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
 
 </dd>
 </dl>
@@ -116,6 +117,81 @@ await client.token.introspect();
 </details>
 
 ## Sites
+
+<details><summary><code>client.sites.<a href="/src/api/resources/sites/client/Client.ts">create</a>(workspaceId, { ...params }) -> Webflow.Site</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a site. This endpoint requires an Enterprise workspace.
+
+Required scope | `workspace:write`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.create("580e63e98c9a982ac9b8b741", {
+    name: "The Hitchhiker's Guide to the Galaxy",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**workspaceId:** `string` — Unique identifier for a Workspace
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.SitesCreateRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sites.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
 
 <details><summary><code>client.sites.<a href="/src/api/resources/sites/client/Client.ts">list</a>() -> Webflow.Sites</code></summary>
 <dl>
@@ -221,6 +297,144 @@ await client.sites.get("580e63e98c9a982ac9b8b741");
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sites.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sites.<a href="/src/api/resources/sites/client/Client.ts">delete</a>(siteId) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a site. This endpoint requires an Enterprise workspace.
+
+Required scope | `sites:write`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.delete("580e63e98c9a982ac9b8b741");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sites.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sites.<a href="/src/api/resources/sites/client/Client.ts">update</a>(siteId, { ...params }) -> Webflow.Site</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update a site. This endpoint requires an Enterprise workspace.
+
+Required scope | `sites:write`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.update("580e63e98c9a982ac9b8b741");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.SitesUpdateRequest`
 
 </dd>
 </dl>
@@ -917,9 +1131,10 @@ await client.pages.updatePageSettings("63c720f9347c2139b248e552", {
 <dl>
 <dd>
 
-Get static content from a static page.
+Get static content from a static page. This includes text nodes, image nodes and component instances.
+To retrieve the contents of components in the page use the [get component content](/data/reference/pages-and-components/components/get-content) endpoint.
 
-If you do not provide a Locale ID in your request, the response will return any content that can be localized from the Primary locale.
+<Note>If you do not provide a Locale ID in your request, the response will return any content that can be localized from the Primary locale.</Note>
 
 Required scope | `pages:read`
 
@@ -994,9 +1209,16 @@ await client.pages.getContent("63c720f9347c2139b248e552", {
 <dl>
 <dd>
 
-This endpoint allows for updating static content on a static page within a secondary locale. It is designed specifically for localized pages and can handle up to 1000 nodes per request.
+This endpoint updates content on a static page in **secondary locales**. It supports updating up to 1000 nodes in a single request.
 
-<blockquote class="callout callout_info"><p><strong>Note:</strong>This endpoint is specifically for localized pages. Ensure that the locale specified is a valid secondary locale for the site.</p></blockquote>
+Before making updates:
+
+1. Use the [get page content](/data/reference/pages-and-components/pages/get-content) endpoint to identify available content nodes and their types
+2. If the page has component instances, retrieve the component's properties that you'll override using the [get component properties](/data/reference/pages-and-components/components/get-properties) endpoint
+
+<Note>
+  This endpoint is specifically for localized pages. Ensure that the specified `localeId` is a valid **secondary locale** for the site otherwise the request will fail.
+</Note>
 
 Required scope | `pages:write`
 
@@ -1015,19 +1237,28 @@ Required scope | `pages:write`
 
 ```typescript
 await client.pages.updateStaticContent("63c720f9347c2139b248e552", {
-    localeId: "65427cf400e02b306eaa04a0",
+    localeId: "localeId",
     nodes: [
         {
             nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad623",
-            text: "<h1>The Hitchhiker\u2019s Guide to the Galaxy</h1>",
+            text: "<h1>The Hitchhiker's Guide to the Galaxy</h1>",
         },
         {
             nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad627",
-            text: "<div><h3>Don\u2019t Panic!</h3><p>Always know where your towel is.</p></div>",
+            text: "<div><h3>Don't Panic!</h3><p>Always know where your towel is.</p></div>",
         },
         {
             nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad629",
-            text: '<img alt="Marvin, the Paranoid Android" src="path/to/image/with/assetId/659595234426a9fcbad57043"/>',
+            propertyOverrides: [
+                {
+                    propertyId: "7dd14c08-2e96-8d3d-2b19-b5c03642a0f0",
+                    text: "<div><h1>Time is an <em>illusion</em></h1></div>",
+                },
+                {
+                    propertyId: "7dd14c08-2e96-8d3d-2b19-b5c03642a0f1",
+                    text: "Life, the Universe and Everything",
+                },
+            ],
         },
     ],
 });
@@ -1054,7 +1285,7 @@ await client.pages.updateStaticContent("63c720f9347c2139b248e552", {
 <dl>
 <dd>
 
-**request:** `Webflow.DomWrite`
+**request:** `Webflow.PageDomWrite`
 
 </dd>
 </dl>
@@ -1063,6 +1294,466 @@ await client.pages.updateStaticContent("63c720f9347c2139b248e552", {
 <dd>
 
 **requestOptions:** `Pages.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Components
+
+<details><summary><code>client.components.<a href="/src/api/resources/components/client/Client.ts">list</a>(siteId, { ...params }) -> Webflow.ComponentList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List of all components for a site.
+
+Required scope | `components:read`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.components.list("580e63e98c9a982ac9b8b741");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.ComponentsListRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Components.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.components.<a href="/src/api/resources/components/client/Client.ts">getContent</a>(siteId, componentId, { ...params }) -> Webflow.ComponentDom</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get static content from a component definition. This includes text nodes, image nodes and nested component instances.
+To retrieve dynamic content set by component properties, use the [get component properties](/data/reference/pages-and-components/components/get-properties) endpoint.
+
+<Note>If you do not provide a Locale ID in your request, the response will return any content that can be localized from the Primary locale.</Note>
+
+Required scope | `components:read`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.components.getContent("580e63e98c9a982ac9b8b741", "8505ba55-ef72-629e-f85c-33e4b703d48b", {
+    localeId: "65427cf400e02b306eaa04a0",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**componentId:** `string` — Unique identifier for a Component
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.ComponentsGetContentRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Components.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.components.<a href="/src/api/resources/components/client/Client.ts">updateContent</a>(siteId, componentId, { ...params }) -> Webflow.ComponentsUpdateContentResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+This endpoint updates content within a component defintion for **secondary locales**. It supports updating up to 1000 nodes in a single request.
+
+Before making updates:
+
+1. Use the [get component content](/data/reference/pages-and-components/components/get-content) endpoint to identify available content nodes and their types
+2. If your component definition has a component instance nested within it, retrieve the nested component instance's properties that you'll override using the [get component properties](/data/reference/pages-and-components/components/get-properties) endpoint
+
+<Note>
+  This endpoint is specifically for localizing component definitions. Ensure that the specified `localeId` is a valid **secondary locale** for the site otherwise the request will fail.
+</Note>
+
+Required scope | `components:write`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.components.updateContent("580e63e98c9a982ac9b8b741", "8505ba55-ef72-629e-f85c-33e4b703d48b", {
+    localeId: "65427cf400e02b306eaa04a0",
+    nodes: [
+        {
+            nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad623",
+            text: "<h1>The Hitchhiker's Guide to the Galaxy</h1>",
+        },
+        {
+            nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad627",
+            text: "<div><h3>Don't Panic!</h3><p>Always know where your towel is.</p></div>",
+        },
+        {
+            nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad629",
+            propertyOverrides: [
+                {
+                    propertyId: "7dd14c08-2e96-8d3d-2b19-b5c03642a0f0",
+                    text: "<div><h1>Time is an <em>illusion</em></h1></div>",
+                },
+                {
+                    propertyId: "7dd14c08-2e96-8d3d-2b19-b5c03642a0f1",
+                    text: "Life, the Universe and Everything",
+                },
+            ],
+        },
+    ],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**componentId:** `string` — Unique identifier for a Component
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.ComponentDomWrite`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Components.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.components.<a href="/src/api/resources/components/client/Client.ts">getProperties</a>(siteId, componentId, { ...params }) -> Webflow.ComponentProperties</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the property default values of a component definition.
+
+<Note>If you do not provide a Locale ID in your request, the response will return any properties that can be localized from the Primary locale.</Note>
+
+Required scope | `components:read`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.components.getProperties("580e63e98c9a982ac9b8b741", "8505ba55-ef72-629e-f85c-33e4b703d48b", {
+    localeId: "65427cf400e02b306eaa04a0",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**componentId:** `string` — Unique identifier for a Component
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.ComponentsGetPropertiesRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Components.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.components.<a href="/src/api/resources/components/client/Client.ts">updateProperties</a>(siteId, componentId, { ...params }) -> Webflow.ComponentsUpdatePropertiesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update the property default values of a component definition in a specificed locale.
+
+Before making updates:
+
+1. Use the [get component properties](/data/reference/pages-and-components/components/get-properties) endpoint to identify available properties
+
+<Note>The request requires a secondary locale ID. If a locale is missing, the request will not be processed and will result in an error.</Note>
+
+Required scope | `components:write`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.components.updateProperties("580e63e98c9a982ac9b8b741", "8505ba55-ef72-629e-f85c-33e4b703d48b", {
+    localeId: "65427cf400e02b306eaa04a0",
+    properties: [
+        {
+            propertyId: "a245c12d-995b-55ee-5ec7-aa36a6cad623",
+            text: "The Hitchhiker\u2019s Guide to the Galaxy",
+        },
+        {
+            propertyId: "a245c12d-995b-55ee-5ec7-aa36a6cad627",
+            text: "<div><h3>Dont Panic!</h3><p>Always know where your towel is.</p></div>",
+        },
+    ],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**componentId:** `string` — Unique identifier for a Component
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.ComponentPropertiesWrite`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Components.RequestOptions`
 
 </dd>
 </dl>
@@ -1094,7 +1785,7 @@ to a Site via the `registered_scripts` endpoints, and then applied to a Site or 
 `custom_code` endpoints.
 Additionally, Scripts can be remotely hosted, or registered as inline snippets.
 
-<blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote>
+<Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
 
 Required scope | `custom_code:read`
 
@@ -1166,7 +1857,7 @@ to a Site via the `registered_scripts` endpoints, and then applied to a Site or 
 `custom_code` endpoints.
 Additionally, Scripts can be remotely hosted, or registered as inline snippets.
 
-<blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote>
+<Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
 
 Required scope | `custom_code:write`
 
@@ -1250,7 +1941,7 @@ In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts mu
 to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate
 `custom_code` endpoints.
 
-<blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote>
+<Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
 
 Required scope | `custom_code:write`
 
@@ -1953,8 +2644,9 @@ Create a new Webhook.
 
 Limit of 75 registrations per `triggerType`, per site.
 
-<blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote>    
+<Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
 Required scope | `sites:write`
+
 </dd>
 </dl>
 </dd>
@@ -3066,7 +3758,7 @@ To create a Product with multiple SKUs - for example a T-shirt in sizes small, m
 -   A single `sku-property` would be `color`. Within the `color` property, list the various colors of T-shirts as an array of `enum` values: `royal-blue`, `crimson-red`, and `forrest-green`.
 -   Once, you've created a Product and its `sku-properties` with `enum` values, Webflow will create a **default SKU**, which will automatically be a combination of the first `sku-properties` you've created.
 -   In our example, the default SKU will be a Royal Blue T-Shirt, because our first `enum` of our Color `sku-property` is Royal Blue.
--   After you've created your product, you can create additional SKUs using the [Create SKU endpoint.](/data/reference/ecommerce/products-sk-us/create-sku)
+-   After you've created your product, you can create additional SKUs using the [Create SKU endpoint.](/data/reference/ecommerce/products/create-sku)
 
 Upon creation, the default product type will be `Advanced`, which ensures all Product and SKU fields will be shown to users in the Designer.
 
@@ -4496,7 +5188,7 @@ await client.collections.items.listItems("580e63fc8c9a982ac9b8b745");
 
 Create Item(s) in a Collection.
 
-To create items across multiple locales, please use [this endpoint.](/data/v2.0.0/reference/cms/collection-items/bulk-items/create-items)
+To create items across multiple locales, please use [this endpoint.](/v2.0.0/data/reference/cms/collection-items/staged-items/create-items)
 
 Required scope | `CMS:write`
 
@@ -4836,7 +5528,7 @@ await client.collections.items.listItemsLive("580e63fc8c9a982ac9b8b745");
 
 Create live Item(s) in a Collection. The Item(s) will be published to the live site.
 
-To create items across multiple locales, [please use this endpoint.](/v2.0.0/data/reference/cms/collection-items/bulk-items/create-items)
+To create items across multiple locales, [please use this endpoint.](/v2.0.0/data/reference/cms/collection-items/staged-items/create-items)
 
 Required scope | `CMS:write`
 
@@ -5772,7 +6464,7 @@ In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts mu
 to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate
 `custom_code` endpoints.
 
-<blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote>
+<Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
 
 Required scope | `custom_code:read`
 
@@ -5843,7 +6535,9 @@ In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts mu
 to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate
 `custom_code` endpoints.
 
-<blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote>
+A site can have a maximum of 800 registered scripts.
+
+<Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
 
 Required scope | `custom_code:write`
 
@@ -5938,7 +6632,7 @@ In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts mu
 to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate
 `custom_code` endpoints.
 
-<blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote>
+<Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
 
 Required scope | `custom_code:write`
 
@@ -5981,6 +6675,378 @@ await client.pages.scripts.deleteCustomCode("63c720f9347c2139b248e552");
 <dd>
 
 **requestOptions:** `Scripts.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Sites Redirects
+
+<details><summary><code>client.sites.redirects.<a href="/src/api/resources/sites/resources/redirects/client/Client.ts">list</a>(siteId) -> Webflow.Redirects</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Fetch a list of all URL redirect rules configured for a specific site.
+
+Use this endpoint to review, audit, or manage the redirection rules that control how traffic is rerouted on your site.
+
+Required scope: `sites:read`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.redirects.list("580e63e98c9a982ac9b8b741");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Redirects.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sites.redirects.<a href="/src/api/resources/sites/resources/redirects/client/Client.ts">create</a>(siteId, { ...params }) -> Webflow.Redirect</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Add a new URL redirection rule to a site.
+
+This endpoint allows you to define a source path (`fromUrl`) and its corresponding destination path (`toUrl`), which will dictate how traffic is rerouted on your site. This is useful for managing site changes, restructuring URLs, or handling outdated links.
+
+Required scope: `sites:write`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.redirects.create("580e63e98c9a982ac9b8b741", {
+    id: "42e1a2b7aa1a13f768a0042a",
+    fromUrl: "/mostly-harmless",
+    toUrl: "/earth",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.Redirect`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Redirects.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sites.redirects.<a href="/src/api/resources/sites/resources/redirects/client/Client.ts">delete</a>(siteId, redirectId) -> Webflow.Redirects</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Remove a URL redirection rule from a site.
+This is useful for cleaning up outdated or unnecessary redirects, ensuring that your site's routing behavior remains efficient and up-to-date.
+Required scope: `sites:write`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.redirects.delete("580e63e98c9a982ac9b8b741", "66c4cb9a20cac35ed19500e6");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**redirectId:** `string` — Unique identifier site rediect
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Redirects.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sites.redirects.<a href="/src/api/resources/sites/resources/redirects/client/Client.ts">update</a>(siteId, redirectId, { ...params }) -> Webflow.Redirect</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update a URL redirection rule from a site.
+Required scope: `sites:write`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.redirects.update("580e63e98c9a982ac9b8b741", "66c4cb9a20cac35ed19500e6", {
+    id: "42e1a2b7aa1a13f768a0042a",
+    fromUrl: "/mostly-harmless",
+    toUrl: "/earth",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**redirectId:** `string` — Unique identifier site rediect
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.Redirect`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Redirects.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Sites Plans
+
+<details><summary><code>client.sites.plans.<a href="/src/api/resources/sites/resources/plans/client/Client.ts">getSitePlan</a>(siteId) -> Webflow.SitePlan</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get site plan details for the specified Site.
+
+Required scope | `sites:read`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.plans.getSitePlan("580e63e98c9a982ac9b8b741");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Plans.RequestOptions`
 
 </dd>
 </dl>
@@ -6080,7 +7146,7 @@ await client.sites.activityLogs.list("580e63e98c9a982ac9b8b741");
 
 Get all registered scripts that have been applied to a specific Site.
 
-<blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote>
+<Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
 
 Required scope | `custom_code:read`
 
@@ -6151,7 +7217,7 @@ In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts mu
 to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate
 `custom_code` endpoints.
 
-<blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote>
+<Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
 
 Required scope | `custom_code:write`
 
@@ -6242,7 +7308,7 @@ await client.sites.scripts.upsertCustomCode("580e63e98c9a982ac9b8b741", {
 
 Delete the custom code block that an app created for a Site
 
-<blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote>
+<Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
 
 Required scope | `custom_code:write`
 
@@ -6309,7 +7375,7 @@ await client.sites.scripts.deleteCustomCode("580e63e98c9a982ac9b8b741");
 
 Get all instances of Custom Code applied to a Site or Pages.
 
-<blockquote class="callout callout_info" theme="📘">Access to this endpoint requires a bearer token from a <a href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data Client App</a>.</blockquote>
+<Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
 
 Required scope | `custom_code:read`
 
