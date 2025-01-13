@@ -8,34 +8,34 @@ import * as core from "../../core";
 
 export const FieldType: core.serialization.Schema<serializers.FieldType.Raw, Webflow.FieldType> =
     core.serialization.enum_([
+        "Color",
+        "DateTime",
+        "Email",
+        "ExtFileRef",
+        "Image",
+        "Link",
+        "MultiImage",
+        "Number",
+        "Phone",
         "PlainText",
         "RichText",
-        "Image",
-        "MultiImage",
-        "Video",
-        "Link",
-        "Email",
-        "Phone",
-        "Number",
-        "DateTime",
         "Switch",
-        "Color",
-        "ExtFileRef",
+        "Video",
     ]);
 
 export declare namespace FieldType {
     type Raw =
+        | "Color"
+        | "DateTime"
+        | "Email"
+        | "ExtFileRef"
+        | "Image"
+        | "Link"
+        | "MultiImage"
+        | "Number"
+        | "Phone"
         | "PlainText"
         | "RichText"
-        | "Image"
-        | "MultiImage"
-        | "Video"
-        | "Link"
-        | "Email"
-        | "Phone"
-        | "Number"
-        | "DateTime"
         | "Switch"
-        | "Color"
-        | "ExtFileRef";
+        | "Video";
 }

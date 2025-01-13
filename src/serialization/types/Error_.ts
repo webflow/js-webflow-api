@@ -6,14 +6,13 @@ import * as serializers from "../index";
 import * as Webflow from "../../api/index";
 import * as core from "../../core";
 import { ErrorCode } from "./ErrorCode";
-import { ErrorDetailsItem } from "./ErrorDetailsItem";
 
 export const Error_: core.serialization.ObjectSchema<serializers.Error_.Raw, Webflow.Error_> =
     core.serialization.object({
         code: ErrorCode.optional(),
         message: core.serialization.string().optional(),
         externalReference: core.serialization.string().optional(),
-        details: core.serialization.list(ErrorDetailsItem).optional(),
+        details: core.serialization.list(core.serialization.unknown()).optional(),
     });
 
 export declare namespace Error_ {
@@ -21,6 +20,6 @@ export declare namespace Error_ {
         code?: ErrorCode.Raw | null;
         message?: string | null;
         externalReference?: string | null;
-        details?: ErrorDetailsItem.Raw[] | null;
+        details?: unknown[] | null;
     }
 }

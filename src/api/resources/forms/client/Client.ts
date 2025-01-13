@@ -27,6 +27,9 @@ export declare namespace Forms {
     }
 }
 
+/**
+ * Forms are forms that are created on your Webflow site.
+ */
 export class Forms {
     constructor(protected readonly _options: Forms.Options) {}
 

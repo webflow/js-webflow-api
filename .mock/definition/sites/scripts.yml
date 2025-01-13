@@ -11,15 +11,14 @@ service:
       docs: >
         Get all registered scripts that have been applied to a specific Site. 
 
-        <blockquote class="callout callout_info" theme="📘">Access to this
-        endpoint requires a bearer token from a <a
-        href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data
-        Client App</a>.</blockquote>    
+
+        <Note>Access to this endpoint requires a bearer token from a [Data
+        Client App](/data/docs/getting-started-data-clients).</Note>    
 
 
         Required scope | `custom_code:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         site_id:
           type: string
@@ -68,15 +67,14 @@ service:
 
         `custom_code` endpoints. 
 
-        <blockquote class="callout callout_info" theme="📘">Access to this
-        endpoint requires a bearer token from a <a
-        href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data
-        Client App</a>.</blockquote>    
+
+        <Note>Access to this endpoint requires a bearer token from a [Data
+        Client App](/data/docs/getting-started-data-clients).</Note>    
 
 
         Required scope | `custom_code:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         site_id:
           type: string
@@ -130,15 +128,13 @@ service:
         Delete the custom code block that an app created for a Site
 
 
-        <blockquote class="callout callout_info" theme="📘">Access to this
-        endpoint requires a bearer token from a <a
-        href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data
-        Client App</a>.</blockquote>    
+        <Note>Access to this endpoint requires a bearer token from a [Data
+        Client App](/data/docs/getting-started-data-clients).</Note>    
 
 
         Required scope | `custom_code:write`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         site_id:
           type: string
@@ -160,15 +156,14 @@ service:
       docs: >
         Get all instances of Custom Code applied to a Site or Pages. 
 
-        <blockquote class="callout callout_info" theme="📘">Access to this
-        endpoint requires a bearer token from a <a
-        href="https://developers.webflow.com/data/docs/getting-started-data-clients">Data
-        Client App</a>.</blockquote>    
+
+        <Note>Access to this endpoint requires a bearer token from a [Data
+        Client App](/data/docs/getting-started-data-clients).</Note>    
 
 
         Required scope | `custom_code:read`
       source:
-        openapi: ../../../referenced-specs/v2.yml
+        openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
         site_id:
           type: string
@@ -225,4 +220,4 @@ service:
                 offset: 0
                 total: 1
   source:
-    openapi: ../../../referenced-specs/v2.yml
+    openapi: ../../../openapi/referenced-specs/v2.yml
