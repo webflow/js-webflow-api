@@ -615,10 +615,10 @@ types:
         type: string
         docs: Unique identifier for a Collection
       displayName:
-        type: optional<string>
+        type: string
         docs: Name given to the Collection
       singularName:
-        type: optional<string>
+        type: string
         docs: >-
           The name of one Item in Collection (e.g. ”Blog Post” if the Collection
           is called “Blog Posts”)
