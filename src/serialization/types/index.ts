@@ -45,6 +45,7 @@ export * from "./CollectionItemPostSingle";
 export * from "./CollectionItemWithIdInputFieldData";
 export * from "./CollectionItemWithIdInput";
 export * from "./CollectionItemListNoPagination";
+export * from "./Conflict";
 export * from "./BulkCollectionItemFieldData";
 export * from "./BulkCollectionItem";
 export * from "./CollectionItemPatchSingleFieldData";
