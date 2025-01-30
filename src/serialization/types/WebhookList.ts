@@ -5,18 +5,18 @@
 import * as serializers from "../index";
 import * as Webflow from "../../api/index";
 import * as core from "../../core";
-import { Pagination } from "./Pagination";
 import { Webhook } from "./Webhook";
+import { Pagination } from "./Pagination";
 
 export const WebhookList: core.serialization.ObjectSchema<serializers.WebhookList.Raw, Webflow.WebhookList> =
     core.serialization.object({
-        pagination: Pagination.optional(),
         webhooks: core.serialization.list(Webhook).optional(),
+        pagination: Pagination.optional(),
     });
 
 export declare namespace WebhookList {
     interface Raw {
-        pagination?: Pagination.Raw | null;
         webhooks?: Webhook.Raw[] | null;
+        pagination?: Pagination.Raw | null;
     }
 }

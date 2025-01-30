@@ -166,10 +166,10 @@ service:
             docs: 'Maximum number of records to be returned (max limit: 100)'
           name:
             type: optional<string>
-            docs: The name of the item(s)
+            docs: Filter by the exact name of the item(s)
           slug:
             type: optional<string>
-            docs: The slug of the item
+            docs: Filter by the exact slug of the item
           sortBy:
             type: optional<ItemsListItemsRequestSortBy>
             docs: Sort results by the provided value
@@ -322,8 +322,8 @@ service:
         Delete Items from a Collection.
 
 
-        **Note:** If the `cmsLocaleId` parameter is undefined or empty and the
-        items are localized, items will be deleted only in the primary locale.
+        <Tip title="Localization Tip">Items will only be deleted in the primary
+        locale unless a `cmsLocaleId` is included in the request.</Tip>
 
 
         Required scope | `CMS:write`
@@ -356,11 +356,14 @@ service:
       method: PATCH
       auth: true
       docs: >
-        Update a single item or multiple items (up to 100) in a Collection.
+        Update a single item or multiple items in a Collection.
 
 
-        **Note:** If the `cmsLocaleId` parameter is undefined or empty and the
-        items are localized, items will be updated only in the primary locale.
+        The limit for this endpoint is 100 items.
+
+
+        <Tip title="Localization Tip">Items will only be updated in the primary
+        locale, unless a `cmsLocaleId` is included in the request.</Tip>
 
 
         Required scope | `CMS:write`
@@ -560,7 +563,7 @@ service:
       method: GET
       auth: true
       docs: |
-        List of all live Items within a Collection.
+        List all published items in a collection.
 
         Required scope | `CMS:read`
       source:
@@ -590,10 +593,10 @@ service:
             docs: 'Maximum number of records to be returned (max limit: 100)'
           name:
             type: optional<string>
-            docs: The name of the item(s)
+            docs: Filter by the exact name of the item(s)
           slug:
             type: optional<string>
-            docs: The slug of the item
+            docs: Filter by the exact slug of the item
           sortBy:
             type: optional<ItemsListItemsLiveRequestSortBy>
             docs: Sort results by the provided value
@@ -648,8 +651,8 @@ service:
       method: POST
       auth: true
       docs: >
-        Create live Item(s) in a Collection. The Item(s) will be published to
-        the live site.
+        Create item(s) in a collection that will be immediately published to the
+        live site.
 
 
 
@@ -683,6 +686,9 @@ service:
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
           request:
+            lastPublished: '2023-03-17T18:47:35.560Z'
+            lastUpdated: '2023-03-17T18:47:35.560Z'
+            createdOn: '2023-03-17T18:47:35.560Z'
             isArchived: false
             isDraft: false
             fieldData:
@@ -711,14 +717,20 @@ service:
             collection_id: 580e63fc8c9a982ac9b8b745
           request:
             items:
-              - isArchived: false
+              - lastPublished: '2023-03-17T18:47:35.560Z'
+                lastUpdated: '2023-03-17T18:47:35.560Z'
+                createdOn: '2023-03-17T18:47:35.560Z'
+                isArchived: false
                 isDraft: false
                 fieldData:
                   name: Senior Data Analyst
                   slug: senior-data-analyst
                   url: https://boards.greenhouse.io/webflow/jobs/26567701
                   department: Data
-              - isArchived: false
+              - lastPublished: '2023-03-17T18:47:35.560Z'
+                lastUpdated: '2023-03-17T18:47:35.560Z'
+                createdOn: '2023-03-17T18:47:35.560Z'
+                isArchived: false
                 isDraft: false
                 fieldData:
                   name: Product Manager
@@ -746,13 +758,15 @@ service:
       auth: true
       docs: >
         Remove an item or multiple items (up to 100 items) from the live site.
-        Deleting published items will unpublish the items from the live site and
-        set them to draft. 
 
 
-        **Note:** If the `cmsLocaleId` parameter is undefined or empty and the
-        items are localized, items will be unpublished only in the primary
-        locale.
+        Using this endpoint to delete published item(s) will unpublish the
+        item(s) from the live site and set the item(s) `isDraft` property to
+        `true`. 
+
+
+        <Tip title="Localization Tip">Items will only be unpublished in the
+        primary locale unless a `cmsLocaleId` is included in the request.</Tip>
 
 
         Required scope | `CMS:write`
@@ -784,12 +798,12 @@ service:
       method: PATCH
       auth: true
       docs: >
-        Update a single live item or multiple live items (up to 100) in a
-        Collection
+        Update a single published item or multiple published items (up to 100)
+        in a Collection
 
 
-        **Note:** If the `cmsLocaleId` parameter is undefined or empty and the
-        items are localized, items will be updated only in the primary locale. 
+        <Tip title="Localization Tip">Items will only be updated in the primary
+        locale, unless a `cmsLocaleId` is included in the request.</Tip>
 
 
         Required scope | `CMS:write`
@@ -813,6 +827,7 @@ service:
         - root.BadRequestError
         - root.UnauthorizedError
         - root.NotFoundError
+        - root.ConflictError
         - root.TooManyRequestsError
         - root.InternalServerError
       examples:
@@ -1101,9 +1116,11 @@ service:
         corresponding locales.
 
 
-        **Notes:**
+        <Note>
           - This endpoint can create up to 100 items in a request.
-          - If the `cmsLocaleIds` parameter is undefined or empty and localization is enabled, items will only be created in the primary locale.
+          - If the `cmsLocaleIds` parameter is not included in the request, an item will only be created in the primary locale.
+        </Note>
+
 
         Required scope | `CMS:write`
       source:
@@ -1327,10 +1344,8 @@ service:
       path: /collections/{collection_id}/items/{item_id}
       method: DELETE
       auth: true
-      docs: >
-        Delete an Item from a Collection. This endpoint does not currently
-        support bulk deletion.
-
+      docs: |
+        Delete an item from a collection. 
 
         Required scope | `CMS:write`
       source:
@@ -1550,6 +1565,7 @@ service:
         - root.BadRequestError
         - root.UnauthorizedError
         - root.NotFoundError
+        - root.ConflictError
         - root.TooManyRequestsError
         - root.InternalServerError
       examples:
