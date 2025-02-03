@@ -5,6 +5,6 @@
 import * as Webflow from "../index";
 
 export interface WebhookList {
-    pagination?: Webflow.Pagination;
     webhooks?: Webflow.Webhook[];
+    pagination?: Webflow.Pagination;
 }
