@@ -33,6 +33,8 @@ export class Plans {
     /**
      * Get site plan details for the specified Site.
      *
+     * <Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
+     *
      * Required scope | `sites:read`
      *
      * @param {string} siteId - Unique identifier for a Site
@@ -58,8 +60,8 @@ export class Plans {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,

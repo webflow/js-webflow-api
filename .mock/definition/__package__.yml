@@ -67,10 +67,18 @@ errors:
   ConflictError:
     status-code: 409
     type: unknown
-    docs: Site is published to multiple domains at different times
+    docs: Collection already exists
     examples:
       - value:
+          code: duplicate_collection
+          message: Collection already exists
+      - value:
           message: '''Site is published to multiple domains at different times'
+      - value:
+          code: conflict
+          message: >-
+            Conflict: Conflict with server data: Live PATCH updates can't be
+            applied to items that have never been published
       - value:
           code: custom_code_max_registered_scripts
           message: The maximum number of registered scripts has been reached.
@@ -360,13 +368,13 @@ types:
     docs: Pagination object
     properties:
       limit:
-        type: optional<double>
+        type: double
         docs: The limit used for pagination
       offset:
-        type: optional<double>
+        type: double
         docs: The offset used for pagination
       total:
-        type: optional<double>
+        type: double
         docs: The total number of records
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
@@ -438,6 +446,31 @@ types:
       pricingInfo:
         type: optional<string>
         docs: URL for more information about Webflow hosting plan pricing.
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  RobotsRulesItem:
+    properties:
+      userAgent:
+        type: string
+        docs: The user agent the rules apply to.
+      allows:
+        type: optional<list<string>>
+        docs: List of paths allowed for this user agent.
+      disallows:
+        type: optional<list<string>>
+        docs: List of paths disallowed for this user agent.
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  Robots:
+    docs: The robots.txt file for a given site
+    properties:
+      rules:
+        type: optional<list<RobotsRulesItem>>
+        docs: List of rules for user agents.
+      sitemap:
+        type: optional<string>
+        docs: URL to the sitemap.
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   SiteActivityLogItemEvent:
@@ -561,6 +594,101 @@ types:
         docs: An array of Collections
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
+  FieldCreateZeroType:
+    enum:
+      - Color
+      - DateTime
+      - Email
+      - File
+      - Image
+      - Link
+      - MultiImage
+      - Number
+      - Phone
+      - PlainText
+      - RichText
+      - Switch
+      - Video
+    docs: Choose these appropriate field type for your collection data
+    inline: true
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  Static Field:
+    docs: >-
+      A field that returns static data from the CMS. See the [documentation for
+      a list of field types](/data/reference/field-types-item-values).
+    properties:
+      isRequired:
+        type: optional<boolean>
+        docs: define whether a field is required in a collection
+      type:
+        type: FieldCreateZeroType
+        docs: Choose these appropriate field type for your collection data
+      displayName:
+        type: string
+        docs: The name of a field
+      helpText:
+        type: optional<string>
+        docs: Additional text to help anyone filling out this field
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  FieldCreateMetadataType:
+    enum:
+      - MultiReference
+      - Reference
+    docs: Choose to reference a single item or multiple items from a collection.
+    inline: true
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  FieldCreateMetadataMetadata:
+    docs: >-
+      The collectionId for the referenced collection. Only applicable for
+      Reference and MultiReference fields.
+    properties:
+      collectionId:
+        type: string
+        docs: The unique identifier of the collection
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  Reference Field:
+    docs: |
+      A field that references item(s) in another collection.
+    properties:
+      isRequired:
+        type: optional<boolean>
+        docs: define whether a field is required in a collection
+      type:
+        type: FieldCreateMetadataType
+        docs: Choose to reference a single item or multiple items from a collection.
+      displayName:
+        type: string
+        docs: The name of a field
+      helpText:
+        type: optional<string>
+        docs: Additional text to help anyone filling out this field
+      metadata:
+        type: FieldCreateMetadataMetadata
+        docs: >-
+          The collectionId for the referenced collection. Only applicable for
+          Reference and MultiReference fields.
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  FieldCreate:
+    discriminated: false
+    docs: Details about the field of a collection
+    union:
+      - type: Static Field
+        docs: >-
+          A field that returns static data from the CMS. See the [documentation
+          for a list of field types](/data/reference/field-types-item-values).
+      - type: Reference Field
+        docs: |
+          A field that references item(s) in another collection.
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
   FieldType:
     enum:
       - Color
@@ -570,9 +698,11 @@ types:
       - Image
       - Link
       - MultiImage
+      - MultiReference
       - Number
       - Phone
       - PlainText
+      - Reference
       - RichText
       - Switch
       - Video
@@ -615,10 +745,10 @@ types:
         type: string
         docs: Unique identifier for a Collection
       displayName:
-        type: optional<string>
+        type: string
         docs: Name given to the Collection
       singularName:
-        type: optional<string>
+        type: string
         docs: >-
           The name of one Item in Collection (e.g. ”Blog Post” if the Collection
           is called “Blog Posts”)
@@ -673,13 +803,13 @@ types:
         type: optional<string>
         docs: Identifier for the locale of the CMS item
       lastPublished:
-        type: optional<string>
+        type: string
         docs: The date the item was last published
       lastUpdated:
-        type: optional<string>
+        type: string
         docs: The date the item was last updated
       createdOn:
-        type: optional<string>
+        type: string
         docs: The date the item was created
       isArchived:
         type: optional<boolean>
@@ -826,6 +956,7 @@ types:
         docs: List of Items within the collection
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
+  Conflict: unknown
   BulkCollectionItemFieldData:
     properties:
       name:
@@ -1029,6 +1160,7 @@ types:
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   TextNodeText:
+    docs: The text content of the node
     properties:
       html:
         type: optional<string>
@@ -1046,15 +1178,18 @@ types:
       text for styling or other purposes.
     properties:
       id:
-        type: optional<string>
+        type: string
         docs: Node UUID
-      text: optional<TextNodeText>
+      text:
+        type: TextNodeText
+        docs: The text content of the node
       attributes:
         type: optional<map<string, string>>
         docs: The custom attributes of the node
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   ImageNodeImage:
+    docs: The image details of the node
     properties:
       alt: optional<string>
       assetId: optional<string>
@@ -1069,15 +1204,18 @@ types:
       can be associated with the image for styling or other purposes.
     properties:
       id:
-        type: optional<string>
+        type: string
         docs: Node UUID
-      image: optional<ImageNodeImage>
+      image:
+        type: ImageNodeImage
+        docs: The image details of the node
       attributes:
         type: optional<map<string, string>>
         docs: The custom attributes of the node
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   Text:
+    docs: The text content of the node
     properties:
       html:
         type: optional<string>
@@ -1128,14 +1266,14 @@ types:
       the component instance, such as its type and properties.
     properties:
       id:
-        type: optional<string>
-        docs: Node UUID
+        type: string
+        docs: The unique identifier of the component instance node
       componentId:
-        type: optional<string>
-        docs: Component ID
+        type: string
+        docs: The unique identifier of the component
       propertyOverrides:
-        type: optional<list<ComponentProperty>>
         docs: List of component properties with overrides for a component instance.
+        type: list<ComponentProperty>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   Node:
@@ -1439,29 +1577,30 @@ types:
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   AssetVariant:
+    docs: Asset variant details
     properties:
       hostedUrl:
-        type: optional<string>
+        type: string
         docs: URL of where the asset variant is hosted
         validation:
           format: uri
       originalFileName:
-        type: optional<string>
+        type: string
         docs: Original file name of the variant
       displayName:
-        type: optional<string>
+        type: string
         docs: Display name of the variant
       format:
-        type: optional<string>
+        type: string
         docs: format of the variant
       width:
-        type: optional<integer>
+        type: integer
         docs: Width in pixels
       height:
-        type: optional<integer>
+        type: integer
         docs: Height in pixels
       quality:
-        type: optional<integer>
+        type: integer
         docs: Value between 0 and 100 representing the image quality
       error:
         type: optional<string>
@@ -1469,37 +1608,43 @@ types:
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   Asset:
+    docs: Asset details
     properties:
       id:
-        type: optional<string>
+        type: string
         docs: Unique identifier for this asset
       contentType:
-        type: optional<string>
+        type: string
         docs: File format type
       size:
-        type: optional<integer>
+        type: integer
         docs: size in bytes
       siteId:
-        type: optional<string>
+        type: string
         docs: Unique identifier for the site that hosts this asset
       hostedUrl:
-        type: optional<string>
+        type: string
         docs: Link to the asset
         validation:
           format: uri
       originalFileName:
-        type: optional<string>
+        type: string
         docs: Original file name at the time of upload
       displayName:
-        type: optional<string>
+        type: string
         docs: Display name of the asset
       lastUpdated:
-        type: optional<datetime>
+        type: datetime
         docs: Date the asset metadata was last updated
       createdOn:
-        type: optional<datetime>
+        type: datetime
         docs: Date the asset metadata was created
-      variants: optional<list<AssetVariant>>
+      variants:
+        docs: >-
+          A list of [asset
+          variants](https://help.webflow.com/hc/en-us/articles/33961378697107-Responsive-images)
+          created by Webflow to serve your site responsively.
+        type: list<AssetVariant>
       altText:
         type: optional<string>
         docs: The visual description of the asset
@@ -1509,6 +1654,7 @@ types:
     docs: A list of assets
     properties:
       assets: optional<list<Asset>>
+      pagination: optional<Pagination>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   AssetUploadUploadDetails:
@@ -1618,46 +1764,8 @@ types:
       - collection_item_deleted
       - collection_item_unpublished
     docs: >
-      * `form_submission` - Sends the [form_submission](#form_submission) event
-
-      * `site_publish` - Sends a [site_publish](#site_publish) event
-
-      * `page_created` - Send the [page_created](#page_created) event
-
-      * `page_metadata_updated` - Sends the
-      [page_metadata_updated](#page_metadata_updated) event
-
-      * `page_deleted` - Sends the [page_deleted](#page_deleted) event
-
-      * `ecomm_new_order` - Sends the new [ecomm_new_order](#ecomm_new_order)
-      event
-
-      * `ecomm_order_changed` - Sends the
-      [ecomm_order_changed](#ecomm_order_changed) event
-
-      * `ecomm_inventory_changed` - Sends the
-      [ecomm_inventory_changed](#ecomm_inventory_changed) event
-
-      * `user_account_added` - Sends the
-      [user_account_added](#user_account_added) event
-
-      * `user_account_updated` - Sends the
-      [user_account_updated](#user_account_updated) event
-
-      * `user_account_deleted` - Sends the
-      [user_account_deleted](#user_account_deleted) event
-
-      * `collection_item_created` - Sends the
-      [collection_item_created](#collection_item_created) event
-
-      * `collection_item_changed` - Sends the
-      [collection_item_changed](#collection_item_changed) event
-
-      * `collection_item_deleted` - Sends the
-      [collection_item_deleted](#collection_item_deleted) event
-
-      * `collection_item_unpublished` - Sends the
-      [collection_item_unpublished](#collection_item_unpublished) event
+      The type of event that triggered the request. See the the documentation
+      for details on [supported events](/data/reference/all-events).
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   WebhookFilter:
@@ -1701,8 +1809,8 @@ types:
       openapi: ../../../openapi/referenced-specs/v2.yml
   WebhookList:
     properties:
-      pagination: optional<Pagination>
       webhooks: optional<list<Webhook>>
+      pagination: optional<Pagination>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   FormFieldValueType:
@@ -2209,6 +2317,10 @@ types:
       - value: one-time
         name: OneTime
       - subscription
+    docs: >-
+      [Billing
+      method](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#billing-methods)for
+      the SKU
     inline: true
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
@@ -2246,6 +2358,10 @@ types:
       openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
   SkuFieldDataEcSkuSubscriptionPlan:
+    docs: >-
+      [Subscription
+      plan](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#subscription)
+      for the SKU
     properties:
       interval:
         type: optional<SkuFieldDataEcSkuSubscriptionPlanInterval>
@@ -2276,8 +2392,18 @@ types:
       compare-at-price:
         type: optional<SkuFieldDataCompareAtPrice>
         docs: comparison price of SKU
-      ec-sku-billing-method: optional<SkuFieldDataEcSkuBillingMethod>
-      ec-sku-subscription-plan: optional<SkuFieldDataEcSkuSubscriptionPlan>
+      ec-sku-billing-method:
+        type: optional<SkuFieldDataEcSkuBillingMethod>
+        docs: >-
+          [Billing
+          method](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#billing-methods)for
+          the SKU
+      ec-sku-subscription-plan:
+        type: optional<SkuFieldDataEcSkuSubscriptionPlan>
+        docs: >-
+          [Subscription
+          plan](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#subscription)
+          for the SKU
       track-inventory:
         type: optional<boolean>
         docs: >-
