@@ -6,6 +6,7 @@ import * as environments from "./environments";
 import * as core from "./core";
 import { Token } from "./api/resources/token/client/Client";
 import { Sites } from "./api/resources/sites/client/Client";
+import { RobotsTxt } from "./api/resources/robotsTxt/client/Client";
 import { Collections } from "./api/resources/collections/client/Client";
 import { Pages } from "./api/resources/pages/client/Client";
 import { Components } from "./api/resources/components/client/Client";
@@ -51,6 +52,12 @@ export class WebflowClient {
 
     public get sites(): Sites {
         return (this._sites ??= new Sites(this._options));
+    }
+
+    protected _robotsTxt: RobotsTxt | undefined;
+
+    public get robotsTxt(): RobotsTxt {
+        return (this._robotsTxt ??= new RobotsTxt(this._options));
     }
 
     protected _collections: Collections | undefined;

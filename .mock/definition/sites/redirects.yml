@@ -16,6 +16,9 @@ service:
         control how traffic is rerouted on your site.
 
 
+        <Warning title="Enterprise Only">This endpoint requires an Enterprise
+        workspace.</Warning>
+
 
         Required scope: `sites:read`
       source:
@@ -64,6 +67,10 @@ service:
         restructuring URLs, or handling outdated links.
 
 
+        <Warning title="Enterprise Only">This endpoint requires an Enterprise
+        workspace.</Warning>
+
+
         Required scope: `sites:write`
       source:
         openapi: ../../../openapi/referenced-specs/v2.yml
@@ -103,9 +110,15 @@ service:
       docs: >
         Remove a URL redirection rule from a site.
 
+
         This is useful for cleaning up outdated or unnecessary redirects,
         ensuring that your site's routing behavior remains efficient and
         up-to-date.
+
+
+        <Warning title="Enterprise Only">This endpoint requires an Enterprise
+        workspace.</Warning>
+
 
         Required scope: `sites:write`
       source:
@@ -148,8 +161,14 @@ service:
       path: /sites/{site_id}/redirects/{redirect_id}
       method: PATCH
       auth: true
-      docs: |
+      docs: >
         Update a URL redirection rule from a site.
+
+
+        <Warning title="Enterprise Only">This endpoint requires an Enterprise
+        workspace.</Warning>
+
+
         Required scope: `sites:write`
       source:
         openapi: ../../../openapi/referenced-specs/v2.yml
