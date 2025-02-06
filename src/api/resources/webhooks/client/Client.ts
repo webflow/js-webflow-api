@@ -8,7 +8,7 @@ import * as Webflow from "../../../index";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
-import RequestSignatureDetails = Webhooks.RequestSignatureDetails;
+import crypto from "crypto";
 
 export declare namespace Webhooks {
     interface Options {
@@ -51,8 +51,8 @@ export class Webhooks {
      * @example
      *     function incomingWebhookRouteHandler(req, res) {
      *       const headers = req.headers;
-     *       const body = await req.text();
-     *       const secret = getWebhookSecretFromDatabase("webhookId");
+     *       const body = JSON.stringify(req.body);
+     *       const secret = '1bcf469ab56582772f05058e050e3f159bbdf9abd7e348ce01e5430a1593927d';
      *       const isAuthenticated = await client.webhooks.verifySignature({ headers, body, secret });
      *
      *       if (isAuthenticated) {
@@ -64,11 +64,12 @@ export class Webhooks {
      *     }
      *
      */
-    public async verifySignature({ headers, body, secret }: RequestSignatureDetails): Promise<boolean> {
+    public async verifySignature({ headers, body, secret }: Webhooks.RequestSignatureDetails): Promise<boolean> {
         const createHmac = async (signingSecret: string, message: string) => {
             const encoder = new TextEncoder();
 
             // Encode the signingSecret key
+            // @ts-expect-error TS2339: Property 'subtle' does not exist on type 'typeof import("crypto")'.
             const key = await crypto.subtle.importKey(
                 "raw",
                 encoder.encode(signingSecret),
@@ -78,6 +79,7 @@ export class Webhooks {
             );
 
             // Encode the message and compute HMAC
+            // @ts-expect-error TS2339: Property 'subtle' does not exist on type 'typeof import("crypto")'.
             const signature = await crypto.subtle.sign("HMAC", key, encoder.encode(message));
 
             // Convert to hex string
