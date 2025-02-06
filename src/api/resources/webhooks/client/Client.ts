@@ -44,15 +44,15 @@ export class Webhooks {
     constructor(protected readonly _options: Webhooks.Options) {}
 
     /**
-     * Verify that the signature on the webhook response is from Webflow.
+     * Verify that the signature on the webhook message is from Webflow
+     * @link https://developers.webflow.com/data/docs/working-with-webhooks#validating-request-signatures
      *
-     * @param {Webhooks.RequestSignatureDetails.headers} requestSignatureDetails - details of the incoming webhook request.
-     *
+     * @param {Webhooks.RequestSignatureDetails.headers} requestSignatureDetails - details of the incoming webhook request
      * @example
      *     function incomingWebhookRouteHandler(req, res) {
      *       const headers = req.headers;
      *       const body = JSON.stringify(req.body);
-     *       const secret = '1bcf469ab56582772f05058e050e3f159bbdf9abd7e348ce01e5430a1593927d';
+     *       const secret = getWebhookSecret(WEBHOOK_ID);
      *       const isAuthenticated = await client.webhooks.verifySignature({ headers, body, secret });
      *
      *       if (isAuthenticated) {
@@ -65,6 +65,7 @@ export class Webhooks {
      *
      */
     public async verifySignature({ headers, body, secret }: Webhooks.RequestSignatureDetails): Promise<boolean> {
+        // Creates a HMAC signature following directions from https://developers.webflow.com/data/docs/working-with-webhooks#steps-to-validate-the-request-signature
         const createHmac = async (signingSecret: string, message: string) => {
             const encoder = new TextEncoder();
 
@@ -78,11 +79,11 @@ export class Webhooks {
                 ["sign"]
             );
 
-            // Encode the message and compute HMAC
+            // Encode the message and compute HMAC signature
             // @ts-expect-error TS2339: Property 'subtle' does not exist on type 'typeof import("crypto")'.
             const signature = await crypto.subtle.sign("HMAC", key, encoder.encode(message));
 
-            // Convert to hex string
+            // Convert signature to hex string
             return Array.from(new Uint8Array(signature))
                 .map((b) => b.toString(16).padStart(2, "0"))
                 .join("");
