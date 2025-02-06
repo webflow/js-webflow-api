@@ -32,6 +32,7 @@ export declare namespace Webhooks {
  */
 export class Webhooks {
     constructor(protected readonly _options: Webhooks.Options) {}
+
     /**
      * List all App-created Webhooks registered for a given site
      *
