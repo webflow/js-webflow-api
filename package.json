@@ -40,6 +40,6 @@
         "fs": false,
         "os": false,
         "path": false,
-        "crypto": "crypto-browserify"
+        "crypto": false
     }
 }
