@@ -4,11 +4,19 @@ import { OauthScope } from "../api/types/OAuthScope";
 import * as core from "../core";
 import * as errors from "../errors";
 import { SDK_VERSION } from "../version";
+import { Client as Webhooks } from "./WebhooksClient";
 
 export class WebflowClient extends FernClient {
     constructor(protected readonly _options: FernClient.Options) {
         super(_options);
     }
+
+    protected _webhooks: Webhooks | undefined;
+
+    public get webhooks(): Webhooks {
+        return (this._webhooks ??= new Webhooks(this._options));
+    }
+
 
     /**
      * @param clientId The OAuth client ID
