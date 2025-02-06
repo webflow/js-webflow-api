@@ -8,31 +8,31 @@ import * as core from "../../core";
 import { AssetVariant } from "./AssetVariant";
 
 export const Asset: core.serialization.ObjectSchema<serializers.Asset.Raw, Webflow.Asset> = core.serialization.object({
-    id: core.serialization.string().optional(),
-    contentType: core.serialization.string().optional(),
-    size: core.serialization.number().optional(),
-    siteId: core.serialization.string().optional(),
-    hostedUrl: core.serialization.string().optional(),
-    originalFileName: core.serialization.string().optional(),
-    displayName: core.serialization.string().optional(),
-    lastUpdated: core.serialization.date().optional(),
-    createdOn: core.serialization.date().optional(),
-    variants: core.serialization.list(AssetVariant).optional(),
+    id: core.serialization.string(),
+    contentType: core.serialization.string(),
+    size: core.serialization.number(),
+    siteId: core.serialization.string(),
+    hostedUrl: core.serialization.string(),
+    originalFileName: core.serialization.string(),
+    displayName: core.serialization.string(),
+    lastUpdated: core.serialization.date(),
+    createdOn: core.serialization.date(),
+    variants: core.serialization.list(AssetVariant),
     altText: core.serialization.string().optional(),
 });
 
 export declare namespace Asset {
     interface Raw {
-        id?: string | null;
-        contentType?: string | null;
-        size?: number | null;
-        siteId?: string | null;
-        hostedUrl?: string | null;
-        originalFileName?: string | null;
-        displayName?: string | null;
-        lastUpdated?: string | null;
-        createdOn?: string | null;
-        variants?: AssetVariant.Raw[] | null;
+        id: string;
+        contentType: string;
+        size: number;
+        siteId: string;
+        hostedUrl: string;
+        originalFileName: string;
+        displayName: string;
+        lastUpdated: string;
+        createdOn: string;
+        variants: AssetVariant.Raw[];
         altText?: string | null;
     }
 }
