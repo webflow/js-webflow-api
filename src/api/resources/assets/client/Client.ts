@@ -34,7 +34,7 @@ export class Assets {
     constructor(protected readonly _options: Assets.Options) {}
 
     /**
-     * List assets for a given site
+     * List of assets uploaded to a site
      *
      * Required scope | `assets:read`
      *
@@ -61,8 +61,8 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -151,15 +151,18 @@ export class Assets {
     }
 
     /**
-     * Create a new asset entry.
+     * The first step in uploading an asset to a site.
      *
      *
      * This endpoint generates a response with the following information: `uploadUrl` and `uploadDetails`.
-     * You can use these two properties to [upload the file to Amazon s3 by making a POST](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectPOST.html)
-     * request to the `uploadUrl` with the `uploadDetails` object as your header information in the request.
      *
      *
-     * Required scope | `assets:write`
+     * Use these properties in the header of a [POST request to Amazson s3](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectPOST.html) to complete the upload.
+     *
+     *
+     * To learn more about how to upload assets to Webflow, see our [assets guide](/data/docs/working-with-assets).
+     *
+     *  Required scope | `assets:write`
      *
      * @param {string} siteId - Unique identifier for a Site
      * @param {Webflow.AssetsCreateRequest} request
@@ -192,8 +195,8 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -287,7 +290,7 @@ export class Assets {
     }
 
     /**
-     * Get an Asset
+     * Get details about an asset
      *
      * Required scope | `assets:read`
      *
@@ -314,8 +317,8 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -431,8 +434,8 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -515,7 +518,7 @@ export class Assets {
     }
 
     /**
-     * Update an Asset
+     * Update details of an Asset.
      *
      * Required scope | `assets:write`
      *
@@ -547,8 +550,8 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -669,8 +672,8 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -795,8 +798,8 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -922,8 +925,8 @@ export class Assets {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,

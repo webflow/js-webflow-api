@@ -80,6 +80,9 @@ service:
             slug:
               type: optional<string>
               docs: Part of a URL that identifier
+            fields:
+              type: optional<list<root.FieldCreate>>
+              docs: An array of custom fields to add to the collection
         content-type: application/json
       response:
         docs: Request was successful
@@ -88,6 +91,7 @@ service:
         - root.BadRequestError
         - root.UnauthorizedError
         - root.NotFoundError
+        - root.ConflictError
         - root.TooManyRequestsError
         - root.InternalServerError
       examples:
@@ -97,22 +101,51 @@ service:
             displayName: Blog Posts
             singularName: Blog Post
             slug: posts
+            fields:
+              - isRequired: true
+                type: PlainText
+                displayName: Title
+                helpText: The title of the blog post
+              - isRequired: true
+                type: RichText
+                displayName: Content
+                helpText: The content of the blog post
+              - isRequired: true
+                type: Reference
+                displayName: Author
+                helpText: The author of the blog post
+                metadata:
+                  collectionId: 23cc2d952d4e4631ffd4345d2743db4e
           response:
             body:
-              id: 580e63fc8c9a982ac9b8b745
+              id: 562ac0395358780a1f5e6fbd
               displayName: Blog Posts
               singularName: Blog Post
-              slug: post
+              slug: posts
               createdOn: '2016-10-24T19:41:48Z'
               lastUpdated: '2016-10-24T19:42:38Z'
               fields:
-                - id: 23cc2d952d4e4631ffd4345d2743db4e
+                - id: id
                   isRequired: true
                   isEditable: true
                   type: PlainText
-                  slug: name
-                  displayName: Name
-                  helpText: helpText
+                  slug: title
+                  displayName: Title
+                  helpText: The title of the blog post
+                - id: id
+                  isRequired: true
+                  isEditable: true
+                  type: RichText
+                  slug: content
+                  displayName: Content
+                  helpText: The content of the blog post
+                - id: id
+                  isRequired: true
+                  isEditable: true
+                  type: Reference
+                  slug: author
+                  displayName: Author
+                  helpText: The author of the blog post
     get:
       path: /collections/{collection_id}
       method: GET
