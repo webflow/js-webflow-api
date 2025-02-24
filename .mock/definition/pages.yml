@@ -276,16 +276,18 @@ service:
       method: GET
       auth: true
       docs: >
-        Get static content from a static page. This includes text nodes, image
-        nodes and component instances.
+        Get content from a static page. This includes text nodes, image nodes,
+        and component instances with [property
+        overrides](https://help.webflow.com/hc/en-us/articles/33961219350547-Component-properties#how-to-modify-property-values-on-component-instances).
 
-        To retrieve the contents of components in the page use the [get
-        component
-        content](/data/reference/pages-and-components/components/get-content)
+
+        To retrieve the static content of a component instance, use the [Get
+        Component
+        Content](/data/reference/pages-and-components/components/get-content)
         endpoint.
 
 
-        <Note>If you do not provide a Locale ID in your request, the response
+        <Note>If you do not include a `localeId` in your request, the response
         will return any content that can be localized from the Primary
         locale.</Note>
 
@@ -367,6 +369,7 @@ service:
                 limit: 4
                 offset: 0
                 total: 4
+              lastUpdated: '2016-10-24T19:42:38Z'
     update-static-content:
       path: /pages/{page_id}/dom
       method: POST

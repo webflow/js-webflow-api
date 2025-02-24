@@ -63,8 +63,8 @@ export class Collections {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -164,6 +164,7 @@ export class Collections {
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
+     * @throws {@link Webflow.ConflictError}
      * @throws {@link Webflow.TooManyRequestsError}
      * @throws {@link Webflow.InternalServerError}
      *
@@ -171,7 +172,26 @@ export class Collections {
      *     await client.collections.create("580e63e98c9a982ac9b8b741", {
      *         displayName: "Blog Posts",
      *         singularName: "Blog Post",
-     *         slug: "posts"
+     *         slug: "posts",
+     *         fields: [{
+     *                 isRequired: true,
+     *                 type: "PlainText",
+     *                 displayName: "Title",
+     *                 helpText: "The title of the blog post"
+     *             }, {
+     *                 isRequired: true,
+     *                 type: "RichText",
+     *                 displayName: "Content",
+     *                 helpText: "The content of the blog post"
+     *             }, {
+     *                 isRequired: true,
+     *                 type: "Reference",
+     *                 displayName: "Author",
+     *                 helpText: "The author of the blog post",
+     *                 metadata: {
+     *                     collectionId: "23cc2d952d4e4631ffd4345d2743db4e"
+     *                 }
+     *             }]
      *     })
      */
     public async create(
@@ -189,8 +209,8 @@ export class Collections {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -240,6 +260,8 @@ export class Collections {
                             breadcrumbsPrefix: ["response"],
                         })
                     );
+                case 409:
+                    throw new Webflow.ConflictError(_response.error.body);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -313,8 +335,8 @@ export class Collections {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -430,8 +452,8 @@ export class Collections {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
