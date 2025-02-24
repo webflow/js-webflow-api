@@ -4,7 +4,7 @@
 
 export interface ItemsDeleteItemsLiveRequestItemsItem {
     /** Unique identifier for the Item */
-    itemId: string;
+    id: string;
     /** Array of identifiers for the locales where the item will be created */
     cmsLocaleIds?: string[];
 }

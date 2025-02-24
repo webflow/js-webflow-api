@@ -10,13 +10,13 @@ export const ItemsDeleteItemsLiveRequestItemsItem: core.serialization.ObjectSche
     serializers.collections.ItemsDeleteItemsLiveRequestItemsItem.Raw,
     Webflow.collections.ItemsDeleteItemsLiveRequestItemsItem
 > = core.serialization.object({
-    itemId: core.serialization.string(),
+    id: core.serialization.string(),
     cmsLocaleIds: core.serialization.list(core.serialization.string()).optional(),
 });
 
 export declare namespace ItemsDeleteItemsLiveRequestItemsItem {
     interface Raw {
-        itemId: string;
+        id: string;
         cmsLocaleIds?: string[] | null;
     }
 }

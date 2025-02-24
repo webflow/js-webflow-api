@@ -83,8 +83,8 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -214,8 +214,8 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -369,8 +369,8 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -465,10 +465,11 @@ export class Pages {
     }
 
     /**
-     * Get static content from a static page. This includes text nodes, image nodes and component instances.
-     * To retrieve the contents of components in the page use the [get component content](/data/reference/pages-and-components/components/get-content) endpoint.
+     * Get content from a static page. This includes text nodes, image nodes, and component instances with [property overrides](https://help.webflow.com/hc/en-us/articles/33961219350547-Component-properties#how-to-modify-property-values-on-component-instances).
      *
-     * <Note>If you do not provide a Locale ID in your request, the response will return any content that can be localized from the Primary locale.</Note>
+     * To retrieve the static content of a component instance, use the [Get Component Content](/data/reference/pages-and-components/components/get-content) endpoint.
+     *
+     * <Note>If you do not include a `localeId` in your request, the response will return any content that can be localized from the Primary locale.</Note>
      *
      * Required scope | `pages:read`
      *
@@ -517,8 +518,8 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -672,8 +673,8 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,

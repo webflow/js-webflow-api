@@ -12,6 +12,7 @@ export const Dom: core.serialization.ObjectSchema<serializers.Dom.Raw, Webflow.D
     pageId: core.serialization.string().optional(),
     nodes: core.serialization.list(Node).optional(),
     pagination: Pagination.optional(),
+    lastUpdated: core.serialization.date().optional(),
 });
 
 export declare namespace Dom {
@@ -19,5 +20,6 @@ export declare namespace Dom {
         pageId?: string | null;
         nodes?: Node.Raw[] | null;
         pagination?: Pagination.Raw | null;
+        lastUpdated?: string | null;
     }
 }

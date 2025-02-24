@@ -396,6 +396,8 @@ service:
               - {}
           response:
             body:
+              required:
+                key: value
               skus:
                 - id: 580e63fc8c9a982ac9b8b745
                   cmsLocaleId: 653ad57de882f528b32e810e
@@ -495,6 +497,7 @@ service:
 types:
   ProductsCreateSkuResponse:
     properties:
+      required: optional<unknown>
       skus: optional<list<root.Sku>>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml

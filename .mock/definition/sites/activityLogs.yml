@@ -8,9 +8,15 @@ service:
       path: /sites/{site_id}/activity_logs
       method: GET
       auth: true
-      docs: >-
-        Retrieve Activity Logs for a specific Site. Requires Site to be on an
-        Enterprise plan. </br></br>  Required scope | `site_activity:read`
+      docs: >
+        Retrieve Activity Logs for a specific Site. 
+
+
+        <Warning title="Enterprise Only">This endpoint requires an Enterprise
+        workspace.</Warning>
+
+
+        Required scope: `site_activity:read`
       source:
         openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:

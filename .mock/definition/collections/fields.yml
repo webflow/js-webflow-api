@@ -1,24 +1,3 @@
-types:
-  FieldCreateType:
-    enum:
-      - Color
-      - DateTime
-      - Email
-      - ExtFileRef
-      - File
-      - Image
-      - Link
-      - MultiImage
-      - Number
-      - Phone
-      - PlainText
-      - RichText
-      - Switch
-      - Video
-    docs: Choose these appropriate field type for your collection data
-    inline: true
-    source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
 imports:
   root: ../__package__.yml
 service:
@@ -30,7 +9,7 @@ service:
       method: POST
       auth: true
       docs: >
-        Create a custom field in a collection. 
+        Create a custom field in a collection.
 
 
         Slugs must be all lowercase letters without spaces.
@@ -40,10 +19,7 @@ service:
 
         convert the slug to lowercase and replace spaces with "-."
 
-
-        Only some field types can be created through the API. 
-
-        This endpoint does not currently support bulk creation. 
+        This endpoint does not currently support bulk creation.
 
 
         Required scope | `cms:write`
@@ -55,21 +31,7 @@ service:
           docs: Unique identifier for a Collection
       display-name: Create Collection Field
       request:
-        name: FieldCreate
-        body:
-          properties:
-            isRequired:
-              type: optional<boolean>
-              docs: define whether a field is required in a collection
-            type:
-              type: FieldCreateType
-              docs: Choose these appropriate field type for your collection data
-            displayName:
-              type: string
-              docs: The name of a field
-            helpText:
-              type: optional<string>
-              docs: Additional text to help anyone filling out this field
+        body: root.FieldCreate
         content-type: application/json
       response:
         docs: Request was successful
@@ -78,16 +40,15 @@ service:
         - root.BadRequestError
         - root.UnauthorizedError
         - root.NotFoundError
+        - root.ConflictError
         - root.TooManyRequestsError
         - root.InternalServerError
       examples:
         - path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
           request:
-            isRequired: false
-            type: RichText
-            displayName: Post Body
-            helpText: Add the body of your post here
+            type: Color
+            displayName: displayName
           response:
             body:
               id: 75821f618da60c18383330bcc0ca488b

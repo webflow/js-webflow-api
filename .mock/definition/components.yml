@@ -291,10 +291,10 @@ service:
       method: GET
       auth: true
       docs: >
-        Get the property default values of a component definition.
+        Get the default property values of a component definition.
 
 
-        <Note>If you do not provide a Locale ID in your request, the response
+        <Note>If you do not include a `localeId` in your request, the response
         will return any properties that can be localized from the Primary
         locale.</Note>
 
@@ -366,18 +366,17 @@ service:
       method: POST
       auth: true
       docs: >
-        Update the property default values of a component definition in a
+        Update the default property values of a component definition in a
         specificed locale.
 
 
-        Before making updates:
-
-        1. Use the [get component
+        Before making updates, use the [get component
         properties](/data/reference/pages-and-components/components/get-properties)
-        endpoint to identify available properties
+        endpoint to identify properties that can be updated in a secondary
+        locale.
 
 
-        <Note>The request requires a secondary locale ID. If a locale is
+        <Note>The request requires a secondary locale ID. If a `localeId` is
         missing, the request will not be processed and will result in an
         error.</Note>
 

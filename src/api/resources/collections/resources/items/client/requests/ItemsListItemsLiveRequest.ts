@@ -22,11 +22,11 @@ export interface ItemsListItemsLiveRequest {
      */
     limit?: number;
     /**
-     * The name of the item(s)
+     * Filter by the exact name of the item(s)
      */
     name?: string;
     /**
-     * The slug of the item
+     * Filter by the exact slug of the item
      */
     slug?: string;
     /**

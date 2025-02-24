@@ -36,33 +36,30 @@ export class Fields {
      * Slugs must be all lowercase letters without spaces.
      * If you pass a string with uppercase letters and/or spaces to the "Slug" property, Webflow will
      * convert the slug to lowercase and replace spaces with "-."
-     *
-     * Only some field types can be created through the API.
      * This endpoint does not currently support bulk creation.
      *
      * Required scope | `cms:write`
      *
      * @param {string} collectionId - Unique identifier for a Collection
-     * @param {Webflow.collections.FieldCreate} request
+     * @param {Webflow.FieldCreate} request
      * @param {Fields.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
      * @throws {@link Webflow.NotFoundError}
+     * @throws {@link Webflow.ConflictError}
      * @throws {@link Webflow.TooManyRequestsError}
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
      *     await client.collections.fields.create("580e63fc8c9a982ac9b8b745", {
-     *         isRequired: false,
-     *         type: "RichText",
-     *         displayName: "Post Body",
-     *         helpText: "Add the body of your post here"
+     *         type: "Color",
+     *         displayName: "displayName"
      *     })
      */
     public async create(
         collectionId: string,
-        request: Webflow.collections.FieldCreate,
+        request: Webflow.FieldCreate,
         requestOptions?: Fields.RequestOptions
     ): Promise<Webflow.Field> {
         const _response = await core.fetcher({
@@ -75,15 +72,15 @@ export class Fields {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.collections.FieldCreate.jsonOrThrow(request, {
+            body: serializers.FieldCreate.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -126,6 +123,8 @@ export class Fields {
                             breadcrumbsPrefix: ["response"],
                         })
                     );
+                case 409:
+                    throw new Webflow.ConflictError(_response.error.body);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -200,8 +199,8 @@ export class Fields {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -324,8 +323,8 @@ export class Fields {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,

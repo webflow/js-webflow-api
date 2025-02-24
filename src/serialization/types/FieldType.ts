@@ -15,9 +15,11 @@ export const FieldType: core.serialization.Schema<serializers.FieldType.Raw, Web
         "Image",
         "Link",
         "MultiImage",
+        "MultiReference",
         "Number",
         "Phone",
         "PlainText",
+        "Reference",
         "RichText",
         "Switch",
         "Video",
@@ -32,9 +34,11 @@ export declare namespace FieldType {
         | "Image"
         | "Link"
         | "MultiImage"
+        | "MultiReference"
         | "Number"
         | "Phone"
         | "PlainText"
+        | "Reference"
         | "RichText"
         | "Switch"
         | "Video";
