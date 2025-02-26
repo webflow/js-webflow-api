@@ -13,9 +13,11 @@ export type FieldType =
     | "Image"
     | "Link"
     | "MultiImage"
+    | "MultiReference"
     | "Number"
     | "Phone"
     | "PlainText"
+    | "Reference"
     | "RichText"
     | "Switch"
     | "Video";
@@ -28,9 +30,11 @@ export const FieldType = {
     Image: "Image",
     Link: "Link",
     MultiImage: "MultiImage",
+    MultiReference: "MultiReference",
     Number: "Number",
     Phone: "Phone",
     PlainText: "PlainText",
+    Reference: "Reference",
     RichText: "RichText",
     Switch: "Switch",
     Video: "Video",
