@@ -17,7 +17,9 @@ export interface SkuFieldData {
     price: Webflow.SkuFieldDataPrice;
     /** comparison price of SKU */
     compareAtPrice?: Webflow.SkuFieldDataCompareAtPrice;
+    /** [Billing method](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#billing-methods)for the SKU */
     ecSkuBillingMethod?: Webflow.SkuFieldDataEcSkuBillingMethod;
+    /** [Subscription plan](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#subscription) for the SKU */
     ecSkuSubscriptionPlan?: Webflow.SkuFieldDataEcSkuSubscriptionPlan;
     /** A boolean indicating whether inventory for this product should be tracked. */
     trackInventory?: boolean;

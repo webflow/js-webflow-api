@@ -9,4 +9,5 @@ import * as Webflow from "../index";
  */
 export interface Assets {
     assets?: Webflow.Asset[];
+    pagination?: Webflow.Pagination;
 }

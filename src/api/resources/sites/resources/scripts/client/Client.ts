@@ -31,9 +31,11 @@ export class Scripts {
     constructor(protected readonly _options: Scripts.Options) {}
 
     /**
-     * Get all registered scripts that have been applied to a specific Site.
+     * Get all scripts applied to a site by the App.
      *
-     * <Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
+     * <Note title="Script Registration">
+     *   To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
+     * </Note>
      *
      * Required scope | `custom_code:read`
      *
@@ -63,8 +65,8 @@ export class Scripts {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -153,13 +155,11 @@ export class Scripts {
     }
 
     /**
-     * Add a registered script to a Site.
+     * Apply registered scripts to a site.
      *
-     * In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts must first be registered
-     * to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate
-     * `custom_code` endpoints.
-     *
-     * <Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
+     * <Note title="Script Registration">
+     *   To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
+     * </Note>
      *
      * Required scope | `custom_code:write`
      *
@@ -204,8 +204,8 @@ export class Scripts {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -299,9 +299,7 @@ export class Scripts {
     }
 
     /**
-     * Delete the custom code block that an app created for a Site
-     *
-     * <Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
+     * Remove scripts from a site applied by the App. This endpoint will not remove scripts from the site's registered scripts.
      *
      * Required scope | `custom_code:write`
      *
@@ -328,8 +326,8 @@ export class Scripts {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -414,9 +412,13 @@ export class Scripts {
     }
 
     /**
-     * Get all instances of Custom Code applied to a Site or Pages.
+     * Get a list of scripts that have been applied to a site and/or individual pages.
      *
-     * <Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
+     * <Note title="Script Registration">
+     *   To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints.
+     *
+     *   See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
+     * </Note>
      *
      * Required scope | `custom_code:read`
      *
@@ -458,8 +460,8 @@ export class Scripts {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,

@@ -4,26 +4,30 @@
 
 import * as Webflow from "../index";
 
+/**
+ * Asset details
+ */
 export interface Asset {
     /** Unique identifier for this asset */
-    id?: string;
+    id: string;
     /** File format type */
-    contentType?: string;
+    contentType: string;
     /** size in bytes */
-    size?: number;
+    size: number;
     /** Unique identifier for the site that hosts this asset */
-    siteId?: string;
+    siteId: string;
     /** Link to the asset */
-    hostedUrl?: string;
+    hostedUrl: string;
     /** Original file name at the time of upload */
-    originalFileName?: string;
+    originalFileName: string;
     /** Display name of the asset */
-    displayName?: string;
+    displayName: string;
     /** Date the asset metadata was last updated */
-    lastUpdated?: Date;
+    lastUpdated: Date;
     /** Date the asset metadata was created */
-    createdOn?: Date;
-    variants?: Webflow.AssetVariant[];
+    createdOn: Date;
+    /** A list of [asset variants](https://help.webflow.com/hc/en-us/articles/33961378697107-Responsive-images) created by Webflow to serve your site responsively. */
+    variants: Webflow.AssetVariant[];
     /** The visual description of the asset */
     altText?: string;
 }

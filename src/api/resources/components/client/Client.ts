@@ -73,8 +73,8 @@ export class Components {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -217,8 +217,8 @@ export class Components {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -377,8 +377,8 @@ export class Components {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -477,9 +477,9 @@ export class Components {
     }
 
     /**
-     * Get the property default values of a component definition.
+     * Get the default property values of a component definition.
      *
-     * <Note>If you do not provide a Locale ID in your request, the response will return any properties that can be localized from the Primary locale.</Note>
+     * <Note>If you do not include a `localeId` in your request, the response will return any properties that can be localized from the Primary locale.</Note>
      *
      * Required scope | `components:read`
      *
@@ -529,8 +529,8 @@ export class Components {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -622,12 +622,11 @@ export class Components {
     }
 
     /**
-     * Update the property default values of a component definition in a specificed locale.
+     * Update the default property values of a component definition in a specificed locale.
      *
-     * Before making updates:
-     * 1. Use the [get component properties](/data/reference/pages-and-components/components/get-properties) endpoint to identify available properties
+     * Before making updates, use the [get component properties](/data/reference/pages-and-components/components/get-properties) endpoint to identify properties that can be updated in a secondary locale.
      *
-     * <Note>The request requires a secondary locale ID. If a locale is missing, the request will not be processed and will result in an error.</Note>
+     * <Note>The request requires a secondary locale ID. If a `localeId` is missing, the request will not be processed and will result in an error.</Note>
      *
      * Required scope | `components:write`
      *
@@ -676,8 +675,8 @@ export class Components {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,

@@ -5,6 +5,7 @@
 import * as serializers from "../../../../index";
 import * as Webflow from "../../../../../api/index";
 import * as core from "../../../../../core";
+import { FieldCreate } from "../../../../types/FieldCreate";
 
 export const CollectionsCreateRequest: core.serialization.Schema<
     serializers.CollectionsCreateRequest.Raw,
@@ -13,6 +14,7 @@ export const CollectionsCreateRequest: core.serialization.Schema<
     displayName: core.serialization.string(),
     singularName: core.serialization.string(),
     slug: core.serialization.string().optional(),
+    fields: core.serialization.list(FieldCreate).optional(),
 });
 
 export declare namespace CollectionsCreateRequest {
@@ -20,5 +22,6 @@ export declare namespace CollectionsCreateRequest {
         displayName: string;
         singularName: string;
         slug?: string | null;
+        fields?: FieldCreate.Raw[] | null;
     }
 }

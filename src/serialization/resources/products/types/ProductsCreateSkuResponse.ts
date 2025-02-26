@@ -11,11 +11,13 @@ export const ProductsCreateSkuResponse: core.serialization.ObjectSchema<
     serializers.ProductsCreateSkuResponse.Raw,
     Webflow.ProductsCreateSkuResponse
 > = core.serialization.object({
+    required: core.serialization.unknown().optional(),
     skus: core.serialization.list(Sku).optional(),
 });
 
 export declare namespace ProductsCreateSkuResponse {
     interface Raw {
+        required?: unknown | null;
         skus?: Sku.Raw[] | null;
     }
 }

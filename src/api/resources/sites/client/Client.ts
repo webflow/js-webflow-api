@@ -10,6 +10,7 @@ import urlJoin from "url-join";
 import * as errors from "../../../../errors/index";
 import { Redirects } from "../resources/redirects/client/Client";
 import { Plans } from "../resources/plans/client/Client";
+import { RobotsTxt } from "../resources/robotsTxt/client/Client";
 import { ActivityLogs } from "../resources/activityLogs/client/Client";
 import { Scripts } from "../resources/scripts/client/Client";
 
@@ -38,7 +39,9 @@ export class Sites {
     constructor(protected readonly _options: Sites.Options) {}
 
     /**
-     * Create a site. This endpoint requires an Enterprise workspace.
+     * Create a site.
+     *
+     * <Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
      *
      * Required scope | `workspace:write`
      *
@@ -73,8 +76,8 @@ export class Sites {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -196,8 +199,8 @@ export class Sites {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -301,8 +304,8 @@ export class Sites {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -391,7 +394,9 @@ export class Sites {
     }
 
     /**
-     * Delete a site. This endpoint requires an Enterprise workspace.
+     * Delete a site.
+     *
+     * <Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
      *
      * Required scope | `sites:write`
      *
@@ -419,8 +424,8 @@ export class Sites {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -505,7 +510,9 @@ export class Sites {
     }
 
     /**
-     * Update a site. This endpoint requires an Enterprise workspace.
+     * Update a site.
+     *
+     * <Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
      *
      * Required scope | `sites:write`
      *
@@ -538,8 +545,8 @@ export class Sites {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -662,8 +669,8 @@ export class Sites {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -788,8 +795,8 @@ export class Sites {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.0",
-                "User-Agent": "webflow-api/3.1.0",
+                "X-Fern-SDK-Version": "3.1.1",
+                "User-Agent": "webflow-api/3.1.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -884,6 +891,12 @@ export class Sites {
 
     public get plans(): Plans {
         return (this._plans ??= new Plans(this._options));
+    }
+
+    protected _robotsTxt: RobotsTxt | undefined;
+
+    public get robotsTxt(): RobotsTxt {
+        return (this._robotsTxt ??= new RobotsTxt(this._options));
     }
 
     protected _activityLogs: ActivityLogs | undefined;
