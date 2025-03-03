@@ -33,6 +33,7 @@ service:
       response:
         docs: Request was successful
         type: root.FormList
+        status-code: 200
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -108,6 +109,7 @@ service:
       response:
         docs: Request was successful
         type: root.Form
+        status-code: 200
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -127,7 +129,6 @@ service:
                 660d5bcc9c0772150459dfb1:
                   displayName: Name
                   type: Plain
-                  placeholder: Enter your email
                   userVisible: true
                 589a331aa51e760df7ccb89d:
                   displayName: Email
@@ -137,7 +138,6 @@ service:
               responseSettings:
                 redirectUrl: https://example.com
                 redirectMethod: GET
-                redirectAction: POST https://example.com
                 sendEmailConfirmation: true
               id: 589a331aa51e760df7ccb89e
               siteId: 580e63e98c9a982ac9b8b741
@@ -175,6 +175,7 @@ service:
       response:
         docs: Request was successful
         type: root.FormSubmissionList
+        status-code: 200
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -226,6 +227,7 @@ service:
       response:
         docs: Request was successful
         type: root.FormSubmission
+        status-code: 200
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -246,6 +248,33 @@ service:
               formResponse:
                 First Name: Arthur
                 Last Name: Dent
+    delete-submission:
+      path: /form_submissions/{form_submission_id}
+      method: DELETE
+      auth: true
+      docs: |
+        Delete a form submission
+
+
+        Required scope | `forms:write`
+      source:
+        openapi: ../../../openapi/referenced-specs/v2.yml
+      path-parameters:
+        form_submission_id:
+          type: string
+          docs: Unique identifier for a Form Submission
+      display-name: Delete Form Submission
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.ForbiddenError
+        - root.NotFoundError
+        - root.ConflictError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            form_submission_id: 580e63e98c9a982ac9b8b741
     update-submission:
       path: /form_submissions/{form_submission_id}
       method: PATCH
@@ -274,6 +303,7 @@ service:
       response:
         docs: Request was successful
         type: root.FormSubmission
+        status-code: 200
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
