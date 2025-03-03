@@ -18,6 +18,7 @@ service:
       response:
         docs: Request was successful
         type: root.AuthorizedUser
+        status-code: 200
       errors:
         - root.UnauthorizedError
         - root.ForbiddenError
@@ -44,6 +45,7 @@ service:
       response:
         docs: Request was successful
         type: root.Authorization
+        status-code: 200
       errors:
         - root.UnauthorizedError
       examples:

@@ -12,4 +12,6 @@ export interface Dom {
     pageId?: string;
     nodes?: Webflow.Node[];
     pagination?: Webflow.Pagination;
+    /** The date the page dom was most recently updated */
+    lastUpdated?: Date;
 }

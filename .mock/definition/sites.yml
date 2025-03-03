@@ -8,8 +8,13 @@ service:
       path: /workspaces/{workspace_id}/sites
       method: POST
       auth: true
-      docs: |
-        Create a site. This endpoint requires an Enterprise workspace.
+      docs: >
+        Create a site. 
+
+
+        <Warning title="Enterprise Only">This endpoint requires an Enterprise
+        workspace.</Warning>
+
 
         Required scope | `workspace:write`
       source:
@@ -36,6 +41,7 @@ service:
       response:
         docs: Request was successful
         type: root.Site
+        status-code: 201
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -56,34 +62,12 @@ service:
               createdOn: '2024-10-15T20:24:38Z'
               displayName: The Hitchiker‘s Guide
               shortName: hitchikers-guide
-              lastPublished: '2016-10-24T19:43:17Z'
               lastUpdated: '2024-10-15T20:24:38Z'
-              previewUrl: >-
-                https://d1otoma47x30pg.cloudfront.net/580e63e98c9a982ac9b8b741/201610241243.png
-              timeZone: America/Los_Angeles
               parentFolderId: 670ece123598db72d9648be1
               customDomains:
                 - id: 589a331aa51e760df7ccb89d
                   url: test-api-domain.com
                   lastPublished: '2022-12-07T16:51:37Z'
-              locales:
-                primary:
-                  id: 653fd9af6a07fc9cfd7a5e57
-                  cmsLocaleId: 653ad57de882f528b32e810e
-                  enabled: false
-                  displayName: English (United States)
-                  displayImageId: displayImageId
-                  redirect: true
-                  subdirectory: ''
-                  tag: en-US
-                secondary:
-                  - id: 653fd9af6a07fc9cfd7a5e57
-                    cmsLocaleId: 653ad57de882f528b32e810e
-                    enabled: false
-                    displayName: English (United States)
-                    redirect: true
-                    subdirectory: ''
-                    tag: en-US
               dataCollectionEnabled: false
               dataCollectionType: always
     list:
@@ -100,6 +84,7 @@ service:
       response:
         docs: Request was successful
         type: root.Sites
+        status-code: 200
       errors:
         - root.UnauthorizedError
         - root.NotFoundError
@@ -159,7 +144,6 @@ service:
                   previewUrl: >-
                     https://d1otoma47x30pg.cloudfront.net/42e63e98c9a982ac9b8b742/198110121200.png
                   timeZone: DeepSpace/Depression
-                  parentFolderId: 1as2d3f4g5h6j7k8l9z0x1c2v3b4n5m6
                   customDomains:
                     - id: 589a331aa51e760df7ccb89f
                       url: marvin.blog
@@ -193,7 +177,6 @@ service:
                   previewUrl: >-
                     https://d1otoma47x30pg.cloudfront.net/42e63e98c9a982ac9b8b743/198210121200.png
                   timeZone: Vogsphere/PoetryHall
-                  parentFolderId: 1as2d3f4g5h6j7k8l9z0x1c2v3b4n5m6
                   customDomains:
                     - id: 589a331aa51e760df7ccb8a0
                       url: vogonpoetry.galaxy
@@ -235,6 +218,7 @@ service:
       response:
         docs: Request was successful
         type: root.Site
+        status-code: 200
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -288,8 +272,13 @@ service:
       path: /sites/{site_id}
       method: DELETE
       auth: true
-      docs: |
-        Delete a site. This endpoint requires an Enterprise workspace.
+      docs: >
+        Delete a site. 
+
+
+        <Warning title="Enterprise Only">This endpoint requires an Enterprise
+        workspace.</Warning>
+
 
         Required scope | `sites:write`
       source:
@@ -313,8 +302,13 @@ service:
       path: /sites/{site_id}
       method: PATCH
       auth: true
-      docs: |
-        Update a site. This endpoint requires an Enterprise workspace.
+      docs: >
+        Update a site. 
+
+
+        <Warning title="Enterprise Only">This endpoint requires an Enterprise
+        workspace.</Warning>
+
 
         Required scope | `sites:write`
       source:
@@ -338,6 +332,7 @@ service:
       response:
         docs: Request was successful
         type: root.Site
+        status-code: 200
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -407,6 +402,7 @@ service:
       response:
         docs: Request was successful
         type: root.Domains
+        status-code: 200
       errors:
         - root.UnauthorizedError
         - root.ForbiddenError
@@ -460,6 +456,7 @@ service:
       response:
         docs: Request accepted
         type: SitesPublishResponse
+        status-code: 202
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
