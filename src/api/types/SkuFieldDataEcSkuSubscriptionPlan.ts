@@ -4,6 +4,9 @@
 
 import * as Webflow from "../index";
 
+/**
+ * [Subscription plan](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#subscription) for the SKU
+ */
 export interface SkuFieldDataEcSkuSubscriptionPlan {
     /** Interval of subscription renewal */
     interval?: Webflow.SkuFieldDataEcSkuSubscriptionPlanInterval;
