@@ -6,14 +6,17 @@ import * as serializers from "../index";
 import * as Webflow from "../../api/index";
 import * as core from "../../core";
 import { Asset } from "./Asset";
+import { Pagination } from "./Pagination";
 
 export const Assets: core.serialization.ObjectSchema<serializers.Assets.Raw, Webflow.Assets> =
     core.serialization.object({
         assets: core.serialization.list(Asset).optional(),
+        pagination: Pagination.optional(),
     });
 
 export declare namespace Assets {
     interface Raw {
         assets?: Asset.Raw[] | null;
+        pagination?: Pagination.Raw | null;
     }
 }

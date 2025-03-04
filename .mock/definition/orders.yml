@@ -57,6 +57,7 @@ service:
       response:
         docs: Request was successful
         type: root.OrderList
+        status-code: 200
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -81,11 +82,6 @@ service:
                     Please gift wrap with a personal note saying "Happy
                     Birthday, Ford! 🎉
                   acceptedOn: '2024-04-10T13:16:21Z'
-                  fulfilledOn: '2018-12-03T22:06:15Z'
-                  refundedOn: '2018-12-03T22:06:15Z'
-                  disputedOn: '2018-12-03T22:06:15Z'
-                  disputeUpdatedOn: '2018-12-03T22:06:15Z'
-                  disputeLastStatus: warning_needs_response
                   customerPaid:
                     unit: USD
                     value: '5892'
@@ -201,13 +197,6 @@ service:
                     expires:
                       year: 2025
                       month: 4
-                  paypalDetails:
-                    orderId: 1a2b3c4d5e6f7g8h9i0j
-                    payerId: 9k8j7i6h5g4f3e2d1c0b
-                    captureId: qwe123rty456uio789p
-                    refundId: abcde12345fghij67890
-                    refundReason: Customer requested refund
-                    disputeId: zxcvbnm987poiuytrewq
                   customData:
                     - key: value
                   metadata:
@@ -235,11 +224,7 @@ service:
                   comment: Example comment to myself
                   orderComment: ''
                   acceptedOn: '2024-03-29T21:29:21Z'
-                  fulfilledOn: '2018-12-03T22:06:15Z'
                   refundedOn: '2024-04-08T18:25:04Z'
-                  disputedOn: '2018-12-03T22:06:15Z'
-                  disputeUpdatedOn: '2018-12-03T22:06:15Z'
-                  disputeLastStatus: warning_needs_response
                   customerPaid:
                     unit: USD
                     value: '5892'
@@ -359,13 +344,6 @@ service:
                     expires:
                       year: 2024
                       month: 4
-                  paypalDetails:
-                    orderId: 1a2b3c4d5e6f7g8h9i0j
-                    payerId: 9k8j7i6h5g4f3e2d1c0b
-                    captureId: qwe123rty456uio789p
-                    refundId: abcde12345fghij67890
-                    refundReason: Customer requested refund
-                    disputeId: zxcvbnm987poiuytrewq
                   customData:
                     - key: value
                   metadata:
@@ -436,6 +414,7 @@ service:
       response:
         docs: Request was successful
         type: root.Order
+        status-code: 200
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -571,12 +550,10 @@ service:
                   length: 40
               purchasedItemsCount: 2
               stripeDetails:
-                subscriptionId: sub_1J6xwG2eZvKYlo2CXu9Zt0Tn
                 paymentMethod: pm_1OzmzBJYFi4lcbXWHKNdXU7j
                 paymentIntentId: pi_3OzmzDJYFi4lcbXW1hTBW6ft
                 customerId: cus_PpRsNHwWdUoRKR
                 chargeId: ch_3OzmzDJYFi4lcbXW1ndkkrH2
-                disputeId: disputeId
                 refundId: re_3OzmzDJYFi4lcbXW1kFAmlBk
                 refundReason: fraudulent
               stripeCard:
@@ -586,13 +563,6 @@ service:
                 expires:
                   year: 2024
                   month: 4
-              paypalDetails:
-                orderId: 1a2b3c4d5e6f7g8h9i0j
-                payerId: 9k8j7i6h5g4f3e2d1c0b
-                captureId: qwe123rty456uio789p
-                refundId: abcde12345fghij67890
-                refundReason: Customer requested refund
-                disputeId: zxcvbnm987poiuytrewq
               customData:
                 - key: value
               metadata:
@@ -677,6 +647,7 @@ service:
       response:
         docs: Request was successful
         type: root.Order
+        status-code: 200
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -813,12 +784,10 @@ service:
                   length: 40
               purchasedItemsCount: 2
               stripeDetails:
-                subscriptionId: sub_1J6xwG2eZvKYlo2CXu9Zt0Tn
                 paymentMethod: pm_1OzmzBJYFi4lcbXWHKNdXU7j
                 paymentIntentId: pi_3OzmzDJYFi4lcbXW1hTBW6ft
                 customerId: cus_PpRsNHwWdUoRKR
                 chargeId: ch_3OzmzDJYFi4lcbXW1ndkkrH2
-                disputeId: disputeId
                 refundId: re_3OzmzDJYFi4lcbXW1kFAmlBk
                 refundReason: fraudulent
               stripeCard:
@@ -828,13 +797,6 @@ service:
                 expires:
                   year: 2024
                   month: 4
-              paypalDetails:
-                orderId: 1a2b3c4d5e6f7g8h9i0j
-                payerId: 9k8j7i6h5g4f3e2d1c0b
-                captureId: qwe123rty456uio789p
-                refundId: abcde12345fghij67890
-                refundReason: Customer requested refund
-                disputeId: zxcvbnm987poiuytrewq
               customData:
                 - key: value
               metadata:
@@ -909,6 +871,7 @@ service:
       response:
         docs: Request was successful
         type: root.Order
+        status-code: 200
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -1045,12 +1008,10 @@ service:
                   length: 40
               purchasedItemsCount: 2
               stripeDetails:
-                subscriptionId: sub_1J6xwG2eZvKYlo2CXu9Zt0Tn
                 paymentMethod: pm_1OzmzBJYFi4lcbXWHKNdXU7j
                 paymentIntentId: pi_3OzmzDJYFi4lcbXW1hTBW6ft
                 customerId: cus_PpRsNHwWdUoRKR
                 chargeId: ch_3OzmzDJYFi4lcbXW1ndkkrH2
-                disputeId: disputeId
                 refundId: re_3OzmzDJYFi4lcbXW1kFAmlBk
                 refundReason: fraudulent
               stripeCard:
@@ -1060,13 +1021,6 @@ service:
                 expires:
                   year: 2024
                   month: 4
-              paypalDetails:
-                orderId: 1a2b3c4d5e6f7g8h9i0j
-                payerId: 9k8j7i6h5g4f3e2d1c0b
-                captureId: qwe123rty456uio789p
-                refundId: abcde12345fghij67890
-                refundReason: Customer requested refund
-                disputeId: zxcvbnm987poiuytrewq
               customData:
                 - key: value
               metadata:
@@ -1132,6 +1086,7 @@ service:
       response:
         docs: Request was successful
         type: root.Order
+        status-code: 200
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -1267,12 +1222,10 @@ service:
                   length: 40
               purchasedItemsCount: 2
               stripeDetails:
-                subscriptionId: sub_1J6xwG2eZvKYlo2CXu9Zt0Tn
                 paymentMethod: pm_1OzmzBJYFi4lcbXWHKNdXU7j
                 paymentIntentId: pi_3OzmzDJYFi4lcbXW1hTBW6ft
                 customerId: cus_PpRsNHwWdUoRKR
                 chargeId: ch_3OzmzDJYFi4lcbXW1ndkkrH2
-                disputeId: disputeId
                 refundId: re_3OzmzDJYFi4lcbXW1kFAmlBk
                 refundReason: fraudulent
               stripeCard:
@@ -1282,13 +1235,6 @@ service:
                 expires:
                   year: 2024
                   month: 4
-              paypalDetails:
-                orderId: 1a2b3c4d5e6f7g8h9i0j
-                payerId: 9k8j7i6h5g4f3e2d1c0b
-                captureId: qwe123rty456uio789p
-                refundId: abcde12345fghij67890
-                refundReason: Customer requested refund
-                disputeId: zxcvbnm987poiuytrewq
               customData:
                 - key: value
               metadata:
@@ -1363,6 +1309,7 @@ service:
       response:
         docs: Request was successful
         type: root.Order
+        status-code: 200
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -1499,12 +1446,10 @@ service:
                   length: 40
               purchasedItemsCount: 2
               stripeDetails:
-                subscriptionId: sub_1J6xwG2eZvKYlo2CXu9Zt0Tn
                 paymentMethod: pm_1OzmzBJYFi4lcbXWHKNdXU7j
                 paymentIntentId: pi_3OzmzDJYFi4lcbXW1hTBW6ft
                 customerId: cus_PpRsNHwWdUoRKR
                 chargeId: ch_3OzmzDJYFi4lcbXW1ndkkrH2
-                disputeId: disputeId
                 refundId: re_3OzmzDJYFi4lcbXW1kFAmlBk
                 refundReason: fraudulent
               stripeCard:
@@ -1514,13 +1459,6 @@ service:
                 expires:
                   year: 2024
                   month: 4
-              paypalDetails:
-                orderId: 1a2b3c4d5e6f7g8h9i0j
-                payerId: 9k8j7i6h5g4f3e2d1c0b
-                captureId: qwe123rty456uio789p
-                refundId: abcde12345fghij67890
-                refundReason: Customer requested refund
-                disputeId: zxcvbnm987poiuytrewq
               customData:
                 - key: value
               metadata:

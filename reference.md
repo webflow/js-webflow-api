@@ -130,7 +130,9 @@ await client.token.introspect();
 <dl>
 <dd>
 
-Create a site. This endpoint requires an Enterprise workspace.
+Create a site.
+
+<Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
 
 Required scope | `workspace:write`
 
@@ -327,7 +329,9 @@ await client.sites.get("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-Delete a site. This endpoint requires an Enterprise workspace.
+Delete a site.
+
+<Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
 
 Required scope | `sites:write`
 
@@ -392,7 +396,9 @@ await client.sites.delete("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-Update a site. This endpoint requires an Enterprise workspace.
+Update a site.
+
+<Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
 
 Required scope | `sites:write`
 
@@ -694,6 +700,29 @@ await client.collections.create("580e63e98c9a982ac9b8b741", {
     displayName: "Blog Posts",
     singularName: "Blog Post",
     slug: "posts",
+    fields: [
+        {
+            isRequired: true,
+            type: "PlainText",
+            displayName: "Title",
+            helpText: "The title of the blog post",
+        },
+        {
+            isRequired: true,
+            type: "RichText",
+            displayName: "Content",
+            helpText: "The content of the blog post",
+        },
+        {
+            isRequired: true,
+            type: "Reference",
+            displayName: "Author",
+            helpText: "The author of the blog post",
+            metadata: {
+                collectionId: "23cc2d952d4e4631ffd4345d2743db4e",
+            },
+        },
+    ],
 });
 ```
 
@@ -1033,6 +1062,10 @@ await client.pages.getMetadata("63c720f9347c2139b248e552", {
 
 Update Page-level metadata, including SEO and Open Graph fields.
 
+<Note>
+  Note: When updating Page Metadata in secondary locales, you may only add `slug` to the request if your Site has the [Advanced or Enterprise Localization](https://webflow.com/localization) add-on.
+</Note>
+
 Required scope | `pages:write`
 
 </dd>
@@ -1131,10 +1164,11 @@ await client.pages.updatePageSettings("63c720f9347c2139b248e552", {
 <dl>
 <dd>
 
-Get static content from a static page. This includes text nodes, image nodes and component instances.
-To retrieve the contents of components in the page use the [get component content](/data/reference/pages-and-components/components/get-content) endpoint.
+Get content from a static page. This includes text nodes, image nodes, and component instances with [property overrides](https://help.webflow.com/hc/en-us/articles/33961219350547-Component-properties#how-to-modify-property-values-on-component-instances).
 
-<Note>If you do not provide a Locale ID in your request, the response will return any content that can be localized from the Primary locale.</Note>
+To retrieve the static content of a component instance, use the [Get Component Content](/data/reference/pages-and-components/components/get-content) endpoint.
+
+<Note>If you do not include a `localeId` in your request, the response will return any content that can be localized from the Primary locale.</Note>
 
 Required scope | `pages:read`
 
@@ -1592,9 +1626,9 @@ await client.components.updateContent("580e63e98c9a982ac9b8b741", "8505ba55-ef72
 <dl>
 <dd>
 
-Get the property default values of a component definition.
+Get the default property values of a component definition.
 
-<Note>If you do not provide a Locale ID in your request, the response will return any properties that can be localized from the Primary locale.</Note>
+<Note>If you do not include a `localeId` in your request, the response will return any properties that can be localized from the Primary locale.</Note>
 
 Required scope | `components:read`
 
@@ -1677,13 +1711,11 @@ await client.components.getProperties("580e63e98c9a982ac9b8b741", "8505ba55-ef72
 <dl>
 <dd>
 
-Update the property default values of a component definition in a specificed locale.
+Update the default property values of a component definition in a specificed locale.
 
-Before making updates:
+Before making updates, use the [get component properties](/data/reference/pages-and-components/components/get-properties) endpoint to identify properties that can be updated in a secondary locale.
 
-1. Use the [get component properties](/data/reference/pages-and-components/components/get-properties) endpoint to identify available properties
-
-<Note>The request requires a secondary locale ID. If a locale is missing, the request will not be processed and will result in an error.</Note>
+<Note>The request requires a secondary locale ID. If a `localeId` is missing, the request will not be processed and will result in an error.</Note>
 
 Required scope | `components:write`
 
@@ -1778,14 +1810,11 @@ await client.components.updateProperties("580e63e98c9a982ac9b8b741", "8505ba55-e
 <dl>
 <dd>
 
-List of scripts registered to a Site.
+Get a list of scripts that have been registered to a site. A site can have a maximum of 800 registered scripts.
 
-In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts must first be registered
-to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate
-`custom_code` endpoints.
-Additionally, Scripts can be remotely hosted, or registered as inline snippets.
-
-<Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
+<Note title="Script Registration">
+  To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
+</Note>
 
 Required scope | `custom_code:read`
 
@@ -1850,14 +1879,11 @@ await client.scripts.list("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-Add a script to a Site's Custom Code registry.
+Register a hosted script to a site.
 
-In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts must first be registered
-to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate
-`custom_code` endpoints.
-Additionally, Scripts can be remotely hosted, or registered as inline snippets.
-
-<Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
+<Note title="Script Registration">
+  To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
+</Note>
 
 Required scope | `custom_code:write`
 
@@ -1935,13 +1961,11 @@ await client.scripts.registerHosted("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-Add a script to a Site's Custom Code registry. Inline scripts can be between 1 and 2000 characters.
+Register an inline script to a site. Inline scripts are limited to 2000 characters.
 
-In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts must first be registered
-to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate
-`custom_code` endpoints.
-
-<Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
+<Note title="Script Registration">
+  To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
+</Note>
 
 Required scope | `custom_code:write`
 
@@ -2020,7 +2044,7 @@ await client.scripts.registerInline("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-List assets for a given site
+List of assets uploaded to a site
 
 Required scope | `assets:read`
 
@@ -2085,11 +2109,13 @@ await client.assets.list("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-Create a new asset entry.
+The first step in uploading an asset to a site.
 
 This endpoint generates a response with the following information: `uploadUrl` and `uploadDetails`.
-You can use these two properties to [upload the file to Amazon s3 by making a POST](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectPOST.html)
-request to the `uploadUrl` with the `uploadDetails` object as your header information in the request.
+
+Use these properties in the header of a [POST request to Amazson s3](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectPOST.html) to complete the upload.
+
+To learn more about how to upload assets to Webflow, see our [assets guide](/data/docs/working-with-assets).
 
 Required scope | `assets:write`
 
@@ -2165,7 +2191,7 @@ await client.assets.create("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-Get an Asset
+Get details about an asset
 
 Required scope | `assets:read`
 
@@ -2295,7 +2321,7 @@ await client.assets.delete("580e63fc8c9a982ac9b8b745");
 <dl>
 <dd>
 
-Update an Asset
+Update details of an Asset.
 
 Required scope | `assets:write`
 
@@ -2996,6 +3022,12 @@ await client.forms.get("580e63e98c9a982ac9b8b741");
 
 List form submissions for a given form
 
+<Note title="Forms in components">
+  When a form is used in a component definition, each instance of the form is considered a unique form.
+  
+  To get a combined list of submissions for a form that appears across multiple component instances, use the [List Form Submissions by Site](/data/reference/forms/form-submissions/list-submissions-by-site) endpoint.
+</Note>
+
 Required scope | `forms:read`
 
 </dd>
@@ -3120,6 +3152,71 @@ await client.forms.getSubmission("580e63e98c9a982ac9b8b741");
 </dl>
 </details>
 
+<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">deleteSubmission</a>(formSubmissionId) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a form submission
+
+Required scope | `forms:write`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.forms.deleteSubmission("580e63e98c9a982ac9b8b741");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**formSubmissionId:** `string` — Unique identifier for a Form Submission
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Forms.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">updateSubmission</a>(formSubmissionId, { ...params }) -> Webflow.FormSubmission</code></summary>
 <dl>
 <dd>
@@ -3175,6 +3272,81 @@ await client.forms.updateSubmission("580e63e98c9a982ac9b8b741");
 <dd>
 
 **request:** `Webflow.FormsUpdateSubmissionRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Forms.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">listSubmissionsBySite</a>(siteId, { ...params }) -> Webflow.FormSubmissionList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List form submissions for a given site. This endpoint differs from the existing [List Form Submissions endpoint](/data/reference/forms/form-submissions/list-submissions) by accepting `siteId` as a path parameter and `elementId` as a query parameter. You can get the `elementId` from the [List forms endpoint](/data/reference/forms/forms/list).
+
+Required scope | `forms:read`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.forms.listSubmissionsBySite("580e63e98c9a982ac9b8b741", {
+    elementId: "18259716-3e5a-646a-5f41-5dc4b9405aa0",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.FormsListSubmissionsBySiteRequest`
 
 </dd>
 </dl>
@@ -4873,8 +5045,6 @@ Create a custom field in a collection.
 Slugs must be all lowercase letters without spaces.
 If you pass a string with uppercase letters and/or spaces to the "Slug" property, Webflow will
 convert the slug to lowercase and replace spaces with "-."
-
-Only some field types can be created through the API.
 This endpoint does not currently support bulk creation.
 
 Required scope | `cms:write`
@@ -4894,10 +5064,8 @@ Required scope | `cms:write`
 
 ```typescript
 await client.collections.fields.create("580e63fc8c9a982ac9b8b745", {
-    isRequired: false,
-    type: "RichText",
-    displayName: "Post Body",
-    helpText: "Add the body of your post here",
+    type: "Color",
+    displayName: "displayName",
 });
 ```
 
@@ -4922,7 +5090,7 @@ await client.collections.fields.create("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
-**request:** `Webflow.collections.FieldCreate`
+**request:** `Webflow.FieldCreate`
 
 </dd>
 </dl>
@@ -5270,7 +5438,7 @@ await client.collections.items.createItem("580e63fc8c9a982ac9b8b745", {
 
 Delete Items from a Collection.
 
-**Note:** If the `cmsLocaleId` parameter is undefined or empty and the items are localized, items will be deleted only in the primary locale.
+<Tip title="Localization Tip">Items will only be deleted in the primary locale unless a `cmsLocaleId` is included in the request.</Tip>
 
 Required scope | `CMS:write`
 
@@ -5343,9 +5511,11 @@ await client.collections.items.deleteItems("580e63fc8c9a982ac9b8b745");
 <dl>
 <dd>
 
-Update a single item or multiple items (up to 100) in a Collection.
+Update a single item or multiple items in a Collection.
 
-**Note:** If the `cmsLocaleId` parameter is undefined or empty and the items are localized, items will be updated only in the primary locale.
+The limit for this endpoint is 100 items.
+
+<Tip title="Localization Tip">Items will only be updated in the primary locale, unless a `cmsLocaleId` is included in the request.</Tip>
 
 Required scope | `CMS:write`
 
@@ -5453,7 +5623,7 @@ await client.collections.items.updateItems("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
-List of all live Items within a Collection.
+List all published items in a collection.
 
 Required scope | `CMS:read`
 
@@ -5526,7 +5696,7 @@ await client.collections.items.listItemsLive("580e63fc8c9a982ac9b8b745");
 <dl>
 <dd>
 
-Create live Item(s) in a Collection. The Item(s) will be published to the live site.
+Create item(s) in a collection that will be immediately published to the live site.
 
 To create items across multiple locales, [please use this endpoint.](/v2.0.0/data/reference/cms/collection-items/staged-items/create-items)
 
@@ -5547,6 +5717,9 @@ Required scope | `CMS:write`
 
 ```typescript
 await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
+    lastPublished: "2023-03-17T18:47:35.560Z",
+    lastUpdated: "2023-03-17T18:47:35.560Z",
+    createdOn: "2023-03-17T18:47:35.560Z",
     isArchived: false,
     isDraft: false,
     fieldData: {
@@ -5608,9 +5781,11 @@ await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
-Remove an item or multiple items (up to 100 items) from the live site. Deleting published items will unpublish the items from the live site and set them to draft.
+Remove an item or multiple items (up to 100 items) from the live site.
 
-**Note:** If the `cmsLocaleId` parameter is undefined or empty and the items are localized, items will be unpublished only in the primary locale.
+Using this endpoint to delete published item(s) will unpublish the item(s) from the live site and set the item(s) `isDraft` property to `true`.
+
+<Tip title="Localization Tip">Items will only be unpublished in the primary locale unless a `cmsLocaleId` is included in the request.</Tip>
 
 Required scope | `CMS:write`
 
@@ -5683,9 +5858,9 @@ await client.collections.items.deleteItemsLive("580e63fc8c9a982ac9b8b745");
 <dl>
 <dd>
 
-Update a single live item or multiple live items (up to 100) in a Collection
+Update a single published item or multiple published items (up to 100) in a Collection
 
-**Note:** If the `cmsLocaleId` parameter is undefined or empty and the items are localized, items will be updated only in the primary locale.
+<Tip title="Localization Tip">Items will only be updated in the primary locale, unless a `cmsLocaleId` is included in the request.</Tip>
 
 Required scope | `CMS:write`
 
@@ -5795,10 +5970,10 @@ await client.collections.items.updateItemsLive("580e63fc8c9a982ac9b8b745", {
 
 Create an item or multiple items in a CMS Collection across multiple corresponding locales.
 
-**Notes:**
-
--   This endpoint can create up to 100 items in a request.
--   If the `cmsLocaleIds` parameter is undefined or empty and localization is enabled, items will only be created in the primary locale.
+<Note>
+  - This endpoint can create up to 100 items in a request.
+  - If the `cmsLocaleIds` parameter is not included in the request, an item will only be created in the primary locale.
+</Note>
 
 Required scope | `CMS:write`
 
@@ -5960,7 +6135,7 @@ await client.collections.items.getItem("580e63fc8c9a982ac9b8b745", "580e64008c9a
 <dl>
 <dd>
 
-Delete an Item from a Collection. This endpoint does not currently support bulk deletion.
+Delete an item from a collection.
 
 Required scope | `CMS:write`
 
@@ -6458,13 +6633,7 @@ await client.collections.items.publishItem("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
-Get all registered scripts that have been applied to a specific Page.
-
-In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts must first be registered
-to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate
-`custom_code` endpoints.
-
-<Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
+Get all scripts applied to a page.
 
 Required scope | `custom_code:read`
 
@@ -6529,15 +6698,11 @@ await client.pages.scripts.getCustomCode("63c720f9347c2139b248e552");
 <dl>
 <dd>
 
-Add a registered script to a Page.
+Apply scripts to a page.
 
-In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts must first be registered
-to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate
-`custom_code` endpoints.
-
-A site can have a maximum of 800 registered scripts.
-
-<Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
+<Note title="Script Registration">
+  To apply a script to a page, the script must first be registered to a Site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
+</Note>
 
 Required scope | `custom_code:write`
 
@@ -6626,11 +6791,7 @@ await client.pages.scripts.upsertCustomCode("63c720f9347c2139b248e552", {
 <dl>
 <dd>
 
-Delete the custom code block that an app has created for a page
-
-In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts must first be registered
-to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate
-`custom_code` endpoints.
+Delete a custom code block that the App created on a page.
 
 <Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
 
@@ -6703,6 +6864,8 @@ Fetch a list of all URL redirect rules configured for a specific site.
 
 Use this endpoint to review, audit, or manage the redirection rules that control how traffic is rerouted on your site.
 
+<Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
+
 Required scope: `sites:read`
 
 </dd>
@@ -6769,6 +6932,8 @@ await client.sites.redirects.list("580e63e98c9a982ac9b8b741");
 Add a new URL redirection rule to a site.
 
 This endpoint allows you to define a source path (`fromUrl`) and its corresponding destination path (`toUrl`), which will dictate how traffic is rerouted on your site. This is useful for managing site changes, restructuring URLs, or handling outdated links.
+
+<Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
 
 Required scope: `sites:write`
 
@@ -6846,7 +7011,11 @@ await client.sites.redirects.create("580e63e98c9a982ac9b8b741", {
 <dd>
 
 Remove a URL redirection rule from a site.
+
 This is useful for cleaning up outdated or unnecessary redirects, ensuring that your site's routing behavior remains efficient and up-to-date.
+
+<Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
+
 Required scope: `sites:write`
 
 </dd>
@@ -6919,6 +7088,9 @@ await client.sites.redirects.delete("580e63e98c9a982ac9b8b741", "66c4cb9a20cac35
 <dd>
 
 Update a URL redirection rule from a site.
+
+<Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
+
 Required scope: `sites:write`
 
 </dd>
@@ -7006,6 +7178,8 @@ await client.sites.redirects.update("580e63e98c9a982ac9b8b741", "66c4cb9a20cac35
 
 Get site plan details for the specified Site.
 
+<Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
+
 Required scope | `sites:read`
 
 </dd>
@@ -7057,6 +7231,320 @@ await client.sites.plans.getSitePlan("580e63e98c9a982ac9b8b741");
 </dl>
 </details>
 
+## Sites RobotsTxt
+
+<details><summary><code>client.sites.robotsTxt.<a href="/src/api/resources/sites/resources/robotsTxt/client/Client.ts">get</a>(siteId) -> Webflow.Robots</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve the robots.txt configuration for various user agents.
+
+Required scope: `site_config:read`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.robotsTxt.get("580e63e98c9a982ac9b8b741");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RobotsTxt.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sites.robotsTxt.<a href="/src/api/resources/sites/resources/robotsTxt/client/Client.ts">put</a>(siteId, { ...params }) -> Webflow.Robots</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Replace the `robots.txt` configuration for various user agents.
+
+Required scope | `site_config:write`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.robotsTxt.put("580e63e98c9a982ac9b8b741", {
+    rules: [
+        {
+            userAgent: "googlebot",
+            allows: ["/public"],
+            disallows: ["/vogon-poetry", "/total-perspective-vortex"],
+        },
+    ],
+    sitemap: "https://heartofgold.ship/sitemap.xml",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.Robots`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RobotsTxt.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sites.robotsTxt.<a href="/src/api/resources/sites/resources/robotsTxt/client/Client.ts">delete</a>(siteId, { ...params }) -> Webflow.Robots</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Remove specific rules for a user-agent in your `robots.txt` file. To delete all rules for a user-agent, provide an empty rule set. This will remove the user-agent's entry entirely, leaving it subject to your site's default crawling behavior.
+
+**Note:** Deleting a user-agent with no rules will make the user-agent's access unrestricted unless other directives apply.
+
+Required scope: `site_config:write`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.robotsTxt.delete("580e63e98c9a982ac9b8b741", {
+    rules: [
+        {
+            userAgent: "*",
+            allows: ["/public"],
+            disallows: ["/bubbles"],
+        },
+    ],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.Robots`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RobotsTxt.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sites.robotsTxt.<a href="/src/api/resources/sites/resources/robotsTxt/client/Client.ts">patch</a>(siteId, { ...params }) -> Webflow.Robots</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update the `robots.txt` configuration for various user agents.
+
+Required scope | `site_config:write`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.robotsTxt.patch("580e63e98c9a982ac9b8b741", {
+    rules: [
+        {
+            userAgent: "googlebot",
+            allows: ["/public"],
+            disallows: ["/vogon-poetry", "/total-perspective-vortex"],
+        },
+    ],
+    sitemap: "https://heartofgold.ship/sitemap.xml",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.Robots`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RobotsTxt.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Sites ActivityLogs
 
 <details><summary><code>client.sites.activityLogs.<a href="/src/api/resources/sites/resources/activityLogs/client/Client.ts">list</a>(siteId, { ...params }) -> Webflow.SiteActivityLogResponse</code></summary>
@@ -7071,7 +7559,11 @@ await client.sites.plans.getSitePlan("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-Retrieve Activity Logs for a specific Site. Requires Site to be on an Enterprise plan. </br></br> Required scope | `site_activity:read`
+Retrieve Activity Logs for a specific Site.
+
+<Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
+
+Required scope: `site_activity:read`
 
 </dd>
 </dl>
@@ -7144,9 +7636,11 @@ await client.sites.activityLogs.list("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-Get all registered scripts that have been applied to a specific Site.
+Get all scripts applied to a site by the App.
 
-<Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
+<Note title="Script Registration">
+  To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
+</Note>
 
 Required scope | `custom_code:read`
 
@@ -7211,13 +7705,11 @@ await client.sites.scripts.getCustomCode("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-Add a registered script to a Site.
+Apply registered scripts to a site.
 
-In order to use the Custom Code APIs for Sites and Pages, Custom Code Scripts must first be registered
-to a Site via the `registered_scripts` endpoints, and then applied to a Site or Page using the appropriate
-`custom_code` endpoints.
-
-<Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
+<Note title="Script Registration">
+  To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
+</Note>
 
 Required scope | `custom_code:write`
 
@@ -7306,9 +7798,7 @@ await client.sites.scripts.upsertCustomCode("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-Delete the custom code block that an app created for a Site
-
-<Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
+Remove scripts from a site applied by the App. This endpoint will not remove scripts from the site's registered scripts.
 
 Required scope | `custom_code:write`
 
@@ -7373,9 +7863,13 @@ await client.sites.scripts.deleteCustomCode("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-Get all instances of Custom Code applied to a Site or Pages.
+Get a list of scripts that have been applied to a site and/or individual pages.
 
-<Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
+<Note title="Script Registration">
+  To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. 
+  
+  See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
+</Note>
 
 Required scope | `custom_code:read`
 

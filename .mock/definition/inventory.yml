@@ -25,6 +25,7 @@ service:
       response:
         docs: Request was successful
         type: root.InventoryItem
+        status-code: 200
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -88,6 +89,7 @@ service:
       response:
         docs: Request was successful
         type: root.InventoryItem
+        status-code: 200
       errors:
         - root.BadRequestError
         - root.UnauthorizedError

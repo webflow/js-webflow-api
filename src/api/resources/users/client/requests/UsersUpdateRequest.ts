@@ -17,9 +17,6 @@ import * as Webflow from "../../../../index";
  */
 export interface UsersUpdateRequest {
     data?: Webflow.UsersUpdateRequestData;
-    /**
-     * An array of access group slugs. Access groups are assigned to the user as type `admin` and the user remains in the group until removed.
-     *
-     */
+    /** An array of access group slugs. Access groups are assigned to the user as type `admin` and the user remains in the group until removed. */
     accessGroups?: string[];
 }

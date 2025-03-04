@@ -22,6 +22,7 @@ service:
       response:
         docs: Request was successful
         type: root.EcommerceSettings
+        status-code: 200
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
