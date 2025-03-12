@@ -38,6 +38,7 @@ service:
       response:
         docs: Request was successful
         type: root.PageList
+        status-code: 200
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -56,8 +57,6 @@ service:
                   siteId: 6258612d1ee792848f805dcf
                   title: Guide to the Galaxy
                   slug: guide-to-the-galaxy
-                  parentId: 6419db964a9c435aa3af6251
-                  collectionId: 6390c49774a71f12831a08e3
                   createdOn: '2024-03-11T10:42:00Z'
                   lastUpdated: '2024-03-11T10:42:42Z'
                   archived: false
@@ -83,8 +82,6 @@ service:
                   siteId: 6258612d1ee792848f805dcf
                   title: Towel Day Celebrations
                   slug: towel-day
-                  parentId: 6419db964a9c435aa3af6251
-                  collectionId: 6390c49774a71f12831a08e3
                   createdOn: '2024-05-25T09:00:00Z'
                   lastUpdated: '2024-05-25T09:42:00Z'
                   archived: false
@@ -138,6 +135,7 @@ service:
       response:
         docs: Request was successful
         type: root.Page
+        status-code: 200
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -155,8 +153,6 @@ service:
               siteId: 6258612d1ee792848f805dcf
               title: Guide to the Galaxy
               slug: guide-to-the-galaxy
-              parentId: 6419db964a9c435aa3af6251
-              collectionId: 6390c49774a71f12831a08e3
               createdOn: '2024-03-11T10:42:00Z'
               lastUpdated: '2024-03-11T10:42:42Z'
               archived: false
@@ -185,6 +181,10 @@ service:
       docs: |
         Update Page-level metadata, including SEO and Open Graph fields.
 
+        <Note>
+          Note: When updating Page Metadata in secondary locales, you may only add `slug` to the request if your Site has the [Advanced or Enterprise Localization](https://webflow.com/localization) add-on.
+        </Note>
+
         Required scope | `pages:write`
       source:
         openapi: ../../../openapi/referenced-specs/v2.yml
@@ -206,6 +206,7 @@ service:
       response:
         docs: Request was successful
         type: root.Page
+        status-code: 200
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -248,8 +249,6 @@ service:
               siteId: 6258612d1ee792848f805dcf
               title: Guide to the Galaxy
               slug: guide-to-the-galaxy
-              parentId: 6419db964a9c435aa3af6251
-              collectionId: 6390c49774a71f12831a08e3
               createdOn: '2024-03-11T10:42:00Z'
               lastUpdated: '2024-03-11T10:42:42Z'
               archived: false
@@ -276,16 +275,18 @@ service:
       method: GET
       auth: true
       docs: >
-        Get static content from a static page. This includes text nodes, image
-        nodes and component instances.
+        Get content from a static page. This includes text nodes, image nodes,
+        and component instances with [property
+        overrides](https://help.webflow.com/hc/en-us/articles/33961219350547-Component-properties#how-to-modify-property-values-on-component-instances).
 
-        To retrieve the contents of components in the page use the [get
-        component
-        content](/data/reference/pages-and-components/components/get-content)
+
+        To retrieve the static content of a component instance, use the [Get
+        Component
+        Content](/data/reference/pages-and-components/components/get-content)
         endpoint.
 
 
-        <Note>If you do not provide a Locale ID in your request, the response
+        <Note>If you do not include a `localeId` in your request, the response
         will return any content that can be localized from the Primary
         locale.</Note>
 
@@ -317,6 +318,7 @@ service:
       response:
         docs: Request was successful
         type: root.Dom
+        status-code: 200
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -334,39 +336,31 @@ service:
             body:
               pageId: 658205daa3e8206a523b5ad4
               nodes:
-                - type: component-instance
-                  id: a245c12d-995b-55ee-5ec7-aa36a6cad623
-                  componentId: nodes
+                - id: id
+                  text: {}
+                  attributes:
+                    key: value
+                  type: text
+                - id: id
+                  text: {}
+                  attributes:
+                    key: value
+                  type: text
+                - id: id
+                  image: {}
+                  attributes:
+                    key: value
+                  type: image
+                - id: id
+                  componentId: componentId
                   propertyOverrides:
                     - propertyId: 7dd14c08-2e96-8d3d-2b19-b5c03642a0f0
-                - type: component-instance
-                  id: a245c12d-995b-55ee-5ec7-aa36a6cad627
-                  componentId: nodes
-                  propertyOverrides:
-                    - propertyId: 7dd14c08-2e96-8d3d-2b19-b5c03642a0f0
-                - type: component-instance
-                  id: a245c12d-995b-55ee-5ec7-aa36a6cad629
-                  componentId: nodes
-                  propertyOverrides:
-                    - propertyId: 7dd14c08-2e96-8d3d-2b19-b5c03642a0f0
-                - type: component-instance
-                  id: a245c12d-995b-55ee-5ec7-aa36a6cad631
-                  componentId: 6258612d1ee792848f805dcf
-                  propertyOverrides:
-                    - propertyId: a245c12d-995b-55ee-5ec7-aa36a6cad633
-                      type: Plain Text
-                      label: Catchphrase
-                      text:
-                        text: Don't Panic!
-                    - propertyId: a245c12d-995b-55ee-5ec7-aa36a6cad635
-                      type: Rich Text
-                      label: Tagline
-                      text:
-                        html: <div><p>Always know where your towel is.</p></div>
+                  type: component-instance
               pagination:
                 limit: 4
                 offset: 0
                 total: 4
+              lastUpdated: '2016-10-24T19:42:38Z'
     update-static-content:
       path: /pages/{page_id}/dom
       method: POST
@@ -418,6 +412,7 @@ service:
       response:
         docs: Request was successful
         type: UpdateStaticContentResponse
+        status-code: 200
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
