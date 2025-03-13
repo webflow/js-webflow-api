@@ -8,25 +8,25 @@ import * as core from "../../core";
 
 export const AssetVariant: core.serialization.ObjectSchema<serializers.AssetVariant.Raw, Webflow.AssetVariant> =
     core.serialization.object({
-        hostedUrl: core.serialization.string(),
-        originalFileName: core.serialization.string(),
-        displayName: core.serialization.string(),
-        format: core.serialization.string(),
-        width: core.serialization.number(),
-        height: core.serialization.number(),
-        quality: core.serialization.number(),
+        hostedUrl: core.serialization.string().optional(),
+        originalFileName: core.serialization.string().optional(),
+        displayName: core.serialization.string().optional(),
+        format: core.serialization.string().optional(),
+        width: core.serialization.number().optional(),
+        height: core.serialization.number().optional(),
+        quality: core.serialization.number().optional(),
         error: core.serialization.string().optional(),
     });
 
 export declare namespace AssetVariant {
     interface Raw {
-        hostedUrl: string;
-        originalFileName: string;
-        displayName: string;
-        format: string;
-        width: number;
-        height: number;
-        quality: number;
+        hostedUrl?: string | null;
+        originalFileName?: string | null;
+        displayName?: string | null;
+        format?: string | null;
+        width?: number | null;
+        height?: number | null;
+        quality?: number | null;
         error?: string | null;
     }
 }

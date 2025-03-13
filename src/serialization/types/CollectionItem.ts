@@ -11,9 +11,9 @@ export const CollectionItem: core.serialization.ObjectSchema<serializers.Collect
     core.serialization.object({
         id: core.serialization.string().optional(),
         cmsLocaleId: core.serialization.string().optional(),
-        lastPublished: core.serialization.string(),
-        lastUpdated: core.serialization.string(),
-        createdOn: core.serialization.string(),
+        lastPublished: core.serialization.string().optional(),
+        lastUpdated: core.serialization.string().optional(),
+        createdOn: core.serialization.string().optional(),
         isArchived: core.serialization.boolean().optional(),
         isDraft: core.serialization.boolean().optional(),
         fieldData: CollectionItemFieldData,
@@ -23,9 +23,9 @@ export declare namespace CollectionItem {
     interface Raw {
         id?: string | null;
         cmsLocaleId?: string | null;
-        lastPublished: string;
-        lastUpdated: string;
-        createdOn: string;
+        lastPublished?: string | null;
+        lastUpdated?: string | null;
+        createdOn?: string | null;
         isArchived?: boolean | null;
         isDraft?: boolean | null;
         fieldData: CollectionItemFieldData.Raw;
