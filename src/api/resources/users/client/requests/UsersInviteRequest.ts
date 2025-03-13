@@ -12,9 +12,6 @@
 export interface UsersInviteRequest {
     /** Email address of user to send invite to */
     email: string;
-    /**
-     * An array of access group slugs. Access groups are assigned to the user as type `admin` and the user remains in the group until removed.
-     *
-     */
+    /** An array of access group slugs. Access groups are assigned to the user as type `admin` and the user remains in the group until removed. */
     accessGroups?: string[];
 }

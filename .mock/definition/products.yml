@@ -41,6 +41,7 @@ service:
       response:
         docs: Request was successful
         type: root.ProductAndSkUsList
+        status-code: 200
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -138,6 +139,7 @@ service:
       response:
         docs: Request was successful
         type: root.ProductAndSkUs
+        status-code: 200
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -214,6 +216,7 @@ service:
       response:
         docs: Request was successful
         type: root.ProductAndSkUs
+        status-code: 200
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -303,6 +306,7 @@ service:
       response:
         docs: Request was successful
         type: root.Product
+        status-code: 200
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -379,6 +383,7 @@ service:
       response:
         docs: Request was successful
         type: ProductsCreateSkuResponse
+        status-code: 200
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -396,6 +401,8 @@ service:
               - {}
           response:
             body:
+              required:
+                key: value
               skus:
                 - id: 580e63fc8c9a982ac9b8b745
                   cmsLocaleId: 653ad57de882f528b32e810e
@@ -448,6 +455,7 @@ service:
       response:
         docs: Request was successful
         type: root.Sku
+        status-code: 200
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -495,6 +503,7 @@ service:
 types:
   ProductsCreateSkuResponse:
     properties:
+      required: optional<unknown>
       skus: optional<list<root.Sku>>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml

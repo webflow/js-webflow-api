@@ -5,11 +5,10 @@
 /**
  * Choose these appropriate field type for your collection data
  */
-export type FieldCreateType =
+export type StaticFieldType =
     | "Color"
     | "DateTime"
     | "Email"
-    | "ExtFileRef"
     | "File"
     | "Image"
     | "Link"
@@ -21,11 +20,10 @@ export type FieldCreateType =
     | "Switch"
     | "Video";
 
-export const FieldCreateType = {
+export const StaticFieldType = {
     Color: "Color",
     DateTime: "DateTime",
     Email: "Email",
-    ExtFileRef: "ExtFileRef",
     File: "File",
     Image: "Image",
     Link: "Link",

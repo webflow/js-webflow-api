@@ -22,6 +22,7 @@ service:
       response:
         docs: Request was successful
         type: root.WebhookList
+        status-code: 200
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -33,10 +34,6 @@ service:
             site_id: 580e63e98c9a982ac9b8b741
           response:
             body:
-              pagination:
-                limit: 100
-                offset: 0
-                total: 100
               webhooks:
                 - id: 57ca0a9e418c504a6e1acbb6
                   triggerType: form_submission
@@ -65,6 +62,10 @@ service:
                     name: Email Form
                   lastTriggered: '2023-02-08T23:59:28Z'
                   createdOn: '2016-07-19T01:43:40Z'
+              pagination:
+                limit: 100
+                offset: 0
+                total: 100
     create:
       path: /sites/{site_id}/webhooks
       method: POST
@@ -93,6 +94,7 @@ service:
       response:
         docs: Request was successful
         type: root.Webhook
+        status-code: 201
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -117,8 +119,6 @@ service:
               url: https://webhook.site/7f7f7f7f-7f7f-7f7f-7f7f-7f7f7f7f7f7f
               workspaceId: 4f4e46fd476ea8c507000001
               siteId: 562ac0395358780a1f5e6fbd
-              filter:
-                name: My Form
               lastTriggered: '2023-02-08T23:59:28Z'
               createdOn: '2022-11-08T23:59:28Z'
     get:
@@ -139,6 +139,7 @@ service:
       response:
         docs: Request was successful
         type: root.Webhook
+        status-code: 200
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -155,8 +156,6 @@ service:
               url: https://webhook.site/7f7f7f7f-7f7f-7f7f-7f7f-7f7f7f7f7f7f
               workspaceId: 4f4e46fd476ea8c507000001
               siteId: 562ac0395358780a1f5e6fbd
-              filter:
-                name: My Form
               lastTriggered: '2023-02-08T23:59:28Z'
               createdOn: '2022-11-08T23:59:28Z'
     delete:
