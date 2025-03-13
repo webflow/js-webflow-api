@@ -8,15 +8,15 @@ import * as core from "../../core";
 
 export const Pagination: core.serialization.ObjectSchema<serializers.Pagination.Raw, Webflow.Pagination> =
     core.serialization.object({
-        limit: core.serialization.number(),
-        offset: core.serialization.number(),
-        total: core.serialization.number(),
+        limit: core.serialization.number().optional(),
+        offset: core.serialization.number().optional(),
+        total: core.serialization.number().optional(),
     });
 
 export declare namespace Pagination {
     interface Raw {
-        limit: number;
-        offset: number;
-        total: number;
+        limit?: number | null;
+        offset?: number | null;
+        total?: number | null;
     }
 }
