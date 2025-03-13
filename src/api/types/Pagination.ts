@@ -7,9 +7,9 @@
  */
 export interface Pagination {
     /** The limit used for pagination */
-    limit: number;
+    limit?: number;
     /** The offset used for pagination */
-    offset: number;
+    offset?: number;
     /** The total number of records */
-    total: number;
+    total?: number;
 }

@@ -17,11 +17,11 @@ export interface CollectionItem {
     /** Identifier for the locale of the CMS item */
     cmsLocaleId?: string;
     /** The date the item was last published */
-    lastPublished: string;
+    lastPublished?: string;
     /** The date the item was last updated */
-    lastUpdated: string;
+    lastUpdated?: string;
     /** The date the item was created */
-    createdOn: string;
+    createdOn?: string;
     /** Boolean determining if the Item is set to archived */
     isArchived?: boolean;
     /** Boolean determining if the Item is set to draft */
