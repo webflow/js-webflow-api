@@ -18,7 +18,8 @@
         "node-fetch": "2.7.0",
         "qs": "6.11.2",
         "readable-stream": "^4.5.2",
-        "js-base64": "3.7.2"
+        "js-base64": "3.7.2",
+        "crypto-browserify": "^3.12.1"
     },
     "devDependencies": {
         "@types/url-join": "4.0.1",
@@ -38,6 +39,7 @@
     "browser": {
         "fs": false,
         "os": false,
-        "path": false
+        "path": false,
+        "crypto": false
     }
 }
