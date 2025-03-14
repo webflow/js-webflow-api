@@ -5,5 +5,5 @@
 import * as Webflow from "../../../index";
 
 export interface ProductsCreateSkuResponse {
-    skus: Webflow.Sku[];
+    skus?: Webflow.Sku[];
 }
