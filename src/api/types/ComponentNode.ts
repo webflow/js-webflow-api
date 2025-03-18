@@ -8,9 +8,9 @@ import * as Webflow from "../index";
  * Represents a component instance within the DOM. It contains details about the component instance, such as its type and properties.
  */
 export interface ComponentNode {
-    /** Node UUID */
+    /** The unique identifier of the component instance node */
     id?: string;
-    /** Component ID */
+    /** The unique identifier of the component */
     componentId?: string;
     /** List of component properties with overrides for a component instance. */
     propertyOverrides?: Webflow.ComponentProperty[];

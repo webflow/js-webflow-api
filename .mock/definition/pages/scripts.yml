@@ -8,22 +8,8 @@ service:
       path: /pages/{page_id}/custom_code
       method: GET
       auth: true
-      docs: >
-        Get all registered scripts that have been applied to a specific Page. 
-
-
-        In order to use the Custom Code APIs for Sites and Pages, Custom Code
-        Scripts must first be registered 
-
-        to a Site via the `registered_scripts` endpoints, and then applied to a
-        Site or Page using the appropriate
-
-        `custom_code` endpoints. 
-
-
-        <Note>Access to this endpoint requires a bearer token from a [Data
-        Client App](/data/docs/getting-started-data-clients).</Note>
-
+      docs: |
+        Get all scripts applied to a page. 
 
         Required scope | `custom_code:read`
       source:
@@ -36,6 +22,7 @@ service:
       response:
         docs: Request was successful
         type: root.ScriptApplyList
+        status-code: 200
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -59,25 +46,12 @@ service:
       path: /pages/{page_id}/custom_code
       method: PUT
       auth: true
-      docs: >
-        Add a registered script to a Page. 
+      docs: |
+        Apply scripts to a page.
 
-
-        In order to use the Custom Code APIs for Sites and Pages, Custom Code
-        Scripts must first be registered 
-
-        to a Site via the `registered_scripts` endpoints, and then applied to a
-        Site or Page using the appropriate
-
-        `custom_code` endpoints.
-
-
-        A site can have a maximum of 800 registered scripts.
-
-
-        <Note>Access to this endpoint requires a bearer token from a [Data
-        Client App](/data/docs/getting-started-data-clients).</Note>
-
+        <Note title="Script Registration">
+          To apply a script to a page, the script must first be registered to a Site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
+        </Note>
 
         Required scope | `custom_code:write`
       source:
@@ -93,6 +67,7 @@ service:
       response:
         docs: Request was successful
         type: root.ScriptApplyList
+        status-code: 200
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -133,16 +108,7 @@ service:
       method: DELETE
       auth: true
       docs: >
-        Delete the custom code block that an app has created for a page
-
-
-        In order to use the Custom Code APIs for Sites and Pages, Custom Code
-        Scripts must first be registered 
-
-        to a Site via the `registered_scripts` endpoints, and then applied to a
-        Site or Page using the appropriate
-
-        `custom_code` endpoints. 
+        Delete a custom code block that the App created on a page.
 
 
         <Note>Access to this endpoint requires a bearer token from a [Data

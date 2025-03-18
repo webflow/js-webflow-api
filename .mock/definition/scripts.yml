@@ -9,23 +9,13 @@ service:
       method: GET
       auth: true
       docs: >
-        List of scripts registered to a Site. 
+        Get a list of scripts that have been registered to a site. A site can
+        have a maximum of 800 registered scripts.
 
 
-        In order to use the Custom Code APIs for Sites and Pages, Custom Code
-        Scripts must first be registered 
-
-        to a Site via the `registered_scripts` endpoints, and then applied to a
-        Site or Page using the appropriate
-
-        `custom_code` endpoints. 
-
-        Additionally, Scripts can be remotely hosted, or registered as inline
-        snippets.
-
-
-        <Note>Access to this endpoint requires a bearer token from a [Data
-        Client App](/data/docs/getting-started-data-clients).</Note>    
+        <Note title="Script Registration">
+          To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
+        </Note>
 
 
         Required scope | `custom_code:read`
@@ -39,6 +29,7 @@ service:
       response:
         docs: Request was successful
         type: root.RegisteredScriptList
+        status-code: 200
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -55,7 +46,6 @@ service:
                   canCopy: false
                   displayName: Alert
                   hostedLocation: https://cdn.webflow.io/.../alert-0.0.1.js
-                  integrityHash: integrityHash
                   createdOn: '2022-10-26T00:28:54.191Z'
                   lastUpdated: lastUpdated
                   version: 0.0.1
@@ -63,7 +53,6 @@ service:
                   canCopy: false
                   displayName: Alert
                   hostedLocation: https://cdn.webflow.io/.../alert-0.0.2.js
-                  integrityHash: integrityHash
                   createdOn: '2022-10-26T00:28:54.191Z'
                   lastUpdated: lastUpdated
                   version: 0.0.2
@@ -80,25 +69,12 @@ service:
       path: /sites/{site_id}/registered_scripts/hosted
       method: POST
       auth: true
-      docs: >
-        Add a script to a Site's Custom Code registry.
+      docs: |
+        Register a hosted script to a site.
 
-
-        In order to use the Custom Code APIs for Sites and Pages, Custom Code
-        Scripts must first be registered 
-
-        to a Site via the `registered_scripts` endpoints, and then applied to a
-        Site or Page using the appropriate
-
-        `custom_code` endpoints. 
-
-        Additionally, Scripts can be remotely hosted, or registered as inline
-        snippets.  
-
-
-        <Note>Access to this endpoint requires a bearer token from a [Data
-        Client App](/data/docs/getting-started-data-clients).</Note>    
-
+        <Note title="Script Registration">
+          To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
+        </Note>
 
         Required scope | `custom_code:write`
       source:
@@ -138,6 +114,7 @@ service:
       response:
         docs: Request was successful
         type: root.CustomCodeHostedResponse
+        status-code: 201
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -168,21 +145,13 @@ service:
       method: POST
       auth: true
       docs: >
-        Add a script to a Site's Custom Code registry. Inline scripts can be
-        between 1 and 2000 characters.
+        Register an inline script to a site. Inline scripts are limited to 2000
+        characters.
 
 
-        In order to use the Custom Code APIs for Sites and Pages, Custom Code
-        Scripts must first be registered 
-
-        to a Site via the `registered_scripts` endpoints, and then applied to a
-        Site or Page using the appropriate
-
-        `custom_code` endpoints. 
-
-
-        <Note>Access to this endpoint requires a bearer token from a [Data
-        Client App](/data/docs/getting-started-data-clients).</Note>    
+        <Note title="Script Registration">
+          To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
+        </Note>
 
 
         Required scope | `custom_code:write`
@@ -225,6 +194,7 @@ service:
       response:
         docs: Created
         type: root.CustomCodeInlineResponse
+        status-code: 201
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -245,7 +215,6 @@ service:
               displayName: Alert
               hostedLocation: >-
                 https://uploads-ssl.webflow.com/6258612d1ee792848f805dcf%2F64b6c769ff52ba6c3d904a91%2F660d6e15b3d1696f2d2b1447%2Falert-0.0.1.js
-              integrityHash: integrityHash
               createdOn: '2022-10-26T00:28:54.191Z'
               lastUpdated: lastUpdated
               version: 0.0.1

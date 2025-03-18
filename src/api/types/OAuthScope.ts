@@ -13,6 +13,12 @@ export type OauthScope =
      * write assets on a site */
     | "assets:write"
     /**
+     * read comments on the site */
+    | "comments:read"
+    /**
+     * read comments on the site */
+    | "comments:write"
+    /**
      * read collections and items for a site */
     | "cms:read"
     /**
@@ -74,6 +80,8 @@ export const OauthScope = {
     AuthorizedUserRead: "authorized_user:read",
     AssetsRead: "assets:read",
     AssetsWrite: "assets:write",
+    CommentsRead: "comments:read",
+    CommentsWrite: "comments:write",
     CmsRead: "cms:read",
     CmsWrite: "cms:write",
     CustomCodeRead: "custom_code:read",

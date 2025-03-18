@@ -67,10 +67,18 @@ errors:
   ConflictError:
     status-code: 409
     type: unknown
-    docs: Site is published to multiple domains at different times
+    docs: Collection already exists
     examples:
       - value:
+          code: duplicate_collection
+          message: Collection already exists
+      - value:
           message: '''Site is published to multiple domains at different times'
+      - value:
+          code: conflict
+          message: >-
+            Conflict: Conflict with server data: Live PATCH updates can't be
+            applied to items that have never been published
       - value:
           code: custom_code_max_registered_scripts
           message: The maximum number of registered scripts has been reached.
@@ -226,12 +234,14 @@ types:
       id:
         type: string
         docs: Unique identifier for the Domain
+        access: read-only
       url:
         type: optional<string>
         docs: The registered Domain name
       lastPublished:
         type: optional<datetime>
         docs: The date the custom domain was last published to
+        access: read-only
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   Locale:
@@ -348,6 +358,7 @@ types:
       id:
         type: optional<string>
         docs: The ID of the specific redirect rule
+        access: read-only
       fromUrl:
         type: optional<string>
         docs: The source URL path that will be redirected.
@@ -360,13 +371,13 @@ types:
     docs: Pagination object
     properties:
       limit:
-        type: optional<double>
+        type: double
         docs: The limit used for pagination
       offset:
-        type: optional<double>
+        type: double
         docs: The offset used for pagination
       total:
-        type: optional<double>
+        type: double
         docs: The total number of records
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
@@ -438,6 +449,31 @@ types:
       pricingInfo:
         type: optional<string>
         docs: URL for more information about Webflow hosting plan pricing.
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  RobotsRulesItem:
+    properties:
+      userAgent:
+        type: string
+        docs: The user agent the rules apply to.
+      allows:
+        type: optional<list<string>>
+        docs: List of paths allowed for this user agent.
+      disallows:
+        type: optional<list<string>>
+        docs: List of paths disallowed for this user agent.
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  Robots:
+    docs: The robots.txt file for a given site
+    properties:
+      rules:
+        type: optional<list<RobotsRulesItem>>
+        docs: List of rules for user agents.
+      sitemap:
+        type: optional<string>
+        docs: URL to the sitemap.
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   SiteActivityLogItemEvent:
@@ -535,6 +571,7 @@ types:
       id:
         type: string
         docs: Unique identifier for a Collection
+        access: read-only
       displayName:
         type: optional<string>
         docs: Name given to the Collection
@@ -549,9 +586,11 @@ types:
       createdOn:
         type: optional<datetime>
         docs: The date the collection was created
+        access: read-only
       lastUpdated:
         type: optional<datetime>
         docs: The date the collection was last updated
+        access: read-only
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   CollectionList:
@@ -561,12 +600,12 @@ types:
         docs: An array of Collections
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
-  FieldType:
+  StaticFieldType:
     enum:
       - Color
       - DateTime
       - Email
-      - ExtFileRef
+      - File
       - Image
       - Link
       - MultiImage
@@ -580,18 +619,170 @@ types:
     inline: true
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
+  Static Field:
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for a Field
+        access: read-only
+      isEditable:
+        type: optional<boolean>
+        docs: Define whether the field is editable
+        access: read-only
+      isRequired:
+        type: optional<boolean>
+        docs: define whether a field is required in a collection
+      type:
+        type: StaticFieldType
+        docs: Choose these appropriate field type for your collection data
+      displayName:
+        type: string
+        docs: The name of a field
+      helpText:
+        type: optional<string>
+        docs: Additional text to help anyone filling out this field
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  MetadataOptionsItem:
+    docs: A single option value for the Option field.
+    properties:
+      name:
+        type: string
+        docs: The name of the option
+      id:
+        type: optional<string>
+        docs: The unique identifier of the option
+        access: read-only
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  Metadata:
+    docs: The metadata for the Option field.
+    properties:
+      options:
+        docs: The option values for the Option field.
+        type: list<MetadataOptionsItem>
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  Option Field:
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for a Field
+        access: read-only
+      isEditable:
+        type: optional<boolean>
+        docs: Define whether the field is editable
+        access: read-only
+      isRequired:
+        type: optional<boolean>
+        docs: define whether a field is required in a collection
+      type:
+        type: literal<"Option">
+        docs: >-
+          The [Option field
+          type](/data/reference/field-types-item-values#option)
+      displayName:
+        type: string
+        docs: The name of a field
+      helpText:
+        type: optional<string>
+        docs: Additional text to help anyone filling out this field
+      metadata: Metadata
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  ReferenceFieldType:
+    enum:
+      - MultiReference
+      - Reference
+    docs: Choose these appropriate field type for your collection data
+    inline: true
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  ReferenceFieldMetadata:
+    docs: >-
+      The collectionId for the referenced collection. Only applicable for
+      Reference and MultiReference fields.
+    properties:
+      collectionId:
+        type: string
+        docs: The unique identifier of the collection
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  Reference Field:
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for a Field
+        access: read-only
+      isEditable:
+        type: optional<boolean>
+        docs: Define whether the field is editable
+        access: read-only
+      isRequired:
+        type: optional<boolean>
+        docs: define whether a field is required in a collection
+      type:
+        type: ReferenceFieldType
+        docs: Choose these appropriate field type for your collection data
+      displayName:
+        type: string
+        docs: The name of a field
+      helpText:
+        type: optional<string>
+        docs: Additional text to help anyone filling out this field
+      metadata:
+        type: ReferenceFieldMetadata
+        docs: >-
+          The collectionId for the referenced collection. Only applicable for
+          Reference and MultiReference fields.
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  FieldCreate:
+    discriminated: false
+    docs: Details about the field of a collection
+    union:
+      - Static Field
+      - Option Field
+      - Reference Field
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  FieldType:
+    enum:
+      - Color
+      - DateTime
+      - Email
+      - ExtFileRef
+      - Image
+      - Link
+      - MultiImage
+      - MultiReference
+      - Number
+      - Phone
+      - PlainText
+      - Reference
+      - RichText
+      - Switch
+      - Video
+    docs: Choose these appropriate field type for your collection data
+    inline: true
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
   Field:
     docs: The details of a field in a collection
     properties:
       id:
         type: string
         docs: Unique identifier for a Field
+        access: read-only
       isRequired:
         type: boolean
         docs: define whether a field is required in a collection
       isEditable:
         type: optional<boolean>
         docs: Define whether the field is editable
+        access: read-only
       type:
         type: FieldType
         docs: Choose these appropriate field type for your collection data
@@ -614,11 +805,12 @@ types:
       id:
         type: string
         docs: Unique identifier for a Collection
+        access: read-only
       displayName:
-        type: optional<string>
+        type: string
         docs: Name given to the Collection
       singularName:
-        type: optional<string>
+        type: string
         docs: >-
           The name of one Item in Collection (e.g. ”Blog Post” if the Collection
           is called “Blog Posts”)
@@ -628,9 +820,11 @@ types:
       createdOn:
         type: optional<datetime>
         docs: The date the collection was created
+        access: read-only
       lastUpdated:
         type: optional<datetime>
         docs: The date the collection was last updated
+        access: read-only
       fields:
         docs: The list of fields in the Collection
         type: list<Field>
@@ -669,18 +863,22 @@ types:
       id:
         type: optional<string>
         docs: Unique identifier for the Item
+        access: read-only
       cmsLocaleId:
         type: optional<string>
         docs: Identifier for the locale of the CMS item
       lastPublished:
-        type: optional<string>
+        type: string
         docs: The date the item was last published
+        access: read-only
       lastUpdated:
-        type: optional<string>
+        type: string
         docs: The date the item was last updated
+        access: read-only
       createdOn:
-        type: optional<string>
+        type: string
         docs: The date the item was created
+        access: read-only
       isArchived:
         type: optional<boolean>
         docs: Boolean determining if the Item is set to archived
@@ -750,18 +948,22 @@ types:
       id:
         type: optional<string>
         docs: Unique identifier for the Item
+        access: read-only
       cmsLocaleId:
         type: optional<string>
         docs: Identifier for the locale of the CMS item
       lastPublished:
         type: optional<string>
         docs: The date the item was last published
+        access: read-only
       lastUpdated:
         type: optional<string>
         docs: The date the item was last updated
+        access: read-only
       createdOn:
         type: optional<string>
         docs: The date the item was created
+        access: read-only
       isArchived:
         type: optional<boolean>
         docs: Boolean determining if the Item is in an archived state.
@@ -803,12 +1005,15 @@ types:
       lastPublished:
         type: optional<string>
         docs: The date the item was last published
+        access: read-only
       lastUpdated:
         type: optional<string>
         docs: The date the item was last updated
+        access: read-only
       createdOn:
         type: optional<string>
         docs: The date the item was created
+        access: read-only
       isArchived:
         type: optional<boolean>
         docs: Boolean determining if the Item is set to archived
@@ -826,6 +1031,7 @@ types:
         docs: List of Items within the collection
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
+  Conflict: unknown
   BulkCollectionItemFieldData:
     properties:
       name:
@@ -850,18 +1056,22 @@ types:
       id:
         type: string
         docs: Unique identifier for the Item
+        access: read-only
       cmsLocaleIds:
         type: optional<list<string>>
         docs: Array of identifiers for the locales where the item will be created
       lastPublished:
         type: optional<string>
         docs: The date the item was last published
+        access: read-only
       lastUpdated:
         type: optional<string>
         docs: The date the item was last updated
+        access: read-only
       createdOn:
         type: optional<string>
         docs: The date the item was created
+        access: read-only
       isArchived:
         type: optional<boolean>
         docs: Boolean determining if the Item is set to archived
@@ -897,18 +1107,22 @@ types:
       id:
         type: optional<string>
         docs: Unique identifier for the Item
+        access: read-only
       cmsLocaleId:
         type: optional<string>
         docs: Identifier for the locale of the CMS item
       lastPublished:
         type: optional<string>
         docs: The date the item was last published
+        access: read-only
       lastUpdated:
         type: optional<string>
         docs: The date the item was last updated
+        access: read-only
       createdOn:
         type: optional<string>
         docs: The date the item was created
+        access: read-only
       isArchived:
         type: optional<boolean>
         docs: Boolean determining if the Item is set to archived
@@ -940,6 +1154,7 @@ types:
         type: optional<boolean>
         docs: Indicates the Open Graph title was copied from the SEO title
         default: true
+        access: read-only
       description:
         type: optional<string>
         docs: The description supplied to Open Graph annotations
@@ -949,6 +1164,7 @@ types:
           Indicates the Open Graph description was copied from the SEO
           description
         default: true
+        access: read-only
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
@@ -958,9 +1174,11 @@ types:
       id:
         type: string
         docs: Unique identifier for the Page
+        access: read-only
       siteId:
         type: optional<string>
         docs: Unique identifier for the Site
+        access: read-only
       title:
         type: optional<string>
         docs: Title of the Page
@@ -970,43 +1188,52 @@ types:
       parentId:
         type: optional<string>
         docs: Identifier of the parent folder
+        access: read-only
       collectionId:
         type: optional<string>
         docs: >-
           Unique identifier for a linked Collection, value will be null if the
           Page is not part of a Collection.
+        access: read-only
       createdOn:
         type: optional<datetime>
         docs: The date the Page was created
+        access: read-only
       lastUpdated:
         type: optional<datetime>
         docs: The date the Page was most recently updated
+        access: read-only
       archived:
         type: optional<boolean>
         docs: Whether the Page has been archived
         default: false
+        access: read-only
       draft:
         type: optional<boolean>
         docs: Whether the Page is a draft
         default: false
+        access: read-only
       canBranch:
         type: optional<boolean>
         docs: >-
           Indicates whether the Page supports [Page
           Branching](https://university.webflow.com/lesson/page-branching)
         default: false
+        access: read-only
       isBranch:
         type: optional<boolean>
         docs: >-
           Indicates whether the Page is a Branch of another Page [Page
           Branching](https://university.webflow.com/lesson/page-branching)
         default: false
+        access: read-only
       isMembersOnly:
         type: optional<boolean>
         docs: >-
           Indicates whether the Page is restricted by [Memberships
           Controls](https://university.webflow.com/lesson/webflow-memberships-overview#how-to-manage-page-restrictions)
         default: false
+        access: read-only
       seo:
         type: optional<PageSeo>
         docs: SEO-related fields for the Page
@@ -1016,9 +1243,11 @@ types:
       localeId:
         type: optional<string>
         docs: Unique ID of the page locale
+        access: read-only
       publishedPath:
         type: optional<string>
         docs: Relative path of the published page URL
+        access: read-only
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   PageList:
@@ -1029,6 +1258,7 @@ types:
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   TextNodeText:
+    docs: The text content of the node
     properties:
       html:
         type: optional<string>
@@ -1046,15 +1276,19 @@ types:
       text for styling or other purposes.
     properties:
       id:
-        type: optional<string>
+        type: string
         docs: Node UUID
-      text: optional<TextNodeText>
+        access: read-only
+      text:
+        type: TextNodeText
+        docs: The text content of the node
       attributes:
         type: optional<map<string, string>>
         docs: The custom attributes of the node
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   ImageNodeImage:
+    docs: The image details of the node
     properties:
       alt: optional<string>
       assetId: optional<string>
@@ -1069,15 +1303,19 @@ types:
       can be associated with the image for styling or other purposes.
     properties:
       id:
-        type: optional<string>
+        type: string
         docs: Node UUID
-      image: optional<ImageNodeImage>
+        access: read-only
+      image:
+        type: ImageNodeImage
+        docs: The image details of the node
       attributes:
         type: optional<map<string, string>>
         docs: The custom attributes of the node
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   Text:
+    docs: The text content of the node
     properties:
       html:
         type: optional<string>
@@ -1128,14 +1366,15 @@ types:
       the component instance, such as its type and properties.
     properties:
       id:
-        type: optional<string>
-        docs: Node UUID
+        type: string
+        docs: The unique identifier of the component instance node
+        access: read-only
       componentId:
-        type: optional<string>
-        docs: Component ID
+        type: string
+        docs: The unique identifier of the component
       propertyOverrides:
-        type: optional<list<ComponentProperty>>
         docs: List of component properties with overrides for a component instance.
+        type: list<ComponentProperty>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   Node:
@@ -1165,6 +1404,10 @@ types:
         docs: Page ID
       nodes: optional<list<Node>>
       pagination: optional<Pagination>
+      lastUpdated:
+        type: optional<datetime>
+        docs: The date the page dom was most recently updated
+        access: read-only
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   TextNodeWrite:
@@ -1220,21 +1463,26 @@ types:
       id:
         type: string
         docs: Unique identifier for the Component
+        access: read-only
       name:
         type: optional<string>
         docs: Component Name
+        access: read-only
       group:
         type: optional<string>
         docs: The group that the component belongs to
+        access: read-only
       description:
         type: optional<string>
         docs: Component Description
+        access: read-only
       readonly:
         type: optional<boolean>
         docs: >-
           Indicates whether the component is read-only. Components that cannot
           be updated within this Site are set to readonly. Workspace Libraries
           are a good example.
+        access: read-only
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   ComponentList:
@@ -1270,6 +1518,7 @@ types:
       componentId:
         type: optional<string>
         docs: Component ID
+        access: read-only
       properties: optional<list<ComponentProperty>>
       pagination: optional<Pagination>
     source:
@@ -1314,9 +1563,11 @@ types:
       lastUpdated:
         type: optional<string>
         docs: Date when the Site's scripts were last updated
+        access: read-only
       createdOn:
         type: optional<string>
         docs: Date when the Site's scripts were created
+        access: read-only
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   CustomCodeHostedResponse:
@@ -1325,6 +1576,7 @@ types:
       id:
         type: optional<string>
         docs: Human readable id, derived from the user-specified display name
+        access: read-only
       canCopy:
         type: optional<boolean>
         docs: >-
@@ -1347,9 +1599,11 @@ types:
       createdOn:
         type: optional<string>
         docs: Timestamp when the script version was created
+        access: read-only
       lastUpdated:
         type: optional<string>
         docs: Timestamp when the script version was last updated
+        access: read-only
       version:
         type: optional<string>
         docs: A Semantic Version (SemVer) string, denoting the version of the script
@@ -1367,6 +1621,7 @@ types:
       id:
         type: optional<string>
         docs: Human readable id, derived from the user-specified display name
+        access: read-only
       canCopy:
         type: optional<boolean>
         docs: >-
@@ -1389,9 +1644,11 @@ types:
       createdOn:
         type: optional<string>
         docs: Timestamp when the script version was created
+        access: read-only
       lastUpdated:
         type: optional<string>
         docs: Timestamp when the script version was last updated
+        access: read-only
       version:
         type: optional<string>
         docs: A Semantic Version (SemVer) string, denoting the version of the script
@@ -1426,9 +1683,11 @@ types:
       createdOn:
         type: optional<datetime>
         docs: The date the Block was created
+        access: read-only
       lastUpdated:
         type: optional<datetime>
         docs: The date the Block was most recently updated
+        access: read-only
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   ListCustomCodeBlocks:
@@ -1439,29 +1698,30 @@ types:
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   AssetVariant:
+    docs: Asset variant details
     properties:
       hostedUrl:
-        type: optional<string>
+        type: string
         docs: URL of where the asset variant is hosted
         validation:
           format: uri
       originalFileName:
-        type: optional<string>
+        type: string
         docs: Original file name of the variant
       displayName:
-        type: optional<string>
+        type: string
         docs: Display name of the variant
       format:
-        type: optional<string>
+        type: string
         docs: format of the variant
       width:
-        type: optional<integer>
+        type: integer
         docs: Width in pixels
       height:
-        type: optional<integer>
+        type: integer
         docs: Height in pixels
       quality:
-        type: optional<integer>
+        type: integer
         docs: Value between 0 and 100 representing the image quality
       error:
         type: optional<string>
@@ -1469,37 +1729,51 @@ types:
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   Asset:
+    docs: Asset details
     properties:
       id:
-        type: optional<string>
+        type: string
         docs: Unique identifier for this asset
+        access: read-only
       contentType:
-        type: optional<string>
+        type: string
         docs: File format type
+        access: read-only
       size:
-        type: optional<integer>
+        type: integer
         docs: size in bytes
+        access: read-only
       siteId:
-        type: optional<string>
+        type: string
         docs: Unique identifier for the site that hosts this asset
+        access: read-only
       hostedUrl:
-        type: optional<string>
+        type: string
         docs: Link to the asset
         validation:
           format: uri
+        access: read-only
       originalFileName:
-        type: optional<string>
+        type: string
         docs: Original file name at the time of upload
+        access: read-only
       displayName:
-        type: optional<string>
+        type: string
         docs: Display name of the asset
       lastUpdated:
-        type: optional<datetime>
+        type: datetime
         docs: Date the asset metadata was last updated
+        access: read-only
       createdOn:
-        type: optional<datetime>
+        type: datetime
         docs: Date the asset metadata was created
-      variants: optional<list<AssetVariant>>
+        access: read-only
+      variants:
+        docs: >-
+          A list of [asset
+          variants](https://help.webflow.com/hc/en-us/articles/33961378697107-Responsive-images)
+          created by Webflow to serve your site responsively.
+        type: list<AssetVariant>
       altText:
         type: optional<string>
         docs: The visual description of the asset
@@ -1509,6 +1783,7 @@ types:
     docs: A list of assets
     properties:
       assets: optional<list<Asset>>
+      pagination: optional<Pagination>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   AssetUploadUploadDetails:
@@ -1618,46 +1893,8 @@ types:
       - collection_item_deleted
       - collection_item_unpublished
     docs: >
-      * `form_submission` - Sends the [form_submission](#form_submission) event
-
-      * `site_publish` - Sends a [site_publish](#site_publish) event
-
-      * `page_created` - Send the [page_created](#page_created) event
-
-      * `page_metadata_updated` - Sends the
-      [page_metadata_updated](#page_metadata_updated) event
-
-      * `page_deleted` - Sends the [page_deleted](#page_deleted) event
-
-      * `ecomm_new_order` - Sends the new [ecomm_new_order](#ecomm_new_order)
-      event
-
-      * `ecomm_order_changed` - Sends the
-      [ecomm_order_changed](#ecomm_order_changed) event
-
-      * `ecomm_inventory_changed` - Sends the
-      [ecomm_inventory_changed](#ecomm_inventory_changed) event
-
-      * `user_account_added` - Sends the
-      [user_account_added](#user_account_added) event
-
-      * `user_account_updated` - Sends the
-      [user_account_updated](#user_account_updated) event
-
-      * `user_account_deleted` - Sends the
-      [user_account_deleted](#user_account_deleted) event
-
-      * `collection_item_created` - Sends the
-      [collection_item_created](#collection_item_created) event
-
-      * `collection_item_changed` - Sends the
-      [collection_item_changed](#collection_item_changed) event
-
-      * `collection_item_deleted` - Sends the
-      [collection_item_deleted](#collection_item_deleted) event
-
-      * `collection_item_unpublished` - Sends the
-      [collection_item_unpublished](#collection_item_unpublished) event
+      The type of event that triggered the request. See the the documentation
+      for details on [supported events](/data/reference/all-events).
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   WebhookFilter:
@@ -1676,6 +1913,7 @@ types:
       id:
         type: optional<string>
         docs: Unique identifier for the Webhook registration
+        access: read-only
       triggerType: optional<TriggerType>
       url:
         type: optional<string>
@@ -1683,9 +1921,11 @@ types:
       workspaceId:
         type: optional<string>
         docs: Unique identifier for the Workspace the Webhook is registered in
+        access: read-only
       siteId:
         type: optional<string>
         docs: Unique identifier for the Site the Webhook is registered in
+        access: read-only
       filter:
         type: optional<WebhookFilter>
         docs: >-
@@ -1694,15 +1934,17 @@ types:
       lastTriggered:
         type: optional<datetime>
         docs: Date the Webhook instance was last triggered
+        access: read-only
       createdOn:
         type: optional<datetime>
         docs: Date the Webhook registration was created
+        access: read-only
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   WebhookList:
     properties:
-      pagination: optional<Pagination>
       webhooks: optional<list<Webhook>>
+      pagination: optional<Pagination>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   FormFieldValueType:
@@ -1905,24 +2147,31 @@ types:
       id:
         type: optional<string>
         docs: Unique identifier for the User
+        access: read-only
       isEmailVerified:
         type: optional<boolean>
         docs: Shows whether the user has verified their email address
+        access: read-only
       lastUpdated:
         type: optional<datetime>
         docs: The timestamp the user was updated
+        access: read-only
       invitedOn:
         type: optional<datetime>
         docs: The timestamp the user was invited
+        access: read-only
       createdOn:
         type: optional<datetime>
         docs: The timestamp the user was created
+        access: read-only
       lastLogin:
         type: optional<datetime>
         docs: The timestamp the user was logged in
+        access: read-only
       status:
         type: optional<UserStatus>
         docs: The status of the user
+        access: read-only
       accessGroups:
         type: optional<list<UserAccessGroupsItem>>
         docs: Access groups the user belongs to
@@ -2152,18 +2401,23 @@ types:
       id:
         type: optional<string>
         docs: Unique identifier for the Product
+        access: read-only
       cmsLocaleId:
         type: optional<string>
         docs: Identifier for the locale of the CMS item
+        access: read-only
       lastPublished:
         type: optional<datetime>
         docs: The date the Product was last published
+        access: read-only
       lastUpdated:
         type: optional<datetime>
         docs: The date the Product was last updated
+        access: read-only
       createdOn:
         type: optional<datetime>
         docs: The date the Product was created
+        access: read-only
       isArchived:
         type: optional<boolean>
         docs: Boolean determining if the Product is set to archived
@@ -2209,6 +2463,10 @@ types:
       - value: one-time
         name: OneTime
       - subscription
+    docs: >-
+      [Billing
+      method](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#billing-methods)for
+      the SKU
     inline: true
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
@@ -2246,6 +2504,10 @@ types:
       openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
   SkuFieldDataEcSkuSubscriptionPlan:
+    docs: >-
+      [Subscription
+      plan](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#subscription)
+      for the SKU
     properties:
       interval:
         type: optional<SkuFieldDataEcSkuSubscriptionPlanInterval>
@@ -2256,7 +2518,9 @@ types:
       trial:
         type: optional<double>
         docs: Number of days of a trial
-      plans: optional<list<SkuFieldDataEcSkuSubscriptionPlanPlansItem>>
+      plans:
+        type: optional<list<SkuFieldDataEcSkuSubscriptionPlanPlansItem>>
+        access: read-only
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
@@ -2276,8 +2540,18 @@ types:
       compare-at-price:
         type: optional<SkuFieldDataCompareAtPrice>
         docs: comparison price of SKU
-      ec-sku-billing-method: optional<SkuFieldDataEcSkuBillingMethod>
-      ec-sku-subscription-plan: optional<SkuFieldDataEcSkuSubscriptionPlan>
+      ec-sku-billing-method:
+        type: optional<SkuFieldDataEcSkuBillingMethod>
+        docs: >-
+          [Billing
+          method](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#billing-methods)for
+          the SKU
+      ec-sku-subscription-plan:
+        type: optional<SkuFieldDataEcSkuSubscriptionPlan>
+        docs: >-
+          [Subscription
+          plan](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#subscription)
+          for the SKU
       track-inventory:
         type: optional<boolean>
         docs: >-
@@ -2295,18 +2569,23 @@ types:
       id:
         type: optional<string>
         docs: Unique identifier for the Product
+        access: read-only
       cmsLocaleId:
         type: optional<string>
         docs: Identifier for the locale of the CMS item
+        access: read-only
       lastPublished:
         type: optional<datetime>
         docs: The date the Product was last published
+        access: read-only
       lastUpdated:
         type: optional<datetime>
         docs: The date the Product was last updated
+        access: read-only
       createdOn:
         type: optional<datetime>
         docs: The date the Product was created
+        access: read-only
       fieldData: optional<SkuFieldData>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
@@ -2472,6 +2751,7 @@ types:
       productId:
         type: optional<string>
         docs: The unique identifier for the Product
+        access: read-only
       productName:
         type: optional<string>
         docs: User-facing name of the Product
@@ -2725,6 +3005,7 @@ types:
           The order ID. Will usually be 6 hex characters, but can also be 9
           hex characters if the site has a very large number of Orders.
           Randomly assigned.
+        access: read-only
       status:
         type: optional<OrderStatus>
         docs: |
@@ -2868,6 +3149,7 @@ types:
       id:
         type: optional<string>
         docs: Unique identifier for a SKU item
+        access: read-only
       quantity:
         type: optional<double>
         docs: >-
@@ -2884,9 +3166,11 @@ types:
       siteId:
         type: optional<string>
         docs: The identifier of the Site
+        access: read-only
       createdOn:
         type: optional<datetime>
         docs: Date that the Site was created on
+        access: read-only
       defaultCurrency:
         type: optional<string>
         docs: The three-letter ISO currency code for the Site

@@ -10,6 +10,7 @@ import * as Webflow from "../index";
 export interface TextNode {
     /** Node UUID */
     id?: string;
+    /** The text content of the node */
     text?: Webflow.TextNodeText;
     /** The custom attributes of the node */
     attributes?: Record<string, string>;

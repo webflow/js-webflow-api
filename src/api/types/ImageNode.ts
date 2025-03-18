@@ -10,6 +10,7 @@ import * as Webflow from "../index";
 export interface ImageNode {
     /** Node UUID */
     id?: string;
+    /** The image details of the node */
     image?: Webflow.ImageNodeImage;
     /** The custom attributes of the node */
     attributes?: Record<string, string>;

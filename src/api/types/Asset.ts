@@ -4,6 +4,9 @@
 
 import * as Webflow from "../index";
 
+/**
+ * Asset details
+ */
 export interface Asset {
     /** Unique identifier for this asset */
     id?: string;
@@ -23,6 +26,7 @@ export interface Asset {
     lastUpdated?: Date;
     /** Date the asset metadata was created */
     createdOn?: Date;
+    /** A list of [asset variants](https://help.webflow.com/hc/en-us/articles/33961378697107-Responsive-images) created by Webflow to serve your site responsively. */
     variants?: Webflow.AssetVariant[];
     /** The visual description of the asset */
     altText?: string;
