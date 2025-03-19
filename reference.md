@@ -5064,6 +5064,7 @@ Required scope | `cms:write`
 
 ```typescript
 await client.collections.fields.create("580e63fc8c9a982ac9b8b745", {
+    id: "562ac0395358780a1f5e6fbc",
     isEditable: true,
     isRequired: false,
     type: "RichText",
@@ -5628,6 +5629,11 @@ await client.collections.items.updateItems("580e63fc8c9a982ac9b8b745", {
 
 List all published items in a collection.
 
+<Note title="Serve data with the Content Delivery API">
+  To serve content to your other frontends applications, enterprise sites have access to a dedicated [content delivery API](/data/docs/cms-cdn), available at api-cdn.webflow.com.
+
+</Note>
+
 Required scope | `CMS:read`
 
 </dd>
@@ -5720,6 +5726,9 @@ Required scope | `CMS:write`
 
 ```typescript
 await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
+    lastPublished: "2023-03-17T18:47:35.560Z",
+    lastUpdated: "2023-03-17T18:47:35.560Z",
+    createdOn: "2023-03-17T18:47:35.560Z",
     isArchived: false,
     isDraft: false,
     fieldData: {
@@ -6305,6 +6314,11 @@ await client.collections.items.updateItem("580e63fc8c9a982ac9b8b745", "580e64008
 <dd>
 
 Get details of a selected Collection live Item.
+
+<Note title="Serve data with the Content Delivery API">
+  To serve content to your other frontends applications, enterprise sites have access to a dedicated [content delivery API](/data/docs/cms-cdn), available at api-cdn.webflow.com.
+
+</Note>
 
 Required scope | `CMS:read`
 
