@@ -11,7 +11,7 @@ import * as errors from "../../../../../../errors/index";
 
 export declare namespace Scripts {
     interface Options {
-        environment?: core.Supplier<environments.WebflowEnvironment | string>;
+        environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
         accessToken: core.Supplier<core.BearerToken>;
     }
 
@@ -57,7 +57,7 @@ export class Scripts {
     ): Promise<Webflow.ScriptApplyList> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `sites/${encodeURIComponent(siteId)}/custom_code`
             ),
             method: "GET",
@@ -65,8 +65,8 @@ export class Scripts {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.1",
-                "User-Agent": "webflow-api/3.1.1",
+                "X-Fern-SDK-Version": "3.1.2",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -196,7 +196,7 @@ export class Scripts {
     ): Promise<Webflow.ScriptApplyList> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `sites/${encodeURIComponent(siteId)}/custom_code`
             ),
             method: "PUT",
@@ -204,8 +204,8 @@ export class Scripts {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.1",
-                "User-Agent": "webflow-api/3.1.1",
+                "X-Fern-SDK-Version": "3.1.2",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -318,7 +318,7 @@ export class Scripts {
     public async deleteCustomCode(siteId: string, requestOptions?: Scripts.RequestOptions): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `sites/${encodeURIComponent(siteId)}/custom_code`
             ),
             method: "DELETE",
@@ -326,8 +326,8 @@ export class Scripts {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.1",
-                "User-Agent": "webflow-api/3.1.1",
+                "X-Fern-SDK-Version": "3.1.2",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -452,7 +452,7 @@ export class Scripts {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `sites/${encodeURIComponent(siteId)}/custom_code/blocks`
             ),
             method: "GET",
@@ -460,8 +460,8 @@ export class Scripts {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.1",
-                "User-Agent": "webflow-api/3.1.1",
+                "X-Fern-SDK-Version": "3.1.2",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,

@@ -11,7 +11,7 @@ import * as errors from "../../../../errors/index";
 
 export declare namespace Webhooks {
     interface Options {
-        environment?: core.Supplier<environments.WebflowEnvironment | string>;
+        environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
         accessToken: core.Supplier<core.BearerToken>;
     }
 
@@ -53,7 +53,7 @@ export class Webhooks {
     public async list(siteId: string, requestOptions?: Webhooks.RequestOptions): Promise<Webflow.WebhookList> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `sites/${encodeURIComponent(siteId)}/webhooks`
             ),
             method: "GET",
@@ -61,8 +61,8 @@ export class Webhooks {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.1",
-                "User-Agent": "webflow-api/3.1.1",
+                "X-Fern-SDK-Version": "3.1.2",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -186,7 +186,7 @@ export class Webhooks {
     ): Promise<Webflow.Webhook> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `sites/${encodeURIComponent(siteId)}/webhooks`
             ),
             method: "POST",
@@ -194,8 +194,8 @@ export class Webhooks {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.1",
-                "User-Agent": "webflow-api/3.1.1",
+                "X-Fern-SDK-Version": "3.1.2",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -308,7 +308,7 @@ export class Webhooks {
     public async get(webhookId: string, requestOptions?: Webhooks.RequestOptions): Promise<Webflow.Webhook> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `webhooks/${encodeURIComponent(webhookId)}`
             ),
             method: "GET",
@@ -316,8 +316,8 @@ export class Webhooks {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.1",
-                "User-Agent": "webflow-api/3.1.1",
+                "X-Fern-SDK-Version": "3.1.2",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -425,7 +425,7 @@ export class Webhooks {
     public async delete(webhookId: string, requestOptions?: Webhooks.RequestOptions): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `webhooks/${encodeURIComponent(webhookId)}`
             ),
             method: "DELETE",
@@ -433,8 +433,8 @@ export class Webhooks {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.1",
-                "User-Agent": "webflow-api/3.1.1",
+                "X-Fern-SDK-Version": "3.1.2",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
