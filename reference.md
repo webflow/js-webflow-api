@@ -3950,7 +3950,73 @@ Required scope | `ecommerce:write`
 <dd>
 
 ```typescript
-await client.products.create("580e63e98c9a982ac9b8b741");
+await client.products.create("580e63e98c9a982ac9b8b741", {
+    publishStatus: "staging",
+    product: {
+        fieldData: {
+            name: "Colorful T-shirt",
+            slug: "colorful-t-shirt",
+            description: "Our best-selling t-shirt available in multiple colors and sizes",
+            skuProperties: [
+                {
+                    id: "color",
+                    name: "Color",
+                    enum: [
+                        {
+                            id: "red",
+                            name: "Red",
+                            slug: "red",
+                        },
+                        {
+                            id: "yellow",
+                            name: "Yellow",
+                            slug: "yellow",
+                        },
+                        {
+                            id: "blue",
+                            name: "Blue",
+                            slug: "blue",
+                        },
+                    ],
+                },
+                {
+                    id: "size",
+                    name: "Size",
+                    enum: [
+                        {
+                            id: "small",
+                            name: "Small",
+                            slug: "small",
+                        },
+                        {
+                            id: "medium",
+                            name: "Medium",
+                            slug: "medium",
+                        },
+                        {
+                            id: "large",
+                            name: "Large",
+                            slug: "large",
+                        },
+                    ],
+                },
+            ],
+        },
+    },
+    sku: {
+        fieldData: {
+            name: "Colorful T-shirt - Red Small",
+            slug: "colorful-t-shirt-red-small",
+            price: {
+                value: 2499,
+                unit: "USD",
+                currency: "USD",
+            },
+            mainImage:
+                "https://rocketamp-sample-store.myshopify.com/cdn/shop/products/Gildan_2000_Antique_Cherry_Red_Front_1024x1024.jpg?v=1527232987",
+        },
+    },
+});
 ```
 
 </dd>
@@ -4183,7 +4249,19 @@ Required scope | `ecommerce:write`
 
 ```typescript
 await client.products.createSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b8b745", {
-    skus: [{}],
+    skus: [
+        {
+            fieldData: {
+                name: "Colorful T-shirt - Default",
+                slug: "colorful-t-shirt-default",
+                price: {
+                    value: 2499,
+                    unit: "USD",
+                    currency: "USD",
+                },
+            },
+        },
+    ],
 });
 ```
 
@@ -4268,7 +4346,17 @@ Required scope | `ecommerce:write`
 
 ```typescript
 await client.products.updateSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b8b745", "5e8518516e147040726cc415", {
-    sku: {},
+    sku: {
+        fieldData: {
+            name: "Colorful T-shirt - Default",
+            slug: "colorful-t-shirt-default",
+            price: {
+                value: 2499,
+                unit: "USD",
+                currency: "USD",
+            },
+        },
+    },
 });
 ```
 
@@ -5064,6 +5152,7 @@ Required scope | `cms:write`
 
 ```typescript
 await client.collections.fields.create("580e63fc8c9a982ac9b8b745", {
+    id: "562ac0395358780a1f5e6fbc",
     isEditable: true,
     isRequired: false,
     type: "RichText",
@@ -5628,6 +5717,11 @@ await client.collections.items.updateItems("580e63fc8c9a982ac9b8b745", {
 
 List all published items in a collection.
 
+<Note title="Serve data with the Content Delivery API">
+  To serve content to your other frontends applications, enterprise sites have access to a dedicated [content delivery API](/data/docs/cms-content-delivery), available at api-cdn.webflow.com.
+
+</Note>
+
 Required scope | `CMS:read`
 
 </dd>
@@ -5720,6 +5814,9 @@ Required scope | `CMS:write`
 
 ```typescript
 await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
+    lastPublished: "2023-03-17T18:47:35.560Z",
+    lastUpdated: "2023-03-17T18:47:35.560Z",
+    createdOn: "2023-03-17T18:47:35.560Z",
     isArchived: false,
     isDraft: false,
     fieldData: {
@@ -6305,6 +6402,11 @@ await client.collections.items.updateItem("580e63fc8c9a982ac9b8b745", "580e64008
 <dd>
 
 Get details of a selected Collection live Item.
+
+<Note title="Serve data with the Content Delivery API">
+  To serve content to your other frontends applications, enterprise sites have access to a dedicated [content delivery API](/data/docs/cms-content-delivery), available at api-cdn.webflow.com.
+
+</Note>
 
 Required scope | `CMS:read`
 

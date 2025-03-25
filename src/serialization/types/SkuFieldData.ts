@@ -28,6 +28,7 @@ export const SkuFieldData: core.serialization.ObjectSchema<serializers.SkuFieldD
         ),
         trackInventory: core.serialization.property("track-inventory", core.serialization.boolean().optional()),
         quantity: core.serialization.number().optional(),
+        mainImage: core.serialization.property("main-image", core.serialization.string().optional()),
     });
 
 export declare namespace SkuFieldData {
@@ -41,5 +42,6 @@ export declare namespace SkuFieldData {
         "ec-sku-subscription-plan"?: SkuFieldDataEcSkuSubscriptionPlan.Raw | null;
         "track-inventory"?: boolean | null;
         quantity?: number | null;
+        "main-image"?: string | null;
     }
 }

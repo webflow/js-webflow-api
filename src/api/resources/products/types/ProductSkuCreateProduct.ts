@@ -4,6 +4,6 @@
 
 import * as Webflow from "../../../index";
 
-export interface ProductsCreateSkuResponse {
-    skus: Webflow.Sku[];
+export interface ProductSkuCreateProduct {
+    fieldData?: Webflow.ProductFieldData;
 }

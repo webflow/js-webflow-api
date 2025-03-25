@@ -10,4 +10,6 @@ export interface SkuFieldDataPrice {
     value?: number;
     /** Currency of Item */
     unit?: string;
+    /** Currency of Item (alternative representation) */
+    currency?: string;
 }
