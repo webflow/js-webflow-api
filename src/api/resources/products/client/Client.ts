@@ -11,7 +11,7 @@ import * as errors from "../../../../errors/index";
 
 export declare namespace Products {
     interface Options {
-        environment?: core.Supplier<environments.WebflowEnvironment | string>;
+        environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
         accessToken: core.Supplier<core.BearerToken>;
     }
 
@@ -70,7 +70,7 @@ export class Products {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `sites/${encodeURIComponent(siteId)}/products`
             ),
             method: "GET",
@@ -78,8 +78,8 @@ export class Products {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.1",
-                "User-Agent": "webflow-api/3.1.1",
+                "X-Fern-SDK-Version": "3.1.2",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -201,16 +201,70 @@ export class Products {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.products.create("580e63e98c9a982ac9b8b741")
+     *     await client.products.create("580e63e98c9a982ac9b8b741", {
+     *         publishStatus: "staging",
+     *         product: {
+     *             fieldData: {
+     *                 name: "Colorful T-shirt",
+     *                 slug: "colorful-t-shirt",
+     *                 description: "Our best-selling t-shirt available in multiple colors and sizes",
+     *                 skuProperties: [{
+     *                         id: "color",
+     *                         name: "Color",
+     *                         enum: [{
+     *                                 id: "red",
+     *                                 name: "Red",
+     *                                 slug: "red"
+     *                             }, {
+     *                                 id: "yellow",
+     *                                 name: "Yellow",
+     *                                 slug: "yellow"
+     *                             }, {
+     *                                 id: "blue",
+     *                                 name: "Blue",
+     *                                 slug: "blue"
+     *                             }]
+     *                     }, {
+     *                         id: "size",
+     *                         name: "Size",
+     *                         enum: [{
+     *                                 id: "small",
+     *                                 name: "Small",
+     *                                 slug: "small"
+     *                             }, {
+     *                                 id: "medium",
+     *                                 name: "Medium",
+     *                                 slug: "medium"
+     *                             }, {
+     *                                 id: "large",
+     *                                 name: "Large",
+     *                                 slug: "large"
+     *                             }]
+     *                     }]
+     *             }
+     *         },
+     *         sku: {
+     *             fieldData: {
+     *                 name: "Colorful T-shirt - Red Small",
+     *                 slug: "colorful-t-shirt-red-small",
+     *                 price: {
+     *                     value: 2499,
+     *                     unit: "USD",
+     *                     currency: "USD"
+     *                 },
+     *                 mainImage: "https://rocketamp-sample-store.myshopify.com/cdn/shop/products/Gildan_2000_Antique_Cherry_Red_Front_1024x1024.jpg?v=1527232987"
+     *             }
+     *         }
+     *     })
      */
     public async create(
         siteId: string,
-        request: Webflow.ProductSkuCreate = {},
+        request: Webflow.ProductSkuCreate,
         requestOptions?: Products.RequestOptions
     ): Promise<Webflow.ProductAndSkUs> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `sites/${encodeURIComponent(siteId)}/products`
             ),
             method: "POST",
@@ -218,8 +272,8 @@ export class Products {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.1",
-                "User-Agent": "webflow-api/3.1.1",
+                "X-Fern-SDK-Version": "3.1.2",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -344,7 +398,7 @@ export class Products {
     ): Promise<Webflow.ProductAndSkUs> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `sites/${encodeURIComponent(siteId)}/products/${encodeURIComponent(productId)}`
             ),
             method: "GET",
@@ -352,8 +406,8 @@ export class Products {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.1",
-                "User-Agent": "webflow-api/3.1.1",
+                "X-Fern-SDK-Version": "3.1.2",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -478,7 +532,7 @@ export class Products {
     ): Promise<Webflow.Product> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `sites/${encodeURIComponent(siteId)}/products/${encodeURIComponent(productId)}`
             ),
             method: "PATCH",
@@ -486,8 +540,8 @@ export class Products {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.1",
-                "User-Agent": "webflow-api/3.1.1",
+                "X-Fern-SDK-Version": "3.1.2",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -608,7 +662,17 @@ export class Products {
      *
      * @example
      *     await client.products.createSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b8b745", {
-     *         skus: [{}]
+     *         skus: [{
+     *                 fieldData: {
+     *                     name: "Colorful T-shirt - Default",
+     *                     slug: "colorful-t-shirt-default",
+     *                     price: {
+     *                         value: 2499,
+     *                         unit: "USD",
+     *                         currency: "USD"
+     *                     }
+     *                 }
+     *             }]
      *     })
      */
     public async createSku(
@@ -619,7 +683,7 @@ export class Products {
     ): Promise<Webflow.ProductsCreateSkuResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `sites/${encodeURIComponent(siteId)}/products/${encodeURIComponent(productId)}/skus`
             ),
             method: "POST",
@@ -627,8 +691,8 @@ export class Products {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.1",
-                "User-Agent": "webflow-api/3.1.1",
+                "X-Fern-SDK-Version": "3.1.2",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -750,7 +814,17 @@ export class Products {
      *
      * @example
      *     await client.products.updateSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b8b745", "5e8518516e147040726cc415", {
-     *         sku: {}
+     *         sku: {
+     *             fieldData: {
+     *                 name: "Colorful T-shirt - Default",
+     *                 slug: "colorful-t-shirt-default",
+     *                 price: {
+     *                     value: 2499,
+     *                     unit: "USD",
+     *                     currency: "USD"
+     *                 }
+     *             }
+     *         }
      *     })
      */
     public async updateSku(
@@ -762,7 +836,7 @@ export class Products {
     ): Promise<Webflow.Sku> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `sites/${encodeURIComponent(siteId)}/products/${encodeURIComponent(
                     productId
                 )}/skus/${encodeURIComponent(skuId)}`
@@ -772,8 +846,8 @@ export class Products {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.1",
-                "User-Agent": "webflow-api/3.1.1",
+                "X-Fern-SDK-Version": "3.1.2",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,

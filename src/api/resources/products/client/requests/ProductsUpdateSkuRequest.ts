@@ -7,7 +7,17 @@ import * as Webflow from "../../../../index";
 /**
  * @example
  *     {
- *         sku: {}
+ *         sku: {
+ *             fieldData: {
+ *                 name: "Colorful T-shirt - Default",
+ *                 slug: "colorful-t-shirt-default",
+ *                 price: {
+ *                     value: 2499,
+ *                     unit: "USD",
+ *                     currency: "USD"
+ *                 }
+ *             }
+ *         }
  *     }
  */
 export interface ProductsUpdateSkuRequest {
