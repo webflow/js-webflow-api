@@ -6,6 +6,7 @@ import * as environments from "./environments";
 import * as core from "./core";
 import { Token } from "./api/resources/token/client/Client";
 import { Sites } from "./api/resources/sites/client/Client";
+import { WellKnown } from "./api/resources/wellKnown/client/Client";
 import { Collections } from "./api/resources/collections/client/Client";
 import { Pages } from "./api/resources/pages/client/Client";
 import { Components } from "./api/resources/components/client/Client";
@@ -22,7 +23,7 @@ import { Ecommerce } from "./api/resources/ecommerce/client/Client";
 
 export declare namespace WebflowClient {
     interface Options {
-        environment?: core.Supplier<environments.WebflowEnvironment | string>;
+        environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
         accessToken: core.Supplier<core.BearerToken>;
     }
 
@@ -51,6 +52,12 @@ export class WebflowClient {
 
     public get sites(): Sites {
         return (this._sites ??= new Sites(this._options));
+    }
+
+    protected _wellKnown: WellKnown | undefined;
+
+    public get wellKnown(): WellKnown {
+        return (this._wellKnown ??= new WellKnown(this._options));
     }
 
     protected _collections: Collections | undefined;

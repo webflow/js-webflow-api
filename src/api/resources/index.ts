@@ -1,5 +1,7 @@
 export * as sites from "./sites";
 export * from "./sites/types";
+export * as wellKnown from "./wellKnown";
+export * from "./wellKnown/types";
 export * as pages from "./pages";
 export * from "./pages/types";
 export * as components from "./components";
@@ -22,6 +24,7 @@ export * as webhooks from "./webhooks";
 export * as forms from "./forms";
 export * as ecommerce from "./ecommerce";
 export * from "./sites/client/requests";
+export * from "./wellKnown/client/requests";
 export * from "./collections/client/requests";
 export * from "./pages/client/requests";
 export * from "./components/client/requests";

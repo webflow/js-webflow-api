@@ -1,5 +1,7 @@
 export * as sites from "./sites";
 export * from "./sites/types";
+export * as wellKnown from "./wellKnown";
+export * from "./wellKnown/types";
 export * as pages from "./pages";
 export * from "./pages/types";
 export * as components from "./components";
@@ -16,6 +18,7 @@ export * as inventory from "./inventory";
 export * from "./inventory/types";
 export * as collections from "./collections";
 export * from "./sites/client/requests";
+export * from "./wellKnown/client/requests";
 export * from "./collections/client/requests";
 export * from "./pages/client/requests";
 export * from "./components/client/requests";
