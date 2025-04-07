@@ -3950,7 +3950,73 @@ Required scope | `ecommerce:write`
 <dd>
 
 ```typescript
-await client.products.create("580e63e98c9a982ac9b8b741");
+await client.products.create("580e63e98c9a982ac9b8b741", {
+    publishStatus: "staging",
+    product: {
+        fieldData: {
+            name: "Colorful T-shirt",
+            slug: "colorful-t-shirt",
+            description: "Our best-selling t-shirt available in multiple colors and sizes",
+            skuProperties: [
+                {
+                    id: "color",
+                    name: "Color",
+                    enum: [
+                        {
+                            id: "red",
+                            name: "Red",
+                            slug: "red",
+                        },
+                        {
+                            id: "yellow",
+                            name: "Yellow",
+                            slug: "yellow",
+                        },
+                        {
+                            id: "blue",
+                            name: "Blue",
+                            slug: "blue",
+                        },
+                    ],
+                },
+                {
+                    id: "size",
+                    name: "Size",
+                    enum: [
+                        {
+                            id: "small",
+                            name: "Small",
+                            slug: "small",
+                        },
+                        {
+                            id: "medium",
+                            name: "Medium",
+                            slug: "medium",
+                        },
+                        {
+                            id: "large",
+                            name: "Large",
+                            slug: "large",
+                        },
+                    ],
+                },
+            ],
+        },
+    },
+    sku: {
+        fieldData: {
+            name: "Colorful T-shirt - Red Small",
+            slug: "colorful-t-shirt-red-small",
+            price: {
+                value: 2499,
+                unit: "USD",
+                currency: "USD",
+            },
+            mainImage:
+                "https://rocketamp-sample-store.myshopify.com/cdn/shop/products/Gildan_2000_Antique_Cherry_Red_Front_1024x1024.jpg?v=1527232987",
+        },
+    },
+});
 ```
 
 </dd>
@@ -4183,7 +4249,19 @@ Required scope | `ecommerce:write`
 
 ```typescript
 await client.products.createSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b8b745", {
-    skus: [{}],
+    skus: [
+        {
+            fieldData: {
+                name: "Colorful T-shirt - Default",
+                slug: "colorful-t-shirt-default",
+                price: {
+                    value: 2499,
+                    unit: "USD",
+                    currency: "USD",
+                },
+            },
+        },
+    ],
 });
 ```
 
@@ -4268,7 +4346,17 @@ Required scope | `ecommerce:write`
 
 ```typescript
 await client.products.updateSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b8b745", "5e8518516e147040726cc415", {
-    sku: {},
+    sku: {
+        fieldData: {
+            name: "Colorful T-shirt - Default",
+            slug: "colorful-t-shirt-default",
+            price: {
+                value: 2499,
+                unit: "USD",
+                currency: "USD",
+            },
+        },
+    },
 });
 ```
 
@@ -5064,6 +5152,7 @@ Required scope | `cms:write`
 
 ```typescript
 await client.collections.fields.create("580e63fc8c9a982ac9b8b745", {
+    id: "562ac0395358780a1f5e6fbc",
     isEditable: true,
     isRequired: false,
     type: "RichText",
@@ -5459,7 +5548,13 @@ Required scope | `CMS:write`
 <dd>
 
 ```typescript
-await client.collections.items.deleteItems("580e63fc8c9a982ac9b8b745");
+await client.collections.items.deleteItems("580e63fc8c9a982ac9b8b745", {
+    items: [
+        {
+            id: "580e64008c9a982ac9b8b754",
+        },
+    ],
+});
 ```
 
 </dd>
@@ -5628,6 +5723,11 @@ await client.collections.items.updateItems("580e63fc8c9a982ac9b8b745", {
 
 List all published items in a collection.
 
+<Note title="Serve data with the Content Delivery API">
+  To serve content to your other frontends applications, enterprise sites have access to a dedicated [content delivery API](/data/docs/cms-content-delivery), available at api-cdn.webflow.com.
+
+</Note>
+
 Required scope | `CMS:read`
 
 </dd>
@@ -5720,6 +5820,9 @@ Required scope | `CMS:write`
 
 ```typescript
 await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
+    lastPublished: "2023-03-17T18:47:35.560Z",
+    lastUpdated: "2023-03-17T18:47:35.560Z",
+    createdOn: "2023-03-17T18:47:35.560Z",
     isArchived: false,
     isDraft: false,
     fieldData: {
@@ -5803,7 +5906,13 @@ Required scope | `CMS:write`
 <dd>
 
 ```typescript
-await client.collections.items.deleteItemsLive("580e63fc8c9a982ac9b8b745");
+await client.collections.items.deleteItemsLive("580e63fc8c9a982ac9b8b745", {
+    items: [
+        {
+            id: "580e64008c9a982ac9b8b754",
+        },
+    ],
+});
 ```
 
 </dd>
@@ -6305,6 +6414,11 @@ await client.collections.items.updateItem("580e63fc8c9a982ac9b8b745", "580e64008
 <dd>
 
 Get details of a selected Collection live Item.
+
+<Note title="Serve data with the Content Delivery API">
+  To serve content to your other frontends applications, enterprise sites have access to a dedicated [content delivery API](/data/docs/cms-content-delivery), available at api-cdn.webflow.com.
+
+</Note>
 
 Required scope | `CMS:read`
 
@@ -7247,6 +7361,8 @@ await client.sites.plans.getSitePlan("580e63e98c9a982ac9b8b741");
 
 Retrieve the robots.txt configuration for various user agents.
 
+<Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
+
 Required scope: `site_config:read`
 
 </dd>
@@ -7311,6 +7427,8 @@ await client.sites.robotsTxt.get("580e63e98c9a982ac9b8b741");
 <dd>
 
 Replace the `robots.txt` configuration for various user agents.
+
+<Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
 
 Required scope | `site_config:write`
 
@@ -7396,6 +7514,8 @@ Remove specific rules for a user-agent in your `robots.txt` file. To delete all 
 
 **Note:** Deleting a user-agent with no rules will make the user-agent's access unrestricted unless other directives apply.
 
+<Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
+
 Required scope: `site_config:write`
 
 </dd>
@@ -7477,6 +7597,8 @@ await client.sites.robotsTxt.delete("580e63e98c9a982ac9b8b741", {
 
 Update the `robots.txt` configuration for various user agents.
 
+<Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
+
 Required scope | `site_config:write`
 
 </dd>
@@ -7535,6 +7657,171 @@ await client.sites.robotsTxt.patch("580e63e98c9a982ac9b8b741", {
 <dd>
 
 **requestOptions:** `RobotsTxt.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Sites WellKnown
+
+<details><summary><code>client.sites.wellKnown.<a href="/src/api/resources/sites/resources/wellKnown/client/Client.ts">put</a>(siteId, { ...params }) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Upload a supported well-known file to a site.
+
+The current restrictions on well-known files are as follows:
+
+-   Each file must be smaller than 100kb
+-   Less than 30 total files
+-   Have one of the following file extensions (or no extension): `.txt`, `.json`, `.noext`
+
+  <Note title=".noext">
+    `.noext` is a special file extension that removes other extensions. For example, `apple-app-site-association.noext.txt` will be uploaded as `apple-app-site-association`. Use this extension for tools that have trouble uploading extensionless files.
+  </Note>
+
+<Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
+
+Required scope: `site_config:write`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.wellKnown.put("580e63e98c9a982ac9b8b741", {
+    fileName: "fileName",
+    fileData: "fileData",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.sites.WellKnownFile`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `WellKnown.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sites.wellKnown.<a href="/src/api/resources/sites/resources/wellKnown/client/Client.ts">delete</a>(siteId, { ...params }) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete existing well-known files from a site.
+
+<Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
+
+Required scope: `site_config:write`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.wellKnown.delete("580e63e98c9a982ac9b8b741");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.sites.WellKnownDeleteRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `WellKnown.RequestOptions`
 
 </dd>
 </dl>
@@ -7612,6 +7899,166 @@ await client.sites.activityLogs.list("580e63e98c9a982ac9b8b741");
 <dd>
 
 **requestOptions:** `ActivityLogs.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Sites Comments
+
+<details><summary><code>client.sites.comments.<a href="/src/api/resources/sites/resources/comments/client/Client.ts">listCommentThreads</a>(siteId, { ...params }) -> Webflow.CommentThreadList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all comment threads for a site.
+
+Required scope | `comments:read`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.comments.listCommentThreads("580e63e98c9a982ac9b8b741", {
+    localeId: "65427cf400e02b306eaa04a0",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.sites.CommentsListCommentThreadsRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Comments.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sites.comments.<a href="/src/api/resources/sites/resources/comments/client/Client.ts">getCommentThread</a>(siteId, commentThreadId, { ...params }) -> Webflow.CommentThread</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get details of a specific comment thread.
+
+Required scope | `comments:read`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.comments.getCommentThread("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741", {
+    localeId: "65427cf400e02b306eaa04a0",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**commentThreadId:** `string` — Unique identifier for a Comment Thread
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.sites.CommentsGetCommentThreadRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Comments.RequestOptions`
 
 </dd>
 </dl>
@@ -7920,6 +8367,91 @@ await client.sites.scripts.listCustomCodeBlocks("580e63e98c9a982ac9b8b741");
 <dd>
 
 **requestOptions:** `Scripts.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Sites Comments Replies
+
+<details><summary><code>client.sites.comments.replies.<a href="/src/api/resources/sites/resources/comments/resources/replies/client/Client.ts">listReplies</a>(siteId, commentThreadId, { ...params }) -> Webflow.CommentReplyList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all replies to a specific comment thread.
+
+Required scope | `comments:read`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.comments.replies.listReplies("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741", {
+    localeId: "65427cf400e02b306eaa04a0",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**commentThreadId:** `string` — Unique identifier for a Comment Thread
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.sites.comments.RepliesListRepliesRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Replies.RequestOptions`
 
 </dd>
 </dl>

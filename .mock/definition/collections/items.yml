@@ -340,7 +340,7 @@ service:
         name: ItemsDeleteItemsRequest
         body:
           properties:
-            items: optional<list<ItemsDeleteItemsRequestItemsItem>>
+            items: list<ItemsDeleteItemsRequestItemsItem>
         content-type: application/json
       errors:
         - root.BadRequestError
@@ -352,7 +352,9 @@ service:
       examples:
         - path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
-          request: {}
+          request:
+            items:
+              - id: 580e64008c9a982ac9b8b754
     update-items:
       path: /collections/{collection_id}/items
       method: PATCH
@@ -568,6 +570,11 @@ service:
       docs: |
         List all published items in a collection.
 
+        <Note title="Serve data with the Content Delivery API">
+          To serve content to your other frontends applications, enterprise sites have access to a dedicated [content delivery API](/data/docs/cms-content-delivery), available at api-cdn.webflow.com.
+
+        </Note>
+
         Required scope | `CMS:read`
       source:
         openapi: ../../../openapi/referenced-specs/v2.yml
@@ -610,6 +617,7 @@ service:
         docs: Request was successful
         type: root.CollectionItemList
         status-code: 200
+      url: Data API
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -786,7 +794,7 @@ service:
         name: ItemsDeleteItemsLiveRequest
         body:
           properties:
-            items: optional<list<ItemsDeleteItemsLiveRequestItemsItem>>
+            items: list<ItemsDeleteItemsLiveRequestItemsItem>
         content-type: application/json
       errors:
         - root.BadRequestError
@@ -797,7 +805,9 @@ service:
       examples:
         - path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
-          request: {}
+          request:
+            items:
+              - id: 580e64008c9a982ac9b8b754
     update-items-live:
       path: /collections/{collection_id}/items/live
       method: PATCH
@@ -1323,6 +1333,7 @@ service:
         docs: Request was successful
         type: root.CollectionItem
         status-code: 200
+      url: Production
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -1452,6 +1463,11 @@ service:
       docs: |
         Get details of a selected Collection live Item.
 
+        <Note title="Serve data with the Content Delivery API">
+          To serve content to your other frontends applications, enterprise sites have access to a dedicated [content delivery API](/data/docs/cms-content-delivery), available at api-cdn.webflow.com.
+
+        </Note>
+
         Required scope | `CMS:read`
       source:
         openapi: ../../../openapi/referenced-specs/v2.yml
@@ -1477,6 +1493,7 @@ service:
         docs: Request was successful
         type: root.CollectionItem
         status-code: 200
+      url: Data API
       errors:
         - root.BadRequestError
         - root.UnauthorizedError

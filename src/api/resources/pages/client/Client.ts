@@ -12,7 +12,7 @@ import { Scripts } from "../resources/scripts/client/Client";
 
 export declare namespace Pages {
     interface Options {
-        environment?: core.Supplier<environments.WebflowEnvironment | string>;
+        environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
         accessToken: core.Supplier<core.BearerToken>;
     }
 
@@ -75,7 +75,7 @@ export class Pages {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `sites/${encodeURIComponent(siteId)}/pages`
             ),
             method: "GET",
@@ -83,8 +83,8 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.1",
-                "User-Agent": "webflow-api/3.1.1",
+                "X-Fern-SDK-Version": "3.1.2",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -206,7 +206,7 @@ export class Pages {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `pages/${encodeURIComponent(pageId)}`
             ),
             method: "GET",
@@ -214,8 +214,8 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.1",
-                "User-Agent": "webflow-api/3.1.1",
+                "X-Fern-SDK-Version": "3.1.2",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -365,7 +365,7 @@ export class Pages {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `pages/${encodeURIComponent(pageId)}`
             ),
             method: "PUT",
@@ -373,8 +373,8 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.1",
-                "User-Agent": "webflow-api/3.1.1",
+                "X-Fern-SDK-Version": "3.1.2",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -514,7 +514,7 @@ export class Pages {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `pages/${encodeURIComponent(pageId)}/dom`
             ),
             method: "GET",
@@ -522,8 +522,8 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.1",
-                "User-Agent": "webflow-api/3.1.1",
+                "X-Fern-SDK-Version": "3.1.2",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -669,7 +669,7 @@ export class Pages {
         _queryParams["localeId"] = localeId;
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `pages/${encodeURIComponent(pageId)}/dom`
             ),
             method: "POST",
@@ -677,8 +677,8 @@ export class Pages {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.1",
-                "User-Agent": "webflow-api/3.1.1",
+                "X-Fern-SDK-Version": "3.1.2",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,

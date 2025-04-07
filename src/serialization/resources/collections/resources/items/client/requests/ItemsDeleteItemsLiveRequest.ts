@@ -11,11 +11,11 @@ export const ItemsDeleteItemsLiveRequest: core.serialization.Schema<
     serializers.collections.ItemsDeleteItemsLiveRequest.Raw,
     Webflow.collections.ItemsDeleteItemsLiveRequest
 > = core.serialization.object({
-    items: core.serialization.list(ItemsDeleteItemsLiveRequestItemsItem).optional(),
+    items: core.serialization.list(ItemsDeleteItemsLiveRequestItemsItem),
 });
 
 export declare namespace ItemsDeleteItemsLiveRequest {
     interface Raw {
-        items?: ItemsDeleteItemsLiveRequestItemsItem.Raw[] | null;
+        items: ItemsDeleteItemsLiveRequestItemsItem.Raw[];
     }
 }
