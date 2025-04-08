@@ -5,6 +5,7 @@ import * as core from "../core";
 import * as errors from "../errors";
 import { SDK_VERSION } from "../version";
 import { Client as Webhooks } from "./WebhooksClient";
+import { Client as Assets } from "./AssetsClient";
 
 export class WebflowClient extends FernClient {
     constructor(protected readonly _options: FernClient.Options) {
@@ -13,8 +14,14 @@ export class WebflowClient extends FernClient {
 
     protected _webhooks: Webhooks | undefined;
 
+    protected _assets: Assets | undefined;
+
     public get webhooks(): Webhooks {
         return (this._webhooks ??= new Webhooks(this._options));
+    }
+
+    public get assets(): Assets {
+        return (this._assets ??= new Assets(this._options));
     }
 
 

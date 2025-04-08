@@ -8,6 +8,10 @@ import * as Webflow from "../../../index";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
+import crypto from "crypto";
+import fetch from "node-fetch";
+import FormData from 'form-data';
+import { Readable } from 'stream';
 
 export declare namespace Assets {
     interface Options {
@@ -25,6 +29,28 @@ export declare namespace Assets {
         /** Additional headers to include in the request. */
         headers?: Record<string, string>;
     }
+}
+
+interface TestAssetUploadRequest {
+    /**
+     * File to upload via various formats
+     */
+    file: ArrayBuffer | ReadableStream | string;
+
+    /**
+     * The file MIME type
+     */
+    mimeType?: string;
+
+    /**
+     * Name of the file
+     */
+    fileName: string;
+
+    /**
+     * Name of the parent folder to upload to
+     */
+    parentFolder?: string;
 }
 
 /**
@@ -148,6 +174,194 @@ export class Assets {
                     message: _response.error.errorMessage,
                 });
         }
+    }
+
+    public async createAndUpload(
+        siteId: string,
+        request: TestAssetUploadRequest,
+        requestOptions?: Assets.RequestOptions
+    ): Promise<Webflow.AssetUpload> {
+        if (siteId) {
+            throw new errors.WebflowError({
+                statusCode: 400,
+                body: "a test",
+            });
+        }
+        /** 1. Generate the hash */
+        const getBufferFromUrl = async (url: string): Promise<ArrayBuffer> => {
+            const response = await fetch(url);
+            const buffer = await response.arrayBuffer();
+            console.log("BUF", buffer);
+            return buffer;
+            // return crypto.createHash("md5").update(Buffer.from(buffer)).digest("hex");
+        };
+        const file = request.file;
+        let tempBuffer: Buffer | null = null;
+        if (typeof file === 'string') {
+            const arrBuffer = await getBufferFromUrl(file);
+            tempBuffer = Buffer.from(arrBuffer);
+        } else if (file instanceof ArrayBuffer) {
+            tempBuffer = Buffer.from(file);
+        }
+        if (tempBuffer === null) {
+            throw new Error('Invalid file');
+        }
+        const hash = crypto.createHash("md5").update(Buffer.from(tempBuffer)).digest("hex");
+        const fileName = request.fileName;
+
+        const wfUploadRequest = {
+            fileName,
+            fileHash: hash,
+        };
+
+        /** 2. Create the Asset Metadata in Webflow */
+        const createWfAssetMetadata = async () => {
+            const _response = await core.fetcher({
+                url: urlJoin(
+                    (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                    `sites/${encodeURIComponent(siteId)}/assets`
+                ),
+                method: "POST",
+                headers: {
+                    Authorization: await this._getAuthorizationHeader(),
+                    "X-Fern-Language": "JavaScript",
+                    "X-Fern-SDK-Name": "webflow-api",
+                    "X-Fern-SDK-Version": "3.1.1",
+                    "User-Agent": "webflow-api/3.1.1",
+                    "X-Fern-Runtime": core.RUNTIME.type,
+                    "X-Fern-Runtime-Version": core.RUNTIME.version,
+                    ...requestOptions?.headers,
+                },
+                contentType: "application/json",
+                requestType: "json",
+                body: serializers.AssetsCreateRequest.jsonOrThrow(wfUploadRequest, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                }),
+                timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+                maxRetries: requestOptions?.maxRetries,
+                abortSignal: requestOptions?.abortSignal,
+            });
+            if (_response.ok) {
+                return serializers.AssetUpload.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                });
+            }
+    
+            if (_response.error.reason === "status-code") {
+                switch (_response.error.statusCode) {
+                    case 400:
+                        throw new Webflow.BadRequestError(_response.error.body);
+                    case 401:
+                        throw new Webflow.UnauthorizedError(
+                            serializers.Error_.parseOrThrow(_response.error.body, {
+                                unrecognizedObjectKeys: "passthrough",
+                                allowUnrecognizedUnionMembers: true,
+                                allowUnrecognizedEnumValues: true,
+                                skipValidation: true,
+                                breadcrumbsPrefix: ["response"],
+                            })
+                        );
+                    case 404:
+                        throw new Webflow.NotFoundError(
+                            serializers.Error_.parseOrThrow(_response.error.body, {
+                                unrecognizedObjectKeys: "passthrough",
+                                allowUnrecognizedUnionMembers: true,
+                                allowUnrecognizedEnumValues: true,
+                                skipValidation: true,
+                                breadcrumbsPrefix: ["response"],
+                            })
+                        );
+                    case 429:
+                        throw new Webflow.TooManyRequestsError(
+                            serializers.Error_.parseOrThrow(_response.error.body, {
+                                unrecognizedObjectKeys: "passthrough",
+                                allowUnrecognizedUnionMembers: true,
+                                allowUnrecognizedEnumValues: true,
+                                skipValidation: true,
+                                breadcrumbsPrefix: ["response"],
+                            })
+                        );
+                    case 500:
+                        throw new Webflow.InternalServerError(
+                            serializers.Error_.parseOrThrow(_response.error.body, {
+                                unrecognizedObjectKeys: "passthrough",
+                                allowUnrecognizedUnionMembers: true,
+                                allowUnrecognizedEnumValues: true,
+                                skipValidation: true,
+                                breadcrumbsPrefix: ["response"],
+                            })
+                        );
+                    default:
+                        throw new errors.WebflowError({
+                            statusCode: _response.error.statusCode,
+                            body: _response.error.body,
+                        });
+                }
+            }
+    
+            switch (_response.error.reason) {
+                case "non-json":
+                    throw new errors.WebflowError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.rawBody,
+                    });
+                case "timeout":
+                    throw new errors.WebflowTimeoutError("Timeout exceeded when calling POST /sites/{site_id}/assets.");
+                case "unknown":
+                    throw new errors.WebflowError({
+                        message: _response.error.errorMessage,
+                    });
+            }
+        };
+
+        console.log("Step 2 done");
+
+        /** 3. Upload to AWS */
+        const wfUploadedAsset = await createWfAssetMetadata();
+
+        console.log("Step 2.5 done");
+        const wfUploadDetails = wfUploadedAsset.uploadDetails!;
+        const uploadUrl = wfUploadedAsset.uploadUrl as string;
+        // Temp workaround since headers from response are being camelCased and we need them to be exact when sending to S3
+        const headerMappings = {
+            'xAmzAlgorithm': 'X-Amz-Algorithm',
+            'xAmzDate': 'X-Amz-Date',
+            'xAmzCredential': 'X-Amz-Credential',
+            'xAmzSignature': 'X-Amz-Signature',
+            'successActionStatus': 'success_action_status',
+            'contentType': 'Content-Type',
+            'cacheControl': 'Cache-Control',
+        };
+        const transformedUploadHeaders = Object.keys(wfUploadDetails).reduce((acc: Record<string, any>, key) => {
+            const mappedKey = headerMappings[key as keyof typeof headerMappings] || key;
+            acc[mappedKey] = wfUploadDetails[key as keyof typeof headerMappings ];
+            return acc;
+        }, {});
+        const formDataToUpload = new FormData();
+        Object.keys(transformedUploadHeaders).forEach((key) => {
+            formDataToUpload.append(key, transformedUploadHeaders[key]);
+        });
+        console.log("STEP 2.6 done", tempBuffer);
+        const newBlob = Readable.from(tempBuffer);
+        console.log("NEW BLOB", newBlob);
+        formDataToUpload.append("file", newBlob, {
+            filename: fileName,
+            contentType: wfUploadedAsset.contentType,
+        });
+        console.log("STEP 2.75 done");
+        const uploadResponse = await fetch(uploadUrl, {
+            method: 'POST',
+            body: formDataToUpload,
+            headers: {...formDataToUpload.getHeaders()},
+        });
+        console.log("UPLOAD RESPONSE", JSON.stringify(uploadResponse));
+        return wfUploadedAsset;
     }
 
     /**
