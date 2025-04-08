@@ -22,7 +22,7 @@ import { Ecommerce } from "./api/resources/ecommerce/client/Client";
 
 export declare namespace WebflowClient {
     interface Options {
-        environment?: core.Supplier<environments.WebflowEnvironment | string>;
+        environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
         accessToken: core.Supplier<core.BearerToken>;
     }
 

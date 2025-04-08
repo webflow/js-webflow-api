@@ -12,11 +12,13 @@ export const FieldType: core.serialization.Schema<serializers.FieldType.Raw, Web
         "DateTime",
         "Email",
         "ExtFileRef",
+        "File",
         "Image",
         "Link",
         "MultiImage",
         "MultiReference",
         "Number",
+        "Option",
         "Phone",
         "PlainText",
         "Reference",
@@ -31,11 +33,13 @@ export declare namespace FieldType {
         | "DateTime"
         | "Email"
         | "ExtFileRef"
+        | "File"
         | "Image"
         | "Link"
         | "MultiImage"
         | "MultiReference"
         | "Number"
+        | "Option"
         | "Phone"
         | "PlainText"
         | "Reference"
