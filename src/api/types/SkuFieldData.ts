@@ -25,4 +25,10 @@ export interface SkuFieldData {
     trackInventory?: boolean;
     /** Quantity of SKU that will be tracked as items are ordered. */
     quantity?: number;
+    /** The URL for the main image of the SKU */
+    mainImage?: string;
+    /** A unique identifier for the SKU */
+    sku?: string;
+    /** The properties of the SKU */
+    skuProperties?: Webflow.SkuPropertyList[];
 }
