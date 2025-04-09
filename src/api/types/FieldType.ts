@@ -10,11 +10,13 @@ export type FieldType =
     | "DateTime"
     | "Email"
     | "ExtFileRef"
+    | "File"
     | "Image"
     | "Link"
     | "MultiImage"
     | "MultiReference"
     | "Number"
+    | "Option"
     | "Phone"
     | "PlainText"
     | "Reference"
@@ -27,11 +29,13 @@ export const FieldType = {
     DateTime: "DateTime",
     Email: "Email",
     ExtFileRef: "ExtFileRef",
+    File: "File",
     Image: "Image",
     Link: "Link",
     MultiImage: "MultiImage",
     MultiReference: "MultiReference",
     Number: "Number",
+    Option: "Option",
     Phone: "Phone",
     PlainText: "PlainText",
     Reference: "Reference",
