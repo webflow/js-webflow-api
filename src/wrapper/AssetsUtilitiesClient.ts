@@ -3,12 +3,9 @@ import * as Webflow from "../api";
 import { Assets } from "../api/resources/assets/client/Client";
 import * as core from "../core";
 import * as environments from "../environments";
-import * as errors from "../errors";
-import * as serializers from "../serialization";
 import crypto from "crypto";
 import fetch from "node-fetch";
-import FormData from 'form-data';
-import { Readable } from 'stream';
+import FormDataConstructor from 'form-data';
 
 export declare namespace AssetsUtilities {
     interface Options {
@@ -32,7 +29,7 @@ interface TestAssetUploadRequest {
     /**
      * File to upload via various formats
      */
-    file: ArrayBuffer | ReadableStream | string;
+    file: ArrayBuffer  | string;
 
     /**
      * The file MIME type
@@ -56,6 +53,12 @@ export class Client extends Assets {
         super(_options);
     }
 
+    private async _getBufferFromUrl(url: string): Promise<ArrayBuffer> {
+        const response = await fetch(url);
+        const buffer = await response.arrayBuffer();
+        return buffer;
+    }
+
     /**
      * Create the Asset metadata in Webflow, and immediately upload it to the S3 bucket on behalf of the user to simplify the 2-step process
      * 
@@ -69,24 +72,11 @@ export class Client extends Assets {
         request: TestAssetUploadRequest,
         requestOptions?: Assets.RequestOptions
     ): Promise<Webflow.AssetUpload> {
-        // if (siteId) {
-        //     throw new errors.WebflowError({
-        //         statusCode: 400,
-        //         body: "a test",
-        //     });
-        // }
         /** 1. Generate the hash */
-        const getBufferFromUrl = async (url: string): Promise<ArrayBuffer> => {
-            const response = await fetch(url);
-            const buffer = await response.arrayBuffer();
-            console.log("BUF", buffer);
-            return buffer;
-            // return crypto.createHash("md5").update(Buffer.from(buffer)).digest("hex");
-        };
         const file = request.file;
         let tempBuffer: Buffer | null = null;
         if (typeof file === 'string') {
-            const arrBuffer = await getBufferFromUrl(file);
+            const arrBuffer = await this._getBufferFromUrl(file);
             tempBuffer = Buffer.from(arrBuffer);
         } else if (file instanceof ArrayBuffer) {
             tempBuffer = Buffer.from(file);
@@ -107,12 +97,9 @@ export class Client extends Assets {
             return await this.create(siteId, wfUploadRequest, requestOptions);
         };
 
-        console.log("Step 2 done");
-
-        /** 3. Upload to AWS */
+        /** 3. Create FormData with S3 bucket signature */
         const wfUploadedAsset = await createWfAssetMetadata();
 
-        console.log("Step 2.5 done", wfUploadedAsset);
         const wfUploadDetails = wfUploadedAsset.uploadDetails!;
         const uploadUrl = wfUploadedAsset.uploadUrl as string;
         // Temp workaround since headers from response are being camelCased and we need them to be exact when sending to S3
@@ -130,25 +117,27 @@ export class Client extends Assets {
             acc[mappedKey] = wfUploadDetails[key as keyof typeof headerMappings ];
             return acc;
         }, {});
-        const formDataToUpload = new FormData();
+        const formDataToUpload = new FormDataConstructor();
         Object.keys(transformedUploadHeaders).forEach((key) => {
             formDataToUpload.append(key, transformedUploadHeaders[key]);
         });
-        console.log("STEP 2.6 done");
-        const newBlob = Readable.from(tempBuffer);
-        console.log("NEW BLOB");
-        formDataToUpload.append("file", newBlob, {
+
+        if (!Buffer.isBuffer(tempBuffer)) {
+            throw new Error("Invalid Buffer: Expected a Buffer instance from file");
+        }
+
+        formDataToUpload.append("file", tempBuffer, {
             filename: fileName,
-            contentType: wfUploadedAsset.contentType,
+            contentType: wfUploadedAsset.contentType || "application/octet-stream",
         });
-        console.log("STEP 2.75 done");
-        // TOOO: SOMETHING WEIRD HERE.. NOT UPLOADING TO S3 PROPERLY
-        const uploadResponse = await fetch(uploadUrl, {
+
+        /** 4. Upload to S3  */
+        await fetch(uploadUrl, {
             method: 'POST',
             body: formDataToUpload,
             headers: {...formDataToUpload.getHeaders()},
         });
-        console.log("UPLOAD RESPONSE", JSON.stringify(uploadResponse));
+
         return wfUploadedAsset;
     }
 }
