@@ -614,7 +614,7 @@ types:
       - PlainText
       - RichText
       - Switch
-      - Video
+      - VideoLink
     docs: Choose these appropriate field type for your collection data
     inline: true
     source:
@@ -754,17 +754,19 @@ types:
       - DateTime
       - Email
       - ExtFileRef
+      - File
       - Image
       - Link
       - MultiImage
       - MultiReference
       - Number
+      - Option
       - Phone
       - PlainText
       - Reference
       - RichText
       - Switch
-      - Video
+      - VideoLink
     docs: Choose these appropriate field type for your collection data
     inline: true
     source:
@@ -1130,6 +1132,222 @@ types:
         type: optional<boolean>
         docs: Boolean determining if the Item is set to draft
       fieldData: optional<CollectionItemPatchSingleFieldData>
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  CommentThreadAuthor:
+    properties:
+      userId:
+        type: string
+        docs: The unique identifier of the author
+      email:
+        type: string
+        docs: Email of the author
+      name:
+        type: string
+        docs: Name of the author
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  CommentThreadMentionedUsersItem:
+    properties:
+      userId:
+        type: string
+        docs: The unique identifier of the mentioned user
+      email:
+        type: string
+        docs: Email of the user
+      name:
+        type: string
+        docs: Name of the  User
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  CommentThread:
+    docs: >
+      A comment thread represents a conversation between users on a specific
+      page. Each comment thread has a unique identifier and can contain multiple
+      comments. Retrieve comment replies using the replies API endpoint.
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the comment thread
+        access: read-only
+      siteId:
+        type: string
+        docs: The site unique identifier
+        access: read-only
+      pageId:
+        type: string
+        docs: The page unique identifier
+        access: read-only
+      localeId:
+        type: optional<string>
+        docs: The locale unique identifier
+        access: read-only
+      itemId:
+        type: optional<string>
+        docs: The item unique identifier
+        access: read-only
+      breakpoint:
+        type: string
+        docs: The breakpoint the comment was left on
+        access: read-only
+      url:
+        type: string
+        docs: The URL of the page the comment was left on
+        access: read-only
+      content:
+        type: string
+        docs: The content of the comment reply
+      isResolved:
+        type: boolean
+        docs: Boolean determining if the comment thread is resolved
+        default: false
+      author: CommentThreadAuthor
+      mentionedUsers:
+        docs: >-
+          List of mentioned users. This is an empty array until email
+          notifications are sent, which can take up to 5 minutes after the
+          comment is created.
+        type: list<CommentThreadMentionedUsersItem>
+      createdOn:
+        type: string
+        docs: The date the item was created
+        access: read-only
+      lastUpdated:
+        type: string
+        docs: The date the item was last updated
+        access: read-only
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  CommentThreadListPagination:
+    properties:
+      limit:
+        type: double
+        docs: The limit specified in the request (default 100)
+        default: 100
+      offset:
+        type: double
+        docs: The offset specified for pagination
+        default: 0
+      total:
+        type: double
+        docs: Total number of comment threads
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  CommentThreadList:
+    docs: >
+      A list of comment threads on the site. Contains the content of the first
+      reply.
+    properties:
+      comments: list<CommentThread>
+      pagination: CommentThreadListPagination
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  CommentReplyAuthor:
+    properties:
+      id:
+        type: string
+        docs: The unique identifier of the author
+      email:
+        type: string
+        docs: Email of the author
+      name:
+        type: string
+        docs: Name of the author
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  CommentReplyMentionedUsersItem:
+    properties:
+      id:
+        type: string
+        docs: The unique identifier of the mentioned user
+      email:
+        type: string
+        docs: Email of the user
+      name:
+        type: string
+        docs: Name of the  User
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  CommentReply:
+    docs: >
+      A comment thread represents a conversation between users on a specific
+      page. Each comment thread has a unique identifier and can contain multiple
+      comments.
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the comment thread
+        access: read-only
+      commentId:
+        type: string
+        docs: The comment reply unique identifier
+        access: read-only
+      siteId:
+        type: string
+        docs: The site unique identifier
+        access: read-only
+      pageId:
+        type: string
+        docs: The page unique identifier
+        access: read-only
+      localeId:
+        type: optional<string>
+        docs: The locale unique identifier
+        access: read-only
+      breakpoint:
+        type: string
+        docs: The breakpoint the comment was left on
+        access: read-only
+      content:
+        type: string
+        docs: The content of the comment reply
+      isResolved:
+        type: boolean
+        docs: Boolean determining if the comment thread is resolved
+        default: false
+      author: CommentReplyAuthor
+      mentionedUsers:
+        type: optional<list<CommentReplyMentionedUsersItem>>
+        docs: >-
+          List of mentioned users is an empty array until email notifications
+          are sent.
+      lastUpdated:
+        type: string
+        docs: The date the item was last updated
+        access: read-only
+      createdOn:
+        type: string
+        docs: The date the item was created
+        access: read-only
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  CommentReplyListPagination:
+    properties:
+      limit:
+        type: double
+        docs: The limit specified in the request (default 100)
+        default: 100
+      offset:
+        type: double
+        docs: The offset specified for pagination
+        default: 0
+      total:
+        type: double
+        docs: Total number of comment replies
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  CommentReplyList:
+    docs: |
+      A list of comment replies.
+    properties:
+      comments: list<CommentReply>
+      pagination: CommentReplyListPagination
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   PageSeo:
@@ -1892,6 +2110,7 @@ types:
       - collection_item_changed
       - collection_item_deleted
       - collection_item_unpublished
+      - comment_created
     docs: >
       The type of event that triggered the request. See the the documentation
       for details on [supported events](/data/reference/all-events).
@@ -2432,8 +2651,10 @@ types:
   SkuValueList:
     type: map<string, string>
     docs: >
-      A dictionary that maps a SKU property to a SKU value. The key of the
-      dictionary is the SKU property ID, and the value is the SKU value ID.
+      A mapping between SKU properties and their values, represented as
+      key-value pairs. Each key represents a SKU Property ID (e.g. "color") and
+      maps to its corresponding SKU Value ID (e.g. "blue"). This structure
+      defines the specific variant combination for a SKU.
   SkuFieldDataPrice:
     docs: price of SKU
     properties:
@@ -2443,6 +2664,9 @@ types:
       unit:
         type: optional<string>
         docs: Currency of Item
+      currency:
+        type: optional<string>
+        docs: Currency of Item (alternative representation)
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
@@ -2561,6 +2785,15 @@ types:
       quantity:
         type: optional<double>
         docs: Quantity of SKU that will be tracked as items are ordered.
+      main-image:
+        type: optional<string>
+        docs: The URL for the main image of the SKU
+      sku:
+        type: optional<string>
+        docs: A unique identifier for the SKU
+      sku-properties:
+        type: optional<list<SkuPropertyList>>
+        docs: The properties of the SKU
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   Sku:

@@ -1,0 +1,114 @@
+types:
+  WellKnownFileContentType:
+    enum:
+      - value: application/json
+        name: ApplicationJson
+      - value: text/plain
+        name: TextPlain
+    docs: The content type of the file. Defaults to application/json
+    default: application/json
+    inline: true
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+imports:
+  root: ../__package__.yml
+service:
+  auth: false
+  base-path: ''
+  endpoints:
+    put:
+      path: /sites/{site_id}/well_known
+      method: PUT
+      auth: true
+      docs: >
+        Upload a supported well-known file to a site.
+
+
+        The current restrictions on well-known files are as follows:
+          - Each file must be smaller than 100kb
+          - Less than 30 total files
+          - Have one of the following file extensions (or no extension): `.txt`, `.json`, `.noext` 
+          
+          <Note title=".noext">
+            `.noext` is a special file extension that removes other extensions. For example, `apple-app-site-association.noext.txt` will be uploaded as `apple-app-site-association`. Use this extension for tools that have trouble uploading extensionless files.
+          </Note>
+
+        <Warning title="Enterprise Only">This endpoint requires an Enterprise
+        workspace.</Warning>
+
+
+        Required scope: `site_config:write`
+      source:
+        openapi: ../../../openapi/referenced-specs/v2.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+      display-name: Set a well-known file
+      request:
+        name: WellKnownFile
+        body:
+          properties:
+            fileName:
+              type: string
+              docs: The name of the file
+            fileData:
+              type: string
+              docs: The contents of the file
+            contentType:
+              type: optional<WellKnownFileContentType>
+              docs: The content type of the file. Defaults to application/json
+              default: application/json
+        content-type: application/json
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+          request:
+            fileName: fileName
+            fileData: fileData
+    delete:
+      path: /sites/{site_id}/well_known
+      method: DELETE
+      auth: true
+      docs: >
+        Delete existing well-known files from a site.
+
+
+        <Warning title="Enterprise Only">This endpoint requires an Enterprise
+        workspace.</Warning>
+
+
+        Required scope: `site_config:write`
+      source:
+        openapi: ../../../openapi/referenced-specs/v2.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+      display-name: Delete a well-known file
+      request:
+        name: WellKnownDeleteRequest
+        body:
+          properties:
+            fileNames:
+              type: optional<list<string>>
+              docs: A list of file names to delete
+        content-type: application/json
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+          request: {}
+  source:
+    openapi: ../../../openapi/referenced-specs/v2.yml
