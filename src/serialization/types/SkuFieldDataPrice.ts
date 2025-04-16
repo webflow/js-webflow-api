@@ -12,11 +12,13 @@ export const SkuFieldDataPrice: core.serialization.ObjectSchema<
 > = core.serialization.object({
     value: core.serialization.number().optional(),
     unit: core.serialization.string().optional(),
+    currency: core.serialization.string().optional(),
 });
 
 export declare namespace SkuFieldDataPrice {
     interface Raw {
         value?: number | null;
         unit?: string | null;
+        currency?: string | null;
     }
 }
