@@ -11,7 +11,7 @@ import * as errors from "../../../../../../errors/index";
 
 export declare namespace RobotsTxt {
     interface Options {
-        environment?: core.Supplier<environments.WebflowEnvironment | string>;
+        environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
         accessToken: core.Supplier<core.BearerToken>;
     }
 
@@ -33,6 +33,8 @@ export class RobotsTxt {
     /**
      * Retrieve the robots.txt configuration for various user agents.
      *
+     * <Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
+     *
      * Required scope: `site_config:read`
      *
      * @param {string} siteId - Unique identifier for a Site
@@ -50,7 +52,7 @@ export class RobotsTxt {
     public async get(siteId: string, requestOptions?: RobotsTxt.RequestOptions): Promise<Webflow.Robots> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `sites/${encodeURIComponent(siteId)}/robots_txt`
             ),
             method: "GET",
@@ -58,8 +60,8 @@ export class RobotsTxt {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.1",
-                "User-Agent": "webflow-api/3.1.1",
+                "X-Fern-SDK-Version": "3.1.2",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -150,6 +152,8 @@ export class RobotsTxt {
     /**
      * Replace the `robots.txt` configuration for various user agents.
      *
+     * <Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
+     *
      * Required scope | `site_config:write`
      *
      * @param {string} siteId - Unique identifier for a Site
@@ -179,7 +183,7 @@ export class RobotsTxt {
     ): Promise<Webflow.Robots> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `sites/${encodeURIComponent(siteId)}/robots_txt`
             ),
             method: "PUT",
@@ -187,8 +191,8 @@ export class RobotsTxt {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.1",
-                "User-Agent": "webflow-api/3.1.1",
+                "X-Fern-SDK-Version": "3.1.2",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -286,6 +290,8 @@ export class RobotsTxt {
      *
      * **Note:** Deleting a user-agent with no rules will make the user-agent's access unrestricted unless other directives apply.
      *
+     * <Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
+     *
      * Required scope: `site_config:write`
      *
      * @param {string} siteId - Unique identifier for a Site
@@ -314,7 +320,7 @@ export class RobotsTxt {
     ): Promise<Webflow.Robots> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `sites/${encodeURIComponent(siteId)}/robots_txt`
             ),
             method: "DELETE",
@@ -322,8 +328,8 @@ export class RobotsTxt {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.1",
-                "User-Agent": "webflow-api/3.1.1",
+                "X-Fern-SDK-Version": "3.1.2",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -421,6 +427,8 @@ export class RobotsTxt {
     /**
      * Update the `robots.txt` configuration for various user agents.
      *
+     * <Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
+     *
      * Required scope | `site_config:write`
      *
      * @param {string} siteId - Unique identifier for a Site
@@ -450,7 +458,7 @@ export class RobotsTxt {
     ): Promise<Webflow.Robots> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `sites/${encodeURIComponent(siteId)}/robots_txt`
             ),
             method: "PATCH",
@@ -458,8 +466,8 @@ export class RobotsTxt {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.1",
-                "User-Agent": "webflow-api/3.1.1",
+                "X-Fern-SDK-Version": "3.1.2",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
