@@ -9,7 +9,7 @@
         "format": "prettier . --write --ignore-unknown",
         "build": "tsc",
         "prepack": "cp -rv dist/. .",
-        "test": "jest tests/wrapper/AssetsUtilitiesClient.test.ts"
+        "test": "jest"
     },
     "dependencies": {
         "crypto-browserify": "^3.12.1",
