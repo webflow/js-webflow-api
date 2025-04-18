@@ -1,4 +1,3 @@
-import urlJoin from "url-join";
 import * as Webflow from "../api";
 import { Assets } from "../api/resources/assets/client/Client";
 import * as core from "../core";
@@ -27,17 +26,12 @@ export declare namespace AssetsUtilities {
 
 interface TestAssetUploadRequest {
     /**
-     * File to upload via various formats
+     * File to upload via URL where the asset is hosted, or by ArrayBuffer
      */
     file: ArrayBuffer  | string;
 
     /**
-     * The file MIME type
-     */
-    mimeType?: string;
-
-    /**
-     * Name of the file
+     * Name of the file to upload, including the extension
      */
     fileName: string;
 
@@ -54,9 +48,15 @@ export class Client extends Assets {
     }
 
     private async _getBufferFromUrl(url: string): Promise<ArrayBuffer> {
-        const response = await fetch(url);
-        const buffer = await response.arrayBuffer();
-        return buffer;
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Failed to fetch asset from URL: ${url}. Status: ${response.status} ${response.statusText}`);
+            }
+            return await response.arrayBuffer();
+        } catch (error) {
+            throw new Error(`Error occurred while fetching asset from URL: ${url}. ${(error as Error).message}`);
+        }
     }
 
     /**
@@ -73,7 +73,7 @@ export class Client extends Assets {
         requestOptions?: Assets.RequestOptions
     ): Promise<Webflow.AssetUpload> {
         /** 1. Generate the hash */
-        const file = request.file;
+        const {file, fileName, parentFolder} = request;
         let tempBuffer: Buffer | null = null;
         if (typeof file === 'string') {
             const arrBuffer = await this._getBufferFromUrl(file);
@@ -85,21 +85,25 @@ export class Client extends Assets {
             throw new Error('Invalid file');
         }
         const hash = crypto.createHash("md5").update(Buffer.from(tempBuffer)).digest("hex");
-        const fileName = request.fileName;
 
         const wfUploadRequest = {
             fileName,
             fileHash: hash,
-        };
+        } as Webflow.AssetsCreateRequest;
+        if (parentFolder) {
+            wfUploadRequest["parentFolder"] = parentFolder;
+        }
+        
 
         /** 2. Create the Asset Metadata in Webflow */
-        const createWfAssetMetadata = async () => {
-            return await this.create(siteId, wfUploadRequest, requestOptions);
-        };
+        let wfUploadedAsset: Webflow.AssetUpload;
+        try {
+            wfUploadedAsset = await this.create(siteId, wfUploadRequest, requestOptions);
+        } catch (error) {
+            throw new Error(`Failed to create Asset metadata in Webflow: ${(error as Error).message}`);
+        }
 
         /** 3. Create FormData with S3 bucket signature */
-        const wfUploadedAsset = await createWfAssetMetadata();
-
         const wfUploadDetails = wfUploadedAsset.uploadDetails!;
         const uploadUrl = wfUploadedAsset.uploadUrl as string;
         // Temp workaround since headers from response are being camelCased and we need them to be exact when sending to S3
@@ -132,11 +136,20 @@ export class Client extends Assets {
         });
 
         /** 4. Upload to S3  */
-        await fetch(uploadUrl, {
-            method: 'POST',
-            body: formDataToUpload,
-            headers: {...formDataToUpload.getHeaders()},
-        });
+        try {
+            const response = await fetch(uploadUrl, {
+                method: 'POST',
+                body: formDataToUpload,
+                headers: { ...formDataToUpload.getHeaders() },
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`Failed to upload to S3. Status: ${response.status}, Response: ${errorText}`);
+            }
+        } catch (error) {
+            throw new Error(`Error occurred during S3 upload: ${(error as Error).message}`);
+        }
 
         return wfUploadedAsset;
     }
