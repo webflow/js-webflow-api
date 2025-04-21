@@ -49,7 +49,7 @@ describe("AssetsUtilitiesClient", () => {
     });
 
     it("should throw an error if it fails to create Webflow Asset metadata", async () => {
-// Mock the Webflow API to throw an error
+        // Mock the Webflow API to throw an error
         jest.spyOn(client, "create").mockRejectedValue(new Error("Webflow API error"));
 
         await expect(client.createAndUpload(siteId, {
@@ -65,7 +65,7 @@ describe("AssetsUtilitiesClient", () => {
     });
 
     it("should throw an error if it fails to upload to S3", async () => {
-// Mock the Webflow API response for creating asset metadata
+        // Mock the Webflow API response for creating asset metadata
         const mockCreateResponse = {
             uploadUrl: mockUploadUrl,
             uploadDetails: {

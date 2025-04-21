@@ -74,37 +74,38 @@ export class Client extends Assets {
     ): Promise<Webflow.AssetUpload> {
         /** 1. Generate the hash */
         const {file, fileName, parentFolder} = request;
-        let tempBuffer: Buffer | null = null;
+        let tempBuffer: Buffer | undefined;
         if (typeof file === 'string') {
             const arrBuffer = await this._getBufferFromUrl(file);
             tempBuffer = Buffer.from(arrBuffer);
         } else if (file instanceof ArrayBuffer) {
             tempBuffer = Buffer.from(file);
         }
-        if (tempBuffer === null) {
-            throw new Error('Invalid file');
+        if (!Buffer.isBuffer(tempBuffer)) {
+            throw new Error('Invalid Buffer: Cannot create a buffer from the provided file');
         }
-        const hash = crypto.createHash("md5").update(Buffer.from(tempBuffer)).digest("hex");
+        const hash = crypto.createHash("md5").update(tempBuffer).digest("hex");
 
         const wfUploadRequest = {
             fileName,
             fileHash: hash,
+            ...(parentFolder && { parentFolder }),
         } as Webflow.AssetsCreateRequest;
-        if (parentFolder) {
-            wfUploadRequest["parentFolder"] = parentFolder;
-        }
         
 
         /** 2. Create the Asset Metadata in Webflow */
         let wfUploadedAsset: Webflow.AssetUpload;
         try {
             wfUploadedAsset = await this.create(siteId, wfUploadRequest, requestOptions);
+            if (!wfUploadedAsset || !wfUploadedAsset.uploadDetails) {
+                throw new Error("Failed to create Asset metadata in Webflow, no S3 headers returned");
+            }
         } catch (error) {
             throw new Error(`Failed to create Asset metadata in Webflow: ${(error as Error).message}`);
         }
 
         /** 3. Create FormData with S3 bucket signature */
-        const wfUploadDetails = wfUploadedAsset.uploadDetails!;
+        const wfUploadDetails = wfUploadedAsset.uploadDetails;
         const uploadUrl = wfUploadedAsset.uploadUrl as string;
         // Temp workaround since headers from response are being camelCased and we need them to be exact when sending to S3
         const headerMappings = {
@@ -125,10 +126,6 @@ export class Client extends Assets {
         Object.keys(transformedUploadHeaders).forEach((key) => {
             formDataToUpload.append(key, transformedUploadHeaders[key]);
         });
-
-        if (!Buffer.isBuffer(tempBuffer)) {
-            throw new Error("Invalid Buffer: Expected a Buffer instance from file");
-        }
 
         formDataToUpload.append("file", tempBuffer, {
             filename: fileName,
