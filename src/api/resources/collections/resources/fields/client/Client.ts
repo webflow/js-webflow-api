@@ -11,7 +11,7 @@ import * as errors from "../../../../../../errors/index";
 
 export declare namespace Fields {
     interface Options {
-        environment?: core.Supplier<environments.WebflowEnvironment | string>;
+        environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
         accessToken: core.Supplier<core.BearerToken>;
     }
 
@@ -53,6 +53,7 @@ export class Fields {
      *
      * @example
      *     await client.collections.fields.create("580e63fc8c9a982ac9b8b745", {
+     *         id: "562ac0395358780a1f5e6fbc",
      *         isEditable: true,
      *         isRequired: false,
      *         type: "RichText",
@@ -62,6 +63,7 @@ export class Fields {
      *
      * @example
      *     await client.collections.fields.create("580e63fc8c9a982ac9b8b745", {
+     *         id: "562ac0395358780a1f5e6fbc",
      *         isEditable: true,
      *         isRequired: false,
      *         type: "Option",
@@ -80,6 +82,7 @@ export class Fields {
      *
      * @example
      *     await client.collections.fields.create("580e63fc8c9a982ac9b8b745", {
+     *         id: "562ac0395358780a1f5e6fbd",
      *         isEditable: true,
      *         isRequired: false,
      *         type: "Reference",
@@ -97,7 +100,7 @@ export class Fields {
     ): Promise<Webflow.FieldCreate> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `collections/${encodeURIComponent(collectionId)}/fields`
             ),
             method: "POST",
@@ -106,7 +109,7 @@ export class Fields {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
                 "X-Fern-SDK-Version": "3.1.2",
-                "User-Agent": "webflow-api/3.1.1",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -224,7 +227,7 @@ export class Fields {
     public async delete(collectionId: string, fieldId: string, requestOptions?: Fields.RequestOptions): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `collections/${encodeURIComponent(collectionId)}/fields/${encodeURIComponent(fieldId)}`
             ),
             method: "DELETE",
@@ -233,7 +236,7 @@ export class Fields {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
                 "X-Fern-SDK-Version": "3.1.2",
-                "User-Agent": "webflow-api/3.1.1",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -348,7 +351,7 @@ export class Fields {
     ): Promise<Webflow.Field> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `collections/${encodeURIComponent(collectionId)}/fields/${encodeURIComponent(fieldId)}`
             ),
             method: "PATCH",
@@ -357,7 +360,7 @@ export class Fields {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
                 "X-Fern-SDK-Version": "3.1.2",
-                "User-Agent": "webflow-api/3.1.1",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,

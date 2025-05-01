@@ -9,15 +9,15 @@ import { TextNodeText } from "./TextNodeText";
 
 export const TextNode: core.serialization.ObjectSchema<serializers.TextNode.Raw, Webflow.TextNode> =
     core.serialization.object({
-        id: core.serialization.string().optional(),
-        text: TextNodeText.optional(),
+        id: core.serialization.string(),
+        text: TextNodeText,
         attributes: core.serialization.record(core.serialization.string(), core.serialization.string()).optional(),
     });
 
 export declare namespace TextNode {
     interface Raw {
-        id?: string | null;
-        text?: TextNodeText.Raw | null;
+        id: string;
+        text: TextNodeText.Raw;
         attributes?: Record<string, string> | null;
     }
 }

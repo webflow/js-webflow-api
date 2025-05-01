@@ -19,10 +19,11 @@ import { Products } from "./api/resources/products/client/Client";
 import { Orders } from "./api/resources/orders/client/Client";
 import { Inventory } from "./api/resources/inventory/client/Client";
 import { Ecommerce } from "./api/resources/ecommerce/client/Client";
+import { Workspaces } from "./api/resources/workspaces/client/Client";
 
 export declare namespace WebflowClient {
     interface Options {
-        environment?: core.Supplier<environments.WebflowEnvironment | string>;
+        environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
         accessToken: core.Supplier<core.BearerToken>;
     }
 
@@ -129,5 +130,11 @@ export class WebflowClient {
 
     public get ecommerce(): Ecommerce {
         return (this._ecommerce ??= new Ecommerce(this._options));
+    }
+
+    protected _workspaces: Workspaces | undefined;
+
+    public get workspaces(): Workspaces {
+        return (this._workspaces ??= new Workspaces(this._options));
     }
 }
