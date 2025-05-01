@@ -18,7 +18,7 @@ export type StaticFieldType =
     | "PlainText"
     | "RichText"
     | "Switch"
-    | "Video";
+    | "VideoLink";
 
 export const StaticFieldType = {
     Color: "Color",
@@ -33,5 +33,5 @@ export const StaticFieldType = {
     PlainText: "PlainText",
     RichText: "RichText",
     Switch: "Switch",
-    Video: "Video",
+    VideoLink: "VideoLink",
 } as const;
