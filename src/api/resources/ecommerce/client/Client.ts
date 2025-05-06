@@ -11,7 +11,7 @@ import * as errors from "../../../../errors/index";
 
 export declare namespace Ecommerce {
     interface Options {
-        environment?: core.Supplier<environments.WebflowEnvironment | string>;
+        environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
         accessToken: core.Supplier<core.BearerToken>;
     }
 
@@ -55,7 +55,7 @@ export class Ecommerce {
     ): Promise<Webflow.EcommerceSettings> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `sites/${encodeURIComponent(siteId)}/ecommerce/settings`
             ),
             method: "GET",
@@ -64,7 +64,7 @@ export class Ecommerce {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
                 "X-Fern-SDK-Version": "3.1.2",
-                "User-Agent": "webflow-api/3.1.1",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,

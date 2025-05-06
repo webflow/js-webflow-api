@@ -10,6 +10,7 @@ import { SkuFieldDataPrice } from "./SkuFieldDataPrice";
 import { SkuFieldDataCompareAtPrice } from "./SkuFieldDataCompareAtPrice";
 import { SkuFieldDataEcSkuBillingMethod } from "./SkuFieldDataEcSkuBillingMethod";
 import { SkuFieldDataEcSkuSubscriptionPlan } from "./SkuFieldDataEcSkuSubscriptionPlan";
+import { SkuPropertyList } from "./SkuPropertyList";
 
 export const SkuFieldData: core.serialization.ObjectSchema<serializers.SkuFieldData.Raw, Webflow.SkuFieldData> =
     core.serialization.object({
@@ -28,6 +29,12 @@ export const SkuFieldData: core.serialization.ObjectSchema<serializers.SkuFieldD
         ),
         trackInventory: core.serialization.property("track-inventory", core.serialization.boolean().optional()),
         quantity: core.serialization.number().optional(),
+        mainImage: core.serialization.property("main-image", core.serialization.string().optional()),
+        sku: core.serialization.string().optional(),
+        skuProperties: core.serialization.property(
+            "sku-properties",
+            core.serialization.list(SkuPropertyList).optional()
+        ),
     });
 
 export declare namespace SkuFieldData {
@@ -41,5 +48,8 @@ export declare namespace SkuFieldData {
         "ec-sku-subscription-plan"?: SkuFieldDataEcSkuSubscriptionPlan.Raw | null;
         "track-inventory"?: boolean | null;
         quantity?: number | null;
+        "main-image"?: string | null;
+        sku?: string | null;
+        "sku-properties"?: SkuPropertyList.Raw[] | null;
     }
 }

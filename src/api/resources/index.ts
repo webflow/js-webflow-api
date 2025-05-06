@@ -15,6 +15,7 @@ export * from "./orders/types";
 export * as inventory from "./inventory";
 export * from "./inventory/types";
 export * as collections from "./collections";
+export * as workspaces from "./workspaces";
 export * as token from "./token";
 export * as scripts from "./scripts";
 export * as assets from "./assets";
