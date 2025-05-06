@@ -11,7 +11,7 @@ import * as errors from "../../../../../../errors/index";
 
 export declare namespace Items {
     interface Options {
-        environment?: core.Supplier<environments.WebflowEnvironment | string>;
+        environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
         accessToken: core.Supplier<core.BearerToken>;
     }
 
@@ -85,7 +85,7 @@ export class Items {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `collections/${encodeURIComponent(collectionId)}/items`
             ),
             method: "GET",
@@ -94,7 +94,7 @@ export class Items {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
                 "X-Fern-SDK-Version": "3.1.2",
-                "User-Agent": "webflow-api/3.1.1",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -239,7 +239,7 @@ export class Items {
     ): Promise<Webflow.CollectionItem> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `collections/${encodeURIComponent(collectionId)}/items`
             ),
             method: "POST",
@@ -248,7 +248,7 @@ export class Items {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
                 "X-Fern-SDK-Version": "3.1.2",
-                "User-Agent": "webflow-api/3.1.1",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -362,16 +362,20 @@ export class Items {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.collections.items.deleteItems("580e63fc8c9a982ac9b8b745")
+     *     await client.collections.items.deleteItems("580e63fc8c9a982ac9b8b745", {
+     *         items: [{
+     *                 id: "580e64008c9a982ac9b8b754"
+     *             }]
+     *     })
      */
     public async deleteItems(
         collectionId: string,
-        request: Webflow.collections.ItemsDeleteItemsRequest = {},
+        request: Webflow.collections.ItemsDeleteItemsRequest,
         requestOptions?: Items.RequestOptions
     ): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `collections/${encodeURIComponent(collectionId)}/items`
             ),
             method: "DELETE",
@@ -380,7 +384,7 @@ export class Items {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
                 "X-Fern-SDK-Version": "3.1.2",
-                "User-Agent": "webflow-api/3.1.1",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -551,7 +555,7 @@ export class Items {
     ): Promise<Webflow.CollectionItem> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `collections/${encodeURIComponent(collectionId)}/items`
             ),
             method: "PATCH",
@@ -560,7 +564,7 @@ export class Items {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
                 "X-Fern-SDK-Version": "3.1.2",
-                "User-Agent": "webflow-api/3.1.1",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -658,6 +662,11 @@ export class Items {
     /**
      * List all published items in a collection.
      *
+     * <Note title="Serve data with the Content Delivery API">
+     *   To serve content to your other frontends applications, enterprise sites have access to a dedicated [content delivery API](/data/docs/cms-content-delivery), available at api-cdn.webflow.com.
+     *
+     * </Note>
+     *
      * Required scope | `CMS:read`
      *
      * @param {string} collectionId - Unique identifier for a Collection
@@ -710,7 +719,8 @@ export class Items {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
+                    .dataApi,
                 `collections/${encodeURIComponent(collectionId)}/items/live`
             ),
             method: "GET",
@@ -719,7 +729,7 @@ export class Items {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
                 "X-Fern-SDK-Version": "3.1.2",
-                "User-Agent": "webflow-api/3.1.1",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -831,6 +841,9 @@ export class Items {
      *
      * @example
      *     await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
+     *         lastPublished: "2023-03-17T18:47:35.560Z",
+     *         lastUpdated: "2023-03-17T18:47:35.560Z",
+     *         createdOn: "2023-03-17T18:47:35.560Z",
      *         isArchived: false,
      *         isDraft: false,
      *         fieldData: {
@@ -842,6 +855,9 @@ export class Items {
      * @example
      *     await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
      *         items: [{
+     *                 lastPublished: "2023-03-17T18:47:35.560Z",
+     *                 lastUpdated: "2023-03-17T18:47:35.560Z",
+     *                 createdOn: "2023-03-17T18:47:35.560Z",
      *                 isArchived: false,
      *                 isDraft: false,
      *                 fieldData: {
@@ -849,6 +865,9 @@ export class Items {
      *                     slug: "senior-data-analyst"
      *                 }
      *             }, {
+     *                 lastPublished: "2023-03-17T18:47:35.560Z",
+     *                 lastUpdated: "2023-03-17T18:47:35.560Z",
+     *                 createdOn: "2023-03-17T18:47:35.560Z",
      *                 isArchived: false,
      *                 isDraft: false,
      *                 fieldData: {
@@ -865,7 +884,7 @@ export class Items {
     ): Promise<Webflow.CollectionItem> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `collections/${encodeURIComponent(collectionId)}/items/live`
             ),
             method: "POST",
@@ -874,7 +893,7 @@ export class Items {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
                 "X-Fern-SDK-Version": "3.1.2",
-                "User-Agent": "webflow-api/3.1.1",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -989,16 +1008,20 @@ export class Items {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.collections.items.deleteItemsLive("580e63fc8c9a982ac9b8b745")
+     *     await client.collections.items.deleteItemsLive("580e63fc8c9a982ac9b8b745", {
+     *         items: [{
+     *                 id: "580e64008c9a982ac9b8b754"
+     *             }]
+     *     })
      */
     public async deleteItemsLive(
         collectionId: string,
-        request: Webflow.collections.ItemsDeleteItemsLiveRequest = {},
+        request: Webflow.collections.ItemsDeleteItemsLiveRequest,
         requestOptions?: Items.RequestOptions
     ): Promise<void> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `collections/${encodeURIComponent(collectionId)}/items/live`
             ),
             method: "DELETE",
@@ -1007,7 +1030,7 @@ export class Items {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
                 "X-Fern-SDK-Version": "3.1.2",
-                "User-Agent": "webflow-api/3.1.1",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -1175,7 +1198,7 @@ export class Items {
     ): Promise<Webflow.CollectionItemListNoPagination> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `collections/${encodeURIComponent(collectionId)}/items/live`
             ),
             method: "PATCH",
@@ -1184,7 +1207,7 @@ export class Items {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
                 "X-Fern-SDK-Version": "3.1.2",
-                "User-Agent": "webflow-api/3.1.1",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -1333,7 +1356,7 @@ export class Items {
     ): Promise<Webflow.BulkCollectionItem> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `collections/${encodeURIComponent(collectionId)}/items/bulk`
             ),
             method: "POST",
@@ -1342,7 +1365,7 @@ export class Items {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
                 "X-Fern-SDK-Version": "3.1.2",
-                "User-Agent": "webflow-api/3.1.1",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -1470,7 +1493,8 @@ export class Items {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
+                    .production,
                 `collections/${encodeURIComponent(collectionId)}/items/${encodeURIComponent(itemId)}`
             ),
             method: "GET",
@@ -1479,7 +1503,7 @@ export class Items {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
                 "X-Fern-SDK-Version": "3.1.2",
-                "User-Agent": "webflow-api/3.1.1",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -1603,7 +1627,7 @@ export class Items {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `collections/${encodeURIComponent(collectionId)}/items/${encodeURIComponent(itemId)}`
             ),
             method: "DELETE",
@@ -1612,7 +1636,7 @@ export class Items {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
                 "X-Fern-SDK-Version": "3.1.2",
-                "User-Agent": "webflow-api/3.1.1",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -1731,7 +1755,7 @@ export class Items {
     ): Promise<Webflow.CollectionItem> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `collections/${encodeURIComponent(collectionId)}/items/${encodeURIComponent(itemId)}`
             ),
             method: "PATCH",
@@ -1740,7 +1764,7 @@ export class Items {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
                 "X-Fern-SDK-Version": "3.1.2",
-                "User-Agent": "webflow-api/3.1.1",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -1838,6 +1862,11 @@ export class Items {
     /**
      * Get details of a selected Collection live Item.
      *
+     * <Note title="Serve data with the Content Delivery API">
+     *   To serve content to your other frontends applications, enterprise sites have access to a dedicated [content delivery API](/data/docs/cms-content-delivery), available at api-cdn.webflow.com.
+     *
+     * </Note>
+     *
      * Required scope | `CMS:read`
      *
      * @param {string} collectionId - Unique identifier for a Collection
@@ -1868,7 +1897,8 @@ export class Items {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
+                    .dataApi,
                 `collections/${encodeURIComponent(collectionId)}/items/${encodeURIComponent(itemId)}/live`
             ),
             method: "GET",
@@ -1877,7 +1907,7 @@ export class Items {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
                 "X-Fern-SDK-Version": "3.1.2",
-                "User-Agent": "webflow-api/3.1.1",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -2003,7 +2033,7 @@ export class Items {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `collections/${encodeURIComponent(collectionId)}/items/${encodeURIComponent(itemId)}/live`
             ),
             method: "DELETE",
@@ -2012,7 +2042,7 @@ export class Items {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
                 "X-Fern-SDK-Version": "3.1.2",
-                "User-Agent": "webflow-api/3.1.1",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -2132,7 +2162,7 @@ export class Items {
     ): Promise<Webflow.CollectionItem> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `collections/${encodeURIComponent(collectionId)}/items/${encodeURIComponent(itemId)}/live`
             ),
             method: "PATCH",
@@ -2141,7 +2171,7 @@ export class Items {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
                 "X-Fern-SDK-Version": "3.1.2",
-                "User-Agent": "webflow-api/3.1.1",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -2266,7 +2296,7 @@ export class Items {
     ): Promise<Webflow.collections.ItemsPublishItemResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `collections/${encodeURIComponent(collectionId)}/items/publish`
             ),
             method: "POST",
@@ -2275,7 +2305,7 @@ export class Items {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
                 "X-Fern-SDK-Version": "3.1.2",
-                "User-Agent": "webflow-api/3.1.1",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,

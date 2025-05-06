@@ -7,7 +7,14 @@ import * as Webflow from "../index";
 /**
  * A generic representation of a content element within the Document Object Model (DOM). Each node has a unique identifier and a specific type that determines its content structure and attributes.
  */
-export type Node = Webflow.Node.Text | Webflow.Node.Image | Webflow.Node.ComponentInstance;
+export type Node =
+    | Webflow.Node.Text
+    | Webflow.Node.Image
+    | Webflow.Node.ComponentInstance
+    | Webflow.Node.TextInput
+    | Webflow.Node.Select
+    | Webflow.Node.SubmitButton
+    | Webflow.Node.SearchButton;
 
 export declare namespace Node {
     interface Text extends Webflow.TextNode {
@@ -20,5 +27,21 @@ export declare namespace Node {
 
     interface ComponentInstance extends Webflow.ComponentNode {
         type: "component-instance";
+    }
+
+    interface TextInput extends Webflow.TextInputNode {
+        type: "text-input";
+    }
+
+    interface Select extends Webflow.SelectNode {
+        type: "select";
+    }
+
+    interface SubmitButton extends Webflow.SubmitButtonNode {
+        type: "submit-button";
+    }
+
+    interface SearchButton extends Webflow.SearchButtonNode {
+        type: "search-button";
     }
 }

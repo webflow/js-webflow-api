@@ -8,12 +8,20 @@ import * as core from "../../core";
 import { TextNode } from "./TextNode";
 import { ImageNode } from "./ImageNode";
 import { ComponentNode } from "./ComponentNode";
+import { TextInputNode } from "./TextInputNode";
+import { SelectNode } from "./SelectNode";
+import { SubmitButtonNode } from "./SubmitButtonNode";
+import { SearchButtonNode } from "./SearchButtonNode";
 
 export const Node: core.serialization.Schema<serializers.Node.Raw, Webflow.Node> = core.serialization
     .union("type", {
         text: TextNode,
         image: ImageNode,
         "component-instance": ComponentNode,
+        "text-input": TextInputNode,
+        select: SelectNode,
+        "submit-button": SubmitButtonNode,
+        "search-button": SearchButtonNode,
     })
     .transform<Webflow.Node>({
         transform: (value) => value,
@@ -21,7 +29,14 @@ export const Node: core.serialization.Schema<serializers.Node.Raw, Webflow.Node>
     });
 
 export declare namespace Node {
-    type Raw = Node.Text | Node.Image | Node.ComponentInstance;
+    type Raw =
+        | Node.Text
+        | Node.Image
+        | Node.ComponentInstance
+        | Node.TextInput
+        | Node.Select
+        | Node.SubmitButton
+        | Node.SearchButton;
 
     interface Text extends TextNode.Raw {
         type: "text";
@@ -33,5 +48,21 @@ export declare namespace Node {
 
     interface ComponentInstance extends ComponentNode.Raw {
         type: "component-instance";
+    }
+
+    interface TextInput extends TextInputNode.Raw {
+        type: "text-input";
+    }
+
+    interface Select extends SelectNode.Raw {
+        type: "select";
+    }
+
+    interface SubmitButton extends SubmitButtonNode.Raw {
+        type: "submit-button";
+    }
+
+    interface SearchButton extends SearchButtonNode.Raw {
+        type: "search-button";
     }
 }

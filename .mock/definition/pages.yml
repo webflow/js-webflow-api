@@ -276,7 +276,8 @@ service:
       auth: true
       docs: >
         Get content from a static page. This includes text nodes, image nodes,
-        and component instances with [property
+        select nodes, text input nodes, submit button nodes, and component
+        instances with [property
         overrides](https://help.webflow.com/hc/en-us/articles/33961219350547-Component-properties#how-to-modify-property-values-on-component-instances).
 
 
@@ -327,8 +328,7 @@ service:
         - root.TooManyRequestsError
         - root.InternalServerError
       examples:
-        - name: PageDOM
-          path-parameters:
+        - path-parameters:
             page_id: 63c720f9347c2139b248e552
           query-parameters:
             localeId: 65427cf400e02b306eaa04a0
@@ -351,6 +351,23 @@ service:
                   attributes:
                     key: value
                   type: image
+                - id: id
+                  choices:
+                    - value: value
+                      text: text
+                  attributes:
+                    key: value
+                  type: select
+                - id: id
+                  placeholder: placeholder
+                  attributes:
+                    key: value
+                  type: text-input
+                - id: id
+                  text: {}
+                  attributes:
+                    key: value
+                  type: text
                 - id: id
                   componentId: componentId
                   propertyOverrides:
@@ -433,6 +450,17 @@ service:
                 text: >-
                   <div><h3>Don't Panic!</h3><p>Always know where your towel
                   is.</p></div>
+              - nodeId: a245c12d-995b-55ee-5ec7-aa36a6cad635
+                choices:
+                  - value: choice-1
+                    text: First choice
+                  - value: choice-2
+                    text: Second choice
+              - nodeId: a245c12d-995b-55ee-5ec7-aa36a6cad642
+                placeholder: Enter something here...
+              - nodeId: a245c12d-995b-55ee-5ec7-aa36a6cad671
+                value: Submit
+                waitingText: Submitting...
               - nodeId: a245c12d-995b-55ee-5ec7-aa36a6cad629
                 propertyOverrides:
                   - propertyId: 7dd14c08-2e96-8d3d-2b19-b5c03642a0f0
@@ -453,6 +481,10 @@ types:
     union:
       - root.TextNodeWrite
       - root.ComponentInstanceNodePropertyOverridesWrite
+      - root.SelectNodeWrite
+      - root.TextInputNodeWrite
+      - root.SubmitButtonNodeWrite
+      - root.SearchButtonNodeWrite
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true

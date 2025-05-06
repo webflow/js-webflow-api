@@ -15,6 +15,22 @@ import * as Webflow from "../../../../index";
  *                 nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad627",
  *                 text: "<div><h3>Don't Panic!</h3><p>Always know where your towel is.</p></div>"
  *             }, {
+ *                 nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad635",
+ *                 choices: [{
+ *                         value: "choice-1",
+ *                         text: "First choice"
+ *                     }, {
+ *                         value: "choice-2",
+ *                         text: "Second choice"
+ *                     }]
+ *             }, {
+ *                 nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad642",
+ *                 placeholder: "Enter something here..."
+ *             }, {
+ *                 nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad671",
+ *                 value: "Submit",
+ *                 waitingText: "Submitting..."
+ *             }, {
  *                 nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad629",
  *                 propertyOverrides: [{
  *                         propertyId: "7dd14c08-2e96-8d3d-2b19-b5c03642a0f0",
