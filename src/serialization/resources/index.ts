@@ -15,6 +15,7 @@ export * from "./orders/types";
 export * as inventory from "./inventory";
 export * from "./inventory/types";
 export * as collections from "./collections";
+export * as workspaces from "./workspaces";
 export * from "./sites/client/requests";
 export * from "./collections/client/requests";
 export * from "./pages/client/requests";

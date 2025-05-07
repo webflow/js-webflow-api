@@ -20,7 +20,8 @@ export type TriggerType =
     | "collection_item_created"
     | "collection_item_changed"
     | "collection_item_deleted"
-    | "collection_item_unpublished";
+    | "collection_item_unpublished"
+    | "comment_created";
 
 export const TriggerType = {
     FormSubmission: "form_submission",
@@ -38,4 +39,5 @@ export const TriggerType = {
     CollectionItemChanged: "collection_item_changed",
     CollectionItemDeleted: "collection_item_deleted",
     CollectionItemUnpublished: "collection_item_unpublished",
+    CommentCreated: "comment_created",
 } as const;
