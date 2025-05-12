@@ -8,3 +8,4 @@ src/api/types/OAuthScope.ts
 src/index.ts
 src/oauth.ts
 src/wrapper
+tests/wrapper
