@@ -32,8 +32,6 @@ export interface Page {
     canBranch?: boolean;
     /** Indicates whether the Page is a Branch of another Page [Page Branching](https://university.webflow.com/lesson/page-branching) */
     isBranch?: boolean;
-    /** Indicates whether the Page is restricted by [Memberships Controls](https://university.webflow.com/lesson/webflow-memberships-overview#how-to-manage-page-restrictions) */
-    isMembersOnly?: boolean;
     /** SEO-related fields for the Page */
     seo?: Webflow.PageSeo;
     /** Open Graph fields for the Page */

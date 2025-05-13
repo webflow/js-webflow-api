@@ -6,10 +6,64 @@ import * as Webflow from "../../../../index";
 
 /**
  * @example
- *     {}
+ *     {
+ *         publishStatus: "staging",
+ *         product: {
+ *             fieldData: {
+ *                 name: "Colorful T-shirt",
+ *                 slug: "colorful-t-shirt",
+ *                 description: "Our best-selling t-shirt available in multiple colors and sizes",
+ *                 skuProperties: [{
+ *                         id: "color",
+ *                         name: "Color",
+ *                         enum: [{
+ *                                 id: "red",
+ *                                 name: "Red",
+ *                                 slug: "red"
+ *                             }, {
+ *                                 id: "yellow",
+ *                                 name: "Yellow",
+ *                                 slug: "yellow"
+ *                             }, {
+ *                                 id: "blue",
+ *                                 name: "Blue",
+ *                                 slug: "blue"
+ *                             }]
+ *                     }, {
+ *                         id: "size",
+ *                         name: "Size",
+ *                         enum: [{
+ *                                 id: "small",
+ *                                 name: "Small",
+ *                                 slug: "small"
+ *                             }, {
+ *                                 id: "medium",
+ *                                 name: "Medium",
+ *                                 slug: "medium"
+ *                             }, {
+ *                                 id: "large",
+ *                                 name: "Large",
+ *                                 slug: "large"
+ *                             }]
+ *                     }]
+ *             }
+ *         },
+ *         sku: {
+ *             fieldData: {
+ *                 name: "Colorful T-shirt - Red Small",
+ *                 slug: "colorful-t-shirt-red-small",
+ *                 price: {
+ *                     value: 2499,
+ *                     unit: "USD",
+ *                     currency: "USD"
+ *                 },
+ *                 mainImage: "https://rocketamp-sample-store.myshopify.com/cdn/shop/products/Gildan_2000_Antique_Cherry_Red_Front_1024x1024.jpg?v=1527232987"
+ *             }
+ *         }
+ *     }
  */
 export interface ProductSkuCreate {
     publishStatus?: Webflow.PublishStatus;
-    product?: Webflow.Product;
-    sku?: Webflow.Sku;
+    product: Webflow.ProductSkuCreateProduct;
+    sku: Webflow.ProductSkuCreateSku;
 }
