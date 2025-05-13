@@ -7,11 +7,6 @@
  *     {
  *         localeId: "65427cf400e02b306eaa04a0"
  *     }
- *
- * @example
- *     {
- *         localeId: "65427cf400e02b306eaa04a0"
- *     }
  */
 export interface ComponentsGetContentRequest {
     /**

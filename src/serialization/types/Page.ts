@@ -21,7 +21,6 @@ export const Page: core.serialization.ObjectSchema<serializers.Page.Raw, Webflow
     draft: core.serialization.boolean().optional(),
     canBranch: core.serialization.boolean().optional(),
     isBranch: core.serialization.boolean().optional(),
-    isMembersOnly: core.serialization.boolean().optional(),
     seo: PageSeo.optional(),
     openGraph: PageOpenGraph.optional(),
     localeId: core.serialization.string().optional(),
@@ -42,7 +41,6 @@ export declare namespace Page {
         draft?: boolean | null;
         canBranch?: boolean | null;
         isBranch?: boolean | null;
-        isMembersOnly?: boolean | null;
         seo?: PageSeo.Raw | null;
         openGraph?: PageOpenGraph.Raw | null;
         localeId?: string | null;

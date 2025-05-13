@@ -60,7 +60,7 @@ service:
               id: 670ecf86817e3cc7a510eb6a
               workspaceId: 625860a7a6c16d624927122f
               createdOn: '2024-10-15T20:24:38Z'
-              displayName: The Hitchiker‘s Guide
+              displayName: The Hitchiker's Guide
               shortName: hitchikers-guide
               lastUpdated: '2024-10-15T20:24:38Z'
               parentFolderId: 670ece123598db72d9648be1

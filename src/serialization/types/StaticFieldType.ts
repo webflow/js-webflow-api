@@ -20,7 +20,7 @@ export const StaticFieldType: core.serialization.Schema<serializers.StaticFieldT
         "PlainText",
         "RichText",
         "Switch",
-        "Video",
+        "VideoLink",
     ]);
 
 export declare namespace StaticFieldType {
@@ -37,5 +37,5 @@ export declare namespace StaticFieldType {
         | "PlainText"
         | "RichText"
         | "Switch"
-        | "Video";
+        | "VideoLink";
 }

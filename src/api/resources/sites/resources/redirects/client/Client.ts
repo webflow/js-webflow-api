@@ -11,7 +11,7 @@ import * as errors from "../../../../../../errors/index";
 
 export declare namespace Redirects {
     interface Options {
-        environment?: core.Supplier<environments.WebflowEnvironment | string>;
+        environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
         accessToken: core.Supplier<core.BearerToken>;
     }
 
@@ -31,7 +31,7 @@ export class Redirects {
     constructor(protected readonly _options: Redirects.Options) {}
 
     /**
-     * Fetch a list of all URL redirect rules configured for a specific site.
+     * Fetch a list of all 301 redirect rules configured for a specific site.
      *
      * Use this endpoint to review, audit, or manage the redirection rules that control how traffic is rerouted on your site.
      *
@@ -54,7 +54,7 @@ export class Redirects {
     public async list(siteId: string, requestOptions?: Redirects.RequestOptions): Promise<Webflow.Redirects> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `sites/${encodeURIComponent(siteId)}/redirects`
             ),
             method: "GET",
@@ -63,7 +63,7 @@ export class Redirects {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
                 "X-Fern-SDK-Version": "3.1.2",
-                "User-Agent": "webflow-api/3.1.1",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -152,7 +152,7 @@ export class Redirects {
     }
 
     /**
-     * Add a new URL redirection rule to a site.
+     * Add a new 301 redirection rule to a site.
      *
      * This endpoint allows you to define a source path (`fromUrl`) and its corresponding destination path (`toUrl`), which will dictate how traffic is rerouted on your site. This is useful for managing site changes, restructuring URLs, or handling outdated links.
      *
@@ -184,7 +184,7 @@ export class Redirects {
     ): Promise<Webflow.Redirect> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `sites/${encodeURIComponent(siteId)}/redirects`
             ),
             method: "POST",
@@ -193,7 +193,7 @@ export class Redirects {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
                 "X-Fern-SDK-Version": "3.1.2",
-                "User-Agent": "webflow-api/3.1.1",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -287,7 +287,7 @@ export class Redirects {
     }
 
     /**
-     * Remove a URL redirection rule from a site.
+     * Remove a 301 redirection rule from a site.
      *
      * This is useful for cleaning up outdated or unnecessary redirects, ensuring that your site's routing behavior remains efficient and up-to-date.
      *
@@ -315,7 +315,7 @@ export class Redirects {
     ): Promise<Webflow.Redirects> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `sites/${encodeURIComponent(siteId)}/redirects/${encodeURIComponent(redirectId)}`
             ),
             method: "DELETE",
@@ -324,7 +324,7 @@ export class Redirects {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
                 "X-Fern-SDK-Version": "3.1.2",
-                "User-Agent": "webflow-api/3.1.1",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -415,7 +415,7 @@ export class Redirects {
     }
 
     /**
-     * Update a URL redirection rule from a site.
+     * Update a 301 redirection rule from a site.
      *
      * <Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
      *
@@ -447,7 +447,7 @@ export class Redirects {
     ): Promise<Webflow.Redirect> {
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `sites/${encodeURIComponent(siteId)}/redirects/${encodeURIComponent(redirectId)}`
             ),
             method: "PATCH",
@@ -456,7 +456,7 @@ export class Redirects {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
                 "X-Fern-SDK-Version": "3.1.2",
-                "User-Agent": "webflow-api/3.1.1",
+                "User-Agent": "webflow-api/3.1.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,

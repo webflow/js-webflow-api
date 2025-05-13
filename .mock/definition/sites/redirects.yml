@@ -9,7 +9,7 @@ service:
       method: GET
       auth: true
       docs: >
-        Fetch a list of all URL redirect rules configured for a specific site.
+        Fetch a list of all 301 redirect rules configured for a specific site.
 
 
         Use this endpoint to review, audit, or manage the redirection rules that
@@ -27,7 +27,7 @@ service:
         site_id:
           type: string
           docs: Unique identifier for a Site
-      display-name: Get URL redirects
+      display-name: Get 301 redirects
       response:
         docs: Request was successful
         type: root.Redirects
@@ -59,7 +59,7 @@ service:
       method: POST
       auth: true
       docs: >
-        Add a new URL redirection rule to a site.
+        Add a new 301 redirection rule to a site.
 
 
         This endpoint allows you to define a source path (`fromUrl`) and its
@@ -79,7 +79,7 @@ service:
         site_id:
           type: string
           docs: Unique identifier for a Site
-      display-name: Create a URL redirect
+      display-name: Create a 301 redirect
       request:
         body: root.Redirect
         content-type: application/json
@@ -110,7 +110,7 @@ service:
       method: DELETE
       auth: true
       docs: >
-        Remove a URL redirection rule from a site.
+        Remove a 301 redirection rule from a site.
 
 
         This is useful for cleaning up outdated or unnecessary redirects,
@@ -132,7 +132,7 @@ service:
         redirect_id:
           type: string
           docs: Unique identifier site rediect
-      display-name: Delete URL redirects
+      display-name: Delete 301 redirects
       response:
         docs: Request was successful
         type: root.Redirects
@@ -165,7 +165,7 @@ service:
       method: PATCH
       auth: true
       docs: >
-        Update a URL redirection rule from a site.
+        Update a 301 redirection rule from a site.
 
 
         <Warning title="Enterprise Only">This endpoint requires an Enterprise
@@ -182,7 +182,7 @@ service:
         redirect_id:
           type: string
           docs: Unique identifier site rediect
-      display-name: Update URL redirect
+      display-name: Update 301 redirect
       request:
         body: root.Redirect
         content-type: application/json

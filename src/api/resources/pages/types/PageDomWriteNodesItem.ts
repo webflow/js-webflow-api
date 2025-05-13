@@ -4,4 +4,10 @@
 
 import * as Webflow from "../../../index";
 
-export type PageDomWriteNodesItem = Webflow.TextNodeWrite | Webflow.ComponentInstanceNodePropertyOverridesWrite;
+export type PageDomWriteNodesItem =
+    | Webflow.TextNodeWrite
+    | Webflow.ComponentInstanceNodePropertyOverridesWrite
+    | Webflow.SelectNodeWrite
+    | Webflow.TextInputNodeWrite
+    | Webflow.SubmitButtonNodeWrite
+    | Webflow.SearchButtonNodeWrite;
