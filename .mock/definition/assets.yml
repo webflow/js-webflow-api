@@ -168,7 +168,7 @@ service:
               assetUrl: >-
                 https://s3.amazonaws.com/webflow-prod-assets/6258612d1ee792848f805dcf/660d907ab9e91e3e9f56385e_paranoidAndroid-2024.png
               hostedUrl: >-
-                https://d1otoma47x30pg.cloudfront.net/643021114e290e0d3a0602b2/64358b9544249dc43d37d2b7_Screenshot%202023-04-11%20at%209.50.42%20AM.png
+                https://dev-assets.website-files.com/643021114e290e0d3a0602b2/64358b9544249dc43d37d2b7_Screenshot%202023-04-11%20at%209.50.42%20AM.png
               originalFileName: file.png
               createdOn: '2023-04-11T16:32:21Z'
               lastUpdated: '2023-04-12T20:31:03Z'

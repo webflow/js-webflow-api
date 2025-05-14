@@ -7010,7 +7010,7 @@ await client.pages.scripts.deleteCustomCode("63c720f9347c2139b248e552");
 <dl>
 <dd>
 
-Fetch a list of all URL redirect rules configured for a specific site.
+Fetch a list of all 301 redirect rules configured for a specific site.
 
 Use this endpoint to review, audit, or manage the redirection rules that control how traffic is rerouted on your site.
 
@@ -7079,7 +7079,7 @@ await client.sites.redirects.list("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-Add a new URL redirection rule to a site.
+Add a new 301 redirection rule to a site.
 
 This endpoint allows you to define a source path (`fromUrl`) and its corresponding destination path (`toUrl`), which will dictate how traffic is rerouted on your site. This is useful for managing site changes, restructuring URLs, or handling outdated links.
 
@@ -7160,7 +7160,7 @@ await client.sites.redirects.create("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-Remove a URL redirection rule from a site.
+Remove a 301 redirection rule from a site.
 
 This is useful for cleaning up outdated or unnecessary redirects, ensuring that your site's routing behavior remains efficient and up-to-date.
 
@@ -7237,7 +7237,7 @@ await client.sites.redirects.delete("580e63e98c9a982ac9b8b741", "66c4cb9a20cac35
 <dl>
 <dd>
 
-Update a URL redirection rule from a site.
+Update a 301 redirection rule from a site.
 
 <Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
 

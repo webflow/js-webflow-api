@@ -1701,13 +1701,6 @@ types:
           Branching](https://university.webflow.com/lesson/page-branching)
         default: false
         access: read-only
-      isMembersOnly:
-        type: optional<boolean>
-        docs: >-
-          Indicates whether the Page is restricted by [Memberships
-          Controls](https://university.webflow.com/lesson/webflow-memberships-overview#how-to-manage-page-restrictions)
-        default: false
-        access: read-only
       seo:
         type: optional<PageSeo>
         docs: SEO-related fields for the Page
