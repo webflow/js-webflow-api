@@ -1164,7 +1164,7 @@ await client.pages.updatePageSettings("63c720f9347c2139b248e552", {
 <dl>
 <dd>
 
-Get content from a static page. This includes text nodes, image nodes, and component instances with [property overrides](https://help.webflow.com/hc/en-us/articles/33961219350547-Component-properties#how-to-modify-property-values-on-component-instances).
+Get content from a static page. This includes text nodes, image nodes, select nodes, text input nodes, submit button nodes, and component instances with [property overrides](https://help.webflow.com/hc/en-us/articles/33961219350547-Component-properties#how-to-modify-property-values-on-component-instances).
 
 To retrieve the static content of a component instance, use the [Get Component Content](/data/reference/pages-and-components/components/get-content) endpoint.
 
@@ -1280,6 +1280,28 @@ await client.pages.updateStaticContent("63c720f9347c2139b248e552", {
         {
             nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad627",
             text: "<div><h3>Don't Panic!</h3><p>Always know where your towel is.</p></div>",
+        },
+        {
+            nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad635",
+            choices: [
+                {
+                    value: "choice-1",
+                    text: "First choice",
+                },
+                {
+                    value: "choice-2",
+                    text: "Second choice",
+                },
+            ],
+        },
+        {
+            nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad642",
+            placeholder: "Enter something here...",
+        },
+        {
+            nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad671",
+            value: "Submit",
+            waitingText: "Submitting...",
         },
         {
             nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad629",
@@ -1425,7 +1447,7 @@ await client.components.list("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-Get static content from a component definition. This includes text nodes, image nodes and nested component instances.
+Get static content from a component definition. This includes text nodes, image nodes, select nodes, text input nodes, submit button nodes, and nested component instances.
 To retrieve dynamic content set by component properties, use the [get component properties](/data/reference/pages-and-components/components/get-properties) endpoint.
 
 <Note>If you do not provide a Locale ID in your request, the response will return any content that can be localized from the Primary locale.</Note>
@@ -1548,6 +1570,28 @@ await client.components.updateContent("580e63e98c9a982ac9b8b741", "8505ba55-ef72
         {
             nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad627",
             text: "<div><h3>Don't Panic!</h3><p>Always know where your towel is.</p></div>",
+        },
+        {
+            nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad635",
+            choices: [
+                {
+                    value: "choice-1",
+                    text: "First choice",
+                },
+                {
+                    value: "choice-2",
+                    text: "Second choice",
+                },
+            ],
+        },
+        {
+            nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad642",
+            placeholder: "Enter something here...",
+        },
+        {
+            nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad671",
+            value: "Submit",
+            waitingText: "Submitting...",
         },
         {
             nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad629",
@@ -3920,17 +3964,13 @@ await client.products.list("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-Create a new product and SKU.
+Create a new ecommerce product and defaultSKU. A product, at minimum, must have a single SKU.
 
-When you create a product, you will always create a SKU, since a Product Item must have, at minimum, a single SKU.
+To create a product with multiple SKUs:
 
-To create a Product with multiple SKUs - for example a T-shirt in sizes small, medium and large:
-
--   Create parameters in `sku-properties`, also known as [product options and variants.](https://help.webflow.com/hc/en-us/articles/33961334531347-Create-product-options-and-variants).
--   A single `sku-property` would be `color`. Within the `color` property, list the various colors of T-shirts as an array of `enum` values: `royal-blue`, `crimson-red`, and `forrest-green`.
--   Once, you've created a Product and its `sku-properties` with `enum` values, Webflow will create a **default SKU**, which will automatically be a combination of the first `sku-properties` you've created.
--   In our example, the default SKU will be a Royal Blue T-Shirt, because our first `enum` of our Color `sku-property` is Royal Blue.
--   After you've created your product, you can create additional SKUs using the [Create SKU endpoint.](/data/reference/ecommerce/products/create-sku)
+-   First, create a list of `sku-properties`, also known as [product options](https://help.webflow.com/hc/en-us/articles/33961334531347-Create-product-options-and-variants). For example, a T-shirt product may have a "color" `sku-property`, with a list of enum values: red, yellow, and blue, another `sku-property` may be "size", with a list of enum values: small, medium, and large.
+-   Once, a product is created with a list of `sku-properties`, Webflow will create a **default SKU**, which is always a combination of the first `enum` values of each `sku-property`. (e.g. Small - Red - T-Shirt)
+-   After creation, you can create additional SKUs for the product, using the [Create SKUs endpoint.](/data/reference/ecommerce/products/create-sku)
 
 Upon creation, the default product type will be `Advanced`, which ensures all Product and SKU fields will be shown to users in the Designer.
 
@@ -3950,7 +3990,73 @@ Required scope | `ecommerce:write`
 <dd>
 
 ```typescript
-await client.products.create("580e63e98c9a982ac9b8b741");
+await client.products.create("580e63e98c9a982ac9b8b741", {
+    publishStatus: "staging",
+    product: {
+        fieldData: {
+            name: "Colorful T-shirt",
+            slug: "colorful-t-shirt",
+            description: "Our best-selling t-shirt available in multiple colors and sizes",
+            skuProperties: [
+                {
+                    id: "color",
+                    name: "Color",
+                    enum: [
+                        {
+                            id: "red",
+                            name: "Red",
+                            slug: "red",
+                        },
+                        {
+                            id: "yellow",
+                            name: "Yellow",
+                            slug: "yellow",
+                        },
+                        {
+                            id: "blue",
+                            name: "Blue",
+                            slug: "blue",
+                        },
+                    ],
+                },
+                {
+                    id: "size",
+                    name: "Size",
+                    enum: [
+                        {
+                            id: "small",
+                            name: "Small",
+                            slug: "small",
+                        },
+                        {
+                            id: "medium",
+                            name: "Medium",
+                            slug: "medium",
+                        },
+                        {
+                            id: "large",
+                            name: "Large",
+                            slug: "large",
+                        },
+                    ],
+                },
+            ],
+        },
+    },
+    sku: {
+        fieldData: {
+            name: "Colorful T-shirt - Red Small",
+            slug: "colorful-t-shirt-red-small",
+            price: {
+                value: 2499,
+                unit: "USD",
+                currency: "USD",
+            },
+            mainImage:
+                "https://rocketamp-sample-store.myshopify.com/cdn/shop/products/Gildan_2000_Antique_Cherry_Red_Front_1024x1024.jpg?v=1527232987",
+        },
+    },
+});
 ```
 
 </dd>
@@ -4183,7 +4289,19 @@ Required scope | `ecommerce:write`
 
 ```typescript
 await client.products.createSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b8b745", {
-    skus: [{}],
+    skus: [
+        {
+            fieldData: {
+                name: "Colorful T-shirt - Default",
+                slug: "colorful-t-shirt-default",
+                price: {
+                    value: 2499,
+                    unit: "USD",
+                    currency: "USD",
+                },
+            },
+        },
+    ],
 });
 ```
 
@@ -4268,7 +4386,17 @@ Required scope | `ecommerce:write`
 
 ```typescript
 await client.products.updateSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b8b745", "5e8518516e147040726cc415", {
-    sku: {},
+    sku: {
+        fieldData: {
+            name: "Colorful T-shirt - Default",
+            slug: "colorful-t-shirt-default",
+            price: {
+                value: 2499,
+                unit: "USD",
+                currency: "USD",
+            },
+        },
+    },
 });
 ```
 
@@ -5459,7 +5587,13 @@ Required scope | `CMS:write`
 <dd>
 
 ```typescript
-await client.collections.items.deleteItems("580e63fc8c9a982ac9b8b745");
+await client.collections.items.deleteItems("580e63fc8c9a982ac9b8b745", {
+    items: [
+        {
+            id: "580e64008c9a982ac9b8b754",
+        },
+    ],
+});
 ```
 
 </dd>
@@ -5627,6 +5761,11 @@ await client.collections.items.updateItems("580e63fc8c9a982ac9b8b745", {
 <dd>
 
 List all published items in a collection.
+
+<Note title="Serve data with the Content Delivery API">
+  To serve content to your other frontends applications, enterprise sites have access to a dedicated [content delivery API](/data/docs/cms-content-delivery), available at api-cdn.webflow.com.
+
+</Note>
 
 Required scope | `CMS:read`
 
@@ -5803,7 +5942,13 @@ Required scope | `CMS:write`
 <dd>
 
 ```typescript
-await client.collections.items.deleteItemsLive("580e63fc8c9a982ac9b8b745");
+await client.collections.items.deleteItemsLive("580e63fc8c9a982ac9b8b745", {
+    items: [
+        {
+            id: "580e64008c9a982ac9b8b754",
+        },
+    ],
+});
 ```
 
 </dd>
@@ -6305,6 +6450,11 @@ await client.collections.items.updateItem("580e63fc8c9a982ac9b8b745", "580e64008
 <dd>
 
 Get details of a selected Collection live Item.
+
+<Note title="Serve data with the Content Delivery API">
+  To serve content to your other frontends applications, enterprise sites have access to a dedicated [content delivery API](/data/docs/cms-content-delivery), available at api-cdn.webflow.com.
+
+</Note>
 
 Required scope | `CMS:read`
 
@@ -7247,6 +7397,8 @@ await client.sites.plans.getSitePlan("580e63e98c9a982ac9b8b741");
 
 Retrieve the robots.txt configuration for various user agents.
 
+<Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
+
 Required scope: `site_config:read`
 
 </dd>
@@ -7311,6 +7463,8 @@ await client.sites.robotsTxt.get("580e63e98c9a982ac9b8b741");
 <dd>
 
 Replace the `robots.txt` configuration for various user agents.
+
+<Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
 
 Required scope | `site_config:write`
 
@@ -7396,6 +7550,8 @@ Remove specific rules for a user-agent in your `robots.txt` file. To delete all 
 
 **Note:** Deleting a user-agent with no rules will make the user-agent's access unrestricted unless other directives apply.
 
+<Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
+
 Required scope: `site_config:write`
 
 </dd>
@@ -7477,6 +7633,8 @@ await client.sites.robotsTxt.delete("580e63e98c9a982ac9b8b741", {
 
 Update the `robots.txt` configuration for various user agents.
 
+<Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
+
 Required scope | `site_config:write`
 
 </dd>
@@ -7535,6 +7693,171 @@ await client.sites.robotsTxt.patch("580e63e98c9a982ac9b8b741", {
 <dd>
 
 **requestOptions:** `RobotsTxt.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Sites WellKnown
+
+<details><summary><code>client.sites.wellKnown.<a href="/src/api/resources/sites/resources/wellKnown/client/Client.ts">put</a>(siteId, { ...params }) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Upload a supported well-known file to a site.
+
+The current restrictions on well-known files are as follows:
+
+-   Each file must be smaller than 100kb
+-   Less than 30 total files
+-   Have one of the following file extensions (or no extension): `.txt`, `.json`, `.noext`
+
+  <Note title=".noext">
+    `.noext` is a special file extension that removes other extensions. For example, `apple-app-site-association.noext.txt` will be uploaded as `apple-app-site-association`. Use this extension for tools that have trouble uploading extensionless files.
+  </Note>
+
+<Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
+
+Required scope: `site_config:write`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.wellKnown.put("580e63e98c9a982ac9b8b741", {
+    fileName: "fileName",
+    fileData: "fileData",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.sites.WellKnownFile`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `WellKnown.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sites.wellKnown.<a href="/src/api/resources/sites/resources/wellKnown/client/Client.ts">delete</a>(siteId, { ...params }) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete existing well-known files from a site.
+
+<Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
+
+Required scope: `site_config:write`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.wellKnown.delete("580e63e98c9a982ac9b8b741");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.sites.WellKnownDeleteRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `WellKnown.RequestOptions`
 
 </dd>
 </dl>
@@ -7612,6 +7935,261 @@ await client.sites.activityLogs.list("580e63e98c9a982ac9b8b741");
 <dd>
 
 **requestOptions:** `ActivityLogs.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Sites Comments
+
+<details><summary><code>client.sites.comments.<a href="/src/api/resources/sites/resources/comments/client/Client.ts">listCommentThreads</a>(siteId, { ...params }) -> Webflow.CommentThreadList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all comment threads for a site.
+
+<Note title="Timing of comment threads">
+  There may be a delay of up to 5 minutes before new comments appear in the system.
+</Note>
+
+Required scope | `comments:read`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.comments.listCommentThreads("580e63e98c9a982ac9b8b741", {
+    localeId: "65427cf400e02b306eaa04a0",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.sites.CommentsListCommentThreadsRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Comments.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sites.comments.<a href="/src/api/resources/sites/resources/comments/client/Client.ts">getCommentThread</a>(siteId, commentThreadId, { ...params }) -> Webflow.CommentThread</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get details of a specific comment thread.
+
+  <Note title="Timing of comment threads">
+    There may be a delay of up to 5 minutes before new comments appear in the system.
+  </Note>
+
+Required scope | `comments:read`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.comments.getCommentThread("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741", {
+    localeId: "65427cf400e02b306eaa04a0",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**commentThreadId:** `string` — Unique identifier for a Comment Thread
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.sites.CommentsGetCommentThreadRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Comments.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sites.comments.<a href="/src/api/resources/sites/resources/comments/client/Client.ts">listCommentReplies</a>(siteId, commentThreadId, { ...params }) -> Webflow.CommentReplyList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all replies to a specific comment thread.
+
+<Note title="Timing of comment threads">
+  There may be a delay of up to 5 minutes before new comments appear in the system.
+</Note>
+
+Required scope | `comments:read`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.comments.listCommentReplies("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741", {
+    localeId: "65427cf400e02b306eaa04a0",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**commentThreadId:** `string` — Unique identifier for a Comment Thread
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.sites.CommentsListCommentRepliesRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Comments.RequestOptions`
 
 </dd>
 </dl>
@@ -7920,6 +8498,86 @@ await client.sites.scripts.listCustomCodeBlocks("580e63e98c9a982ac9b8b741");
 <dd>
 
 **requestOptions:** `Scripts.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Workspaces AuditLogs
+
+<details><summary><code>client.workspaces.auditLogs.<a href="/src/api/resources/workspaces/resources/auditLogs/client/Client.ts">getWorkspaceAuditLogs</a>(workspaceIdOrSlug, { ...params }) -> Webflow.WorkspaceAuditLogResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get audit logs for a workspace.
+
+<Warning title="Enterprise & workspace API token only">This endpoint requires an Enterprise workspace and a workspace token with the `workspace_activity:read` scope. Create a workspace token from your workspace dashboard integrations page to use this endpoint.</Warning>
+
+Required scope | `workspace_activity:read`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.workspaces.auditLogs.getWorkspaceAuditLogs("hitchhikers-workspace", {
+    from: "2024-04-22T16:00:31Z",
+    to: "2024-04-22T16:00:31Z",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**workspaceIdOrSlug:** `string` — Unique identifier or slug for a Workspace
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.workspaces.AuditLogsGetWorkspaceAuditLogsRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `AuditLogs.RequestOptions`
 
 </dd>
 </dl>

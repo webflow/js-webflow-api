@@ -11,7 +11,7 @@ import * as errors from "../../../../errors/index";
 
 export declare namespace Components {
     interface Options {
-        environment?: core.Supplier<environments.WebflowEnvironment | string>;
+        environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
         accessToken: core.Supplier<core.BearerToken>;
     }
 
@@ -65,7 +65,7 @@ export class Components {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `sites/${encodeURIComponent(siteId)}/components`
             ),
             method: "GET",
@@ -73,8 +73,8 @@ export class Components {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.2",
-                "User-Agent": "webflow-api/3.1.1",
+                "X-Fern-SDK-Version": "3.1.3",
+                "User-Agent": "webflow-api/3.1.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -164,7 +164,7 @@ export class Components {
     }
 
     /**
-     * Get static content from a component definition. This includes text nodes, image nodes and nested component instances.
+     * Get static content from a component definition. This includes text nodes, image nodes, select nodes, text input nodes, submit button nodes, and nested component instances.
      * To retrieve dynamic content set by component properties, use the [get component properties](/data/reference/pages-and-components/components/get-properties) endpoint.
      *
      * <Note>If you do not provide a Locale ID in your request, the response will return any content that can be localized from the Primary locale.</Note>
@@ -209,7 +209,7 @@ export class Components {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `sites/${encodeURIComponent(siteId)}/components/${encodeURIComponent(componentId)}/dom`
             ),
             method: "GET",
@@ -217,8 +217,8 @@ export class Components {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.2",
-                "User-Agent": "webflow-api/3.1.1",
+                "X-Fern-SDK-Version": "3.1.3",
+                "User-Agent": "webflow-api/3.1.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -344,6 +344,22 @@ export class Components {
      *                 nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad627",
      *                 text: "<div><h3>Don't Panic!</h3><p>Always know where your towel is.</p></div>"
      *             }, {
+     *                 nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad635",
+     *                 choices: [{
+     *                         value: "choice-1",
+     *                         text: "First choice"
+     *                     }, {
+     *                         value: "choice-2",
+     *                         text: "Second choice"
+     *                     }]
+     *             }, {
+     *                 nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad642",
+     *                 placeholder: "Enter something here..."
+     *             }, {
+     *                 nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad671",
+     *                 value: "Submit",
+     *                 waitingText: "Submitting..."
+     *             }, {
      *                 nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad629",
      *                 propertyOverrides: [{
      *                         propertyId: "7dd14c08-2e96-8d3d-2b19-b5c03642a0f0",
@@ -369,7 +385,7 @@ export class Components {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `sites/${encodeURIComponent(siteId)}/components/${encodeURIComponent(componentId)}/dom`
             ),
             method: "POST",
@@ -377,8 +393,8 @@ export class Components {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.2",
-                "User-Agent": "webflow-api/3.1.1",
+                "X-Fern-SDK-Version": "3.1.3",
+                "User-Agent": "webflow-api/3.1.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -521,7 +537,7 @@ export class Components {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `sites/${encodeURIComponent(siteId)}/components/${encodeURIComponent(componentId)}/properties`
             ),
             method: "GET",
@@ -529,8 +545,8 @@ export class Components {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.2",
-                "User-Agent": "webflow-api/3.1.1",
+                "X-Fern-SDK-Version": "3.1.3",
+                "User-Agent": "webflow-api/3.1.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -667,7 +683,7 @@ export class Components {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.Default,
+                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
                 `sites/${encodeURIComponent(siteId)}/components/${encodeURIComponent(componentId)}/properties`
             ),
             method: "POST",
@@ -675,8 +691,8 @@ export class Components {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.2",
-                "User-Agent": "webflow-api/3.1.1",
+                "X-Fern-SDK-Version": "3.1.3",
+                "User-Agent": "webflow-api/3.1.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,

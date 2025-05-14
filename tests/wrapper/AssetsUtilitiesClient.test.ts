@@ -9,7 +9,13 @@ fetchMock.enableMocks();
 
 describe("AssetsUtilitiesClient", () => {
     const mockOptions = {
-        environment: () => "test-environment",
+        environment: () => ({
+            base: "https://api.webflow.com/v2",
+            dataApi: "https://api.webflow.com/v2",
+            contentDeliveryApi: "https://api-cdn.webflow.com/v2",
+            production: "https://api.webflow.com/v2",
+            cdn: "https://api-cdn.webflow.com/v2",
+        }),
         accessToken: () => "test-access-token",
     };
 
@@ -175,4 +181,3 @@ describe("AssetsUtilitiesClient", () => {
         expect(result).toEqual(mockCreateResponse);
     });
 });
-
