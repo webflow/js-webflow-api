@@ -63,7 +63,6 @@ service:
                   draft: false
                   canBranch: true
                   isBranch: false
-                  isMembersOnly: false
                   seo:
                     title: The Ultimate Hitchhiker's Guide to the Galaxy
                     description: >-
@@ -88,7 +87,6 @@ service:
                   draft: false
                   canBranch: true
                   isBranch: false
-                  isMembersOnly: false
                   seo:
                     title: Celebrate Towel Day - The Hitchhiker's Guide to the Galaxy
                     description: >-
@@ -159,7 +157,6 @@ service:
               draft: false
               canBranch: true
               isBranch: false
-              isMembersOnly: false
               seo:
                 title: The Ultimate Hitchhiker's Guide to the Galaxy
                 description: >-
@@ -255,7 +252,6 @@ service:
               draft: false
               canBranch: true
               isBranch: false
-              isMembersOnly: false
               seo:
                 title: The Ultimate Hitchhiker's Guide to the Galaxy
                 description: >-

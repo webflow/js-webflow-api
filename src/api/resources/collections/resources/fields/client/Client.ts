@@ -53,6 +53,7 @@ export class Fields {
      *
      * @example
      *     await client.collections.fields.create("580e63fc8c9a982ac9b8b745", {
+     *         id: "562ac0395358780a1f5e6fbc",
      *         isEditable: true,
      *         isRequired: false,
      *         type: "RichText",
@@ -62,6 +63,7 @@ export class Fields {
      *
      * @example
      *     await client.collections.fields.create("580e63fc8c9a982ac9b8b745", {
+     *         id: "562ac0395358780a1f5e6fbc",
      *         isEditable: true,
      *         isRequired: false,
      *         type: "Option",
@@ -80,6 +82,7 @@ export class Fields {
      *
      * @example
      *     await client.collections.fields.create("580e63fc8c9a982ac9b8b745", {
+     *         id: "562ac0395358780a1f5e6fbd",
      *         isEditable: true,
      *         isRequired: false,
      *         type: "Reference",
@@ -105,8 +108,8 @@ export class Fields {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.3",
-                "User-Agent": "webflow-api/3.1.3",
+                "X-Fern-SDK-Version": "3.1.4",
+                "User-Agent": "webflow-api/3.1.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -232,8 +235,8 @@ export class Fields {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.3",
-                "User-Agent": "webflow-api/3.1.3",
+                "X-Fern-SDK-Version": "3.1.4",
+                "User-Agent": "webflow-api/3.1.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -356,8 +359,8 @@ export class Fields {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.3",
-                "User-Agent": "webflow-api/3.1.3",
+                "X-Fern-SDK-Version": "3.1.4",
+                "User-Agent": "webflow-api/3.1.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
