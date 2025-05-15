@@ -7,19 +7,19 @@
  */
 export interface AssetVariant {
     /** URL of where the asset variant is hosted */
-    hostedUrl?: string;
+    hostedUrl: string;
     /** Original file name of the variant */
-    originalFileName?: string;
+    originalFileName: string;
     /** Display name of the variant */
-    displayName?: string;
+    displayName: string;
     /** format of the variant */
-    format?: string;
+    format: string;
     /** Width in pixels */
-    width?: number;
+    width: number;
     /** Height in pixels */
-    height?: number;
+    height: number;
     /** Value between 0 and 100 representing the image quality */
-    quality?: number;
+    quality: number;
     /** Any associated validation errors */
     error?: string;
 }
