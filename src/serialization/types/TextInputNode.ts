@@ -8,14 +8,14 @@ import * as core from "../../core";
 
 export const TextInputNode: core.serialization.ObjectSchema<serializers.TextInputNode.Raw, Webflow.TextInputNode> =
     core.serialization.object({
-        id: core.serialization.string(),
+        id: core.serialization.string().optional(),
         placeholder: core.serialization.string(),
         attributes: core.serialization.record(core.serialization.string(), core.serialization.string()).optional(),
     });
 
 export declare namespace TextInputNode {
     interface Raw {
-        id: string;
+        id?: string | null;
         placeholder: string;
         attributes?: Record<string, string> | null;
     }

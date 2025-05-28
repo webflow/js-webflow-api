@@ -7,7 +7,7 @@
  */
 export interface SearchButtonNode {
     /** Node UUID */
-    id: string;
+    id?: string;
     /** The text content of the search button. */
     value: string;
     /** The custom attributes of the node */

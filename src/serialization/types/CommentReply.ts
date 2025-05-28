@@ -10,33 +10,33 @@ import { CommentReplyMentionedUsersItem } from "./CommentReplyMentionedUsersItem
 
 export const CommentReply: core.serialization.ObjectSchema<serializers.CommentReply.Raw, Webflow.CommentReply> =
     core.serialization.object({
-        id: core.serialization.string(),
-        commentId: core.serialization.string(),
-        siteId: core.serialization.string(),
-        pageId: core.serialization.string(),
+        id: core.serialization.string().optional(),
+        commentId: core.serialization.string().optional(),
+        siteId: core.serialization.string().optional(),
+        pageId: core.serialization.string().optional(),
         localeId: core.serialization.string().optional(),
-        breakpoint: core.serialization.string(),
+        breakpoint: core.serialization.string().optional(),
         content: core.serialization.string(),
         isResolved: core.serialization.boolean(),
         author: CommentReplyAuthor,
         mentionedUsers: core.serialization.list(CommentReplyMentionedUsersItem).optional(),
-        lastUpdated: core.serialization.string(),
-        createdOn: core.serialization.string(),
+        lastUpdated: core.serialization.string().optional(),
+        createdOn: core.serialization.string().optional(),
     });
 
 export declare namespace CommentReply {
     interface Raw {
-        id: string;
-        commentId: string;
-        siteId: string;
-        pageId: string;
+        id?: string | null;
+        commentId?: string | null;
+        siteId?: string | null;
+        pageId?: string | null;
         localeId?: string | null;
-        breakpoint: string;
+        breakpoint?: string | null;
         content: string;
         isResolved: boolean;
         author: CommentReplyAuthor.Raw;
         mentionedUsers?: CommentReplyMentionedUsersItem.Raw[] | null;
-        lastUpdated: string;
-        createdOn: string;
+        lastUpdated?: string | null;
+        createdOn?: string | null;
     }
 }

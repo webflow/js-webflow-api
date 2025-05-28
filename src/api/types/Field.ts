@@ -9,7 +9,7 @@ import * as Webflow from "../index";
  */
 export interface Field {
     /** Unique identifier for a Field */
-    id: string;
+    id?: string;
     /** define whether a field is required in a collection */
     isRequired: boolean;
     /** Define whether the field is editable */
