@@ -6,7 +6,6 @@
  * The type of extra item this is.
  */
 export type OrderTotalsExtrasItemType = "discount" | "discount-shipping" | "shipping" | "tax";
-
 export const OrderTotalsExtrasItemType = {
     Discount: "discount",
     DiscountShipping: "discount-shipping",

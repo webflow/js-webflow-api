@@ -14,7 +14,7 @@ export const Redirect: core.serialization.ObjectSchema<serializers.Redirect.Raw,
     });
 
 export declare namespace Redirect {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         fromUrl?: string | null;
         toUrl?: string | null;

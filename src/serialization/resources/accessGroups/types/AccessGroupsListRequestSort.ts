@@ -12,5 +12,5 @@ export const AccessGroupsListRequestSort: core.serialization.Schema<
 > = core.serialization.enum_(["CreatedOn", "-CreatedOn"]);
 
 export declare namespace AccessGroupsListRequestSort {
-    type Raw = "CreatedOn" | "-CreatedOn";
+    export type Raw = "CreatedOn" | "-CreatedOn";
 }

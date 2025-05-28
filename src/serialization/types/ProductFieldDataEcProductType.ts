@@ -17,7 +17,7 @@ export const ProductFieldDataEcProductType: core.serialization.Schema<
 ]);
 
 export declare namespace ProductFieldDataEcProductType {
-    type Raw =
+    export type Raw =
         | "ff42fee0113744f693a764e3431a9cc2"
         | "f22027db68002190aef89a4a2b7ac8a1"
         | "c599e43b1a1c34d5a323aedf75d3adf6"

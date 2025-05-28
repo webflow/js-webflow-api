@@ -22,7 +22,7 @@ export const CustomCodeBlock: core.serialization.ObjectSchema<
 });
 
 export declare namespace CustomCodeBlock {
-    interface Raw {
+    export interface Raw {
         siteId?: string | null;
         pageId?: string | null;
         type?: CustomCodeBlockType.Raw | null;

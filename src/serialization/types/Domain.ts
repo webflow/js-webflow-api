@@ -8,14 +8,14 @@ import * as core from "../../core";
 
 export const Domain: core.serialization.ObjectSchema<serializers.Domain.Raw, Webflow.Domain> =
     core.serialization.object({
-        id: core.serialization.string(),
+        id: core.serialization.string().optional(),
         url: core.serialization.string().optional(),
         lastPublished: core.serialization.date().optional(),
     });
 
 export declare namespace Domain {
-    interface Raw {
-        id: string;
+    export interface Raw {
+        id?: string | null;
         url?: string | null;
         lastPublished?: string | null;
     }

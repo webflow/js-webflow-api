@@ -22,7 +22,7 @@ export const CollectionItemPostSingle: core.serialization.ObjectSchema<
 });
 
 export declare namespace CollectionItemPostSingle {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         cmsLocaleId?: string | null;
         lastPublished?: string | null;

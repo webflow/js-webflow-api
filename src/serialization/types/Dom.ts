@@ -16,7 +16,7 @@ export const Dom: core.serialization.ObjectSchema<serializers.Dom.Raw, Webflow.D
 });
 
 export declare namespace Dom {
-    interface Raw {
+    export interface Raw {
         pageId?: string | null;
         nodes?: Node.Raw[] | null;
         pagination?: Pagination.Raw | null;

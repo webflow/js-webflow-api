@@ -12,5 +12,5 @@ export const AuditLogsGetWorkspaceAuditLogsRequestSortOrder: core.serialization.
 > = core.serialization.enum_(["asc", "desc"]);
 
 export declare namespace AuditLogsGetWorkspaceAuditLogsRequestSortOrder {
-    type Raw = "asc" | "desc";
+    export type Raw = "asc" | "desc";
 }

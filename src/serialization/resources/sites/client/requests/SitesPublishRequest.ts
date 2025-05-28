@@ -15,7 +15,7 @@ export const SitesPublishRequest: core.serialization.Schema<
 });
 
 export declare namespace SitesPublishRequest {
-    interface Raw {
+    export interface Raw {
         customDomains?: string[] | null;
         publishToWebflowSubdomain?: boolean | null;
     }

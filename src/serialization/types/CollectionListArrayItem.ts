@@ -10,7 +10,7 @@ export const CollectionListArrayItem: core.serialization.ObjectSchema<
     serializers.CollectionListArrayItem.Raw,
     Webflow.CollectionListArrayItem
 > = core.serialization.object({
-    id: core.serialization.string(),
+    id: core.serialization.string().optional(),
     displayName: core.serialization.string().optional(),
     singularName: core.serialization.string().optional(),
     slug: core.serialization.string().optional(),
@@ -19,8 +19,8 @@ export const CollectionListArrayItem: core.serialization.ObjectSchema<
 });
 
 export declare namespace CollectionListArrayItem {
-    interface Raw {
-        id: string;
+    export interface Raw {
+        id?: string | null;
         displayName?: string | null;
         singularName?: string | null;
         slug?: string | null;

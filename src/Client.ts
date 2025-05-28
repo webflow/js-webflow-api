@@ -22,12 +22,14 @@ import { Ecommerce } from "./api/resources/ecommerce/client/Client";
 import { Workspaces } from "./api/resources/workspaces/client/Client";
 
 export declare namespace WebflowClient {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         accessToken: core.Supplier<core.BearerToken>;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
@@ -40,99 +42,84 @@ export declare namespace WebflowClient {
 }
 
 export class WebflowClient {
-    constructor(protected readonly _options: WebflowClient.Options) {}
-
     protected _token: Token | undefined;
+    protected _sites: Sites | undefined;
+    protected _collections: Collections | undefined;
+    protected _pages: Pages | undefined;
+    protected _components: Components | undefined;
+    protected _scripts: Scripts | undefined;
+    protected _assets: Assets | undefined;
+    protected _webhooks: Webhooks | undefined;
+    protected _forms: Forms | undefined;
+    protected _users: Users | undefined;
+    protected _accessGroups: AccessGroups | undefined;
+    protected _products: Products | undefined;
+    protected _orders: Orders | undefined;
+    protected _inventory: Inventory | undefined;
+    protected _ecommerce: Ecommerce | undefined;
+    protected _workspaces: Workspaces | undefined;
+
+    constructor(protected readonly _options: WebflowClient.Options) {}
 
     public get token(): Token {
         return (this._token ??= new Token(this._options));
     }
 
-    protected _sites: Sites | undefined;
-
     public get sites(): Sites {
         return (this._sites ??= new Sites(this._options));
     }
-
-    protected _collections: Collections | undefined;
 
     public get collections(): Collections {
         return (this._collections ??= new Collections(this._options));
     }
 
-    protected _pages: Pages | undefined;
-
     public get pages(): Pages {
         return (this._pages ??= new Pages(this._options));
     }
-
-    protected _components: Components | undefined;
 
     public get components(): Components {
         return (this._components ??= new Components(this._options));
     }
 
-    protected _scripts: Scripts | undefined;
-
     public get scripts(): Scripts {
         return (this._scripts ??= new Scripts(this._options));
     }
-
-    protected _assets: Assets | undefined;
 
     public get assets(): Assets {
         return (this._assets ??= new Assets(this._options));
     }
 
-    protected _webhooks: Webhooks | undefined;
-
     public get webhooks(): Webhooks {
         return (this._webhooks ??= new Webhooks(this._options));
     }
-
-    protected _forms: Forms | undefined;
 
     public get forms(): Forms {
         return (this._forms ??= new Forms(this._options));
     }
 
-    protected _users: Users | undefined;
-
     public get users(): Users {
         return (this._users ??= new Users(this._options));
     }
-
-    protected _accessGroups: AccessGroups | undefined;
 
     public get accessGroups(): AccessGroups {
         return (this._accessGroups ??= new AccessGroups(this._options));
     }
 
-    protected _products: Products | undefined;
-
     public get products(): Products {
         return (this._products ??= new Products(this._options));
     }
-
-    protected _orders: Orders | undefined;
 
     public get orders(): Orders {
         return (this._orders ??= new Orders(this._options));
     }
 
-    protected _inventory: Inventory | undefined;
-
     public get inventory(): Inventory {
         return (this._inventory ??= new Inventory(this._options));
     }
 
-    protected _ecommerce: Ecommerce | undefined;
-
     public get ecommerce(): Ecommerce {
         return (this._ecommerce ??= new Ecommerce(this._options));
     }
-
-    protected _workspaces: Workspaces | undefined;
 
     public get workspaces(): Workspaces {
         return (this._workspaces ??= new Workspaces(this._options));

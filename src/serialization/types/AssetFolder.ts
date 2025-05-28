@@ -18,7 +18,7 @@ export const AssetFolder: core.serialization.ObjectSchema<serializers.AssetFolde
     });
 
 export declare namespace AssetFolder {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         displayName?: string | null;
         parentFolder?: string | null;

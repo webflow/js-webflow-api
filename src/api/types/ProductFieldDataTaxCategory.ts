@@ -35,7 +35,6 @@ export type ProductFieldDataTaxCategory =
     | "service-professional"
     | "service-repair"
     | "service-training";
-
 export const ProductFieldDataTaxCategory = {
     StandardTaxable: "standard-taxable",
     StandardExempt: "standard-exempt",

@@ -6,7 +6,6 @@
  * The type of data collection enabled for the site.
  */
 export type SiteDataCollectionType = "always" | "optOut" | "disabled";
-
 export const SiteDataCollectionType = {
     Always: "always",
     OptOut: "optOut",

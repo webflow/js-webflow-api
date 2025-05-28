@@ -13,7 +13,7 @@ export const PageSeo: core.serialization.ObjectSchema<serializers.PageSeo.Raw, W
     });
 
 export declare namespace PageSeo {
-    interface Raw {
+    export interface Raw {
         title?: string | null;
         description?: string | null;
     }

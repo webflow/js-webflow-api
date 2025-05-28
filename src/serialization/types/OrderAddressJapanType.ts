@@ -12,5 +12,5 @@ export const OrderAddressJapanType: core.serialization.Schema<
 > = core.serialization.enum_(["kana", "kanji"]);
 
 export declare namespace OrderAddressJapanType {
-    type Raw = "kana" | "kanji";
+    export type Raw = "kana" | "kanji";
 }

@@ -10,5 +10,5 @@ export const Application: core.serialization.Schema<serializers.Application.Raw,
     core.serialization.unknown();
 
 export declare namespace Application {
-    type Raw = unknown;
+    export type Raw = unknown;
 }

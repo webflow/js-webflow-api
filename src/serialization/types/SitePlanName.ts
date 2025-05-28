@@ -17,7 +17,7 @@ export const SitePlanName: core.serialization.Schema<serializers.SitePlanName.Ra
     ]);
 
 export declare namespace SitePlanName {
-    type Raw =
+    export type Raw =
         | "Basic Hosting"
         | "CMS Hosting"
         | "Business Hosting"

@@ -18,7 +18,7 @@ export const CustomCodeInlineRequest: core.serialization.Schema<
 });
 
 export declare namespace CustomCodeInlineRequest {
-    interface Raw {
+    export interface Raw {
         sourceCode: string;
         integrityHash?: string | null;
         canCopy?: boolean | null;

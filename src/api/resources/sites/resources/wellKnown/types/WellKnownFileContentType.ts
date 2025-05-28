@@ -6,7 +6,6 @@
  * The content type of the file. Defaults to application/json
  */
 export type WellKnownFileContentType = "application/json" | "text/plain";
-
 export const WellKnownFileContentType = {
     ApplicationJson: "application/json",
     TextPlain: "text/plain",

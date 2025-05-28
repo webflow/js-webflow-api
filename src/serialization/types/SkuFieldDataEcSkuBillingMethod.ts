@@ -12,5 +12,5 @@ export const SkuFieldDataEcSkuBillingMethod: core.serialization.Schema<
 > = core.serialization.enum_(["one-time", "subscription"]);
 
 export declare namespace SkuFieldDataEcSkuBillingMethod {
-    type Raw = "one-time" | "subscription";
+    export type Raw = "one-time" | "subscription";
 }

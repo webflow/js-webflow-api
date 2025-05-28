@@ -17,7 +17,7 @@ export const Sku: core.serialization.ObjectSchema<serializers.Sku.Raw, Webflow.S
 });
 
 export declare namespace Sku {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         cmsLocaleId?: string | null;
         lastPublished?: string | null;

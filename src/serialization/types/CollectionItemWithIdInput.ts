@@ -22,7 +22,7 @@ export const CollectionItemWithIdInput: core.serialization.ObjectSchema<
 });
 
 export declare namespace CollectionItemWithIdInput {
-    interface Raw {
+    export interface Raw {
         id: string;
         cmsLocaleId?: string | null;
         lastPublished?: string | null;

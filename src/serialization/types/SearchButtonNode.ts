@@ -10,14 +10,14 @@ export const SearchButtonNode: core.serialization.ObjectSchema<
     serializers.SearchButtonNode.Raw,
     Webflow.SearchButtonNode
 > = core.serialization.object({
-    id: core.serialization.string(),
+    id: core.serialization.string().optional(),
     value: core.serialization.string(),
     attributes: core.serialization.record(core.serialization.string(), core.serialization.string()).optional(),
 });
 
 export declare namespace SearchButtonNode {
-    interface Raw {
-        id: string;
+    export interface Raw {
+        id?: string | null;
         value: string;
         attributes?: Record<string, string> | null;
     }

@@ -15,7 +15,7 @@ export const SearchButtonNodeWrite: core.serialization.ObjectSchema<
 });
 
 export declare namespace SearchButtonNodeWrite {
-    interface Raw {
+    export interface Raw {
         nodeId: string;
         value: string;
     }

@@ -10,5 +10,5 @@ export const UserStatus: core.serialization.Schema<serializers.UserStatus.Raw, W
     core.serialization.enum_(["invited", "verified", "unverified"]);
 
 export declare namespace UserStatus {
-    type Raw = "invited" | "verified" | "unverified";
+    export type Raw = "invited" | "verified" | "unverified";
 }

@@ -15,7 +15,7 @@ export const ComponentList: core.serialization.ObjectSchema<serializers.Componen
     });
 
 export declare namespace ComponentList {
-    interface Raw {
+    export interface Raw {
         components?: Component.Raw[] | null;
         pagination?: Pagination.Raw | null;
     }

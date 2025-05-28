@@ -11,5 +11,5 @@ export const Scripts: core.serialization.Schema<serializers.Scripts.Raw, Webflow
     core.serialization.list(ScriptApply);
 
 export declare namespace Scripts {
-    type Raw = ScriptApply.Raw[];
+    export type Raw = ScriptApply.Raw[];
 }

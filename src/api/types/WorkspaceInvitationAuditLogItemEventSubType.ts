@@ -8,7 +8,6 @@ export type WorkspaceInvitationAuditLogItemEventSubType =
     | "invite_updated"
     | "invite_canceled"
     | "invite_declined";
-
 export const WorkspaceInvitationAuditLogItemEventSubType = {
     InviteSent: "invite_sent",
     InviteAccepted: "invite_accepted",

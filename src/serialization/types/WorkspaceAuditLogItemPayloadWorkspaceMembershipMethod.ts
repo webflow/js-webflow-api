@@ -12,5 +12,5 @@ export const WorkspaceAuditLogItemPayloadWorkspaceMembershipMethod: core.seriali
 > = core.serialization.enum_(["sso", "dashboard", "admin"]);
 
 export declare namespace WorkspaceAuditLogItemPayloadWorkspaceMembershipMethod {
-    type Raw = "sso" | "dashboard" | "admin";
+    export type Raw = "sso" | "dashboard" | "admin";
 }

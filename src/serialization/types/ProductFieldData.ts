@@ -25,7 +25,7 @@ export const ProductFieldData: core.serialization.ObjectSchema<
 });
 
 export declare namespace ProductFieldData {
-    interface Raw {
+    export interface Raw {
         name?: string | null;
         slug?: string | null;
         description?: string | null;

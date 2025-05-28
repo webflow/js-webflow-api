@@ -15,7 +15,7 @@ export const RegisteredScriptList: core.serialization.ObjectSchema<
 });
 
 export declare namespace RegisteredScriptList {
-    interface Raw {
+    export interface Raw {
         registeredScripts?: CustomCodeHostedResponse.Raw[] | null;
     }
 }

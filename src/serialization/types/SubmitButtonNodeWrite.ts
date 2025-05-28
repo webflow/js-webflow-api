@@ -16,7 +16,7 @@ export const SubmitButtonNodeWrite: core.serialization.ObjectSchema<
 });
 
 export declare namespace SubmitButtonNodeWrite {
-    interface Raw {
+    export interface Raw {
         nodeId: string;
         value?: string | null;
         waitingText?: string | null;

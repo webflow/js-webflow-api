@@ -15,7 +15,7 @@ export const WorkspaceAuditLogItemPayloadWorkspaceInvitationTargetUser: core.ser
 });
 
 export declare namespace WorkspaceAuditLogItemPayloadWorkspaceInvitationTargetUser {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         email?: string | null;
     }

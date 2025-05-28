@@ -14,5 +14,5 @@ export const ForbiddenErrorBody: core.serialization.Schema<
 > = core.serialization.undiscriminatedUnion([InvalidScopes, UsersNotEnabled]);
 
 export declare namespace ForbiddenErrorBody {
-    type Raw = (InvalidScopes.Raw | undefined) | (UsersNotEnabled.Raw | undefined);
+    export type Raw = (InvalidScopes.Raw | undefined) | (UsersNotEnabled.Raw | undefined);
 }
