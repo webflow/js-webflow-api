@@ -3968,9 +3968,9 @@ Create a new ecommerce product and defaultSKU. A product, at minimum, must have 
 
 To create a product with multiple SKUs:
 
--   First, create a list of `sku-properties`, also known as [product options](https://help.webflow.com/hc/en-us/articles/33961334531347-Create-product-options-and-variants). For example, a T-shirt product may have a "color" `sku-property`, with a list of enum values: red, yellow, and blue, another `sku-property` may be "size", with a list of enum values: small, medium, and large.
--   Once, a product is created with a list of `sku-properties`, Webflow will create a **default SKU**, which is always a combination of the first `enum` values of each `sku-property`. (e.g. Small - Red - T-Shirt)
--   After creation, you can create additional SKUs for the product, using the [Create SKUs endpoint.](/data/reference/ecommerce/products/create-sku)
+- First, create a list of `sku-properties`, also known as [product options](https://help.webflow.com/hc/en-us/articles/33961334531347-Create-product-options-and-variants). For example, a T-shirt product may have a "color" `sku-property`, with a list of enum values: red, yellow, and blue, another `sku-property` may be "size", with a list of enum values: small, medium, and large.
+- Once, a product is created with a list of `sku-properties`, Webflow will create a **default SKU**, which is always a combination of the first `enum` values of each `sku-property`. (e.g. Small - Red - T-Shirt)
+- After creation, you can create additional SKUs for the product, using the [Create SKUs endpoint.](/data/reference/ecommerce/products/create-sku)
 
 Upon creation, the default product type will be `Advanced`, which ensures all Product and SKU fields will be shown to users in the Designer.
 
@@ -5015,8 +5015,8 @@ Updates the current inventory levels for a particular SKU item.
 
 Updates may be given in one or two methods, absolutely or incrementally.
 
--   Absolute updates are done by setting `quantity` directly.
--   Incremental updates are by specifying the inventory delta in `updateQuantity` which is then added to the `quantity` stored on the server.
+- Absolute updates are done by setting `quantity` directly.
+- Incremental updates are by specifying the inventory delta in `updateQuantity` which is then added to the `quantity` stored on the server.
 
 Required scope | `ecommerce:write`
 
@@ -5192,6 +5192,7 @@ Required scope | `cms:write`
 
 ```typescript
 await client.collections.fields.create("580e63fc8c9a982ac9b8b745", {
+    id: "562ac0395358780a1f5e6fbc",
     isEditable: true,
     isRequired: false,
     type: "RichText",
@@ -5487,7 +5488,7 @@ await client.collections.items.listItems("580e63fc8c9a982ac9b8b745");
 
 Create Item(s) in a Collection.
 
-To create items across multiple locales, please use [this endpoint.](/v2.0.0/data/reference/cms/collection-items/staged-items/create-items)
+To create items across multiple locales, please use [this endpoint.](/data/reference/cms/collection-items/staged-items/create-items)
 
 Required scope | `CMS:write`
 
@@ -5840,7 +5841,7 @@ await client.collections.items.listItemsLive("580e63fc8c9a982ac9b8b745");
 
 Create item(s) in a collection that will be immediately published to the live site.
 
-To create items across multiple locales, [please use this endpoint.](/v2.0.0/data/reference/cms/collection-items/staged-items/create-items)
+To create items across multiple locales, [please use this endpoint.](/data/reference/cms/collection-items/staged-items/create-items)
 
 Required scope | `CMS:write`
 
@@ -7721,9 +7722,9 @@ Upload a supported well-known file to a site.
 
 The current restrictions on well-known files are as follows:
 
--   Each file must be smaller than 100kb
--   Less than 30 total files
--   Have one of the following file extensions (or no extension): `.txt`, `.json`, `.noext`
+- Each file must be smaller than 100kb
+- Less than 30 total files
+- Have one of the following file extensions (or no extension): `.txt`, `.json`, `.noext`
 
   <Note title=".noext">
     `.noext` is a special file extension that removes other extensions. For example, `apple-app-site-association.noext.txt` will be uploaded as `apple-app-site-association`. Use this extension for tools that have trouble uploading extensionless files.

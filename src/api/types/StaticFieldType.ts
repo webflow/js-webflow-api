@@ -19,7 +19,6 @@ export type StaticFieldType =
     | "RichText"
     | "Switch"
     | "VideoLink";
-
 export const StaticFieldType = {
     Color: "Color",
     DateTime: "DateTime",

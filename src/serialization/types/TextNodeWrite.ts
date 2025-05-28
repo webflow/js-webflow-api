@@ -13,7 +13,7 @@ export const TextNodeWrite: core.serialization.ObjectSchema<serializers.TextNode
     });
 
 export declare namespace TextNodeWrite {
-    interface Raw {
+    export interface Raw {
         nodeId: string;
         text: string;
     }

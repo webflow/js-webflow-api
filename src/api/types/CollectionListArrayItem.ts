@@ -7,7 +7,7 @@
  */
 export interface CollectionListArrayItem {
     /** Unique identifier for a Collection */
-    id: string;
+    id?: string;
     /** Name given to the Collection */
     displayName?: string;
     /** The name of one Item in Collection (e.g. ”Blog Post” if the Collection is called “Blog Posts”) */

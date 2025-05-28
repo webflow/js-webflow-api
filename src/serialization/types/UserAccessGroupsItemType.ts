@@ -12,5 +12,5 @@ export const UserAccessGroupsItemType: core.serialization.Schema<
 > = core.serialization.enum_(["admin", "ecommerce"]);
 
 export declare namespace UserAccessGroupsItemType {
-    type Raw = "admin" | "ecommerce";
+    export type Raw = "admin" | "ecommerce";
 }

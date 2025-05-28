@@ -16,7 +16,7 @@ export const ComponentInstanceNodePropertyOverridesWrite: core.serialization.Obj
 });
 
 export declare namespace ComponentInstanceNodePropertyOverridesWrite {
-    interface Raw {
+    export interface Raw {
         nodeId: string;
         propertyOverrides: ComponentInstanceNodePropertyOverridesWritePropertyOverridesItem.Raw[];
     }

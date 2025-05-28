@@ -16,7 +16,7 @@ export const AuthorizationAuthorizationAuthorizedTo: core.serialization.ObjectSc
 });
 
 export declare namespace AuthorizationAuthorizationAuthorizedTo {
-    interface Raw {
+    export interface Raw {
         siteIds?: unknown[] | null;
         workspaceIds?: unknown[] | null;
         userIds?: unknown[] | null;

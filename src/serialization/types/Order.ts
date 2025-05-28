@@ -57,7 +57,7 @@ export const Order: core.serialization.ObjectSchema<serializers.Order.Raw, Webfl
 });
 
 export declare namespace Order {
-    interface Raw {
+    export interface Raw {
         orderId?: string | null;
         status?: OrderStatus.Raw | null;
         comment?: string | null;

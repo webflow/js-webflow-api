@@ -3,7 +3,6 @@
  */
 
 export type WorkspaceMembershipAuditLogItemEventSubType = "user_added" | "user_removed" | "user_role_updated";
-
 export const WorkspaceMembershipAuditLogItemEventSubType = {
     UserAdded: "user_added",
     UserRemoved: "user_removed",

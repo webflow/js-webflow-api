@@ -12,5 +12,5 @@ export const SkuFieldDataEcSkuSubscriptionPlanInterval: core.serialization.Schem
 > = core.serialization.enum_(["day", "week", "month", "year"]);
 
 export declare namespace SkuFieldDataEcSkuSubscriptionPlanInterval {
-    type Raw = "day" | "week" | "month" | "year";
+    export type Raw = "day" | "week" | "month" | "year";
 }

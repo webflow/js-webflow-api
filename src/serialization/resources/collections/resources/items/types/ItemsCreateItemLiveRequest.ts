@@ -14,5 +14,5 @@ export const ItemsCreateItemLiveRequest: core.serialization.Schema<
 > = core.serialization.undiscriminatedUnion([CollectionItem, MultipleLiveItems]);
 
 export declare namespace ItemsCreateItemLiveRequest {
-    type Raw = CollectionItem.Raw | MultipleLiveItems.Raw;
+    export type Raw = CollectionItem.Raw | MultipleLiveItems.Raw;
 }

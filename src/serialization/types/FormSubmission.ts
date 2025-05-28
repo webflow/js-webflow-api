@@ -17,7 +17,7 @@ export const FormSubmission: core.serialization.ObjectSchema<serializers.FormSub
     });
 
 export declare namespace FormSubmission {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         displayName?: string | null;
         siteId?: string | null;

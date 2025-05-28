@@ -5,17 +5,19 @@
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
 import * as Webflow from "../../../../../index";
-import urlJoin from "url-join";
 import * as serializers from "../../../../../../serialization/index";
+import urlJoin from "url-join";
 import * as errors from "../../../../../../errors/index";
 
 export declare namespace Comments {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         accessToken: core.Supplier<core.BearerToken>;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
@@ -54,13 +56,21 @@ export class Comments {
      *         localeId: "65427cf400e02b306eaa04a0"
      *     })
      */
-    public async listCommentThreads(
+    public listCommentThreads(
         siteId: string,
         request: Webflow.sites.CommentsListCommentThreadsRequest = {},
-        requestOptions?: Comments.RequestOptions
-    ): Promise<Webflow.CommentThreadList> {
+        requestOptions?: Comments.RequestOptions,
+    ): core.HttpResponsePromise<Webflow.CommentThreadList> {
+        return core.HttpResponsePromise.fromPromise(this.__listCommentThreads(siteId, request, requestOptions));
+    }
+
+    private async __listCommentThreads(
+        siteId: string,
+        request: Webflow.sites.CommentsListCommentThreadsRequest = {},
+        requestOptions?: Comments.RequestOptions,
+    ): Promise<core.WithRawResponse<Webflow.CommentThreadList>> {
         const { localeId, offset, limit, sortBy, sortOrder } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (localeId != null) {
             _queryParams["localeId"] = localeId;
         }
@@ -74,17 +84,30 @@ export class Comments {
         }
 
         if (sortBy != null) {
-            _queryParams["sortBy"] = sortBy;
+            _queryParams["sortBy"] = serializers.sites.CommentsListCommentThreadsRequestSortBy.jsonOrThrow(sortBy, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+            });
         }
 
         if (sortOrder != null) {
-            _queryParams["sortOrder"] = sortOrder;
+            _queryParams["sortOrder"] = serializers.sites.CommentsListCommentThreadsRequestSortOrder.jsonOrThrow(
+                sortOrder,
+                {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                },
+            );
         }
 
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
-                `sites/${encodeURIComponent(siteId)}/comments`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
+                        .base,
+                `sites/${encodeURIComponent(siteId)}/comments`,
             ),
             method: "GET",
             headers: {
@@ -105,19 +128,22 @@ export class Comments {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.CommentThreadList.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.CommentThreadList.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Webflow.BadRequestError(_response.error.body);
+                    throw new Webflow.BadRequestError(_response.error.body, _response.rawResponse);
                 case 401:
                     throw new Webflow.UnauthorizedError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -126,7 +152,8 @@ export class Comments {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 404:
                     throw new Webflow.NotFoundError(
@@ -136,7 +163,8 @@ export class Comments {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 429:
                     throw new Webflow.TooManyRequestsError(
@@ -146,7 +174,8 @@ export class Comments {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 500:
                     throw new Webflow.InternalServerError(
@@ -156,12 +185,14 @@ export class Comments {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.WebflowError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -171,12 +202,14 @@ export class Comments {
                 throw new errors.WebflowError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.WebflowTimeoutError("Timeout exceeded when calling GET /sites/{site_id}/comments.");
             case "unknown":
                 throw new errors.WebflowError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -206,14 +239,25 @@ export class Comments {
      *         localeId: "65427cf400e02b306eaa04a0"
      *     })
      */
-    public async getCommentThread(
+    public getCommentThread(
         siteId: string,
         commentThreadId: string,
         request: Webflow.sites.CommentsGetCommentThreadRequest = {},
-        requestOptions?: Comments.RequestOptions
-    ): Promise<Webflow.CommentThread> {
+        requestOptions?: Comments.RequestOptions,
+    ): core.HttpResponsePromise<Webflow.CommentThread> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__getCommentThread(siteId, commentThreadId, request, requestOptions),
+        );
+    }
+
+    private async __getCommentThread(
+        siteId: string,
+        commentThreadId: string,
+        request: Webflow.sites.CommentsGetCommentThreadRequest = {},
+        requestOptions?: Comments.RequestOptions,
+    ): Promise<core.WithRawResponse<Webflow.CommentThread>> {
         const { localeId, offset, limit, sortBy, sortOrder } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (localeId != null) {
             _queryParams["localeId"] = localeId;
         }
@@ -227,17 +271,30 @@ export class Comments {
         }
 
         if (sortBy != null) {
-            _queryParams["sortBy"] = sortBy;
+            _queryParams["sortBy"] = serializers.sites.CommentsGetCommentThreadRequestSortBy.jsonOrThrow(sortBy, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+            });
         }
 
         if (sortOrder != null) {
-            _queryParams["sortOrder"] = sortOrder;
+            _queryParams["sortOrder"] = serializers.sites.CommentsGetCommentThreadRequestSortOrder.jsonOrThrow(
+                sortOrder,
+                {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                },
+            );
         }
 
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
-                `sites/${encodeURIComponent(siteId)}/comments/${encodeURIComponent(commentThreadId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
+                        .base,
+                `sites/${encodeURIComponent(siteId)}/comments/${encodeURIComponent(commentThreadId)}`,
             ),
             method: "GET",
             headers: {
@@ -258,19 +315,22 @@ export class Comments {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.CommentThread.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.CommentThread.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Webflow.BadRequestError(_response.error.body);
+                    throw new Webflow.BadRequestError(_response.error.body, _response.rawResponse);
                 case 401:
                     throw new Webflow.UnauthorizedError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -279,7 +339,8 @@ export class Comments {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 404:
                     throw new Webflow.NotFoundError(
@@ -289,7 +350,8 @@ export class Comments {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 429:
                     throw new Webflow.TooManyRequestsError(
@@ -299,7 +361,8 @@ export class Comments {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 500:
                     throw new Webflow.InternalServerError(
@@ -309,12 +372,14 @@ export class Comments {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.WebflowError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -324,14 +389,16 @@ export class Comments {
                 throw new errors.WebflowError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.WebflowTimeoutError(
-                    "Timeout exceeded when calling GET /sites/{site_id}/comments/{comment_thread_id}."
+                    "Timeout exceeded when calling GET /sites/{site_id}/comments/{comment_thread_id}.",
                 );
             case "unknown":
                 throw new errors.WebflowError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -361,14 +428,25 @@ export class Comments {
      *         localeId: "65427cf400e02b306eaa04a0"
      *     })
      */
-    public async listCommentReplies(
+    public listCommentReplies(
         siteId: string,
         commentThreadId: string,
         request: Webflow.sites.CommentsListCommentRepliesRequest = {},
-        requestOptions?: Comments.RequestOptions
-    ): Promise<Webflow.CommentReplyList> {
+        requestOptions?: Comments.RequestOptions,
+    ): core.HttpResponsePromise<Webflow.CommentReplyList> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__listCommentReplies(siteId, commentThreadId, request, requestOptions),
+        );
+    }
+
+    private async __listCommentReplies(
+        siteId: string,
+        commentThreadId: string,
+        request: Webflow.sites.CommentsListCommentRepliesRequest = {},
+        requestOptions?: Comments.RequestOptions,
+    ): Promise<core.WithRawResponse<Webflow.CommentReplyList>> {
         const { localeId, offset, limit, sortBy, sortOrder } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (localeId != null) {
             _queryParams["localeId"] = localeId;
         }
@@ -382,17 +460,30 @@ export class Comments {
         }
 
         if (sortBy != null) {
-            _queryParams["sortBy"] = sortBy;
+            _queryParams["sortBy"] = serializers.sites.CommentsListCommentRepliesRequestSortBy.jsonOrThrow(sortBy, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+            });
         }
 
         if (sortOrder != null) {
-            _queryParams["sortOrder"] = sortOrder;
+            _queryParams["sortOrder"] = serializers.sites.CommentsListCommentRepliesRequestSortOrder.jsonOrThrow(
+                sortOrder,
+                {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                },
+            );
         }
 
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
-                `sites/${encodeURIComponent(siteId)}/comments/${encodeURIComponent(commentThreadId)}/replies`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
+                        .base,
+                `sites/${encodeURIComponent(siteId)}/comments/${encodeURIComponent(commentThreadId)}/replies`,
             ),
             method: "GET",
             headers: {
@@ -413,19 +504,22 @@ export class Comments {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.CommentReplyList.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.CommentReplyList.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Webflow.BadRequestError(_response.error.body);
+                    throw new Webflow.BadRequestError(_response.error.body, _response.rawResponse);
                 case 401:
                     throw new Webflow.UnauthorizedError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -434,7 +528,8 @@ export class Comments {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 404:
                     throw new Webflow.NotFoundError(
@@ -444,7 +539,8 @@ export class Comments {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 429:
                     throw new Webflow.TooManyRequestsError(
@@ -454,7 +550,8 @@ export class Comments {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 500:
                     throw new Webflow.InternalServerError(
@@ -464,12 +561,14 @@ export class Comments {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.WebflowError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -479,14 +578,16 @@ export class Comments {
                 throw new errors.WebflowError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.WebflowTimeoutError(
-                    "Timeout exceeded when calling GET /sites/{site_id}/comments/{comment_thread_id}/replies."
+                    "Timeout exceeded when calling GET /sites/{site_id}/comments/{comment_thread_id}/replies.",
                 );
             case "unknown":
                 throw new errors.WebflowError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }

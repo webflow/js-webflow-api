@@ -17,7 +17,7 @@ export const OrdersUpdateRequest: core.serialization.Schema<
 });
 
 export declare namespace OrdersUpdateRequest {
-    interface Raw {
+    export interface Raw {
         comment?: string | null;
         shippingProvider?: string | null;
         shippingTracking?: string | null;

@@ -5,17 +5,19 @@
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
 import * as Webflow from "../../../index";
-import urlJoin from "url-join";
 import * as serializers from "../../../../serialization/index";
+import urlJoin from "url-join";
 import * as errors from "../../../../errors/index";
 
 export declare namespace Orders {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         accessToken: core.Supplier<core.BearerToken>;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
@@ -53,15 +55,27 @@ export class Orders {
      * @example
      *     await client.orders.list("580e63e98c9a982ac9b8b741")
      */
-    public async list(
+    public list(
         siteId: string,
         request: Webflow.OrdersListRequest = {},
-        requestOptions?: Orders.RequestOptions
-    ): Promise<Webflow.OrderList> {
+        requestOptions?: Orders.RequestOptions,
+    ): core.HttpResponsePromise<Webflow.OrderList> {
+        return core.HttpResponsePromise.fromPromise(this.__list(siteId, request, requestOptions));
+    }
+
+    private async __list(
+        siteId: string,
+        request: Webflow.OrdersListRequest = {},
+        requestOptions?: Orders.RequestOptions,
+    ): Promise<core.WithRawResponse<Webflow.OrderList>> {
         const { status, offset, limit } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (status != null) {
-            _queryParams["status"] = status;
+            _queryParams["status"] = serializers.OrdersListRequestStatus.jsonOrThrow(status, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+            });
         }
 
         if (offset != null) {
@@ -74,8 +88,10 @@ export class Orders {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
-                `sites/${encodeURIComponent(siteId)}/orders`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
+                        .base,
+                `sites/${encodeURIComponent(siteId)}/orders`,
             ),
             method: "GET",
             headers: {
@@ -96,19 +112,22 @@ export class Orders {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.OrderList.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.OrderList.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Webflow.BadRequestError(_response.error.body);
+                    throw new Webflow.BadRequestError(_response.error.body, _response.rawResponse);
                 case 401:
                     throw new Webflow.UnauthorizedError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -117,10 +136,11 @@ export class Orders {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 403:
-                    throw new Webflow.ForbiddenError(_response.error.body);
+                    throw new Webflow.ForbiddenError(_response.error.body, _response.rawResponse);
                 case 404:
                     throw new Webflow.NotFoundError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -129,10 +149,11 @@ export class Orders {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 409:
-                    throw new Webflow.ConflictError(_response.error.body);
+                    throw new Webflow.ConflictError(_response.error.body, _response.rawResponse);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -141,7 +162,8 @@ export class Orders {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 500:
                     throw new Webflow.InternalServerError(
@@ -151,12 +173,14 @@ export class Orders {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.WebflowError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -166,12 +190,14 @@ export class Orders {
                 throw new errors.WebflowError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.WebflowTimeoutError("Timeout exceeded when calling GET /sites/{site_id}/orders.");
             case "unknown":
                 throw new errors.WebflowError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -197,11 +223,25 @@ export class Orders {
      * @example
      *     await client.orders.get("580e63e98c9a982ac9b8b741", "5e8518516e147040726cc415")
      */
-    public async get(siteId: string, orderId: string, requestOptions?: Orders.RequestOptions): Promise<Webflow.Order> {
+    public get(
+        siteId: string,
+        orderId: string,
+        requestOptions?: Orders.RequestOptions,
+    ): core.HttpResponsePromise<Webflow.Order> {
+        return core.HttpResponsePromise.fromPromise(this.__get(siteId, orderId, requestOptions));
+    }
+
+    private async __get(
+        siteId: string,
+        orderId: string,
+        requestOptions?: Orders.RequestOptions,
+    ): Promise<core.WithRawResponse<Webflow.Order>> {
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
-                `sites/${encodeURIComponent(siteId)}/orders/${encodeURIComponent(orderId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
+                        .base,
+                `sites/${encodeURIComponent(siteId)}/orders/${encodeURIComponent(orderId)}`,
             ),
             method: "GET",
             headers: {
@@ -221,19 +261,22 @@ export class Orders {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.Order.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.Order.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Webflow.BadRequestError(_response.error.body);
+                    throw new Webflow.BadRequestError(_response.error.body, _response.rawResponse);
                 case 401:
                     throw new Webflow.UnauthorizedError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -242,10 +285,11 @@ export class Orders {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 403:
-                    throw new Webflow.ForbiddenError(_response.error.body);
+                    throw new Webflow.ForbiddenError(_response.error.body, _response.rawResponse);
                 case 404:
                     throw new Webflow.NotFoundError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -254,10 +298,11 @@ export class Orders {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 409:
-                    throw new Webflow.ConflictError(_response.error.body);
+                    throw new Webflow.ConflictError(_response.error.body, _response.rawResponse);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -266,7 +311,8 @@ export class Orders {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 500:
                     throw new Webflow.InternalServerError(
@@ -276,12 +322,14 @@ export class Orders {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.WebflowError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -291,14 +339,16 @@ export class Orders {
                 throw new errors.WebflowError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.WebflowTimeoutError(
-                    "Timeout exceeded when calling GET /sites/{site_id}/orders/{order_id}."
+                    "Timeout exceeded when calling GET /sites/{site_id}/orders/{order_id}.",
                 );
             case "unknown":
                 throw new errors.WebflowError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -326,16 +376,27 @@ export class Orders {
      * @example
      *     await client.orders.update("580e63e98c9a982ac9b8b741", "5e8518516e147040726cc415")
      */
-    public async update(
+    public update(
         siteId: string,
         orderId: string,
         request: Webflow.OrdersUpdateRequest = {},
-        requestOptions?: Orders.RequestOptions
-    ): Promise<Webflow.Order> {
+        requestOptions?: Orders.RequestOptions,
+    ): core.HttpResponsePromise<Webflow.Order> {
+        return core.HttpResponsePromise.fromPromise(this.__update(siteId, orderId, request, requestOptions));
+    }
+
+    private async __update(
+        siteId: string,
+        orderId: string,
+        request: Webflow.OrdersUpdateRequest = {},
+        requestOptions?: Orders.RequestOptions,
+    ): Promise<core.WithRawResponse<Webflow.Order>> {
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
-                `sites/${encodeURIComponent(siteId)}/orders/${encodeURIComponent(orderId)}`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
+                        .base,
+                `sites/${encodeURIComponent(siteId)}/orders/${encodeURIComponent(orderId)}`,
             ),
             method: "PATCH",
             headers: {
@@ -360,19 +421,22 @@ export class Orders {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.Order.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.Order.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Webflow.BadRequestError(_response.error.body);
+                    throw new Webflow.BadRequestError(_response.error.body, _response.rawResponse);
                 case 401:
                     throw new Webflow.UnauthorizedError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -381,10 +445,11 @@ export class Orders {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 403:
-                    throw new Webflow.ForbiddenError(_response.error.body);
+                    throw new Webflow.ForbiddenError(_response.error.body, _response.rawResponse);
                 case 404:
                     throw new Webflow.NotFoundError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -393,10 +458,11 @@ export class Orders {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 409:
-                    throw new Webflow.ConflictError(_response.error.body);
+                    throw new Webflow.ConflictError(_response.error.body, _response.rawResponse);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -405,7 +471,8 @@ export class Orders {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 500:
                     throw new Webflow.InternalServerError(
@@ -415,12 +482,14 @@ export class Orders {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.WebflowError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -430,14 +499,16 @@ export class Orders {
                 throw new errors.WebflowError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.WebflowTimeoutError(
-                    "Timeout exceeded when calling PATCH /sites/{site_id}/orders/{order_id}."
+                    "Timeout exceeded when calling PATCH /sites/{site_id}/orders/{order_id}.",
                 );
             case "unknown":
                 throw new errors.WebflowError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -463,16 +534,27 @@ export class Orders {
      * @example
      *     await client.orders.updateFulfill("580e63e98c9a982ac9b8b741", "5e8518516e147040726cc415")
      */
-    public async updateFulfill(
+    public updateFulfill(
         siteId: string,
         orderId: string,
         request: Webflow.OrdersUpdateFulfillRequest = {},
-        requestOptions?: Orders.RequestOptions
-    ): Promise<Webflow.Order> {
+        requestOptions?: Orders.RequestOptions,
+    ): core.HttpResponsePromise<Webflow.Order> {
+        return core.HttpResponsePromise.fromPromise(this.__updateFulfill(siteId, orderId, request, requestOptions));
+    }
+
+    private async __updateFulfill(
+        siteId: string,
+        orderId: string,
+        request: Webflow.OrdersUpdateFulfillRequest = {},
+        requestOptions?: Orders.RequestOptions,
+    ): Promise<core.WithRawResponse<Webflow.Order>> {
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
-                `sites/${encodeURIComponent(siteId)}/orders/${encodeURIComponent(orderId)}/fulfill`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
+                        .base,
+                `sites/${encodeURIComponent(siteId)}/orders/${encodeURIComponent(orderId)}/fulfill`,
             ),
             method: "POST",
             headers: {
@@ -497,19 +579,22 @@ export class Orders {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.Order.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.Order.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Webflow.BadRequestError(_response.error.body);
+                    throw new Webflow.BadRequestError(_response.error.body, _response.rawResponse);
                 case 401:
                     throw new Webflow.UnauthorizedError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -518,10 +603,11 @@ export class Orders {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 403:
-                    throw new Webflow.ForbiddenError(_response.error.body);
+                    throw new Webflow.ForbiddenError(_response.error.body, _response.rawResponse);
                 case 404:
                     throw new Webflow.NotFoundError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -530,10 +616,11 @@ export class Orders {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 409:
-                    throw new Webflow.ConflictError(_response.error.body);
+                    throw new Webflow.ConflictError(_response.error.body, _response.rawResponse);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -542,7 +629,8 @@ export class Orders {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 500:
                     throw new Webflow.InternalServerError(
@@ -552,12 +640,14 @@ export class Orders {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.WebflowError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -567,14 +657,16 @@ export class Orders {
                 throw new errors.WebflowError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.WebflowTimeoutError(
-                    "Timeout exceeded when calling POST /sites/{site_id}/orders/{order_id}/fulfill."
+                    "Timeout exceeded when calling POST /sites/{site_id}/orders/{order_id}/fulfill.",
                 );
             case "unknown":
                 throw new errors.WebflowError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -599,15 +691,25 @@ export class Orders {
      * @example
      *     await client.orders.updateUnfulfill("580e63e98c9a982ac9b8b741", "5e8518516e147040726cc415")
      */
-    public async updateUnfulfill(
+    public updateUnfulfill(
         siteId: string,
         orderId: string,
-        requestOptions?: Orders.RequestOptions
-    ): Promise<Webflow.Order> {
+        requestOptions?: Orders.RequestOptions,
+    ): core.HttpResponsePromise<Webflow.Order> {
+        return core.HttpResponsePromise.fromPromise(this.__updateUnfulfill(siteId, orderId, requestOptions));
+    }
+
+    private async __updateUnfulfill(
+        siteId: string,
+        orderId: string,
+        requestOptions?: Orders.RequestOptions,
+    ): Promise<core.WithRawResponse<Webflow.Order>> {
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
-                `sites/${encodeURIComponent(siteId)}/orders/${encodeURIComponent(orderId)}/unfulfill`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
+                        .base,
+                `sites/${encodeURIComponent(siteId)}/orders/${encodeURIComponent(orderId)}/unfulfill`,
             ),
             method: "POST",
             headers: {
@@ -627,19 +729,22 @@ export class Orders {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.Order.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.Order.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Webflow.BadRequestError(_response.error.body);
+                    throw new Webflow.BadRequestError(_response.error.body, _response.rawResponse);
                 case 401:
                     throw new Webflow.UnauthorizedError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -648,10 +753,11 @@ export class Orders {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 403:
-                    throw new Webflow.ForbiddenError(_response.error.body);
+                    throw new Webflow.ForbiddenError(_response.error.body, _response.rawResponse);
                 case 404:
                     throw new Webflow.NotFoundError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -660,10 +766,11 @@ export class Orders {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 409:
-                    throw new Webflow.ConflictError(_response.error.body);
+                    throw new Webflow.ConflictError(_response.error.body, _response.rawResponse);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -672,7 +779,8 @@ export class Orders {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 500:
                     throw new Webflow.InternalServerError(
@@ -682,12 +790,14 @@ export class Orders {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.WebflowError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -697,14 +807,16 @@ export class Orders {
                 throw new errors.WebflowError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.WebflowTimeoutError(
-                    "Timeout exceeded when calling POST /sites/{site_id}/orders/{order_id}/unfulfill."
+                    "Timeout exceeded when calling POST /sites/{site_id}/orders/{order_id}/unfulfill.",
                 );
             case "unknown":
                 throw new errors.WebflowError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -731,16 +843,27 @@ export class Orders {
      * @example
      *     await client.orders.refund("580e63e98c9a982ac9b8b741", "5e8518516e147040726cc415")
      */
-    public async refund(
+    public refund(
         siteId: string,
         orderId: string,
         request: Webflow.OrdersRefundRequest = {},
-        requestOptions?: Orders.RequestOptions
-    ): Promise<Webflow.Order> {
+        requestOptions?: Orders.RequestOptions,
+    ): core.HttpResponsePromise<Webflow.Order> {
+        return core.HttpResponsePromise.fromPromise(this.__refund(siteId, orderId, request, requestOptions));
+    }
+
+    private async __refund(
+        siteId: string,
+        orderId: string,
+        request: Webflow.OrdersRefundRequest = {},
+        requestOptions?: Orders.RequestOptions,
+    ): Promise<core.WithRawResponse<Webflow.Order>> {
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
-                `sites/${encodeURIComponent(siteId)}/orders/${encodeURIComponent(orderId)}/refund`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
+                        .base,
+                `sites/${encodeURIComponent(siteId)}/orders/${encodeURIComponent(orderId)}/refund`,
             ),
             method: "POST",
             headers: {
@@ -765,19 +888,22 @@ export class Orders {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.Order.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.Order.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Webflow.BadRequestError(_response.error.body);
+                    throw new Webflow.BadRequestError(_response.error.body, _response.rawResponse);
                 case 401:
                     throw new Webflow.UnauthorizedError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -786,10 +912,11 @@ export class Orders {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 403:
-                    throw new Webflow.ForbiddenError(_response.error.body);
+                    throw new Webflow.ForbiddenError(_response.error.body, _response.rawResponse);
                 case 404:
                     throw new Webflow.NotFoundError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -798,10 +925,11 @@ export class Orders {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 409:
-                    throw new Webflow.ConflictError(_response.error.body);
+                    throw new Webflow.ConflictError(_response.error.body, _response.rawResponse);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -810,7 +938,8 @@ export class Orders {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 500:
                     throw new Webflow.InternalServerError(
@@ -820,12 +949,14 @@ export class Orders {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.WebflowError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -835,14 +966,16 @@ export class Orders {
                 throw new errors.WebflowError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.WebflowTimeoutError(
-                    "Timeout exceeded when calling POST /sites/{site_id}/orders/{order_id}/refund."
+                    "Timeout exceeded when calling POST /sites/{site_id}/orders/{order_id}/refund.",
                 );
             case "unknown":
                 throw new errors.WebflowError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }

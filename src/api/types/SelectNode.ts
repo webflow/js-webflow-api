@@ -9,7 +9,7 @@ import * as Webflow from "../index";
  */
 export interface SelectNode {
     /** Node UUID */
-    id: string;
+    id?: string;
     /** The list of choices in this select node. */
     choices: Webflow.SelectNodeChoicesItem[];
     /** The custom attributes of the node */

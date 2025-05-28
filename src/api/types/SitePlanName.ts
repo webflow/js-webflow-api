@@ -12,7 +12,6 @@ export type SitePlanName =
     | "ECommerce Standard Hosting"
     | "ECommerce Plus Hosting"
     | "ECommerce Advanced Hosting";
-
 export const SitePlanName = {
     BasicHosting: "Basic Hosting",
     CmsHosting: "CMS Hosting",

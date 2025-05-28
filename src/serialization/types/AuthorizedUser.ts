@@ -15,7 +15,7 @@ export const AuthorizedUser: core.serialization.ObjectSchema<serializers.Authori
     });
 
 export declare namespace AuthorizedUser {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         email?: string | null;
         firstName?: string | null;

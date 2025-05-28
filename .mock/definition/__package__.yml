@@ -105,6 +105,26 @@ types:
       - NoDomains
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
+  ItemsListItemsRequestLastPublished:
+    properties:
+      lte:
+        type: optional<datetime>
+        docs: Filter items last published before this date
+      gte:
+        type: optional<datetime>
+        docs: Filter items last published after this date
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  ItemsListItemsLiveRequestLastPublished:
+    properties:
+      lte:
+        type: optional<datetime>
+        docs: Filter items last published before this date
+      gte:
+        type: optional<datetime>
+        docs: Filter items last published after this date
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
   ConflictErrorBody:
     discriminated: false
     union:
@@ -232,7 +252,7 @@ types:
   Domain:
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Unique identifier for the Domain
         access: read-only
       url:
@@ -825,7 +845,7 @@ types:
     docs: A collection object
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Unique identifier for a Collection
         access: read-only
       displayName:
@@ -1031,7 +1051,7 @@ types:
     docs: The details of a field in a collection
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Unique identifier for a Field
         access: read-only
       isRequired:
@@ -1061,7 +1081,7 @@ types:
     docs: A collection object
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Unique identifier for a Collection
         access: read-only
       displayName:
@@ -1126,15 +1146,15 @@ types:
         type: optional<string>
         docs: Identifier for the locale of the CMS item
       lastPublished:
-        type: string
+        type: optional<string>
         docs: The date the item was last published
         access: read-only
       lastUpdated:
-        type: string
+        type: optional<string>
         docs: The date the item was last updated
         access: read-only
       createdOn:
-        type: string
+        type: optional<string>
         docs: The date the item was created
         access: read-only
       isArchived:
@@ -1312,7 +1332,7 @@ types:
       items
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Unique identifier for the Item
         access: read-only
       cmsLocaleIds:
@@ -1425,15 +1445,15 @@ types:
       comments. Retrieve comment replies using the replies API endpoint.
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Unique identifier for the comment thread
         access: read-only
       siteId:
-        type: string
+        type: optional<string>
         docs: The site unique identifier
         access: read-only
       pageId:
-        type: string
+        type: optional<string>
         docs: The page unique identifier
         access: read-only
       localeId:
@@ -1445,11 +1465,11 @@ types:
         docs: The item unique identifier
         access: read-only
       breakpoint:
-        type: string
+        type: optional<string>
         docs: The breakpoint the comment was left on
         access: read-only
       url:
-        type: string
+        type: optional<string>
         docs: The URL of the page the comment was left on
         access: read-only
       content:
@@ -1467,11 +1487,11 @@ types:
           comment is created.
         type: list<CommentThreadMentionedUsersItem>
       createdOn:
-        type: string
+        type: optional<string>
         docs: The date the item was created
         access: read-only
       lastUpdated:
-        type: string
+        type: optional<string>
         docs: The date the item was last updated
         access: read-only
     source:
@@ -1536,19 +1556,19 @@ types:
       comments.
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Unique identifier for the comment thread
         access: read-only
       commentId:
-        type: string
+        type: optional<string>
         docs: The comment reply unique identifier
         access: read-only
       siteId:
-        type: string
+        type: optional<string>
         docs: The site unique identifier
         access: read-only
       pageId:
-        type: string
+        type: optional<string>
         docs: The page unique identifier
         access: read-only
       localeId:
@@ -1556,7 +1576,7 @@ types:
         docs: The locale unique identifier
         access: read-only
       breakpoint:
-        type: string
+        type: optional<string>
         docs: The breakpoint the comment was left on
         access: read-only
       content:
@@ -1573,11 +1593,11 @@ types:
           List of mentioned users is an empty array until email notifications
           are sent.
       lastUpdated:
-        type: string
+        type: optional<string>
         docs: The date the item was last updated
         access: read-only
       createdOn:
-        type: string
+        type: optional<string>
         docs: The date the item was created
         access: read-only
     source:
@@ -1646,7 +1666,7 @@ types:
     docs: The Page object
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Unique identifier for the Page
         access: read-only
       siteId:
@@ -1743,7 +1763,7 @@ types:
       text for styling or other purposes.
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Node UUID
         access: read-only
       text:
@@ -1770,7 +1790,7 @@ types:
       can be associated with the image for styling or other purposes.
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Node UUID
         access: read-only
       image:
@@ -1833,7 +1853,7 @@ types:
       the component instance, such as its type and properties.
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: The unique identifier of the component instance node
         access: read-only
       componentId:
@@ -1851,7 +1871,7 @@ types:
       with the text for styling or other purposes.
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Node UUID
         access: read-only
       placeholder:
@@ -1880,7 +1900,7 @@ types:
       styling or other purposes.
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Node UUID
         access: read-only
       choices:
@@ -1898,7 +1918,7 @@ types:
       the text for styling or other purposes.
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Node UUID
         access: read-only
       value:
@@ -1919,7 +1939,7 @@ types:
       styling or other purposes.
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Node UUID
         access: read-only
       value:
@@ -2076,7 +2096,7 @@ types:
     docs: The Component object
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Unique identifier for the Component
         access: read-only
       name:
@@ -2347,40 +2367,40 @@ types:
     docs: Asset details
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Unique identifier for this asset
         access: read-only
       contentType:
-        type: string
+        type: optional<string>
         docs: File format type
         access: read-only
       size:
-        type: integer
+        type: optional<integer>
         docs: size in bytes
         access: read-only
       siteId:
-        type: string
+        type: optional<string>
         docs: Unique identifier for the site that hosts this asset
         access: read-only
       hostedUrl:
-        type: string
+        type: optional<string>
         docs: Link to the asset
         validation:
           format: uri
         access: read-only
       originalFileName:
-        type: string
+        type: optional<string>
         docs: Original file name at the time of upload
         access: read-only
       displayName:
         type: string
         docs: Display name of the asset
       lastUpdated:
-        type: datetime
+        type: optional<datetime>
         docs: Date the asset metadata was last updated
         access: read-only
       createdOn:
-        type: datetime
+        type: optional<datetime>
         docs: Date the asset metadata was created
         access: read-only
       variants:

@@ -15,7 +15,7 @@ export const TextInputNodeWrite: core.serialization.ObjectSchema<
 });
 
 export declare namespace TextInputNodeWrite {
-    interface Raw {
+    export interface Raw {
         nodeId: string;
         placeholder: string;
     }

@@ -29,7 +29,7 @@ export const Node: core.serialization.Schema<serializers.Node.Raw, Webflow.Node>
     });
 
 export declare namespace Node {
-    type Raw =
+    export type Raw =
         | Node.Text
         | Node.Image
         | Node.ComponentInstance
@@ -38,31 +38,31 @@ export declare namespace Node {
         | Node.SubmitButton
         | Node.SearchButton;
 
-    interface Text extends TextNode.Raw {
+    export interface Text extends TextNode.Raw {
         type: "text";
     }
 
-    interface Image extends ImageNode.Raw {
+    export interface Image extends ImageNode.Raw {
         type: "image";
     }
 
-    interface ComponentInstance extends ComponentNode.Raw {
+    export interface ComponentInstance extends ComponentNode.Raw {
         type: "component-instance";
     }
 
-    interface TextInput extends TextInputNode.Raw {
+    export interface TextInput extends TextInputNode.Raw {
         type: "text-input";
     }
 
-    interface Select extends SelectNode.Raw {
+    export interface Select extends SelectNode.Raw {
         type: "select";
     }
 
-    interface SubmitButton extends SubmitButtonNode.Raw {
+    export interface SubmitButton extends SubmitButtonNode.Raw {
         type: "submit-button";
     }
 
-    interface SearchButton extends SearchButtonNode.Raw {
+    export interface SearchButton extends SearchButtonNode.Raw {
         type: "search-button";
     }
 }

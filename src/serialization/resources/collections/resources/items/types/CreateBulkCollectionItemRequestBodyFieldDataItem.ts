@@ -17,7 +17,7 @@ export const CreateBulkCollectionItemRequestBodyFieldDataItem: core.serializatio
     .passthrough();
 
 export declare namespace CreateBulkCollectionItemRequestBodyFieldDataItem {
-    interface Raw {
+    export interface Raw {
         name: string;
         slug: string;
         [key: string]: any;

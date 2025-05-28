@@ -16,7 +16,7 @@ export const OrderDownloadFilesItem: core.serialization.ObjectSchema<
 });
 
 export declare namespace OrderDownloadFilesItem {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         name?: string | null;
         url?: string | null;

@@ -21,7 +21,7 @@ export const WorkspaceMembership: core.serialization.ObjectSchema<
 });
 
 export declare namespace WorkspaceMembership {
-    interface Raw {
+    export interface Raw {
         targetUser?: WorkspaceAuditLogItemPayloadWorkspaceMembershipTargetUser.Raw | null;
         method?: WorkspaceAuditLogItemPayloadWorkspaceMembershipMethod.Raw | null;
         userType?: WorkspaceAuditLogItemPayloadWorkspaceMembershipUserType.Raw | null;

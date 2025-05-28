@@ -1,3 +1,5 @@
+imports:
+  root: ../__package__.yml
 types:
   ItemsListItemsRequestSortBy:
     enum:
@@ -125,8 +127,6 @@ types:
       errors: optional<list<string>>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
-imports:
-  root: ../__package__.yml
 service:
   auth: false
   base-path: ''
@@ -170,6 +170,9 @@ service:
           slug:
             type: optional<string>
             docs: Filter by the exact slug of the item
+          lastPublished:
+            type: optional<root.ItemsListItemsRequestLastPublished>
+            docs: Filter by the last published date of the item(s)
           sortBy:
             type: optional<ItemsListItemsRequestSortBy>
             docs: Sort results by the provided value
@@ -230,7 +233,7 @@ service:
 
 
         To create items across multiple locales, please use [this
-        endpoint.](/v2.0.0/data/reference/cms/collection-items/staged-items/create-items)
+        endpoint.](/data/reference/cms/collection-items/staged-items/create-items)
 
 
         Required scope | `CMS:write`
@@ -607,6 +610,9 @@ service:
           slug:
             type: optional<string>
             docs: Filter by the exact slug of the item
+          lastPublished:
+            type: optional<root.ItemsListItemsLiveRequestLastPublished>
+            docs: Filter by the last published date of the item(s)
           sortBy:
             type: optional<ItemsListItemsLiveRequestSortBy>
             docs: Sort results by the provided value
@@ -669,7 +675,7 @@ service:
 
 
         To create items across multiple locales, [please use this
-        endpoint.](/v2.0.0/data/reference/cms/collection-items/staged-items/create-items)
+        endpoint.](/data/reference/cms/collection-items/staged-items/create-items)
 
 
 
@@ -699,9 +705,6 @@ service:
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
           request:
-            lastPublished: '2023-03-17T18:47:35.560Z'
-            lastUpdated: '2023-03-17T18:47:35.560Z'
-            createdOn: '2023-03-17T18:47:35.560Z'
             isArchived: false
             isDraft: false
             fieldData:
@@ -730,20 +733,14 @@ service:
             collection_id: 580e63fc8c9a982ac9b8b745
           request:
             items:
-              - lastPublished: '2023-03-17T18:47:35.560Z'
-                lastUpdated: '2023-03-17T18:47:35.560Z'
-                createdOn: '2023-03-17T18:47:35.560Z'
-                isArchived: false
+              - isArchived: false
                 isDraft: false
                 fieldData:
                   name: Senior Data Analyst
                   slug: senior-data-analyst
                   url: https://boards.greenhouse.io/webflow/jobs/26567701
                   department: Data
-              - lastPublished: '2023-03-17T18:47:35.560Z'
-                lastUpdated: '2023-03-17T18:47:35.560Z'
-                createdOn: '2023-03-17T18:47:35.560Z'
-                isArchived: false
+              - isArchived: false
                 isDraft: false
                 fieldData:
                   name: Product Manager
@@ -881,7 +878,6 @@ service:
               items:
                 - id: 66f6ed9576ddacf3149d5ea6
                   cmsLocaleId: 66f6e966c9e1dc700a857ca5
-                  lastPublished: '2023-03-17T18:47:35.560Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
                   isArchived: true
@@ -892,7 +888,6 @@ service:
                     featured: false
                 - id: 66f6ed9576ddacf3149d5ea6
                   cmsLocaleId: 66f6e966c9e1dc700a857ca4
-                  lastPublished: '2023-03-17T18:47:35.560Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
                   isArchived: true
@@ -903,7 +898,6 @@ service:
                     featured: false
                 - id: 66f6ed9576ddacf3149d5eaa
                   cmsLocaleId: 66f6e966c9e1dc700a857ca5
-                  lastPublished: '2023-03-17T18:47:35.560Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
                   isArchived: true
@@ -914,7 +908,6 @@ service:
                     featured: false
                 - id: 66f6ed9576ddacf3149d5eaa
                   cmsLocaleId: 66f6e966c9e1dc700a857ca4
-                  lastPublished: '2023-03-17T18:47:35.560Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
                   isArchived: true
@@ -949,7 +942,6 @@ service:
               items:
                 - id: 66f6ed9576ddacf3149d5ea6
                   cmsLocaleId: 66f6e966c9e1dc700a857ca5
-                  lastPublished: '2023-03-17T18:47:35.560Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
                   isArchived: true
@@ -960,7 +952,6 @@ service:
                     featured: false
                 - id: 66f6ed9576ddacf3149d5ea6
                   cmsLocaleId: 66f6e966c9e1dc700a857ca4
-                  lastPublished: '2023-03-17T18:47:35.560Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
                   isArchived: true
@@ -971,7 +962,6 @@ service:
                     featured: false
                 - id: 66f6ed9576ddacf3149d5eaa
                   cmsLocaleId: 66f6e966c9e1dc700a857ca5
-                  lastPublished: '2023-03-17T18:47:35.560Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
                   isArchived: true
@@ -982,7 +972,6 @@ service:
                     featured: false
                 - id: 66f6ed9576ddacf3149d5eaa
                   cmsLocaleId: 66f6e966c9e1dc700a857ca4
-                  lastPublished: '2023-03-17T18:47:35.560Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
                   isArchived: true
@@ -1025,7 +1014,6 @@ service:
               items:
                 - id: 66f6ed9576ddacf3149d5ea6
                   cmsLocaleId: 66f6e966c9e1dc700a857ca5
-                  lastPublished: '2023-03-17T18:47:35.560Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
                   isArchived: true
@@ -1036,7 +1024,6 @@ service:
                     featured: false
                 - id: 66f6ed9576ddacf3149d5ea6
                   cmsLocaleId: 66f6e966c9e1dc700a857ca4
-                  lastPublished: '2023-03-17T18:47:35.560Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
                   isArchived: true
@@ -1047,7 +1034,6 @@ service:
                     featured: false
                 - id: 66f6ed9576ddacf3149d5eaa
                   cmsLocaleId: 66f6e966c9e1dc700a857ca5
-                  lastPublished: '2023-03-17T18:47:35.560Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
                   isArchived: true
@@ -1058,7 +1044,6 @@ service:
                     featured: false
                 - id: 66f6ed9576ddacf3149d5eaa
                   cmsLocaleId: 66f6e966c9e1dc700a857ca4
-                  lastPublished: '2023-03-17T18:47:35.560Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
                   isArchived: true

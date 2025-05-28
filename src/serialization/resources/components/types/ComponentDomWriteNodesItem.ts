@@ -25,7 +25,7 @@ export const ComponentDomWriteNodesItem: core.serialization.Schema<
 ]);
 
 export declare namespace ComponentDomWriteNodesItem {
-    type Raw =
+    export type Raw =
         | TextNodeWrite.Raw
         | ComponentInstanceNodePropertyOverridesWrite.Raw
         | SelectNodeWrite.Raw

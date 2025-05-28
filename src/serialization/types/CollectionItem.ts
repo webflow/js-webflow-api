@@ -20,7 +20,7 @@ export const CollectionItem: core.serialization.ObjectSchema<serializers.Collect
     });
 
 export declare namespace CollectionItem {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         cmsLocaleId?: string | null;
         lastPublished?: string | null;

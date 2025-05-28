@@ -15,7 +15,7 @@ export const ItemsPublishItemResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace ItemsPublishItemResponse {
-    interface Raw {
+    export interface Raw {
         publishedItemIds?: string[] | null;
         errors?: string[] | null;
     }

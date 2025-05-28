@@ -20,7 +20,7 @@ export const Product: core.serialization.ObjectSchema<serializers.Product.Raw, W
     });
 
 export declare namespace Product {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         cmsLocaleId?: string | null;
         lastPublished?: string | null;
