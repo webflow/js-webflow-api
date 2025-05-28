@@ -10,35 +10,35 @@ import { CommentThreadMentionedUsersItem } from "./CommentThreadMentionedUsersIt
 
 export const CommentThread: core.serialization.ObjectSchema<serializers.CommentThread.Raw, Webflow.CommentThread> =
     core.serialization.object({
-        id: core.serialization.string(),
-        siteId: core.serialization.string(),
-        pageId: core.serialization.string(),
+        id: core.serialization.string().optional(),
+        siteId: core.serialization.string().optional(),
+        pageId: core.serialization.string().optional(),
         localeId: core.serialization.string().optional(),
         itemId: core.serialization.string().optional(),
-        breakpoint: core.serialization.string(),
-        url: core.serialization.string(),
+        breakpoint: core.serialization.string().optional(),
+        url: core.serialization.string().optional(),
         content: core.serialization.string(),
         isResolved: core.serialization.boolean(),
         author: CommentThreadAuthor,
         mentionedUsers: core.serialization.list(CommentThreadMentionedUsersItem),
-        createdOn: core.serialization.string(),
-        lastUpdated: core.serialization.string(),
+        createdOn: core.serialization.string().optional(),
+        lastUpdated: core.serialization.string().optional(),
     });
 
 export declare namespace CommentThread {
     interface Raw {
-        id: string;
-        siteId: string;
-        pageId: string;
+        id?: string | null;
+        siteId?: string | null;
+        pageId?: string | null;
         localeId?: string | null;
         itemId?: string | null;
-        breakpoint: string;
-        url: string;
+        breakpoint?: string | null;
+        url?: string | null;
         content: string;
         isResolved: boolean;
         author: CommentThreadAuthor.Raw;
         mentionedUsers: CommentThreadMentionedUsersItem.Raw[];
-        createdOn: string;
-        lastUpdated: string;
+        createdOn?: string | null;
+        lastUpdated?: string | null;
     }
 }

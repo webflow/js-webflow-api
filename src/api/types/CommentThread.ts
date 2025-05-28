@@ -9,19 +9,19 @@ import * as Webflow from "../index";
  */
 export interface CommentThread {
     /** Unique identifier for the comment thread */
-    id: string;
+    id?: string;
     /** The site unique identifier */
-    siteId: string;
+    siteId?: string;
     /** The page unique identifier */
-    pageId: string;
+    pageId?: string;
     /** The locale unique identifier */
     localeId?: string;
     /** The item unique identifier */
     itemId?: string;
     /** The breakpoint the comment was left on */
-    breakpoint: string;
+    breakpoint?: string;
     /** The URL of the page the comment was left on */
-    url: string;
+    url?: string;
     /** The content of the comment reply */
     content: string;
     /** Boolean determining if the comment thread is resolved */
@@ -30,7 +30,7 @@ export interface CommentThread {
     /** List of mentioned users. This is an empty array until email notifications are sent, which can take up to 5 minutes after the comment is created. */
     mentionedUsers: Webflow.CommentThreadMentionedUsersItem[];
     /** The date the item was created */
-    createdOn: string;
+    createdOn?: string;
     /** The date the item was last updated */
-    lastUpdated: string;
+    lastUpdated?: string;
 }

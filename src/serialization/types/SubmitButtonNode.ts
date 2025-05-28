@@ -10,7 +10,7 @@ export const SubmitButtonNode: core.serialization.ObjectSchema<
     serializers.SubmitButtonNode.Raw,
     Webflow.SubmitButtonNode
 > = core.serialization.object({
-    id: core.serialization.string(),
+    id: core.serialization.string().optional(),
     value: core.serialization.string(),
     waitingText: core.serialization.string(),
     attributes: core.serialization.record(core.serialization.string(), core.serialization.string()).optional(),
@@ -18,7 +18,7 @@ export const SubmitButtonNode: core.serialization.ObjectSchema<
 
 export declare namespace SubmitButtonNode {
     interface Raw {
-        id: string;
+        id?: string | null;
         value: string;
         waitingText: string;
         attributes?: Record<string, string> | null;

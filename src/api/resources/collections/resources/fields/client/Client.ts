@@ -53,6 +53,7 @@ export class Fields {
      *
      * @example
      *     await client.collections.fields.create("580e63fc8c9a982ac9b8b745", {
+     *         id: "562ac0395358780a1f5e6fbc",
      *         isEditable: true,
      *         isRequired: false,
      *         type: "RichText",
@@ -62,6 +63,7 @@ export class Fields {
      *
      * @example
      *     await client.collections.fields.create("580e63fc8c9a982ac9b8b745", {
+     *         id: "562ac0395358780a1f5e6fbc",
      *         isEditable: true,
      *         isRequired: false,
      *         type: "Option",
@@ -80,6 +82,7 @@ export class Fields {
      *
      * @example
      *     await client.collections.fields.create("580e63fc8c9a982ac9b8b745", {
+     *         id: "562ac0395358780a1f5e6fbd",
      *         isEditable: true,
      *         isRequired: false,
      *         type: "Reference",

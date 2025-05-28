@@ -7,7 +7,7 @@
  */
 export interface SubmitButtonNode {
     /** Node UUID */
-    id: string;
+    id?: string;
     /** The text content of the submit button. */
     value: string;
     /** The text to show while the form is submitting. */
