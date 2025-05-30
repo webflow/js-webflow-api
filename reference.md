@@ -5192,6 +5192,7 @@ Required scope | `cms:write`
 
 ```typescript
 await client.collections.fields.create("580e63fc8c9a982ac9b8b745", {
+    id: "562ac0395358780a1f5e6fbc",
     isEditable: true,
     isRequired: false,
     type: "RichText",
@@ -5487,7 +5488,7 @@ await client.collections.items.listItems("580e63fc8c9a982ac9b8b745");
 
 Create Item(s) in a Collection.
 
-To create items across multiple locales, please use [this endpoint.](/v2.0.0/data/reference/cms/collection-items/staged-items/create-items)
+To create items across multiple locales, please use [this endpoint.](/data/reference/cms/collection-items/staged-items/create-items)
 
 Required scope | `CMS:write`
 
@@ -5840,7 +5841,7 @@ await client.collections.items.listItemsLive("580e63fc8c9a982ac9b8b745");
 
 Create item(s) in a collection that will be immediately published to the live site.
 
-To create items across multiple locales, [please use this endpoint.](/v2.0.0/data/reference/cms/collection-items/staged-items/create-items)
+To create items across multiple locales, [please use this endpoint.](/data/reference/cms/collection-items/staged-items/create-items)
 
 Required scope | `CMS:write`
 
@@ -5859,6 +5860,9 @@ Required scope | `CMS:write`
 
 ```typescript
 await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
+    lastPublished: "2023-03-17T18:47:35.560Z",
+    lastUpdated: "2023-03-17T18:47:35.560Z",
+    createdOn: "2023-03-17T18:47:35.560Z",
     isArchived: false,
     isDraft: false,
     fieldData: {
