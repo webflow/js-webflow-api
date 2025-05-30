@@ -189,7 +189,7 @@ export class Items {
      * Create Item(s) in a Collection.
      *
      *
-     * To create items across multiple locales, please use [this endpoint.](/v2.0.0/data/reference/cms/collection-items/staged-items/create-items)
+     * To create items across multiple locales, please use [this endpoint.](/data/reference/cms/collection-items/staged-items/create-items)
      *
      * Required scope | `CMS:write`
      *
@@ -824,7 +824,7 @@ export class Items {
      * Create item(s) in a collection that will be immediately published to the live site.
      *
      *
-     * To create items across multiple locales, [please use this endpoint.](/v2.0.0/data/reference/cms/collection-items/staged-items/create-items)
+     * To create items across multiple locales, [please use this endpoint.](/data/reference/cms/collection-items/staged-items/create-items)
      *
      *
      * Required scope | `CMS:write`
@@ -841,6 +841,9 @@ export class Items {
      *
      * @example
      *     await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
+     *         lastPublished: "2023-03-17T18:47:35.560Z",
+     *         lastUpdated: "2023-03-17T18:47:35.560Z",
+     *         createdOn: "2023-03-17T18:47:35.560Z",
      *         isArchived: false,
      *         isDraft: false,
      *         fieldData: {
@@ -852,6 +855,9 @@ export class Items {
      * @example
      *     await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
      *         items: [{
+     *                 lastPublished: "2023-03-17T18:47:35.560Z",
+     *                 lastUpdated: "2023-03-17T18:47:35.560Z",
+     *                 createdOn: "2023-03-17T18:47:35.560Z",
      *                 isArchived: false,
      *                 isDraft: false,
      *                 fieldData: {
@@ -859,6 +865,9 @@ export class Items {
      *                     slug: "senior-data-analyst"
      *                 }
      *             }, {
+     *                 lastPublished: "2023-03-17T18:47:35.560Z",
+     *                 lastUpdated: "2023-03-17T18:47:35.560Z",
+     *                 createdOn: "2023-03-17T18:47:35.560Z",
      *                 isArchived: false,
      *                 isDraft: false,
      *                 fieldData: {
