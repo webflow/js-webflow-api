@@ -1,5 +1,7 @@
 export * from "./ForbiddenErrorBody";
 export * from "./BadRequestErrorBody";
+export * from "./ItemsListItemsRequestLastPublished";
+export * from "./ItemsListItemsLiveRequestLastPublished";
 export * from "./ConflictErrorBody";
 export * from "./AuthorizedUser";
 export * from "./ErrorCode";

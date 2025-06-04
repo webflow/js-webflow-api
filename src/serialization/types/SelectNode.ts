@@ -9,14 +9,14 @@ import { SelectNodeChoicesItem } from "./SelectNodeChoicesItem";
 
 export const SelectNode: core.serialization.ObjectSchema<serializers.SelectNode.Raw, Webflow.SelectNode> =
     core.serialization.object({
-        id: core.serialization.string(),
+        id: core.serialization.string().optional(),
         choices: core.serialization.list(SelectNodeChoicesItem),
         attributes: core.serialization.record(core.serialization.string(), core.serialization.string()).optional(),
     });
 
 export declare namespace SelectNode {
     interface Raw {
-        id: string;
+        id?: string | null;
         choices: SelectNodeChoicesItem.Raw[];
         attributes?: Record<string, string> | null;
     }

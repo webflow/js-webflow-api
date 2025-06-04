@@ -5,8 +5,8 @@
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
 import * as Webflow from "../../../../../index";
-import urlJoin from "url-join";
 import * as serializers from "../../../../../../serialization/index";
+import urlJoin from "url-join";
 import * as errors from "../../../../../../errors/index";
 
 export declare namespace Items {
@@ -53,7 +53,7 @@ export class Items {
         request: Webflow.collections.ItemsListItemsRequest = {},
         requestOptions?: Items.RequestOptions
     ): Promise<Webflow.CollectionItemList> {
-        const { cmsLocaleId, offset, limit, name, slug, sortBy, sortOrder } = request;
+        const { cmsLocaleId, offset, limit, name, slug, lastPublished, sortBy, sortOrder } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (cmsLocaleId != null) {
             _queryParams["cmsLocaleId"] = cmsLocaleId;
@@ -73,6 +73,15 @@ export class Items {
 
         if (slug != null) {
             _queryParams["slug"] = slug;
+        }
+
+        if (lastPublished != null) {
+            _queryParams["lastPublished"] = serializers.ItemsListItemsRequestLastPublished.jsonOrThrow(lastPublished, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                breadcrumbsPrefix: ["request", "lastPublished"],
+            });
         }
 
         if (sortBy != null) {
@@ -189,7 +198,7 @@ export class Items {
      * Create Item(s) in a Collection.
      *
      *
-     * To create items across multiple locales, please use [this endpoint.](/v2.0.0/data/reference/cms/collection-items/staged-items/create-items)
+     * To create items across multiple locales, please use [this endpoint.](/data/reference/cms/collection-items/staged-items/create-items)
      *
      * Required scope | `CMS:write`
      *
@@ -687,7 +696,7 @@ export class Items {
         request: Webflow.collections.ItemsListItemsLiveRequest = {},
         requestOptions?: Items.RequestOptions
     ): Promise<Webflow.CollectionItemList> {
-        const { cmsLocaleId, offset, limit, name, slug, sortBy, sortOrder } = request;
+        const { cmsLocaleId, offset, limit, name, slug, lastPublished, sortBy, sortOrder } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (cmsLocaleId != null) {
             _queryParams["cmsLocaleId"] = cmsLocaleId;
@@ -707,6 +716,18 @@ export class Items {
 
         if (slug != null) {
             _queryParams["slug"] = slug;
+        }
+
+        if (lastPublished != null) {
+            _queryParams["lastPublished"] = serializers.ItemsListItemsLiveRequestLastPublished.jsonOrThrow(
+                lastPublished,
+                {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["request", "lastPublished"],
+                }
+            );
         }
 
         if (sortBy != null) {
@@ -824,7 +845,7 @@ export class Items {
      * Create item(s) in a collection that will be immediately published to the live site.
      *
      *
-     * To create items across multiple locales, [please use this endpoint.](/v2.0.0/data/reference/cms/collection-items/staged-items/create-items)
+     * To create items across multiple locales, [please use this endpoint.](/data/reference/cms/collection-items/staged-items/create-items)
      *
      *
      * Required scope | `CMS:write`
