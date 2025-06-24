@@ -38,6 +38,13 @@ types:
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
+  ItemsUpdateItemsResponse:
+    discriminated: false
+    union:
+      - type: root.CollectionItem
+      - type: root.CollectionItemList
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
   ItemsListItemsLiveRequestSortBy:
     enum:
       - lastPublished
@@ -62,8 +69,8 @@ types:
   ItemsCreateItemLiveRequest:
     discriminated: false
     union:
-      - root.CollectionItem
-      - Multiple Live Items
+      - type: root.CollectionItem
+      - type: Multiple Live Items
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   ItemsDeleteItemsLiveRequestItemsItem:
@@ -113,7 +120,7 @@ types:
   CreateBulkCollectionItemRequestBodyFieldData:
     discriminated: false
     union:
-      - Single CMS Item
+      - type: Single CMS Item
       - docs: A list of CMS items to create
         type: list<CreateBulkCollectionItemRequestBodyFieldDataItem>
     source:
@@ -230,7 +237,7 @@ service:
 
 
         To create items across multiple locales, please use [this
-        endpoint.](/v2.0.0/data/reference/cms/collection-items/staged-items/create-items)
+        endpoint.](/data/reference/cms/collection-items/staged-items/create-items)
 
 
         Required scope | `CMS:write`
@@ -386,7 +393,7 @@ service:
         content-type: application/json
       response:
         docs: Request was successful
-        type: root.CollectionItem
+        type: ItemsUpdateItemsResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -426,19 +433,55 @@ service:
                   featured: false
           response:
             body:
-              id: id
-              cmsLocaleId: 653ad57de882f528b32e810e
-              lastPublished: '2023-03-17T18:47:35.560Z'
-              lastUpdated: '2023-03-17T18:47:35.560Z'
-              createdOn: '2023-03-17T18:47:35.560Z'
-              isArchived: true
-              isDraft: true
-              fieldData:
-                name: My new item
-                slug: my-new-item
-                date: '2022-11-18T00:00:00.000Z'
-                featured: false
-                color: '#db4b68'
+              items:
+                - id: 66f6ed9576ddacf3149d5ea6
+                  cmsLocaleId: 66f6e966c9e1dc700a857ca5
+                  lastPublished: '2024-09-27T17:38:29.066Z'
+                  lastUpdated: '2024-09-27T17:38:29.066Z'
+                  createdOn: '2024-09-27T17:38:29.066Z'
+                  isArchived: false
+                  isDraft: false
+                  fieldData:
+                    name: Ne Paniquez Pas
+                    slug: ne-paniquez-pas
+                    featured: false
+                - id: 66f6ed9576ddacf3149d5ea6
+                  cmsLocaleId: 66f6e966c9e1dc700a857ca4
+                  lastPublished: '2024-09-27T17:38:29.066Z'
+                  lastUpdated: '2024-09-27T17:38:29.066Z'
+                  createdOn: '2024-09-27T17:38:29.066Z'
+                  isArchived: false
+                  isDraft: false
+                  fieldData:
+                    name: No Entrar en Pánico
+                    slug: no-entrar-en-panico
+                    featured: false
+                - id: 66f6ed9576ddacf3149d5eaa
+                  cmsLocaleId: 66f6e966c9e1dc700a857ca5
+                  lastPublished: '2024-09-27T17:38:29.066Z'
+                  lastUpdated: '2024-09-27T17:38:29.066Z'
+                  createdOn: '2024-09-27T17:38:29.066Z'
+                  isArchived: false
+                  isDraft: false
+                  fieldData:
+                    name: Au Revoir et Merci pour Tous les Poissons
+                    slug: au-revoir-et-merci
+                    featured: false
+                - id: 66f6ed9576ddacf3149d5eaa
+                  cmsLocaleId: 66f6e966c9e1dc700a857ca4
+                  lastPublished: '2024-09-27T17:38:29.066Z'
+                  lastUpdated: '2024-09-27T17:38:29.066Z'
+                  createdOn: '2024-09-27T17:38:29.066Z'
+                  isArchived: false
+                  isDraft: false
+                  fieldData:
+                    name: Hasta Luego y Gracias por Todo el Pescado
+                    slug: hasta-luego-y-gracias
+                    featured: false
+              pagination:
+                limit: 25
+                offset: 0
+                total: 4
         - name: MultipleItems
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
@@ -462,107 +505,35 @@ service:
                   department: Product
           response:
             body:
-              id: id
-              cmsLocaleId: 653ad57de882f528b32e810e
-              lastPublished: '2023-03-17T18:47:35.560Z'
-              lastUpdated: '2023-03-17T18:47:35.560Z'
-              createdOn: '2023-03-17T18:47:35.560Z'
-              isArchived: true
-              isDraft: true
-              fieldData:
-                name: My new item
-                slug: my-new-item
-                date: '2022-11-18T00:00:00.000Z'
-                featured: false
-                color: '#db4b68'
-        - name: Multiple items updated across multiple locales
-          path-parameters:
-            collection_id: 580e63fc8c9a982ac9b8b745
-          request:
-            items:
-              - id: 66f6ed9576ddacf3149d5ea6
-                cmsLocaleId: 66f6e966c9e1dc700a857ca5
-                fieldData:
-                  name: Ne Paniquez Pas
-                  slug: ne-paniquez-pas
-                  featured: false
-              - id: 66f6ed9576ddacf3149d5ea6
-                cmsLocaleId: 66f6e966c9e1dc700a857ca4
-                fieldData:
-                  name: No Entrar en Pánico
-                  slug: no-entrar-en-panico
-                  featured: false
-              - id: 66f6ed9576ddacf3149d5eaa
-                cmsLocaleId: 66f6e966c9e1dc700a857ca5
-                fieldData:
-                  name: Au Revoir et Merci pour Tous les Poissons
-                  slug: au-revoir-et-merci
-                  featured: false
-              - id: 66f6ed9576ddacf3149d5eaa
-                cmsLocaleId: 66f6e966c9e1dc700a857ca4
-                fieldData:
-                  name: Hasta Luego y Gracias por Todo el Pescado
-                  slug: hasta-luego-y-gracias
-                  featured: false
-          response:
-            body:
-              id: id
-              cmsLocaleId: 653ad57de882f528b32e810e
-              lastPublished: '2023-03-17T18:47:35.560Z'
-              lastUpdated: '2023-03-17T18:47:35.560Z'
-              createdOn: '2023-03-17T18:47:35.560Z'
-              isArchived: true
-              isDraft: true
-              fieldData:
-                name: My new item
-                slug: my-new-item
-                date: '2022-11-18T00:00:00.000Z'
-                featured: false
-                color: '#db4b68'
-        - name: Mulitple items updated in a single locale
-          path-parameters:
-            collection_id: 580e63fc8c9a982ac9b8b745
-          request:
-            items:
-              - id: 66f6ed9576ddacf3149d5ea6
-                cmsLocaleId: 66f6e966c9e1dc700a857ca5
-                fieldData:
-                  name: Ne Paniquez Pas
-                  slug: ne-paniquez-pas
-                  featured: false
-              - id: 66f6ed9576ddacf3149d5ea6
-                cmsLocaleId: 66f6e966c9e1dc700a857ca4
-                fieldData:
-                  name: No Entrar en Pánico
-                  slug: no-entrar-en-panico
-                  featured: false
-              - id: 66f6ed9576ddacf3149d5eaa
-                cmsLocaleId: 66f6e966c9e1dc700a857ca5
-                fieldData:
-                  name: Au Revoir et Merci pour Tous les Poissons
-                  slug: au-revoir-et-merci
-                  featured: false
-              - id: 66f6ed9576ddacf3149d5eaa
-                cmsLocaleId: 66f6e966c9e1dc700a857ca4
-                fieldData:
-                  name: Hasta Luego y Gracias por Todo el Pescado
-                  slug: hasta-luego-y-gracias
-                  featured: false
-          response:
-            body:
-              id: id
-              cmsLocaleId: 653ad57de882f528b32e810e
-              lastPublished: '2023-03-17T18:47:35.560Z'
-              lastUpdated: '2023-03-17T18:47:35.560Z'
-              createdOn: '2023-03-17T18:47:35.560Z'
-              isArchived: true
-              isDraft: true
-              fieldData:
-                name: My new item
-                slug: my-new-item
-                date: '2022-11-18T00:00:00.000Z'
-                featured: false
-                color: '#db4b68'
+              items:
+                - id: 62b720ef280c7a7a3be8cabe
+                  cmsLocaleId: 66f6e966c9e1dc700a857ca3
+                  lastPublished: '2022-06-30T13:35:20.878Z'
+                  lastUpdated: '2022-06-25T14:51:27.809Z'
+                  createdOn: '2022-06-25T14:51:27.809Z'
+                  isArchived: false
+                  isDraft: false
+                  fieldData:
+                    name: Senior Data Analyst
+                    slug: senior-data-analyst
+                    url: https://boards.greenhouse.io/webflow/jobs/26567701
+                    department: Data
+                - id: 62c880ef281c7b7b4cf9dabc
+                  cmsLocaleId: 66f6e966c9e1dc700a857ca3
+                  lastPublished: '2023-04-15T10:25:18.123Z'
+                  lastUpdated: '2023-04-10T11:45:30.567Z'
+                  createdOn: '2023-04-10T11:45:30.567Z'
+                  isArchived: false
+                  isDraft: false
+                  fieldData:
+                    name: Product Manager
+                    slug: product-manager
+                    url: https://boards.greenhouse.io/webflow/jobs/31234567
+                    department: Product
+              pagination:
+                limit: 25
+                offset: 0
+                total: 2
     list-items-live:
       path: /collections/{collection_id}/items/live
       method: GET
@@ -669,7 +640,7 @@ service:
 
 
         To create items across multiple locales, [please use this
-        endpoint.](/v2.0.0/data/reference/cms/collection-items/staged-items/create-items)
+        endpoint.](/data/reference/cms/collection-items/staged-items/create-items)
 
 
 
@@ -699,9 +670,6 @@ service:
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
           request:
-            lastPublished: '2023-03-17T18:47:35.560Z'
-            lastUpdated: '2023-03-17T18:47:35.560Z'
-            createdOn: '2023-03-17T18:47:35.560Z'
             isArchived: false
             isDraft: false
             fieldData:
@@ -730,20 +698,14 @@ service:
             collection_id: 580e63fc8c9a982ac9b8b745
           request:
             items:
-              - lastPublished: '2023-03-17T18:47:35.560Z'
-                lastUpdated: '2023-03-17T18:47:35.560Z'
-                createdOn: '2023-03-17T18:47:35.560Z'
-                isArchived: false
+              - isArchived: false
                 isDraft: false
                 fieldData:
                   name: Senior Data Analyst
                   slug: senior-data-analyst
                   url: https://boards.greenhouse.io/webflow/jobs/26567701
                   department: Data
-              - lastPublished: '2023-03-17T18:47:35.560Z'
-                lastUpdated: '2023-03-17T18:47:35.560Z'
-                createdOn: '2023-03-17T18:47:35.560Z'
-                isArchived: false
+              - isArchived: false
                 isDraft: false
                 fieldData:
                   name: Product Manager
@@ -881,44 +843,44 @@ service:
               items:
                 - id: 66f6ed9576ddacf3149d5ea6
                   cmsLocaleId: 66f6e966c9e1dc700a857ca5
-                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastPublished: '2024-09-27T17:38:29.066Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
-                  isArchived: true
-                  isDraft: true
+                  isArchived: false
+                  isDraft: false
                   fieldData:
                     name: Ne Paniquez Pas
                     slug: ne-paniquez-pas
                     featured: false
                 - id: 66f6ed9576ddacf3149d5ea6
                   cmsLocaleId: 66f6e966c9e1dc700a857ca4
-                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastPublished: '2024-09-27T17:38:29.066Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
-                  isArchived: true
-                  isDraft: true
+                  isArchived: false
+                  isDraft: false
                   fieldData:
                     name: No Entrar en Pánico
                     slug: no-entrar-en-panico
                     featured: false
                 - id: 66f6ed9576ddacf3149d5eaa
                   cmsLocaleId: 66f6e966c9e1dc700a857ca5
-                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastPublished: '2024-09-27T17:38:29.066Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
-                  isArchived: true
-                  isDraft: true
+                  isArchived: false
+                  isDraft: false
                   fieldData:
                     name: Au Revoir et Merci pour Tous les Poissons
                     slug: au-revoir-et-merci
                     featured: false
                 - id: 66f6ed9576ddacf3149d5eaa
                   cmsLocaleId: 66f6e966c9e1dc700a857ca4
-                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastPublished: '2024-09-27T17:38:29.066Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
-                  isArchived: true
-                  isDraft: true
+                  isArchived: false
+                  isDraft: false
                   fieldData:
                     name: Hasta Luego y Gracias por Todo el Pescado
                     slug: hasta-luego-y-gracias
@@ -949,44 +911,44 @@ service:
               items:
                 - id: 66f6ed9576ddacf3149d5ea6
                   cmsLocaleId: 66f6e966c9e1dc700a857ca5
-                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastPublished: '2024-09-27T17:38:29.066Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
-                  isArchived: true
-                  isDraft: true
+                  isArchived: false
+                  isDraft: false
                   fieldData:
                     name: Ne Paniquez Pas
                     slug: ne-paniquez-pas
                     featured: false
                 - id: 66f6ed9576ddacf3149d5ea6
                   cmsLocaleId: 66f6e966c9e1dc700a857ca4
-                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastPublished: '2024-09-27T17:38:29.066Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
-                  isArchived: true
-                  isDraft: true
+                  isArchived: false
+                  isDraft: false
                   fieldData:
                     name: No Entrar en Pánico
                     slug: no-entrar-en-panico
                     featured: false
                 - id: 66f6ed9576ddacf3149d5eaa
                   cmsLocaleId: 66f6e966c9e1dc700a857ca5
-                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastPublished: '2024-09-27T17:38:29.066Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
-                  isArchived: true
-                  isDraft: true
+                  isArchived: false
+                  isDraft: false
                   fieldData:
                     name: Au Revoir et Merci pour Tous les Poissons
                     slug: au-revoir-et-merci
                     featured: false
                 - id: 66f6ed9576ddacf3149d5eaa
                   cmsLocaleId: 66f6e966c9e1dc700a857ca4
-                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastPublished: '2024-09-27T17:38:29.066Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
-                  isArchived: true
-                  isDraft: true
+                  isArchived: false
+                  isDraft: false
                   fieldData:
                     name: Hasta Luego y Gracias por Todo el Pescado
                     slug: hasta-luego-y-gracias
@@ -1025,44 +987,44 @@ service:
               items:
                 - id: 66f6ed9576ddacf3149d5ea6
                   cmsLocaleId: 66f6e966c9e1dc700a857ca5
-                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastPublished: '2024-09-27T17:38:29.066Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
-                  isArchived: true
-                  isDraft: true
+                  isArchived: false
+                  isDraft: false
                   fieldData:
                     name: Ne Paniquez Pas
                     slug: ne-paniquez-pas
                     featured: false
                 - id: 66f6ed9576ddacf3149d5ea6
                   cmsLocaleId: 66f6e966c9e1dc700a857ca4
-                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastPublished: '2024-09-27T17:38:29.066Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
-                  isArchived: true
-                  isDraft: true
+                  isArchived: false
+                  isDraft: false
                   fieldData:
                     name: No Entrar en Pánico
                     slug: no-entrar-en-panico
                     featured: false
                 - id: 66f6ed9576ddacf3149d5eaa
                   cmsLocaleId: 66f6e966c9e1dc700a857ca5
-                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastPublished: '2024-09-27T17:38:29.066Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
-                  isArchived: true
-                  isDraft: true
+                  isArchived: false
+                  isDraft: false
                   fieldData:
                     name: Au Revoir et Merci pour Tous les Poissons
                     slug: au-revoir-et-merci
                     featured: false
                 - id: 66f6ed9576ddacf3149d5eaa
                   cmsLocaleId: 66f6e966c9e1dc700a857ca4
-                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastPublished: '2024-09-27T17:38:29.066Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
-                  isArchived: true
-                  isDraft: true
+                  isArchived: false
+                  isDraft: false
                   fieldData:
                     name: Hasta Luego y Gracias por Todo el Pescado
                     slug: hasta-luego-y-gracias

@@ -28,7 +28,7 @@ export const FieldType: core.serialization.Schema<serializers.FieldType.Raw, Web
     ]);
 
 export declare namespace FieldType {
-    type Raw =
+    export type Raw =
         | "Color"
         | "DateTime"
         | "Email"

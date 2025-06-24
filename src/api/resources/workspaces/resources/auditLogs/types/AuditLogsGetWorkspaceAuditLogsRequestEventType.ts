@@ -8,7 +8,6 @@ export type AuditLogsGetWorkspaceAuditLogsRequestEventType =
     | "workspace_membership"
     | "site_membership"
     | "workspace_invitation";
-
 export const AuditLogsGetWorkspaceAuditLogsRequestEventType = {
     UserAccess: "user_access",
     CustomRole: "custom_role",

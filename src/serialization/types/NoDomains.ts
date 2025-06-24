@@ -10,5 +10,5 @@ export const NoDomains: core.serialization.Schema<serializers.NoDomains.Raw, Web
     core.serialization.unknown();
 
 export declare namespace NoDomains {
-    type Raw = unknown;
+    export type Raw = unknown;
 }

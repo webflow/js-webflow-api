@@ -19,7 +19,7 @@ export const SkuFieldDataEcSkuSubscriptionPlan: core.serialization.ObjectSchema<
 });
 
 export declare namespace SkuFieldDataEcSkuSubscriptionPlan {
-    interface Raw {
+    export interface Raw {
         interval?: SkuFieldDataEcSkuSubscriptionPlanInterval.Raw | null;
         frequency?: number | null;
         trial?: number | null;

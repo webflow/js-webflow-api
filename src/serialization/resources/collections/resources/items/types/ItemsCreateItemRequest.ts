@@ -14,5 +14,5 @@ export const ItemsCreateItemRequest: core.serialization.Schema<
 > = core.serialization.undiscriminatedUnion([CollectionItemPostSingle, MultipleItems]);
 
 export declare namespace ItemsCreateItemRequest {
-    type Raw = CollectionItemPostSingle.Raw | MultipleItems.Raw;
+    export type Raw = CollectionItemPostSingle.Raw | MultipleItems.Raw;
 }

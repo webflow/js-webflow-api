@@ -7,7 +7,7 @@
  */
 export interface TextInputNode {
     /** Node UUID */
-    id: string;
+    id?: string;
     /** The placeholder text of the input node */
     placeholder: string;
     /** The custom attributes of the node */

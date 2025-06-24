@@ -12,5 +12,5 @@ export const UserAccessAuditLogItemEventSubType: core.serialization.Schema<
 > = core.serialization.enum_(["login", "logout"]);
 
 export declare namespace UserAccessAuditLogItemEventSubType {
-    type Raw = "login" | "logout";
+    export type Raw = "login" | "logout";
 }

@@ -11,5 +11,5 @@ export const FormField: core.serialization.Schema<serializers.FormField.Raw, Web
     core.serialization.record(core.serialization.string(), FormFieldValue);
 
 export declare namespace FormField {
-    type Raw = Record<string, FormFieldValue.Raw>;
+    export type Raw = Record<string, FormFieldValue.Raw>;
 }

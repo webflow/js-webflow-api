@@ -18,7 +18,7 @@ export const CustomCodeHostedRequest: core.serialization.Schema<
 });
 
 export declare namespace CustomCodeHostedRequest {
-    interface Raw {
+    export interface Raw {
         hostedLocation: string;
         integrityHash: string;
         canCopy?: boolean | null;

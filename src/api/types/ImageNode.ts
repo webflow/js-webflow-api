@@ -11,7 +11,7 @@ export interface ImageNode {
     /** Node UUID */
     id?: string;
     /** The image details of the node */
-    image?: Webflow.ImageNodeImage;
+    image: Webflow.ImageNodeImage;
     /** The custom attributes of the node */
     attributes?: Record<string, string>;
 }

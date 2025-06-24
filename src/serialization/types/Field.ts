@@ -8,7 +8,7 @@ import * as core from "../../core";
 import { FieldType } from "./FieldType";
 
 export const Field: core.serialization.ObjectSchema<serializers.Field.Raw, Webflow.Field> = core.serialization.object({
-    id: core.serialization.string(),
+    id: core.serialization.string().optional(),
     isRequired: core.serialization.boolean(),
     isEditable: core.serialization.boolean().optional(),
     type: FieldType,
@@ -18,8 +18,8 @@ export const Field: core.serialization.ObjectSchema<serializers.Field.Raw, Webfl
 });
 
 export declare namespace Field {
-    interface Raw {
-        id: string;
+    export interface Raw {
+        id?: string | null;
         isRequired: boolean;
         isEditable?: boolean | null;
         type: FieldType.Raw;

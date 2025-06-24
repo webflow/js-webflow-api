@@ -12,5 +12,5 @@ export const ComponentPropertyType: core.serialization.Schema<
 > = core.serialization.enum_(["Plain Text", "Rich Text", "Alt Text"]);
 
 export declare namespace ComponentPropertyType {
-    type Raw = "Plain Text" | "Rich Text" | "Alt Text";
+    export type Raw = "Plain Text" | "Rich Text" | "Alt Text";
 }

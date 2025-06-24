@@ -33,7 +33,6 @@ export type UsersListRequestSort =
     /**
      * Sorts users in descending order based on their update date */
     | "-UpdatedOn";
-
 export const UsersListRequestSort = {
     CreatedOnAscending: "CreatedOn",
     CreatedOnDescending: "-CreatedOn",

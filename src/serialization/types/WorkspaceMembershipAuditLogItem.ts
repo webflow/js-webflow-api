@@ -17,7 +17,7 @@ export const WorkspaceMembershipAuditLogItem: core.serialization.ObjectSchema<
 });
 
 export declare namespace WorkspaceMembershipAuditLogItem {
-    interface Raw {
+    export interface Raw {
         eventSubType?: WorkspaceMembershipAuditLogItemEventSubType.Raw | null;
         payload?: WorkspaceMembership.Raw | null;
     }

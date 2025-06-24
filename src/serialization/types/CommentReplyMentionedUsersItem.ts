@@ -16,7 +16,7 @@ export const CommentReplyMentionedUsersItem: core.serialization.ObjectSchema<
 });
 
 export declare namespace CommentReplyMentionedUsersItem {
-    interface Raw {
+    export interface Raw {
         id: string;
         email: string;
         name: string;

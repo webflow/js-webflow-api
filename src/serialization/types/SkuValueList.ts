@@ -10,5 +10,5 @@ export const SkuValueList: core.serialization.Schema<serializers.SkuValueList.Ra
     core.serialization.record(core.serialization.string(), core.serialization.string());
 
 export declare namespace SkuValueList {
-    type Raw = Record<string, string>;
+    export type Raw = Record<string, string>;
 }

@@ -10,14 +10,14 @@ import { ImageNodeImage } from "./ImageNodeImage";
 export const ImageNode: core.serialization.ObjectSchema<serializers.ImageNode.Raw, Webflow.ImageNode> =
     core.serialization.object({
         id: core.serialization.string().optional(),
-        image: ImageNodeImage.optional(),
+        image: ImageNodeImage,
         attributes: core.serialization.record(core.serialization.string(), core.serialization.string()).optional(),
     });
 
 export declare namespace ImageNode {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
-        image?: ImageNodeImage.Raw | null;
+        image: ImageNodeImage.Raw;
         attributes?: Record<string, string> | null;
     }
 }

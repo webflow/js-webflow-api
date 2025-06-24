@@ -12,5 +12,5 @@ export const ScriptApplyLocation: core.serialization.Schema<
 > = core.serialization.enum_(["header", "footer"]);
 
 export declare namespace ScriptApplyLocation {
-    type Raw = "header" | "footer";
+    export type Raw = "header" | "footer";
 }

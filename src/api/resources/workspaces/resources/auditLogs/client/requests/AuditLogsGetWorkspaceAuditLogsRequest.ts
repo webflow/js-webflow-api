@@ -7,8 +7,8 @@ import * as Webflow from "../../../../../../index";
 /**
  * @example
  *     {
- *         from: "2024-04-22T16:00:31Z",
- *         to: "2024-04-22T16:00:31Z"
+ *         from: new Date("2024-04-22T16:00:31.000Z"),
+ *         to: new Date("2024-04-22T16:00:31.000Z")
  *     }
  */
 export interface AuditLogsGetWorkspaceAuditLogsRequest {
