@@ -21,7 +21,7 @@ export const SiteMembership: core.serialization.ObjectSchema<serializers.SiteMem
     });
 
 export declare namespace SiteMembership {
-    interface Raw {
+    export interface Raw {
         site?: WorkspaceAuditLogItemPayloadSiteMembershipSite.Raw | null;
         targetUser?: WorkspaceAuditLogItemPayloadSiteMembershipTargetUser.Raw | null;
         method?: WorkspaceAuditLogItemPayloadSiteMembershipMethod.Raw | null;

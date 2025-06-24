@@ -17,7 +17,7 @@ export const StripeCard: core.serialization.ObjectSchema<serializers.StripeCard.
     });
 
 export declare namespace StripeCard {
-    interface Raw {
+    export interface Raw {
         last4?: string | null;
         brand?: StripeCardBrand.Raw | null;
         ownerName?: string | null;

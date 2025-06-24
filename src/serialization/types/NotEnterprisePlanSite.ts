@@ -12,5 +12,5 @@ export const NotEnterprisePlanSite: core.serialization.Schema<
 > = core.serialization.unknown();
 
 export declare namespace NotEnterprisePlanSite {
-    type Raw = unknown;
+    export type Raw = unknown;
 }

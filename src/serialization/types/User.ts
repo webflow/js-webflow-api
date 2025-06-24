@@ -22,7 +22,7 @@ export const User: core.serialization.ObjectSchema<serializers.User.Raw, Webflow
 });
 
 export declare namespace User {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         isEmailVerified?: boolean | null;
         lastUpdated?: string | null;

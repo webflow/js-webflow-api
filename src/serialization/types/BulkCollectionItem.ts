@@ -11,7 +11,7 @@ export const BulkCollectionItem: core.serialization.ObjectSchema<
     serializers.BulkCollectionItem.Raw,
     Webflow.BulkCollectionItem
 > = core.serialization.object({
-    id: core.serialization.string(),
+    id: core.serialization.string().optional(),
     cmsLocaleIds: core.serialization.list(core.serialization.string()).optional(),
     lastPublished: core.serialization.string().optional(),
     lastUpdated: core.serialization.string().optional(),
@@ -22,8 +22,8 @@ export const BulkCollectionItem: core.serialization.ObjectSchema<
 });
 
 export declare namespace BulkCollectionItem {
-    interface Raw {
-        id: string;
+    export interface Raw {
+        id?: string | null;
         cmsLocaleIds?: string[] | null;
         lastPublished?: string | null;
         lastUpdated?: string | null;

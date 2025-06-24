@@ -19,7 +19,7 @@ export const ComponentProperty: core.serialization.ObjectSchema<
 });
 
 export declare namespace ComponentProperty {
-    interface Raw {
+    export interface Raw {
         propertyId?: string | null;
         type?: ComponentPropertyType.Raw | null;
         label?: string | null;

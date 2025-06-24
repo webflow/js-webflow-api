@@ -16,7 +16,7 @@ export const ScriptApply: core.serialization.ObjectSchema<serializers.ScriptAppl
     });
 
 export declare namespace ScriptApply {
-    interface Raw {
+    export interface Raw {
         id: string;
         location: ScriptApplyLocation.Raw;
         version: string;

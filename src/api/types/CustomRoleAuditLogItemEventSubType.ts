@@ -3,7 +3,6 @@
  */
 
 export type CustomRoleAuditLogItemEventSubType = "role_created" | "role_updated" | "role_deleted";
-
 export const CustomRoleAuditLogItemEventSubType = {
     RoleCreated: "role_created",
     RoleUpdated: "role_updated",

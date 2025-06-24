@@ -105,6 +105,26 @@ types:
       - NoDomains
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
+  ItemsListItemsRequestLastPublished:
+    properties:
+      lte:
+        type: optional<datetime>
+        docs: Filter items last published before this date
+      gte:
+        type: optional<datetime>
+        docs: Filter items last published after this date
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  ItemsListItemsLiveRequestLastPublished:
+    properties:
+      lte:
+        type: optional<datetime>
+        docs: Filter items last published before this date
+      gte:
+        type: optional<datetime>
+        docs: Filter items last published after this date
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
   ConflictErrorBody:
     discriminated: false
     union:
@@ -181,7 +201,24 @@ types:
         docs: Array of errors
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
-  Application: unknown
+  Application:
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Application
+      description:
+        type: optional<string>
+        docs: Application description provided by the developer
+      homepage:
+        type: optional<string>
+        docs: Application homepage URL provided by the developer
+        validation:
+          format: uri
+      displayName:
+        type: optional<string>
+        docs: Application name provided by the developer
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
   AuthorizationAuthorizationAuthorizedTo:
     properties:
       siteIds:
@@ -234,7 +271,6 @@ types:
       id:
         type: string
         docs: Unique identifier for the Domain
-        access: read-only
       url:
         type: optional<string>
         docs: The registered Domain name
@@ -350,7 +386,8 @@ types:
       openapi: ../../../openapi/referenced-specs/v2.yml
   User access:
     properties:
-      method: optional<WorkspaceAuditLogItemPayloadUserAccessMethod>
+      method:
+        type: optional<WorkspaceAuditLogItemPayloadUserAccessMethod>
       location:
         type: optional<string>
         docs: The geolocation based on the logged IP address
@@ -368,8 +405,10 @@ types:
       openapi: ../../../openapi/referenced-specs/v2.yml
   UserAccessAuditLogItem:
     properties:
-      eventSubType: optional<UserAccessAuditLogItemEventSubType>
-      payload: optional<User access>
+      eventSubType:
+        type: optional<UserAccessAuditLogItemEventSubType>
+      payload:
+        type: optional<User access>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   Custom role:
@@ -392,8 +431,10 @@ types:
       openapi: ../../../openapi/referenced-specs/v2.yml
   CustomRoleAuditLogItem:
     properties:
-      eventSubType: optional<CustomRoleAuditLogItemEventSubType>
-      payload: optional<Custom role>
+      eventSubType:
+        type: optional<CustomRoleAuditLogItemEventSubType>
+      payload:
+        type: optional<Custom role>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   WorkspaceAuditLogItemPayloadWorkspaceMembershipTargetUser:
@@ -422,9 +463,12 @@ types:
       openapi: ../../../openapi/referenced-specs/v2.yml
   Workspace membership:
     properties:
-      targetUser: optional<WorkspaceAuditLogItemPayloadWorkspaceMembershipTargetUser>
-      method: optional<WorkspaceAuditLogItemPayloadWorkspaceMembershipMethod>
-      userType: optional<WorkspaceAuditLogItemPayloadWorkspaceMembershipUserType>
+      targetUser:
+        type: optional<WorkspaceAuditLogItemPayloadWorkspaceMembershipTargetUser>
+      method:
+        type: optional<WorkspaceAuditLogItemPayloadWorkspaceMembershipMethod>
+      userType:
+        type: optional<WorkspaceAuditLogItemPayloadWorkspaceMembershipUserType>
       roleName:
         type: optional<string>
         docs: The name of the role that was assigned to the user
@@ -443,8 +487,10 @@ types:
       openapi: ../../../openapi/referenced-specs/v2.yml
   WorkspaceMembershipAuditLogItem:
     properties:
-      eventSubType: optional<WorkspaceMembershipAuditLogItemEventSubType>
-      payload: optional<Workspace membership>
+      eventSubType:
+        type: optional<WorkspaceMembershipAuditLogItemEventSubType>
+      payload:
+        type: optional<Workspace membership>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   WorkspaceAuditLogItemPayloadSiteMembershipSite:
@@ -482,10 +528,14 @@ types:
       openapi: ../../../openapi/referenced-specs/v2.yml
   Site membership:
     properties:
-      site: optional<WorkspaceAuditLogItemPayloadSiteMembershipSite>
-      targetUser: optional<WorkspaceAuditLogItemPayloadSiteMembershipTargetUser>
-      method: optional<WorkspaceAuditLogItemPayloadSiteMembershipMethod>
-      userType: optional<WorkspaceAuditLogItemPayloadSiteMembershipUserType>
+      site:
+        type: optional<WorkspaceAuditLogItemPayloadSiteMembershipSite>
+      targetUser:
+        type: optional<WorkspaceAuditLogItemPayloadSiteMembershipTargetUser>
+      method:
+        type: optional<WorkspaceAuditLogItemPayloadSiteMembershipMethod>
+      userType:
+        type: optional<WorkspaceAuditLogItemPayloadSiteMembershipUserType>
       roleName:
         type: optional<string>
         docs: The name of the role that was assigned to the user
@@ -504,8 +554,10 @@ types:
       openapi: ../../../openapi/referenced-specs/v2.yml
   SiteMembershipAuditLogItem:
     properties:
-      eventSubType: optional<SiteMembershipAuditLogItemEventSubType>
-      payload: optional<Site membership>
+      eventSubType:
+        type: optional<SiteMembershipAuditLogItemEventSubType>
+      payload:
+        type: optional<Site membership>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   WorkspaceAuditLogItemPayloadWorkspaceInvitationTargetUser:
@@ -534,9 +586,12 @@ types:
       openapi: ../../../openapi/referenced-specs/v2.yml
   Workspace invitation:
     properties:
-      targetUser: optional<WorkspaceAuditLogItemPayloadWorkspaceInvitationTargetUser>
-      method: optional<WorkspaceAuditLogItemPayloadWorkspaceInvitationMethod>
-      userType: optional<WorkspaceAuditLogItemPayloadWorkspaceInvitationUserType>
+      targetUser:
+        type: optional<WorkspaceAuditLogItemPayloadWorkspaceInvitationTargetUser>
+      method:
+        type: optional<WorkspaceAuditLogItemPayloadWorkspaceInvitationMethod>
+      userType:
+        type: optional<WorkspaceAuditLogItemPayloadWorkspaceInvitationUserType>
       roleName:
         type: optional<string>
         docs: The name of the role that was assigned to the user
@@ -557,8 +612,10 @@ types:
       openapi: ../../../openapi/referenced-specs/v2.yml
   WorkspaceInvitationAuditLogItem:
     properties:
-      eventSubType: optional<WorkspaceInvitationAuditLogItemEventSubType>
-      payload: optional<Workspace invitation>
+      eventSubType:
+        type: optional<WorkspaceInvitationAuditLogItemEventSubType>
+      payload:
+        type: optional<Workspace invitation>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   WorkspaceAuditLogItemActor:
@@ -582,25 +639,33 @@ types:
       actor: optional<WorkspaceAuditLogItemActor>
       workspace: optional<WorkspaceAuditLogItemWorkspace>
     union:
-      user_access: UserAccessAuditLogItem
-      custom_role: CustomRoleAuditLogItem
-      workspace_membership: WorkspaceMembershipAuditLogItem
-      site_membership: SiteMembershipAuditLogItem
-      workspace_invitation: WorkspaceInvitationAuditLogItem
+      user_access:
+        type: UserAccessAuditLogItem
+      custom_role:
+        type: CustomRoleAuditLogItem
+      workspace_membership:
+        type: WorkspaceMembershipAuditLogItem
+      site_membership:
+        type: SiteMembershipAuditLogItem
+      workspace_invitation:
+        type: WorkspaceInvitationAuditLogItem
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   Pagination:
     docs: Pagination object
     properties:
       limit:
-        type: double
+        type: optional<double>
         docs: The limit used for pagination
+        access: read-only
       offset:
-        type: double
+        type: optional<double>
         docs: The offset used for pagination
+        access: read-only
       total:
-        type: double
+        type: optional<double>
         docs: The total number of records
+        access: read-only
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   WorkspaceAuditLogResponse:
@@ -827,7 +892,6 @@ types:
       id:
         type: string
         docs: Unique identifier for a Collection
-        access: read-only
       displayName:
         type: optional<string>
         docs: Name given to the Collection
@@ -999,9 +1063,9 @@ types:
     discriminated: false
     docs: Details about the field of a collection
     union:
-      - Static Field
-      - Option Field
-      - Reference Field
+      - type: Static Field
+      - type: Option Field
+      - type: Reference Field
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   FieldType:
@@ -1027,13 +1091,36 @@ types:
     inline: true
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
+  FieldValidationsAdditionalPropertiesAdditionalProperties:
+    properties:
+      additionalProperties: optional<unknown>
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  FieldValidationsAdditionalProperties:
+    discriminated: false
+    union:
+      - string
+      - double
+      - boolean
+      - integer
+      - FieldValidationsAdditionalPropertiesAdditionalProperties
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  FieldValidations:
+    docs: The validations for the field
+    properties:
+      additionalProperties: optional<FieldValidationsAdditionalProperties>
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
   Field:
     docs: The details of a field in a collection
     properties:
       id:
         type: string
         docs: Unique identifier for a Field
-        access: read-only
       isRequired:
         type: boolean
         docs: define whether a field is required in a collection
@@ -1055,6 +1142,10 @@ types:
       helpText:
         type: optional<string>
         docs: Additional text to help anyone filling out this field
+      validations:
+        type: optional<FieldValidations>
+        docs: The validations for the field
+        access: read-only
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   Collection:
@@ -1063,7 +1154,6 @@ types:
       id:
         type: string
         docs: Unique identifier for a Collection
-        access: read-only
       displayName:
         type: string
         docs: Name given to the Collection
@@ -1126,15 +1216,15 @@ types:
         type: optional<string>
         docs: Identifier for the locale of the CMS item
       lastPublished:
-        type: string
+        type: optional<string>
         docs: The date the item was last published
         access: read-only
       lastUpdated:
-        type: string
+        type: optional<string>
         docs: The date the item was last updated
         access: read-only
       createdOn:
-        type: string
+        type: optional<string>
         docs: The date the item was created
         access: read-only
       isArchived:
@@ -1170,7 +1260,8 @@ types:
       items:
         type: optional<list<CollectionItem>>
         docs: List of Items within the collection
-      pagination: optional<CollectionItemListPagination>
+      pagination:
+        type: optional<CollectionItemListPagination>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   CollectionItemPostSingleFieldData:
@@ -1312,9 +1403,8 @@ types:
       items
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Unique identifier for the Item
-        access: read-only
       cmsLocaleIds:
         type: optional<list<string>>
         docs: Array of identifiers for the locales where the item will be created
@@ -1427,15 +1517,12 @@ types:
       id:
         type: string
         docs: Unique identifier for the comment thread
-        access: read-only
       siteId:
         type: string
         docs: The site unique identifier
-        access: read-only
       pageId:
         type: string
         docs: The page unique identifier
-        access: read-only
       localeId:
         type: optional<string>
         docs: The locale unique identifier
@@ -1447,11 +1534,9 @@ types:
       breakpoint:
         type: string
         docs: The breakpoint the comment was left on
-        access: read-only
       url:
         type: string
         docs: The URL of the page the comment was left on
-        access: read-only
       content:
         type: string
         docs: The content of the comment reply
@@ -1469,11 +1554,9 @@ types:
       createdOn:
         type: string
         docs: The date the item was created
-        access: read-only
       lastUpdated:
         type: string
         docs: The date the item was last updated
-        access: read-only
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   CommentThreadListPagination:
@@ -1538,19 +1621,15 @@ types:
       id:
         type: string
         docs: Unique identifier for the comment thread
-        access: read-only
       commentId:
         type: string
         docs: The comment reply unique identifier
-        access: read-only
       siteId:
         type: string
         docs: The site unique identifier
-        access: read-only
       pageId:
         type: string
         docs: The page unique identifier
-        access: read-only
       localeId:
         type: optional<string>
         docs: The locale unique identifier
@@ -1558,7 +1637,6 @@ types:
       breakpoint:
         type: string
         docs: The breakpoint the comment was left on
-        access: read-only
       content:
         type: string
         docs: The content of the comment reply
@@ -1573,11 +1651,11 @@ types:
           List of mentioned users is an empty array until email notifications
           are sent.
       lastUpdated:
-        type: string
+        type: optional<string>
         docs: The date the item was last updated
         access: read-only
       createdOn:
-        type: string
+        type: optional<string>
         docs: The date the item was created
         access: read-only
     source:
@@ -1648,7 +1726,6 @@ types:
       id:
         type: string
         docs: Unique identifier for the Page
-        access: read-only
       siteId:
         type: optional<string>
         docs: Unique identifier for the Site
@@ -1745,7 +1822,6 @@ types:
       id:
         type: string
         docs: Node UUID
-        access: read-only
       text:
         type: TextNodeText
         docs: The text content of the node
@@ -1772,7 +1848,6 @@ types:
       id:
         type: string
         docs: Node UUID
-        access: read-only
       image:
         type: ImageNodeImage
         docs: The image details of the node
@@ -1835,7 +1910,6 @@ types:
       id:
         type: string
         docs: The unique identifier of the component instance node
-        access: read-only
       componentId:
         type: string
         docs: The unique identifier of the component
@@ -1853,7 +1927,6 @@ types:
       id:
         type: string
         docs: Node UUID
-        access: read-only
       placeholder:
         type: string
         docs: The placeholder text of the input node
@@ -1882,7 +1955,6 @@ types:
       id:
         type: string
         docs: Node UUID
-        access: read-only
       choices:
         docs: The list of choices in this select node.
         type: list<SelectNodeChoicesItem>
@@ -1900,7 +1972,6 @@ types:
       id:
         type: string
         docs: Node UUID
-        access: read-only
       value:
         type: string
         docs: The text content of the submit button.
@@ -1921,7 +1992,6 @@ types:
       id:
         type: string
         docs: Node UUID
-        access: read-only
       value:
         type: string
         docs: The text content of the search button.
@@ -1967,7 +2037,7 @@ types:
         access: read-only
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
-  TextNodeWrite:
+  Text Node:
     docs: Update a text node
     properties:
       nodeId:
@@ -2001,7 +2071,7 @@ types:
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
-  ComponentInstanceNodePropertyOverridesWrite:
+  Component Instance:
     docs: Update text property overrides of a component instance
     properties:
       nodeId:
@@ -2025,7 +2095,7 @@ types:
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
-  SelectNodeWrite:
+  Select:
     docs: Update choices on a select node
     properties:
       nodeId:
@@ -2036,7 +2106,7 @@ types:
         type: list<SelectNodeWriteChoicesItem>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
-  TextInputNodeWrite:
+  Text Input:
     docs: Update placeholder text on a text input node
     properties:
       nodeId:
@@ -2047,7 +2117,7 @@ types:
         docs: The placeholder text of the input node
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
-  SubmitButtonNodeWrite:
+  Submit Button:
     docs: Update a submit button node
     properties:
       nodeId:
@@ -2061,7 +2131,7 @@ types:
         docs: The text to show while the form is submitting.
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
-  SearchButtonNodeWrite:
+  Search Button:
     docs: Update a search button node
     properties:
       nodeId:
@@ -2078,7 +2148,6 @@ types:
       id:
         type: string
         docs: Unique identifier for the Component
-        access: read-only
       name:
         type: optional<string>
         docs: Component Name
@@ -2333,7 +2402,7 @@ types:
         type: integer
         docs: Width in pixels
       height:
-        type: integer
+        type: optional<integer>
         docs: Height in pixels
       quality:
         type: integer
@@ -2347,40 +2416,40 @@ types:
     docs: Asset details
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Unique identifier for this asset
         access: read-only
       contentType:
-        type: string
+        type: optional<string>
         docs: File format type
         access: read-only
       size:
-        type: integer
+        type: optional<integer>
         docs: size in bytes
         access: read-only
       siteId:
-        type: string
+        type: optional<string>
         docs: Unique identifier for the site that hosts this asset
         access: read-only
       hostedUrl:
-        type: string
+        type: optional<string>
         docs: Link to the asset
         validation:
           format: uri
         access: read-only
       originalFileName:
-        type: string
+        type: optional<string>
         docs: Original file name at the time of upload
         access: read-only
       displayName:
         type: string
         docs: Display name of the asset
       lastUpdated:
-        type: datetime
+        type: optional<datetime>
         docs: Date the asset metadata was last updated
         access: read-only
       createdOn:
-        type: datetime
+        type: optional<datetime>
         docs: Date the asset metadata was created
         access: read-only
       variants:
@@ -2993,9 +3062,9 @@ types:
       sku-properties:
         type: optional<list<SkuPropertyList>>
         docs: Variant types to include in SKUs
-      categories:
+      category:
         type: optional<list<string>>
-        docs: The categories your product belongs to.
+        docs: The category your product belongs to.
       tax-category:
         type: optional<ProductFieldDataTaxCategory>
         docs: Product tax class
@@ -3547,6 +3616,112 @@ types:
     inline: true
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
+  OrderShippingAddressType:
+    enum:
+      - shipping
+      - billing
+    docs: The type of the order address (billing or shipping)
+    inline: true
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  OrderShippingAddressJapanType:
+    enum:
+      - kana
+      - kanji
+    docs: >-
+      Represents a Japan-only address format. This field will only appear on
+      orders placed from Japan.
+    inline: true
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  OrderShippingAddress:
+    docs: The shipping address
+    properties:
+      type:
+        type: optional<OrderShippingAddressType>
+        docs: The type of the order address (billing or shipping)
+      japanType:
+        type: optional<OrderShippingAddressJapanType>
+        docs: >-
+          Represents a Japan-only address format. This field will only appear on
+          orders placed from Japan.
+      addressee:
+        type: optional<string>
+        docs: Display name on the address
+      line1:
+        type: optional<string>
+        docs: The first line of the address
+      line2:
+        type: optional<string>
+        docs: The second line of the address
+      city:
+        type: optional<string>
+        docs: The city of the address.
+      state:
+        type: optional<string>
+        docs: The state or province of the address
+      country:
+        type: optional<string>
+        docs: The country of the address
+      postalCode:
+        type: optional<string>
+        docs: The postal code of the address
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  OrderBillingAddressType:
+    enum:
+      - shipping
+      - billing
+    docs: The type of the order address (billing or shipping)
+    inline: true
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  OrderBillingAddressJapanType:
+    enum:
+      - kana
+      - kanji
+    docs: >-
+      Represents a Japan-only address format. This field will only appear on
+      orders placed from Japan.
+    inline: true
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  OrderBillingAddress:
+    docs: The billing address
+    properties:
+      type:
+        type: optional<OrderBillingAddressType>
+        docs: The type of the order address (billing or shipping)
+      japanType:
+        type: optional<OrderBillingAddressJapanType>
+        docs: >-
+          Represents a Japan-only address format. This field will only appear on
+          orders placed from Japan.
+      addressee:
+        type: optional<string>
+        docs: Display name on the address
+      line1:
+        type: optional<string>
+        docs: The first line of the address
+      line2:
+        type: optional<string>
+        docs: The second line of the address
+      city:
+        type: optional<string>
+        docs: The city of the address.
+      state:
+        type: optional<string>
+        docs: The state or province of the address
+      country:
+        type: optional<string>
+        docs: The country of the address
+      postalCode:
+        type: optional<string>
+        docs: The postal code of the address
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
   OrderCustomerInfo:
     docs: An object with the keys `fullName` and `email`.
     properties:
@@ -3691,10 +3866,10 @@ types:
         type: optional<list<OrderAddress>>
         docs: All addresses provided by the customer during the ordering flow.
       shippingAddress:
-        type: optional<OrderAddress>
+        type: optional<OrderShippingAddress>
         docs: The shipping address
       billingAddress:
-        type: optional<OrderAddress>
+        type: optional<OrderBillingAddress>
         docs: The billing address
       shippingProvider:
         type: optional<string>

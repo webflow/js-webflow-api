@@ -10,5 +10,5 @@ export const OrderStatus: core.serialization.Schema<serializers.OrderStatus.Raw,
     core.serialization.enum_(["pending", "unfulfilled", "fulfilled", "disputed", "dispute-lost", "refunded"]);
 
 export declare namespace OrderStatus {
-    type Raw = "pending" | "unfulfilled" | "fulfilled" | "disputed" | "dispute-lost" | "refunded";
+    export type Raw = "pending" | "unfulfilled" | "fulfilled" | "disputed" | "dispute-lost" | "refunded";
 }

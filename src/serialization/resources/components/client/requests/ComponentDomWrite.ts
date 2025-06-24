@@ -15,7 +15,7 @@ export const ComponentDomWrite: core.serialization.Schema<
 });
 
 export declare namespace ComponentDomWrite {
-    interface Raw {
+    export interface Raw {
         nodes: ComponentDomWriteNodesItem.Raw[];
     }
 }

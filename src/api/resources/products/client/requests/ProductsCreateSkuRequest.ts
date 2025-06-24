@@ -8,6 +8,11 @@ import * as Webflow from "../../../../index";
  * @example
  *     {
  *         skus: [{
+ *                 id: "66072fb71b89448912e2681c",
+ *                 cmsLocaleId: "653ad57de882f528b32e810e",
+ *                 lastPublished: new Date("2023-03-17T18:47:35.000Z"),
+ *                 lastUpdated: new Date("2023-03-17T18:47:35.000Z"),
+ *                 createdOn: new Date("2023-03-17T18:47:35.000Z"),
  *                 fieldData: {
  *                     name: "Colorful T-shirt - Default",
  *                     slug: "colorful-t-shirt-default",

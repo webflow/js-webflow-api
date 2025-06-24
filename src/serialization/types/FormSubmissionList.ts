@@ -17,7 +17,7 @@ export const FormSubmissionList: core.serialization.ObjectSchema<
 });
 
 export declare namespace FormSubmissionList {
-    interface Raw {
+    export interface Raw {
         formSubmissions?: FormSubmission.Raw[] | null;
         pagination?: Pagination.Raw | null;
     }

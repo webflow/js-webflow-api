@@ -15,7 +15,7 @@ export const ComponentPropertiesWritePropertiesItem: core.serialization.ObjectSc
 });
 
 export declare namespace ComponentPropertiesWritePropertiesItem {
-    interface Raw {
+    export interface Raw {
         propertyId: string;
         text: string;
     }

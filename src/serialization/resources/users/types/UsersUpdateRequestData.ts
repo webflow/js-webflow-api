@@ -16,7 +16,7 @@ export const UsersUpdateRequestData: core.serialization.ObjectSchema<
 });
 
 export declare namespace UsersUpdateRequestData {
-    interface Raw {
+    export interface Raw {
         name?: string | null;
         "accept-privacy"?: boolean | null;
         "accept-communications"?: boolean | null;

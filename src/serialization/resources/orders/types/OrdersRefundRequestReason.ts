@@ -12,5 +12,5 @@ export const OrdersRefundRequestReason: core.serialization.Schema<
 > = core.serialization.enum_(["duplicate", "fraudulent", "requested"]);
 
 export declare namespace OrdersRefundRequestReason {
-    type Raw = "duplicate" | "fraudulent" | "requested";
+    export type Raw = "duplicate" | "fraudulent" | "requested";
 }

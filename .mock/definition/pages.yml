@@ -475,12 +475,12 @@ types:
   PageDomWriteNodesItem:
     discriminated: false
     union:
-      - root.TextNodeWrite
-      - root.ComponentInstanceNodePropertyOverridesWrite
-      - root.SelectNodeWrite
-      - root.TextInputNodeWrite
-      - root.SubmitButtonNodeWrite
-      - root.SearchButtonNodeWrite
+      - type: root.Text Node
+      - type: root.Component Instance
+      - type: root.Select
+      - type: root.Text Input
+      - type: root.Submit Button
+      - type: root.Search Button
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true

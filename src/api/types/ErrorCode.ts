@@ -35,7 +35,6 @@ export type ErrorCode =
     | "user_not_found"
     | "users_not_enabled"
     | "validation_error";
-
 export const ErrorCode = {
     BadRequest: "bad_request",
     CollectionNotFound: "collection_not_found",

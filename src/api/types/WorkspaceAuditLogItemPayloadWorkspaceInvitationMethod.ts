@@ -3,7 +3,6 @@
  */
 
 export type WorkspaceAuditLogItemPayloadWorkspaceInvitationMethod = "sso" | "dashboard" | "admin";
-
 export const WorkspaceAuditLogItemPayloadWorkspaceInvitationMethod = {
     Sso: "sso",
     Dashboard: "dashboard",

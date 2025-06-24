@@ -15,7 +15,7 @@ export const ComponentPropertiesWrite: core.serialization.Schema<
 });
 
 export declare namespace ComponentPropertiesWrite {
-    interface Raw {
+    export interface Raw {
         properties: ComponentPropertiesWritePropertiesItem.Raw[];
     }
 }

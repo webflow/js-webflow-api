@@ -13,7 +13,7 @@ export const ImageNodeImage: core.serialization.ObjectSchema<serializers.ImageNo
     });
 
 export declare namespace ImageNodeImage {
-    interface Raw {
+    export interface Raw {
         alt?: string | null;
         assetId?: string | null;
     }

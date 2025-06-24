@@ -10,5 +10,5 @@ export const Conflict: core.serialization.Schema<serializers.Conflict.Raw, Webfl
     core.serialization.unknown();
 
 export declare namespace Conflict {
-    type Raw = unknown;
+    export type Raw = unknown;
 }

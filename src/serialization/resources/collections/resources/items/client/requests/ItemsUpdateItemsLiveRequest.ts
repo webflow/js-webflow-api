@@ -15,7 +15,7 @@ export const ItemsUpdateItemsLiveRequest: core.serialization.Schema<
 });
 
 export declare namespace ItemsUpdateItemsLiveRequest {
-    interface Raw {
+    export interface Raw {
         items?: CollectionItemWithIdInput.Raw[] | null;
     }
 }

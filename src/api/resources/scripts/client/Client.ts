@@ -5,17 +5,22 @@
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
 import * as Webflow from "../../../index";
+import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
 
 export declare namespace Scripts {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         accessToken: core.Supplier<core.BearerToken>;
+        /** Additional headers to include in requests. */
+        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
@@ -23,12 +28,16 @@ export declare namespace Scripts {
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
         /** Additional headers to include in the request. */
-        headers?: Record<string, string>;
+        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
 }
 
 export class Scripts {
-    constructor(protected readonly _options: Scripts.Options) {}
+    protected readonly _options: Scripts.Options;
+
+    constructor(_options: Scripts.Options) {
+        this._options = _options;
+    }
 
     /**
      * Get a list of scripts that have been registered to a site. A site can have a maximum of 800 registered scripts.
@@ -51,43 +60,51 @@ export class Scripts {
      * @example
      *     await client.scripts.list("580e63e98c9a982ac9b8b741")
      */
-    public async list(siteId: string, requestOptions?: Scripts.RequestOptions): Promise<Webflow.RegisteredScriptList> {
+    public list(
+        siteId: string,
+        requestOptions?: Scripts.RequestOptions,
+    ): core.HttpResponsePromise<Webflow.RegisteredScriptList> {
+        return core.HttpResponsePromise.fromPromise(this.__list(siteId, requestOptions));
+    }
+
+    private async __list(
+        siteId: string,
+        requestOptions?: Scripts.RequestOptions,
+    ): Promise<core.WithRawResponse<Webflow.RegisteredScriptList>> {
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
-                `sites/${encodeURIComponent(siteId)}/registered_scripts`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
+                        .base,
+                `sites/${encodeURIComponent(siteId)}/registered_scripts`,
             ),
             method: "GET",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.4",
-                "User-Agent": "webflow-api/3.1.4",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            requestType: "json",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.RegisteredScriptList.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.RegisteredScriptList.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Webflow.BadRequestError(_response.error.body);
+                    throw new Webflow.BadRequestError(_response.error.body, _response.rawResponse);
                 case 401:
                     throw new Webflow.UnauthorizedError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -96,7 +113,8 @@ export class Scripts {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 404:
                     throw new Webflow.NotFoundError(
@@ -106,7 +124,8 @@ export class Scripts {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 429:
                     throw new Webflow.TooManyRequestsError(
@@ -116,7 +135,8 @@ export class Scripts {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 500:
                     throw new Webflow.InternalServerError(
@@ -126,12 +146,14 @@ export class Scripts {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.WebflowError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -141,14 +163,16 @@ export class Scripts {
                 throw new errors.WebflowError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.WebflowTimeoutError(
-                    "Timeout exceeded when calling GET /sites/{site_id}/registered_scripts."
+                    "Timeout exceeded when calling GET /sites/{site_id}/registered_scripts.",
                 );
             case "unknown":
                 throw new errors.WebflowError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -180,27 +204,32 @@ export class Scripts {
      *         displayName: "displayName"
      *     })
      */
-    public async registerHosted(
+    public registerHosted(
         siteId: string,
         request: Webflow.CustomCodeHostedRequest,
-        requestOptions?: Scripts.RequestOptions
-    ): Promise<Webflow.CustomCodeHostedResponse> {
+        requestOptions?: Scripts.RequestOptions,
+    ): core.HttpResponsePromise<Webflow.CustomCodeHostedResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__registerHosted(siteId, request, requestOptions));
+    }
+
+    private async __registerHosted(
+        siteId: string,
+        request: Webflow.CustomCodeHostedRequest,
+        requestOptions?: Scripts.RequestOptions,
+    ): Promise<core.WithRawResponse<Webflow.CustomCodeHostedResponse>> {
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
-                `sites/${encodeURIComponent(siteId)}/registered_scripts/hosted`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
+                        .base,
+                `sites/${encodeURIComponent(siteId)}/registered_scripts/hosted`,
             ),
             method: "POST",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.4",
-                "User-Agent": "webflow-api/3.1.4",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...requestOptions?.headers,
-            },
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
             contentType: "application/json",
             requestType: "json",
             body: serializers.CustomCodeHostedRequest.jsonOrThrow(request, {
@@ -213,19 +242,22 @@ export class Scripts {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.CustomCodeHostedResponse.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.CustomCodeHostedResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Webflow.BadRequestError(_response.error.body);
+                    throw new Webflow.BadRequestError(_response.error.body, _response.rawResponse);
                 case 401:
                     throw new Webflow.UnauthorizedError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -234,7 +266,8 @@ export class Scripts {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 404:
                     throw new Webflow.NotFoundError(
@@ -244,7 +277,8 @@ export class Scripts {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 429:
                     throw new Webflow.TooManyRequestsError(
@@ -254,7 +288,8 @@ export class Scripts {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 500:
                     throw new Webflow.InternalServerError(
@@ -264,12 +299,14 @@ export class Scripts {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.WebflowError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -279,14 +316,16 @@ export class Scripts {
                 throw new errors.WebflowError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.WebflowTimeoutError(
-                    "Timeout exceeded when calling POST /sites/{site_id}/registered_scripts/hosted."
+                    "Timeout exceeded when calling POST /sites/{site_id}/registered_scripts/hosted.",
                 );
             case "unknown":
                 throw new errors.WebflowError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -317,27 +356,32 @@ export class Scripts {
      *         displayName: "Alert"
      *     })
      */
-    public async registerInline(
+    public registerInline(
         siteId: string,
         request: Webflow.CustomCodeInlineRequest,
-        requestOptions?: Scripts.RequestOptions
-    ): Promise<Webflow.CustomCodeInlineResponse> {
+        requestOptions?: Scripts.RequestOptions,
+    ): core.HttpResponsePromise<Webflow.CustomCodeInlineResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__registerInline(siteId, request, requestOptions));
+    }
+
+    private async __registerInline(
+        siteId: string,
+        request: Webflow.CustomCodeInlineRequest,
+        requestOptions?: Scripts.RequestOptions,
+    ): Promise<core.WithRawResponse<Webflow.CustomCodeInlineResponse>> {
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
-                `sites/${encodeURIComponent(siteId)}/registered_scripts/inline`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
+                        .base,
+                `sites/${encodeURIComponent(siteId)}/registered_scripts/inline`,
             ),
             method: "POST",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.4",
-                "User-Agent": "webflow-api/3.1.4",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...requestOptions?.headers,
-            },
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
             contentType: "application/json",
             requestType: "json",
             body: serializers.CustomCodeInlineRequest.jsonOrThrow(request, {
@@ -350,19 +394,22 @@ export class Scripts {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.CustomCodeInlineResponse.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.CustomCodeInlineResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Webflow.BadRequestError(_response.error.body);
+                    throw new Webflow.BadRequestError(_response.error.body, _response.rawResponse);
                 case 401:
                     throw new Webflow.UnauthorizedError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -371,7 +418,8 @@ export class Scripts {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 404:
                     throw new Webflow.NotFoundError(
@@ -381,7 +429,8 @@ export class Scripts {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 429:
                     throw new Webflow.TooManyRequestsError(
@@ -391,7 +440,8 @@ export class Scripts {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 500:
                     throw new Webflow.InternalServerError(
@@ -401,12 +451,14 @@ export class Scripts {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.WebflowError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -416,14 +468,16 @@ export class Scripts {
                 throw new errors.WebflowError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.WebflowTimeoutError(
-                    "Timeout exceeded when calling POST /sites/{site_id}/registered_scripts/inline."
+                    "Timeout exceeded when calling POST /sites/{site_id}/registered_scripts/inline.",
                 );
             case "unknown":
                 throw new errors.WebflowError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }

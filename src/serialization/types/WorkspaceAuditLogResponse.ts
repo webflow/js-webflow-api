@@ -17,7 +17,7 @@ export const WorkspaceAuditLogResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace WorkspaceAuditLogResponse {
-    interface Raw {
+    export interface Raw {
         items?: WorkspaceAuditLogItem.Raw[] | null;
         pagination?: Pagination.Raw | null;
     }

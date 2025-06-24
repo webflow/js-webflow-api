@@ -9,9 +9,9 @@ import * as Webflow from "../index";
  */
 export interface ComponentNode {
     /** The unique identifier of the component instance node */
-    id?: string;
+    id: string;
     /** The unique identifier of the component */
-    componentId?: string;
+    componentId: string;
     /** List of component properties with overrides for a component instance. */
-    propertyOverrides?: Webflow.ComponentProperty[];
+    propertyOverrides: Webflow.ComponentProperty[];
 }

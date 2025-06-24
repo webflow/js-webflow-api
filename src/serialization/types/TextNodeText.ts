@@ -13,7 +13,7 @@ export const TextNodeText: core.serialization.ObjectSchema<serializers.TextNodeT
     });
 
 export declare namespace TextNodeText {
-    interface Raw {
+    export interface Raw {
         html?: string | null;
         text?: string | null;
     }

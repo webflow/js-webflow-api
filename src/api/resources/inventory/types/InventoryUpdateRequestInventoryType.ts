@@ -6,7 +6,6 @@
  * infinite or finite
  */
 export type InventoryUpdateRequestInventoryType = "infinite" | "finite";
-
 export const InventoryUpdateRequestInventoryType = {
     Infinite: "infinite",
     Finite: "finite",

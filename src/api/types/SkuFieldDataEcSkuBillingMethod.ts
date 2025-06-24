@@ -6,7 +6,6 @@
  * [Billing method](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#billing-methods)for the SKU
  */
 export type SkuFieldDataEcSkuBillingMethod = "one-time" | "subscription";
-
 export const SkuFieldDataEcSkuBillingMethod = {
     OneTime: "one-time",
     Subscription: "subscription",

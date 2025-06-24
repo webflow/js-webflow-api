@@ -13,7 +13,6 @@ export type StripeCardBrand =
     | "JCB"
     | "Diners Club"
     | "Unknown";
-
 export const StripeCardBrand = {
     Visa: "Visa",
     AmericanExpress: "American Express",

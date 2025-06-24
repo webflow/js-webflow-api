@@ -12,5 +12,5 @@ export const WorkspaceAuditLogItemPayloadUserAccessMethod: core.serialization.Sc
 > = core.serialization.enum_(["dashboard", "sso", "api", "google"]);
 
 export declare namespace WorkspaceAuditLogItemPayloadUserAccessMethod {
-    type Raw = "dashboard" | "sso" | "api" | "google";
+    export type Raw = "dashboard" | "sso" | "api" | "google";
 }

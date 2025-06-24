@@ -6,7 +6,6 @@
  * The status of the user
  */
 export type UserStatus = "invited" | "verified" | "unverified";
-
 export const UserStatus = {
     Invited: "invited",
     Verified: "verified",

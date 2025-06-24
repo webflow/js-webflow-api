@@ -16,7 +16,7 @@ export const SearchButtonNode: core.serialization.ObjectSchema<
 });
 
 export declare namespace SearchButtonNode {
-    interface Raw {
+    export interface Raw {
         id: string;
         value: string;
         attributes?: Record<string, string> | null;

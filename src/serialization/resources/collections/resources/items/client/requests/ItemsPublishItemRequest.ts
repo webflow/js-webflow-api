@@ -14,7 +14,7 @@ export const ItemsPublishItemRequest: core.serialization.Schema<
 });
 
 export declare namespace ItemsPublishItemRequest {
-    interface Raw {
+    export interface Raw {
         itemIds: string[];
     }
 }

@@ -14,7 +14,7 @@ export const Domain: core.serialization.ObjectSchema<serializers.Domain.Raw, Web
     });
 
 export declare namespace Domain {
-    interface Raw {
+    export interface Raw {
         id: string;
         url?: string | null;
         lastPublished?: string | null;

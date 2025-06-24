@@ -14,7 +14,6 @@ export type OrderDisputeLastStatus =
     | "charge_refunded"
     | "won"
     | "lost";
-
 export const OrderDisputeLastStatus = {
     WarningNeedsResponse: "warning_needs_response",
     WarningUnderReview: "warning_under_review",

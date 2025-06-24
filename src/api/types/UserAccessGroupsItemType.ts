@@ -8,7 +8,6 @@
  * * `ecommerce` - Assigned to the user via an ecommerce purchase
  */
 export type UserAccessGroupsItemType = "admin" | "ecommerce";
-
 export const UserAccessGroupsItemType = {
     Admin: "admin",
     Ecommerce: "ecommerce",
