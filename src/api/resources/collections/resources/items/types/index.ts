@@ -3,6 +3,7 @@ export * from "./ItemsListItemsRequestSortOrder";
 export * from "./MultipleItems";
 export * from "./ItemsCreateItemRequest";
 export * from "./ItemsDeleteItemsRequestItemsItem";
+export * from "./ItemsUpdateItemsResponse";
 export * from "./ItemsListItemsLiveRequestSortBy";
 export * from "./ItemsListItemsLiveRequestSortOrder";
 export * from "./MultipleLiveItems";

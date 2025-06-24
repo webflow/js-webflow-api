@@ -16,7 +16,7 @@ export const UsersUpdateRequest: core.serialization.Schema<
 });
 
 export declare namespace UsersUpdateRequest {
-    interface Raw {
+    export interface Raw {
         data?: UsersUpdateRequestData.Raw | null;
         accessGroups?: string[] | null;
     }

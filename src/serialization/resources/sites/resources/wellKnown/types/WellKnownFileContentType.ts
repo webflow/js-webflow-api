@@ -12,5 +12,5 @@ export const WellKnownFileContentType: core.serialization.Schema<
 > = core.serialization.enum_(["application/json", "text/plain"]);
 
 export declare namespace WellKnownFileContentType {
-    type Raw = "application/json" | "text/plain";
+    export type Raw = "application/json" | "text/plain";
 }

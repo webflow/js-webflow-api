@@ -17,7 +17,7 @@ export const FormResponseSettings: core.serialization.ObjectSchema<
 });
 
 export declare namespace FormResponseSettings {
-    interface Raw {
+    export interface Raw {
         redirectUrl?: string | null;
         redirectMethod?: string | null;
         redirectAction?: string | null;

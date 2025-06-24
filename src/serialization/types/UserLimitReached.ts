@@ -10,5 +10,5 @@ export const UserLimitReached: core.serialization.Schema<serializers.UserLimitRe
     core.serialization.unknown();
 
 export declare namespace UserLimitReached {
-    type Raw = unknown;
+    export type Raw = unknown;
 }

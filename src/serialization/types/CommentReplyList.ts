@@ -17,7 +17,7 @@ export const CommentReplyList: core.serialization.ObjectSchema<
 });
 
 export declare namespace CommentReplyList {
-    interface Raw {
+    export interface Raw {
         comments: CommentReply.Raw[];
         pagination: CommentReplyListPagination.Raw;
     }

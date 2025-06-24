@@ -3,7 +3,6 @@
  */
 
 export type ItemsListItemsLiveRequestSortBy = "lastPublished" | "name" | "slug";
-
 export const ItemsListItemsLiveRequestSortBy = {
     LastPublished: "lastPublished",
     Name: "name",

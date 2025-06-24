@@ -15,7 +15,7 @@ export const SitesUpdateRequest: core.serialization.Schema<
 });
 
 export declare namespace SitesUpdateRequest {
-    interface Raw {
+    export interface Raw {
         name?: string | null;
         parentFolderId?: string | null;
     }

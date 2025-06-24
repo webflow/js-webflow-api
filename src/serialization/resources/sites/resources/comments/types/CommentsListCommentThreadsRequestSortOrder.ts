@@ -12,5 +12,5 @@ export const CommentsListCommentThreadsRequestSortOrder: core.serialization.Sche
 > = core.serialization.enum_(["asc", "desc"]);
 
 export declare namespace CommentsListCommentThreadsRequestSortOrder {
-    type Raw = "asc" | "desc";
+    export type Raw = "asc" | "desc";
 }

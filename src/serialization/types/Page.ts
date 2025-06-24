@@ -28,7 +28,7 @@ export const Page: core.serialization.ObjectSchema<serializers.Page.Raw, Webflow
 });
 
 export declare namespace Page {
-    interface Raw {
+    export interface Raw {
         id: string;
         siteId?: string | null;
         title?: string | null;

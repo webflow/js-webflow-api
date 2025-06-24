@@ -3,7 +3,6 @@
  */
 
 export type SiteMembershipAuditLogItemEventSubType = "user_added" | "user_removed" | "user_role_updated";
-
 export const SiteMembershipAuditLogItemEventSubType = {
     UserAdded: "user_added",
     UserRemoved: "user_removed",

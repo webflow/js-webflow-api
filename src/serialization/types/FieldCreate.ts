@@ -13,5 +13,5 @@ export const FieldCreate: core.serialization.Schema<serializers.FieldCreate.Raw,
     core.serialization.undiscriminatedUnion([StaticField, OptionField, ReferenceField]);
 
 export declare namespace FieldCreate {
-    type Raw = StaticField.Raw | OptionField.Raw | ReferenceField.Raw;
+    export type Raw = StaticField.Raw | OptionField.Raw | ReferenceField.Raw;
 }

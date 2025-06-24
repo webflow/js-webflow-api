@@ -12,5 +12,5 @@ export const InventoryItemInventoryType: core.serialization.Schema<
 > = core.serialization.enum_(["infinite", "finite"]);
 
 export declare namespace InventoryItemInventoryType {
-    type Raw = "infinite" | "finite";
+    export type Raw = "infinite" | "finite";
 }

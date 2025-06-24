@@ -13,7 +13,7 @@ export const Domains: core.serialization.ObjectSchema<serializers.Domains.Raw, W
     });
 
 export declare namespace Domains {
-    interface Raw {
+    export interface Raw {
         customDomains?: Domain.Raw[] | null;
     }
 }

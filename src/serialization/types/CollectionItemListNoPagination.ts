@@ -15,7 +15,7 @@ export const CollectionItemListNoPagination: core.serialization.ObjectSchema<
 });
 
 export declare namespace CollectionItemListNoPagination {
-    interface Raw {
+    export interface Raw {
         items?: CollectionItem.Raw[] | null;
     }
 }

@@ -13,7 +13,7 @@ export const Metadata: core.serialization.ObjectSchema<serializers.Metadata.Raw,
     });
 
 export declare namespace Metadata {
-    interface Raw {
+    export interface Raw {
         options: MetadataOptionsItem.Raw[];
     }
 }

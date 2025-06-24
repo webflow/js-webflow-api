@@ -15,7 +15,7 @@ export const UsersInviteRequest: core.serialization.Schema<
 });
 
 export declare namespace UsersInviteRequest {
-    interface Raw {
+    export interface Raw {
         email: string;
         accessGroups?: string[] | null;
     }

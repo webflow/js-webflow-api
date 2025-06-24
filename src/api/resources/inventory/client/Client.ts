@@ -5,17 +5,22 @@
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
 import * as Webflow from "../../../index";
+import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
 
 export declare namespace Inventory {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         accessToken: core.Supplier<core.BearerToken>;
+        /** Additional headers to include in requests. */
+        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
@@ -23,7 +28,7 @@ export declare namespace Inventory {
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
         /** Additional headers to include in the request. */
-        headers?: Record<string, string>;
+        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
 }
 
@@ -31,7 +36,11 @@ export declare namespace Inventory {
  * Inventory is the stock of e-commerce items in your Webflow site.
  */
 export class Inventory {
-    constructor(protected readonly _options: Inventory.Options) {}
+    protected readonly _options: Inventory.Options;
+
+    constructor(_options: Inventory.Options) {
+        this._options = _options;
+    }
 
     /**
      * List the current inventory levels for a particular SKU item.
@@ -53,47 +62,53 @@ export class Inventory {
      * @example
      *     await client.inventory.list("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754")
      */
-    public async list(
+    public list(
         collectionId: string,
         itemId: string,
-        requestOptions?: Inventory.RequestOptions
-    ): Promise<Webflow.InventoryItem> {
+        requestOptions?: Inventory.RequestOptions,
+    ): core.HttpResponsePromise<Webflow.InventoryItem> {
+        return core.HttpResponsePromise.fromPromise(this.__list(collectionId, itemId, requestOptions));
+    }
+
+    private async __list(
+        collectionId: string,
+        itemId: string,
+        requestOptions?: Inventory.RequestOptions,
+    ): Promise<core.WithRawResponse<Webflow.InventoryItem>> {
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
-                `collections/${encodeURIComponent(collectionId)}/items/${encodeURIComponent(itemId)}/inventory`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
+                        .base,
+                `collections/${encodeURIComponent(collectionId)}/items/${encodeURIComponent(itemId)}/inventory`,
             ),
             method: "GET",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.4",
-                "User-Agent": "webflow-api/3.1.4",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            requestType: "json",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.InventoryItem.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.InventoryItem.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Webflow.BadRequestError(_response.error.body);
+                    throw new Webflow.BadRequestError(_response.error.body, _response.rawResponse);
                 case 401:
                     throw new Webflow.UnauthorizedError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -102,10 +117,11 @@ export class Inventory {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 403:
-                    throw new Webflow.ForbiddenError(_response.error.body);
+                    throw new Webflow.ForbiddenError(_response.error.body, _response.rawResponse);
                 case 404:
                     throw new Webflow.NotFoundError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -114,10 +130,11 @@ export class Inventory {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 409:
-                    throw new Webflow.ConflictError(_response.error.body);
+                    throw new Webflow.ConflictError(_response.error.body, _response.rawResponse);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -126,7 +143,8 @@ export class Inventory {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 500:
                     throw new Webflow.InternalServerError(
@@ -136,12 +154,14 @@ export class Inventory {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.WebflowError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -151,14 +171,16 @@ export class Inventory {
                 throw new errors.WebflowError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.WebflowTimeoutError(
-                    "Timeout exceeded when calling GET /collections/{collection_id}/items/{item_id}/inventory."
+                    "Timeout exceeded when calling GET /collections/{collection_id}/items/{item_id}/inventory.",
                 );
             case "unknown":
                 throw new errors.WebflowError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }
@@ -190,28 +212,34 @@ export class Inventory {
      *         inventoryType: "infinite"
      *     })
      */
-    public async update(
+    public update(
         collectionId: string,
         itemId: string,
         request: Webflow.InventoryUpdateRequest,
-        requestOptions?: Inventory.RequestOptions
-    ): Promise<Webflow.InventoryItem> {
+        requestOptions?: Inventory.RequestOptions,
+    ): core.HttpResponsePromise<Webflow.InventoryItem> {
+        return core.HttpResponsePromise.fromPromise(this.__update(collectionId, itemId, request, requestOptions));
+    }
+
+    private async __update(
+        collectionId: string,
+        itemId: string,
+        request: Webflow.InventoryUpdateRequest,
+        requestOptions?: Inventory.RequestOptions,
+    ): Promise<core.WithRawResponse<Webflow.InventoryItem>> {
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
-                `collections/${encodeURIComponent(collectionId)}/items/${encodeURIComponent(itemId)}/inventory`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
+                        .base,
+                `collections/${encodeURIComponent(collectionId)}/items/${encodeURIComponent(itemId)}/inventory`,
             ),
             method: "PATCH",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.4",
-                "User-Agent": "webflow-api/3.1.4",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...requestOptions?.headers,
-            },
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
             contentType: "application/json",
             requestType: "json",
             body: serializers.InventoryUpdateRequest.jsonOrThrow(request, {
@@ -224,19 +252,22 @@ export class Inventory {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.InventoryItem.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.InventoryItem.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Webflow.BadRequestError(_response.error.body);
+                    throw new Webflow.BadRequestError(_response.error.body, _response.rawResponse);
                 case 401:
                     throw new Webflow.UnauthorizedError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -245,10 +276,11 @@ export class Inventory {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 403:
-                    throw new Webflow.ForbiddenError(_response.error.body);
+                    throw new Webflow.ForbiddenError(_response.error.body, _response.rawResponse);
                 case 404:
                     throw new Webflow.NotFoundError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -257,10 +289,11 @@ export class Inventory {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 409:
-                    throw new Webflow.ConflictError(_response.error.body);
+                    throw new Webflow.ConflictError(_response.error.body, _response.rawResponse);
                 case 429:
                     throw new Webflow.TooManyRequestsError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -269,7 +302,8 @@ export class Inventory {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 500:
                     throw new Webflow.InternalServerError(
@@ -279,12 +313,14 @@ export class Inventory {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.WebflowError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -294,14 +330,16 @@ export class Inventory {
                 throw new errors.WebflowError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.WebflowTimeoutError(
-                    "Timeout exceeded when calling PATCH /collections/{collection_id}/items/{item_id}/inventory."
+                    "Timeout exceeded when calling PATCH /collections/{collection_id}/items/{item_id}/inventory.",
                 );
             case "unknown":
                 throw new errors.WebflowError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }

@@ -14,7 +14,7 @@ export const ReferenceFieldMetadata: core.serialization.ObjectSchema<
 });
 
 export declare namespace ReferenceFieldMetadata {
-    interface Raw {
+    export interface Raw {
         collectionId: string;
     }
 }

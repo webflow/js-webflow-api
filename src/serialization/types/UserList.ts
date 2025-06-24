@@ -17,7 +17,7 @@ export const UserList: core.serialization.ObjectSchema<serializers.UserList.Raw,
     });
 
 export declare namespace UserList {
-    interface Raw {
+    export interface Raw {
         count?: number | null;
         limit?: number | null;
         offset?: number | null;

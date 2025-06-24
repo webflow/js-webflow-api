@@ -10,5 +10,5 @@ export const PublishStatus: core.serialization.Schema<serializers.PublishStatus.
     core.serialization.enum_(["staging", "live"]);
 
 export declare namespace PublishStatus {
-    type Raw = "staging" | "live";
+    export type Raw = "staging" | "live";
 }

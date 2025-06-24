@@ -16,7 +16,7 @@ export const SkuFieldDataPrice: core.serialization.ObjectSchema<
 });
 
 export declare namespace SkuFieldDataPrice {
-    interface Raw {
+    export interface Raw {
         value?: number | null;
         unit?: string | null;
         currency?: string | null;

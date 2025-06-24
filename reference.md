@@ -538,7 +538,9 @@ await client.sites.getCustomDomain("580e63e98c9a982ac9b8b741");
 
 Publishes a site to one or more more domains.
 
-<Note title="Endpoint-specific rate limit">This endpoint has a limit of one successful publish queue per minute.</Note>
+To publish to a specific custom domain, use the domain IDs from the [Get Custom Domains](/data/reference/sites/get-custom-domain) endpoint.
+
+<Note title="Rate limit: 1 publish per minute">This endpoint has a specific rate limit of one successful publish queue per minute.</Note>
 
 Required scope | `sites:write`
 
@@ -556,7 +558,10 @@ Required scope | `sites:write`
 <dd>
 
 ```typescript
-await client.sites.publish("580e63e98c9a982ac9b8b741");
+await client.sites.publish("580e63e98c9a982ac9b8b741", {
+    customDomains: ["660c6449dd97ebc7346ac629", "660c6449dd97ebc7346ac62f"],
+    publishToWebflowSubdomain: false,
+});
 ```
 
 </dd>
@@ -678,7 +683,9 @@ await client.collections.list("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-Create a Collection for a site.
+Create a Collection for a site with collection fields.
+
+Each collection includes the required _name_ and _slug_ fields, which are generated automatically. You can update the `displayName` of these fields, but the slug for them cannot be changed. Fields slugs are automatically converted to lowercase. Spaces in slugs are replaced with hyphens.
 
 Required scope | `cms:write`
 
@@ -1089,8 +1096,8 @@ await client.pages.updatePageSettings("63c720f9347c2139b248e552", {
         siteId: "6258612d1ee792848f805dcf",
         title: "Guide to the Galaxy",
         slug: "guide-to-the-galaxy",
-        createdOn: "2024-03-11T10:42:00Z",
-        lastUpdated: "2024-03-11T10:42:42Z",
+        createdOn: new Date("2024-03-11T10:42:00.000Z"),
+        lastUpdated: new Date("2024-03-11T10:42:42.000Z"),
         archived: false,
         draft: false,
         canBranch: true,
@@ -2737,8 +2744,8 @@ await client.webhooks.create("580e63e98c9a982ac9b8b741", {
     url: "https://webhook.site/7f7f7f7f-7f7f-7f7f-7f7f-7f7f7f7f7f7f",
     workspaceId: "4f4e46fd476ea8c507000001",
     siteId: "562ac0395358780a1f5e6fbd",
-    lastTriggered: "2023-02-08T23:59:28Z",
-    createdOn: "2022-11-08T23:59:28Z",
+    lastTriggered: new Date("2023-02-08T23:59:28.000Z"),
+    createdOn: new Date("2022-11-08T23:59:28.000Z"),
 });
 ```
 
@@ -3968,9 +3975,9 @@ Create a new ecommerce product and defaultSKU. A product, at minimum, must have 
 
 To create a product with multiple SKUs:
 
--   First, create a list of `sku-properties`, also known as [product options](https://help.webflow.com/hc/en-us/articles/33961334531347-Create-product-options-and-variants). For example, a T-shirt product may have a "color" `sku-property`, with a list of enum values: red, yellow, and blue, another `sku-property` may be "size", with a list of enum values: small, medium, and large.
--   Once, a product is created with a list of `sku-properties`, Webflow will create a **default SKU**, which is always a combination of the first `enum` values of each `sku-property`. (e.g. Small - Red - T-Shirt)
--   After creation, you can create additional SKUs for the product, using the [Create SKUs endpoint.](/data/reference/ecommerce/products/create-sku)
+- First, create a list of `sku-properties`, also known as [product options](https://help.webflow.com/hc/en-us/articles/33961334531347-Create-product-options-and-variants). For example, a T-shirt product may have a "color" `sku-property`, with a list of enum values: red, yellow, and blue, another `sku-property` may be "size", with a list of enum values: small, medium, and large.
+- Once, a product is created with a list of `sku-properties`, Webflow will create a **default SKU**, which is always a combination of the first `enum` values of each `sku-property`. (e.g. Small - Red - T-Shirt)
+- After creation, you can create additional SKUs for the product, using the [Create SKUs endpoint.](/data/reference/ecommerce/products/create-sku)
 
 Upon creation, the default product type will be `Advanced`, which ensures all Product and SKU fields will be shown to users in the Designer.
 
@@ -4291,6 +4298,11 @@ Required scope | `ecommerce:write`
 await client.products.createSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b8b745", {
     skus: [
         {
+            id: "66072fb71b89448912e2681c",
+            cmsLocaleId: "653ad57de882f528b32e810e",
+            lastPublished: new Date("2023-03-17T18:47:35.000Z"),
+            lastUpdated: new Date("2023-03-17T18:47:35.000Z"),
+            createdOn: new Date("2023-03-17T18:47:35.000Z"),
             fieldData: {
                 name: "Colorful T-shirt - Default",
                 slug: "colorful-t-shirt-default",
@@ -4387,6 +4399,11 @@ Required scope | `ecommerce:write`
 ```typescript
 await client.products.updateSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b8b745", "5e8518516e147040726cc415", {
     sku: {
+        id: "66072fb71b89448912e2681c",
+        cmsLocaleId: "653ad57de882f528b32e810e",
+        lastPublished: new Date("2023-03-17T18:47:35.000Z"),
+        lastUpdated: new Date("2023-03-17T18:47:35.000Z"),
+        createdOn: new Date("2023-03-17T18:47:35.000Z"),
         fieldData: {
             name: "Colorful T-shirt - Default",
             slug: "colorful-t-shirt-default",
@@ -5015,8 +5032,8 @@ Updates the current inventory levels for a particular SKU item.
 
 Updates may be given in one or two methods, absolutely or incrementally.
 
--   Absolute updates are done by setting `quantity` directly.
--   Incremental updates are by specifying the inventory delta in `updateQuantity` which is then added to the `quantity` stored on the server.
+- Absolute updates are done by setting `quantity` directly.
+- Incremental updates are by specifying the inventory delta in `updateQuantity` which is then added to the `quantity` stored on the server.
 
 Required scope | `ecommerce:write`
 
@@ -5170,10 +5187,9 @@ await client.ecommerce.getSettings("580e63e98c9a982ac9b8b741");
 
 Create a custom field in a collection.
 
-Slugs must be all lowercase letters without spaces.
-If you pass a string with uppercase letters and/or spaces to the "Slug" property, Webflow will
-convert the slug to lowercase and replace spaces with "-."
-This endpoint does not currently support bulk creation.
+Field validation is currently not available through the API.
+
+Bulk creation of fields is not supported with this endpoint. To add multiple fields at once, include them when you [create the collection.](/data/v2.0.0/reference/cms/collections/create)
 
 Required scope | `cms:write`
 
@@ -5192,6 +5208,7 @@ Required scope | `cms:write`
 
 ```typescript
 await client.collections.fields.create("580e63fc8c9a982ac9b8b745", {
+    id: "562ac0395358780a1f5e6fbc",
     isEditable: true,
     isRequired: false,
     type: "RichText",
@@ -5487,7 +5504,7 @@ await client.collections.items.listItems("580e63fc8c9a982ac9b8b745");
 
 Create Item(s) in a Collection.
 
-To create items across multiple locales, please use [this endpoint.](/v2.0.0/data/reference/cms/collection-items/staged-items/create-items)
+To create items across multiple locales, please use [this endpoint.](/data/reference/cms/collection-items/staged-items/create-items)
 
 Required scope | `CMS:write`
 
@@ -5636,7 +5653,7 @@ await client.collections.items.deleteItems("580e63fc8c9a982ac9b8b745", {
 </dl>
 </details>
 
-<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">updateItems</a>(collectionId, { ...params }) -> Webflow.CollectionItem</code></summary>
+<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">updateItems</a>(collectionId, { ...params }) -> Webflow.ItemsUpdateItemsResponse</code></summary>
 <dl>
 <dd>
 
@@ -5840,7 +5857,7 @@ await client.collections.items.listItemsLive("580e63fc8c9a982ac9b8b745");
 
 Create item(s) in a collection that will be immediately published to the live site.
 
-To create items across multiple locales, [please use this endpoint.](/v2.0.0/data/reference/cms/collection-items/staged-items/create-items)
+To create items across multiple locales, [please use this endpoint.](/data/reference/cms/collection-items/staged-items/create-items)
 
 Required scope | `CMS:write`
 
@@ -5920,9 +5937,7 @@ await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
-Remove an item or multiple items (up to 100 items) from the live site.
-
-Using this endpoint to delete published item(s) will unpublish the item(s) from the live site and set the item(s) `isDraft` property to `true`.
+Unpublish up to 100 items from the live site and set the `isDraft` property to `true`.
 
 <Tip title="Localization Tip">Items will only be unpublished in the primary locale unless a `cmsLocaleId` is included in the request.</Tip>
 
@@ -6535,9 +6550,9 @@ await client.collections.items.getItemLive("580e63fc8c9a982ac9b8b745", "580e6400
 <dl>
 <dd>
 
-Remove a live item from the site. Removing a published item will unpublish the item from the live site and set it to draft.
+Unpublish a live item from the site and set the `isDraft` property to `true`.
 
-This endpoint does not currently support bulk deletion.
+For bulk unpublishing, please use [this endpoint.](/data/v2.0.0/reference/cms/collection-items/live-items/delete-items-live)
 
 Required scope | `CMS:write`
 
@@ -7721,9 +7736,9 @@ Upload a supported well-known file to a site.
 
 The current restrictions on well-known files are as follows:
 
--   Each file must be smaller than 100kb
--   Less than 30 total files
--   Have one of the following file extensions (or no extension): `.txt`, `.json`, `.noext`
+- Each file must be smaller than 100kb
+- Less than 30 total files
+- Have one of the following file extensions (or no extension): `.txt`, `.json`, `.noext`
 
   <Note title=".noext">
     `.noext` is a special file extension that removes other extensions. For example, `apple-app-site-association.noext.txt` will be uploaded as `apple-app-site-association`. Use this extension for tools that have trouble uploading extensionless files.
@@ -8543,8 +8558,8 @@ Required scope | `workspace_activity:read`
 
 ```typescript
 await client.workspaces.auditLogs.getWorkspaceAuditLogs("hitchhikers-workspace", {
-    from: "2024-04-22T16:00:31Z",
-    to: "2024-04-22T16:00:31Z",
+    from: new Date("2024-04-22T16:00:31.000Z"),
+    to: new Date("2024-04-22T16:00:31.000Z"),
 });
 ```
 

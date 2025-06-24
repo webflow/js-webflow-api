@@ -12,5 +12,5 @@ export const WorkspaceMembershipAuditLogItemEventSubType: core.serialization.Sch
 > = core.serialization.enum_(["user_added", "user_removed", "user_role_updated"]);
 
 export declare namespace WorkspaceMembershipAuditLogItemEventSubType {
-    type Raw = "user_added" | "user_removed" | "user_role_updated";
+    export type Raw = "user_added" | "user_removed" | "user_role_updated";
 }

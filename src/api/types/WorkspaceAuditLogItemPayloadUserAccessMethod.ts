@@ -3,7 +3,6 @@
  */
 
 export type WorkspaceAuditLogItemPayloadUserAccessMethod = "dashboard" | "sso" | "api" | "google";
-
 export const WorkspaceAuditLogItemPayloadUserAccessMethod = {
     Dashboard: "dashboard",
     Sso: "sso",
