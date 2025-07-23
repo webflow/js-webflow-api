@@ -1,4 +1,5 @@
 import { Webhooks } from "../api/resources/webhooks/client/Client";
+import { mergeHeaders, mergeOnlyDefinedHeaders } from "../core/headers.js";
 import crypto from "crypto";
 
 // Extends the namespace declared in the Fern generated client
@@ -16,7 +17,7 @@ declare module "../api/resources/webhooks/client/Client" {
 }
 
 export class Client extends Webhooks {
-    constructor(protected readonly _options: Webhooks.Options) {
+    constructor(_options: Webhooks.Options) {
         super(_options);
     }
 
@@ -47,7 +48,6 @@ export class Client extends Webhooks {
             const encoder = new TextEncoder();
 
             // Encode the signingSecret key
-            // @ts-expect-error TS2339: Property 'subtle' does not exist on type 'typeof import("crypto")'.
             const key = await crypto.subtle.importKey(
                 "raw",
                 encoder.encode(signingSecret),
@@ -57,7 +57,6 @@ export class Client extends Webhooks {
             );
 
             // Encode the message and compute HMAC signature
-            // @ts-expect-error TS2339: Property 'subtle' does not exist on type 'typeof import("crypto")'.
             const signature = await crypto.subtle.sign("HMAC", key, encoder.encode(message));
 
             // Convert signature to hex string
