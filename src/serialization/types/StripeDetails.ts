@@ -19,7 +19,7 @@ export const StripeDetails: core.serialization.ObjectSchema<serializers.StripeDe
     });
 
 export declare namespace StripeDetails {
-    interface Raw {
+    export interface Raw {
         subscriptionId?: string | null;
         paymentMethod?: string | null;
         paymentIntentId?: string | null;

@@ -12,5 +12,5 @@ export const DuplicateUserEmail: core.serialization.Schema<
 > = core.serialization.unknown();
 
 export declare namespace DuplicateUserEmail {
-    type Raw = unknown;
+    export type Raw = unknown;
 }

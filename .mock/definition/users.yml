@@ -33,23 +33,6 @@ types:
         docs: Sorts users in descending order based on their update date
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
-  UsersUpdateRequestData:
-    properties:
-      name:
-        type: optional<string>
-        docs: |
-          The name of the user
-      accept-privacy:
-        type: optional<boolean>
-        docs: |
-          Boolean indicating if the user has accepted the privacy policy
-      accept-communications:
-        type: optional<boolean>
-        docs: |
-          Boolean indicating if the user has accepted to receive communications
-    source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
-    inline: true
 imports:
   root: __package__.yml
 service:
@@ -264,16 +247,7 @@ service:
           docs: Unique identifier for a User
       display-name: Update User
       request:
-        name: UsersUpdateRequest
-        body:
-          properties:
-            data: optional<UsersUpdateRequestData>
-            accessGroups:
-              type: optional<list<string>>
-              docs: >
-                An array of access group slugs. Access groups are assigned to
-                the user as type `admin` and the user remains in the group until
-                removed.
+        body: root.User
         content-type: application/json
       response:
         docs: Request was successful
@@ -291,14 +265,16 @@ service:
             site_id: 580e63e98c9a982ac9b8b741
             user_id: 580e63e98c9a982ac9b8b741
           request:
-            data:
-              name: Some One
-              accept-privacy: false
-              accept-communications: false
+            id: 6287ec36a841b25637c663df
+            isEmailVerified: true
+            lastUpdated: '2022-05-20T13:46:12Z'
+            invitedOn: '2022-05-20T13:46:12Z'
+            createdOn: '2022-05-20T13:46:12Z'
+            lastLogin: '2022-05-20T13:46:12Z'
+            status: verified
             accessGroups:
-              - webflowers
-              - platinum
-              - free-tier
+              - slug: webflowers
+                type: admin
           response:
             body:
               id: 6287ec36a841b25637c663df
@@ -372,7 +348,7 @@ service:
           request:
             email: some.one@home.com
             accessGroups:
-              - webflowers
+              - accessGroups
           response:
             body:
               id: 6287ec36a841b25637c663df

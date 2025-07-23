@@ -24,7 +24,7 @@ export const StaticFieldType: core.serialization.Schema<serializers.StaticFieldT
     ]);
 
 export declare namespace StaticFieldType {
-    type Raw =
+    export type Raw =
         | "Color"
         | "DateTime"
         | "Email"

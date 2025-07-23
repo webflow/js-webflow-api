@@ -12,5 +12,5 @@ export const ItemsListItemsRequestSortBy: core.serialization.Schema<
 > = core.serialization.enum_(["lastPublished", "name", "slug"]);
 
 export declare namespace ItemsListItemsRequestSortBy {
-    type Raw = "lastPublished" | "name" | "slug";
+    export type Raw = "lastPublished" | "name" | "slug";
 }

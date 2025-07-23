@@ -21,7 +21,7 @@ export const Webhook: core.serialization.ObjectSchema<serializers.Webhook.Raw, W
     });
 
 export declare namespace Webhook {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         triggerType?: TriggerType.Raw | null;
         url?: string | null;

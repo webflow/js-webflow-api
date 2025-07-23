@@ -3,7 +3,6 @@
  */
 
 export type AuditLogsGetWorkspaceAuditLogsRequestSortOrder = "asc" | "desc";
-
 export const AuditLogsGetWorkspaceAuditLogsRequestSortOrder = {
     Asc: "asc",
     Desc: "desc",

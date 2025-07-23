@@ -16,7 +16,7 @@ export const SitesCreateRequest: core.serialization.Schema<
 });
 
 export declare namespace SitesCreateRequest {
-    interface Raw {
+    export interface Raw {
         name: string;
         templateName?: string | null;
         parentFolderId?: string | null;

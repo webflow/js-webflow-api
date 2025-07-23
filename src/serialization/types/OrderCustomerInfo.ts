@@ -15,7 +15,7 @@ export const OrderCustomerInfo: core.serialization.ObjectSchema<
 });
 
 export declare namespace OrderCustomerInfo {
-    interface Raw {
+    export interface Raw {
         fullName?: string | null;
         email?: string | null;
     }

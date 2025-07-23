@@ -9,15 +9,15 @@ import { ComponentProperty } from "./ComponentProperty";
 
 export const ComponentNode: core.serialization.ObjectSchema<serializers.ComponentNode.Raw, Webflow.ComponentNode> =
     core.serialization.object({
-        id: core.serialization.string().optional(),
-        componentId: core.serialization.string().optional(),
-        propertyOverrides: core.serialization.list(ComponentProperty).optional(),
+        id: core.serialization.string(),
+        componentId: core.serialization.string(),
+        propertyOverrides: core.serialization.list(ComponentProperty),
     });
 
 export declare namespace ComponentNode {
-    interface Raw {
-        id?: string | null;
-        componentId?: string | null;
-        propertyOverrides?: ComponentProperty.Raw[] | null;
+    export interface Raw {
+        id: string;
+        componentId: string;
+        propertyOverrides: ComponentProperty.Raw[];
     }
 }

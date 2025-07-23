@@ -15,7 +15,7 @@ export const ProductAndSkUs: core.serialization.ObjectSchema<serializers.Product
     });
 
 export declare namespace ProductAndSkUs {
-    interface Raw {
+    export interface Raw {
         product?: Product.Raw | null;
         skus?: Sku.Raw[] | null;
     }

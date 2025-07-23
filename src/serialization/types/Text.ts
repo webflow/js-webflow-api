@@ -12,7 +12,7 @@ export const Text: core.serialization.ObjectSchema<serializers.Text.Raw, Webflow
 });
 
 export declare namespace Text {
-    interface Raw {
+    export interface Raw {
         html?: string | null;
         text?: string | null;
     }

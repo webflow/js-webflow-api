@@ -8,6 +8,7 @@ import * as Webflow from "../../../../index";
  * @example
  *     {
  *         localeId: "65427cf400e02b306eaa04a0",
+ *         branchId: "68026fa68ef6dc744c75b833",
  *         properties: [{
  *                 propertyId: "a245c12d-995b-55ee-5ec7-aa36a6cad623",
  *                 text: "The Hitchhiker\u2019s Guide to the Galaxy"
@@ -22,6 +23,10 @@ export interface ComponentPropertiesWrite {
      * Unique identifier for a specific locale. Applicable, when using localization.
      */
     localeId?: string;
+    /**
+     * Scope the operation to work on a specific branch.
+     */
+    branchId?: string;
     /** A list of component properties to update within the specified secondary locale. */
     properties: Webflow.ComponentPropertiesWritePropertiesItem[];
 }

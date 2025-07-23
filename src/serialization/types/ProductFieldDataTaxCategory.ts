@@ -42,7 +42,7 @@ export const ProductFieldDataTaxCategory: core.serialization.Schema<
 ]);
 
 export declare namespace ProductFieldDataTaxCategory {
-    type Raw =
+    export type Raw =
         | "standard-taxable"
         | "standard-exempt"
         | "books-religious"

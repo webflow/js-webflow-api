@@ -68,7 +68,7 @@ service:
                 - id: 589a331aa51e760df7ccb89d
                   url: test-api-domain.com
                   lastPublished: '2022-12-07T16:51:37Z'
-              dataCollectionEnabled: false
+              dataCollectionEnabled: true
               dataCollectionType: always
     list:
       path: /sites
@@ -426,11 +426,15 @@ service:
       method: POST
       auth: true
       docs: >
-        Publishes a site to one or more more domains.
+        Publishes a site to one or more more domains. 
 
 
-        <Note title="Endpoint-specific rate limit">This endpoint has a limit of
-        one successful publish queue per minute.</Note>
+        To publish to a specific custom domain, use the domain IDs from the [Get
+        Custom Domains](/data/reference/sites/get-custom-domain) endpoint.
+
+
+        <Note title="Rate limit: 1 publish per minute">This endpoint has a
+        specific rate limit of one successful publish queue per minute.</Note>
 
 
         Required scope | `sites:write`
@@ -464,9 +468,14 @@ service:
         - root.NotFoundError
         - root.TooManyRequestsError
       examples:
-        - path-parameters:
+        - name: DomainIDs
+          path-parameters:
             site_id: 580e63e98c9a982ac9b8b741
-          request: {}
+          request:
+            customDomains:
+              - 660c6449dd97ebc7346ac629
+              - 660c6449dd97ebc7346ac62f
+            publishToWebflowSubdomain: false
           response:
             body:
               customDomains:

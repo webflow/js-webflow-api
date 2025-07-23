@@ -17,5 +17,5 @@ export const CreateBulkCollectionItemRequestBodyFieldData: core.serialization.Sc
 ]);
 
 export declare namespace CreateBulkCollectionItemRequestBodyFieldData {
-    type Raw = SingleCmsItem.Raw | CreateBulkCollectionItemRequestBodyFieldDataItem.Raw[];
+    export type Raw = SingleCmsItem.Raw | CreateBulkCollectionItemRequestBodyFieldDataItem.Raw[];
 }

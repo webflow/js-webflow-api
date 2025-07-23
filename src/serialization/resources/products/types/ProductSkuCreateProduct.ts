@@ -15,7 +15,7 @@ export const ProductSkuCreateProduct: core.serialization.ObjectSchema<
 });
 
 export declare namespace ProductSkuCreateProduct {
-    interface Raw {
+    export interface Raw {
         fieldData?: ProductFieldData.Raw | null;
     }
 }

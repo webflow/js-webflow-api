@@ -15,7 +15,7 @@ export const PageDomWrite: core.serialization.Schema<
 });
 
 export declare namespace PageDomWrite {
-    interface Raw {
+    export interface Raw {
         nodes: PageDomWriteNodesItem.Raw[];
     }
 }

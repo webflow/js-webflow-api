@@ -17,7 +17,7 @@ export const UserAccessAuditLogItem: core.serialization.ObjectSchema<
 });
 
 export declare namespace UserAccessAuditLogItem {
-    interface Raw {
+    export interface Raw {
         eventSubType?: UserAccessAuditLogItemEventSubType.Raw | null;
         payload?: UserAccess.Raw | null;
     }

@@ -12,5 +12,5 @@ export const CommentsListCommentRepliesRequestSortBy: core.serialization.Schema<
 > = core.serialization.enum_(["createdOn", "lastUpdated"]);
 
 export declare namespace CommentsListCommentRepliesRequestSortBy {
-    type Raw = "createdOn" | "lastUpdated";
+    export type Raw = "createdOn" | "lastUpdated";
 }

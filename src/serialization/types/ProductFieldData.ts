@@ -18,20 +18,20 @@ export const ProductFieldData: core.serialization.ObjectSchema<
     description: core.serialization.string().optional(),
     shippable: core.serialization.boolean().optional(),
     skuProperties: core.serialization.property("sku-properties", core.serialization.list(SkuPropertyList).optional()),
-    categories: core.serialization.list(core.serialization.string()).optional(),
+    category: core.serialization.list(core.serialization.string()).optional(),
     taxCategory: core.serialization.property("tax-category", ProductFieldDataTaxCategory.optional()),
     defaultSku: core.serialization.property("default-sku", core.serialization.string().optional()),
     ecProductType: core.serialization.property("ec-product-type", ProductFieldDataEcProductType.optional()),
 });
 
 export declare namespace ProductFieldData {
-    interface Raw {
+    export interface Raw {
         name?: string | null;
         slug?: string | null;
         description?: string | null;
         shippable?: boolean | null;
         "sku-properties"?: SkuPropertyList.Raw[] | null;
-        categories?: string[] | null;
+        category?: string[] | null;
         "tax-category"?: ProductFieldDataTaxCategory.Raw | null;
         "default-sku"?: string | null;
         "ec-product-type"?: ProductFieldDataEcProductType.Raw | null;

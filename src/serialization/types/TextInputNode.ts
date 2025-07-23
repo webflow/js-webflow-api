@@ -14,7 +14,7 @@ export const TextInputNode: core.serialization.ObjectSchema<serializers.TextInpu
     });
 
 export declare namespace TextInputNode {
-    interface Raw {
+    export interface Raw {
         id: string;
         placeholder: string;
         attributes?: Record<string, string> | null;
