@@ -12,7 +12,7 @@
         "test": "jest"
     },
     "dependencies": {
-        "crypto-browserify": "^3.12.0",
+        "crypto-browserify": "^3.12.1",
         "form-data": "^4.0.0",
         "formdata-node": "^6.0.3",
         "js-base64": "3.7.2",
@@ -44,6 +44,6 @@
         "crypto": false
     },
     "resolutions": {
-        "@types/babel__traverse": "7.20.6"
+        "pbkdf2": "^3.1.3"
     }
 }
