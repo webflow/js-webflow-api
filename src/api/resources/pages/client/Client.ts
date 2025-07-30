@@ -314,7 +314,7 @@ export class Pages {
      * Required scope | `pages:write`
      *
      * @param {string} pageId - Unique identifier for a Page
-     * @param {Webflow.UpdatePageSettingsRequest} request
+     * @param {Webflow.PageMetadataWrite} request
      * @param {Pages.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Webflow.BadRequestError}
@@ -326,38 +326,26 @@ export class Pages {
      * @example
      *     await client.pages.updatePageSettings("63c720f9347c2139b248e552", {
      *         localeId: "65427cf400e02b306eaa04a0",
-     *         body: {
-     *             id: "6596da6045e56dee495bcbba",
-     *             siteId: "6258612d1ee792848f805dcf",
-     *             title: "Guide to the Galaxy",
-     *             slug: "guide-to-the-galaxy",
-     *             createdOn: "2024-03-11T10:42:00Z",
-     *             lastUpdated: "2024-03-11T10:42:42Z",
-     *             archived: false,
-     *             draft: false,
-     *             canBranch: true,
-     *             isBranch: false,
-     *             seo: {
-     *                 title: "The Ultimate Hitchhiker's Guide to the Galaxy",
-     *                 description: "Everything you need to know about the galaxy, from avoiding Vogon poetry to the importance of towels."
-     *             },
-     *             openGraph: {
-     *                 title: "Explore the Cosmos with The Ultimate Guide",
-     *                 titleCopied: false,
-     *                 description: "Dive deep into the mysteries of the universe with your guide to everything galactic.",
-     *                 descriptionCopied: false
-     *             },
-     *             localeId: "653fd9af6a07fc9cfd7a5e57",
-     *             publishedPath: "/en-us/guide-to-the-galaxy"
+     *         title: "Guide to the Galaxy",
+     *         slug: "guide-to-the-galaxy",
+     *         seo: {
+     *             title: "The Ultimate Hitchhiker's Guide to the Galaxy",
+     *             description: "Everything you need to know about the galaxy, from avoiding Vogon poetry to the importance of towels."
+     *         },
+     *         openGraph: {
+     *             title: "Explore the Cosmos with The Ultimate Guide",
+     *             titleCopied: false,
+     *             description: "Dive deep into the mysteries of the universe with your guide to everything galactic.",
+     *             descriptionCopied: false
      *         }
      *     })
      */
     public async updatePageSettings(
         pageId: string,
-        request: Webflow.UpdatePageSettingsRequest,
+        request: Webflow.PageMetadataWrite = {},
         requestOptions?: Pages.RequestOptions
     ): Promise<Webflow.Page> {
-        const { localeId, body: _body } = request;
+        const { localeId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (localeId != null) {
             _queryParams["localeId"] = localeId;
@@ -382,7 +370,7 @@ export class Pages {
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.Page.jsonOrThrow(_body, {
+            body: serializers.PageMetadataWrite.jsonOrThrow(_body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,

@@ -46,15 +46,21 @@ export class Components {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.components.list("580e63e98c9a982ac9b8b741")
+     *     await client.components.list("580e63e98c9a982ac9b8b741", {
+     *         branchId: "68026fa68ef6dc744c75b833"
+     *     })
      */
     public async list(
         siteId: string,
         request: Webflow.ComponentsListRequest = {},
         requestOptions?: Components.RequestOptions
     ): Promise<Webflow.ComponentList> {
-        const { limit, offset } = request;
+        const { branchId, limit, offset } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (branchId != null) {
+            _queryParams["branchId"] = branchId;
+        }
+
         if (limit != null) {
             _queryParams["limit"] = limit.toString();
         }
@@ -184,7 +190,8 @@ export class Components {
      *
      * @example
      *     await client.components.getContent("580e63e98c9a982ac9b8b741", "8505ba55-ef72-629e-f85c-33e4b703d48b", {
-     *         localeId: "65427cf400e02b306eaa04a0"
+     *         localeId: "65427cf400e02b306eaa04a0",
+     *         branchId: "68026fa68ef6dc744c75b833"
      *     })
      */
     public async getContent(
@@ -193,10 +200,14 @@ export class Components {
         request: Webflow.ComponentsGetContentRequest = {},
         requestOptions?: Components.RequestOptions
     ): Promise<Webflow.ComponentDom> {
-        const { localeId, limit, offset } = request;
+        const { localeId, branchId, limit, offset } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (localeId != null) {
             _queryParams["localeId"] = localeId;
+        }
+
+        if (branchId != null) {
+            _queryParams["branchId"] = branchId;
         }
 
         if (limit != null) {
@@ -337,6 +348,7 @@ export class Components {
      * @example
      *     await client.components.updateContent("580e63e98c9a982ac9b8b741", "8505ba55-ef72-629e-f85c-33e4b703d48b", {
      *         localeId: "65427cf400e02b306eaa04a0",
+     *         branchId: "68026fa68ef6dc744c75b833",
      *         nodes: [{
      *                 nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad623",
      *                 text: "<h1>The Hitchhiker's Guide to the Galaxy</h1>"
@@ -377,10 +389,14 @@ export class Components {
         request: Webflow.ComponentDomWrite,
         requestOptions?: Components.RequestOptions
     ): Promise<Webflow.ComponentsUpdateContentResponse> {
-        const { localeId, ..._body } = request;
+        const { localeId, branchId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (localeId != null) {
             _queryParams["localeId"] = localeId;
+        }
+
+        if (branchId != null) {
+            _queryParams["branchId"] = branchId;
         }
 
         const _response = await core.fetcher({
@@ -512,7 +528,8 @@ export class Components {
      *
      * @example
      *     await client.components.getProperties("580e63e98c9a982ac9b8b741", "8505ba55-ef72-629e-f85c-33e4b703d48b", {
-     *         localeId: "65427cf400e02b306eaa04a0"
+     *         localeId: "65427cf400e02b306eaa04a0",
+     *         branchId: "68026fa68ef6dc744c75b833"
      *     })
      */
     public async getProperties(
@@ -521,10 +538,14 @@ export class Components {
         request: Webflow.ComponentsGetPropertiesRequest = {},
         requestOptions?: Components.RequestOptions
     ): Promise<Webflow.ComponentProperties> {
-        const { localeId, limit, offset } = request;
+        const { localeId, branchId, limit, offset } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (localeId != null) {
             _queryParams["localeId"] = localeId;
+        }
+
+        if (branchId != null) {
+            _queryParams["branchId"] = branchId;
         }
 
         if (limit != null) {
@@ -660,6 +681,7 @@ export class Components {
      * @example
      *     await client.components.updateProperties("580e63e98c9a982ac9b8b741", "8505ba55-ef72-629e-f85c-33e4b703d48b", {
      *         localeId: "65427cf400e02b306eaa04a0",
+     *         branchId: "68026fa68ef6dc744c75b833",
      *         properties: [{
      *                 propertyId: "a245c12d-995b-55ee-5ec7-aa36a6cad623",
      *                 text: "The Hitchhiker\u2019s Guide to the Galaxy"
@@ -675,10 +697,14 @@ export class Components {
         request: Webflow.ComponentPropertiesWrite,
         requestOptions?: Components.RequestOptions
     ): Promise<Webflow.ComponentsUpdatePropertiesResponse> {
-        const { localeId, ..._body } = request;
+        const { localeId, branchId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (localeId != null) {
             _queryParams["localeId"] = localeId;
+        }
+
+        if (branchId != null) {
+            _queryParams["branchId"] = branchId;
         }
 
         const _response = await core.fetcher({

@@ -9,7 +9,7 @@ import * as Webflow from "../index";
  */
 export interface Field {
     /** Unique identifier for a Field */
-    id: string;
+    id?: string;
     /** define whether a field is required in a collection */
     isRequired: boolean;
     /** Define whether the field is editable */
@@ -22,4 +22,6 @@ export interface Field {
     displayName: string;
     /** Additional text to help anyone filling out this field */
     helpText?: string;
+    /** The validations for the field */
+    validations?: Webflow.FieldValidations;
 }

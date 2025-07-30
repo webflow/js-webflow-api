@@ -659,6 +659,11 @@ export class Products {
      * @example
      *     await client.products.createSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b8b745", {
      *         skus: [{
+     *                 id: "66072fb71b89448912e2681c",
+     *                 cmsLocaleId: "653ad57de882f528b32e810e",
+     *                 lastPublished: "2023-03-17T18:47:35Z",
+     *                 lastUpdated: "2023-03-17T18:47:35Z",
+     *                 createdOn: "2023-03-17T18:47:35Z",
      *                 fieldData: {
      *                     name: "Colorful T-shirt - Default",
      *                     slug: "colorful-t-shirt-default",
@@ -811,6 +816,11 @@ export class Products {
      * @example
      *     await client.products.updateSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b8b745", "5e8518516e147040726cc415", {
      *         sku: {
+     *             id: "66072fb71b89448912e2681c",
+     *             cmsLocaleId: "653ad57de882f528b32e810e",
+     *             lastPublished: "2023-03-17T18:47:35Z",
+     *             lastUpdated: "2023-03-17T18:47:35Z",
+     *             createdOn: "2023-03-17T18:47:35Z",
      *             fieldData: {
      *                 name: "Colorful T-shirt - Default",
      *                 slug: "colorful-t-shirt-default",

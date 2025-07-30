@@ -17,6 +17,6 @@ export const Authorization: core.serialization.ObjectSchema<serializers.Authoriz
 export declare namespace Authorization {
     interface Raw {
         authorization?: AuthorizationAuthorization.Raw | null;
-        application?: (Application.Raw | undefined) | null;
+        application?: Application.Raw | null;
     }
 }

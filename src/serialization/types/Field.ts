@@ -6,25 +6,28 @@ import * as serializers from "../index";
 import * as Webflow from "../../api/index";
 import * as core from "../../core";
 import { FieldType } from "./FieldType";
+import { FieldValidations } from "./FieldValidations";
 
 export const Field: core.serialization.ObjectSchema<serializers.Field.Raw, Webflow.Field> = core.serialization.object({
-    id: core.serialization.string(),
+    id: core.serialization.string().optional(),
     isRequired: core.serialization.boolean(),
     isEditable: core.serialization.boolean().optional(),
     type: FieldType,
     slug: core.serialization.string().optional(),
     displayName: core.serialization.string(),
     helpText: core.serialization.string().optional(),
+    validations: FieldValidations.optional(),
 });
 
 export declare namespace Field {
     interface Raw {
-        id: string;
+        id?: string | null;
         isRequired: boolean;
         isEditable?: boolean | null;
         type: FieldType.Raw;
         slug?: string | null;
         displayName: string;
         helpText?: string | null;
+        validations?: FieldValidations.Raw | null;
     }
 }

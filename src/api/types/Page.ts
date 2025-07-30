@@ -9,7 +9,7 @@ import * as Webflow from "../index";
  */
 export interface Page {
     /** Unique identifier for the Page */
-    id: string;
+    id?: string;
     /** Unique identifier for the Site */
     siteId?: string;
     /** Title of the Page */
@@ -28,10 +28,12 @@ export interface Page {
     archived?: boolean;
     /** Whether the Page is a draft */
     draft?: boolean;
-    /** Indicates whether the Page supports [Page Branching](https://university.webflow.com/lesson/page-branching) */
+    /** Indicates whether the Page supports [Page Branching](https://university.webflow.com/lesson/page-branching). Pages that are already branches cannot be branched again. */
     canBranch?: boolean;
     /** Indicates whether the Page is a Branch of another Page [Page Branching](https://university.webflow.com/lesson/page-branching) */
     isBranch?: boolean;
+    /** If the Page is a Branch of another Page, this is the ID of the Branch */
+    branchId?: string;
     /** SEO-related fields for the Page */
     seo?: Webflow.PageSeo;
     /** Open Graph fields for the Page */

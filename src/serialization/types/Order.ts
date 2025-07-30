@@ -9,6 +9,8 @@ import { OrderStatus } from "./OrderStatus";
 import { OrderDisputeLastStatus } from "./OrderDisputeLastStatus";
 import { OrderPrice } from "./OrderPrice";
 import { OrderAddress } from "./OrderAddress";
+import { OrderShippingAddress } from "./OrderShippingAddress";
+import { OrderBillingAddress } from "./OrderBillingAddress";
 import { OrderCustomerInfo } from "./OrderCustomerInfo";
 import { OrderPurchasedItem } from "./OrderPurchasedItem";
 import { StripeDetails } from "./StripeDetails";
@@ -33,8 +35,8 @@ export const Order: core.serialization.ObjectSchema<serializers.Order.Raw, Webfl
     netAmount: OrderPrice.optional(),
     applicationFee: OrderPrice.optional(),
     allAddresses: core.serialization.list(OrderAddress).optional(),
-    shippingAddress: OrderAddress.optional(),
-    billingAddress: OrderAddress.optional(),
+    shippingAddress: OrderShippingAddress.optional(),
+    billingAddress: OrderBillingAddress.optional(),
     shippingProvider: core.serialization.string().optional(),
     shippingTracking: core.serialization.string().optional(),
     shippingTrackingUrl: core.serialization.property("shippingTrackingURL", core.serialization.string().optional()),
@@ -72,8 +74,8 @@ export declare namespace Order {
         netAmount?: OrderPrice.Raw | null;
         applicationFee?: OrderPrice.Raw | null;
         allAddresses?: OrderAddress.Raw[] | null;
-        shippingAddress?: OrderAddress.Raw | null;
-        billingAddress?: OrderAddress.Raw | null;
+        shippingAddress?: OrderShippingAddress.Raw | null;
+        billingAddress?: OrderBillingAddress.Raw | null;
         shippingProvider?: string | null;
         shippingTracking?: string | null;
         shippingTrackingURL?: string | null;

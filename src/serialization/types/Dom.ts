@@ -10,6 +10,7 @@ import { Pagination } from "./Pagination";
 
 export const Dom: core.serialization.ObjectSchema<serializers.Dom.Raw, Webflow.Dom> = core.serialization.object({
     pageId: core.serialization.string().optional(),
+    branchId: core.serialization.string().optional(),
     nodes: core.serialization.list(Node).optional(),
     pagination: Pagination.optional(),
     lastUpdated: core.serialization.date().optional(),
@@ -18,6 +19,7 @@ export const Dom: core.serialization.ObjectSchema<serializers.Dom.Raw, Webflow.D
 export declare namespace Dom {
     interface Raw {
         pageId?: string | null;
+        branchId?: string | null;
         nodes?: Node.Raw[] | null;
         pagination?: Pagination.Raw | null;
         lastUpdated?: string | null;

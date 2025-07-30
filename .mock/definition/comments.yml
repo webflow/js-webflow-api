@@ -1,0 +1,40 @@
+imports:
+  root: __package__.yml
+webhooks:
+  comment_created:
+    audiences: []
+    method: POST
+    display-name: New Comment Thread
+    headers: {}
+    payload: root.Comment
+    examples:
+      - payload:
+          triggerType: comment_created
+          payload:
+            threadId: 679d2ddb5196117ad04d1ffa
+            commentId: 679d2ddb5196117ad04d1ff8
+            type: new_comment
+            siteId: 679826b3b20b045e176bc4b5
+            pageId: 679826b3b20b045e176bc4bc
+            localeId: 67993753d910db250db64b3e
+            breakpoint: main
+            url: >-
+              https://webflow.com/design/site-slug-4ec832?workflow=comment&commentId=679d2ddb5196117ad04d1ffa&pageId=679826b3b20b045e176bc4bc
+            content: 'This comment mentions another user [[6287ec36a841b25637c663df]] '
+            isResolved: false
+            author:
+              userId: 6287ec36a841b25637c663df
+              email: ford.prefect@heartofgold.spaceship
+              name: Ford Prefect
+            mentionedUsers:
+              - userId: 6287ec36a841b25637c663df
+                email: arthur.dent@heartofgold.spaceship
+                name: Arthur Dent
+            createdOn: '2025-01-31T20:08:59.759Z'
+            lastUpdated: '2025-01-31T20:08:59.759Z'
+    docs: |
+      Information about a new comment thread or reply
+
+      <Note title="Timing of comment webhooks">
+        There may be a delay of up to 5 minutes before new comments appear in the system and trigger the webhook notification.
+      </Note>

@@ -5,9 +5,9 @@
 import * as Webflow from "../../../index";
 
 export type PageDomWriteNodesItem =
-    | Webflow.TextNodeWrite
-    | Webflow.ComponentInstanceNodePropertyOverridesWrite
-    | Webflow.SelectNodeWrite
-    | Webflow.TextInputNodeWrite
-    | Webflow.SubmitButtonNodeWrite
-    | Webflow.SearchButtonNodeWrite;
+    | Webflow.TextNode
+    | Webflow.ComponentInstance
+    | Webflow.Select
+    | Webflow.TextInput
+    | Webflow.SubmitButton
+    | Webflow.SearchButton;

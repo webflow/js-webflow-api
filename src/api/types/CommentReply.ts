@@ -9,17 +9,17 @@ import * as Webflow from "../index";
  */
 export interface CommentReply {
     /** Unique identifier for the comment thread */
-    id: string;
+    id?: string;
     /** The comment reply unique identifier */
-    commentId: string;
+    commentId?: string;
     /** The site unique identifier */
-    siteId: string;
+    siteId?: string;
     /** The page unique identifier */
-    pageId: string;
+    pageId?: string;
     /** The locale unique identifier */
     localeId?: string;
     /** The breakpoint the comment was left on */
-    breakpoint: string;
+    breakpoint?: string;
     /** The content of the comment reply */
     content: string;
     /** Boolean determining if the comment thread is resolved */
@@ -28,7 +28,7 @@ export interface CommentReply {
     /** List of mentioned users is an empty array until email notifications are sent. */
     mentionedUsers?: Webflow.CommentReplyMentionedUsersItem[];
     /** The date the item was last updated */
-    lastUpdated: string;
+    lastUpdated?: string;
     /** The date the item was created */
-    createdOn: string;
+    createdOn?: string;
 }

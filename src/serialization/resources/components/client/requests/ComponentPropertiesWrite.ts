@@ -9,7 +9,7 @@ import { ComponentPropertiesWritePropertiesItem } from "../../types/ComponentPro
 
 export const ComponentPropertiesWrite: core.serialization.Schema<
     serializers.ComponentPropertiesWrite.Raw,
-    Omit<Webflow.ComponentPropertiesWrite, "localeId">
+    Omit<Webflow.ComponentPropertiesWrite, "localeId" | "branchId">
 > = core.serialization.object({
     properties: core.serialization.list(ComponentPropertiesWritePropertiesItem),
 });
