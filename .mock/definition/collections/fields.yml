@@ -12,14 +12,12 @@ service:
         Create a custom field in a collection.
 
 
-        Slugs must be all lowercase letters without spaces.
+        Field validation is currently not available through the API.
 
-        If you pass a string with uppercase letters and/or spaces to the "Slug"
-        property, Webflow will
 
-        convert the slug to lowercase and replace spaces with "-."
-
-        This endpoint does not currently support bulk creation.
+        Bulk creation of fields is not supported with this endpoint. To add
+        multiple fields at once, include them when you [create the
+        collection.](/data/v2.0.0/reference/cms/collections/create)
 
 
         Required scope | `cms:write`
@@ -202,5 +200,7 @@ service:
               slug: post-body
               displayName: Post Body
               helpText: Add the body of your post here
+              validations:
+                additionalProperties: additionalProperties
   source:
     openapi: ../../../openapi/referenced-specs/v2.yml

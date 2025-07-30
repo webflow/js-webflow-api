@@ -7,5 +7,5 @@ import * as Webflow from "../index";
 export interface Authorization {
     /** The Authorization object */
     authorization?: Webflow.AuthorizationAuthorization;
-    application?: Webflow.Application | undefined;
+    application?: Webflow.Application;
 }

@@ -4,7 +4,10 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         customDomains: ["660c6449dd97ebc7346ac629", "660c6449dd97ebc7346ac62f"],
+ *         publishToWebflowSubdomain: false
+ *     }
  */
 export interface SitesPublishRequest {
     /** Array of Custom Domain IDs to publish */

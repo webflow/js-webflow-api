@@ -4,7 +4,7 @@
 
 export interface Domain {
     /** Unique identifier for the Domain */
-    id: string;
+    id?: string;
     /** The registered Domain name */
     url?: string;
     /** The date the custom domain was last published to */

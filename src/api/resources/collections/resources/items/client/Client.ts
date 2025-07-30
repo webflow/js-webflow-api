@@ -189,7 +189,7 @@ export class Items {
      * Create Item(s) in a Collection.
      *
      *
-     * To create items across multiple locales, please use [this endpoint.](/v2.0.0/data/reference/cms/collection-items/staged-items/create-items)
+     * To create items across multiple locales, please use [this endpoint.](/data/reference/cms/collection-items/staged-items/create-items)
      *
      * Required scope | `CMS:write`
      *
@@ -205,31 +205,35 @@ export class Items {
      *
      * @example
      *     await client.collections.items.createItem("580e63fc8c9a982ac9b8b745", {
-     *         isArchived: false,
-     *         isDraft: false,
-     *         fieldData: {
-     *             name: "Pan Galactic Gargle Blaster Recipe",
-     *             slug: "pan-galactic-gargle-blaster"
+     *         body: {
+     *             isArchived: false,
+     *             isDraft: false,
+     *             fieldData: {
+     *                 name: "Pan Galactic Gargle Blaster Recipe",
+     *                 slug: "pan-galactic-gargle-blaster"
+     *             }
      *         }
      *     })
      *
      * @example
      *     await client.collections.items.createItem("580e63fc8c9a982ac9b8b745", {
-     *         items: [{
-     *                 isArchived: false,
-     *                 isDraft: false,
-     *                 fieldData: {
-     *                     name: "Senior Data Analyst",
-     *                     slug: "senior-data-analyst"
-     *                 }
-     *             }, {
-     *                 isArchived: false,
-     *                 isDraft: false,
-     *                 fieldData: {
-     *                     name: "Product Manager",
-     *                     slug: "product-manager"
-     *                 }
-     *             }]
+     *         body: {
+     *             items: [{
+     *                     isArchived: false,
+     *                     isDraft: false,
+     *                     fieldData: {
+     *                         name: "Senior Data Analyst",
+     *                         slug: "senior-data-analyst"
+     *                     }
+     *                 }, {
+     *                     isArchived: false,
+     *                     isDraft: false,
+     *                     fieldData: {
+     *                         name: "Product Manager",
+     *                         slug: "product-manager"
+     *                     }
+     *                 }]
+     *         }
      *     })
      */
     public async createItem(
@@ -237,6 +241,12 @@ export class Items {
         request: Webflow.collections.ItemsCreateItemRequest,
         requestOptions?: Items.RequestOptions
     ): Promise<Webflow.CollectionItem> {
+        const { skipInvalidFiles, body: _body } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (skipInvalidFiles != null) {
+            _queryParams["skipInvalidFiles"] = skipInvalidFiles.toString();
+        }
+
         const _response = await core.fetcher({
             url: urlJoin(
                 ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
@@ -254,8 +264,9 @@ export class Items {
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
+            queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.collections.ItemsCreateItemRequest.jsonOrThrow(request, {
+            body: serializers.collections.ItemsCreateItemRequestBody.jsonOrThrow(_body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -552,7 +563,13 @@ export class Items {
         collectionId: string,
         request: Webflow.collections.ItemsUpdateItemsRequest = {},
         requestOptions?: Items.RequestOptions
-    ): Promise<Webflow.CollectionItem> {
+    ): Promise<Webflow.collections.ItemsUpdateItemsResponse> {
+        const { skipInvalidFiles, ..._body } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (skipInvalidFiles != null) {
+            _queryParams["skipInvalidFiles"] = skipInvalidFiles.toString();
+        }
+
         const _response = await core.fetcher({
             url: urlJoin(
                 ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
@@ -570,8 +587,9 @@ export class Items {
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
+            queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.collections.ItemsUpdateItemsRequest.jsonOrThrow(request, {
+            body: serializers.collections.ItemsUpdateItemsRequest.jsonOrThrow(_body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -581,7 +599,7 @@ export class Items {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.CollectionItem.parseOrThrow(_response.body, {
+            return serializers.collections.ItemsUpdateItemsResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -824,7 +842,7 @@ export class Items {
      * Create item(s) in a collection that will be immediately published to the live site.
      *
      *
-     * To create items across multiple locales, [please use this endpoint.](/v2.0.0/data/reference/cms/collection-items/staged-items/create-items)
+     * To create items across multiple locales, [please use this endpoint.](/data/reference/cms/collection-items/staged-items/create-items)
      *
      *
      * Required scope | `CMS:write`
@@ -841,31 +859,35 @@ export class Items {
      *
      * @example
      *     await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
-     *         isArchived: false,
-     *         isDraft: false,
-     *         fieldData: {
-     *             name: "Pan Galactic Gargle Blaster Recipe",
-     *             slug: "pan-galactic-gargle-blaster"
+     *         body: {
+     *             isArchived: false,
+     *             isDraft: false,
+     *             fieldData: {
+     *                 name: "Pan Galactic Gargle Blaster Recipe",
+     *                 slug: "pan-galactic-gargle-blaster"
+     *             }
      *         }
      *     })
      *
      * @example
      *     await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
-     *         items: [{
-     *                 isArchived: false,
-     *                 isDraft: false,
-     *                 fieldData: {
-     *                     name: "Senior Data Analyst",
-     *                     slug: "senior-data-analyst"
-     *                 }
-     *             }, {
-     *                 isArchived: false,
-     *                 isDraft: false,
-     *                 fieldData: {
-     *                     name: "Product Manager",
-     *                     slug: "product-manager"
-     *                 }
-     *             }]
+     *         body: {
+     *             items: [{
+     *                     isArchived: false,
+     *                     isDraft: false,
+     *                     fieldData: {
+     *                         name: "Senior Data Analyst",
+     *                         slug: "senior-data-analyst"
+     *                     }
+     *                 }, {
+     *                     isArchived: false,
+     *                     isDraft: false,
+     *                     fieldData: {
+     *                         name: "Product Manager",
+     *                         slug: "product-manager"
+     *                     }
+     *                 }]
+     *         }
      *     })
      */
     public async createItemLive(
@@ -873,6 +895,12 @@ export class Items {
         request: Webflow.collections.ItemsCreateItemLiveRequest,
         requestOptions?: Items.RequestOptions
     ): Promise<Webflow.CollectionItem> {
+        const { skipInvalidFiles, body: _body } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (skipInvalidFiles != null) {
+            _queryParams["skipInvalidFiles"] = skipInvalidFiles.toString();
+        }
+
         const _response = await core.fetcher({
             url: urlJoin(
                 ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
@@ -890,8 +918,9 @@ export class Items {
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
+            queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.collections.ItemsCreateItemLiveRequest.jsonOrThrow(request, {
+            body: serializers.collections.ItemsCreateItemLiveRequestBody.jsonOrThrow(_body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -980,9 +1009,7 @@ export class Items {
     }
 
     /**
-     * Remove an item or multiple items (up to 100 items) from the live site.
-     *
-     * Using this endpoint to delete published item(s) will unpublish the item(s) from the live site and set the item(s) `isDraft` property to `true`.
+     * Unpublish up to 100 items from the live site and set the `isDraft` property to `true`.
      *
      * <Tip title="Localization Tip">Items will only be unpublished in the primary locale unless a `cmsLocaleId` is included in the request.</Tip>
      *
@@ -1187,6 +1214,12 @@ export class Items {
         request: Webflow.collections.ItemsUpdateItemsLiveRequest = {},
         requestOptions?: Items.RequestOptions
     ): Promise<Webflow.CollectionItemListNoPagination> {
+        const { skipInvalidFiles, ..._body } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (skipInvalidFiles != null) {
+            _queryParams["skipInvalidFiles"] = skipInvalidFiles.toString();
+        }
+
         const _response = await core.fetcher({
             url: urlJoin(
                 ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
@@ -1204,8 +1237,9 @@ export class Items {
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
+            queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.collections.ItemsUpdateItemsLiveRequest.jsonOrThrow(request, {
+            body: serializers.collections.ItemsUpdateItemsLiveRequest.jsonOrThrow(_body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -1345,6 +1379,12 @@ export class Items {
         request: Webflow.collections.CreateBulkCollectionItemRequestBody,
         requestOptions?: Items.RequestOptions
     ): Promise<Webflow.BulkCollectionItem> {
+        const { skipInvalidFiles, ..._body } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (skipInvalidFiles != null) {
+            _queryParams["skipInvalidFiles"] = skipInvalidFiles.toString();
+        }
+
         const _response = await core.fetcher({
             url: urlJoin(
                 ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
@@ -1362,8 +1402,9 @@ export class Items {
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
+            queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.collections.CreateBulkCollectionItemRequestBody.jsonOrThrow(request, {
+            body: serializers.collections.CreateBulkCollectionItemRequestBody.jsonOrThrow(_body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -1719,7 +1760,7 @@ export class Items {
      *
      * @param {string} collectionId - Unique identifier for a Collection
      * @param {string} itemId - Unique identifier for an Item
-     * @param {Webflow.CollectionItemPatchSingle} request
+     * @param {Webflow.collections.ItemsUpdateItemRequest} request
      * @param {Items.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Webflow.BadRequestError}
@@ -1730,20 +1771,28 @@ export class Items {
      *
      * @example
      *     await client.collections.items.updateItem("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754", {
-     *         isArchived: false,
-     *         isDraft: false,
-     *         fieldData: {
-     *             name: "Pan Galactic Gargle Blaster Recipe",
-     *             slug: "pan-galactic-gargle-blaster"
+     *         body: {
+     *             isArchived: false,
+     *             isDraft: false,
+     *             fieldData: {
+     *                 name: "Pan Galactic Gargle Blaster Recipe",
+     *                 slug: "pan-galactic-gargle-blaster"
+     *             }
      *         }
      *     })
      */
     public async updateItem(
         collectionId: string,
         itemId: string,
-        request: Webflow.CollectionItemPatchSingle,
+        request: Webflow.collections.ItemsUpdateItemRequest,
         requestOptions?: Items.RequestOptions
     ): Promise<Webflow.CollectionItem> {
+        const { skipInvalidFiles, body: _body } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (skipInvalidFiles != null) {
+            _queryParams["skipInvalidFiles"] = skipInvalidFiles.toString();
+        }
+
         const _response = await core.fetcher({
             url: urlJoin(
                 ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
@@ -1761,8 +1810,9 @@ export class Items {
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
+            queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.CollectionItemPatchSingle.jsonOrThrow(request, {
+            body: serializers.CollectionItemPatchSingle.jsonOrThrow(_body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -1990,9 +2040,9 @@ export class Items {
     }
 
     /**
-     * Remove a live item from the site. Removing a published item will unpublish the item from the live site and set it to draft.
+     * Unpublish a live item from the site and set the `isDraft` property to `true`.
      *
-     * This endpoint does not currently support bulk deletion.
+     * For bulk unpublishing, please use [this endpoint.](/data/v2.0.0/reference/cms/collection-items/live-items/delete-items-live)
      *
      * Required scope | `CMS:write`
      *
@@ -2125,7 +2175,7 @@ export class Items {
      *
      * @param {string} collectionId - Unique identifier for a Collection
      * @param {string} itemId - Unique identifier for an Item
-     * @param {Webflow.CollectionItemPatchSingle} request
+     * @param {Webflow.collections.ItemsUpdateItemLiveRequest} request
      * @param {Items.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Webflow.BadRequestError}
@@ -2137,20 +2187,28 @@ export class Items {
      *
      * @example
      *     await client.collections.items.updateItemLive("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754", {
-     *         isArchived: false,
-     *         isDraft: false,
-     *         fieldData: {
-     *             name: "Pan Galactic Gargle Blaster Recipe",
-     *             slug: "pan-galactic-gargle-blaster"
+     *         body: {
+     *             isArchived: false,
+     *             isDraft: false,
+     *             fieldData: {
+     *                 name: "Pan Galactic Gargle Blaster Recipe",
+     *                 slug: "pan-galactic-gargle-blaster"
+     *             }
      *         }
      *     })
      */
     public async updateItemLive(
         collectionId: string,
         itemId: string,
-        request: Webflow.CollectionItemPatchSingle,
+        request: Webflow.collections.ItemsUpdateItemLiveRequest,
         requestOptions?: Items.RequestOptions
     ): Promise<Webflow.CollectionItem> {
+        const { skipInvalidFiles, body: _body } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (skipInvalidFiles != null) {
+            _queryParams["skipInvalidFiles"] = skipInvalidFiles.toString();
+        }
+
         const _response = await core.fetcher({
             url: urlJoin(
                 ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
@@ -2168,8 +2226,9 @@ export class Items {
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
+            queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.CollectionItemPatchSingle.jsonOrThrow(request, {
+            body: serializers.CollectionItemPatchSingle.jsonOrThrow(_body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -2277,7 +2336,29 @@ export class Items {
      *
      * @example
      *     await client.collections.items.publishItem("580e63fc8c9a982ac9b8b745", {
-     *         itemIds: ["itemIds"]
+     *         itemIds: ["643fd856d66b6528195ee2ca", "643fd856d66b6528195ee2cb", "643fd856d66b6528195ee2cc"]
+     *     })
+     *
+     * @example
+     *     await client.collections.items.publishItem("580e63fc8c9a982ac9b8b745", {
+     *         items: [{
+     *                 id: "643fd856d66b6528195ee2ca",
+     *                 cmsLocaleIds: ["653ad57de882f528b32e810e"]
+     *             }, {
+     *                 id: "643fd856d66b6528195ee2cb",
+     *                 cmsLocaleIds: ["653ad57de882f528b32e810e"]
+     *             }, {
+     *                 id: "643fd856d66b6528195ee2cc",
+     *                 cmsLocaleIds: ["653ad57de882f528b32e810e"]
+     *             }]
+     *     })
+     *
+     * @example
+     *     await client.collections.items.publishItem("580e63fc8c9a982ac9b8b745", {
+     *         items: [{
+     *                 id: "643fd856d66b6528195ee2ca",
+     *                 cmsLocaleIds: ["653ad57de882f528b32e810e", "6514390aea353fc691d69827", "65143930ea353fc691d69cd8"]
+     *             }]
      *     })
      */
     public async publishItem(

@@ -765,7 +765,9 @@ export class Sites {
     /**
      * Publishes a site to one or more more domains.
      *
-     * <Note title="Endpoint-specific rate limit">This endpoint has a limit of one successful publish queue per minute.</Note>
+     * To publish to a specific custom domain, use the domain IDs from the [Get Custom Domains](/data/reference/sites/get-custom-domain) endpoint.
+     *
+     * <Note title="Rate limit: 1 publish per minute">This endpoint has a specific rate limit of one successful publish queue per minute.</Note>
      *
      * Required scope | `sites:write`
      *
@@ -780,7 +782,10 @@ export class Sites {
      * @throws {@link Webflow.TooManyRequestsError}
      *
      * @example
-     *     await client.sites.publish("580e63e98c9a982ac9b8b741")
+     *     await client.sites.publish("580e63e98c9a982ac9b8b741", {
+     *         customDomains: ["660c6449dd97ebc7346ac629", "660c6449dd97ebc7346ac62f"],
+     *         publishToWebflowSubdomain: false
+     *     })
      */
     public async publish(
         siteId: string,
