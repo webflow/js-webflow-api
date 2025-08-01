@@ -20,7 +20,6 @@ export interface User {
     createdOn?: Date;
     /** The timestamp the user was logged in */
     lastLogin?: Date;
-    /** The status of the user */
     status?: Webflow.UserStatus;
     /** Access groups the user belongs to */
     accessGroups?: Webflow.UserAccessGroupsItem[];

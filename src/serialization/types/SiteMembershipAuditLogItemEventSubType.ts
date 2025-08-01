@@ -12,5 +12,5 @@ export const SiteMembershipAuditLogItemEventSubType: core.serialization.Schema<
 > = core.serialization.enum_(["user_added", "user_removed", "user_role_updated"]);
 
 export declare namespace SiteMembershipAuditLogItemEventSubType {
-    type Raw = "user_added" | "user_removed" | "user_role_updated";
+    export type Raw = "user_added" | "user_removed" | "user_role_updated";
 }

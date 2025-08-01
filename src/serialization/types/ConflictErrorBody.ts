@@ -14,5 +14,5 @@ export const ConflictErrorBody: core.serialization.Schema<
 > = core.serialization.undiscriminatedUnion([DuplicateUserEmail, UserLimitReached]);
 
 export declare namespace ConflictErrorBody {
-    type Raw = (DuplicateUserEmail.Raw | undefined) | (UserLimitReached.Raw | undefined);
+    export type Raw = (DuplicateUserEmail.Raw | undefined) | (UserLimitReached.Raw | undefined);
 }

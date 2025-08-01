@@ -14,7 +14,7 @@ export const FormsUpdateSubmissionRequest: core.serialization.Schema<
 });
 
 export declare namespace FormsUpdateSubmissionRequest {
-    interface Raw {
+    export interface Raw {
         formSubmissionData?: Record<string, unknown> | null;
     }
 }

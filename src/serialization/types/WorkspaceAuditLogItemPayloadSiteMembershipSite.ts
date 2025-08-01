@@ -15,7 +15,7 @@ export const WorkspaceAuditLogItemPayloadSiteMembershipSite: core.serialization.
 });
 
 export declare namespace WorkspaceAuditLogItemPayloadSiteMembershipSite {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         slug?: string | null;
     }

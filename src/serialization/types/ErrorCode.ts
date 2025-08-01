@@ -40,7 +40,7 @@ export const ErrorCode: core.serialization.Schema<serializers.ErrorCode.Raw, Web
     ]);
 
 export declare namespace ErrorCode {
-    type Raw =
+    export type Raw =
         | "bad_request"
         | "collection_not_found"
         | "conflict"

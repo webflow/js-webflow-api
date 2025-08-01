@@ -53,6 +53,10 @@ import * as Webflow from "../../../../../../index";
  *     }
  */
 export interface CreateBulkCollectionItemRequestBody {
+    /**
+     * When true, invalid files are skipped and processing continues. When false, the entire request fails if any file is invalid.
+     */
+    skipInvalidFiles?: boolean;
     /** Array of identifiers for the locales where the item will be created */
     cmsLocaleIds?: string[];
     /** Indicates whether the item is archived. */

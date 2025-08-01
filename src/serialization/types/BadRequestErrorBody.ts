@@ -14,5 +14,5 @@ export const BadRequestErrorBody: core.serialization.Schema<
 > = core.serialization.undiscriminatedUnion([InvalidDomain, NoDomains]);
 
 export declare namespace BadRequestErrorBody {
-    type Raw = (InvalidDomain.Raw | undefined) | (NoDomains.Raw | undefined);
+    export type Raw = (InvalidDomain.Raw | undefined) | (NoDomains.Raw | undefined);
 }

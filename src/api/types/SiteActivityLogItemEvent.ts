@@ -45,7 +45,6 @@ export type SiteActivityLogItemEvent =
     | "branch_review_created"
     | "branch_review_approved"
     | "branch_review_canceled";
-
 export const SiteActivityLogItemEvent = {
     StylesModified: "styles_modified",
     SitePublished: "site_published",

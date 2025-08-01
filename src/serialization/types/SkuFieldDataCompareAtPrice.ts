@@ -15,7 +15,7 @@ export const SkuFieldDataCompareAtPrice: core.serialization.ObjectSchema<
 });
 
 export declare namespace SkuFieldDataCompareAtPrice {
-    interface Raw {
+    export interface Raw {
         value?: number | null;
         unit?: string | null;
     }

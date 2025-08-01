@@ -17,7 +17,7 @@ export const ListCustomCodeBlocks: core.serialization.ObjectSchema<
 });
 
 export declare namespace ListCustomCodeBlocks {
-    interface Raw {
+    export interface Raw {
         blocks?: CustomCodeBlock.Raw[] | null;
         pagination?: Pagination.Raw | null;
     }

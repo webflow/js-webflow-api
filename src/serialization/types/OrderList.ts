@@ -15,7 +15,7 @@ export const OrderList: core.serialization.ObjectSchema<serializers.OrderList.Ra
     });
 
 export declare namespace OrderList {
-    interface Raw {
+    export interface Raw {
         orders?: Order.Raw[] | null;
         pagination?: Pagination.Raw | null;
     }

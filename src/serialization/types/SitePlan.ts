@@ -16,7 +16,7 @@ export const SitePlan: core.serialization.ObjectSchema<serializers.SitePlan.Raw,
     });
 
 export declare namespace SitePlan {
-    interface Raw {
+    export interface Raw {
         id?: SitePlanId.Raw | null;
         name?: SitePlanName.Raw | null;
         pricingInfo?: string | null;

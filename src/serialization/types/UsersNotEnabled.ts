@@ -10,5 +10,5 @@ export const UsersNotEnabled: core.serialization.Schema<serializers.UsersNotEnab
     core.serialization.unknown();
 
 export declare namespace UsersNotEnabled {
-    type Raw = unknown;
+    export type Raw = unknown;
 }

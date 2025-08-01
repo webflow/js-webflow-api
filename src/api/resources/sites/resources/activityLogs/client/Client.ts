@@ -5,17 +5,22 @@
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
 import * as Webflow from "../../../../../index";
+import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../../../core/headers.js";
 import urlJoin from "url-join";
 import * as serializers from "../../../../../../serialization/index";
 import * as errors from "../../../../../../errors/index";
 
 export declare namespace ActivityLogs {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         accessToken: core.Supplier<core.BearerToken>;
+        /** Additional headers to include in requests. */
+        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
@@ -23,12 +28,16 @@ export declare namespace ActivityLogs {
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
         /** Additional headers to include in the request. */
-        headers?: Record<string, string>;
+        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
 }
 
 export class ActivityLogs {
-    constructor(protected readonly _options: ActivityLogs.Options) {}
+    protected readonly _options: ActivityLogs.Options;
+
+    constructor(_options: ActivityLogs.Options) {
+        this._options = _options;
+    }
 
     /**
      * Retrieve Activity Logs for a specific Site.
@@ -49,13 +58,21 @@ export class ActivityLogs {
      * @example
      *     await client.sites.activityLogs.list("580e63e98c9a982ac9b8b741")
      */
-    public async list(
+    public list(
         siteId: string,
         request: Webflow.sites.ActivityLogsListRequest = {},
-        requestOptions?: ActivityLogs.RequestOptions
-    ): Promise<Webflow.SiteActivityLogResponse> {
+        requestOptions?: ActivityLogs.RequestOptions,
+    ): core.HttpResponsePromise<Webflow.SiteActivityLogResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__list(siteId, request, requestOptions));
+    }
+
+    private async __list(
+        siteId: string,
+        request: Webflow.sites.ActivityLogsListRequest = {},
+        requestOptions?: ActivityLogs.RequestOptions,
+    ): Promise<core.WithRawResponse<Webflow.SiteActivityLogResponse>> {
         const { limit, offset } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (limit != null) {
             _queryParams["limit"] = limit.toString();
         }
@@ -66,41 +83,39 @@ export class ActivityLogs {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
-                `sites/${encodeURIComponent(siteId)}/activity_logs`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
+                        .base,
+                `sites/${encodeURIComponent(siteId)}/activity_logs`,
             ),
             method: "GET",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.4",
-                "User-Agent": "webflow-api/3.1.4",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
             queryParameters: _queryParams,
-            requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.SiteActivityLogResponse.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.SiteActivityLogResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 403:
-                    throw new Webflow.ForbiddenError(_response.error.body);
+                    throw new Webflow.ForbiddenError(_response.error.body, _response.rawResponse);
                 case 404:
                     throw new Webflow.NotFoundError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -109,7 +124,8 @@ export class ActivityLogs {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 429:
                     throw new Webflow.TooManyRequestsError(
@@ -119,7 +135,8 @@ export class ActivityLogs {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 500:
                     throw new Webflow.InternalServerError(
@@ -129,12 +146,14 @@ export class ActivityLogs {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.WebflowError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -144,14 +163,16 @@ export class ActivityLogs {
                 throw new errors.WebflowError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.WebflowTimeoutError(
-                    "Timeout exceeded when calling GET /sites/{site_id}/activity_logs."
+                    "Timeout exceeded when calling GET /sites/{site_id}/activity_logs.",
                 );
             case "unknown":
                 throw new errors.WebflowError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }

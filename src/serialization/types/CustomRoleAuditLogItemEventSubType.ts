@@ -12,5 +12,5 @@ export const CustomRoleAuditLogItemEventSubType: core.serialization.Schema<
 > = core.serialization.enum_(["role_created", "role_updated", "role_deleted"]);
 
 export declare namespace CustomRoleAuditLogItemEventSubType {
-    type Raw = "role_created" | "role_updated" | "role_deleted";
+    export type Raw = "role_created" | "role_updated" | "role_deleted";
 }

@@ -18,7 +18,7 @@ export const CollectionsCreateRequest: core.serialization.Schema<
 });
 
 export declare namespace CollectionsCreateRequest {
-    interface Raw {
+    export interface Raw {
         displayName: string;
         singularName: string;
         slug?: string | null;

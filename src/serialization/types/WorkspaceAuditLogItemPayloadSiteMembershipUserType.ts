@@ -12,5 +12,5 @@ export const WorkspaceAuditLogItemPayloadSiteMembershipUserType: core.serializat
 > = core.serialization.enum_(["member", "guest", "reviewer", "client"]);
 
 export declare namespace WorkspaceAuditLogItemPayloadSiteMembershipUserType {
-    type Raw = "member" | "guest" | "reviewer" | "client";
+    export type Raw = "member" | "guest" | "reviewer" | "client";
 }

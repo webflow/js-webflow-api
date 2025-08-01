@@ -6,7 +6,6 @@
  * The status of the plan
  */
 export type SkuFieldDataEcSkuSubscriptionPlanPlansItemStatus = "active" | "inactive" | "canceled";
-
 export const SkuFieldDataEcSkuSubscriptionPlanPlansItemStatus = {
     Active: "active",
     Inactive: "inactive",

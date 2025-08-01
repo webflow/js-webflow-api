@@ -16,7 +16,7 @@ export const Component: core.serialization.ObjectSchema<serializers.Component.Ra
     });
 
 export declare namespace Component {
-    interface Raw {
+    export interface Raw {
         id: string;
         name?: string | null;
         group?: string | null;

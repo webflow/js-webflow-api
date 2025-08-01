@@ -17,7 +17,7 @@ export const BulkCollectionItemFieldData: core.serialization.ObjectSchema<
     .passthrough();
 
 export declare namespace BulkCollectionItemFieldData {
-    interface Raw {
+    export interface Raw {
         name?: string | null;
         slug?: string | null;
         [key: string]: any;

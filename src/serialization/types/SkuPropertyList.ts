@@ -17,7 +17,7 @@ export const SkuPropertyList: core.serialization.ObjectSchema<
 });
 
 export declare namespace SkuPropertyList {
-    interface Raw {
+    export interface Raw {
         id: string;
         name: string;
         enum: SkuPropertyListEnumItem.Raw[];

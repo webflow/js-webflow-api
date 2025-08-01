@@ -14,7 +14,7 @@ export const ComponentsUpdateContentResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace ComponentsUpdateContentResponse {
-    interface Raw {
+    export interface Raw {
         errors: string[];
     }
 }

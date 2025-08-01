@@ -17,7 +17,7 @@ export const CustomRoleAuditLogItem: core.serialization.ObjectSchema<
 });
 
 export declare namespace CustomRoleAuditLogItem {
-    interface Raw {
+    export interface Raw {
         eventSubType?: CustomRoleAuditLogItemEventSubType.Raw | null;
         payload?: CustomRole.Raw | null;
     }

@@ -15,7 +15,7 @@ export const Assets: core.serialization.ObjectSchema<serializers.Assets.Raw, Web
     });
 
 export declare namespace Assets {
-    interface Raw {
+    export interface Raw {
         assets?: Asset.Raw[] | null;
         pagination?: Pagination.Raw | null;
     }

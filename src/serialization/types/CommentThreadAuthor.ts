@@ -16,7 +16,7 @@ export const CommentThreadAuthor: core.serialization.ObjectSchema<
 });
 
 export declare namespace CommentThreadAuthor {
-    interface Raw {
+    export interface Raw {
         userId: string;
         email: string;
         name: string;

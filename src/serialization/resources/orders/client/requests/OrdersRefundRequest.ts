@@ -15,7 +15,7 @@ export const OrdersRefundRequest: core.serialization.Schema<
 });
 
 export declare namespace OrdersRefundRequest {
-    interface Raw {
+    export interface Raw {
         reason?: OrdersRefundRequestReason.Raw | null;
     }
 }

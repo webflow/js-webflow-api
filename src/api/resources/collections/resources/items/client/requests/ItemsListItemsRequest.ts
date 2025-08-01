@@ -30,6 +30,10 @@ export interface ItemsListItemsRequest {
      */
     slug?: string;
     /**
+     * Filter by the last published date of the item(s)
+     */
+    lastPublished?: Webflow.ItemsListItemsRequestLastPublished;
+    /**
      * Sort results by the provided value
      */
     sortBy?: Webflow.collections.ItemsListItemsRequestSortBy;

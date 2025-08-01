@@ -12,7 +12,7 @@ export const Sites: core.serialization.ObjectSchema<serializers.Sites.Raw, Webfl
 });
 
 export declare namespace Sites {
-    interface Raw {
+    export interface Raw {
         sites?: Site.Raw[] | null;
     }
 }

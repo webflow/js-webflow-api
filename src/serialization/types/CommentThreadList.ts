@@ -17,7 +17,7 @@ export const CommentThreadList: core.serialization.ObjectSchema<
 });
 
 export declare namespace CommentThreadList {
-    interface Raw {
+    export interface Raw {
         comments: CommentThread.Raw[];
         pagination: CommentThreadListPagination.Raw;
     }

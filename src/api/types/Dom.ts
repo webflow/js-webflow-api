@@ -10,6 +10,8 @@ import * as Webflow from "../index";
 export interface Dom {
     /** Page ID */
     pageId?: string;
+    /** If the page is a branch, this is the ID of the branch */
+    branchId?: string;
     nodes?: Webflow.Node[];
     pagination?: Webflow.Pagination;
     /** The date the page dom was most recently updated */

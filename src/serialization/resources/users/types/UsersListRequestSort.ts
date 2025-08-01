@@ -23,7 +23,7 @@ export const UsersListRequestSort: core.serialization.Schema<
 ]);
 
 export declare namespace UsersListRequestSort {
-    type Raw =
+    export type Raw =
         | "CreatedOn"
         | "-CreatedOn"
         | "Email"

@@ -21,7 +21,7 @@ export const OrderPurchasedItemVariantImageFile: core.serialization.ObjectSchema
 });
 
 export declare namespace OrderPurchasedItemVariantImageFile {
-    interface Raw {
+    export interface Raw {
         size?: number | null;
         originalFileName?: string | null;
         createdOn?: string | null;
