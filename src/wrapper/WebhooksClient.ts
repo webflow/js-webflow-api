@@ -1,5 +1,4 @@
 import { Webhooks } from "../api/resources/webhooks/client/Client";
-import { mergeHeaders, mergeOnlyDefinedHeaders } from "../core/headers.js";
 import crypto from "crypto";
 
 // Extends the namespace declared in the Fern generated client
