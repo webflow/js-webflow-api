@@ -65,6 +65,10 @@ service:
                   createdOn: '2022-10-26T00:28:54.191Z'
                   lastUpdated: lastUpdated
                   version: 1.0.0
+              pagination:
+                limit: 100
+                offset: 0
+                total: 3
     register-hosted:
       path: /sites/{site_id}/registered_scripts/hosted
       method: POST

@@ -16,7 +16,7 @@ export const ComponentDom: core.serialization.ObjectSchema<serializers.Component
     });
 
 export declare namespace ComponentDom {
-    interface Raw {
+    export interface Raw {
         componentId?: string | null;
         nodes?: Node.Raw[] | null;
         pagination?: Pagination.Raw | null;

@@ -7,27 +7,23 @@ import * as core from "../../../../core";
 import { AuditLogs } from "../resources/auditLogs/client/Client";
 
 export declare namespace Workspaces {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         accessToken: core.Supplier<core.BearerToken>;
-    }
-
-    interface RequestOptions {
-        /** The maximum time to wait for a response in seconds. */
-        timeoutInSeconds?: number;
-        /** The number of times to retry the request. Defaults to 2. */
-        maxRetries?: number;
-        /** A hook to abort the request. */
-        abortSignal?: AbortSignal;
-        /** Additional headers to include in the request. */
-        headers?: Record<string, string>;
+        /** Additional headers to include in requests. */
+        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
 }
 
 export class Workspaces {
-    constructor(protected readonly _options: Workspaces.Options) {}
-
+    protected readonly _options: Workspaces.Options;
     protected _auditLogs: AuditLogs | undefined;
+
+    constructor(_options: Workspaces.Options) {
+        this._options = _options;
+    }
 
     public get auditLogs(): AuditLogs {
         return (this._auditLogs ??= new AuditLogs(this._options));

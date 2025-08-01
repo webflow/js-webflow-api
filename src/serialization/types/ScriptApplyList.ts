@@ -17,7 +17,7 @@ export const ScriptApplyList: core.serialization.ObjectSchema<
 });
 
 export declare namespace ScriptApplyList {
-    interface Raw {
+    export interface Raw {
         scripts?: ScriptApply.Raw[] | null;
         lastUpdated?: string | null;
         createdOn?: string | null;

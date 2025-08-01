@@ -38,9 +38,9 @@ export interface Order {
     /** All addresses provided by the customer during the ordering flow. */
     allAddresses?: Webflow.OrderAddress[];
     /** The shipping address */
-    shippingAddress?: Webflow.OrderAddress;
+    shippingAddress?: Webflow.OrderShippingAddress;
     /** The billing address */
-    billingAddress?: Webflow.OrderAddress;
+    billingAddress?: Webflow.OrderBillingAddress;
     /** A string editable by the API user to note the shipping provider used (not used by Webflow). */
     shippingProvider?: string;
     /** A string editable by the API user to note the shipping tracking number for the order (not used by Webflow). */

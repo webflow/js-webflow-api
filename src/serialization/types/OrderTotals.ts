@@ -16,7 +16,7 @@ export const OrderTotals: core.serialization.ObjectSchema<serializers.OrderTotal
     });
 
 export declare namespace OrderTotals {
-    interface Raw {
+    export interface Raw {
         subtotal?: OrderPrice.Raw | null;
         extras?: OrderTotalsExtrasItem.Raw[] | null;
         total?: OrderPrice.Raw | null;

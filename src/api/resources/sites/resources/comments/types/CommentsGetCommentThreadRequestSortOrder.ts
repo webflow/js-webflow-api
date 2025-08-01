@@ -3,7 +3,6 @@
  */
 
 export type CommentsGetCommentThreadRequestSortOrder = "asc" | "desc";
-
 export const CommentsGetCommentThreadRequestSortOrder = {
     Asc: "asc",
     Desc: "desc",

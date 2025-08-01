@@ -15,7 +15,7 @@ export const SelectNode: core.serialization.ObjectSchema<serializers.SelectNode.
     });
 
 export declare namespace SelectNode {
-    interface Raw {
+    export interface Raw {
         id: string;
         choices: SelectNodeChoicesItem.Raw[];
         attributes?: Record<string, string> | null;

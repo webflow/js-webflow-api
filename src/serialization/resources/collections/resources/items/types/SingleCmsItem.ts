@@ -17,7 +17,7 @@ export const SingleCmsItem: core.serialization.ObjectSchema<
     .passthrough();
 
 export declare namespace SingleCmsItem {
-    interface Raw {
+    export interface Raw {
         name: string;
         slug: string;
         [key: string]: any;

@@ -16,7 +16,7 @@ export const RobotsRulesItem: core.serialization.ObjectSchema<
 });
 
 export declare namespace RobotsRulesItem {
-    interface Raw {
+    export interface Raw {
         userAgent: string;
         allows?: string[] | null;
         disallows?: string[] | null;

@@ -35,34 +35,34 @@ export const WorkspaceAuditLogItem: core.serialization.Schema<
     });
 
 export declare namespace WorkspaceAuditLogItem {
-    type Raw =
+    export type Raw =
         | WorkspaceAuditLogItem.UserAccess
         | WorkspaceAuditLogItem.CustomRole
         | WorkspaceAuditLogItem.WorkspaceMembership
         | WorkspaceAuditLogItem.SiteMembership
         | WorkspaceAuditLogItem.WorkspaceInvitation;
 
-    interface UserAccess extends _Base, UserAccessAuditLogItem.Raw {
+    export interface UserAccess extends _Base, UserAccessAuditLogItem.Raw {
         eventType: "user_access";
     }
 
-    interface CustomRole extends _Base, CustomRoleAuditLogItem.Raw {
+    export interface CustomRole extends _Base, CustomRoleAuditLogItem.Raw {
         eventType: "custom_role";
     }
 
-    interface WorkspaceMembership extends _Base, WorkspaceMembershipAuditLogItem.Raw {
+    export interface WorkspaceMembership extends _Base, WorkspaceMembershipAuditLogItem.Raw {
         eventType: "workspace_membership";
     }
 
-    interface SiteMembership extends _Base, SiteMembershipAuditLogItem.Raw {
+    export interface SiteMembership extends _Base, SiteMembershipAuditLogItem.Raw {
         eventType: "site_membership";
     }
 
-    interface WorkspaceInvitation extends _Base, WorkspaceInvitationAuditLogItem.Raw {
+    export interface WorkspaceInvitation extends _Base, WorkspaceInvitationAuditLogItem.Raw {
         eventType: "workspace_invitation";
     }
 
-    interface _Base {
+    export interface _Base {
         timestamp?: string | null;
         actor?: WorkspaceAuditLogItemActor.Raw | null;
         workspace?: WorkspaceAuditLogItemWorkspace.Raw | null;

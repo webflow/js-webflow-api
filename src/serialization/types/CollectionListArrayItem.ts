@@ -19,7 +19,7 @@ export const CollectionListArrayItem: core.serialization.ObjectSchema<
 });
 
 export declare namespace CollectionListArrayItem {
-    interface Raw {
+    export interface Raw {
         id: string;
         displayName?: string | null;
         singularName?: string | null;

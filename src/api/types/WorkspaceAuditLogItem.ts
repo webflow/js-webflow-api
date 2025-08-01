@@ -11,28 +11,28 @@ export type WorkspaceAuditLogItem =
     | Webflow.WorkspaceAuditLogItem.SiteMembership
     | Webflow.WorkspaceAuditLogItem.WorkspaceInvitation;
 
-export declare namespace WorkspaceAuditLogItem {
-    interface UserAccess extends Webflow.UserAccessAuditLogItem, _Base {
+export namespace WorkspaceAuditLogItem {
+    export interface UserAccess extends Webflow.UserAccessAuditLogItem, _Base {
         eventType: "user_access";
     }
 
-    interface CustomRole extends Webflow.CustomRoleAuditLogItem, _Base {
+    export interface CustomRole extends Webflow.CustomRoleAuditLogItem, _Base {
         eventType: "custom_role";
     }
 
-    interface WorkspaceMembership extends Webflow.WorkspaceMembershipAuditLogItem, _Base {
+    export interface WorkspaceMembership extends Webflow.WorkspaceMembershipAuditLogItem, _Base {
         eventType: "workspace_membership";
     }
 
-    interface SiteMembership extends Webflow.SiteMembershipAuditLogItem, _Base {
+    export interface SiteMembership extends Webflow.SiteMembershipAuditLogItem, _Base {
         eventType: "site_membership";
     }
 
-    interface WorkspaceInvitation extends Webflow.WorkspaceInvitationAuditLogItem, _Base {
+    export interface WorkspaceInvitation extends Webflow.WorkspaceInvitationAuditLogItem, _Base {
         eventType: "workspace_invitation";
     }
 
-    interface _Base {
+    export interface _Base {
         timestamp?: Date;
         actor?: Webflow.WorkspaceAuditLogItemActor;
         workspace?: Webflow.WorkspaceAuditLogItemWorkspace;

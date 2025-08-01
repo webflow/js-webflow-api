@@ -3,7 +3,6 @@
  */
 
 export type ItemsListItemsRequestSortBy = "lastPublished" | "name" | "slug";
-
 export const ItemsListItemsRequestSortBy = {
     LastPublished: "lastPublished",
     Name: "name",

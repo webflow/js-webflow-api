@@ -12,7 +12,7 @@ export const WebhookFilter: core.serialization.ObjectSchema<serializers.WebhookF
     });
 
 export declare namespace WebhookFilter {
-    interface Raw {
+    export interface Raw {
         name?: string | null;
     }
 }

@@ -12,5 +12,5 @@ export const ReferenceFieldType: core.serialization.Schema<
 > = core.serialization.enum_(["MultiReference", "Reference"]);
 
 export declare namespace ReferenceFieldType {
-    type Raw = "MultiReference" | "Reference";
+    export type Raw = "MultiReference" | "Reference";
 }

@@ -10,8 +10,8 @@ import { Field } from "./Field";
 export const Collection: core.serialization.ObjectSchema<serializers.Collection.Raw, Webflow.Collection> =
     core.serialization.object({
         id: core.serialization.string(),
-        displayName: core.serialization.string().optional(),
-        singularName: core.serialization.string().optional(),
+        displayName: core.serialization.string(),
+        singularName: core.serialization.string(),
         slug: core.serialization.string().optional(),
         createdOn: core.serialization.date().optional(),
         lastUpdated: core.serialization.date().optional(),
@@ -19,10 +19,10 @@ export const Collection: core.serialization.ObjectSchema<serializers.Collection.
     });
 
 export declare namespace Collection {
-    interface Raw {
+    export interface Raw {
         id: string;
-        displayName?: string | null;
-        singularName?: string | null;
+        displayName: string;
+        singularName: string;
         slug?: string | null;
         createdOn?: string | null;
         lastUpdated?: string | null;

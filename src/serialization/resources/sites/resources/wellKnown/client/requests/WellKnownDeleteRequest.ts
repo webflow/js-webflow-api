@@ -14,7 +14,7 @@ export const WellKnownDeleteRequest: core.serialization.Schema<
 });
 
 export declare namespace WellKnownDeleteRequest {
-    interface Raw {
+    export interface Raw {
         fileNames?: string[] | null;
     }
 }

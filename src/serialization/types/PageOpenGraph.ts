@@ -15,7 +15,7 @@ export const PageOpenGraph: core.serialization.ObjectSchema<serializers.PageOpen
     });
 
 export declare namespace PageOpenGraph {
-    interface Raw {
+    export interface Raw {
         title?: string | null;
         titleCopied?: boolean | null;
         description?: string | null;

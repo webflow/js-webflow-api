@@ -6,7 +6,6 @@
  * The reason for the refund
  */
 export type OrdersRefundRequestReason = "duplicate" | "fraudulent" | "requested";
-
 export const OrdersRefundRequestReason = {
     Duplicate: "duplicate",
     Fraudulent: "fraudulent",

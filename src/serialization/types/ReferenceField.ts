@@ -20,7 +20,7 @@ export const ReferenceField: core.serialization.ObjectSchema<serializers.Referen
     });
 
 export declare namespace ReferenceField {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         isEditable?: boolean | null;
         isRequired?: boolean | null;

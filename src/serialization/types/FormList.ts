@@ -15,7 +15,7 @@ export const FormList: core.serialization.ObjectSchema<serializers.FormList.Raw,
     });
 
 export declare namespace FormList {
-    interface Raw {
+    export interface Raw {
         forms?: Form.Raw[] | null;
         pagination?: Pagination.Raw | null;
     }

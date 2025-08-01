@@ -16,7 +16,7 @@ import * as Webflow from "../../../../index";
  *                 skuProperties: [{
  *                         id: "color",
  *                         name: "Color",
- *                         enum: [{
+ *                         "enum": [{
  *                                 id: "red",
  *                                 name: "Red",
  *                                 slug: "red"
@@ -32,7 +32,7 @@ import * as Webflow from "../../../../index";
  *                     }, {
  *                         id: "size",
  *                         name: "Size",
- *                         enum: [{
+ *                         "enum": [{
  *                                 id: "small",
  *                                 name: "Small",
  *                                 slug: "small"

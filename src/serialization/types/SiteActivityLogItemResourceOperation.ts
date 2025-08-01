@@ -22,7 +22,7 @@ export const SiteActivityLogItemResourceOperation: core.serialization.Schema<
 ]);
 
 export declare namespace SiteActivityLogItemResourceOperation {
-    type Raw =
+    export type Raw =
         | "CREATED"
         | "MODIFIED"
         | "PUBLISHED"

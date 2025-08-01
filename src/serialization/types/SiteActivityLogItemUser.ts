@@ -15,7 +15,7 @@ export const SiteActivityLogItemUser: core.serialization.ObjectSchema<
 });
 
 export declare namespace SiteActivityLogItemUser {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         displayName?: string | null;
     }

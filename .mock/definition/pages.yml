@@ -61,8 +61,9 @@ service:
                   lastUpdated: '2024-03-11T10:42:42Z'
                   archived: false
                   draft: false
-                  canBranch: true
-                  isBranch: false
+                  canBranch: false
+                  isBranch: true
+                  branchId: 68026fa68ef6dc744c75b833
                   seo:
                     title: The Ultimate Hitchhiker's Guide to the Galaxy
                     description: >-
@@ -155,8 +156,9 @@ service:
               lastUpdated: '2024-03-11T10:42:42Z'
               archived: false
               draft: false
-              canBranch: true
-              isBranch: false
+              canBranch: false
+              isBranch: true
+              branchId: 68026fa68ef6dc744c75b833
               seo:
                 title: The Ultimate Hitchhiker's Guide to the Galaxy
                 description: >-
@@ -191,14 +193,27 @@ service:
           docs: Unique identifier for a Page
       display-name: Update Page Metadata
       request:
-        body: root.Page
+        name: PageMetadataWrite
         query-parameters:
           localeId:
             type: optional<string>
             docs: >-
               Unique identifier for a specific locale. Applicable, when using
               localization.
-        name: UpdatePageSettingsRequest
+        body:
+          properties:
+            title:
+              type: optional<string>
+              docs: Title for the page
+            slug:
+              type: optional<string>
+              docs: Slug for the page
+            seo:
+              type: optional<PageMetadataWriteSeo>
+              docs: SEO-related fields for the Page
+            openGraph:
+              type: optional<PageMetadataWriteOpenGraph>
+              docs: Open Graph fields for the Page
         content-type: application/json
       response:
         docs: Request was successful
@@ -216,16 +231,8 @@ service:
           query-parameters:
             localeId: 65427cf400e02b306eaa04a0
           request:
-            id: 6596da6045e56dee495bcbba
-            siteId: 6258612d1ee792848f805dcf
             title: Guide to the Galaxy
             slug: guide-to-the-galaxy
-            createdOn: '2024-03-11T10:42:00Z'
-            lastUpdated: '2024-03-11T10:42:42Z'
-            archived: false
-            draft: false
-            canBranch: true
-            isBranch: false
             seo:
               title: The Ultimate Hitchhiker's Guide to the Galaxy
               description: >-
@@ -238,8 +245,6 @@ service:
                 Dive deep into the mysteries of the universe with your guide to
                 everything galactic.
               descriptionCopied: false
-            localeId: 653fd9af6a07fc9cfd7a5e57
-            publishedPath: /en-us/guide-to-the-galaxy
           response:
             body:
               id: 6596da6045e56dee495bcbba
@@ -250,8 +255,9 @@ service:
               lastUpdated: '2024-03-11T10:42:42Z'
               archived: false
               draft: false
-              canBranch: true
-              isBranch: false
+              canBranch: false
+              isBranch: true
+              branchId: 68026fa68ef6dc744c75b833
               seo:
                 title: The Ultimate Hitchhiker's Guide to the Galaxy
                 description: >-
@@ -331,6 +337,7 @@ service:
           response:
             body:
               pageId: 658205daa3e8206a523b5ad4
+              branchId: 68026fa68ef6dc744c75b833
               nodes:
                 - id: id
                   text: {}
@@ -472,15 +479,47 @@ service:
   display-name: Pages
 docs: Pages are the pages in your Webflow site.
 types:
+  PageMetadataWriteSeo:
+    docs: SEO-related fields for the Page
+    properties:
+      title:
+        type: optional<string>
+        docs: The Page title shown in search engine results
+      description:
+        type: optional<string>
+        docs: The Page description shown in search engine results
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  PageMetadataWriteOpenGraph:
+    docs: Open Graph fields for the Page
+    properties:
+      title:
+        type: optional<string>
+        docs: The title supplied to Open Graph annotations
+      titleCopied:
+        type: optional<boolean>
+        docs: Indicates the Open Graph title was copied from the SEO title
+      description:
+        type: optional<string>
+        docs: The description supplied to Open Graph annotations
+      descriptionCopied:
+        type: optional<boolean>
+        docs: >-
+          Indicates the Open Graph description was copied from the SEO
+          description
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
   PageDomWriteNodesItem:
     discriminated: false
     union:
-      - root.TextNodeWrite
-      - root.ComponentInstanceNodePropertyOverridesWrite
-      - root.SelectNodeWrite
-      - root.TextInputNodeWrite
-      - root.SubmitButtonNodeWrite
-      - root.SearchButtonNodeWrite
+      - type: root.Text Node
+      - type: root.Component Instance
+      - type: root.Select
+      - type: root.Text Input
+      - type: root.Submit Button
+      - type: root.Search Button
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true

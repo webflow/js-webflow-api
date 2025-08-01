@@ -16,7 +16,7 @@ export const AssetsCreateRequest: core.serialization.Schema<
 });
 
 export declare namespace AssetsCreateRequest {
-    interface Raw {
+    export interface Raw {
         fileName: string;
         fileHash: string;
         parentFolder?: string | null;

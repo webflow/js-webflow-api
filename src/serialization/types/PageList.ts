@@ -15,7 +15,7 @@ export const PageList: core.serialization.ObjectSchema<serializers.PageList.Raw,
     });
 
 export declare namespace PageList {
-    interface Raw {
+    export interface Raw {
         pages?: Page.Raw[] | null;
         pagination?: Pagination.Raw | null;
     }

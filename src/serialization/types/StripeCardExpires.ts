@@ -15,7 +15,7 @@ export const StripeCardExpires: core.serialization.ObjectSchema<
 });
 
 export declare namespace StripeCardExpires {
-    interface Raw {
+    export interface Raw {
         year?: number | null;
         month?: number | null;
     }

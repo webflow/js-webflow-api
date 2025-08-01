@@ -14,7 +14,7 @@ export const OrdersUpdateFulfillRequest: core.serialization.Schema<
 });
 
 export declare namespace OrdersUpdateFulfillRequest {
-    interface Raw {
+    export interface Raw {
         sendOrderFulfilledEmail?: boolean | null;
     }
 }

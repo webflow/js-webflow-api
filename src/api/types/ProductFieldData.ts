@@ -18,8 +18,8 @@ export interface ProductFieldData {
     shippable?: boolean;
     /** Variant types to include in SKUs */
     skuProperties?: Webflow.SkuPropertyList[];
-    /** The categories your product belongs to. */
-    categories?: string[];
+    /** The category your product belongs to. */
+    category?: string[];
     /** Product tax class */
     taxCategory?: Webflow.ProductFieldDataTaxCategory;
     /** The default SKU associated with this product. */

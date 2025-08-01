@@ -25,7 +25,7 @@ export const Form: core.serialization.ObjectSchema<serializers.Form.Raw, Webflow
 });
 
 export declare namespace Form {
-    interface Raw {
+    export interface Raw {
         displayName?: string | null;
         createdOn?: string | null;
         lastUpdated?: string | null;

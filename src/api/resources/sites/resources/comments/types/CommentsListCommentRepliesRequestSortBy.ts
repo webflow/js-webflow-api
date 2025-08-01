@@ -3,7 +3,6 @@
  */
 
 export type CommentsListCommentRepliesRequestSortBy = "createdOn" | "lastUpdated";
-
 export const CommentsListCommentRepliesRequestSortBy = {
     CreatedOn: "createdOn",
     LastUpdated: "lastUpdated",

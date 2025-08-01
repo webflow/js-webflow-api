@@ -21,7 +21,7 @@ export const CustomCodeInlineResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace CustomCodeInlineResponse {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         canCopy?: boolean | null;
         displayName?: string | null;

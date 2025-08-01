@@ -9,7 +9,6 @@ export type AccessGroupsListRequestSort =
     /**
      * Sorts users in descending order based on their created date */
     | "-CreatedOn";
-
 export const AccessGroupsListRequestSort = {
     CreatedOnAscending: "CreatedOn",
     CreatedOnDescending: "-CreatedOn",

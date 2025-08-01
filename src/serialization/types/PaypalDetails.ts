@@ -17,7 +17,7 @@ export const PaypalDetails: core.serialization.ObjectSchema<serializers.PaypalDe
     });
 
 export declare namespace PaypalDetails {
-    interface Raw {
+    export interface Raw {
         orderId?: string | null;
         payerId?: string | null;
         captureId?: string | null;

@@ -17,7 +17,7 @@ export const ProductAndSkUsList: core.serialization.ObjectSchema<
 });
 
 export declare namespace ProductAndSkUsList {
-    interface Raw {
+    export interface Raw {
         items?: ProductAndSkUs.Raw[] | null;
         pagination?: Pagination.Raw | null;
     }
