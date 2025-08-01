@@ -4,13 +4,15 @@
 
 import * as errors from "../../errors/index";
 import * as Webflow from "../index";
+import * as core from "../../core";
 
 export class TooManyRequestsError extends errors.WebflowError {
-    constructor(body: Webflow.Error_) {
+    constructor(body: Webflow.Error_, rawResponse?: core.RawResponse) {
         super({
             message: "TooManyRequestsError",
             statusCode: 429,
             body: body,
+            rawResponse: rawResponse,
         });
         Object.setPrototypeOf(this, TooManyRequestsError.prototype);
     }

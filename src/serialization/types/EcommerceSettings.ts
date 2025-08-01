@@ -16,7 +16,7 @@ export const EcommerceSettings: core.serialization.ObjectSchema<
 });
 
 export declare namespace EcommerceSettings {
-    interface Raw {
+    export interface Raw {
         siteId?: string | null;
         createdOn?: string | null;
         defaultCurrency?: string | null;

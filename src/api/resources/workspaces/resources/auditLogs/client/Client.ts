@@ -5,17 +5,22 @@
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
 import * as Webflow from "../../../../../index";
-import urlJoin from "url-join";
 import * as serializers from "../../../../../../serialization/index";
+import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../../../core/headers.js";
+import urlJoin from "url-join";
 import * as errors from "../../../../../../errors/index";
 
 export declare namespace AuditLogs {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
+        /** Specify a custom URL to connect the client to. */
+        baseUrl?: core.Supplier<string>;
         accessToken: core.Supplier<core.BearerToken>;
+        /** Additional headers to include in requests. */
+        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
         /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
         /** The number of times to retry the request. Defaults to 2. */
@@ -23,12 +28,16 @@ export declare namespace AuditLogs {
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
         /** Additional headers to include in the request. */
-        headers?: Record<string, string>;
+        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
 }
 
 export class AuditLogs {
-    constructor(protected readonly _options: AuditLogs.Options) {}
+    protected readonly _options: AuditLogs.Options;
+
+    constructor(_options: AuditLogs.Options) {
+        this._options = _options;
+    }
 
     /**
      * Get audit logs for a workspace.
@@ -49,17 +58,27 @@ export class AuditLogs {
      *
      * @example
      *     await client.workspaces.auditLogs.getWorkspaceAuditLogs("hitchhikers-workspace", {
-     *         from: "2024-04-22T16:00:31Z",
-     *         to: "2024-04-22T16:00:31Z"
+     *         from: new Date("2024-04-22T16:00:31.000Z"),
+     *         to: new Date("2024-04-22T16:00:31.000Z")
      *     })
      */
-    public async getWorkspaceAuditLogs(
+    public getWorkspaceAuditLogs(
         workspaceIdOrSlug: string,
         request: Webflow.workspaces.AuditLogsGetWorkspaceAuditLogsRequest = {},
-        requestOptions?: AuditLogs.RequestOptions
-    ): Promise<Webflow.WorkspaceAuditLogResponse> {
+        requestOptions?: AuditLogs.RequestOptions,
+    ): core.HttpResponsePromise<Webflow.WorkspaceAuditLogResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__getWorkspaceAuditLogs(workspaceIdOrSlug, request, requestOptions),
+        );
+    }
+
+    private async __getWorkspaceAuditLogs(
+        workspaceIdOrSlug: string,
+        request: Webflow.workspaces.AuditLogsGetWorkspaceAuditLogsRequest = {},
+        requestOptions?: AuditLogs.RequestOptions,
+    ): Promise<core.WithRawResponse<Webflow.WorkspaceAuditLogResponse>> {
         const { limit, offset, sortOrder, eventType, from: from_, to } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (limit != null) {
             _queryParams["limit"] = limit.toString();
         }
@@ -69,11 +88,21 @@ export class AuditLogs {
         }
 
         if (sortOrder != null) {
-            _queryParams["sortOrder"] = sortOrder;
+            _queryParams["sortOrder"] =
+                serializers.workspaces.AuditLogsGetWorkspaceAuditLogsRequestSortOrder.jsonOrThrow(sortOrder, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                });
         }
 
         if (eventType != null) {
-            _queryParams["eventType"] = eventType;
+            _queryParams["eventType"] =
+                serializers.workspaces.AuditLogsGetWorkspaceAuditLogsRequestEventType.jsonOrThrow(eventType, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                });
         }
 
         if (from_ != null) {
@@ -86,35 +115,33 @@ export class AuditLogs {
 
         const _response = await core.fetcher({
             url: urlJoin(
-                ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi).base,
-                `workspaces/${encodeURIComponent(workspaceIdOrSlug)}/audit_logs`
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
+                        .base,
+                `workspaces/${encodeURIComponent(workspaceIdOrSlug)}/audit_logs`,
             ),
             method: "GET",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.4",
-                "User-Agent": "webflow-api/3.1.4",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
             queryParameters: _queryParams,
-            requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.WorkspaceAuditLogResponse.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return {
+                data: serializers.WorkspaceAuditLogResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
@@ -127,10 +154,11 @@ export class AuditLogs {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 403:
-                    throw new Webflow.ForbiddenError(_response.error.body);
+                    throw new Webflow.ForbiddenError(_response.error.body, _response.rawResponse);
                 case 404:
                     throw new Webflow.NotFoundError(
                         serializers.Error_.parseOrThrow(_response.error.body, {
@@ -139,7 +167,8 @@ export class AuditLogs {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 429:
                     throw new Webflow.TooManyRequestsError(
@@ -149,7 +178,8 @@ export class AuditLogs {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 case 500:
                     throw new Webflow.InternalServerError(
@@ -159,12 +189,14 @@ export class AuditLogs {
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
+                        _response.rawResponse,
                     );
                 default:
                     throw new errors.WebflowError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
+                        rawResponse: _response.rawResponse,
                     });
             }
         }
@@ -174,14 +206,16 @@ export class AuditLogs {
                 throw new errors.WebflowError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
                 });
             case "timeout":
                 throw new errors.WebflowTimeoutError(
-                    "Timeout exceeded when calling GET /workspaces/{workspace_id_or_slug}/audit_logs."
+                    "Timeout exceeded when calling GET /workspaces/{workspace_id_or_slug}/audit_logs.",
                 );
             case "unknown":
                 throw new errors.WebflowError({
                     message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
                 });
         }
     }

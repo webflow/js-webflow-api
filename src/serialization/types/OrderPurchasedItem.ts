@@ -30,7 +30,7 @@ export const OrderPurchasedItem: core.serialization.ObjectSchema<
 });
 
 export declare namespace OrderPurchasedItem {
-    interface Raw {
+    export interface Raw {
         count?: number | null;
         rowTotal?: OrderPrice.Raw | null;
         productId?: string | null;

@@ -17,7 +17,7 @@ export const SiteMembershipAuditLogItem: core.serialization.ObjectSchema<
 });
 
 export declare namespace SiteMembershipAuditLogItem {
-    interface Raw {
+    export interface Raw {
         eventSubType?: SiteMembershipAuditLogItemEventSubType.Raw | null;
         payload?: SiteMembership.Raw | null;
     }

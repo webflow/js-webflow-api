@@ -22,6 +22,9 @@ service:
       request:
         name: ComponentsListRequest
         query-parameters:
+          branchId:
+            type: optional<string>
+            docs: Scope the operation to work on a specific branch.
           limit:
             type: optional<double>
             docs: 'Maximum number of records to be returned (max limit: 100)'
@@ -43,6 +46,8 @@ service:
       examples:
         - path-parameters:
             site_id: 580e63e98c9a982ac9b8b741
+          query-parameters:
+            branchId: 68026fa68ef6dc744c75b833
           response:
             body:
               components:
@@ -107,6 +112,9 @@ service:
             docs: >-
               Unique identifier for a specific locale. Applicable, when using
               localization.
+          branchId:
+            type: optional<string>
+            docs: Scope the operation to work on a specific branch.
           limit:
             type: optional<double>
             docs: 'Maximum number of records to be returned (max limit: 100)'
@@ -131,6 +139,7 @@ service:
             component_id: 8505ba55-ef72-629e-f85c-33e4b703d48b
           query-parameters:
             localeId: 65427cf400e02b306eaa04a0
+            branchId: 68026fa68ef6dc744c75b833
           response:
             body:
               componentId: 69118560-d0bc-15fc-bbf8-b8fe5f6535b5
@@ -224,6 +233,9 @@ service:
             docs: >-
               Unique identifier for a specific locale. Applicable, when using
               localization.
+          branchId:
+            type: optional<string>
+            docs: Scope the operation to work on a specific branch.
         body:
           properties:
             nodes:
@@ -249,6 +261,7 @@ service:
             component_id: 8505ba55-ef72-629e-f85c-33e4b703d48b
           query-parameters:
             localeId: 65427cf400e02b306eaa04a0
+            branchId: 68026fa68ef6dc744c75b833
           request:
             nodes:
               - nodeId: a245c12d-995b-55ee-5ec7-aa36a6cad623
@@ -310,6 +323,9 @@ service:
             docs: >-
               Unique identifier for a specific locale. Applicable, when using
               localization.
+          branchId:
+            type: optional<string>
+            docs: Scope the operation to work on a specific branch.
           limit:
             type: optional<double>
             docs: 'Maximum number of records to be returned (max limit: 100)'
@@ -334,6 +350,7 @@ service:
             component_id: 8505ba55-ef72-629e-f85c-33e4b703d48b
           query-parameters:
             localeId: 65427cf400e02b306eaa04a0
+            branchId: 68026fa68ef6dc744c75b833
           response:
             body:
               componentId: 658205daa3e8206a523b5ad4
@@ -393,6 +410,9 @@ service:
             docs: >-
               Unique identifier for a specific locale. Applicable, when using
               localization.
+          branchId:
+            type: optional<string>
+            docs: Scope the operation to work on a specific branch.
         body:
           properties:
             properties:
@@ -417,6 +437,7 @@ service:
             component_id: 8505ba55-ef72-629e-f85c-33e4b703d48b
           query-parameters:
             localeId: 65427cf400e02b306eaa04a0
+            branchId: 68026fa68ef6dc744c75b833
           request:
             properties:
               - propertyId: a245c12d-995b-55ee-5ec7-aa36a6cad623
@@ -435,12 +456,12 @@ types:
   ComponentDomWriteNodesItem:
     discriminated: false
     union:
-      - root.TextNodeWrite
-      - root.ComponentInstanceNodePropertyOverridesWrite
-      - root.SelectNodeWrite
-      - root.TextInputNodeWrite
-      - root.SubmitButtonNodeWrite
-      - root.SearchButtonNodeWrite
+      - type: root.Text Node
+      - type: root.Component Instance
+      - type: root.Select
+      - type: root.Text Input
+      - type: root.Submit Button
+      - type: root.Search Button
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true

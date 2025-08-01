@@ -22,7 +22,7 @@ export const AssetUpload: core.serialization.ObjectSchema<serializers.AssetUploa
     });
 
 export declare namespace AssetUpload {
-    interface Raw {
+    export interface Raw {
         uploadDetails?: AssetUploadUploadDetails.Raw | null;
         contentType?: string | null;
         id?: string | null;

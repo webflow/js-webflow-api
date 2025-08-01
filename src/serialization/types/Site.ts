@@ -27,7 +27,7 @@ export const Site: core.serialization.ObjectSchema<serializers.Site.Raw, Webflow
 });
 
 export declare namespace Site {
-    interface Raw {
+    export interface Raw {
         id: string;
         workspaceId?: string | null;
         createdOn?: string | null;

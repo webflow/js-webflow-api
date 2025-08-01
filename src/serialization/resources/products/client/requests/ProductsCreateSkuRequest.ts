@@ -17,7 +17,7 @@ export const ProductsCreateSkuRequest: core.serialization.Schema<
 });
 
 export declare namespace ProductsCreateSkuRequest {
-    interface Raw {
+    export interface Raw {
         publishStatus?: PublishStatus.Raw | null;
         skus: Sku.Raw[];
     }

@@ -19,7 +19,7 @@ export const Locale: core.serialization.ObjectSchema<serializers.Locale.Raw, Web
     });
 
 export declare namespace Locale {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         cmsLocaleId?: string | null;
         enabled?: boolean | null;

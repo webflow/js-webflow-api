@@ -3,7 +3,6 @@
  */
 
 export type WorkspaceAuditLogItemPayloadSiteMembershipUserType = "member" | "guest" | "reviewer" | "client";
-
 export const WorkspaceAuditLogItemPayloadSiteMembershipUserType = {
     Member: "member",
     Guest: "guest",

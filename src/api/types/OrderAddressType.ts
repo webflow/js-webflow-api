@@ -6,7 +6,6 @@
  * The type of the order address (billing or shipping)
  */
 export type OrderAddressType = "shipping" | "billing";
-
 export const OrderAddressType = {
     Shipping: "shipping",
     Billing: "billing",

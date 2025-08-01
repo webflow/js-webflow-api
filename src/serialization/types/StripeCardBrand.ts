@@ -10,5 +10,5 @@ export const StripeCardBrand: core.serialization.Schema<serializers.StripeCardBr
     core.serialization.enum_(["Visa", "American Express", "MasterCard", "Discover", "JCB", "Diners Club", "Unknown"]);
 
 export declare namespace StripeCardBrand {
-    type Raw = "Visa" | "American Express" | "MasterCard" | "Discover" | "JCB" | "Diners Club" | "Unknown";
+    export type Raw = "Visa" | "American Express" | "MasterCard" | "Discover" | "JCB" | "Diners Club" | "Unknown";
 }

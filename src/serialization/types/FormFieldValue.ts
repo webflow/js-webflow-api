@@ -16,7 +16,7 @@ export const FormFieldValue: core.serialization.ObjectSchema<serializers.FormFie
     });
 
 export declare namespace FormFieldValue {
-    interface Raw {
+    export interface Raw {
         displayName?: string | null;
         type?: FormFieldValueType.Raw | null;
         placeholder?: string | null;

@@ -17,7 +17,7 @@ export const SiteActivityLogResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace SiteActivityLogResponse {
-    interface Raw {
+    export interface Raw {
         items?: SiteActivityLogItem.Raw[] | null;
         pagination?: Pagination.Raw | null;
     }

@@ -18,7 +18,6 @@ export type SitePlanId =
     | "hosting-ecommerce-standard-v3"
     | "hosting-ecommerce-plus-v3"
     | "hosting-ecommerce-advanced-v3";
-
 export const SitePlanId = {
     HostingBasicV3: "hosting-basic-v3",
     HostingCmsV3: "hosting-cms-v3",

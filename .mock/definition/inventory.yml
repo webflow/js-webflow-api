@@ -122,3 +122,23 @@ types:
     inline: true
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
+  EcommInventoryChangedPayload:
+    properties:
+      triggerType: optional<literal<"ecomm_inventory_changed">>
+      payload: optional<root.InventoryItem>
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+webhooks:
+  ecomm_inventory_changed:
+    audiences: []
+    method: POST
+    display-name: Updated eComm Inventory
+    headers: {}
+    payload: EcommInventoryChangedPayload
+    examples:
+      - name: WebhookInventoryChanged
+        payload:
+          triggerType: ecomm_inventory_changed
+          payload:
+            ref: ./schemas/inventory.yml#/InventoryItem/example
+    docs: Information about updated ecommerce inventory values

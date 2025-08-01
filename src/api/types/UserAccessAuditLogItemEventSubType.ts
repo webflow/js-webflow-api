@@ -3,7 +3,6 @@
  */
 
 export type UserAccessAuditLogItemEventSubType = "login" | "logout";
-
 export const UserAccessAuditLogItemEventSubType = {
     Login: "login",
     Logout: "logout",

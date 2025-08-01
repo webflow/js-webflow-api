@@ -15,7 +15,7 @@ export const ItemsDeleteItemsRequestItemsItem: core.serialization.ObjectSchema<
 });
 
 export declare namespace ItemsDeleteItemsRequestItemsItem {
-    interface Raw {
+    export interface Raw {
         id: string;
         cmsLocaleIds?: string[] | null;
     }

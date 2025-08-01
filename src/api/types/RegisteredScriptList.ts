@@ -9,4 +9,5 @@ import * as Webflow from "../index";
  */
 export interface RegisteredScriptList {
     registeredScripts?: Webflow.CustomCodeHostedResponse[];
+    pagination?: Webflow.Pagination;
 }

@@ -3,7 +3,6 @@
  */
 
 export type ItemsListItemsLiveRequestSortOrder = "asc" | "desc";
-
 export const ItemsListItemsLiveRequestSortOrder = {
     Asc: "asc",
     Desc: "desc",

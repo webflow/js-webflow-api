@@ -12,5 +12,5 @@ export const CustomCodeBlockType: core.serialization.Schema<
 > = core.serialization.enum_(["page", "site"]);
 
 export declare namespace CustomCodeBlockType {
-    type Raw = "page" | "site";
+    export type Raw = "page" | "site";
 }

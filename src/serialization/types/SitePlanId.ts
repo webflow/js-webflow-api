@@ -23,7 +23,7 @@ export const SitePlanId: core.serialization.Schema<serializers.SitePlanId.Raw, W
     ]);
 
 export declare namespace SitePlanId {
-    type Raw =
+    export type Raw =
         | "hosting-basic-v3"
         | "hosting-cms-v3"
         | "hosting-business-v3"

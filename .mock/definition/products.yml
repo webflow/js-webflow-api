@@ -73,11 +73,11 @@ service:
                         - id: Color
                           name: Color
                           enum:
-                            - id: id
+                            - id: royal-blue
                               name: Royal Blue
                               slug: royal-blue
                   skus:
-                    - id: 580e63fc8c9a982ac9b8b745
+                    - id: 66072fb71b89448912e2681c
                       cmsLocaleId: 653ad57de882f528b32e810e
                       lastPublished: '2023-03-17T18:47:35Z'
                       lastUpdated: '2023-03-17T18:47:35Z'
@@ -99,7 +99,7 @@ service:
                           - id: Color
                             name: Color
                             enum:
-                              - id: id
+                              - id: royal-blue
                                 name: Royal Blue
                                 slug: royal-blue
               pagination:
@@ -219,16 +219,16 @@ service:
                     - id: Color
                       name: Color
                       enum:
-                        - id: id
+                        - id: royal-blue
                           name: Royal Blue
                           slug: royal-blue
-                  categories:
-                    - categories
+                  category:
+                    - category
                   tax-category: standard-taxable
                   default-sku: default-sku
                   ec-product-type: ff42fee0113744f693a764e3431a9cc2
               skus:
-                - id: 580e63fc8c9a982ac9b8b745
+                - id: 66072fb71b89448912e2681c
                   cmsLocaleId: 653ad57de882f528b32e810e
                   lastPublished: '2023-03-17T18:47:35Z'
                   lastUpdated: '2023-03-17T18:47:35Z'
@@ -250,7 +250,7 @@ service:
                       - id: Color
                         name: Color
                         enum:
-                          - id: id
+                          - id: royal-blue
                             name: Royal Blue
                             slug: royal-blue
     get:
@@ -307,16 +307,16 @@ service:
                     - id: Color
                       name: Color
                       enum:
-                        - id: id
+                        - id: royal-blue
                           name: Royal Blue
                           slug: royal-blue
-                  categories:
-                    - categories
+                  category:
+                    - category
                   tax-category: standard-taxable
                   default-sku: default-sku
                   ec-product-type: ff42fee0113744f693a764e3431a9cc2
               skus:
-                - id: 580e63fc8c9a982ac9b8b745
+                - id: 66072fb71b89448912e2681c
                   cmsLocaleId: 653ad57de882f528b32e810e
                   lastPublished: '2023-03-17T18:47:35Z'
                   lastUpdated: '2023-03-17T18:47:35Z'
@@ -338,7 +338,7 @@ service:
                       - id: Color
                         name: Color
                         enum:
-                          - id: id
+                          - id: royal-blue
                             name: Royal Blue
                             slug: royal-blue
     update:
@@ -408,11 +408,11 @@ service:
                   - id: Color
                     name: Color
                     enum:
-                      - id: id
+                      - id: royal-blue
                         name: Royal Blue
                         slug: royal-blue
-                categories:
-                  - categories
+                category:
+                  - category
                 tax-category: standard-taxable
                 default-sku: default-sku
                 ec-product-type: ff42fee0113744f693a764e3431a9cc2
@@ -468,7 +468,12 @@ service:
             product_id: 580e63fc8c9a982ac9b8b745
           request:
             skus:
-              - fieldData:
+              - id: 66072fb71b89448912e2681c
+                cmsLocaleId: 653ad57de882f528b32e810e
+                lastPublished: '2023-03-17T18:47:35Z'
+                lastUpdated: '2023-03-17T18:47:35Z'
+                createdOn: '2023-03-17T18:47:35Z'
+                fieldData:
                   name: Colorful T-shirt - Default
                   slug: colorful-t-shirt-default
                   price:
@@ -478,7 +483,7 @@ service:
           response:
             body:
               skus:
-                - id: 580e63fc8c9a982ac9b8b745
+                - id: 66072fb71b89448912e2681c
                   cmsLocaleId: 653ad57de882f528b32e810e
                   lastPublished: '2023-03-17T18:47:35Z'
                   lastUpdated: '2023-03-17T18:47:35Z'
@@ -500,7 +505,7 @@ service:
                       - id: Color
                         name: Color
                         enum:
-                          - id: id
+                          - id: royal-blue
                             name: Royal Blue
                             slug: royal-blue
     update-sku:
@@ -556,6 +561,11 @@ service:
             sku_id: 5e8518516e147040726cc415
           request:
             sku:
+              id: 66072fb71b89448912e2681c
+              cmsLocaleId: 653ad57de882f528b32e810e
+              lastPublished: '2023-03-17T18:47:35Z'
+              lastUpdated: '2023-03-17T18:47:35Z'
+              createdOn: '2023-03-17T18:47:35Z'
               fieldData:
                 name: Colorful T-shirt - Default
                 slug: colorful-t-shirt-default
@@ -565,7 +575,7 @@ service:
                   currency: USD
           response:
             body:
-              id: 580e63fc8c9a982ac9b8b745
+              id: 66072fb71b89448912e2681c
               cmsLocaleId: 653ad57de882f528b32e810e
               lastPublished: '2023-03-17T18:47:35Z'
               lastUpdated: '2023-03-17T18:47:35Z'
@@ -598,7 +608,7 @@ service:
                   - id: Color
                     name: Color
                     enum:
-                      - id: id
+                      - id: royal-blue
                         name: Royal Blue
                         slug: royal-blue
   source:

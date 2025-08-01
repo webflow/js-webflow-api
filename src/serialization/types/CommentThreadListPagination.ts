@@ -16,7 +16,7 @@ export const CommentThreadListPagination: core.serialization.ObjectSchema<
 });
 
 export declare namespace CommentThreadListPagination {
-    interface Raw {
+    export interface Raw {
         limit: number;
         offset: number;
         total: number;

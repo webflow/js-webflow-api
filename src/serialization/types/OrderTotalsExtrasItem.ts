@@ -19,7 +19,7 @@ export const OrderTotalsExtrasItem: core.serialization.ObjectSchema<
 });
 
 export declare namespace OrderTotalsExtrasItem {
-    interface Raw {
+    export interface Raw {
         type?: OrderTotalsExtrasItemType.Raw | null;
         name?: string | null;
         description?: string | null;

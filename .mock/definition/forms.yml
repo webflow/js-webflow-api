@@ -412,3 +412,39 @@ service:
     openapi: ../../../openapi/referenced-specs/v2.yml
   display-name: Forms
 docs: Forms are forms that are created on your Webflow site.
+webhooks:
+  form_submission:
+    audiences: []
+    method: POST
+    display-name: Form Submission
+    headers: {}
+    payload: root.FormSubmissionTrigger
+    examples:
+      - payload:
+          triggerType: form_submission
+          payload:
+            name: Contact Us
+            siteId: 65427cf400e02b306eaa049c
+            data:
+              First Name: Zaphod
+              Last Name: Beeblebrox
+              email: zaphod@heartofgold.ai
+              Phone Number: 15550000000
+            schema:
+              - fieldName: First Name
+                fieldType: FormTextInput
+                fieldElementId: 285042f7-d554-dc7f-102c-aa10d6a2d2c4
+              - fieldName: Last Name
+                fieldType: FormTextInput
+                fieldElementId: 285042f7-d554-dc7f-102c-aa10d6a2d2c5
+              - fieldName: email
+                fieldType: FormTextInput
+                fieldElementId: 285042f7-d554-dc7f-102c-aa10d6a2d2c6
+              - fieldName: Phone Number
+                fieldType: FormTextInput
+                fieldElementId: 285042f7-d554-dc7f-102c-aa10d6a2d2c7
+            submittedAt: '2022-09-14T12:35:16.117Z'
+            id: 6321ca84df3949bfc6752327
+            formId: 65429eadebe8a9f3a30f62d0
+            formElementId: 4e038d2c-6a1e-4953-7be9-a59a2b453177
+    docs: Information about a form that was subitted

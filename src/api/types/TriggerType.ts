@@ -22,7 +22,6 @@ export type TriggerType =
     | "collection_item_deleted"
     | "collection_item_unpublished"
     | "comment_created";
-
 export const TriggerType = {
     FormSubmission: "form_submission",
     SitePublish: "site_publish",

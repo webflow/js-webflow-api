@@ -6,9 +6,19 @@ import * as serializers from "../index";
 import * as Webflow from "../../api/index";
 import * as core from "../../core";
 
-export const Application: core.serialization.Schema<serializers.Application.Raw, Webflow.Application> =
-    core.serialization.unknown();
+export const Application: core.serialization.ObjectSchema<serializers.Application.Raw, Webflow.Application> =
+    core.serialization.object({
+        id: core.serialization.string().optional(),
+        description: core.serialization.string().optional(),
+        homepage: core.serialization.string().optional(),
+        displayName: core.serialization.string().optional(),
+    });
 
 export declare namespace Application {
-    type Raw = unknown;
+    export interface Raw {
+        id?: string | null;
+        description?: string | null;
+        homepage?: string | null;
+        displayName?: string | null;
+    }
 }
