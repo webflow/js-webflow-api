@@ -9,7 +9,7 @@ import * as Webflow from "../index";
  */
 export interface BulkCollectionItem {
     /** Unique identifier for the Item */
-    id: string;
+    id?: string;
     /** Array of identifiers for the locales where the item will be created */
     cmsLocaleIds?: string[];
     /** The date the item was last published */

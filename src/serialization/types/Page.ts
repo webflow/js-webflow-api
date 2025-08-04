@@ -9,7 +9,7 @@ import { PageSeo } from "./PageSeo";
 import { PageOpenGraph } from "./PageOpenGraph";
 
 export const Page: core.serialization.ObjectSchema<serializers.Page.Raw, Webflow.Page> = core.serialization.object({
-    id: core.serialization.string(),
+    id: core.serialization.string().optional(),
     siteId: core.serialization.string().optional(),
     title: core.serialization.string().optional(),
     slug: core.serialization.string().optional(),
@@ -21,6 +21,7 @@ export const Page: core.serialization.ObjectSchema<serializers.Page.Raw, Webflow
     draft: core.serialization.boolean().optional(),
     canBranch: core.serialization.boolean().optional(),
     isBranch: core.serialization.boolean().optional(),
+    branchId: core.serialization.string().optional(),
     seo: PageSeo.optional(),
     openGraph: PageOpenGraph.optional(),
     localeId: core.serialization.string().optional(),
@@ -29,7 +30,7 @@ export const Page: core.serialization.ObjectSchema<serializers.Page.Raw, Webflow
 
 export declare namespace Page {
     interface Raw {
-        id: string;
+        id?: string | null;
         siteId?: string | null;
         title?: string | null;
         slug?: string | null;
@@ -41,6 +42,7 @@ export declare namespace Page {
         draft?: boolean | null;
         canBranch?: boolean | null;
         isBranch?: boolean | null;
+        branchId?: string | null;
         seo?: PageSeo.Raw | null;
         openGraph?: PageOpenGraph.Raw | null;
         localeId?: string | null;

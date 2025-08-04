@@ -126,5 +126,9 @@ import * as Webflow from "../../../../../../index";
  *     }
  */
 export interface ItemsUpdateItemsLiveRequest {
+    /**
+     * When true, invalid files are skipped and processing continues. When false, the entire request fails if any file is invalid.
+     */
+    skipInvalidFiles?: boolean;
     items?: Webflow.CollectionItemWithIdInput[];
 }

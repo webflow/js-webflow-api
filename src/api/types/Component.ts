@@ -7,7 +7,7 @@
  */
 export interface Component {
     /** Unique identifier for the Component */
-    id: string;
+    id?: string;
     /** Component Name */
     name?: string;
     /** The group that the component belongs to */

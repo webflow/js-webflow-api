@@ -63,8 +63,8 @@ export class Collections {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.4",
-                "User-Agent": "webflow-api/3.1.4",
+                "X-Fern-SDK-Version": "3.1.5",
+                "User-Agent": "webflow-api/3.1.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -153,7 +153,9 @@ export class Collections {
     }
 
     /**
-     * Create a Collection for a site.
+     * Create a Collection for a site with collection fields.
+     *
+     * Each collection includes the required _name_ and _slug_ fields, which are generated automatically. You can update the `displayName` of these fields, but the slug for them cannot be changed. Fields slugs are automatically converted to lowercase. Spaces in slugs are replaced with hyphens.
      *
      * Required scope | `cms:write`
      *
@@ -209,8 +211,8 @@ export class Collections {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.4",
-                "User-Agent": "webflow-api/3.1.4",
+                "X-Fern-SDK-Version": "3.1.5",
+                "User-Agent": "webflow-api/3.1.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -335,8 +337,8 @@ export class Collections {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.4",
-                "User-Agent": "webflow-api/3.1.4",
+                "X-Fern-SDK-Version": "3.1.5",
+                "User-Agent": "webflow-api/3.1.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -452,8 +454,8 @@ export class Collections {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.4",
-                "User-Agent": "webflow-api/3.1.4",
+                "X-Fern-SDK-Version": "3.1.5",
+                "User-Agent": "webflow-api/3.1.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,

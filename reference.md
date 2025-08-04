@@ -538,7 +538,9 @@ await client.sites.getCustomDomain("580e63e98c9a982ac9b8b741");
 
 Publishes a site to one or more more domains.
 
-<Note title="Endpoint-specific rate limit">This endpoint has a limit of one successful publish queue per minute.</Note>
+To publish to a specific custom domain, use the domain IDs from the [Get Custom Domains](/data/reference/sites/get-custom-domain) endpoint.
+
+<Note title="Rate limit: 1 publish per minute">This endpoint has a specific rate limit of one successful publish queue per minute.</Note>
 
 Required scope | `sites:write`
 
@@ -556,7 +558,10 @@ Required scope | `sites:write`
 <dd>
 
 ```typescript
-await client.sites.publish("580e63e98c9a982ac9b8b741");
+await client.sites.publish("580e63e98c9a982ac9b8b741", {
+    customDomains: ["660c6449dd97ebc7346ac629", "660c6449dd97ebc7346ac62f"],
+    publishToWebflowSubdomain: false,
+});
 ```
 
 </dd>
@@ -678,7 +683,9 @@ await client.collections.list("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-Create a Collection for a site.
+Create a Collection for a site with collection fields.
+
+Each collection includes the required _name_ and _slug_ fields, which are generated automatically. You can update the `displayName` of these fields, but the slug for them cannot be changed. Fields slugs are automatically converted to lowercase. Spaces in slugs are replaced with hyphens.
 
 Required scope | `cms:write`
 
@@ -1084,30 +1091,18 @@ Required scope | `pages:write`
 ```typescript
 await client.pages.updatePageSettings("63c720f9347c2139b248e552", {
     localeId: "65427cf400e02b306eaa04a0",
-    body: {
-        id: "6596da6045e56dee495bcbba",
-        siteId: "6258612d1ee792848f805dcf",
-        title: "Guide to the Galaxy",
-        slug: "guide-to-the-galaxy",
-        createdOn: "2024-03-11T10:42:00Z",
-        lastUpdated: "2024-03-11T10:42:42Z",
-        archived: false,
-        draft: false,
-        canBranch: true,
-        isBranch: false,
-        seo: {
-            title: "The Ultimate Hitchhiker's Guide to the Galaxy",
-            description:
-                "Everything you need to know about the galaxy, from avoiding Vogon poetry to the importance of towels.",
-        },
-        openGraph: {
-            title: "Explore the Cosmos with The Ultimate Guide",
-            titleCopied: false,
-            description: "Dive deep into the mysteries of the universe with your guide to everything galactic.",
-            descriptionCopied: false,
-        },
-        localeId: "653fd9af6a07fc9cfd7a5e57",
-        publishedPath: "/en-us/guide-to-the-galaxy",
+    title: "Guide to the Galaxy",
+    slug: "guide-to-the-galaxy",
+    seo: {
+        title: "The Ultimate Hitchhiker's Guide to the Galaxy",
+        description:
+            "Everything you need to know about the galaxy, from avoiding Vogon poetry to the importance of towels.",
+    },
+    openGraph: {
+        title: "Explore the Cosmos with The Ultimate Guide",
+        titleCopied: false,
+        description: "Dive deep into the mysteries of the universe with your guide to everything galactic.",
+        descriptionCopied: false,
     },
 });
 ```
@@ -1133,7 +1128,7 @@ await client.pages.updatePageSettings("63c720f9347c2139b248e552", {
 <dl>
 <dd>
 
-**request:** `Webflow.UpdatePageSettingsRequest`
+**request:** `Webflow.PageMetadataWrite`
 
 </dd>
 </dl>
@@ -1392,7 +1387,9 @@ Required scope | `components:read`
 <dd>
 
 ```typescript
-await client.components.list("580e63e98c9a982ac9b8b741");
+await client.components.list("580e63e98c9a982ac9b8b741", {
+    branchId: "68026fa68ef6dc744c75b833",
+});
 ```
 
 </dd>
@@ -1470,6 +1467,7 @@ Required scope | `components:read`
 ```typescript
 await client.components.getContent("580e63e98c9a982ac9b8b741", "8505ba55-ef72-629e-f85c-33e4b703d48b", {
     localeId: "65427cf400e02b306eaa04a0",
+    branchId: "68026fa68ef6dc744c75b833",
 });
 ```
 
@@ -1562,6 +1560,7 @@ Required scope | `components:write`
 ```typescript
 await client.components.updateContent("580e63e98c9a982ac9b8b741", "8505ba55-ef72-629e-f85c-33e4b703d48b", {
     localeId: "65427cf400e02b306eaa04a0",
+    branchId: "68026fa68ef6dc744c75b833",
     nodes: [
         {
             nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad623",
@@ -1692,6 +1691,7 @@ Required scope | `components:read`
 ```typescript
 await client.components.getProperties("580e63e98c9a982ac9b8b741", "8505ba55-ef72-629e-f85c-33e4b703d48b", {
     localeId: "65427cf400e02b306eaa04a0",
+    branchId: "68026fa68ef6dc744c75b833",
 });
 ```
 
@@ -1779,6 +1779,7 @@ Required scope | `components:write`
 ```typescript
 await client.components.updateProperties("580e63e98c9a982ac9b8b741", "8505ba55-ef72-629e-f85c-33e4b703d48b", {
     localeId: "65427cf400e02b306eaa04a0",
+    branchId: "68026fa68ef6dc744c75b833",
     properties: [
         {
             propertyId: "a245c12d-995b-55ee-5ec7-aa36a6cad623",
@@ -3664,12 +3665,19 @@ fields cannot be updated using this endpoint</Note>
 
 ```typescript
 await client.users.update("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741", {
-    data: {
-        name: "Some One",
-        acceptPrivacy: false,
-        acceptCommunications: false,
-    },
-    accessGroups: ["webflowers", "platinum", "free-tier"],
+    id: "6287ec36a841b25637c663df",
+    isEmailVerified: true,
+    lastUpdated: "2022-05-20T13:46:12Z",
+    invitedOn: "2022-05-20T13:46:12Z",
+    createdOn: "2022-05-20T13:46:12Z",
+    lastLogin: "2022-05-20T13:46:12Z",
+    status: "verified",
+    accessGroups: [
+        {
+            slug: "webflowers",
+            type: "admin",
+        },
+    ],
 });
 ```
 
@@ -3702,7 +3710,7 @@ await client.users.update("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741"
 <dl>
 <dd>
 
-**request:** `Webflow.UsersUpdateRequest`
+**request:** `Webflow.User`
 
 </dd>
 </dl>
@@ -3755,7 +3763,7 @@ Required scope | `users:write`
 ```typescript
 await client.users.invite("580e63e98c9a982ac9b8b741", {
     email: "some.one@home.com",
-    accessGroups: ["webflowers"],
+    accessGroups: ["accessGroups"],
 });
 ```
 
@@ -4291,6 +4299,11 @@ Required scope | `ecommerce:write`
 await client.products.createSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b8b745", {
     skus: [
         {
+            id: "66072fb71b89448912e2681c",
+            cmsLocaleId: "653ad57de882f528b32e810e",
+            lastPublished: "2023-03-17T18:47:35Z",
+            lastUpdated: "2023-03-17T18:47:35Z",
+            createdOn: "2023-03-17T18:47:35Z",
             fieldData: {
                 name: "Colorful T-shirt - Default",
                 slug: "colorful-t-shirt-default",
@@ -4387,6 +4400,11 @@ Required scope | `ecommerce:write`
 ```typescript
 await client.products.updateSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b8b745", "5e8518516e147040726cc415", {
     sku: {
+        id: "66072fb71b89448912e2681c",
+        cmsLocaleId: "653ad57de882f528b32e810e",
+        lastPublished: "2023-03-17T18:47:35Z",
+        lastUpdated: "2023-03-17T18:47:35Z",
+        createdOn: "2023-03-17T18:47:35Z",
         fieldData: {
             name: "Colorful T-shirt - Default",
             slug: "colorful-t-shirt-default",
@@ -5170,10 +5188,9 @@ await client.ecommerce.getSettings("580e63e98c9a982ac9b8b741");
 
 Create a custom field in a collection.
 
-Slugs must be all lowercase letters without spaces.
-If you pass a string with uppercase letters and/or spaces to the "Slug" property, Webflow will
-convert the slug to lowercase and replace spaces with "-."
-This endpoint does not currently support bulk creation.
+Field validation is currently not available through the API.
+
+Bulk creation of fields is not supported with this endpoint. To add multiple fields at once, include them when you [create the collection.](/data/v2.0.0/reference/cms/collections/create)
 
 Required scope | `cms:write`
 
@@ -5192,6 +5209,7 @@ Required scope | `cms:write`
 
 ```typescript
 await client.collections.fields.create("580e63fc8c9a982ac9b8b745", {
+    id: "562ac0395358780a1f5e6fbc",
     isEditable: true,
     isRequired: false,
     type: "RichText",
@@ -5487,7 +5505,7 @@ await client.collections.items.listItems("580e63fc8c9a982ac9b8b745");
 
 Create Item(s) in a Collection.
 
-To create items across multiple locales, please use [this endpoint.](/v2.0.0/data/reference/cms/collection-items/staged-items/create-items)
+To create items across multiple locales, please use [this endpoint.](/data/reference/cms/collection-items/staged-items/create-items)
 
 Required scope | `CMS:write`
 
@@ -5506,11 +5524,13 @@ Required scope | `CMS:write`
 
 ```typescript
 await client.collections.items.createItem("580e63fc8c9a982ac9b8b745", {
-    isArchived: false,
-    isDraft: false,
-    fieldData: {
-        name: "Pan Galactic Gargle Blaster Recipe",
-        slug: "pan-galactic-gargle-blaster",
+    body: {
+        isArchived: false,
+        isDraft: false,
+        fieldData: {
+            name: "Pan Galactic Gargle Blaster Recipe",
+            slug: "pan-galactic-gargle-blaster",
+        },
     },
 });
 ```
@@ -5536,7 +5556,7 @@ await client.collections.items.createItem("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
-**request:** `Webflow.ItemsCreateItemRequest`
+**request:** `Webflow.collections.ItemsCreateItemRequest`
 
 </dd>
 </dl>
@@ -5636,7 +5656,7 @@ await client.collections.items.deleteItems("580e63fc8c9a982ac9b8b745", {
 </dl>
 </details>
 
-<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">updateItems</a>(collectionId, { ...params }) -> Webflow.CollectionItem</code></summary>
+<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">updateItems</a>(collectionId, { ...params }) -> Webflow.ItemsUpdateItemsResponse</code></summary>
 <dl>
 <dd>
 
@@ -5840,7 +5860,7 @@ await client.collections.items.listItemsLive("580e63fc8c9a982ac9b8b745");
 
 Create item(s) in a collection that will be immediately published to the live site.
 
-To create items across multiple locales, [please use this endpoint.](/v2.0.0/data/reference/cms/collection-items/staged-items/create-items)
+To create items across multiple locales, [please use this endpoint.](/data/reference/cms/collection-items/staged-items/create-items)
 
 Required scope | `CMS:write`
 
@@ -5859,11 +5879,13 @@ Required scope | `CMS:write`
 
 ```typescript
 await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
-    isArchived: false,
-    isDraft: false,
-    fieldData: {
-        name: "Pan Galactic Gargle Blaster Recipe",
-        slug: "pan-galactic-gargle-blaster",
+    body: {
+        isArchived: false,
+        isDraft: false,
+        fieldData: {
+            name: "Pan Galactic Gargle Blaster Recipe",
+            slug: "pan-galactic-gargle-blaster",
+        },
     },
 });
 ```
@@ -5889,7 +5911,7 @@ await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
-**request:** `Webflow.ItemsCreateItemLiveRequest`
+**request:** `Webflow.collections.ItemsCreateItemLiveRequest`
 
 </dd>
 </dl>
@@ -5920,9 +5942,7 @@ await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
-Remove an item or multiple items (up to 100 items) from the live site.
-
-Using this endpoint to delete published item(s) will unpublish the item(s) from the live site and set the item(s) `isDraft` property to `true`.
+Unpublish up to 100 items from the live site and set the `isDraft` property to `true`.
 
 <Tip title="Localization Tip">Items will only be unpublished in the primary locale unless a `cmsLocaleId` is included in the request.</Tip>
 
@@ -6380,11 +6400,13 @@ Required scope | `CMS:write`
 
 ```typescript
 await client.collections.items.updateItem("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754", {
-    isArchived: false,
-    isDraft: false,
-    fieldData: {
-        name: "Pan Galactic Gargle Blaster Recipe",
-        slug: "pan-galactic-gargle-blaster",
+    body: {
+        isArchived: false,
+        isDraft: false,
+        fieldData: {
+            name: "Pan Galactic Gargle Blaster Recipe",
+            slug: "pan-galactic-gargle-blaster",
+        },
     },
 });
 ```
@@ -6418,7 +6440,7 @@ await client.collections.items.updateItem("580e63fc8c9a982ac9b8b745", "580e64008
 <dl>
 <dd>
 
-**request:** `Webflow.CollectionItemPatchSingle`
+**request:** `Webflow.collections.ItemsUpdateItemRequest`
 
 </dd>
 </dl>
@@ -6535,9 +6557,9 @@ await client.collections.items.getItemLive("580e63fc8c9a982ac9b8b745", "580e6400
 <dl>
 <dd>
 
-Remove a live item from the site. Removing a published item will unpublish the item from the live site and set it to draft.
+Unpublish a live item from the site and set the `isDraft` property to `true`.
 
-This endpoint does not currently support bulk deletion.
+For bulk unpublishing, please use [this endpoint.](/data/v2.0.0/reference/cms/collection-items/live-items/delete-items-live)
 
 Required scope | `CMS:write`
 
@@ -6637,11 +6659,13 @@ Required scope | `CMS:write`
 
 ```typescript
 await client.collections.items.updateItemLive("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754", {
-    isArchived: false,
-    isDraft: false,
-    fieldData: {
-        name: "Pan Galactic Gargle Blaster Recipe",
-        slug: "pan-galactic-gargle-blaster",
+    body: {
+        isArchived: false,
+        isDraft: false,
+        fieldData: {
+            name: "Pan Galactic Gargle Blaster Recipe",
+            slug: "pan-galactic-gargle-blaster",
+        },
     },
 });
 ```
@@ -6675,7 +6699,7 @@ await client.collections.items.updateItemLive("580e63fc8c9a982ac9b8b745", "580e6
 <dl>
 <dd>
 
-**request:** `Webflow.CollectionItemPatchSingle`
+**request:** `Webflow.collections.ItemsUpdateItemLiveRequest`
 
 </dd>
 </dl>
@@ -6725,7 +6749,7 @@ Required scope | `cms:write`
 
 ```typescript
 await client.collections.items.publishItem("580e63fc8c9a982ac9b8b745", {
-    itemIds: ["itemIds"],
+    itemIds: ["643fd856d66b6528195ee2ca", "643fd856d66b6528195ee2cb", "643fd856d66b6528195ee2cc"],
 });
 ```
 
@@ -6750,7 +6774,7 @@ await client.collections.items.publishItem("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
-**request:** `Webflow.collections.ItemsPublishItemRequest`
+**request:** `Webflow.ItemsPublishItemRequest`
 
 </dd>
 </dl>

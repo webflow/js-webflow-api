@@ -78,8 +78,8 @@ export class Users {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.4",
-                "User-Agent": "webflow-api/3.1.4",
+                "X-Fern-SDK-Version": "3.1.5",
+                "User-Agent": "webflow-api/3.1.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -200,8 +200,8 @@ export class Users {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.4",
-                "User-Agent": "webflow-api/3.1.4",
+                "X-Fern-SDK-Version": "3.1.5",
+                "User-Agent": "webflow-api/3.1.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -323,8 +323,8 @@ export class Users {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.4",
-                "User-Agent": "webflow-api/3.1.4",
+                "X-Fern-SDK-Version": "3.1.5",
+                "User-Agent": "webflow-api/3.1.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
@@ -420,7 +420,7 @@ export class Users {
      *
      * @param {string} siteId - Unique identifier for a Site
      * @param {string} userId - Unique identifier for a User
-     * @param {Webflow.UsersUpdateRequest} request
+     * @param {Webflow.User} request
      * @param {Users.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Webflow.BadRequestError}
@@ -432,18 +432,23 @@ export class Users {
      *
      * @example
      *     await client.users.update("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741", {
-     *         data: {
-     *             name: "Some One",
-     *             acceptPrivacy: false,
-     *             acceptCommunications: false
-     *         },
-     *         accessGroups: ["webflowers", "platinum", "free-tier"]
+     *         id: "6287ec36a841b25637c663df",
+     *         isEmailVerified: true,
+     *         lastUpdated: "2022-05-20T13:46:12Z",
+     *         invitedOn: "2022-05-20T13:46:12Z",
+     *         createdOn: "2022-05-20T13:46:12Z",
+     *         lastLogin: "2022-05-20T13:46:12Z",
+     *         status: "verified",
+     *         accessGroups: [{
+     *                 slug: "webflowers",
+     *                 type: "admin"
+     *             }]
      *     })
      */
     public async update(
         siteId: string,
         userId: string,
-        request: Webflow.UsersUpdateRequest = {},
+        request: Webflow.User,
         requestOptions?: Users.RequestOptions
     ): Promise<Webflow.User> {
         const _response = await core.fetcher({
@@ -456,15 +461,15 @@ export class Users {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.4",
-                "User-Agent": "webflow-api/3.1.4",
+                "X-Fern-SDK-Version": "3.1.5",
+                "User-Agent": "webflow-api/3.1.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.UsersUpdateRequest.jsonOrThrow(request, {
+            body: serializers.User.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -576,7 +581,7 @@ export class Users {
      * @example
      *     await client.users.invite("580e63e98c9a982ac9b8b741", {
      *         email: "some.one@home.com",
-     *         accessGroups: ["webflowers"]
+     *         accessGroups: ["accessGroups"]
      *     })
      */
     public async invite(
@@ -594,8 +599,8 @@ export class Users {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "webflow-api",
-                "X-Fern-SDK-Version": "3.1.4",
-                "User-Agent": "webflow-api/3.1.4",
+                "X-Fern-SDK-Version": "3.1.5",
+                "User-Agent": "webflow-api/3.1.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...requestOptions?.headers,

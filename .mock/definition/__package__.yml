@@ -181,7 +181,24 @@ types:
         docs: Array of errors
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
-  Application: unknown
+  Application:
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Application
+      description:
+        type: optional<string>
+        docs: Application description provided by the developer
+      homepage:
+        type: optional<string>
+        docs: Application homepage URL provided by the developer
+        validation:
+          format: uri
+      displayName:
+        type: optional<string>
+        docs: Application name provided by the developer
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
   AuthorizationAuthorizationAuthorizedTo:
     properties:
       siteIds:
@@ -232,7 +249,7 @@ types:
   Domain:
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Unique identifier for the Domain
         access: read-only
       url:
@@ -350,7 +367,8 @@ types:
       openapi: ../../../openapi/referenced-specs/v2.yml
   User access:
     properties:
-      method: optional<WorkspaceAuditLogItemPayloadUserAccessMethod>
+      method:
+        type: optional<WorkspaceAuditLogItemPayloadUserAccessMethod>
       location:
         type: optional<string>
         docs: The geolocation based on the logged IP address
@@ -368,8 +386,10 @@ types:
       openapi: ../../../openapi/referenced-specs/v2.yml
   UserAccessAuditLogItem:
     properties:
-      eventSubType: optional<UserAccessAuditLogItemEventSubType>
-      payload: optional<User access>
+      eventSubType:
+        type: optional<UserAccessAuditLogItemEventSubType>
+      payload:
+        type: optional<User access>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   Custom role:
@@ -392,8 +412,10 @@ types:
       openapi: ../../../openapi/referenced-specs/v2.yml
   CustomRoleAuditLogItem:
     properties:
-      eventSubType: optional<CustomRoleAuditLogItemEventSubType>
-      payload: optional<Custom role>
+      eventSubType:
+        type: optional<CustomRoleAuditLogItemEventSubType>
+      payload:
+        type: optional<Custom role>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   WorkspaceAuditLogItemPayloadWorkspaceMembershipTargetUser:
@@ -422,9 +444,12 @@ types:
       openapi: ../../../openapi/referenced-specs/v2.yml
   Workspace membership:
     properties:
-      targetUser: optional<WorkspaceAuditLogItemPayloadWorkspaceMembershipTargetUser>
-      method: optional<WorkspaceAuditLogItemPayloadWorkspaceMembershipMethod>
-      userType: optional<WorkspaceAuditLogItemPayloadWorkspaceMembershipUserType>
+      targetUser:
+        type: optional<WorkspaceAuditLogItemPayloadWorkspaceMembershipTargetUser>
+      method:
+        type: optional<WorkspaceAuditLogItemPayloadWorkspaceMembershipMethod>
+      userType:
+        type: optional<WorkspaceAuditLogItemPayloadWorkspaceMembershipUserType>
       roleName:
         type: optional<string>
         docs: The name of the role that was assigned to the user
@@ -443,8 +468,10 @@ types:
       openapi: ../../../openapi/referenced-specs/v2.yml
   WorkspaceMembershipAuditLogItem:
     properties:
-      eventSubType: optional<WorkspaceMembershipAuditLogItemEventSubType>
-      payload: optional<Workspace membership>
+      eventSubType:
+        type: optional<WorkspaceMembershipAuditLogItemEventSubType>
+      payload:
+        type: optional<Workspace membership>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   WorkspaceAuditLogItemPayloadSiteMembershipSite:
@@ -482,10 +509,14 @@ types:
       openapi: ../../../openapi/referenced-specs/v2.yml
   Site membership:
     properties:
-      site: optional<WorkspaceAuditLogItemPayloadSiteMembershipSite>
-      targetUser: optional<WorkspaceAuditLogItemPayloadSiteMembershipTargetUser>
-      method: optional<WorkspaceAuditLogItemPayloadSiteMembershipMethod>
-      userType: optional<WorkspaceAuditLogItemPayloadSiteMembershipUserType>
+      site:
+        type: optional<WorkspaceAuditLogItemPayloadSiteMembershipSite>
+      targetUser:
+        type: optional<WorkspaceAuditLogItemPayloadSiteMembershipTargetUser>
+      method:
+        type: optional<WorkspaceAuditLogItemPayloadSiteMembershipMethod>
+      userType:
+        type: optional<WorkspaceAuditLogItemPayloadSiteMembershipUserType>
       roleName:
         type: optional<string>
         docs: The name of the role that was assigned to the user
@@ -504,8 +535,10 @@ types:
       openapi: ../../../openapi/referenced-specs/v2.yml
   SiteMembershipAuditLogItem:
     properties:
-      eventSubType: optional<SiteMembershipAuditLogItemEventSubType>
-      payload: optional<Site membership>
+      eventSubType:
+        type: optional<SiteMembershipAuditLogItemEventSubType>
+      payload:
+        type: optional<Site membership>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   WorkspaceAuditLogItemPayloadWorkspaceInvitationTargetUser:
@@ -534,9 +567,12 @@ types:
       openapi: ../../../openapi/referenced-specs/v2.yml
   Workspace invitation:
     properties:
-      targetUser: optional<WorkspaceAuditLogItemPayloadWorkspaceInvitationTargetUser>
-      method: optional<WorkspaceAuditLogItemPayloadWorkspaceInvitationMethod>
-      userType: optional<WorkspaceAuditLogItemPayloadWorkspaceInvitationUserType>
+      targetUser:
+        type: optional<WorkspaceAuditLogItemPayloadWorkspaceInvitationTargetUser>
+      method:
+        type: optional<WorkspaceAuditLogItemPayloadWorkspaceInvitationMethod>
+      userType:
+        type: optional<WorkspaceAuditLogItemPayloadWorkspaceInvitationUserType>
       roleName:
         type: optional<string>
         docs: The name of the role that was assigned to the user
@@ -557,8 +593,10 @@ types:
       openapi: ../../../openapi/referenced-specs/v2.yml
   WorkspaceInvitationAuditLogItem:
     properties:
-      eventSubType: optional<WorkspaceInvitationAuditLogItemEventSubType>
-      payload: optional<Workspace invitation>
+      eventSubType:
+        type: optional<WorkspaceInvitationAuditLogItemEventSubType>
+      payload:
+        type: optional<Workspace invitation>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   WorkspaceAuditLogItemActor:
@@ -582,11 +620,16 @@ types:
       actor: optional<WorkspaceAuditLogItemActor>
       workspace: optional<WorkspaceAuditLogItemWorkspace>
     union:
-      user_access: UserAccessAuditLogItem
-      custom_role: CustomRoleAuditLogItem
-      workspace_membership: WorkspaceMembershipAuditLogItem
-      site_membership: SiteMembershipAuditLogItem
-      workspace_invitation: WorkspaceInvitationAuditLogItem
+      user_access:
+        type: UserAccessAuditLogItem
+      custom_role:
+        type: CustomRoleAuditLogItem
+      workspace_membership:
+        type: WorkspaceMembershipAuditLogItem
+      site_membership:
+        type: SiteMembershipAuditLogItem
+      workspace_invitation:
+        type: WorkspaceInvitationAuditLogItem
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   Pagination:
@@ -825,7 +868,7 @@ types:
     docs: A collection object
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Unique identifier for a Collection
         access: read-only
       displayName:
@@ -999,9 +1042,9 @@ types:
     discriminated: false
     docs: Details about the field of a collection
     union:
-      - Static Field
-      - Option Field
-      - Reference Field
+      - type: Static Field
+      - type: Option Field
+      - type: Reference Field
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   FieldType:
@@ -1027,11 +1070,35 @@ types:
     inline: true
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
+  FieldValidationsAdditionalPropertiesAdditionalProperties:
+    properties:
+      additionalProperties: optional<unknown>
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  FieldValidationsAdditionalProperties:
+    discriminated: false
+    union:
+      - string
+      - double
+      - boolean
+      - integer
+      - FieldValidationsAdditionalPropertiesAdditionalProperties
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  FieldValidations:
+    docs: The validations for the field
+    properties:
+      additionalProperties: optional<FieldValidationsAdditionalProperties>
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
   Field:
     docs: The details of a field in a collection
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Unique identifier for a Field
         access: read-only
       isRequired:
@@ -1055,13 +1122,17 @@ types:
       helpText:
         type: optional<string>
         docs: Additional text to help anyone filling out this field
+      validations:
+        type: optional<FieldValidations>
+        docs: The validations for the field
+        access: read-only
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   Collection:
     docs: A collection object
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Unique identifier for a Collection
         access: read-only
       displayName:
@@ -1126,15 +1197,15 @@ types:
         type: optional<string>
         docs: Identifier for the locale of the CMS item
       lastPublished:
-        type: string
+        type: optional<string>
         docs: The date the item was last published
         access: read-only
       lastUpdated:
-        type: string
+        type: optional<string>
         docs: The date the item was last updated
         access: read-only
       createdOn:
-        type: string
+        type: optional<string>
         docs: The date the item was created
         access: read-only
       isArchived:
@@ -1170,7 +1241,8 @@ types:
       items:
         type: optional<list<CollectionItem>>
         docs: List of Items within the collection
-      pagination: optional<CollectionItemListPagination>
+      pagination:
+        type: optional<CollectionItemListPagination>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   CollectionItemPostSingleFieldData:
@@ -1229,7 +1301,7 @@ types:
       isDraft:
         type: optional<boolean>
         docs: Boolean determining if the Item is in a draft state.
-        default: false
+        default: true
       fieldData: CollectionItemPostSingleFieldData
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
@@ -1312,7 +1384,7 @@ types:
       items
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Unique identifier for the Item
         access: read-only
       cmsLocaleIds:
@@ -1425,15 +1497,15 @@ types:
       comments. Retrieve comment replies using the replies API endpoint.
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Unique identifier for the comment thread
         access: read-only
       siteId:
-        type: string
+        type: optional<string>
         docs: The site unique identifier
         access: read-only
       pageId:
-        type: string
+        type: optional<string>
         docs: The page unique identifier
         access: read-only
       localeId:
@@ -1445,11 +1517,11 @@ types:
         docs: The item unique identifier
         access: read-only
       breakpoint:
-        type: string
+        type: optional<string>
         docs: The breakpoint the comment was left on
         access: read-only
       url:
-        type: string
+        type: optional<string>
         docs: The URL of the page the comment was left on
         access: read-only
       content:
@@ -1467,11 +1539,11 @@ types:
           comment is created.
         type: list<CommentThreadMentionedUsersItem>
       createdOn:
-        type: string
+        type: optional<string>
         docs: The date the item was created
         access: read-only
       lastUpdated:
-        type: string
+        type: optional<string>
         docs: The date the item was last updated
         access: read-only
     source:
@@ -1536,19 +1608,19 @@ types:
       comments.
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Unique identifier for the comment thread
         access: read-only
       commentId:
-        type: string
+        type: optional<string>
         docs: The comment reply unique identifier
         access: read-only
       siteId:
-        type: string
+        type: optional<string>
         docs: The site unique identifier
         access: read-only
       pageId:
-        type: string
+        type: optional<string>
         docs: The page unique identifier
         access: read-only
       localeId:
@@ -1556,7 +1628,7 @@ types:
         docs: The locale unique identifier
         access: read-only
       breakpoint:
-        type: string
+        type: optional<string>
         docs: The breakpoint the comment was left on
         access: read-only
       content:
@@ -1573,11 +1645,11 @@ types:
           List of mentioned users is an empty array until email notifications
           are sent.
       lastUpdated:
-        type: string
+        type: optional<string>
         docs: The date the item was last updated
         access: read-only
       createdOn:
-        type: string
+        type: optional<string>
         docs: The date the item was created
         access: read-only
     source:
@@ -1646,7 +1718,7 @@ types:
     docs: The Page object
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Unique identifier for the Page
         access: read-only
       siteId:
@@ -1691,7 +1763,8 @@ types:
         type: optional<boolean>
         docs: >-
           Indicates whether the Page supports [Page
-          Branching](https://university.webflow.com/lesson/page-branching)
+          Branching](https://university.webflow.com/lesson/page-branching).
+          Pages that are already branches cannot be branched again.
         default: false
         access: read-only
       isBranch:
@@ -1701,6 +1774,9 @@ types:
           Branching](https://university.webflow.com/lesson/page-branching)
         default: false
         access: read-only
+      branchId:
+        type: optional<string>
+        docs: If the Page is a Branch of another Page, this is the ID of the Branch
       seo:
         type: optional<PageSeo>
         docs: SEO-related fields for the Page
@@ -1736,14 +1812,14 @@ types:
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
-  TextNode:
+  Text Node DOM:
     docs: >
       Represents text content within the DOM. It contains both the raw text and
       its HTML representation. Additional attributes can be associated with the
       text for styling or other purposes.
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Node UUID
         access: read-only
       text:
@@ -1762,7 +1838,7 @@ types:
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
-  ImageNode:
+  Image Node DOM:
     docs: >
       Represents an image within the DOM. It contains details about the image,
       such as its alternative text (alt) for accessibility and an asset
@@ -1770,7 +1846,7 @@ types:
       can be associated with the image for styling or other purposes.
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Node UUID
         access: read-only
       image:
@@ -1827,13 +1903,13 @@ types:
           and its HTML representation.
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
-  ComponentNode:
+  Component Node DOM:
     docs: >
       Represents a component instance within the DOM. It contains details about
       the component instance, such as its type and properties.
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: The unique identifier of the component instance node
         access: read-only
       componentId:
@@ -1844,14 +1920,14 @@ types:
         type: list<ComponentProperty>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
-  TextInputNode:
+  Text Input Node DOM:
     docs: >
       Represents text input and textarea elements within the DOM. It contains
       the placeholder text in the input. Additional attributes can be associated
       with the text for styling or other purposes.
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Node UUID
         access: read-only
       placeholder:
@@ -1873,14 +1949,14 @@ types:
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
-  SelectNode:
+  Select Node DOM:
     docs: >
       Represents select elements within the DOM. It contains the list of choices
       in the select. Additional attributes can be associated with the text for
       styling or other purposes.
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Node UUID
         access: read-only
       choices:
@@ -1891,14 +1967,14 @@ types:
         docs: The custom attributes of the node
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
-  SubmitButtonNode:
+  Submit Button Node DOM:
     docs: >
       Represents submit button elements within the DOM. It contains the text and
       waiting text of the button. Additional attributes can be associated with
       the text for styling or other purposes.
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Node UUID
         access: read-only
       value:
@@ -1912,14 +1988,14 @@ types:
         docs: The custom attributes of the node
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
-  SearchButtonNode:
+  Search Button Node DOM:
     docs: >
       Represents search button elements within the DOM. It contains the text of
       the button. Additional attributes can be associated with the text for
       styling or other purposes.
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Node UUID
         access: read-only
       value:
@@ -1938,13 +2014,20 @@ types:
       Model (DOM). Each node has a unique identifier and a specific type that
       determines its content structure and attributes.
     union:
-      text: TextNode
-      image: ImageNode
-      component-instance: ComponentNode
-      text-input: TextInputNode
-      select: SelectNode
-      submit-button: SubmitButtonNode
-      search-button: SearchButtonNode
+      text:
+        type: Text Node DOM
+      image:
+        type: Image Node DOM
+      component-instance:
+        type: Component Node DOM
+      text-input:
+        type: Text Input Node DOM
+      select:
+        type: Select Node DOM
+      submit-button:
+        type: Submit Button Node DOM
+      search-button:
+        type: Search Button Node DOM
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   Dom:
@@ -1959,6 +2042,9 @@ types:
       pageId:
         type: optional<string>
         docs: Page ID
+      branchId:
+        type: optional<string>
+        docs: If the page is a branch, this is the ID of the branch
       nodes: optional<list<Node>>
       pagination: optional<Pagination>
       lastUpdated:
@@ -1967,7 +2053,7 @@ types:
         access: read-only
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
-  TextNodeWrite:
+  Text Node:
     docs: Update a text node
     properties:
       nodeId:
@@ -2001,7 +2087,7 @@ types:
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
-  ComponentInstanceNodePropertyOverridesWrite:
+  Component Instance:
     docs: Update text property overrides of a component instance
     properties:
       nodeId:
@@ -2025,7 +2111,7 @@ types:
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
-  SelectNodeWrite:
+  Select:
     docs: Update choices on a select node
     properties:
       nodeId:
@@ -2036,7 +2122,7 @@ types:
         type: list<SelectNodeWriteChoicesItem>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
-  TextInputNodeWrite:
+  Text Input:
     docs: Update placeholder text on a text input node
     properties:
       nodeId:
@@ -2047,7 +2133,7 @@ types:
         docs: The placeholder text of the input node
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
-  SubmitButtonNodeWrite:
+  Submit Button:
     docs: Update a submit button node
     properties:
       nodeId:
@@ -2061,7 +2147,7 @@ types:
         docs: The text to show while the form is submitting.
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
-  SearchButtonNodeWrite:
+  Search Button:
     docs: Update a search button node
     properties:
       nodeId:
@@ -2076,7 +2162,7 @@ types:
     docs: The Component object
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Unique identifier for the Component
         access: read-only
       name:
@@ -2228,6 +2314,7 @@ types:
     docs: A list of scripts registered to the site
     properties:
       registeredScripts: optional<list<CustomCodeHostedResponse>>
+      pagination: optional<Pagination>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   CustomCodeInlineResponse:
@@ -2333,7 +2420,7 @@ types:
         type: integer
         docs: Width in pixels
       height:
-        type: integer
+        type: optional<integer>
         docs: Height in pixels
       quality:
         type: integer
@@ -2347,40 +2434,40 @@ types:
     docs: Asset details
     properties:
       id:
-        type: string
+        type: optional<string>
         docs: Unique identifier for this asset
         access: read-only
       contentType:
-        type: string
+        type: optional<string>
         docs: File format type
         access: read-only
       size:
-        type: integer
+        type: optional<integer>
         docs: size in bytes
         access: read-only
       siteId:
-        type: string
+        type: optional<string>
         docs: Unique identifier for the site that hosts this asset
         access: read-only
       hostedUrl:
-        type: string
+        type: optional<string>
         docs: Link to the asset
         validation:
           format: uri
         access: read-only
       originalFileName:
-        type: string
+        type: optional<string>
         docs: Original file name at the time of upload
         access: read-only
       displayName:
         type: string
         docs: Display name of the asset
       lastUpdated:
-        type: datetime
+        type: optional<datetime>
         docs: Date the asset metadata was last updated
         access: read-only
       createdOn:
-        type: datetime
+        type: optional<datetime>
         docs: Date the asset metadata was created
         access: read-only
       variants:
@@ -2688,6 +2775,39 @@ types:
       pagination: optional<Pagination>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
+  UserStatus:
+    enum:
+      - invited
+      - verified
+      - unverified
+    docs: The status of the user
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  UserAccessGroupsItemType:
+    enum:
+      - admin
+      - ecommerce
+    docs: |
+      The type of access group based on how it was assigned to the user.
+      * `admin` - Assigned to the user via API or in the designer
+      * `ecommerce` - Assigned to the user via an ecommerce purchase
+    inline: true
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  UserAccessGroupsItem:
+    docs: Access group slugs and types
+    properties:
+      slug:
+        type: optional<string>
+        docs: Access group identifier for APIs
+      type:
+        type: optional<UserAccessGroupsItemType>
+        docs: |
+          The type of access group based on how it was assigned to the user.
+          * `admin` - Assigned to the user via API or in the designer
+          * `ecommerce` - Assigned to the user via an ecommerce purchase
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
   UserDataData:
     properties:
       name:
@@ -2718,41 +2838,6 @@ types:
       data: optional<UserDataData>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
-  UserStatus:
-    enum:
-      - invited
-      - verified
-      - unverified
-    docs: The status of the user
-    inline: true
-    source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
-  UserAccessGroupsItemType:
-    enum:
-      - admin
-      - ecommerce
-    docs: |
-      The type of access group based on how it was assigned to the user.
-      * `admin` - Assigned to the user via API or in the designer
-      * `ecommerce` - Assigned to the user via an ecommerce purchase
-    inline: true
-    source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
-  UserAccessGroupsItem:
-    docs: Access group slugs and types
-    properties:
-      slug:
-        type: optional<string>
-        docs: Access group identifier for APIs
-      type:
-        type: optional<UserAccessGroupsItemType>
-        docs: |
-          The type of access group based on how it was assigned to the user.
-          * `admin` - Assigned to the user via API or in the designer
-          * `ecommerce` - Assigned to the user via an ecommerce purchase
-    source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
-    inline: true
   User:
     docs: >
       The fields that define the schema for a given Item are based on the
@@ -2784,10 +2869,7 @@ types:
         type: optional<datetime>
         docs: The timestamp the user was logged in
         access: read-only
-      status:
-        type: optional<UserStatus>
-        docs: The status of the user
-        access: read-only
+      status: optional<UserStatus>
       accessGroups:
         type: optional<list<UserAccessGroupsItem>>
         docs: Access groups the user belongs to
@@ -2993,9 +3075,9 @@ types:
       sku-properties:
         type: optional<list<SkuPropertyList>>
         docs: Variant types to include in SKUs
-      categories:
+      category:
         type: optional<list<string>>
-        docs: The categories your product belongs to.
+        docs: The category your product belongs to.
       tax-category:
         type: optional<ProductFieldDataTaxCategory>
         docs: Product tax class
@@ -3547,6 +3629,112 @@ types:
     inline: true
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
+  OrderShippingAddressType:
+    enum:
+      - shipping
+      - billing
+    docs: The type of the order address (billing or shipping)
+    inline: true
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  OrderShippingAddressJapanType:
+    enum:
+      - kana
+      - kanji
+    docs: >-
+      Represents a Japan-only address format. This field will only appear on
+      orders placed from Japan.
+    inline: true
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  OrderShippingAddress:
+    docs: The shipping address
+    properties:
+      type:
+        type: optional<OrderShippingAddressType>
+        docs: The type of the order address (billing or shipping)
+      japanType:
+        type: optional<OrderShippingAddressJapanType>
+        docs: >-
+          Represents a Japan-only address format. This field will only appear on
+          orders placed from Japan.
+      addressee:
+        type: optional<string>
+        docs: Display name on the address
+      line1:
+        type: optional<string>
+        docs: The first line of the address
+      line2:
+        type: optional<string>
+        docs: The second line of the address
+      city:
+        type: optional<string>
+        docs: The city of the address.
+      state:
+        type: optional<string>
+        docs: The state or province of the address
+      country:
+        type: optional<string>
+        docs: The country of the address
+      postalCode:
+        type: optional<string>
+        docs: The postal code of the address
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  OrderBillingAddressType:
+    enum:
+      - shipping
+      - billing
+    docs: The type of the order address (billing or shipping)
+    inline: true
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  OrderBillingAddressJapanType:
+    enum:
+      - kana
+      - kanji
+    docs: >-
+      Represents a Japan-only address format. This field will only appear on
+      orders placed from Japan.
+    inline: true
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  OrderBillingAddress:
+    docs: The billing address
+    properties:
+      type:
+        type: optional<OrderBillingAddressType>
+        docs: The type of the order address (billing or shipping)
+      japanType:
+        type: optional<OrderBillingAddressJapanType>
+        docs: >-
+          Represents a Japan-only address format. This field will only appear on
+          orders placed from Japan.
+      addressee:
+        type: optional<string>
+        docs: Display name on the address
+      line1:
+        type: optional<string>
+        docs: The first line of the address
+      line2:
+        type: optional<string>
+        docs: The second line of the address
+      city:
+        type: optional<string>
+        docs: The city of the address.
+      state:
+        type: optional<string>
+        docs: The state or province of the address
+      country:
+        type: optional<string>
+        docs: The country of the address
+      postalCode:
+        type: optional<string>
+        docs: The postal code of the address
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
   OrderCustomerInfo:
     docs: An object with the keys `fullName` and `email`.
     properties:
@@ -3691,10 +3879,10 @@ types:
         type: optional<list<OrderAddress>>
         docs: All addresses provided by the customer during the ordering flow.
       shippingAddress:
-        type: optional<OrderAddress>
+        type: optional<OrderShippingAddress>
         docs: The shipping address
       billingAddress:
-        type: optional<OrderAddress>
+        type: optional<OrderBillingAddress>
         docs: The billing address
       shippingProvider:
         type: optional<string>
@@ -3804,5 +3992,640 @@ types:
       defaultCurrency:
         type: optional<string>
         docs: The three-letter ISO currency code for the Site
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  FormSubmissionTriggerPayloadSchemaItemFieldType:
+    enum:
+      - FormTextInput
+      - FormTextarea
+      - FormCheckboxInput
+      - FormRadioInput
+      - FormFileUploadInput
+    docs: Form field type
+    inline: true
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  FormSubmissionTriggerPayloadSchemaItem:
+    properties:
+      fieldName:
+        type: optional<string>
+        docs: Form field name
+      fieldType:
+        type: optional<FormSubmissionTriggerPayloadSchemaItemFieldType>
+        docs: Form field type
+      fieldElementId:
+        type: optional<string>
+        docs: Element ID of the Form Field
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  FormSubmissionTriggerPayload:
+    docs: The payload of data sent from Webflow
+    properties:
+      name:
+        type: optional<string>
+        docs: The name of the form
+      siteId:
+        type: optional<string>
+        docs: The ID of the site that the form was submitted from
+      data:
+        type: optional<map<string, unknown>>
+        docs: The data submitted in the form
+      schema:
+        type: optional<list<FormSubmissionTriggerPayloadSchemaItem>>
+        docs: A list of fields from the submitted form
+      submittedAt:
+        type: optional<string>
+        docs: The timestamp the form was submitted
+      id:
+        type: optional<string>
+        docs: the ID of the event
+      formId:
+        type: optional<string>
+        docs: The ID of the form submission
+      formElementId:
+        type: optional<string>
+        docs: The uniqueID of the Form element
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  FormSubmissionTrigger:
+    docs: The Webhook payload for when a form is submitted
+    properties:
+      triggerType:
+        type: optional<string>
+        docs: The type of event that triggered the request
+      payload:
+        type: optional<FormSubmissionTriggerPayload>
+        docs: The payload of data sent from Webflow
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  SitePublishPayload:
+    docs: The payload of data sent from Webflow
+    properties:
+      siteId:
+        type: optional<string>
+        docs: The ID of the site that was published
+      publishedOn:
+        type: optional<datetime>
+        docs: The timestamp of the publish event
+      domains:
+        type: optional<list<string>>
+        docs: The domains that were published
+      publishedBy:
+        type: optional<map<string, unknown>>
+        docs: The name andID of the user who published the site
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  SitePublish:
+    docs: The Webhook payload for when a Site is published
+    properties:
+      triggerType:
+        type: optional<string>
+        docs: The type of event that triggered the request
+      payload:
+        type: optional<SitePublishPayload>
+        docs: The payload of data sent from Webflow
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  NewOrder:
+    docs: The Webhook payload for when a new order is created
+    properties:
+      triggerType:
+        type: optional<string>
+        docs: The type of event that triggered the request
+      payload: optional<Order>
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  UpdatedOrder:
+    docs: The Webhook payload for when an order is updated
+    properties:
+      triggerType:
+        type: optional<string>
+        docs: The type of event that triggered the request
+      payload: optional<Order>
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  SingleLocaleCreatedPayloadFieldData:
+    properties:
+      name: string
+      slug: string
+    extra-properties: true
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  SingleLocaleCreatedPayload:
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the Item
+        validation:
+          format: uuid
+      workspaceId:
+        type: string
+        docs: Unique identifier of the workspace
+        validation:
+          format: uuid
+      siteId:
+        type: string
+        docs: Unique identifier of the site
+        validation:
+          format: uuid
+      collectionId:
+        type: string
+        docs: Unique identifier of the collection
+        validation:
+          format: uuid
+      cmsLocaleId:
+        type: optional<string>
+        docs: Unique identifier of the CMS locale for this item
+        validation:
+          format: uuid
+      lastPublished:
+        type: optional<datetime>
+      lastUpdated:
+        type: optional<datetime>
+      createdOn:
+        type: optional<datetime>
+      isArchived:
+        type: optional<boolean>
+      isDraft:
+        type: optional<boolean>
+      fieldData: SingleLocaleCreatedPayloadFieldData
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  LocalizedItem:
+    properties:
+      _cid:
+        type: string
+        docs: Collection ID the item belongs to
+        validation:
+          format: uuid
+      _id:
+        type: string
+        docs: Unique identifier for the item
+        validation:
+          format: uuid
+      _locale:
+        type: string
+        docs: Locale identifier for this version of the item
+        validation:
+          format: uuid
+      _draft:
+        type: boolean
+        docs: Whether the item is in draft state
+      _archived:
+        type: boolean
+        docs: Whether the item is archived
+      name:
+        type: string
+        docs: Name of the item
+      slug:
+        type: string
+        docs: URL-friendly version of the name
+      updated-on:
+        type: datetime
+        docs: Timestamp of last update
+      updated-by:
+        type: string
+        docs: Identifier of user who last updated the item
+      created-on:
+        type: datetime
+        docs: Timestamp of creation
+      created-by:
+        type: string
+        docs: Identifier of user who created the item
+      published-on:
+        type: optional<datetime>
+        docs: Timestamp of last publish, if published
+      published-by:
+        type: optional<string>
+        docs: Identifier of user who last published the item
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  MultiLocaleCreatedPayload:
+    properties:
+      siteId:
+        type: string
+        docs: Unique identifier of the site
+        validation:
+          format: uuid
+      workspaceId:
+        type: string
+        docs: Unique identifier of the workspace
+        validation:
+          format: uuid
+      collectionId:
+        type: string
+        docs: Unique identifier of the collection
+        validation:
+          format: uuid
+      cmsLocaleId:
+        type: optional<string>
+        docs: Unique identifier of the CMS locale for this item
+        validation:
+          format: uuid
+      fieldData:
+        type: map<string, LocalizedItem>
+        docs: Collection of localized items, keyed by locale index (0-n)
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  CollectionItemCreatedPayload:
+    discriminated: false
+    union:
+      - type: SingleLocaleCreatedPayload
+      - type: MultiLocaleCreatedPayload
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  CollectionItemCreated:
+    docs: The Webhook payload for when a Collection Item is created
+    properties:
+      triggerType:
+        type: literal<"collection_item_created">
+        docs: The type of event that triggered the request
+      payload: CollectionItemCreatedPayload
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  SingleLocaleChangedPayloadFieldData:
+    properties:
+      name: string
+      slug: string
+    extra-properties: true
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  SingleLocaleChangedPayload:
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the Item
+        validation:
+          format: uuid
+      workspaceId:
+        type: string
+        docs: Unique identifier of the workspace
+        validation:
+          format: uuid
+      siteId:
+        type: string
+        docs: Unique identifier of the site
+        validation:
+          format: uuid
+      collectionId:
+        type: string
+        docs: Unique identifier of the collection
+        validation:
+          format: uuid
+      cmsLocaleId:
+        type: optional<string>
+        docs: Unique identifier of the CMS locale for this item
+        validation:
+          format: uuid
+      lastPublished:
+        type: optional<datetime>
+      lastUpdated:
+        type: optional<datetime>
+      createdOn:
+        type: optional<datetime>
+      isArchived:
+        type: optional<boolean>
+      isDraft:
+        type: optional<boolean>
+      fieldData: SingleLocaleChangedPayloadFieldData
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  MultiLocaleChangedPayloadFieldData:
+    properties:
+      name: string
+      slug: string
+      _locale:
+        type: string
+        docs: Locale identifier for this version of the item
+        validation:
+          format: uuid
+    extra-properties: true
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  MultiLocaleChangedPayload:
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the Item
+        validation:
+          format: uuid
+      workspaceId:
+        type: string
+        docs: Unique identifier of the workspace
+        validation:
+          format: uuid
+      siteId:
+        type: string
+        docs: Unique identifier of the site
+        validation:
+          format: uuid
+      collectionId:
+        type: string
+        docs: Unique identifier of the collection
+        validation:
+          format: uuid
+      cmsLocaleId:
+        type: optional<string>
+        docs: Unique identifier of the CMS locale for this item
+        validation:
+          format: uuid
+      lastPublished:
+        type: optional<datetime>
+      lastUpdated:
+        type: optional<datetime>
+      createdOn:
+        type: optional<datetime>
+      isArchived:
+        type: optional<boolean>
+      isDraft:
+        type: optional<boolean>
+      fieldData: MultiLocaleChangedPayloadFieldData
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  CollectionItemChangedPayload:
+    discriminated: false
+    union:
+      - type: SingleLocaleChangedPayload
+      - type: MultiLocaleChangedPayload
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  CollectionItemChanged:
+    docs: The Webhook payload for when a Collection Item is changed
+    properties:
+      triggerType:
+        type: literal<"collection_item_changed">
+        docs: The type of event that triggered the request
+      payload: CollectionItemChangedPayload
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  CollectionItemRemovedPayloadFieldData:
+    properties:
+      name: string
+      slug: string
+    extra-properties: true
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  CollectionItemRemovedPayload:
+    docs: The payload of data sent from Webflow
+    properties:
+      id:
+        type: optional<string>
+        docs: The ID of the collection item that was deleted
+      siteId:
+        type: optional<string>
+        docs: The ID of the site
+      workspaceId:
+        type: optional<string>
+        docs: The ID of the workspace
+      collectionId:
+        type: optional<string>
+        docs: The ID of the collection
+      cmsLocaleId:
+        type: optional<string>
+        docs: Unique identifier of the CMS locale for this item
+        validation:
+          format: uuid
+      lastPublished: optional<datetime>
+      lastUpdated: optional<datetime>
+      createdOn: optional<datetime>
+      isArchived: optional<boolean>
+      isDraft: optional<boolean>
+      fieldData: optional<CollectionItemRemovedPayloadFieldData>
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  CollectionItemRemoved:
+    properties:
+      triggerType:
+        type: optional<string>
+        docs: The type of event that triggered the request
+      payload:
+        type: optional<CollectionItemRemovedPayload>
+        docs: The payload of data sent from Webflow
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  CollectionItemUnpublishedPayloadFieldData:
+    properties:
+      name: string
+      slug: string
+    extra-properties: true
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  CollectionItemUnpublishedPayload:
+    docs: The payload of data sent from Webflow
+    properties:
+      id:
+        type: optional<string>
+        docs: The ID of the collection item that was unpublished
+      siteId:
+        type: optional<string>
+        docs: The ID of the site
+      workspaceId:
+        type: optional<string>
+        docs: The ID of the workspace
+      collectionId:
+        type: optional<string>
+        docs: The ID of the collection
+      cmsLocaleId:
+        type: optional<string>
+        docs: Unique identifier of the CMS locale for this item
+        validation:
+          format: uuid
+      lastPublished: optional<datetime>
+      lastUpdated: optional<datetime>
+      createdOn: optional<datetime>
+      isArchived: optional<boolean>
+      isDraft: optional<boolean>
+      fieldData: optional<CollectionItemUnpublishedPayloadFieldData>
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  CollectionItemUnpublished:
+    properties:
+      triggerType:
+        type: optional<string>
+        docs: The type of event that triggered the request
+      payload:
+        type: optional<CollectionItemUnpublishedPayload>
+        docs: The payload of data sent from Webflow
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  PageCreatedWebhookPayload:
+    docs: The payload of data sent from Webflow
+    properties:
+      siteId: optional<string>
+      pageId: optional<string>
+      pageTitle: optional<string>
+      createdOn: optional<datetime>
+      publishedPath: optional<string>
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  PageCreatedWebhook:
+    docs: The Webhook payload for when a Page is created
+    properties:
+      triggerType:
+        type: optional<string>
+        docs: The type of event that triggered the request
+      payload:
+        type: optional<PageCreatedWebhookPayload>
+        docs: The payload of data sent from Webflow
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  PageMetadataUpdatedWebhookPayload:
+    docs: The payload of data sent from Webflow
+    properties:
+      siteId: optional<string>
+      pageId: optional<string>
+      pageTitle: optional<string>
+      lastUpdated: optional<datetime>
+      publishedPath: optional<string>
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  PageMetadataUpdatedWebhook:
+    docs: The Webhook payload for when a Page's metadata is updated
+    properties:
+      triggerType:
+        type: optional<string>
+        docs: The type of event that triggered the request
+      payload:
+        type: optional<PageMetadataUpdatedWebhookPayload>
+        docs: The payload of data sent from Webflow
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  PageDeletedWebhookPayload:
+    docs: The payload of data sent from Webflow
+    properties:
+      siteId: optional<string>
+      pageId: optional<string>
+      pageTitle: optional<string>
+      deletedOn: optional<datetime>
+      publishedPath: optional<string>
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  PageDeletedWebhook:
+    docs: The Webhook payload for when a Page is deleted
+    properties:
+      triggerType:
+        type: optional<string>
+        docs: The type of event that triggered the request
+      payload:
+        type: optional<PageDeletedWebhookPayload>
+        docs: The payload of data sent from Webflow
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  CommentPayloadAuthor:
+    properties:
+      userId:
+        type: string
+        docs: The unique identifier of the author
+      email:
+        type: string
+        docs: Email of the author
+      name:
+        type: string
+        docs: Name of the author
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  CommentPayloadMentionedUsersItem:
+    properties:
+      userId:
+        type: string
+        docs: The unique identifier of the mentioned user
+      email:
+        type: string
+        docs: Email of the user
+      name:
+        type: string
+        docs: Name of the  User
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  CommentPayload:
+    docs: >
+      The comment webhook payload contains data for the thread and for replies. 
+      Check the type to determine if the payload is for a thread or a reply. 
+      The webhook payload may be delayed by up to 5 minutes.
+    properties:
+      threadId:
+        type: optional<string>
+        docs: Unique identifier for the comment thread
+        access: read-only
+      commentId:
+        type: optional<string>
+        docs: Unique identifier for the comment reply
+        access: read-only
+      type:
+        type: optional<string>
+        docs: The type of comment payload
+        access: read-only
+      siteId:
+        type: optional<string>
+        docs: The site unique identifier
+        access: read-only
+      pageId:
+        type: optional<string>
+        docs: The page unique identifier
+        access: read-only
+      localeId:
+        type: optional<string>
+        docs: The locale unique identifier
+        access: read-only
+      itemId:
+        type: optional<string>
+        docs: The item unique identifier
+        access: read-only
+      breakpoint:
+        type: optional<string>
+        docs: The breakpoint the comment was left on
+        access: read-only
+      url:
+        type: optional<string>
+        docs: The URL of the page the comment was left on
+        access: read-only
+      content:
+        type: string
+        docs: The content of the comment reply
+      isResolved:
+        type: boolean
+        docs: Boolean determining if the comment thread is resolved
+        default: false
+      author: CommentPayloadAuthor
+      mentionedUsers:
+        docs: >-
+          List of mentioned users. This is an empty array until email
+          notifications are sent, which can take up to 5 minutes after the
+          comment is created.
+        type: list<CommentPayloadMentionedUsersItem>
+      createdOn:
+        type: optional<string>
+        docs: The date the item was created
+        access: read-only
+      lastUpdated:
+        type: optional<string>
+        docs: The date the item was last updated
+        access: read-only
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  Comment:
+    docs: The Webhook payload for when a comment thread or reply is made on a Site
+    properties:
+      triggerType:
+        type: optional<string>
+        docs: The type of event that triggered the request
+      payload: optional<CommentPayload>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml

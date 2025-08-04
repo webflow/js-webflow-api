@@ -33,23 +33,144 @@ types:
         docs: Sorts users in descending order based on their update date
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
-  UsersUpdateRequestData:
+  UserAccountAddedPayloadPayloadData:
+    docs: The data about the user account that was added
     properties:
-      name:
-        type: optional<string>
-        docs: |
-          The name of the user
-      accept-privacy:
-        type: optional<boolean>
-        docs: |
-          Boolean indicating if the user has accepted the privacy policy
-      accept-communications:
-        type: optional<boolean>
-        docs: |
-          Boolean indicating if the user has accepted to receive communications
+      accept-privacy-policy: optional<boolean>
+      accept-communications: optional<boolean>
+      email: optional<string>
+      name: optional<string>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
+  UserAccountAddedPayloadPayload:
+    properties:
+      data:
+        type: optional<UserAccountAddedPayloadPayloadData>
+        docs: The data about the user account that was added
+      id:
+        type: optional<string>
+        docs: Unique identifier for the User
+      isEmailVerified:
+        type: optional<boolean>
+        docs: Shows whether the user has verified their email address
+      lastUpdated:
+        type: optional<datetime>
+        docs: The timestamp the user was updated
+      invitedOn:
+        type: optional<datetime>
+        docs: The timestamp the user was invited
+      createdOn:
+        type: optional<datetime>
+        docs: The timestamp the user was created
+      lastLogin:
+        type: optional<datetime>
+        docs: The timestamp the user was logged in
+      status: optional<root.UserStatus>
+      accessGroups:
+        type: optional<list<root.UserAccessGroupsItem>>
+        docs: Access groups the user belongs to
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  UserAccountAddedPayload:
+    properties:
+      triggerType: optional<literal<"user_account_added">>
+      payload: optional<UserAccountAddedPayloadPayload>
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  UserAccountUpdatedPayloadPayloadData:
+    docs: The data about the user account that was added
+    properties:
+      accept-privacy-policy: optional<boolean>
+      accept-communications: optional<boolean>
+      email: optional<string>
+      name: optional<string>
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  UserAccountUpdatedPayloadPayload:
+    properties:
+      data:
+        type: optional<UserAccountUpdatedPayloadPayloadData>
+        docs: The data about the user account that was added
+      id:
+        type: optional<string>
+        docs: Unique identifier for the User
+      isEmailVerified:
+        type: optional<boolean>
+        docs: Shows whether the user has verified their email address
+      lastUpdated:
+        type: optional<datetime>
+        docs: The timestamp the user was updated
+      invitedOn:
+        type: optional<datetime>
+        docs: The timestamp the user was invited
+      createdOn:
+        type: optional<datetime>
+        docs: The timestamp the user was created
+      lastLogin:
+        type: optional<datetime>
+        docs: The timestamp the user was logged in
+      status: optional<root.UserStatus>
+      accessGroups:
+        type: optional<list<root.UserAccessGroupsItem>>
+        docs: Access groups the user belongs to
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  UserAccountUpdatedPayload:
+    properties:
+      triggerType: optional<literal<"user_account_updated">>
+      payload: optional<UserAccountUpdatedPayloadPayload>
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  UserAccountDeletedPayloadPayloadData:
+    docs: The data about the user account that was added
+    properties:
+      accept-privacy-policy: optional<boolean>
+      accept-communications: optional<boolean>
+      email: optional<string>
+      name: optional<string>
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  UserAccountDeletedPayloadPayload:
+    properties:
+      data:
+        type: optional<UserAccountDeletedPayloadPayloadData>
+        docs: The data about the user account that was added
+      id:
+        type: optional<string>
+        docs: Unique identifier for the User
+      isEmailVerified:
+        type: optional<boolean>
+        docs: Shows whether the user has verified their email address
+      lastUpdated:
+        type: optional<datetime>
+        docs: The timestamp the user was updated
+      invitedOn:
+        type: optional<datetime>
+        docs: The timestamp the user was invited
+      createdOn:
+        type: optional<datetime>
+        docs: The timestamp the user was created
+      lastLogin:
+        type: optional<datetime>
+        docs: The timestamp the user was logged in
+      status: optional<root.UserStatus>
+      accessGroups:
+        type: optional<list<root.UserAccessGroupsItem>>
+        docs: Access groups the user belongs to
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  UserAccountDeletedPayload:
+    properties:
+      triggerType: optional<literal<"user_account_deleted">>
+      payload: optional<UserAccountDeletedPayloadPayload>
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
 imports:
   root: __package__.yml
 service:
@@ -264,16 +385,7 @@ service:
           docs: Unique identifier for a User
       display-name: Update User
       request:
-        name: UsersUpdateRequest
-        body:
-          properties:
-            data: optional<UsersUpdateRequestData>
-            accessGroups:
-              type: optional<list<string>>
-              docs: >
-                An array of access group slugs. Access groups are assigned to
-                the user as type `admin` and the user remains in the group until
-                removed.
+        body: root.User
         content-type: application/json
       response:
         docs: Request was successful
@@ -291,14 +403,16 @@ service:
             site_id: 580e63e98c9a982ac9b8b741
             user_id: 580e63e98c9a982ac9b8b741
           request:
-            data:
-              name: Some One
-              accept-privacy: false
-              accept-communications: false
+            id: 6287ec36a841b25637c663df
+            isEmailVerified: true
+            lastUpdated: '2022-05-20T13:46:12Z'
+            invitedOn: '2022-05-20T13:46:12Z'
+            createdOn: '2022-05-20T13:46:12Z'
+            lastLogin: '2022-05-20T13:46:12Z'
+            status: verified
             accessGroups:
-              - webflowers
-              - platinum
-              - free-tier
+              - slug: webflowers
+                type: admin
           response:
             body:
               id: 6287ec36a841b25637c663df
@@ -372,7 +486,7 @@ service:
           request:
             email: some.one@home.com
             accessGroups:
-              - webflowers
+              - accessGroups
           response:
             body:
               id: 6287ec36a841b25637c663df
@@ -394,3 +508,73 @@ service:
                   additionalProperties: additionalProperties
   source:
     openapi: ../../../openapi/referenced-specs/v2.yml
+webhooks:
+  user_account_added:
+    audiences: []
+    method: POST
+    display-name: New User Added
+    headers: {}
+    payload: UserAccountAddedPayload
+    examples:
+      - payload:
+          triggerType: user_account_added
+          payload:
+            id: 6287ec36a841b25637c663df
+            lastUpdated: '2022-05-20T13:46:12.093Z'
+            createdOn: '2022-05-20T13:46:12.093Z'
+            isEmailVerified: false
+            data:
+              accept-privacy: false
+              accept-communications: false
+              email: arthur.dent@heartofgold.ship
+              name: Arthur Dent
+            accessGroups:
+              - slug: webflowers
+                type: admin
+    docs: Information about a new user account
+  user_account_updated:
+    audiences: []
+    method: POST
+    display-name: Account Updated
+    headers: {}
+    payload: UserAccountUpdatedPayload
+    examples:
+      - payload:
+          triggerType: user_account_updated
+          payload:
+            id: 6287ec36a841b25637c663df
+            lastUpdated: '2022-05-20T13:46:12.093Z'
+            createdOn: '2022-05-20T13:46:12.093Z'
+            isEmailVerified: false
+            data:
+              accept-privacy: false
+              accept-communications: false
+              email: arthur.dent@heartofgold.ship
+              name: Arthur Dent
+            accessGroups:
+              - slug: webflowers
+                type: admin
+    docs: Information about an updated user account
+  user_account_deleted:
+    audiences: []
+    method: POST
+    display-name: Account Deleted
+    headers: {}
+    payload: UserAccountDeletedPayload
+    examples:
+      - payload:
+          triggerType: user_account_deleted
+          payload:
+            id: 6287ec36a841b25637c663df
+            lastUpdated: '2022-05-20T13:46:12.093Z'
+            createdOn: '2022-05-20T13:46:12.093Z'
+            isEmailVerified: false
+            data:
+              accept-privacy: false
+              accept-communications: false
+              email: arthur.dent@heartofgold.ship
+              name: Arthur Dent
+            accessGroups:
+              - slug: webflowers
+                type: admin
+    docs: Information about a deleted user account
