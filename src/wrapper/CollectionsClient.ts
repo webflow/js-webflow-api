@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import { Collections } from "../api/resources/collections/client/Client";
 import { Client as Items } from "./ItemsClient";
 
