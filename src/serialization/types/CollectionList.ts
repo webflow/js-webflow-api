@@ -13,7 +13,7 @@ export const CollectionList: core.serialization.ObjectSchema<serializers.Collect
     });
 
 export declare namespace CollectionList {
-    interface Raw {
+    export interface Raw {
         collections?: CollectionListArrayItem.Raw[] | null;
     }
 }

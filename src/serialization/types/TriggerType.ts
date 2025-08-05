@@ -27,7 +27,7 @@ export const TriggerType: core.serialization.Schema<serializers.TriggerType.Raw,
     ]);
 
 export declare namespace TriggerType {
-    type Raw =
+    export type Raw =
         | "form_submission"
         | "site_publish"
         | "page_created"

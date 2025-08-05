@@ -21,7 +21,7 @@ export const OrderDisputeLastStatus: core.serialization.Schema<
 ]);
 
 export declare namespace OrderDisputeLastStatus {
-    type Raw =
+    export type Raw =
         | "warning_needs_response"
         | "warning_under_review"
         | "warning_closed"

@@ -14,7 +14,7 @@ export const Locales: core.serialization.ObjectSchema<serializers.Locales.Raw, W
     });
 
 export declare namespace Locales {
-    interface Raw {
+    export interface Raw {
         primary?: Locale.Raw | null;
         secondary?: Locale.Raw[] | null;
     }

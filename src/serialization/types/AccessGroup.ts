@@ -16,7 +16,7 @@ export const AccessGroup: core.serialization.ObjectSchema<serializers.AccessGrou
     });
 
 export declare namespace AccessGroup {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         name?: string | null;
         shortId?: string | null;

@@ -26,7 +26,7 @@ export const CommentThread: core.serialization.ObjectSchema<serializers.CommentT
     });
 
 export declare namespace CommentThread {
-    interface Raw {
+    export interface Raw {
         id: string;
         siteId: string;
         pageId: string;

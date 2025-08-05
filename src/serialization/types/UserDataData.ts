@@ -13,13 +13,13 @@ export const UserDataData: core.serialization.ObjectSchema<serializers.UserDataD
         acceptPrivacy: core.serialization.property("accept-privacy", core.serialization.boolean().optional()),
         acceptCommunications: core.serialization.property(
             "accept-communications",
-            core.serialization.boolean().optional()
+            core.serialization.boolean().optional(),
         ),
         additionalProperties: core.serialization.string().optional(),
     });
 
 export declare namespace UserDataData {
-    interface Raw {
+    export interface Raw {
         name?: string | null;
         email?: string | null;
         "accept-privacy"?: boolean | null;

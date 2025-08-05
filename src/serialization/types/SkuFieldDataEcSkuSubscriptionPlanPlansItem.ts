@@ -17,7 +17,7 @@ export const SkuFieldDataEcSkuSubscriptionPlanPlansItem: core.serialization.Obje
 });
 
 export declare namespace SkuFieldDataEcSkuSubscriptionPlanPlansItem {
-    interface Raw {
+    export interface Raw {
         platform?: "stripe" | null;
         id?: string | null;
         status?: SkuFieldDataEcSkuSubscriptionPlanPlansItemStatus.Raw | null;

@@ -5,31 +5,31 @@
 import * as serializers from "../../../index";
 import * as Webflow from "../../../../api/index";
 import * as core from "../../../../core";
-import { TextNodeWrite } from "../../../types/TextNodeWrite";
-import { ComponentInstanceNodePropertyOverridesWrite } from "../../../types/ComponentInstanceNodePropertyOverridesWrite";
-import { SelectNodeWrite } from "../../../types/SelectNodeWrite";
-import { TextInputNodeWrite } from "../../../types/TextInputNodeWrite";
-import { SubmitButtonNodeWrite } from "../../../types/SubmitButtonNodeWrite";
-import { SearchButtonNodeWrite } from "../../../types/SearchButtonNodeWrite";
+import { TextNode } from "../../../types/TextNode";
+import { ComponentInstance } from "../../../types/ComponentInstance";
+import { Select } from "../../../types/Select";
+import { TextInput } from "../../../types/TextInput";
+import { SubmitButton } from "../../../types/SubmitButton";
+import { SearchButton } from "../../../types/SearchButton";
 
 export const ComponentDomWriteNodesItem: core.serialization.Schema<
     serializers.ComponentDomWriteNodesItem.Raw,
     Webflow.ComponentDomWriteNodesItem
 > = core.serialization.undiscriminatedUnion([
-    TextNodeWrite,
-    ComponentInstanceNodePropertyOverridesWrite,
-    SelectNodeWrite,
-    TextInputNodeWrite,
-    SubmitButtonNodeWrite,
-    SearchButtonNodeWrite,
+    TextNode,
+    ComponentInstance,
+    Select,
+    TextInput,
+    SubmitButton,
+    SearchButton,
 ]);
 
 export declare namespace ComponentDomWriteNodesItem {
-    type Raw =
-        | TextNodeWrite.Raw
-        | ComponentInstanceNodePropertyOverridesWrite.Raw
-        | SelectNodeWrite.Raw
-        | TextInputNodeWrite.Raw
-        | SubmitButtonNodeWrite.Raw
-        | SearchButtonNodeWrite.Raw;
+    export type Raw =
+        | TextNode.Raw
+        | ComponentInstance.Raw
+        | Select.Raw
+        | TextInput.Raw
+        | SubmitButton.Raw
+        | SearchButton.Raw;
 }

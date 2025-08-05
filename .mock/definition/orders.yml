@@ -1507,3 +1507,371 @@ service:
     openapi: ../../../openapi/referenced-specs/v2.yml
   display-name: Orders
 docs: Orders are the orders for your Webflow site.
+webhooks:
+  ecomm_new_order:
+    audiences: []
+    method: POST
+    display-name: New eComm Order
+    headers: {}
+    payload: root.NewOrder
+    examples:
+      - payload:
+          triggerType: ecomm_new_order
+          payload:
+            orderId: fc7-128
+            status: unfulfilled
+            comment: >-
+              Customer requested gift wrapping and a personalized note saying:
+              Happy Birthday, Ford! 🎉 Please ensure the item is packed with
+              extra bubble wrap for safe transit.
+            orderComment: >-
+              Please gift wrap with a personal note saying "Happy Birthday,
+              Ford! 🎉
+            acceptedOn: '2024-03-29T21:29:21Z'
+            customerPaid:
+              unit: USD
+              value: '5892'
+              string: ' 118.73 USD'
+            netAmount:
+              unit: USD
+              value: '5892'
+              string: ' 112.62 USD'
+            applicationFee:
+              unit: USD
+              value: '5892'
+              string: ' 2.37 USD'
+            allAddresses:
+              - type: billing
+                addressee: Arthur Dent
+                line1: 20 W 34th St
+                line2: Empire State Building
+                city: New York
+                state: New York
+                country: US
+                postalCode: '10118'
+              - type: shipping
+                addressee: Arthur Dent
+                line1: 20 W 34th St
+                line2: Empire State Building
+                city: New York
+                state: New York
+                country: US
+                postalCode: '10118'
+            shippingAddress:
+              type: shipping
+              japanType: kanji
+              addressee: Arthur Dent
+              line1: 20 W 34th St
+              line2: Empire State Building
+              city: New York
+              state: New York
+              country: US
+              postalCode: '10118'
+            billingAddress:
+              type: billing
+              addressee: Arthur Dent
+              line1: 20 W 34th St
+              line2: Empire State Building
+              city: New York
+              state: New York
+              country: US
+              postalCode: '10118'
+            shippingProvider: Shipping Company, Co.
+            shippingTracking: tr00000000001
+            shippingTrackingURL: https://www.shippingcompany.com/tracking/tr00000000001
+            customerInfo:
+              fullName: Arthur Dent
+              email: arthur.dent@example.com
+            purchasedItems:
+              - count: 1
+                rowTotal:
+                  unit: USD
+                  value: '5892'
+                  string: ' 55.61 USD'
+                productId: 66072fb61b89448912e26791
+                productName: Luxurious Fresh Ball
+                productSlug: luxurious-fresh-ball
+                variantId: 66072fb71b89448912e2683f
+                variantName: 'Luxurious Fresh Ball Generic: Bronze, Practical: Plastic'
+                variantSlug: luxurious-fresh-ball-generic-bronze-practical-plastic
+                variantSKU: luxurious-fresh-ball-generic-bronze-practical-plastic
+                variantImage:
+                  url: >-
+                    https://dev-assets.website-files.com/66072f39417a2a35b2589cc7/66072fb51b89448912e2672c_image14.jpeg
+                variantPrice:
+                  unit: USD
+                  value: '5892'
+                  string: ' 55.61 USD'
+                weight: 11
+                width: 82
+                height: 70
+                length: 9
+              - count: 1
+                rowTotal:
+                  unit: USD
+                  value: '5892'
+                  string: ' 53.44 USD'
+                productId: 66072fb61b89448912e26799
+                productName: Recycled Steel Gloves
+                productSlug: recycled-steel-gloves
+                variantId: 66072fb91b89448912e26ab9
+                variantName: 'Recycled Steel Gloves Electronic: Granite, Handcrafted: grey'
+                variantSlug: recycled-steel-gloves-electronic-granite-handcrafted-grey
+                variantSKU: recycled-steel-gloves-electronic-granite-handcrafted-grey
+                variantImage:
+                  url: >-
+                    https://dev-assets.website-files.com/66072f39417a2a35b2589cc7/66072fb51b89448912e2671e_image2.jpeg
+                variantPrice:
+                  unit: USD
+                  value: '5892'
+                  string: ' 53.44 USD'
+                weight: 38
+                width: 76
+                height: 85
+                length: 40
+            purchasedItemsCount: 2
+            stripeDetails:
+              paymentMethod: pm_1OzmzBJYFi4lcbXWHKNdXU7j
+              paymentIntentId: pi_3OzmzDJYFi4lcbXW1hTBW6ft
+              customerId: cus_PpRsNHwWdUoRKR
+              chargeId: ch_3OzmzDJYFi4lcbXW1ndkkrH2
+              refundId: re_3OzmzDJYFi4lcbXW1kFAmlBk
+              refundReason: fraudulent
+            stripeCard:
+              last4: '4242'
+              brand: Visa
+              ownerName: Arthur Dent
+              expires:
+                year: 2024
+                month: 4
+            customData:
+              - key: value
+            metadata:
+              isBuyNow: false
+            isCustomerDeleted: false
+            isShippingRequired: true
+            hasDownloads: false
+            paymentProcessor: stripe
+            totals:
+              subtotal:
+                unit: USD
+                value: '5892'
+                string: ' 109.05 USD'
+              extras:
+                - type: tax
+                  name: State Taxes
+                  description: NY Taxes (4.00%)
+                  price:
+                    unit: USD
+                    value: '5892'
+                    string: ' 4.36 USD'
+                - type: tax
+                  name: City Taxes
+                  description: NEW YORK Taxes (4.88%)
+                  price:
+                    unit: USD
+                    value: '5892'
+                    string: ' 5.32 USD'
+                - type: shipping
+                  name: Flat
+                  description: ''
+                  price:
+                    unit: USD
+                    value: '5892'
+                    string: ' 0.00 USD'
+              total:
+                unit: USD
+                value: '5892'
+                string: ' 118.73 USD'
+            downloadFiles:
+              - id: 5e9a5eba75e0ac242e1b6f64
+                name: New product guide
+                url: >-
+                  https://webflow.com/dashboard/download-digital-product?payload=5d93ba5e38c6b0160ab711d3;e7634a;5eb1aac72912ec06f561278c;5e9a5eba75e0ac242e1b6f63:ka2nehxy:4a1ee0a632feaab94294350087215ed89533f2f530903e3b933b638940e921aa
+    docs: Information about a new ecommerce order
+  ecomm_order_changed:
+    audiences: []
+    method: POST
+    display-name: Updated eComm Order
+    headers: {}
+    payload: root.UpdatedOrder
+    examples:
+      - payload:
+          triggerType: ecomm_order_changed
+          payload:
+            orderId: fc7-128
+            status: refunded
+            comment: >-
+              Customer requested gift wrapping and a personalized note saying:
+              Happy Birthday, Ford! 🎉 Please ensure the item is packed with
+              extra bubble wrap for safe transit.
+            orderComment: >-
+              Please gift wrap with a personal note saying "Happy Birthday,
+              Ford! 🎉
+            acceptedOn: '2024-03-29T21:29:21Z'
+            fulfilledOn: '2024-03-29T21:29:21Z'
+            refundedOn: '2024-04-08T18:25:04Z'
+            disputedOn: '2024-03-29T21:29:21Z'
+            disputeUpdatedOn: '2024-03-29T21:29:21Z'
+            disputeLastStatus: charge_refunded
+            customerPaid:
+              unit: USD
+              value: '5892'
+              string: ' 118.73 USD'
+            netAmount:
+              unit: USD
+              value: '5892'
+              string: ' 112.62 USD'
+            applicationFee:
+              unit: USD
+              value: '5892'
+              string: ' 2.37 USD'
+            allAddresses:
+              - type: billing
+                addressee: Arthur Dent
+                line1: 20 W 34th St
+                line2: Empire State Building
+                city: New York
+                state: New York
+                country: US
+                postalCode: '10118'
+              - type: shipping
+                addressee: Arthur Dent
+                line1: 20 W 34th St
+                line2: Empire State Building
+                city: New York
+                state: New York
+                country: US
+                postalCode: '10118'
+            shippingAddress:
+              type: shipping
+              japanType: kanji
+              addressee: Arthur Dent
+              line1: 20 W 34th St
+              line2: Empire State Building
+              city: New York
+              state: New York
+              country: US
+              postalCode: '10118'
+            billingAddress:
+              type: billing
+              addressee: Arthur Dent
+              line1: 20 W 34th St
+              line2: Empire State Building
+              city: New York
+              state: New York
+              country: US
+              postalCode: '10118'
+            shippingProvider: Shipping Company, Co.
+            shippingTracking: tr00000000001
+            shippingTrackingURL: https://www.shippingcompany.com/tracking/tr00000000001
+            customerInfo:
+              fullName: Arthur Dent
+              email: arthur.dent@example.com
+            purchasedItems:
+              - count: 1
+                rowTotal:
+                  unit: USD
+                  value: '5892'
+                  string: ' 55.61 USD'
+                productId: 66072fb61b89448912e26791
+                productName: Luxurious Fresh Ball
+                productSlug: luxurious-fresh-ball
+                variantId: 66072fb71b89448912e2683f
+                variantName: 'Luxurious Fresh Ball Generic: Bronze, Practical: Plastic'
+                variantSlug: luxurious-fresh-ball-generic-bronze-practical-plastic
+                variantSKU: luxurious-fresh-ball-generic-bronze-practical-plastic
+                variantImage:
+                  url: >-
+                    https://dev-assets.website-files.com/66072f39417a2a35b2589cc7/66072fb51b89448912e2672c_image14.jpeg
+                variantPrice:
+                  unit: USD
+                  value: '5892'
+                  string: ' 55.61 USD'
+                weight: 11
+                width: 82
+                height: 70
+                length: 9
+              - count: 1
+                rowTotal:
+                  unit: USD
+                  value: '5892'
+                  string: ' 53.44 USD'
+                productId: 66072fb61b89448912e26799
+                productName: Recycled Steel Gloves
+                productSlug: recycled-steel-gloves
+                variantId: 66072fb91b89448912e26ab9
+                variantName: 'Recycled Steel Gloves Electronic: Granite, Handcrafted: grey'
+                variantSlug: recycled-steel-gloves-electronic-granite-handcrafted-grey
+                variantSKU: recycled-steel-gloves-electronic-granite-handcrafted-grey
+                variantImage:
+                  url: >-
+                    https://dev-assets.website-files.com/66072f39417a2a35b2589cc7/66072fb51b89448912e2671e_image2.jpeg
+                variantPrice:
+                  unit: USD
+                  value: '5892'
+                  string: ' 53.44 USD'
+                weight: 38
+                width: 76
+                height: 85
+                length: 40
+            purchasedItemsCount: 2
+            stripeDetails:
+              paymentMethod: pm_1OzmzBJYFi4lcbXWHKNdXU7j
+              paymentIntentId: pi_3OzmzDJYFi4lcbXW1hTBW6ft
+              customerId: cus_PpRsNHwWdUoRKR
+              chargeId: ch_3OzmzDJYFi4lcbXW1ndkkrH2
+              refundId: re_3OzmzDJYFi4lcbXW1kFAmlBk
+              refundReason: fraudulent
+            stripeCard:
+              last4: '4242'
+              brand: Visa
+              ownerName: Arthur Dent
+              expires:
+                year: 2024
+                month: 4
+            customData:
+              - key: value
+            metadata:
+              isBuyNow: false
+            isCustomerDeleted: false
+            isShippingRequired: true
+            hasDownloads: false
+            paymentProcessor: stripe
+            totals:
+              subtotal:
+                unit: USD
+                value: '5892'
+                string: ' 109.05 USD'
+              extras:
+                - type: tax
+                  name: State Taxes
+                  description: NY Taxes (4.00%)
+                  price:
+                    unit: USD
+                    value: '5892'
+                    string: ' 4.36 USD'
+                - type: tax
+                  name: City Taxes
+                  description: NEW YORK Taxes (4.88%)
+                  price:
+                    unit: USD
+                    value: '5892'
+                    string: ' 5.32 USD'
+                - type: shipping
+                  name: Flat
+                  description: ''
+                  price:
+                    unit: USD
+                    value: '5892'
+                    string: ' 0.00 USD'
+              total:
+                unit: USD
+                value: '5892'
+                string: ' 118.73 USD'
+            downloadFiles:
+              - id: 5e9a5eba75e0ac242e1b6f64
+                name: New product guide
+                url: >-
+                  https://webflow.com/dashboard/download-digital-product?payload=5d93ba5e38c6b0160ab711d3;e7634a;5eb1aac72912ec06f561278c;5e9a5eba75e0ac242e1b6f63:ka2nehxy:4a1ee0a632feaab94294350087215ed89533f2f530903e3b933b638940e921aa
+    docs: Information about an updated ecommerce order

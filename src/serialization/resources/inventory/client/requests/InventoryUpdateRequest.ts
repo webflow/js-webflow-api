@@ -17,7 +17,7 @@ export const InventoryUpdateRequest: core.serialization.Schema<
 });
 
 export declare namespace InventoryUpdateRequest {
-    interface Raw {
+    export interface Raw {
         inventoryType: InventoryUpdateRequestInventoryType.Raw;
         updateQuantity?: number | null;
         quantity?: number | null;

@@ -16,7 +16,7 @@ export const FieldUpdate: core.serialization.Schema<
 });
 
 export declare namespace FieldUpdate {
-    interface Raw {
+    export interface Raw {
         isRequired?: boolean | null;
         displayName?: string | null;
         helpText?: string | null;

@@ -12,5 +12,5 @@ export const FormFieldValueType: core.serialization.Schema<
 > = core.serialization.enum_(["Plain", "Email", "Password", "Phone", "Number"]);
 
 export declare namespace FormFieldValueType {
-    type Raw = "Plain" | "Email" | "Password" | "Phone" | "Number";
+    export type Raw = "Plain" | "Email" | "Password" | "Phone" | "Number";
 }

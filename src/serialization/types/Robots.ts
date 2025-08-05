@@ -14,7 +14,7 @@ export const Robots: core.serialization.ObjectSchema<serializers.Robots.Raw, Web
     });
 
 export declare namespace Robots {
-    interface Raw {
+    export interface Raw {
         rules?: RobotsRulesItem.Raw[] | null;
         sitemap?: string | null;
     }

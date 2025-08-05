@@ -14,7 +14,7 @@ export const OrderPrice: core.serialization.ObjectSchema<serializers.OrderPrice.
     });
 
 export declare namespace OrderPrice {
-    interface Raw {
+    export interface Raw {
         unit?: string | null;
         value?: string | null;
         string?: string | null;

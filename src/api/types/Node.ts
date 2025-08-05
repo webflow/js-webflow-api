@@ -16,32 +16,32 @@ export type Node =
     | Webflow.Node.SubmitButton
     | Webflow.Node.SearchButton;
 
-export declare namespace Node {
-    interface Text extends Webflow.TextNode {
+export namespace Node {
+    export interface Text extends Webflow.TextNodeDom {
         type: "text";
     }
 
-    interface Image extends Webflow.ImageNode {
+    export interface Image extends Webflow.ImageNodeDom {
         type: "image";
     }
 
-    interface ComponentInstance extends Webflow.ComponentNode {
+    export interface ComponentInstance extends Webflow.ComponentNodeDom {
         type: "component-instance";
     }
 
-    interface TextInput extends Webflow.TextInputNode {
+    export interface TextInput extends Webflow.TextInputNodeDom {
         type: "text-input";
     }
 
-    interface Select extends Webflow.SelectNode {
+    export interface Select extends Webflow.SelectNodeDom {
         type: "select";
     }
 
-    interface SubmitButton extends Webflow.SubmitButtonNode {
+    export interface SubmitButton extends Webflow.SubmitButtonNodeDom {
         type: "submit-button";
     }
 
-    interface SearchButton extends Webflow.SearchButtonNode {
+    export interface SearchButton extends Webflow.SearchButtonNodeDom {
         type: "search-button";
     }
 }

@@ -8,6 +8,7 @@ import * as Webflow from "../../../../index";
  * @example
  *     {
  *         localeId: "65427cf400e02b306eaa04a0",
+ *         branchId: "68026fa68ef6dc744c75b833",
  *         nodes: [{
  *                 nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad623",
  *                 text: "<h1>The Hitchhiker's Guide to the Galaxy</h1>"
@@ -47,6 +48,10 @@ export interface ComponentDomWrite {
      * Unique identifier for a specific locale. Applicable, when using localization.
      */
     localeId?: string;
+    /**
+     * Scope the operation to work on a specific branch.
+     */
+    branchId?: string;
     /** List of DOM Nodes with the new content that will be updated in each node. */
     nodes: Webflow.ComponentDomWriteNodesItem[];
 }

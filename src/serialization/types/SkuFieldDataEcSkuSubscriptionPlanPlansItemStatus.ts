@@ -12,5 +12,5 @@ export const SkuFieldDataEcSkuSubscriptionPlanPlansItemStatus: core.serializatio
 > = core.serialization.enum_(["active", "inactive", "canceled"]);
 
 export declare namespace SkuFieldDataEcSkuSubscriptionPlanPlansItemStatus {
-    type Raw = "active" | "inactive" | "canceled";
+    export type Raw = "active" | "inactive" | "canceled";
 }

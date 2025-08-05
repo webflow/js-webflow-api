@@ -16,7 +16,7 @@ export const UserAccessGroupsItem: core.serialization.ObjectSchema<
 });
 
 export declare namespace UserAccessGroupsItem {
-    interface Raw {
+    export interface Raw {
         slug?: string | null;
         type?: UserAccessGroupsItemType.Raw | null;
     }

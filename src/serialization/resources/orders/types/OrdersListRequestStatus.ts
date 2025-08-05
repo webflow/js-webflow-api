@@ -12,5 +12,5 @@ export const OrdersListRequestStatus: core.serialization.Schema<
 > = core.serialization.enum_(["pending", "refunded", "dispute-lost", "fulfilled", "disputed", "unfulfilled"]);
 
 export declare namespace OrdersListRequestStatus {
-    type Raw = "pending" | "refunded" | "dispute-lost" | "fulfilled" | "disputed" | "unfulfilled";
+    export type Raw = "pending" | "refunded" | "dispute-lost" | "fulfilled" | "disputed" | "unfulfilled";
 }

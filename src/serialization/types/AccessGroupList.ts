@@ -19,7 +19,7 @@ export const AccessGroupList: core.serialization.ObjectSchema<
 });
 
 export declare namespace AccessGroupList {
-    interface Raw {
+    export interface Raw {
         count?: number | null;
         limit?: number | null;
         offset?: number | null;

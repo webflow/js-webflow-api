@@ -15,7 +15,7 @@ export const WorkspaceAuditLogItemActor: core.serialization.ObjectSchema<
 });
 
 export declare namespace WorkspaceAuditLogItemActor {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         email?: string | null;
     }

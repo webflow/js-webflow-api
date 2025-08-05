@@ -9,13 +9,13 @@ import { ComponentDomWriteNodesItem } from "../../types/ComponentDomWriteNodesIt
 
 export const ComponentDomWrite: core.serialization.Schema<
     serializers.ComponentDomWrite.Raw,
-    Omit<Webflow.ComponentDomWrite, "localeId">
+    Omit<Webflow.ComponentDomWrite, "localeId" | "branchId">
 > = core.serialization.object({
     nodes: core.serialization.list(ComponentDomWriteNodesItem),
 });
 
 export declare namespace ComponentDomWrite {
-    interface Raw {
+    export interface Raw {
         nodes: ComponentDomWriteNodesItem.Raw[];
     }
 }

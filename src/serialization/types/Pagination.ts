@@ -14,7 +14,7 @@ export const Pagination: core.serialization.ObjectSchema<serializers.Pagination.
     });
 
 export declare namespace Pagination {
-    interface Raw {
+    export interface Raw {
         limit?: number | null;
         offset?: number | null;
         total?: number | null;

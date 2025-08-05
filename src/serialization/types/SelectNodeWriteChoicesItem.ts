@@ -15,7 +15,7 @@ export const SelectNodeWriteChoicesItem: core.serialization.ObjectSchema<
 });
 
 export declare namespace SelectNodeWriteChoicesItem {
-    interface Raw {
+    export interface Raw {
         value: string;
         text: string;
     }

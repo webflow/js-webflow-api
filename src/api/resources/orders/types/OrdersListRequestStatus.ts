@@ -9,7 +9,6 @@ export type OrdersListRequestStatus =
     | "fulfilled"
     | "disputed"
     | "unfulfilled";
-
 export const OrdersListRequestStatus = {
     Pending: "pending",
     Refunded: "refunded",

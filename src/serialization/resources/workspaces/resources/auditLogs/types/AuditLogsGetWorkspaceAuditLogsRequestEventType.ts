@@ -18,5 +18,10 @@ export const AuditLogsGetWorkspaceAuditLogsRequestEventType: core.serialization.
 ]);
 
 export declare namespace AuditLogsGetWorkspaceAuditLogsRequestEventType {
-    type Raw = "user_access" | "custom_role" | "workspace_membership" | "site_membership" | "workspace_invitation";
+    export type Raw =
+        | "user_access"
+        | "custom_role"
+        | "workspace_membership"
+        | "site_membership"
+        | "workspace_invitation";
 }

@@ -28,7 +28,7 @@ export interface CommentReply {
     /** List of mentioned users is an empty array until email notifications are sent. */
     mentionedUsers?: Webflow.CommentReplyMentionedUsersItem[];
     /** The date the item was last updated */
-    lastUpdated: string;
+    lastUpdated?: string;
     /** The date the item was created */
-    createdOn: string;
+    createdOn?: string;
 }

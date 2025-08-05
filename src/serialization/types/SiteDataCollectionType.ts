@@ -12,5 +12,5 @@ export const SiteDataCollectionType: core.serialization.Schema<
 > = core.serialization.enum_(["always", "optOut", "disabled"]);
 
 export declare namespace SiteDataCollectionType {
-    type Raw = "always" | "optOut" | "disabled";
+    export type Raw = "always" | "optOut" | "disabled";
 }

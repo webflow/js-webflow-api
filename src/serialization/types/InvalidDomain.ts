@@ -10,5 +10,5 @@ export const InvalidDomain: core.serialization.Schema<serializers.InvalidDomain.
     core.serialization.unknown();
 
 export declare namespace InvalidDomain {
-    type Raw = unknown;
+    export type Raw = unknown;
 }

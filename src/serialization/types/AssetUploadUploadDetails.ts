@@ -24,7 +24,7 @@ export const AssetUploadUploadDetails: core.serialization.ObjectSchema<
 });
 
 export declare namespace AssetUploadUploadDetails {
-    interface Raw {
+    export interface Raw {
         acl?: string | null;
         bucket?: string | null;
         "X-Amz-Algorithm"?: string | null;

@@ -21,11 +21,11 @@ export const SkuFieldData: core.serialization.ObjectSchema<serializers.SkuFieldD
         compareAtPrice: core.serialization.property("compare-at-price", SkuFieldDataCompareAtPrice.optional()),
         ecSkuBillingMethod: core.serialization.property(
             "ec-sku-billing-method",
-            SkuFieldDataEcSkuBillingMethod.optional()
+            SkuFieldDataEcSkuBillingMethod.optional(),
         ),
         ecSkuSubscriptionPlan: core.serialization.property(
             "ec-sku-subscription-plan",
-            SkuFieldDataEcSkuSubscriptionPlan.optional()
+            SkuFieldDataEcSkuSubscriptionPlan.optional(),
         ),
         trackInventory: core.serialization.property("track-inventory", core.serialization.boolean().optional()),
         quantity: core.serialization.number().optional(),
@@ -33,12 +33,12 @@ export const SkuFieldData: core.serialization.ObjectSchema<serializers.SkuFieldD
         sku: core.serialization.string().optional(),
         skuProperties: core.serialization.property(
             "sku-properties",
-            core.serialization.list(SkuPropertyList).optional()
+            core.serialization.list(SkuPropertyList).optional(),
         ),
     });
 
 export declare namespace SkuFieldData {
-    interface Raw {
+    export interface Raw {
         "sku-values"?: SkuValueList.Raw | null;
         name: string;
         slug: string;

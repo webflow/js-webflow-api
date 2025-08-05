@@ -22,7 +22,7 @@ export const CollectionItemPatchSingle: core.serialization.ObjectSchema<
 });
 
 export declare namespace CollectionItemPatchSingle {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         cmsLocaleId?: string | null;
         lastPublished?: string | null;

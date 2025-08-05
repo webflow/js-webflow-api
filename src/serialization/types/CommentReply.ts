@@ -20,12 +20,12 @@ export const CommentReply: core.serialization.ObjectSchema<serializers.CommentRe
         isResolved: core.serialization.boolean(),
         author: CommentReplyAuthor,
         mentionedUsers: core.serialization.list(CommentReplyMentionedUsersItem).optional(),
-        lastUpdated: core.serialization.string(),
-        createdOn: core.serialization.string(),
+        lastUpdated: core.serialization.string().optional(),
+        createdOn: core.serialization.string().optional(),
     });
 
 export declare namespace CommentReply {
-    interface Raw {
+    export interface Raw {
         id: string;
         commentId: string;
         siteId: string;
@@ -36,7 +36,7 @@ export declare namespace CommentReply {
         isResolved: boolean;
         author: CommentReplyAuthor.Raw;
         mentionedUsers?: CommentReplyMentionedUsersItem.Raw[] | null;
-        lastUpdated: string;
-        createdOn: string;
+        lastUpdated?: string | null;
+        createdOn?: string | null;
     }
 }
