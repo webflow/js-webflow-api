@@ -27,7 +27,7 @@ export const SiteActivityLogItem: core.serialization.ObjectSchema<
 });
 
 export declare namespace SiteActivityLogItem {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         createdOn?: string | null;
         lastUpdated?: string | null;

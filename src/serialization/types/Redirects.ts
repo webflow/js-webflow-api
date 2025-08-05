@@ -15,7 +15,7 @@ export const Redirects: core.serialization.ObjectSchema<serializers.Redirects.Ra
     });
 
 export declare namespace Redirects {
-    interface Raw {
+    export interface Raw {
         redirects?: Redirect.Raw[] | null;
         pagination?: Pagination.Raw | null;
     }

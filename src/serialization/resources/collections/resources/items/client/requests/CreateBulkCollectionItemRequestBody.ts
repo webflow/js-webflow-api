@@ -9,7 +9,7 @@ import { CreateBulkCollectionItemRequestBodyFieldData } from "../../types/Create
 
 export const CreateBulkCollectionItemRequestBody: core.serialization.Schema<
     serializers.collections.CreateBulkCollectionItemRequestBody.Raw,
-    Webflow.collections.CreateBulkCollectionItemRequestBody
+    Omit<Webflow.collections.CreateBulkCollectionItemRequestBody, "skipInvalidFiles">
 > = core.serialization.object({
     cmsLocaleIds: core.serialization.list(core.serialization.string()).optional(),
     isArchived: core.serialization.boolean().optional(),
@@ -18,7 +18,7 @@ export const CreateBulkCollectionItemRequestBody: core.serialization.Schema<
 });
 
 export declare namespace CreateBulkCollectionItemRequestBody {
-    interface Raw {
+    export interface Raw {
         cmsLocaleIds?: string[] | null;
         isArchived?: boolean | null;
         isDraft?: boolean | null;

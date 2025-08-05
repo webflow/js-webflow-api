@@ -15,7 +15,7 @@ export const WebhookList: core.serialization.ObjectSchema<serializers.WebhookLis
     });
 
 export declare namespace WebhookList {
-    interface Raw {
+    export interface Raw {
         webhooks?: Webhook.Raw[] | null;
         pagination?: Pagination.Raw | null;
     }

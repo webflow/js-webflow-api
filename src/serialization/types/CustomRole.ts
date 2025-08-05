@@ -13,7 +13,7 @@ export const CustomRole: core.serialization.ObjectSchema<serializers.CustomRole.
     });
 
 export declare namespace CustomRole {
-    interface Raw {
+    export interface Raw {
         roleName?: string | null;
         previousRoleName?: string | null;
     }

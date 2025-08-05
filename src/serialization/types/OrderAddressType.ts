@@ -10,5 +10,5 @@ export const OrderAddressType: core.serialization.Schema<serializers.OrderAddres
     core.serialization.enum_(["shipping", "billing"]);
 
 export declare namespace OrderAddressType {
-    type Raw = "shipping" | "billing";
+    export type Raw = "shipping" | "billing";
 }

@@ -21,7 +21,7 @@ export const AuthorizationAuthorization: core.serialization.ObjectSchema<
 });
 
 export declare namespace AuthorizationAuthorization {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         createdOn?: string | null;
         lastUsed?: string | null;

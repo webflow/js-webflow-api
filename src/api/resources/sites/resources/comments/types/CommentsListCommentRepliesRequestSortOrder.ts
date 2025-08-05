@@ -3,7 +3,6 @@
  */
 
 export type CommentsListCommentRepliesRequestSortOrder = "asc" | "desc";
-
 export const CommentsListCommentRepliesRequestSortOrder = {
     Asc: "asc",
     Desc: "desc",

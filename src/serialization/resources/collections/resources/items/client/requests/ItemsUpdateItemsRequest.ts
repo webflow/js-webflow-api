@@ -9,13 +9,13 @@ import { CollectionItemWithIdInput } from "../../../../../../types/CollectionIte
 
 export const ItemsUpdateItemsRequest: core.serialization.Schema<
     serializers.collections.ItemsUpdateItemsRequest.Raw,
-    Webflow.collections.ItemsUpdateItemsRequest
+    Omit<Webflow.collections.ItemsUpdateItemsRequest, "skipInvalidFiles">
 > = core.serialization.object({
     items: core.serialization.list(CollectionItemWithIdInput).optional(),
 });
 
 export declare namespace ItemsUpdateItemsRequest {
-    interface Raw {
+    export interface Raw {
         items?: CollectionItemWithIdInput.Raw[] | null;
     }
 }

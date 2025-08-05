@@ -6,7 +6,6 @@
  * The type of the property.
  */
 export type ComponentPropertyType = "Plain Text" | "Rich Text" | "Alt Text";
-
 export const ComponentPropertyType = {
     PlainText: "Plain Text",
     RichText: "Rich Text",

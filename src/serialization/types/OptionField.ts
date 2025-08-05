@@ -19,7 +19,7 @@ export const OptionField: core.serialization.ObjectSchema<serializers.OptionFiel
     });
 
 export declare namespace OptionField {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         isEditable?: boolean | null;
         isRequired?: boolean | null;

@@ -21,13 +21,13 @@ export interface Asset {
     /** Original file name at the time of upload */
     originalFileName?: string;
     /** Display name of the asset */
-    displayName?: string;
+    displayName: string;
     /** Date the asset metadata was last updated */
     lastUpdated?: Date;
     /** Date the asset metadata was created */
     createdOn?: Date;
     /** A list of [asset variants](https://help.webflow.com/hc/en-us/articles/33961378697107-Responsive-images) created by Webflow to serve your site responsively. */
-    variants?: Webflow.AssetVariant[];
+    variants: Webflow.AssetVariant[];
     /** The visual description of the asset */
     altText?: string;
 }

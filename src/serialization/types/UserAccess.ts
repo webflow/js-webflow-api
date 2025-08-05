@@ -15,7 +15,7 @@ export const UserAccess: core.serialization.ObjectSchema<serializers.UserAccess.
     });
 
 export declare namespace UserAccess {
-    interface Raw {
+    export interface Raw {
         method?: WorkspaceAuditLogItemPayloadUserAccessMethod.Raw | null;
         location?: string | null;
         ipAddress?: string | null;

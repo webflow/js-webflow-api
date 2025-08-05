@@ -17,7 +17,7 @@ export const WellKnownFile: core.serialization.Schema<
 });
 
 export declare namespace WellKnownFile {
-    interface Raw {
+    export interface Raw {
         fileName: string;
         fileData: string;
         contentType?: WellKnownFileContentType.Raw | null;

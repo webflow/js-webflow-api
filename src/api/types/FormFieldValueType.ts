@@ -6,7 +6,6 @@
  * The field type
  */
 export type FormFieldValueType = "Plain" | "Email" | "Password" | "Phone" | "Number";
-
 export const FormFieldValueType = {
     Plain: "Plain",
     Email: "Email",

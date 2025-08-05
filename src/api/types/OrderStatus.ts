@@ -6,7 +6,6 @@
  * The status of the Order
  */
 export type OrderStatus = "pending" | "unfulfilled" | "fulfilled" | "disputed" | "dispute-lost" | "refunded";
-
 export const OrderStatus = {
     Pending: "pending",
     Unfulfilled: "unfulfilled",

@@ -12,5 +12,5 @@ export const NotEnterprisePlanWorkspace: core.serialization.Schema<
 > = core.serialization.unknown();
 
 export declare namespace NotEnterprisePlanWorkspace {
-    type Raw = unknown;
+    export type Raw = unknown;
 }

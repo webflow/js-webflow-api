@@ -15,7 +15,7 @@ export const ItemsDeleteItemsLiveRequest: core.serialization.Schema<
 });
 
 export declare namespace ItemsDeleteItemsLiveRequest {
-    interface Raw {
+    export interface Raw {
         items: ItemsDeleteItemsLiveRequestItemsItem.Raw[];
     }
 }

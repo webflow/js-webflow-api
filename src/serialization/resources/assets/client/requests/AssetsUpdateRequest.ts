@@ -15,7 +15,7 @@ export const AssetsUpdateRequest: core.serialization.Schema<
 });
 
 export declare namespace AssetsUpdateRequest {
-    interface Raw {
+    export interface Raw {
         localeId?: string | null;
         displayName?: string | null;
     }

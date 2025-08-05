@@ -55,7 +55,7 @@ export const SiteActivityLogItemEvent: core.serialization.Schema<
 ]);
 
 export declare namespace SiteActivityLogItemEvent {
-    type Raw =
+    export type Raw =
         | "styles_modified"
         | "site_published"
         | "ix2_modified_on_page"

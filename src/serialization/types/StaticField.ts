@@ -18,7 +18,7 @@ export const StaticField: core.serialization.ObjectSchema<serializers.StaticFiel
     });
 
 export declare namespace StaticField {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         isEditable?: boolean | null;
         isRequired?: boolean | null;

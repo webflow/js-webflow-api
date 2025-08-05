@@ -12,5 +12,5 @@ export const ItemsListItemsLiveRequestSortOrder: core.serialization.Schema<
 > = core.serialization.enum_(["asc", "desc"]);
 
 export declare namespace ItemsListItemsLiveRequestSortOrder {
-    type Raw = "asc" | "desc";
+    export type Raw = "asc" | "desc";
 }

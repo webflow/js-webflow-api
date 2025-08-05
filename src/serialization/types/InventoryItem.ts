@@ -15,7 +15,7 @@ export const InventoryItem: core.serialization.ObjectSchema<serializers.Inventor
     });
 
 export declare namespace InventoryItem {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         quantity?: number | null;
         inventoryType?: InventoryItemInventoryType.Raw | null;
