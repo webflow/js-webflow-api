@@ -23,7 +23,6 @@ export type FieldType =
     | "RichText"
     | "Switch"
     | "VideoLink";
-
 export const FieldType = {
     Color: "Color",
     DateTime: "DateTime",

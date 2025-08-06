@@ -6,7 +6,6 @@
  * infinite or finite
  */
 export type InventoryItemInventoryType = "infinite" | "finite";
-
 export const InventoryItemInventoryType = {
     Infinite: "infinite",
     Finite: "finite",

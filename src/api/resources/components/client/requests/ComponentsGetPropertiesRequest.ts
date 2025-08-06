@@ -5,7 +5,8 @@
 /**
  * @example
  *     {
- *         localeId: "65427cf400e02b306eaa04a0"
+ *         localeId: "65427cf400e02b306eaa04a0",
+ *         branchId: "68026fa68ef6dc744c75b833"
  *     }
  */
 export interface ComponentsGetPropertiesRequest {
@@ -13,6 +14,10 @@ export interface ComponentsGetPropertiesRequest {
      * Unique identifier for a specific locale. Applicable, when using localization.
      */
     localeId?: string;
+    /**
+     * Scope the operation to work on a specific branch.
+     */
+    branchId?: string;
     /**
      * Maximum number of records to be returned (max limit: 100)
      */

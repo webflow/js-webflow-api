@@ -15,7 +15,7 @@ export const ComponentInstanceNodePropertyOverridesWritePropertyOverridesItem: c
 });
 
 export declare namespace ComponentInstanceNodePropertyOverridesWritePropertyOverridesItem {
-    interface Raw {
+    export interface Raw {
         propertyId: string;
         text: string;
     }

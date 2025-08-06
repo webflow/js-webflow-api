@@ -15,7 +15,7 @@ export const MultipleItems: core.serialization.ObjectSchema<
 });
 
 export declare namespace MultipleItems {
-    interface Raw {
+    export interface Raw {
         items?: CollectionItemPostSingle.Raw[] | null;
     }
 }

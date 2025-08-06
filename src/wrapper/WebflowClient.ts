@@ -6,6 +6,8 @@ import * as errors from "../errors";
 import { SDK_VERSION } from "../version";
 import { Client as Webhooks } from "./WebhooksClient";
 import { Client as Assets } from "./AssetsClient";
+import { Client as Collections } from "./CollectionsClient";
+import { Client as Pages } from "./PagesClient";
 
 export class WebflowClient extends FernClient {
     constructor(protected readonly _options: FernClient.Options) {
@@ -16,6 +18,10 @@ export class WebflowClient extends FernClient {
 
     protected _assets: Assets | undefined;
 
+    protected _collections: Collections | undefined;
+
+    protected _pages: Pages | undefined;
+
     public get webhooks(): Webhooks {
         return (this._webhooks ??= new Webhooks(this._options));
     }
@@ -24,6 +30,13 @@ export class WebflowClient extends FernClient {
         return (this._assets ??= new Assets(this._options));
     }
 
+    public get collections(): Collections {
+        return (this._collections ??= new Collections(this._options));
+    }
+
+    public get pages(): Pages {
+        return (this._pages ??= new Pages(this._options));
+    }
 
     /**
      * @param clientId The OAuth client ID
@@ -116,9 +129,7 @@ export class WebflowClient extends FernClient {
                     body: response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.WebflowTimeoutError(
-                    "Timeout exceeded when calling POST /oauth/token"
-                );
+                throw new errors.WebflowTimeoutError("Timeout exceeded when calling POST /oauth/token");
             case "unknown":
                 throw new errors.WebflowError({
                     message: response.error.errorMessage,

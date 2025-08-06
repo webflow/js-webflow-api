@@ -12,5 +12,5 @@ export const OrderTotalsExtrasItemType: core.serialization.Schema<
 > = core.serialization.enum_(["discount", "discount-shipping", "shipping", "tax"]);
 
 export declare namespace OrderTotalsExtrasItemType {
-    type Raw = "discount" | "discount-shipping" | "shipping" | "tax";
+    export type Raw = "discount" | "discount-shipping" | "shipping" | "tax";
 }

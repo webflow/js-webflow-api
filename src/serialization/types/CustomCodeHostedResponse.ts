@@ -21,7 +21,7 @@ export const CustomCodeHostedResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace CustomCodeHostedResponse {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         canCopy?: boolean | null;
         displayName?: string | null;

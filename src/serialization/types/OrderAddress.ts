@@ -22,7 +22,7 @@ export const OrderAddress: core.serialization.ObjectSchema<serializers.OrderAddr
     });
 
 export declare namespace OrderAddress {
-    interface Raw {
+    export interface Raw {
         type?: OrderAddressType.Raw | null;
         japanType?: OrderAddressJapanType.Raw | null;
         addressee?: string | null;

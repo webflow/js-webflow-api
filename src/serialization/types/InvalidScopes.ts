@@ -10,5 +10,5 @@ export const InvalidScopes: core.serialization.Schema<serializers.InvalidScopes.
     core.serialization.unknown();
 
 export declare namespace InvalidScopes {
-    type Raw = unknown;
+    export type Raw = unknown;
 }

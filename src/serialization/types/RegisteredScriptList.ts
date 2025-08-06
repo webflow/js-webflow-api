@@ -6,16 +6,19 @@ import * as serializers from "../index";
 import * as Webflow from "../../api/index";
 import * as core from "../../core";
 import { CustomCodeHostedResponse } from "./CustomCodeHostedResponse";
+import { Pagination } from "./Pagination";
 
 export const RegisteredScriptList: core.serialization.ObjectSchema<
     serializers.RegisteredScriptList.Raw,
     Webflow.RegisteredScriptList
 > = core.serialization.object({
     registeredScripts: core.serialization.list(CustomCodeHostedResponse).optional(),
+    pagination: Pagination.optional(),
 });
 
 export declare namespace RegisteredScriptList {
-    interface Raw {
+    export interface Raw {
         registeredScripts?: CustomCodeHostedResponse.Raw[] | null;
+        pagination?: Pagination.Raw | null;
     }
 }

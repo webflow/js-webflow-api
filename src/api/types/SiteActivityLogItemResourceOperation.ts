@@ -12,7 +12,6 @@ export type SiteActivityLogItemResourceOperation =
     | "GROUP_CREATED"
     | "GROUP_DELETED"
     | "REORDERED";
-
 export const SiteActivityLogItemResourceOperation = {
     Created: "CREATED",
     Modified: "MODIFIED",

@@ -12,7 +12,7 @@ export const OrderMetadata: core.serialization.ObjectSchema<serializers.OrderMet
     });
 
 export declare namespace OrderMetadata {
-    interface Raw {
+    export interface Raw {
         isBuyNow?: boolean | null;
     }
 }

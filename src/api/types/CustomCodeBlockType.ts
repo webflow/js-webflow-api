@@ -6,7 +6,6 @@
  * Whether the Custom Code script is applied at the Site-level or Page-level
  */
 export type CustomCodeBlockType = "page" | "site";
-
 export const CustomCodeBlockType = {
     Page: "page",
     Site: "site",

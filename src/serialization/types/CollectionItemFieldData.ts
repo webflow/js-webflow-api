@@ -17,7 +17,7 @@ export const CollectionItemFieldData: core.serialization.ObjectSchema<
     .passthrough();
 
 export declare namespace CollectionItemFieldData {
-    interface Raw {
+    export interface Raw {
         name: string;
         slug: string;
         [key: string]: any;

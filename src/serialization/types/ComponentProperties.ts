@@ -18,7 +18,7 @@ export const ComponentProperties: core.serialization.ObjectSchema<
 });
 
 export declare namespace ComponentProperties {
-    interface Raw {
+    export interface Raw {
         componentId?: string | null;
         properties?: ComponentProperty.Raw[] | null;
         pagination?: Pagination.Raw | null;

@@ -14,25 +14,25 @@ export const Asset: core.serialization.ObjectSchema<serializers.Asset.Raw, Webfl
     siteId: core.serialization.string().optional(),
     hostedUrl: core.serialization.string().optional(),
     originalFileName: core.serialization.string().optional(),
-    displayName: core.serialization.string().optional(),
+    displayName: core.serialization.string(),
     lastUpdated: core.serialization.date().optional(),
     createdOn: core.serialization.date().optional(),
-    variants: core.serialization.list(AssetVariant).optional(),
+    variants: core.serialization.list(AssetVariant),
     altText: core.serialization.string().optional(),
 });
 
 export declare namespace Asset {
-    interface Raw {
+    export interface Raw {
         id?: string | null;
         contentType?: string | null;
         size?: number | null;
         siteId?: string | null;
         hostedUrl?: string | null;
         originalFileName?: string | null;
-        displayName?: string | null;
+        displayName: string;
         lastUpdated?: string | null;
         createdOn?: string | null;
-        variants?: AssetVariant.Raw[] | null;
+        variants: AssetVariant.Raw[];
         altText?: string | null;
     }
 }

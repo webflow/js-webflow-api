@@ -1,3 +1,5 @@
+imports:
+  root: ../__package__.yml
 types:
   ItemsListItemsRequestSortBy:
     enum:
@@ -20,11 +22,11 @@ types:
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
-  ItemsCreateItemRequest:
+  ItemsCreateItemRequestBody:
     discriminated: false
     union:
       - root.CollectionItemPostSingle
-      - Multiple Items
+      - type: Multiple Items
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   ItemsDeleteItemsRequestItemsItem:
@@ -38,6 +40,13 @@ types:
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
+  ItemsUpdateItemsResponse:
+    discriminated: false
+    union:
+      - type: root.CollectionItem
+      - type: root.CollectionItemList
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
   ItemsListItemsLiveRequestSortBy:
     enum:
       - lastPublished
@@ -59,11 +68,11 @@ types:
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
-  ItemsCreateItemLiveRequest:
+  ItemsCreateItemLiveRequestBody:
     discriminated: false
     union:
-      - root.CollectionItem
-      - Multiple Live Items
+      - type: root.CollectionItem
+      - type: Multiple Live Items
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   ItemsDeleteItemsLiveRequestItemsItem:
@@ -113,20 +122,54 @@ types:
   CreateBulkCollectionItemRequestBodyFieldData:
     discriminated: false
     union:
-      - Single CMS Item
+      - type: Single CMS Item
       - docs: A list of CMS items to create
         type: list<CreateBulkCollectionItemRequestBodyFieldDataItem>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
+  Item IDs:
+    docs: An array of Item IDs in a single locale
+    properties:
+      itemIds:
+        type: optional<list<string>>
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  ItemsPublishItemRequestItemsItemsItem:
+    properties:
+      id:
+        type: string
+        docs: The ID of the CMS item
+      cmsLocaleIds:
+        type: optional<list<string>>
+        docs: Array of identifiers for the locales where the item will be published
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  Item IDs with Locales:
+    docs: An array of Item IDs with included `cmsLocaleIds`
+    properties:
+      items:
+        type: optional<list<ItemsPublishItemRequestItemsItemsItem>>
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  ItemsPublishItemRequest:
+    discriminated: false
+    union:
+      - type: Item IDs
+        docs: An array of Item IDs in a single locale
+      - type: Item IDs with Locales
+        docs: An array of Item IDs with included `cmsLocaleIds`
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
   ItemsPublishItemResponse:
     properties:
       publishedItemIds: optional<list<string>>
       errors: optional<list<string>>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
-imports:
-  root: ../__package__.yml
 service:
   auth: false
   base-path: ''
@@ -170,6 +213,9 @@ service:
           slug:
             type: optional<string>
             docs: Filter by the exact slug of the item
+          lastPublished:
+            type: optional<root.ItemsListItemsRequestLastPublished>
+            docs: Filter by the last published date of the item(s)
           sortBy:
             type: optional<ItemsListItemsRequestSortBy>
             docs: Sort results by the provided value
@@ -230,7 +276,7 @@ service:
 
 
         To create items across multiple locales, please use [this
-        endpoint.](/v2.0.0/data/reference/cms/collection-items/staged-items/create-items)
+        endpoint.](/data/reference/cms/collection-items/staged-items/create-items)
 
 
         Required scope | `CMS:write`
@@ -242,7 +288,15 @@ service:
           docs: Unique identifier for a Collection
       display-name: Create Collection Item(s)
       request:
-        body: ItemsCreateItemRequest
+        body: ItemsCreateItemRequestBody
+        query-parameters:
+          skipInvalidFiles:
+            type: optional<boolean>
+            default: true
+            docs: >-
+              When true, invalid files are skipped and processing continues.
+              When false, the entire request fails if any file is invalid.
+        name: ItemsCreateItemRequest
         content-type: application/json
       response:
         docs: Request was successful
@@ -380,13 +434,20 @@ service:
       display-name: Update Collection Items
       request:
         name: ItemsUpdateItemsRequest
+        query-parameters:
+          skipInvalidFiles:
+            type: optional<boolean>
+            default: true
+            docs: >-
+              When true, invalid files are skipped and processing continues.
+              When false, the entire request fails if any file is invalid.
         body:
           properties:
             items: optional<list<root.CollectionItemWithIdInput>>
         content-type: application/json
       response:
         docs: Request was successful
-        type: root.CollectionItem
+        type: ItemsUpdateItemsResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -426,19 +487,55 @@ service:
                   featured: false
           response:
             body:
-              id: id
-              cmsLocaleId: 653ad57de882f528b32e810e
-              lastPublished: '2023-03-17T18:47:35.560Z'
-              lastUpdated: '2023-03-17T18:47:35.560Z'
-              createdOn: '2023-03-17T18:47:35.560Z'
-              isArchived: true
-              isDraft: true
-              fieldData:
-                name: My new item
-                slug: my-new-item
-                date: '2022-11-18T00:00:00.000Z'
-                featured: false
-                color: '#db4b68'
+              items:
+                - id: 66f6ed9576ddacf3149d5ea6
+                  cmsLocaleId: 66f6e966c9e1dc700a857ca5
+                  lastPublished: '2024-09-27T17:38:29.066Z'
+                  lastUpdated: '2024-09-27T17:38:29.066Z'
+                  createdOn: '2024-09-27T17:38:29.066Z'
+                  isArchived: false
+                  isDraft: false
+                  fieldData:
+                    name: Ne Paniquez Pas
+                    slug: ne-paniquez-pas
+                    featured: false
+                - id: 66f6ed9576ddacf3149d5ea6
+                  cmsLocaleId: 66f6e966c9e1dc700a857ca4
+                  lastPublished: '2024-09-27T17:38:29.066Z'
+                  lastUpdated: '2024-09-27T17:38:29.066Z'
+                  createdOn: '2024-09-27T17:38:29.066Z'
+                  isArchived: false
+                  isDraft: false
+                  fieldData:
+                    name: No Entrar en Pánico
+                    slug: no-entrar-en-panico
+                    featured: false
+                - id: 66f6ed9576ddacf3149d5eaa
+                  cmsLocaleId: 66f6e966c9e1dc700a857ca5
+                  lastPublished: '2024-09-27T17:38:29.066Z'
+                  lastUpdated: '2024-09-27T17:38:29.066Z'
+                  createdOn: '2024-09-27T17:38:29.066Z'
+                  isArchived: false
+                  isDraft: false
+                  fieldData:
+                    name: Au Revoir et Merci pour Tous les Poissons
+                    slug: au-revoir-et-merci
+                    featured: false
+                - id: 66f6ed9576ddacf3149d5eaa
+                  cmsLocaleId: 66f6e966c9e1dc700a857ca4
+                  lastPublished: '2024-09-27T17:38:29.066Z'
+                  lastUpdated: '2024-09-27T17:38:29.066Z'
+                  createdOn: '2024-09-27T17:38:29.066Z'
+                  isArchived: false
+                  isDraft: false
+                  fieldData:
+                    name: Hasta Luego y Gracias por Todo el Pescado
+                    slug: hasta-luego-y-gracias
+                    featured: false
+              pagination:
+                limit: 25
+                offset: 0
+                total: 4
         - name: MultipleItems
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
@@ -462,107 +559,35 @@ service:
                   department: Product
           response:
             body:
-              id: id
-              cmsLocaleId: 653ad57de882f528b32e810e
-              lastPublished: '2023-03-17T18:47:35.560Z'
-              lastUpdated: '2023-03-17T18:47:35.560Z'
-              createdOn: '2023-03-17T18:47:35.560Z'
-              isArchived: true
-              isDraft: true
-              fieldData:
-                name: My new item
-                slug: my-new-item
-                date: '2022-11-18T00:00:00.000Z'
-                featured: false
-                color: '#db4b68'
-        - name: Multiple items updated across multiple locales
-          path-parameters:
-            collection_id: 580e63fc8c9a982ac9b8b745
-          request:
-            items:
-              - id: 66f6ed9576ddacf3149d5ea6
-                cmsLocaleId: 66f6e966c9e1dc700a857ca5
-                fieldData:
-                  name: Ne Paniquez Pas
-                  slug: ne-paniquez-pas
-                  featured: false
-              - id: 66f6ed9576ddacf3149d5ea6
-                cmsLocaleId: 66f6e966c9e1dc700a857ca4
-                fieldData:
-                  name: No Entrar en Pánico
-                  slug: no-entrar-en-panico
-                  featured: false
-              - id: 66f6ed9576ddacf3149d5eaa
-                cmsLocaleId: 66f6e966c9e1dc700a857ca5
-                fieldData:
-                  name: Au Revoir et Merci pour Tous les Poissons
-                  slug: au-revoir-et-merci
-                  featured: false
-              - id: 66f6ed9576ddacf3149d5eaa
-                cmsLocaleId: 66f6e966c9e1dc700a857ca4
-                fieldData:
-                  name: Hasta Luego y Gracias por Todo el Pescado
-                  slug: hasta-luego-y-gracias
-                  featured: false
-          response:
-            body:
-              id: id
-              cmsLocaleId: 653ad57de882f528b32e810e
-              lastPublished: '2023-03-17T18:47:35.560Z'
-              lastUpdated: '2023-03-17T18:47:35.560Z'
-              createdOn: '2023-03-17T18:47:35.560Z'
-              isArchived: true
-              isDraft: true
-              fieldData:
-                name: My new item
-                slug: my-new-item
-                date: '2022-11-18T00:00:00.000Z'
-                featured: false
-                color: '#db4b68'
-        - name: Mulitple items updated in a single locale
-          path-parameters:
-            collection_id: 580e63fc8c9a982ac9b8b745
-          request:
-            items:
-              - id: 66f6ed9576ddacf3149d5ea6
-                cmsLocaleId: 66f6e966c9e1dc700a857ca5
-                fieldData:
-                  name: Ne Paniquez Pas
-                  slug: ne-paniquez-pas
-                  featured: false
-              - id: 66f6ed9576ddacf3149d5ea6
-                cmsLocaleId: 66f6e966c9e1dc700a857ca4
-                fieldData:
-                  name: No Entrar en Pánico
-                  slug: no-entrar-en-panico
-                  featured: false
-              - id: 66f6ed9576ddacf3149d5eaa
-                cmsLocaleId: 66f6e966c9e1dc700a857ca5
-                fieldData:
-                  name: Au Revoir et Merci pour Tous les Poissons
-                  slug: au-revoir-et-merci
-                  featured: false
-              - id: 66f6ed9576ddacf3149d5eaa
-                cmsLocaleId: 66f6e966c9e1dc700a857ca4
-                fieldData:
-                  name: Hasta Luego y Gracias por Todo el Pescado
-                  slug: hasta-luego-y-gracias
-                  featured: false
-          response:
-            body:
-              id: id
-              cmsLocaleId: 653ad57de882f528b32e810e
-              lastPublished: '2023-03-17T18:47:35.560Z'
-              lastUpdated: '2023-03-17T18:47:35.560Z'
-              createdOn: '2023-03-17T18:47:35.560Z'
-              isArchived: true
-              isDraft: true
-              fieldData:
-                name: My new item
-                slug: my-new-item
-                date: '2022-11-18T00:00:00.000Z'
-                featured: false
-                color: '#db4b68'
+              items:
+                - id: 62b720ef280c7a7a3be8cabe
+                  cmsLocaleId: 66f6e966c9e1dc700a857ca3
+                  lastPublished: '2022-06-30T13:35:20.878Z'
+                  lastUpdated: '2022-06-25T14:51:27.809Z'
+                  createdOn: '2022-06-25T14:51:27.809Z'
+                  isArchived: false
+                  isDraft: false
+                  fieldData:
+                    name: Senior Data Analyst
+                    slug: senior-data-analyst
+                    url: https://boards.greenhouse.io/webflow/jobs/26567701
+                    department: Data
+                - id: 62c880ef281c7b7b4cf9dabc
+                  cmsLocaleId: 66f6e966c9e1dc700a857ca3
+                  lastPublished: '2023-04-15T10:25:18.123Z'
+                  lastUpdated: '2023-04-10T11:45:30.567Z'
+                  createdOn: '2023-04-10T11:45:30.567Z'
+                  isArchived: false
+                  isDraft: false
+                  fieldData:
+                    name: Product Manager
+                    slug: product-manager
+                    url: https://boards.greenhouse.io/webflow/jobs/31234567
+                    department: Product
+              pagination:
+                limit: 25
+                offset: 0
+                total: 2
     list-items-live:
       path: /collections/{collection_id}/items/live
       method: GET
@@ -607,6 +632,9 @@ service:
           slug:
             type: optional<string>
             docs: Filter by the exact slug of the item
+          lastPublished:
+            type: optional<root.ItemsListItemsLiveRequestLastPublished>
+            docs: Filter by the last published date of the item(s)
           sortBy:
             type: optional<ItemsListItemsLiveRequestSortBy>
             docs: Sort results by the provided value
@@ -669,7 +697,7 @@ service:
 
 
         To create items across multiple locales, [please use this
-        endpoint.](/v2.0.0/data/reference/cms/collection-items/staged-items/create-items)
+        endpoint.](/data/reference/cms/collection-items/staged-items/create-items)
 
 
 
@@ -682,7 +710,15 @@ service:
           docs: Unique identifier for a Collection
       display-name: Create Live Collection Item(s)
       request:
-        body: ItemsCreateItemLiveRequest
+        body: ItemsCreateItemLiveRequestBody
+        query-parameters:
+          skipInvalidFiles:
+            type: optional<boolean>
+            default: true
+            docs: >-
+              When true, invalid files are skipped and processing continues.
+              When false, the entire request fails if any file is invalid.
+        name: ItemsCreateItemLiveRequest
         content-type: application/json
       response:
         docs: Request was successful
@@ -699,9 +735,6 @@ service:
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
           request:
-            lastPublished: '2023-03-17T18:47:35.560Z'
-            lastUpdated: '2023-03-17T18:47:35.560Z'
-            createdOn: '2023-03-17T18:47:35.560Z'
             isArchived: false
             isDraft: false
             fieldData:
@@ -730,20 +763,14 @@ service:
             collection_id: 580e63fc8c9a982ac9b8b745
           request:
             items:
-              - lastPublished: '2023-03-17T18:47:35.560Z'
-                lastUpdated: '2023-03-17T18:47:35.560Z'
-                createdOn: '2023-03-17T18:47:35.560Z'
-                isArchived: false
+              - isArchived: false
                 isDraft: false
                 fieldData:
                   name: Senior Data Analyst
                   slug: senior-data-analyst
                   url: https://boards.greenhouse.io/webflow/jobs/26567701
                   department: Data
-              - lastPublished: '2023-03-17T18:47:35.560Z'
-                lastUpdated: '2023-03-17T18:47:35.560Z'
-                createdOn: '2023-03-17T18:47:35.560Z'
-                isArchived: false
+              - isArchived: false
                 isDraft: false
                 fieldData:
                   name: Product Manager
@@ -770,12 +797,8 @@ service:
       method: DELETE
       auth: true
       docs: >
-        Remove an item or multiple items (up to 100 items) from the live site.
-
-
-        Using this endpoint to delete published item(s) will unpublish the
-        item(s) from the live site and set the item(s) `isDraft` property to
-        `true`. 
+        Unpublish up to 100 items from the live site and set the `isDraft`
+        property to `true`. 
 
 
         <Tip title="Localization Tip">Items will only be unpublished in the
@@ -789,7 +812,7 @@ service:
         collection_id:
           type: string
           docs: Unique identifier for a Collection
-      display-name: Delete Live Collection Items
+      display-name: Unpublish Live Collection Items
       request:
         name: ItemsDeleteItemsLiveRequest
         body:
@@ -831,6 +854,13 @@ service:
       display-name: Update Live Collection Items
       request:
         name: ItemsUpdateItemsLiveRequest
+        query-parameters:
+          skipInvalidFiles:
+            type: optional<boolean>
+            default: true
+            docs: >-
+              When true, invalid files are skipped and processing continues.
+              When false, the entire request fails if any file is invalid.
         body:
           properties:
             items: optional<list<root.CollectionItemWithIdInput>>
@@ -881,44 +911,44 @@ service:
               items:
                 - id: 66f6ed9576ddacf3149d5ea6
                   cmsLocaleId: 66f6e966c9e1dc700a857ca5
-                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastPublished: '2024-09-27T17:38:29.066Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
-                  isArchived: true
-                  isDraft: true
+                  isArchived: false
+                  isDraft: false
                   fieldData:
                     name: Ne Paniquez Pas
                     slug: ne-paniquez-pas
                     featured: false
                 - id: 66f6ed9576ddacf3149d5ea6
                   cmsLocaleId: 66f6e966c9e1dc700a857ca4
-                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastPublished: '2024-09-27T17:38:29.066Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
-                  isArchived: true
-                  isDraft: true
+                  isArchived: false
+                  isDraft: false
                   fieldData:
                     name: No Entrar en Pánico
                     slug: no-entrar-en-panico
                     featured: false
                 - id: 66f6ed9576ddacf3149d5eaa
                   cmsLocaleId: 66f6e966c9e1dc700a857ca5
-                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastPublished: '2024-09-27T17:38:29.066Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
-                  isArchived: true
-                  isDraft: true
+                  isArchived: false
+                  isDraft: false
                   fieldData:
                     name: Au Revoir et Merci pour Tous les Poissons
                     slug: au-revoir-et-merci
                     featured: false
                 - id: 66f6ed9576ddacf3149d5eaa
                   cmsLocaleId: 66f6e966c9e1dc700a857ca4
-                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastPublished: '2024-09-27T17:38:29.066Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
-                  isArchived: true
-                  isDraft: true
+                  isArchived: false
+                  isDraft: false
                   fieldData:
                     name: Hasta Luego y Gracias por Todo el Pescado
                     slug: hasta-luego-y-gracias
@@ -949,44 +979,44 @@ service:
               items:
                 - id: 66f6ed9576ddacf3149d5ea6
                   cmsLocaleId: 66f6e966c9e1dc700a857ca5
-                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastPublished: '2024-09-27T17:38:29.066Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
-                  isArchived: true
-                  isDraft: true
+                  isArchived: false
+                  isDraft: false
                   fieldData:
                     name: Ne Paniquez Pas
                     slug: ne-paniquez-pas
                     featured: false
                 - id: 66f6ed9576ddacf3149d5ea6
                   cmsLocaleId: 66f6e966c9e1dc700a857ca4
-                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastPublished: '2024-09-27T17:38:29.066Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
-                  isArchived: true
-                  isDraft: true
+                  isArchived: false
+                  isDraft: false
                   fieldData:
                     name: No Entrar en Pánico
                     slug: no-entrar-en-panico
                     featured: false
                 - id: 66f6ed9576ddacf3149d5eaa
                   cmsLocaleId: 66f6e966c9e1dc700a857ca5
-                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastPublished: '2024-09-27T17:38:29.066Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
-                  isArchived: true
-                  isDraft: true
+                  isArchived: false
+                  isDraft: false
                   fieldData:
                     name: Au Revoir et Merci pour Tous les Poissons
                     slug: au-revoir-et-merci
                     featured: false
                 - id: 66f6ed9576ddacf3149d5eaa
                   cmsLocaleId: 66f6e966c9e1dc700a857ca4
-                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastPublished: '2024-09-27T17:38:29.066Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
-                  isArchived: true
-                  isDraft: true
+                  isArchived: false
+                  isDraft: false
                   fieldData:
                     name: Hasta Luego y Gracias por Todo el Pescado
                     slug: hasta-luego-y-gracias
@@ -1025,49 +1055,49 @@ service:
               items:
                 - id: 66f6ed9576ddacf3149d5ea6
                   cmsLocaleId: 66f6e966c9e1dc700a857ca5
-                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastPublished: '2024-09-27T17:38:29.066Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
-                  isArchived: true
-                  isDraft: true
+                  isArchived: false
+                  isDraft: false
                   fieldData:
                     name: Ne Paniquez Pas
                     slug: ne-paniquez-pas
                     featured: false
                 - id: 66f6ed9576ddacf3149d5ea6
                   cmsLocaleId: 66f6e966c9e1dc700a857ca4
-                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastPublished: '2024-09-27T17:38:29.066Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
-                  isArchived: true
-                  isDraft: true
+                  isArchived: false
+                  isDraft: false
                   fieldData:
                     name: No Entrar en Pánico
                     slug: no-entrar-en-panico
                     featured: false
                 - id: 66f6ed9576ddacf3149d5eaa
                   cmsLocaleId: 66f6e966c9e1dc700a857ca5
-                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastPublished: '2024-09-27T17:38:29.066Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
-                  isArchived: true
-                  isDraft: true
+                  isArchived: false
+                  isDraft: false
                   fieldData:
                     name: Au Revoir et Merci pour Tous les Poissons
                     slug: au-revoir-et-merci
                     featured: false
                 - id: 66f6ed9576ddacf3149d5eaa
                   cmsLocaleId: 66f6e966c9e1dc700a857ca4
-                  lastPublished: '2023-03-17T18:47:35.560Z'
+                  lastPublished: '2024-09-27T17:38:29.066Z'
                   lastUpdated: '2024-09-27T17:38:29.066Z'
                   createdOn: '2024-09-27T17:38:29.066Z'
-                  isArchived: true
-                  isDraft: true
+                  isArchived: false
+                  isDraft: false
                   fieldData:
                     name: Hasta Luego y Gracias por Todo el Pescado
                     slug: hasta-luego-y-gracias
                     featured: false
-        - name: Mulitple items updated in a single locale
+        - name: Multiple items updated in a single locale
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
           request:
@@ -1148,6 +1178,13 @@ service:
       display-name: Create Collection Items
       request:
         name: CreateBulkCollectionItemRequestBody
+        query-parameters:
+          skipInvalidFiles:
+            type: optional<boolean>
+            default: true
+            docs: >-
+              When true, invalid files are skipped and processing continues.
+              When false, the entire request fails if any file is invalid.
         body:
           properties:
             cmsLocaleIds:
@@ -1162,7 +1199,7 @@ service:
             isDraft:
               type: optional<boolean>
               docs: Indicates whether the item is in draft state.
-              default: false
+              default: true
             fieldData: CreateBulkCollectionItemRequestBodyFieldData
         content-type: application/json
       response:
@@ -1207,7 +1244,7 @@ service:
                 date: '2022-11-18T00:00:00.000Z'
                 featured: false
                 color: '#db4b68'
-        - name: Create multiple items across multipel locales
+        - name: Create multiple items across multiple locales
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
           request:
@@ -1417,6 +1454,14 @@ service:
       display-name: Update Collection Item
       request:
         body: root.CollectionItemPatchSingle
+        query-parameters:
+          skipInvalidFiles:
+            type: optional<boolean>
+            default: true
+            docs: >-
+              When true, invalid files are skipped and processing continues.
+              When false, the entire request fails if any file is invalid.
+        name: ItemsUpdateItemRequest
         content-type: application/json
       response:
         docs: Request was successful
@@ -1524,11 +1569,12 @@ service:
       method: DELETE
       auth: true
       docs: >
-        Remove a live item from the site. Removing a published item will
-        unpublish the item from the live site and set it to draft. 
+        Unpublish a live item from the site and set the `isDraft` property to
+        `true`. 
 
 
-        This endpoint does not currently support bulk deletion.
+        For bulk unpublishing, please use [this
+        endpoint.](/data/v2.0.0/reference/cms/collection-items/live-items/delete-items-live)
 
 
         Required scope | `CMS:write`
@@ -1541,7 +1587,7 @@ service:
         item_id:
           type: string
           docs: Unique identifier for an Item
-      display-name: Delete Live Collection Item
+      display-name: Unpublish Live Collection Item
       request:
         name: ItemsDeleteItemLiveRequest
         query-parameters:
@@ -1584,6 +1630,14 @@ service:
       display-name: Update Live Collection Item
       request:
         body: root.CollectionItemPatchSingle
+        query-parameters:
+          skipInvalidFiles:
+            type: optional<boolean>
+            default: true
+            docs: >-
+              When true, invalid files are skipped and processing continues.
+              When false, the entire request fails if any file is invalid.
+        name: ItemsUpdateItemLiveRequest
         content-type: application/json
       response:
         docs: Request was successful
@@ -1640,10 +1694,7 @@ service:
           docs: Unique identifier for a Collection
       display-name: Publish Collection Item
       request:
-        name: ItemsPublishItemRequest
-        body:
-          properties:
-            itemIds: list<string>
+        body: ItemsPublishItemRequest
         content-type: application/json
       response:
         docs: Request was successful
@@ -1657,11 +1708,52 @@ service:
         - root.TooManyRequestsError
         - root.InternalServerError
       examples:
-        - path-parameters:
+        - name: PrimaryLocale
+          path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
           request:
             itemIds:
-              - itemIds
+              - 643fd856d66b6528195ee2ca
+              - 643fd856d66b6528195ee2cb
+              - 643fd856d66b6528195ee2cc
+          response:
+            body:
+              publishedItemIds:
+                - 643fd856d66b6528195ee2ca
+                - 643fd856d66b6528195ee2cb
+              errors:
+                - Staging item ID 643fd856d66b6528195ee2cf not found.
+        - name: SecondaryLocale
+          path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+          request:
+            items:
+              - id: 643fd856d66b6528195ee2ca
+                cmsLocaleIds:
+                  - 653ad57de882f528b32e810e
+              - id: 643fd856d66b6528195ee2cb
+                cmsLocaleIds:
+                  - 653ad57de882f528b32e810e
+              - id: 643fd856d66b6528195ee2cc
+                cmsLocaleIds:
+                  - 653ad57de882f528b32e810e
+          response:
+            body:
+              publishedItemIds:
+                - 643fd856d66b6528195ee2ca
+                - 643fd856d66b6528195ee2cb
+              errors:
+                - Staging item ID 643fd856d66b6528195ee2cf not found.
+        - name: MultipleLocales
+          path-parameters:
+            collection_id: 580e63fc8c9a982ac9b8b745
+          request:
+            items:
+              - id: 643fd856d66b6528195ee2ca
+                cmsLocaleIds:
+                  - 653ad57de882f528b32e810e
+                  - 6514390aea353fc691d69827
+                  - 65143930ea353fc691d69cd8
           response:
             body:
               publishedItemIds:

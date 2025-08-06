@@ -17,7 +17,7 @@ export const AssetFolderList: core.serialization.ObjectSchema<
 });
 
 export declare namespace AssetFolderList {
-    interface Raw {
+    export interface Raw {
         assetFolders?: AssetFolder.Raw[] | null;
         pagination?: Pagination.Raw | null;
     }

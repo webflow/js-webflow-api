@@ -4,9 +4,15 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         branchId: "68026fa68ef6dc744c75b833"
+ *     }
  */
 export interface ComponentsListRequest {
+    /**
+     * Scope the operation to work on a specific branch.
+     */
+    branchId?: string;
     /**
      * Maximum number of records to be returned (max limit: 100)
      */

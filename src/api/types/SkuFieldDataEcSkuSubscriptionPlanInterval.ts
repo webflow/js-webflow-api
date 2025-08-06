@@ -6,7 +6,6 @@
  * Interval of subscription renewal
  */
 export type SkuFieldDataEcSkuSubscriptionPlanInterval = "day" | "week" | "month" | "year";
-
 export const SkuFieldDataEcSkuSubscriptionPlanInterval = {
     Day: "day",
     Week: "week",

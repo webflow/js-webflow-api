@@ -16,7 +16,7 @@ export const CollectionItemListPagination: core.serialization.ObjectSchema<
 });
 
 export declare namespace CollectionItemListPagination {
-    interface Raw {
+    export interface Raw {
         limit?: number | null;
         offset?: number | null;
         total?: number | null;
