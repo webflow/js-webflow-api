@@ -9,7 +9,7 @@
         "format": "prettier . --write --ignore-unknown",
         "build": "tsc",
         "prepack": "cp -rv dist/. .",
-        "test": "jest tests/unit --passWithNoTests",
+        "test": "jest",
         "test:wire": "jest tests/wire --passWithNoTests",
         "wire:test": "yarn test:wire"
     },
