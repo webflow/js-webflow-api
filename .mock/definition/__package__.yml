@@ -3252,15 +3252,6 @@ types:
           [Subscription
           plan](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#subscription)
           for the SKU
-      track-inventory:
-        type: optional<boolean>
-        docs: >-
-          A boolean indicating whether inventory for this product should be
-          tracked.
-        default: false
-      quantity:
-        type: optional<double>
-        docs: Quantity of SKU that will be tracked as items are ordered.
       main-image:
         type: optional<string>
         docs: The URL for the main image of the SKU

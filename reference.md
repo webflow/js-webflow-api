@@ -4944,7 +4944,7 @@ await client.orders.refund("580e63e98c9a982ac9b8b741", "5e8518516e147040726cc415
 
 ## Inventory
 
-<details><summary><code>client.inventory.<a href="/src/api/resources/inventory/client/Client.ts">list</a>(collectionId, itemId) -> Webflow.InventoryItem</code></summary>
+<details><summary><code>client.inventory.<a href="/src/api/resources/inventory/client/Client.ts">list</a>(skuCollectionId, skuId) -> Webflow.InventoryItem</code></summary>
 <dl>
 <dd>
 
@@ -4974,7 +4974,7 @@ Required scope | `ecommerce:read`
 <dd>
 
 ```typescript
-await client.inventory.list("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754");
+await client.inventory.list("6377a7c4b7a79608c34a46f7", "5e8518516e147040726cc415");
 ```
 
 </dd>
@@ -4990,7 +4990,7 @@ await client.inventory.list("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b75
 <dl>
 <dd>
 
-**collectionId:** `string` — Unique identifier for a Collection
+**skuCollectionId:** `string` — Unique identifier for a SKU collection. Use the List Collections API to find this ID.
 
 </dd>
 </dl>
@@ -4998,7 +4998,7 @@ await client.inventory.list("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b75
 <dl>
 <dd>
 
-**itemId:** `string` — Unique identifier for an Item
+**skuId:** `string` — Unique identifier for a SKU
 
 </dd>
 </dl>
@@ -5017,7 +5017,7 @@ await client.inventory.list("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b75
 </dl>
 </details>
 
-<details><summary><code>client.inventory.<a href="/src/api/resources/inventory/client/Client.ts">update</a>(collectionId, itemId, { ...params }) -> Webflow.InventoryItem</code></summary>
+<details><summary><code>client.inventory.<a href="/src/api/resources/inventory/client/Client.ts">update</a>(skuCollectionId, skuId, { ...params }) -> Webflow.InventoryItem</code></summary>
 <dl>
 <dd>
 
@@ -5052,7 +5052,7 @@ Required scope | `ecommerce:write`
 <dd>
 
 ```typescript
-await client.inventory.update("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754", {
+await client.inventory.update("6377a7c4b7a79608c34a46f7", "5e8518516e147040726cc415", {
     inventoryType: "infinite",
 });
 ```
@@ -5070,7 +5070,7 @@ await client.inventory.update("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b
 <dl>
 <dd>
 
-**collectionId:** `string` — Unique identifier for a Collection
+**skuCollectionId:** `string` — Unique identifier for a SKU collection. Use the List Collections API to find this ID.
 
 </dd>
 </dl>
@@ -5078,7 +5078,7 @@ await client.inventory.update("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b
 <dl>
 <dd>
 
-**itemId:** `string` — Unique identifier for an Item
+**skuId:** `string` — Unique identifier for a SKU
 
 </dd>
 </dl>
@@ -6872,7 +6872,7 @@ await client.pages.scripts.getCustomCode("63c720f9347c2139b248e552");
 <dl>
 <dd>
 
-Apply scripts to a page.
+Apply registered scripts to a page. If you have multiple scripts your App needs to apply or maintain on a page, ensure they are always included in the request body for this endpoint. To remove individual scripts, simply call this endpoint without the script in the request body.
 
 <Note title="Script Registration">
   To apply a script to a page, the script must first be registered to a Site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
@@ -6965,9 +6965,11 @@ await client.pages.scripts.upsertCustomCode("63c720f9347c2139b248e552", {
 <dl>
 <dd>
 
-Delete a custom code block that the App created on a page.
+Remove all scripts from a page applied by the App. This endpoint will not remove scripts from the site's registered scripts.
 
-<Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
+To remove individual scripts applied by the App, use the [Add/Update Custom Code](/data/reference/custom-code/custom-code-pages/upsert-custom-code) endpoint.
+
+<Note>Access to this endpoint requires a bearer token obtained from an [OAuth Code Grant Flow](/data/reference/oauth-app).</Note>
 
 Required scope | `custom_code:write`
 
@@ -8307,7 +8309,7 @@ await client.sites.scripts.getCustomCode("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-Apply registered scripts to a site.
+Apply registered scripts to a site. If you have multiple scripts your App needs to apply or maintain on a site, ensure they are always included in the request body for this endpoint. To remove individual scripts, simply call this endpoint without the script in the request body.
 
 <Note title="Script Registration">
   To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
@@ -8400,7 +8402,11 @@ await client.sites.scripts.upsertCustomCode("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-Remove scripts from a site applied by the App. This endpoint will not remove scripts from the site's registered scripts.
+Remove all scripts from a site applied by the App. This endpoint will not remove scripts from the site's registered scripts.
+
+To remove individual scripts applied by the App, use the [Add/Update Custom Code](/data/reference/custom-code/custom-code-sites/upsert-custom-code) endpoint.
+
+<Note>Access to this endpoint requires a bearer token obtained from an [OAuth Code Grant Flow](/data/reference/oauth-app).</Note>
 
 Required scope | `custom_code:write`
 

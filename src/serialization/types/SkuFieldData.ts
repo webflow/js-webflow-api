@@ -27,8 +27,6 @@ export const SkuFieldData: core.serialization.ObjectSchema<serializers.SkuFieldD
             "ec-sku-subscription-plan",
             SkuFieldDataEcSkuSubscriptionPlan.optional(),
         ),
-        trackInventory: core.serialization.property("track-inventory", core.serialization.boolean().optional()),
-        quantity: core.serialization.number().optional(),
         mainImage: core.serialization.property("main-image", core.serialization.string().optional()),
         sku: core.serialization.string().optional(),
         skuProperties: core.serialization.property(
@@ -46,8 +44,6 @@ export declare namespace SkuFieldData {
         "compare-at-price"?: SkuFieldDataCompareAtPrice.Raw | null;
         "ec-sku-billing-method"?: SkuFieldDataEcSkuBillingMethod.Raw | null;
         "ec-sku-subscription-plan"?: SkuFieldDataEcSkuSubscriptionPlan.Raw | null;
-        "track-inventory"?: boolean | null;
-        quantity?: number | null;
         "main-image"?: string | null;
         sku?: string | null;
         "sku-properties"?: SkuPropertyList.Raw[] | null;
