@@ -21,10 +21,6 @@ export interface SkuFieldData {
     ecSkuBillingMethod?: Webflow.SkuFieldDataEcSkuBillingMethod;
     /** [Subscription plan](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#subscription) for the SKU */
     ecSkuSubscriptionPlan?: Webflow.SkuFieldDataEcSkuSubscriptionPlan;
-    /** A boolean indicating whether inventory for this product should be tracked. */
-    trackInventory?: boolean;
-    /** Quantity of SKU that will be tracked as items are ordered. */
-    quantity?: number;
     /** The URL for the main image of the SKU */
     mainImage?: string;
     /** A unique identifier for the SKU */

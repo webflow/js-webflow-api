@@ -22,13 +22,13 @@ describe("Inventory", () => {
         const rawResponseBody = { id: "5bfedb42bab0ad90fa7dad39", quantity: 100, inventoryType: "finite" };
         server
             .mockEndpoint()
-            .get("/collections/580e63fc8c9a982ac9b8b745/items/580e64008c9a982ac9b8b754/inventory")
+            .get("/collections/6377a7c4b7a79608c34a46f7/items/5e8518516e147040726cc415/inventory")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.inventory.list("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754");
+        const response = await client.inventory.list("6377a7c4b7a79608c34a46f7", "5e8518516e147040726cc415");
         expect(response).toEqual({
             id: "5bfedb42bab0ad90fa7dad39",
             quantity: 100,
@@ -52,14 +52,14 @@ describe("Inventory", () => {
         const rawResponseBody = { id: "5bfedb42bab0ad90fa7dad39", quantity: 100, inventoryType: "finite" };
         server
             .mockEndpoint()
-            .patch("/collections/580e63fc8c9a982ac9b8b745/items/580e64008c9a982ac9b8b754/inventory")
+            .patch("/collections/6377a7c4b7a79608c34a46f7/items/5e8518516e147040726cc415/inventory")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.inventory.update("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754", {
+        const response = await client.inventory.update("6377a7c4b7a79608c34a46f7", "5e8518516e147040726cc415", {
             inventoryType: "infinite",
         });
         expect(response).toEqual({

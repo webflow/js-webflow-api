@@ -5,7 +5,7 @@ service:
   base-path: ''
   endpoints:
     list:
-      path: /collections/{collection_id}/items/{item_id}/inventory
+      path: /collections/{sku_collection_id}/items/{sku_id}/inventory
       method: GET
       auth: true
       docs: |
@@ -15,12 +15,14 @@ service:
       source:
         openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
-        collection_id:
+        sku_collection_id:
           type: string
-          docs: Unique identifier for a Collection
-        item_id:
+          docs: >-
+            Unique identifier for a SKU collection. Use the List Collections API
+            to find this ID.
+        sku_id:
           type: string
-          docs: Unique identifier for an Item
+          docs: Unique identifier for a SKU
       display-name: List Inventory
       response:
         docs: Request was successful
@@ -36,15 +38,15 @@ service:
         - root.InternalServerError
       examples:
         - path-parameters:
-            collection_id: 580e63fc8c9a982ac9b8b745
-            item_id: 580e64008c9a982ac9b8b754
+            sku_collection_id: 6377a7c4b7a79608c34a46f7
+            sku_id: 5e8518516e147040726cc415
           response:
             body:
               id: 5bfedb42bab0ad90fa7dad39
               quantity: 100
               inventoryType: finite
     update:
-      path: /collections/{collection_id}/items/{item_id}/inventory
+      path: /collections/{sku_collection_id}/items/{sku_id}/inventory
       method: PATCH
       auth: true
       docs: >
@@ -65,12 +67,14 @@ service:
       source:
         openapi: ../../../openapi/referenced-specs/v2.yml
       path-parameters:
-        collection_id:
+        sku_collection_id:
           type: string
-          docs: Unique identifier for a Collection
-        item_id:
+          docs: >-
+            Unique identifier for a SKU collection. Use the List Collections API
+            to find this ID.
+        sku_id:
           type: string
-          docs: Unique identifier for an Item
+          docs: Unique identifier for a SKU
       display-name: Update Item Inventory
       request:
         name: InventoryUpdateRequest
@@ -100,8 +104,8 @@ service:
         - root.InternalServerError
       examples:
         - path-parameters:
-            collection_id: 580e63fc8c9a982ac9b8b745
-            item_id: 580e64008c9a982ac9b8b754
+            sku_collection_id: 6377a7c4b7a79608c34a46f7
+            sku_id: 5e8518516e147040726cc415
           request:
             inventoryType: infinite
           response:
