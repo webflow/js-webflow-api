@@ -6,22 +6,20 @@ import * as serializers from "../index";
 import * as Webflow from "../../api/index";
 import * as core from "../../core";
 
-export const MultiLocaleChangedPayloadFieldData: core.serialization.ObjectSchema<
-    serializers.MultiLocaleChangedPayloadFieldData.Raw,
-    Webflow.MultiLocaleChangedPayloadFieldData
+export const PayloadFieldData: core.serialization.ObjectSchema<
+    serializers.PayloadFieldData.Raw,
+    Webflow.PayloadFieldData
 > = core.serialization
     .object({
         name: core.serialization.string(),
         slug: core.serialization.string(),
-        locale: core.serialization.property("_locale", core.serialization.string()),
     })
     .passthrough();
 
-export declare namespace MultiLocaleChangedPayloadFieldData {
+export declare namespace PayloadFieldData {
     export interface Raw {
         name: string;
         slug: string;
-        _locale: string;
         [key: string]: any;
     }
 }

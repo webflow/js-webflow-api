@@ -92,7 +92,6 @@ service:
                           value: 2499
                           unit: USD
                           currency: USD
-                        quantity: 10
                         main-image: https://www.example.com/image.jpg
                         sku: '1234567890'
                         sku-properties:
@@ -243,7 +242,6 @@ service:
                       value: 2499
                       unit: USD
                       currency: USD
-                    quantity: 10
                     main-image: https://www.example.com/image.jpg
                     sku: '1234567890'
                     sku-properties:
@@ -331,7 +329,6 @@ service:
                       value: 2499
                       unit: USD
                       currency: USD
-                    quantity: 10
                     main-image: https://www.example.com/image.jpg
                     sku: '1234567890'
                     sku-properties:
@@ -498,7 +495,6 @@ service:
                       value: 2499
                       unit: USD
                       currency: USD
-                    quantity: 10
                     main-image: https://www.example.com/image.jpg
                     sku: '1234567890'
                     sku-properties:
@@ -600,8 +596,6 @@ service:
                   trial: 7
                   plans:
                     - {}
-                track-inventory: true
-                quantity: 10
                 main-image: https://www.example.com/image.jpg
                 sku: '1234567890'
                 sku-properties:

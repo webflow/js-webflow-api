@@ -1,6 +1,6 @@
 {
     "name": "webflow-api",
-    "version": "3.2.0",
+    "version": "3.2.1",
     "private": false,
     "repository": "https://github.com/webflow/js-webflow-api",
     "main": "./index.js",
@@ -9,7 +9,7 @@
         "format": "prettier . --write --ignore-unknown",
         "build": "tsc",
         "prepack": "cp -rv dist/. .",
-        "test": "jest",
+        "test": "jest tests/unit --passWithNoTests",
         "test:wire": "jest tests/wire --passWithNoTests",
         "wire:test": "yarn test:wire"
     },

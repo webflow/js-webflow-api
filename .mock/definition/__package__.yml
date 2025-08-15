@@ -2590,6 +2590,7 @@ types:
       - collection_item_created
       - collection_item_changed
       - collection_item_deleted
+      - collection_item_published
       - collection_item_unpublished
       - comment_created
     docs: >
@@ -3252,15 +3253,6 @@ types:
           [Subscription
           plan](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#subscription)
           for the SKU
-      track-inventory:
-        type: optional<boolean>
-        docs: >-
-          A boolean indicating whether inventory for this product should be
-          tracked.
-        default: false
-      quantity:
-        type: optional<double>
-        docs: Quantity of SKU that will be tracked as items are ordered.
       main-image:
         type: optional<string>
         docs: The URL for the main image of the SKU
@@ -4152,215 +4144,24 @@ types:
       fieldData: SingleLocaleCreatedPayloadFieldData
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
-  LocalizedItem:
-    properties:
-      _cid:
-        type: string
-        docs: Collection ID the item belongs to
-        validation:
-          format: uuid
-      _id:
-        type: string
-        docs: Unique identifier for the item
-        validation:
-          format: uuid
-      _locale:
-        type: string
-        docs: Locale identifier for this version of the item
-        validation:
-          format: uuid
-      _draft:
-        type: boolean
-        docs: Whether the item is in draft state
-      _archived:
-        type: boolean
-        docs: Whether the item is archived
-      name:
-        type: string
-        docs: Name of the item
-      slug:
-        type: string
-        docs: URL-friendly version of the name
-      updated-on:
-        type: datetime
-        docs: Timestamp of last update
-      updated-by:
-        type: string
-        docs: Identifier of user who last updated the item
-      created-on:
-        type: datetime
-        docs: Timestamp of creation
-      created-by:
-        type: string
-        docs: Identifier of user who created the item
-      published-on:
-        type: optional<datetime>
-        docs: Timestamp of last publish, if published
-      published-by:
-        type: optional<string>
-        docs: Identifier of user who last published the item
-    source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
-  MultiLocaleCreatedPayload:
-    properties:
-      siteId:
-        type: string
-        docs: Unique identifier of the site
-        validation:
-          format: uuid
-      workspaceId:
-        type: string
-        docs: Unique identifier of the workspace
-        validation:
-          format: uuid
-      collectionId:
-        type: string
-        docs: Unique identifier of the collection
-        validation:
-          format: uuid
-      cmsLocaleId:
-        type: optional<string>
-        docs: Unique identifier of the CMS locale for this item
-        validation:
-          format: uuid
-      fieldData:
-        type: map<string, LocalizedItem>
-        docs: Collection of localized items, keyed by locale index (0-n)
-    source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
-  CollectionItemCreatedPayload:
-    discriminated: false
-    union:
-      - type: SingleLocaleCreatedPayload
-      - type: MultiLocaleCreatedPayload
-    source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
-    inline: true
   CollectionItemCreated:
     docs: The Webhook payload for when a Collection Item is created
     properties:
       triggerType:
         type: literal<"collection_item_created">
         docs: The type of event that triggered the request
-      payload: CollectionItemCreatedPayload
+      payload:
+        type: SingleLocaleCreatedPayload
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
-  SingleLocaleChangedPayloadFieldData:
-    properties:
-      name: string
-      slug: string
-    extra-properties: true
-    source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
-    inline: true
-  SingleLocaleChangedPayload:
-    properties:
-      id:
-        type: string
-        docs: Unique identifier for the Item
-        validation:
-          format: uuid
-      workspaceId:
-        type: string
-        docs: Unique identifier of the workspace
-        validation:
-          format: uuid
-      siteId:
-        type: string
-        docs: Unique identifier of the site
-        validation:
-          format: uuid
-      collectionId:
-        type: string
-        docs: Unique identifier of the collection
-        validation:
-          format: uuid
-      cmsLocaleId:
-        type: optional<string>
-        docs: Unique identifier of the CMS locale for this item
-        validation:
-          format: uuid
-      lastPublished:
-        type: optional<datetime>
-      lastUpdated:
-        type: optional<datetime>
-      createdOn:
-        type: optional<datetime>
-      isArchived:
-        type: optional<boolean>
-      isDraft:
-        type: optional<boolean>
-      fieldData: SingleLocaleChangedPayloadFieldData
-    source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
-  MultiLocaleChangedPayloadFieldData:
-    properties:
-      name: string
-      slug: string
-      _locale:
-        type: string
-        docs: Locale identifier for this version of the item
-        validation:
-          format: uuid
-    extra-properties: true
-    source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
-    inline: true
-  MultiLocaleChangedPayload:
-    properties:
-      id:
-        type: string
-        docs: Unique identifier for the Item
-        validation:
-          format: uuid
-      workspaceId:
-        type: string
-        docs: Unique identifier of the workspace
-        validation:
-          format: uuid
-      siteId:
-        type: string
-        docs: Unique identifier of the site
-        validation:
-          format: uuid
-      collectionId:
-        type: string
-        docs: Unique identifier of the collection
-        validation:
-          format: uuid
-      cmsLocaleId:
-        type: optional<string>
-        docs: Unique identifier of the CMS locale for this item
-        validation:
-          format: uuid
-      lastPublished:
-        type: optional<datetime>
-      lastUpdated:
-        type: optional<datetime>
-      createdOn:
-        type: optional<datetime>
-      isArchived:
-        type: optional<boolean>
-      isDraft:
-        type: optional<boolean>
-      fieldData: MultiLocaleChangedPayloadFieldData
-    source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
-  CollectionItemChangedPayload:
-    discriminated: false
-    union:
-      - type: SingleLocaleChangedPayload
-      - type: MultiLocaleChangedPayload
-    source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
-    inline: true
   CollectionItemChanged:
     docs: The Webhook payload for when a Collection Item is changed
     properties:
       triggerType:
         type: literal<"collection_item_changed">
         docs: The type of event that triggered the request
-      payload: CollectionItemChangedPayload
+      payload:
+        type: SingleLocaleCreatedPayload
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   CollectionItemRemovedPayloadFieldData:
@@ -4408,6 +4209,50 @@ types:
       payload:
         type: optional<CollectionItemRemovedPayload>
         docs: The payload of data sent from Webflow
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  PayloadFieldData:
+    properties:
+      name: string
+      slug: string
+    extra-properties: true
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  Payload:
+    docs: The payload of data sent from Webflow
+    properties:
+      id:
+        type: optional<string>
+        docs: The ID of the collection item that was unpublished
+      siteId:
+        type: optional<string>
+        docs: The ID of the site
+      workspaceId:
+        type: optional<string>
+        docs: The ID of the workspace
+      collectionId:
+        type: optional<string>
+        docs: The ID of the collection
+      cmsLocaleId:
+        type: optional<string>
+        docs: Unique identifier of the CMS locale for this item
+        validation:
+          format: uuid
+      lastPublished: optional<datetime>
+      lastUpdated: optional<datetime>
+      createdOn: optional<datetime>
+      isArchived: optional<boolean>
+      isDraft: optional<boolean>
+      fieldData: optional<PayloadFieldData>
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  CollectionItemPublished:
+    properties:
+      triggerType:
+        type: optional<string>
+        docs: The type of event that triggered the request
+      payload: optional<Payload>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   CollectionItemUnpublishedPayloadFieldData:

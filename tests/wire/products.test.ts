@@ -56,7 +56,6 @@ describe("Products", () => {
                                 name: "Colorful T-shirt - Default",
                                 slug: "colorful-t-shirt-default",
                                 price: { value: 2499, unit: "USD", currency: "USD" },
-                                quantity: 10,
                                 "main-image": "https://www.example.com/image.jpg",
                                 sku: "1234567890",
                                 "sku-properties": [
@@ -132,7 +131,6 @@ describe("Products", () => {
                                     unit: "USD",
                                     currency: "USD",
                                 },
-                                quantity: 10,
                                 mainImage: "https://www.example.com/image.jpg",
                                 sku: "1234567890",
                                 skuProperties: [
@@ -251,7 +249,6 @@ describe("Products", () => {
                         name: "Colorful T-shirt - Default",
                         slug: "colorful-t-shirt-default",
                         price: { value: 2499, unit: "USD", currency: "USD" },
-                        quantity: 10,
                         "main-image": "https://www.example.com/image.jpg",
                         sku: "1234567890",
                         "sku-properties": [
@@ -393,7 +390,6 @@ describe("Products", () => {
                             unit: "USD",
                             currency: "USD",
                         },
-                        quantity: 10,
                         mainImage: "https://www.example.com/image.jpg",
                         sku: "1234567890",
                         skuProperties: [
@@ -467,7 +463,6 @@ describe("Products", () => {
                         name: "Colorful T-shirt - Default",
                         slug: "colorful-t-shirt-default",
                         price: { value: 2499, unit: "USD", currency: "USD" },
-                        quantity: 10,
                         "main-image": "https://www.example.com/image.jpg",
                         sku: "1234567890",
                         "sku-properties": [
@@ -542,7 +537,6 @@ describe("Products", () => {
                             unit: "USD",
                             currency: "USD",
                         },
-                        quantity: 10,
                         mainImage: "https://www.example.com/image.jpg",
                         sku: "1234567890",
                         skuProperties: [
@@ -688,7 +682,6 @@ describe("Products", () => {
                         name: "Colorful T-shirt - Default",
                         slug: "colorful-t-shirt-default",
                         price: { value: 2499, unit: "USD", currency: "USD" },
-                        quantity: 10,
                         "main-image": "https://www.example.com/image.jpg",
                         sku: "1234567890",
                         "sku-properties": [
@@ -751,7 +744,6 @@ describe("Products", () => {
                             unit: "USD",
                             currency: "USD",
                         },
-                        quantity: 10,
                         mainImage: "https://www.example.com/image.jpg",
                         sku: "1234567890",
                         skuProperties: [
@@ -813,8 +805,6 @@ describe("Products", () => {
                 "compare-at-price": { value: 100, unit: "USD" },
                 "ec-sku-billing-method": "one-time",
                 "ec-sku-subscription-plan": { interval: "day", frequency: 1, trial: 7, plans: [{}] },
-                "track-inventory": true,
-                quantity: 10,
                 "main-image": "https://www.example.com/image.jpg",
                 sku: "1234567890",
                 "sku-properties": [
@@ -887,8 +877,6 @@ describe("Products", () => {
                     trial: 7,
                     plans: [{}],
                 },
-                trackInventory: true,
-                quantity: 10,
                 mainImage: "https://www.example.com/image.jpg",
                 sku: "1234567890",
                 skuProperties: [
