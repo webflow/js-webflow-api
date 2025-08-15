@@ -176,7 +176,7 @@ export class Scripts {
     }
 
     /**
-     * Apply registered scripts to a site.
+     * Apply registered scripts to a site. If you have multiple scripts your App needs to apply or maintain on a site, ensure they are always included in the request body for this endpoint. To remove individual scripts, simply call this endpoint without the script in the request body.
      *
      * <Note title="Script Registration">
      *   To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
@@ -335,7 +335,11 @@ export class Scripts {
     }
 
     /**
-     * Remove scripts from a site applied by the App. This endpoint will not remove scripts from the site's registered scripts.
+     * Remove all scripts from a site applied by the App. This endpoint will not remove scripts from the site's registered scripts.
+     *
+     * To remove individual scripts applied by the App, use the [Add/Update Custom Code](/data/reference/custom-code/custom-code-sites/upsert-custom-code) endpoint.
+     *
+     * <Note>Access to this endpoint requires a bearer token obtained from an [OAuth Code Grant Flow](/data/reference/oauth-app).</Note>
      *
      * Required scope | `custom_code:write`
      *

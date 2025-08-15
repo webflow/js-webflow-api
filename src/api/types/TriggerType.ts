@@ -20,6 +20,7 @@ export type TriggerType =
     | "collection_item_created"
     | "collection_item_changed"
     | "collection_item_deleted"
+    | "collection_item_published"
     | "collection_item_unpublished"
     | "comment_created";
 export const TriggerType = {
@@ -37,6 +38,7 @@ export const TriggerType = {
     CollectionItemCreated: "collection_item_created",
     CollectionItemChanged: "collection_item_changed",
     CollectionItemDeleted: "collection_item_deleted",
+    CollectionItemPublished: "collection_item_published",
     CollectionItemUnpublished: "collection_item_unpublished",
     CommentCreated: "comment_created",
 } as const;

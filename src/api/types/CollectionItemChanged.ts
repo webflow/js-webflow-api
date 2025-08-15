@@ -10,5 +10,5 @@ import * as Webflow from "../index";
 export interface CollectionItemChanged {
     /** The type of event that triggered the request */
     triggerType: "collection_item_changed";
-    payload: Webflow.CollectionItemChangedPayload;
+    payload: Webflow.SingleLocaleCreatedPayload;
 }
