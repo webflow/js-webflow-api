@@ -47,8 +47,8 @@ export class Inventory {
      *
      * Required scope | `ecommerce:read`
      *
-     * @param {string} collectionId - Unique identifier for a Collection
-     * @param {string} itemId - Unique identifier for an Item
+     * @param {string} skuCollectionId - Unique identifier for a SKU collection. Use the List Collections API to find this ID.
+     * @param {string} skuId - Unique identifier for a SKU
      * @param {Inventory.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Webflow.BadRequestError}
@@ -60,19 +60,19 @@ export class Inventory {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.inventory.list("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754")
+     *     await client.inventory.list("6377a7c4b7a79608c34a46f7", "5e8518516e147040726cc415")
      */
     public list(
-        collectionId: string,
-        itemId: string,
+        skuCollectionId: string,
+        skuId: string,
         requestOptions?: Inventory.RequestOptions,
     ): core.HttpResponsePromise<Webflow.InventoryItem> {
-        return core.HttpResponsePromise.fromPromise(this.__list(collectionId, itemId, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__list(skuCollectionId, skuId, requestOptions));
     }
 
     private async __list(
-        collectionId: string,
-        itemId: string,
+        skuCollectionId: string,
+        skuId: string,
         requestOptions?: Inventory.RequestOptions,
     ): Promise<core.WithRawResponse<Webflow.InventoryItem>> {
         const _response = await core.fetcher({
@@ -80,7 +80,7 @@ export class Inventory {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
                         .base,
-                `collections/${encodeURIComponent(collectionId)}/items/${encodeURIComponent(itemId)}/inventory`,
+                `collections/${encodeURIComponent(skuCollectionId)}/items/${encodeURIComponent(skuId)}/inventory`,
             ),
             method: "GET",
             headers: mergeHeaders(
@@ -175,7 +175,7 @@ export class Inventory {
                 });
             case "timeout":
                 throw new errors.WebflowTimeoutError(
-                    "Timeout exceeded when calling GET /collections/{collection_id}/items/{item_id}/inventory.",
+                    "Timeout exceeded when calling GET /collections/{sku_collection_id}/items/{sku_id}/inventory.",
                 );
             case "unknown":
                 throw new errors.WebflowError({
@@ -194,8 +194,8 @@ export class Inventory {
      *
      * Required scope | `ecommerce:write`
      *
-     * @param {string} collectionId - Unique identifier for a Collection
-     * @param {string} itemId - Unique identifier for an Item
+     * @param {string} skuCollectionId - Unique identifier for a SKU collection. Use the List Collections API to find this ID.
+     * @param {string} skuId - Unique identifier for a SKU
      * @param {Webflow.InventoryUpdateRequest} request
      * @param {Inventory.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -208,22 +208,22 @@ export class Inventory {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.inventory.update("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754", {
+     *     await client.inventory.update("6377a7c4b7a79608c34a46f7", "5e8518516e147040726cc415", {
      *         inventoryType: "infinite"
      *     })
      */
     public update(
-        collectionId: string,
-        itemId: string,
+        skuCollectionId: string,
+        skuId: string,
         request: Webflow.InventoryUpdateRequest,
         requestOptions?: Inventory.RequestOptions,
     ): core.HttpResponsePromise<Webflow.InventoryItem> {
-        return core.HttpResponsePromise.fromPromise(this.__update(collectionId, itemId, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__update(skuCollectionId, skuId, request, requestOptions));
     }
 
     private async __update(
-        collectionId: string,
-        itemId: string,
+        skuCollectionId: string,
+        skuId: string,
         request: Webflow.InventoryUpdateRequest,
         requestOptions?: Inventory.RequestOptions,
     ): Promise<core.WithRawResponse<Webflow.InventoryItem>> {
@@ -232,7 +232,7 @@ export class Inventory {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
                         .base,
-                `collections/${encodeURIComponent(collectionId)}/items/${encodeURIComponent(itemId)}/inventory`,
+                `collections/${encodeURIComponent(skuCollectionId)}/items/${encodeURIComponent(skuId)}/inventory`,
             ),
             method: "PATCH",
             headers: mergeHeaders(
@@ -334,7 +334,7 @@ export class Inventory {
                 });
             case "timeout":
                 throw new errors.WebflowTimeoutError(
-                    "Timeout exceeded when calling PATCH /collections/{collection_id}/items/{item_id}/inventory.",
+                    "Timeout exceeded when calling PATCH /collections/{sku_collection_id}/items/{sku_id}/inventory.",
                 );
             case "unknown":
                 throw new errors.WebflowError({
