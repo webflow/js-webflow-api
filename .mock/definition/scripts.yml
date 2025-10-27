@@ -1,3 +1,149 @@
+types:
+  ScriptsListResponseRegisteredScriptsItem:
+    docs: Registered custom code for application
+    properties:
+      id:
+        type: optional<string>
+        docs: Human readable id, derived from the user-specified display name
+        access: read-only
+      canCopy:
+        type: optional<boolean>
+        docs: >-
+          Define whether the script can be copied on site duplication and
+          transfer
+        default: false
+      displayName:
+        type: optional<string>
+        docs: >-
+          User-facing name for the script. Must be between 1 and 50 alphanumeric
+          characters
+      hostedLocation:
+        type: optional<string>
+        docs: URI for an externally hosted script location
+      integrityHash:
+        type: optional<string>
+        docs: >-
+          Sub-Resource Integrity Hash. Only required for externally hosted
+          scripts (passed via hostedLocation)
+      createdOn:
+        type: optional<string>
+        docs: Timestamp when the script version was created
+        access: read-only
+      lastUpdated:
+        type: optional<string>
+        docs: Timestamp when the script version was last updated
+        access: read-only
+      version:
+        type: optional<string>
+        docs: A Semantic Version (SemVer) string, denoting the version of the script
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ScriptsListResponsePagination:
+    docs: Pagination object
+    properties:
+      limit:
+        type: optional<double>
+        docs: The limit used for pagination
+        access: read-only
+      offset:
+        type: optional<double>
+        docs: The offset used for pagination
+        access: read-only
+      total:
+        type: optional<double>
+        docs: The total number of records
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ScriptsListResponse:
+    docs: A list of scripts registered to the site
+    properties:
+      registeredScripts: optional<list<ScriptsListResponseRegisteredScriptsItem>>
+      pagination:
+        type: optional<ScriptsListResponsePagination>
+        docs: Pagination object
+    source:
+      openapi: v2-data.yml
+  ScriptsRegisterHostedResponse:
+    docs: Registered custom code for application
+    properties:
+      id:
+        type: optional<string>
+        docs: Human readable id, derived from the user-specified display name
+        access: read-only
+      canCopy:
+        type: optional<boolean>
+        docs: >-
+          Define whether the script can be copied on site duplication and
+          transfer
+        default: false
+      displayName:
+        type: optional<string>
+        docs: >-
+          User-facing name for the script. Must be between 1 and 50 alphanumeric
+          characters
+      hostedLocation:
+        type: optional<string>
+        docs: URI for an externally hosted script location
+      integrityHash:
+        type: optional<string>
+        docs: >-
+          Sub-Resource Integrity Hash. Only required for externally hosted
+          scripts (passed via hostedLocation)
+      createdOn:
+        type: optional<string>
+        docs: Timestamp when the script version was created
+        access: read-only
+      lastUpdated:
+        type: optional<string>
+        docs: Timestamp when the script version was last updated
+        access: read-only
+      version:
+        type: optional<string>
+        docs: A Semantic Version (SemVer) string, denoting the version of the script
+    source:
+      openapi: v2-data.yml
+  ScriptsRegisterInlineResponse:
+    docs: Registered custom code for application
+    properties:
+      id:
+        type: optional<string>
+        docs: Human readable id, derived from the user-specified display name
+        access: read-only
+      canCopy:
+        type: optional<boolean>
+        docs: >-
+          Define whether the script can be copied on site duplication and
+          transfer
+        default: false
+      displayName:
+        type: optional<string>
+        docs: >-
+          User-facing name for the script. Must be between 1 and 50 alphanumeric
+          characters
+      hostedLocation:
+        type: optional<string>
+        docs: URI for an externally hosted script location
+      integrityHash:
+        type: optional<string>
+        docs: >-
+          Sub-Resource Integrity Hash. Only required for externally hosted
+          scripts (passed via hostedLocation)
+      createdOn:
+        type: optional<string>
+        docs: Timestamp when the script version was created
+        access: read-only
+      lastUpdated:
+        type: optional<string>
+        docs: Timestamp when the script version was last updated
+        access: read-only
+      version:
+        type: optional<string>
+        docs: A Semantic Version (SemVer) string, denoting the version of the script
+    source:
+      openapi: v2-data.yml
 imports:
   root: __package__.yml
 service:
@@ -7,7 +153,9 @@ service:
     list:
       path: /sites/{site_id}/registered_scripts
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - custom_code:read
       docs: >
         Get a list of scripts that have been registered to a site. A site can
         have a maximum of 800 registered scripts.
@@ -20,7 +168,7 @@ service:
 
         Required scope | `custom_code:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -28,7 +176,7 @@ service:
       display-name: Get Registered Scripts
       response:
         docs: Request was successful
-        type: root.RegisteredScriptList
+        type: ScriptsListResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -72,7 +220,9 @@ service:
     register-hosted:
       path: /sites/{site_id}/registered_scripts/hosted
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - custom_code:write
       docs: |
         Register a hosted script to a site.
 
@@ -82,14 +232,14 @@ service:
 
         Required scope | `custom_code:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
           docs: Unique identifier for a Site
       display-name: Register Script - Hosted
       request:
-        name: CustomCodeHostedRequest
+        name: ScriptsRegisterHostedRequest
         body:
           properties:
             hostedLocation:
@@ -117,7 +267,7 @@ service:
         content-type: application/json
       response:
         docs: Request was successful
-        type: root.CustomCodeHostedResponse
+        type: ScriptsRegisterHostedResponse
         status-code: 201
       errors:
         - root.BadRequestError
@@ -129,10 +279,12 @@ service:
         - path-parameters:
             site_id: 580e63e98c9a982ac9b8b741
           request:
-            hostedLocation: hostedLocation
-            integrityHash: integrityHash
-            version: version
-            displayName: displayName
+            hostedLocation: https://cdn.jsdelivr.net/.../cmsslider.js
+            integrityHash: >-
+              sha384-J+YlJ8v0gpaRoKH7SbFbEmxOZlAxLiwNjfSsBhDooGa5roXlPPpXbEevck4J7YZ+
+            canCopy: true
+            version: 1.0.0
+            displayName: CMS Slider
           response:
             body:
               id: cms_slider
@@ -147,7 +299,9 @@ service:
     register-inline:
       path: /sites/{site_id}/registered_scripts/inline
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - custom_code:write
       docs: >
         Register an inline script to a site. Inline scripts are limited to 2000
         characters.
@@ -160,14 +314,14 @@ service:
 
         Required scope | `custom_code:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
           docs: Unique identifier for a Site
       display-name: Register Script - Inline
       request:
-        name: CustomCodeInlineRequest
+        name: ScriptsRegisterInlineRequest
         body:
           properties:
             sourceCode:
@@ -197,7 +351,7 @@ service:
         content-type: application/json
       response:
         docs: Created
-        type: root.CustomCodeInlineResponse
+        type: ScriptsRegisterInlineResponse
         status-code: 201
       errors:
         - root.BadRequestError
@@ -223,4 +377,4 @@ service:
               lastUpdated: lastUpdated
               version: 0.0.1
   source:
-    openapi: ../../../openapi/referenced-specs/v2.yml
+    openapi: v2-data.yml

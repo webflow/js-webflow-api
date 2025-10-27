@@ -1,3 +1,88 @@
+types:
+  TokenAuthorizedByResponse:
+    properties:
+      id:
+        type: optional<string>
+        docs: The unique ID of the user
+      email:
+        type: optional<string>
+        docs: The user's email address
+        validation:
+          format: email
+      firstName:
+        type: optional<string>
+        docs: The user's first name
+      lastName:
+        type: optional<string>
+        docs: The user's last name
+    source:
+      openapi: v2-data.yml
+  TokenIntrospectResponseAuthorizationAuthorizedTo:
+    properties:
+      siteIds:
+        type: optional<list<unknown>>
+        docs: Array of Sites this app is authorized to
+      workspaceIds:
+        type: optional<list<unknown>>
+        docs: Array of Workspaces this app is authorized to
+      userIds:
+        type: optional<list<unknown>>
+        docs: Array of Users this app is authorized to
+    source:
+      openapi: v2-data.yml
+    inline: true
+  TokenIntrospectResponseAuthorization:
+    docs: The Authorization object
+    properties:
+      id:
+        type: optional<string>
+        docs: The unique ID of the Authorization instance
+      createdOn:
+        type: optional<datetime>
+        docs: The date the Authorization was created
+      lastUsed:
+        type: optional<datetime>
+        docs: The date the Authorization was last used
+      grantType:
+        type: optional<string>
+        docs: The grant type of the Authorization
+      rateLimit:
+        type: optional<integer>
+        docs: The default rate limit for the Authorization (requests/min)
+      scope:
+        type: optional<string>
+        docs: Comma separted list of OAuth scopes corresponding to the Authorization
+      authorizedTo: optional<TokenIntrospectResponseAuthorizationAuthorizedTo>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  TokenIntrospectResponseApplication:
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Application
+      description:
+        type: optional<string>
+        docs: Application description provided by the developer
+      homepage:
+        type: optional<string>
+        docs: Application homepage URL provided by the developer
+        validation:
+          format: uri
+      displayName:
+        type: optional<string>
+        docs: Application name provided by the developer
+    source:
+      openapi: v2-data.yml
+    inline: true
+  TokenIntrospectResponse:
+    properties:
+      authorization:
+        type: optional<TokenIntrospectResponseAuthorization>
+        docs: The Authorization object
+      application: optional<TokenIntrospectResponseApplication>
+    source:
+      openapi: v2-data.yml
 imports:
   root: __package__.yml
 service:
@@ -7,17 +92,19 @@ service:
     authorized-by:
       path: /token/authorized_by
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - authorized_user:read
       docs: |
         Information about the Authorized User
 
         Required Scope | `authorized_user:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       display-name: Get Authorization User Info
       response:
         docs: Request was successful
-        type: root.AuthorizedUser
+        type: TokenAuthorizedByResponse
         status-code: 200
       errors:
         - root.UnauthorizedError
@@ -32,7 +119,6 @@ service:
     introspect:
       path: /token/introspect
       method: GET
-      auth: true
       docs: >
         Information about the authorization token
 
@@ -40,11 +126,11 @@ service:
         <Note>Access to this endpoint requires a bearer token from a [Data
         Client App](/data/docs/getting-started-data-clients).</Note>
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       display-name: Get Authorization Info
       response:
         docs: Request was successful
-        type: root.Authorization
+        type: TokenIntrospectResponse
         status-code: 200
       errors:
         - root.UnauthorizedError
@@ -71,4 +157,4 @@ service:
                 homepage: https://webflow.com
                 displayName: My Amazing App
   source:
-    openapi: ../../../openapi/referenced-specs/v2.yml
+    openapi: v2-data.yml

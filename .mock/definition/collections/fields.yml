@@ -1,3 +1,303 @@
+types:
+  FieldsCreateRequestZeroType:
+    enum:
+      - Color
+      - DateTime
+      - Email
+      - File
+      - Image
+      - Link
+      - MultiImage
+      - Number
+      - Phone
+      - PlainText
+      - RichText
+      - Switch
+      - VideoLink
+    docs: Choose these appropriate field type for your collection data
+    inline: true
+    source:
+      openapi: v2-data.yml
+  Static Field:
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for a Field
+        access: read-only
+      isEditable:
+        type: optional<boolean>
+        docs: Define whether the field is editable
+        access: read-only
+      isRequired:
+        type: optional<boolean>
+        docs: define whether a field is required in a collection
+      type:
+        type: FieldsCreateResponseZeroType
+        docs: Choose these appropriate field type for your collection data
+      displayName:
+        type: string
+        docs: The name of a field
+      helpText:
+        type: optional<string>
+        docs: Additional text to help anyone filling out this field
+    source:
+      openapi: v2-data.yml
+    inline: true
+  FieldsCreateRequestOneMetadataOptionsItem:
+    docs: A single option value for the Option field.
+    properties:
+      name:
+        type: string
+        docs: The name of the option
+    source:
+      openapi: v2-data.yml
+    inline: true
+  FieldsCreateRequestOneMetadata:
+    docs: The metadata for the Option field.
+    properties:
+      options:
+        docs: The option values for the Option field.
+        type: list<FieldsCreateRequestOneMetadataOptionsItem>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  Option Field:
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for a Field
+        access: read-only
+      isEditable:
+        type: optional<boolean>
+        docs: Define whether the field is editable
+        access: read-only
+      isRequired:
+        type: optional<boolean>
+        docs: define whether a field is required in a collection
+      type:
+        type: literal<"Option">
+        docs: >-
+          The [Option field
+          type](/data/reference/field-types-item-values#option)
+      displayName:
+        type: string
+        docs: The name of a field
+      helpText:
+        type: optional<string>
+        docs: Additional text to help anyone filling out this field
+      metadata:
+        type: FieldsCreateResponseOneMetadata
+        docs: The metadata for the Option field.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  FieldsCreateRequestDisplayNameType:
+    enum:
+      - MultiReference
+      - Reference
+    docs: Choose these appropriate field type for your collection data
+    inline: true
+    source:
+      openapi: v2-data.yml
+  FieldsCreateRequestDisplayNameMetadata:
+    docs: >-
+      The collectionId for the referenced collection. Only applicable for
+      Reference and MultiReference fields.
+    properties:
+      collectionId:
+        type: string
+        docs: The unique identifier of the collection
+    source:
+      openapi: v2-data.yml
+    inline: true
+  Reference Field:
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for a Field
+        access: read-only
+      isEditable:
+        type: optional<boolean>
+        docs: Define whether the field is editable
+        access: read-only
+      isRequired:
+        type: optional<boolean>
+        docs: define whether a field is required in a collection
+      type:
+        type: FieldsCreateResponseDisplayNameType
+        docs: Choose these appropriate field type for your collection data
+      displayName:
+        type: string
+        docs: The name of a field
+      helpText:
+        type: optional<string>
+        docs: Additional text to help anyone filling out this field
+      metadata:
+        type: FieldsCreateResponseDisplayNameMetadata
+        docs: >-
+          The collectionId for the referenced collection. Only applicable for
+          Reference and MultiReference fields.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  FieldsCreateRequest:
+    discriminated: false
+    docs: Details about the field of a collection
+    union:
+      - type: Static Field
+      - type: Option Field
+      - type: Reference Field
+    source:
+      openapi: v2-data.yml
+  FieldsCreateResponseZeroType:
+    enum:
+      - Color
+      - DateTime
+      - Email
+      - File
+      - Image
+      - Link
+      - MultiImage
+      - Number
+      - Phone
+      - PlainText
+      - RichText
+      - Switch
+      - VideoLink
+    docs: Choose these appropriate field type for your collection data
+    inline: true
+    source:
+      openapi: v2-data.yml
+  FieldsCreateResponseOneMetadataOptionsItem:
+    docs: A single option value for the Option field.
+    properties:
+      name:
+        type: string
+        docs: The name of the option
+      id:
+        type: optional<string>
+        docs: The unique identifier of the option
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  FieldsCreateResponseOneMetadata:
+    docs: The metadata for the Option field.
+    properties:
+      options:
+        docs: The option values for the Option field.
+        type: list<FieldsCreateResponseOneMetadataOptionsItem>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  FieldsCreateResponseDisplayNameType:
+    enum:
+      - MultiReference
+      - Reference
+    docs: Choose these appropriate field type for your collection data
+    inline: true
+    source:
+      openapi: v2-data.yml
+  FieldsCreateResponseDisplayNameMetadata:
+    docs: >-
+      The collectionId for the referenced collection. Only applicable for
+      Reference and MultiReference fields.
+    properties:
+      collectionId:
+        type: string
+        docs: The unique identifier of the collection
+    source:
+      openapi: v2-data.yml
+    inline: true
+  FieldsCreateResponse:
+    discriminated: false
+    docs: Details about the field of a collection
+    union:
+      - type: Static Field
+      - type: Option Field
+      - type: Reference Field
+    source:
+      openapi: v2-data.yml
+  FieldsUpdateResponseType:
+    enum:
+      - Color
+      - DateTime
+      - Email
+      - ExtFileRef
+      - File
+      - Image
+      - Link
+      - MultiImage
+      - MultiReference
+      - Number
+      - Option
+      - Phone
+      - PlainText
+      - Reference
+      - RichText
+      - Switch
+      - VideoLink
+    docs: Choose these appropriate field type for your collection data
+    inline: true
+    source:
+      openapi: v2-data.yml
+  FieldsUpdateResponseValidationsAdditionalPropertiesAdditionalProperties:
+    properties:
+      additionalProperties: unknown
+    source:
+      openapi: v2-data.yml
+    inline: true
+  FieldsUpdateResponseValidationsAdditionalProperties:
+    discriminated: false
+    union:
+      - string
+      - double
+      - boolean
+      - integer
+      - FieldsUpdateResponseValidationsAdditionalPropertiesAdditionalProperties
+    source:
+      openapi: v2-data.yml
+    inline: true
+  FieldsUpdateResponseValidations:
+    docs: The validations for the field
+    properties:
+      additionalProperties: optional<FieldsUpdateResponseValidationsAdditionalProperties>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  FieldsUpdateResponse:
+    docs: The details of a field in a collection
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a Field
+      isRequired:
+        type: boolean
+        docs: define whether a field is required in a collection
+      isEditable:
+        type: optional<boolean>
+        docs: Define whether the field is editable
+        access: read-only
+      type:
+        type: FieldsUpdateResponseType
+        docs: Choose these appropriate field type for your collection data
+      slug:
+        type: optional<string>
+        docs: >-
+          Slug of Field in Site URL structure. Slugs should be all lowercase
+          with no spaces. Any spaces will be converted to "-."
+      displayName:
+        type: string
+        docs: The name of a field
+      helpText:
+        type: optional<string>
+        docs: Additional text to help anyone filling out this field
+      validations:
+        type: optional<FieldsUpdateResponseValidations>
+        docs: The validations for the field
+        access: read-only
+    source:
+      openapi: v2-data.yml
 imports:
   root: ../__package__.yml
 service:
@@ -7,7 +307,9 @@ service:
     create:
       path: /collections/{collection_id}/fields
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: >
         Create a custom field in a collection.
 
@@ -22,18 +324,20 @@ service:
 
         Required scope | `cms:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         collection_id:
           type: string
           docs: Unique identifier for a Collection
       display-name: Create Collection Field
       request:
-        body: root.FieldCreate
+        body:
+          type: FieldsCreateRequest
+          docs: Details about the field of a collection
         content-type: application/json
       response:
         docs: Request was successful
-        type: root.FieldCreate
+        type: FieldsCreateResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -47,8 +351,6 @@ service:
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
           request:
-            id: 562ac0395358780a1f5e6fbc
-            isEditable: true
             isRequired: false
             type: RichText
             displayName: Post Body
@@ -65,8 +367,6 @@ service:
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
           request:
-            id: 562ac0395358780a1f5e6fbc
-            isEditable: true
             isRequired: false
             type: Option
             displayName: Post Type
@@ -93,8 +393,6 @@ service:
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
           request:
-            id: 562ac0395358780a1f5e6fbd
-            isEditable: true
             isRequired: false
             type: Reference
             displayName: Author
@@ -114,7 +412,9 @@ service:
     delete:
       path: /collections/{collection_id}/fields/{field_id}
       method: DELETE
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: >
         Delete a custom field in a collection. This endpoint does not currently
         support bulk deletion.
@@ -122,7 +422,7 @@ service:
 
         Required scope | `cms:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         collection_id:
           type: string
@@ -144,13 +444,15 @@ service:
     update:
       path: /collections/{collection_id}/fields/{field_id}
       method: PATCH
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: |
         Update a custom field in a collection.
 
         Required scope | `cms:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         collection_id:
           type: string
@@ -160,7 +462,7 @@ service:
           docs: Unique identifier for a Field in a collection
       display-name: Update Collection Field
       request:
-        name: FieldUpdate
+        name: FieldsUpdateRequest
         body:
           properties:
             isRequired:
@@ -175,7 +477,7 @@ service:
         content-type: application/json
       response:
         docs: Request was successful
-        type: root.Field
+        type: FieldsUpdateResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -203,4 +505,4 @@ service:
               validations:
                 additionalProperties: additionalProperties
   source:
-    openapi: ../../../openapi/referenced-specs/v2.yml
+    openapi: v2-data.yml

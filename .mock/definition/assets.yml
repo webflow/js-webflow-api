@@ -1,3 +1,443 @@
+types:
+  AssetsListResponseAssetsItemVariantsItem:
+    docs: Asset variant details
+    properties:
+      hostedUrl:
+        type: string
+        docs: URL of where the asset variant is hosted
+        validation:
+          format: uri
+      originalFileName:
+        type: string
+        docs: Original file name of the variant
+      displayName:
+        type: string
+        docs: Display name of the variant
+      format:
+        type: string
+        docs: format of the variant
+      width:
+        type: integer
+        docs: Width in pixels
+      height:
+        type: optional<integer>
+        docs: Height in pixels
+      quality:
+        type: integer
+        docs: Value between 0 and 100 representing the image quality
+      error:
+        type: optional<string>
+        docs: Any associated validation errors
+    source:
+      openapi: v2-data.yml
+    inline: true
+  AssetsListResponseAssetsItem:
+    docs: Asset details
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for this asset
+        access: read-only
+      contentType:
+        type: optional<string>
+        docs: File format type
+        access: read-only
+      size:
+        type: optional<integer>
+        docs: size in bytes
+        access: read-only
+      siteId:
+        type: optional<string>
+        docs: Unique identifier for the site that hosts this asset
+        access: read-only
+      hostedUrl:
+        type: optional<string>
+        docs: Link to the asset
+        validation:
+          format: uri
+        access: read-only
+      originalFileName:
+        type: optional<string>
+        docs: Original file name at the time of upload
+        access: read-only
+      displayName:
+        type: string
+        docs: Display name of the asset
+      lastUpdated:
+        type: optional<datetime>
+        docs: Date the asset metadata was last updated
+        access: read-only
+      createdOn:
+        type: optional<datetime>
+        docs: Date the asset metadata was created
+        access: read-only
+      variants:
+        docs: >-
+          A list of [asset
+          variants](https://help.webflow.com/hc/en-us/articles/33961378697107-Responsive-images)
+          created by Webflow to serve your site responsively.
+        type: list<AssetsListResponseAssetsItemVariantsItem>
+      altText:
+        type: optional<string>
+        docs: The visual description of the asset
+    source:
+      openapi: v2-data.yml
+    inline: true
+  AssetsListResponsePagination:
+    docs: Pagination object
+    properties:
+      limit:
+        type: optional<double>
+        docs: The limit used for pagination
+        access: read-only
+      offset:
+        type: optional<double>
+        docs: The offset used for pagination
+        access: read-only
+      total:
+        type: optional<double>
+        docs: The total number of records
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  AssetsListResponse:
+    docs: A list of assets
+    properties:
+      assets: list<AssetsListResponseAssetsItem>
+      pagination:
+        type: AssetsListResponsePagination
+        docs: Pagination object
+    source:
+      openapi: v2-data.yml
+  AssetsCreateResponseUploadDetails:
+    docs: Metadata for uploading the asset binary
+    properties:
+      acl: optional<string>
+      bucket: optional<string>
+      X-Amz-Algorithm: optional<string>
+      X-Amz-Credential: optional<string>
+      X-Amz-Date: optional<string>
+      key: optional<string>
+      Policy: optional<string>
+      X-Amz-Signature: optional<string>
+      success_action_status: optional<string>
+      content-type: optional<string>
+      Cache-Control: optional<string>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  AssetsCreateResponse:
+    properties:
+      uploadDetails:
+        type: optional<AssetsCreateResponseUploadDetails>
+        docs: Metadata for uploading the asset binary
+      contentType: optional<string>
+      id: optional<string>
+      parentFolder:
+        type: optional<string>
+        docs: Parent folder for the asset
+      uploadUrl:
+        type: optional<string>
+        validation:
+          format: uri
+      assetUrl:
+        type: optional<string>
+        docs: S3 link to the asset
+        validation:
+          format: uri
+      hostedUrl:
+        type: optional<string>
+        docs: Represents the link to the asset
+        validation:
+          format: uri
+      originalFileName:
+        type: optional<string>
+        docs: >-
+          Original file name when uploaded. If not specified at time of upload,
+          it may be extracted from the raw file name
+      createdOn:
+        type: optional<datetime>
+        docs: Date the asset metadata was created
+      lastUpdated:
+        type: optional<datetime>
+        docs: Date the asset metadata was last updated
+    source:
+      openapi: v2-data.yml
+  AssetsGetResponseVariantsItem:
+    docs: Asset variant details
+    properties:
+      hostedUrl:
+        type: string
+        docs: URL of where the asset variant is hosted
+        validation:
+          format: uri
+      originalFileName:
+        type: string
+        docs: Original file name of the variant
+      displayName:
+        type: string
+        docs: Display name of the variant
+      format:
+        type: string
+        docs: format of the variant
+      width:
+        type: integer
+        docs: Width in pixels
+      height:
+        type: optional<integer>
+        docs: Height in pixels
+      quality:
+        type: integer
+        docs: Value between 0 and 100 representing the image quality
+      error:
+        type: optional<string>
+        docs: Any associated validation errors
+    source:
+      openapi: v2-data.yml
+    inline: true
+  AssetsGetResponse:
+    docs: Asset details
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for this asset
+        access: read-only
+      contentType:
+        type: optional<string>
+        docs: File format type
+        access: read-only
+      size:
+        type: optional<integer>
+        docs: size in bytes
+        access: read-only
+      siteId:
+        type: optional<string>
+        docs: Unique identifier for the site that hosts this asset
+        access: read-only
+      hostedUrl:
+        type: optional<string>
+        docs: Link to the asset
+        validation:
+          format: uri
+        access: read-only
+      originalFileName:
+        type: optional<string>
+        docs: Original file name at the time of upload
+        access: read-only
+      displayName:
+        type: string
+        docs: Display name of the asset
+      lastUpdated:
+        type: optional<datetime>
+        docs: Date the asset metadata was last updated
+        access: read-only
+      createdOn:
+        type: optional<datetime>
+        docs: Date the asset metadata was created
+        access: read-only
+      variants:
+        docs: >-
+          A list of [asset
+          variants](https://help.webflow.com/hc/en-us/articles/33961378697107-Responsive-images)
+          created by Webflow to serve your site responsively.
+        type: list<AssetsGetResponseVariantsItem>
+      altText:
+        type: optional<string>
+        docs: The visual description of the asset
+    source:
+      openapi: v2-data.yml
+  AssetsUpdateResponseVariantsItem:
+    docs: Asset variant details
+    properties:
+      hostedUrl:
+        type: string
+        docs: URL of where the asset variant is hosted
+        validation:
+          format: uri
+      originalFileName:
+        type: string
+        docs: Original file name of the variant
+      displayName:
+        type: string
+        docs: Display name of the variant
+      format:
+        type: string
+        docs: format of the variant
+      width:
+        type: integer
+        docs: Width in pixels
+      height:
+        type: optional<integer>
+        docs: Height in pixels
+      quality:
+        type: integer
+        docs: Value between 0 and 100 representing the image quality
+      error:
+        type: optional<string>
+        docs: Any associated validation errors
+    source:
+      openapi: v2-data.yml
+    inline: true
+  AssetsUpdateResponse:
+    docs: Asset details
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for this asset
+        access: read-only
+      contentType:
+        type: optional<string>
+        docs: File format type
+        access: read-only
+      size:
+        type: optional<integer>
+        docs: size in bytes
+        access: read-only
+      siteId:
+        type: optional<string>
+        docs: Unique identifier for the site that hosts this asset
+        access: read-only
+      hostedUrl:
+        type: optional<string>
+        docs: Link to the asset
+        validation:
+          format: uri
+        access: read-only
+      originalFileName:
+        type: optional<string>
+        docs: Original file name at the time of upload
+        access: read-only
+      displayName:
+        type: string
+        docs: Display name of the asset
+      lastUpdated:
+        type: optional<datetime>
+        docs: Date the asset metadata was last updated
+        access: read-only
+      createdOn:
+        type: optional<datetime>
+        docs: Date the asset metadata was created
+        access: read-only
+      variants:
+        docs: >-
+          A list of [asset
+          variants](https://help.webflow.com/hc/en-us/articles/33961378697107-Responsive-images)
+          created by Webflow to serve your site responsively.
+        type: list<AssetsUpdateResponseVariantsItem>
+      altText:
+        type: optional<string>
+        docs: The visual description of the asset
+    source:
+      openapi: v2-data.yml
+  AssetsListFoldersResponseAssetFoldersItem:
+    docs: Asset Folder details
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Asset Folder
+      displayName:
+        type: optional<string>
+        docs: User visible name for the Asset Folder
+      parentFolder:
+        type: optional<string>
+        docs: Pointer to parent Asset Folder (or null if root)
+      assets:
+        type: optional<list<string>>
+        docs: Array of Asset instances in the folder
+      siteId:
+        type: optional<string>
+        docs: The unique ID of the site the Asset Folder belongs to
+      createdOn:
+        type: optional<datetime>
+        docs: Date that the Asset Folder was created on
+      lastUpdated:
+        type: optional<datetime>
+        docs: Date that the Asset Folder was last updated on
+    source:
+      openapi: v2-data.yml
+    inline: true
+  AssetsListFoldersResponsePagination:
+    docs: Pagination object
+    properties:
+      limit:
+        type: optional<double>
+        docs: The limit used for pagination
+        access: read-only
+      offset:
+        type: optional<double>
+        docs: The offset used for pagination
+        access: read-only
+      total:
+        type: optional<double>
+        docs: The total number of records
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  AssetsListFoldersResponse:
+    docs: The Asset Folders object
+    properties:
+      assetFolders:
+        type: optional<list<AssetsListFoldersResponseAssetFoldersItem>>
+        docs: A list of Asset folders
+      pagination:
+        type: optional<AssetsListFoldersResponsePagination>
+        docs: Pagination object
+    source:
+      openapi: v2-data.yml
+  AssetsCreateFolderResponse:
+    docs: Asset Folder details
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Asset Folder
+      displayName:
+        type: optional<string>
+        docs: User visible name for the Asset Folder
+      parentFolder:
+        type: optional<string>
+        docs: Pointer to parent Asset Folder (or null if root)
+      assets:
+        type: optional<list<string>>
+        docs: Array of Asset instances in the folder
+      siteId:
+        type: optional<string>
+        docs: The unique ID of the site the Asset Folder belongs to
+      createdOn:
+        type: optional<datetime>
+        docs: Date that the Asset Folder was created on
+      lastUpdated:
+        type: optional<datetime>
+        docs: Date that the Asset Folder was last updated on
+    source:
+      openapi: v2-data.yml
+  AssetsGetFolderResponse:
+    docs: Asset Folder details
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Asset Folder
+      displayName:
+        type: optional<string>
+        docs: User visible name for the Asset Folder
+      parentFolder:
+        type: optional<string>
+        docs: Pointer to parent Asset Folder (or null if root)
+      assets:
+        type: optional<list<string>>
+        docs: Array of Asset instances in the folder
+      siteId:
+        type: optional<string>
+        docs: The unique ID of the site the Asset Folder belongs to
+      createdOn:
+        type: optional<datetime>
+        docs: Date that the Asset Folder was created on
+      lastUpdated:
+        type: optional<datetime>
+        docs: Date that the Asset Folder was last updated on
+    source:
+      openapi: v2-data.yml
 imports:
   root: __package__.yml
 service:
@@ -7,21 +447,34 @@ service:
     list:
       path: /sites/{site_id}/assets
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - assets:read
       docs: |
         List of assets uploaded to a site
 
         Required scope | `assets:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
           docs: Unique identifier for a Site
       display-name: List Assets
+      request:
+        name: AssetsListRequest
+        query-parameters:
+          offset:
+            type: optional<double>
+            docs: >-
+              Offset used for pagination if the results have more than limit
+              records
+          limit:
+            type: optional<double>
+            docs: 'Maximum number of records to be returned (max limit: 100)'
       response:
         docs: Request was successful
-        type: root.Assets
+        type: AssetsListResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -32,6 +485,9 @@ service:
       examples:
         - path-parameters:
             site_id: 580e63e98c9a982ac9b8b741
+          query-parameters:
+            offset: 1.1
+            limit: 1.1
           response:
             body:
               assets:
@@ -86,7 +542,9 @@ service:
     create:
       path: /sites/{site_id}/assets
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - assets:write
       docs: >
         The first step in uploading an asset to a site. 
 
@@ -108,7 +566,7 @@ service:
           
          Required scope | `assets:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -132,7 +590,7 @@ service:
         content-type: application/json
       response:
         docs: Request was successful
-        type: root.AssetUpload
+        type: AssetsCreateResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -175,13 +633,15 @@ service:
     get:
       path: /assets/{asset_id}
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - assets:read
       docs: |
         Get details about an asset
 
         Required scope | `assets:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         asset_id:
           type: string
@@ -189,7 +649,7 @@ service:
       display-name: Get Asset
       response:
         docs: Request was successful
-        type: root.Asset
+        type: AssetsGetResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -226,13 +686,15 @@ service:
     delete:
       path: /assets/{asset_id}
       method: DELETE
-      auth: true
+      auth:
+        - OAuth2:
+            - assets:write
       docs: |
         Delete an Asset
 
         Required Scope: `assets: write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         asset_id:
           type: string
@@ -250,13 +712,15 @@ service:
     update:
       path: /assets/{asset_id}
       method: PATCH
-      auth: true
+      auth:
+        - OAuth2:
+            - assets:write
       docs: |
         Update details of an Asset.
 
         Required scope | `assets:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         asset_id:
           type: string
@@ -277,7 +741,7 @@ service:
         content-type: application/json
       response:
         docs: Request was successful
-        type: root.Asset
+        type: AssetsUpdateResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -315,13 +779,15 @@ service:
     list-folders:
       path: /sites/{site_id}/asset_folders
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - assets:read
       docs: |
         List Asset Folders within a given site
 
         Required scope | `assets:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -329,7 +795,7 @@ service:
       display-name: List Asset Folders
       response:
         docs: Request was successful
-        type: root.AssetFolderList
+        type: AssetsListFoldersResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -358,13 +824,15 @@ service:
     create-folder:
       path: /sites/{site_id}/asset_folders
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - assets:write
       docs: |
         Create an Asset Folder within a given site
 
         Required scope | `assets:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -385,7 +853,7 @@ service:
         content-type: application/json
       response:
         docs: Request was successful
-        type: root.AssetFolder
+        type: AssetsCreateFolderResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -412,13 +880,15 @@ service:
     get-folder:
       path: /asset_folders/{asset_folder_id}
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - assets:read
       docs: |
         Get details about a specific Asset Folder
 
         Required scope | `assets:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         asset_folder_id:
           type: string
@@ -426,7 +896,7 @@ service:
       display-name: Get Asset Folder
       response:
         docs: Request was successful
-        type: root.AssetFolder
+        type: AssetsGetFolderResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -449,6 +919,6 @@ service:
               createdOn: '2018-10-14T21:55:49Z'
               lastUpdated: '2022-12-07T16:51:37Z'
   source:
-    openapi: ../../../openapi/referenced-specs/v2.yml
+    openapi: v2-data.yml
   display-name: Assets
 docs: Assets are files that are uploaded to your Webflow account.

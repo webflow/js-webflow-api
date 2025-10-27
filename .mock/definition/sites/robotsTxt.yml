@@ -1,3 +1,146 @@
+types:
+  RobotsTxtGetResponseRulesItem:
+    properties:
+      userAgent:
+        type: string
+        docs: The user agent the rules apply to.
+      allows:
+        type: optional<list<string>>
+        docs: List of paths allowed for this user agent.
+      disallows:
+        type: optional<list<string>>
+        docs: List of paths disallowed for this user agent.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  RobotsTxtGetResponse:
+    docs: The robots.txt file for a given site
+    properties:
+      rules:
+        type: optional<list<RobotsTxtGetResponseRulesItem>>
+        docs: List of rules for user agents.
+      sitemap:
+        type: optional<string>
+        docs: URL to the sitemap.
+    source:
+      openapi: v2-data.yml
+  RobotsTxtPutRequestRulesItem:
+    properties:
+      userAgent:
+        type: string
+        docs: The user agent the rules apply to.
+      allows:
+        type: optional<list<string>>
+        docs: List of paths allowed for this user agent.
+      disallows:
+        type: optional<list<string>>
+        docs: List of paths disallowed for this user agent.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  RobotsTxtPutResponseRulesItem:
+    properties:
+      userAgent:
+        type: string
+        docs: The user agent the rules apply to.
+      allows:
+        type: optional<list<string>>
+        docs: List of paths allowed for this user agent.
+      disallows:
+        type: optional<list<string>>
+        docs: List of paths disallowed for this user agent.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  RobotsTxtPutResponse:
+    docs: The robots.txt file for a given site
+    properties:
+      rules:
+        type: optional<list<RobotsTxtPutResponseRulesItem>>
+        docs: List of rules for user agents.
+      sitemap:
+        type: optional<string>
+        docs: URL to the sitemap.
+    source:
+      openapi: v2-data.yml
+  RobotsTxtDeleteRequestRulesItem:
+    properties:
+      userAgent:
+        type: string
+        docs: The user agent the rules apply to.
+      allows:
+        type: optional<list<string>>
+        docs: List of paths allowed for this user agent.
+      disallows:
+        type: optional<list<string>>
+        docs: List of paths disallowed for this user agent.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  RobotsTxtDeleteResponseRulesItem:
+    properties:
+      userAgent:
+        type: string
+        docs: The user agent the rules apply to.
+      allows:
+        type: optional<list<string>>
+        docs: List of paths allowed for this user agent.
+      disallows:
+        type: optional<list<string>>
+        docs: List of paths disallowed for this user agent.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  RobotsTxtDeleteResponse:
+    docs: The robots.txt file for a given site
+    properties:
+      rules:
+        type: optional<list<RobotsTxtDeleteResponseRulesItem>>
+        docs: List of rules for user agents.
+      sitemap:
+        type: optional<string>
+        docs: URL to the sitemap.
+    source:
+      openapi: v2-data.yml
+  RobotsTxtPatchRequestRulesItem:
+    properties:
+      userAgent:
+        type: string
+        docs: The user agent the rules apply to.
+      allows:
+        type: optional<list<string>>
+        docs: List of paths allowed for this user agent.
+      disallows:
+        type: optional<list<string>>
+        docs: List of paths disallowed for this user agent.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  RobotsTxtPatchResponseRulesItem:
+    properties:
+      userAgent:
+        type: string
+        docs: The user agent the rules apply to.
+      allows:
+        type: optional<list<string>>
+        docs: List of paths allowed for this user agent.
+      disallows:
+        type: optional<list<string>>
+        docs: List of paths disallowed for this user agent.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  RobotsTxtPatchResponse:
+    docs: The robots.txt file for a given site
+    properties:
+      rules:
+        type: optional<list<RobotsTxtPatchResponseRulesItem>>
+        docs: List of rules for user agents.
+      sitemap:
+        type: optional<string>
+        docs: URL to the sitemap.
+    source:
+      openapi: v2-data.yml
 imports:
   root: ../__package__.yml
 service:
@@ -7,7 +150,9 @@ service:
     get:
       path: /sites/{site_id}/robots_txt
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - site_config:read
       docs: >
         Retrieve the robots.txt configuration for various user agents.
 
@@ -18,7 +163,7 @@ service:
 
         Required scope: `site_config:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -26,7 +171,7 @@ service:
       display-name: Get robots.txt
       response:
         docs: Request was successful
-        type: root.Robots
+        type: RobotsTxtGetResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -50,7 +195,9 @@ service:
     put:
       path: /sites/{site_id}/robots_txt
       method: PUT
-      auth: true
+      auth:
+        - OAuth2:
+            - site_config:write
       docs: >
         Replace the `robots.txt` configuration for various user agents.
 
@@ -61,18 +208,26 @@ service:
 
         Required scope | `site_config:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
           docs: Unique identifier for a Site
       display-name: Replace robots.txt
       request:
-        body: root.Robots
+        name: RobotsTxtPutRequest
+        body:
+          properties:
+            rules:
+              type: optional<list<RobotsTxtPutRequestRulesItem>>
+              docs: List of rules for user agents.
+            sitemap:
+              type: optional<string>
+              docs: URL to the sitemap.
         content-type: application/json
       response:
         docs: Request was successful
-        type: root.Robots
+        type: RobotsTxtPutResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -105,7 +260,9 @@ service:
     delete:
       path: /sites/{site_id}/robots_txt
       method: DELETE
-      auth: true
+      auth:
+        - OAuth2:
+            - site_config:write
       docs: >
         Remove specific rules for a user-agent in your `robots.txt` file. To
         delete all rules for a user-agent, provide an empty rule set. This will
@@ -123,18 +280,26 @@ service:
 
         Required scope: `site_config:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
           docs: Unique identifier for a Site
       display-name: Delete robots.txt
       request:
-        body: root.Robots
+        name: RobotsTxtDeleteRequest
+        body:
+          properties:
+            rules:
+              type: optional<list<RobotsTxtDeleteRequestRulesItem>>
+              docs: List of rules for user agents.
+            sitemap:
+              type: optional<string>
+              docs: URL to the sitemap.
         content-type: application/json
       response:
         docs: Request was successful
-        type: root.Robots
+        type: RobotsTxtDeleteResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -165,7 +330,9 @@ service:
     patch:
       path: /sites/{site_id}/robots_txt
       method: PATCH
-      auth: true
+      auth:
+        - OAuth2:
+            - site_config:write
       docs: >
         Update the `robots.txt` configuration for various user agents.
 
@@ -176,18 +343,26 @@ service:
 
         Required scope | `site_config:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
           docs: Unique identifier for a Site
       display-name: Update robots.txt
       request:
-        body: root.Robots
+        name: RobotsTxtPatchRequest
+        body:
+          properties:
+            rules:
+              type: optional<list<RobotsTxtPatchRequestRulesItem>>
+              docs: List of rules for user agents.
+            sitemap:
+              type: optional<string>
+              docs: URL to the sitemap.
         content-type: application/json
       response:
         docs: Request was successful
-        type: root.Robots
+        type: RobotsTxtPatchResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -218,4 +393,4 @@ service:
                     - /total-perspective-vortex
               sitemap: https://heartofgold.ship/sitemap.xml
   source:
-    openapi: ../../../openapi/referenced-specs/v2.yml
+    openapi: v2-data.yml

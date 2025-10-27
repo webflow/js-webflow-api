@@ -1,3 +1,613 @@
+types:
+  ComponentsListResponseComponentsItem:
+    docs: The Component object
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the Component
+      name:
+        type: optional<string>
+        docs: Component Name
+        access: read-only
+      group:
+        type: optional<string>
+        docs: The group that the component belongs to
+        access: read-only
+      description:
+        type: optional<string>
+        docs: Component Description
+        access: read-only
+      readonly:
+        type: optional<boolean>
+        docs: >-
+          Indicates whether the component is read-only. Components that cannot
+          be updated within this Site are set to readonly. Workspace Libraries
+          are a good example.
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ComponentsListResponsePagination:
+    docs: Pagination object
+    properties:
+      limit:
+        type: optional<double>
+        docs: The limit used for pagination
+        access: read-only
+      offset:
+        type: optional<double>
+        docs: The offset used for pagination
+        access: read-only
+      total:
+        type: optional<double>
+        docs: The total number of records
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ComponentsListResponse:
+    docs: List of Components on a site.
+    properties:
+      components: optional<list<ComponentsListResponseComponentsItem>>
+      pagination:
+        type: optional<ComponentsListResponsePagination>
+        docs: Pagination object
+    source:
+      openapi: v2-data.yml
+  ComponentsGetContentResponseNodesItemTextText:
+    docs: The text content of the node
+    properties:
+      html:
+        type: optional<string>
+        docs: The HTML content of the text node.
+      text:
+        type: optional<string>
+        docs: The raw text content of the text node.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ComponentsGetContentResponseNodesItemText:
+    docs: >
+      Represents text content within the DOM. It contains both the raw text and
+      its HTML representation. Additional attributes can be associated with the
+      text for styling or other purposes.
+    properties:
+      id:
+        type: string
+        docs: Node UUID
+      text:
+        type: ComponentsGetContentResponseNodesItemTextText
+        docs: The text content of the node
+      attributes:
+        type: optional<map<string, string>>
+        docs: The custom attributes of the node
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ComponentsGetContentResponseNodesItemImageImage:
+    docs: The image details of the node
+    properties:
+      alt: optional<string>
+      assetId: optional<string>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ComponentsGetContentResponseNodesItemImage:
+    docs: >
+      Represents an image within the DOM. It contains details about the image,
+      such as its alternative text (alt) for accessibility and an asset
+      identifier for fetching the actual image resource. Additional attributes
+      can be associated with the image for styling or other purposes.
+    properties:
+      id:
+        type: string
+        docs: Node UUID
+      image:
+        type: ComponentsGetContentResponseNodesItemImageImage
+        docs: The image details of the node
+      attributes:
+        type: optional<map<string, string>>
+        docs: The custom attributes of the node
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ComponentsGetContentResponseNodesItemComponentInstancePropertyOverridesItemType:
+    enum:
+      - value: Plain Text
+        name: PlainText
+      - value: Rich Text
+        name: RichText
+      - value: Alt Text
+        name: AltText
+    docs: The type of the property.
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ComponentsGetContentResponseNodesItemComponentInstancePropertyOverridesItemText:
+    docs: >-
+      Represents text content within the DOM. It contains both the raw text and
+      its HTML representation.
+    properties:
+      html:
+        type: optional<string>
+        docs: The HTML content of the text node.
+      text:
+        type: optional<string>
+        docs: The raw text content of the text node.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ComponentsGetContentResponseNodesItemComponentInstancePropertyOverridesItem:
+    docs: >
+      Represents a property of a component instance in the DOM. A property
+      contains a list of both the raw text and the HTML representation, allowing
+      for flexibility in rendering and processing. Additional attributes can be
+      associated with the text for styling or other purposes.
+    properties:
+      propertyId:
+        type: optional<string>
+        docs: The ID of the property.
+      type:
+        type: >-
+          optional<ComponentsGetContentResponseNodesItemComponentInstancePropertyOverridesItemType>
+        docs: The type of the property.
+      label:
+        type: optional<string>
+        docs: The label of the property in the UI.
+      text:
+        type: >-
+          optional<ComponentsGetContentResponseNodesItemComponentInstancePropertyOverridesItemText>
+        docs: >-
+          Represents text content within the DOM. It contains both the raw text
+          and its HTML representation.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ComponentsGetContentResponseNodesItemComponentInstance:
+    docs: >
+      Represents a component instance within the DOM. It contains details about
+      the component instance, such as its type and properties.
+    properties:
+      id:
+        type: string
+        docs: The unique identifier of the component instance node
+      componentId:
+        type: string
+        docs: The unique identifier of the component
+      propertyOverrides:
+        docs: List of component properties with overrides for a component instance.
+        type: >-
+          list<ComponentsGetContentResponseNodesItemComponentInstancePropertyOverridesItem>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ComponentsGetContentResponseNodesItemTextInput:
+    docs: >
+      Represents text input and textarea elements within the DOM. It contains
+      the placeholder text in the input. Additional attributes can be associated
+      with the text for styling or other purposes.
+    properties:
+      id:
+        type: string
+        docs: Node UUID
+      placeholder:
+        type: string
+        docs: The placeholder text of the input node
+      attributes:
+        type: optional<map<string, string>>
+        docs: The custom attributes of the node
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ComponentsGetContentResponseNodesItemSelectChoicesItem:
+    properties:
+      value:
+        type: string
+        docs: The value of the choice when selected.
+      text:
+        type: string
+        docs: The text to display for the choice.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ComponentsGetContentResponseNodesItemSelect:
+    docs: >
+      Represents select elements within the DOM. It contains the list of choices
+      in the select. Additional attributes can be associated with the text for
+      styling or other purposes.
+    properties:
+      id:
+        type: string
+        docs: Node UUID
+      choices:
+        docs: The list of choices in this select node.
+        type: list<ComponentsGetContentResponseNodesItemSelectChoicesItem>
+      attributes:
+        type: optional<map<string, string>>
+        docs: The custom attributes of the node
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ComponentsGetContentResponseNodesItemSubmitButton:
+    docs: >
+      Represents submit button elements within the DOM. It contains the text and
+      waiting text of the button. Additional attributes can be associated with
+      the text for styling or other purposes.
+    properties:
+      id:
+        type: string
+        docs: Node UUID
+      value:
+        type: string
+        docs: The text content of the submit button.
+      waitingText:
+        type: string
+        docs: The text to show while the form is submitting.
+      attributes:
+        type: optional<map<string, string>>
+        docs: The custom attributes of the node
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ComponentsGetContentResponseNodesItemSearchButton:
+    docs: >
+      Represents search button elements within the DOM. It contains the text of
+      the button. Additional attributes can be associated with the text for
+      styling or other purposes.
+    properties:
+      id:
+        type: string
+        docs: Node UUID
+      value:
+        type: string
+        docs: The text content of the search button.
+      attributes:
+        type: optional<map<string, string>>
+        docs: The custom attributes of the node
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ComponentsGetContentResponseNodesItem:
+    discriminant: type
+    base-properties: {}
+    docs: >
+      A generic representation of a content element within the Document Object
+      Model (DOM). Each node has a unique identifier and a specific type that
+      determines its content structure and attributes.
+    union:
+      text:
+        type: ComponentsGetContentResponseNodesItemText
+        docs: >
+          Represents text content within the DOM. It contains both the raw text
+          and its HTML representation. Additional attributes can be associated
+          with the text for styling or other purposes.
+      image:
+        type: ComponentsGetContentResponseNodesItemImage
+        docs: >
+          Represents an image within the DOM. It contains details about the
+          image, such as its alternative text (alt) for accessibility and an
+          asset identifier for fetching the actual image resource. Additional
+          attributes can be associated with the image for styling or other
+          purposes.
+      component-instance:
+        type: ComponentsGetContentResponseNodesItemComponentInstance
+        docs: >
+          Represents a component instance within the DOM. It contains details
+          about the component instance, such as its type and properties.
+      text-input:
+        type: ComponentsGetContentResponseNodesItemTextInput
+        docs: >
+          Represents text input and textarea elements within the DOM. It
+          contains the placeholder text in the input. Additional attributes can
+          be associated with the text for styling or other purposes.
+      select:
+        type: ComponentsGetContentResponseNodesItemSelect
+        docs: >
+          Represents select elements within the DOM. It contains the list of
+          choices in the select. Additional attributes can be associated with
+          the text for styling or other purposes.
+      submit-button:
+        type: ComponentsGetContentResponseNodesItemSubmitButton
+        docs: >
+          Represents submit button elements within the DOM. It contains the text
+          and waiting text of the button. Additional attributes can be
+          associated with the text for styling or other purposes.
+      search-button:
+        type: ComponentsGetContentResponseNodesItemSearchButton
+        docs: >
+          Represents search button elements within the DOM. It contains the text
+          of the button. Additional attributes can be associated with the text
+          for styling or other purposes.
+    source:
+      openapi: v2-data.yml
+  ComponentsGetContentResponsePagination:
+    docs: Pagination object
+    properties:
+      limit:
+        type: optional<double>
+        docs: The limit used for pagination
+        access: read-only
+      offset:
+        type: optional<double>
+        docs: The offset used for pagination
+        access: read-only
+      total:
+        type: optional<double>
+        docs: The total number of records
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ComponentsGetContentResponse:
+    docs: >
+      The Component DOM schema represents the content structure of a component.
+      Similar to Page DOM, it captures various content nodes and their
+      associated attributes, but specifically for a component's structure. Each
+      node has a unique identifier and  can contain text, images, select or text
+      inputs, submit buttons, or nested component instances.
+    properties:
+      componentId:
+        type: optional<string>
+        docs: Component ID
+      nodes: optional<list<ComponentsGetContentResponseNodesItem>>
+      pagination:
+        type: optional<ComponentsGetContentResponsePagination>
+        docs: Pagination object
+    source:
+      openapi: v2-data.yml
+  ComponentsUpdateContentRequestNodesItemText:
+    docs: Update a text node
+    properties:
+      nodeId:
+        type: string
+        docs: Node UUID
+      text:
+        type: string
+        docs: >-
+          HTML content of the node, including the HTML tag. The HTML tags must
+          be the same as what's returned from the Get Content endpoint.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ComponentsUpdateContentRequestNodesItemPropertyOverridesPropertyOverridesItem:
+    properties:
+      propertyId:
+        type: string
+        docs: The ID of the property.
+      text:
+        type: string
+        docs: >
+          The new string or HTML value used to override the component instance
+          property value. 
+
+          The provided value must be compatible with the type of the component
+          instance property. 
+
+          For example, attempting to override a single-line plain-text property
+          with a multi-line 
+
+          value will result in an error.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ComponentsUpdateContentRequestNodesItemPropertyOverrides:
+    docs: Update text property overrides of a component instance
+    properties:
+      nodeId:
+        type: string
+        docs: Node UUID
+      propertyOverrides:
+        docs: >-
+          A list of component instance properties to override within the
+          specified secondary locale.
+        type: >-
+          list<ComponentsUpdateContentRequestNodesItemPropertyOverridesPropertyOverridesItem>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ComponentsUpdateContentRequestNodesItemChoicesChoicesItem:
+    properties:
+      value:
+        type: string
+        docs: The value of the choice when selected.
+      text:
+        type: string
+        docs: The text to display for the choice.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ComponentSelect:
+    docs: Update choices on a select node
+    properties:
+      nodeId:
+        type: string
+        docs: Node UUID
+      choices:
+        docs: The list of choices to set on the select node.
+        type: list<ComponentsUpdateContentRequestNodesItemChoicesChoicesItem>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ComponentsUpdateContentRequestNodesItemPlaceholder:
+    docs: Update placeholder text on a text input node
+    properties:
+      nodeId:
+        type: string
+        docs: Node UUID
+      placeholder:
+        type: string
+        docs: The placeholder text of the input node
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ComponentsUpdateContentRequestNodesItemWaitingText:
+    docs: Update a submit button node
+    properties:
+      nodeId:
+        type: string
+        docs: Node UUID
+      value:
+        type: optional<string>
+        docs: The text content of the submit button.
+      waitingText:
+        type: optional<string>
+        docs: The text to show while the form is submitting.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ComponentsUpdateContentRequestNodesItemFive:
+    docs: Update a search button node
+    properties:
+      nodeId:
+        type: string
+        docs: Node UUID
+      value:
+        type: string
+        docs: The text content of the search button.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ComponentsUpdateContentRequestNodesItem:
+    discriminated: false
+    union:
+      - type: ComponentsUpdateContentRequestNodesItemText
+        docs: Update a text node
+      - type: ComponentsUpdateContentRequestNodesItemPropertyOverrides
+        docs: Update text property overrides of a component instance
+      - type: ComponentSelect
+        docs: Update choices on a select node
+      - type: ComponentsUpdateContentRequestNodesItemPlaceholder
+        docs: Update placeholder text on a text input node
+      - type: ComponentsUpdateContentRequestNodesItemWaitingText
+        docs: Update a submit button node
+      - type: ComponentsUpdateContentRequestNodesItemFive
+        docs: Update a search button node
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ComponentsUpdateContentResponse:
+    properties:
+      errors:
+        docs: A list of error messages, if any.
+        type: list<string>
+    source:
+      openapi: v2-data.yml
+  ComponentsGetPropertiesResponsePropertiesItemType:
+    enum:
+      - value: Plain Text
+        name: PlainText
+      - value: Rich Text
+        name: RichText
+      - value: Alt Text
+        name: AltText
+    docs: The type of the property.
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ComponentsGetPropertiesResponsePropertiesItemText:
+    docs: >-
+      Represents text content within the DOM. It contains both the raw text and
+      its HTML representation.
+    properties:
+      html:
+        type: optional<string>
+        docs: The HTML content of the text node.
+      text:
+        type: optional<string>
+        docs: The raw text content of the text node.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ComponentsGetPropertiesResponsePropertiesItem:
+    docs: >
+      Represents a property of a component instance in the DOM. A property
+      contains a list of both the raw text and the HTML representation, allowing
+      for flexibility in rendering and processing. Additional attributes can be
+      associated with the text for styling or other purposes.
+    properties:
+      propertyId:
+        type: optional<string>
+        docs: The ID of the property.
+      type:
+        type: optional<ComponentsGetPropertiesResponsePropertiesItemType>
+        docs: The type of the property.
+      label:
+        type: optional<string>
+        docs: The label of the property in the UI.
+      text:
+        type: optional<ComponentsGetPropertiesResponsePropertiesItemText>
+        docs: >-
+          Represents text content within the DOM. It contains both the raw text
+          and its HTML representation.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ComponentsGetPropertiesResponsePagination:
+    docs: Pagination object
+    properties:
+      limit:
+        type: optional<double>
+        docs: The limit used for pagination
+        access: read-only
+      offset:
+        type: optional<double>
+        docs: The offset used for pagination
+        access: read-only
+      total:
+        type: optional<double>
+        docs: The total number of records
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ComponentsGetPropertiesResponse:
+    docs: >
+      The Component Properties schema represents a list of properties that store
+      text content. Each property has a unique identifier and can be of
+      different types like plain text or rich text. The schema also provides
+      pagination details for scenarios where there more properties than the
+      limit.
+    properties:
+      componentId:
+        type: optional<string>
+        docs: Component ID
+        access: read-only
+      properties: optional<list<ComponentsGetPropertiesResponsePropertiesItem>>
+      pagination:
+        type: optional<ComponentsGetPropertiesResponsePagination>
+        docs: Pagination object
+    source:
+      openapi: v2-data.yml
+  ComponentsUpdatePropertiesRequestPropertiesItem:
+    properties:
+      propertyId:
+        type: string
+        docs: The ID of the property.
+      text:
+        type: string
+        docs: >
+          The new string or HTML value used to update the component property in
+          the secondary locale.
+
+
+          The provided value must be compatible with the type of the component
+          property.
+
+
+          For example, attempting to update a single-line plain-text property
+          with a multi-line 
+
+          value will result in an error.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ComponentsUpdatePropertiesResponse:
+    properties:
+      errors:
+        docs: A list of error messages, if any.
+        type: list<string>
+    source:
+      openapi: v2-data.yml
 imports:
   root: __package__.yml
 service:
@@ -7,13 +617,15 @@ service:
     list:
       path: /sites/{site_id}/components
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - components:read
       docs: |
         List of all components for a site.
 
         Required scope | `components:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -35,7 +647,7 @@ service:
               records
       response:
         docs: Request was successful
-        type: root.ComponentList
+        type: ComponentsListResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -48,6 +660,8 @@ service:
             site_id: 580e63e98c9a982ac9b8b741
           query-parameters:
             branchId: 68026fa68ef6dc744c75b833
+            limit: 1.1
+            offset: 1.1
           response:
             body:
               components:
@@ -76,7 +690,9 @@ service:
     get-content:
       path: /sites/{site_id}/components/{component_id}/dom
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - components:read
       docs: >
         Get static content from a component definition. This includes text
         nodes, image nodes, select nodes, text input nodes, submit button nodes,
@@ -95,7 +711,7 @@ service:
 
         Required scope | `components:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -109,9 +725,12 @@ service:
         query-parameters:
           localeId:
             type: optional<string>
-            docs: >-
-              Unique identifier for a specific locale. Applicable, when using
-              localization.
+            docs: >
+              Unique identifier for a specific Locale.
+
+
+              [Lear more about
+              localization.](/data/v2.0.0/docs/working-with-localization)
           branchId:
             type: optional<string>
             docs: Scope the operation to work on a specific branch.
@@ -125,7 +744,7 @@ service:
               records
       response:
         docs: Request was successful
-        type: root.ComponentDom
+        type: ComponentsGetContentResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -140,48 +759,68 @@ service:
           query-parameters:
             localeId: 65427cf400e02b306eaa04a0
             branchId: 68026fa68ef6dc744c75b833
+            limit: 1.1
+            offset: 1.1
           response:
             body:
               componentId: 69118560-d0bc-15fc-bbf8-b8fe5f6535b5
               nodes:
-                - id: id
-                  text: {}
+                - type: text
+                  id: a245c12d-995b-55ee-5ec7-aa36a6cad623
+                  text:
+                    html: <h1>The Hitchhiker's Guide to the Galaxy</h1>
+                    text: The Hitchhiker's Guide to the Galaxy
                   attributes:
                     key: value
-                  type: text
-                - id: id
-                  text: {}
+                - type: text
+                  id: a245c12d-995b-55ee-5ec7-aa36a6cad627
+                  text:
+                    html: >-
+                      <div><h3>Don't Panic!</h3><p>Always know where your towel
+                      is.</p></div>
+                  attributes:
+                    number: forty two
+                - type: image
+                  id: a245c12d-995b-55ee-5ec7-aa36a6cad629
+                  image:
+                    alt: Marvin, the Paranoid Android
+                    assetId: 659595234426a9fcbad57043
                   attributes:
                     key: value
-                  type: text
-                - id: id
-                  image: {}
+                - type: text-input
+                  id: 6e468d51-8942-f7be-34cc-347b0e24e118
+                  placeholder: Search…
                   attributes:
                     key: value
-                  type: image
-                - id: id
-                  placeholder: placeholder
-                  attributes:
-                    key: value
-                  type: text-input
-                - id: id
+                - type: select
+                  id: 82cdcd0b-b9c7-0ddc-0519-bc1fa02de26e
                   choices:
-                    - value: value
-                      text: text
+                    - value: Magrathea
+                      text: Magrathea
+                    - value: mostly-harmless
+                      text: Earth
+                    - value: Vogsphere
+                      text: Vogsphere
                   attributes:
                     key: value
-                  type: select
-                - id: id
-                  value: value
-                  waitingText: waitingText
+                - type: submit-button
+                  id: 9fa3a9c4-87d4-19b0-95f7-1b0b099f82ab
+                  value: Subscribe
+                  waitingText: Please wait...
                   attributes:
                     key: value
-                  type: submit-button
-                - id: id
-                  componentId: componentId
+                - type: component-instance
+                  id: a245c12d-995b-55ee-5ec7-aa36a6cad631
+                  componentId: 6258612d1ee792848f805dcf
                   propertyOverrides:
-                    - propertyId: 7dd14c08-2e96-8d3d-2b19-b5c03642a0f0
-                  type: component-instance
+                    - propertyId: a245c12d-995b-55ee-5ec7-aa36a6cad633
+                      type: Plain Text
+                      text:
+                        text: Don't Panic!
+                    - propertyId: a245c12d-995b-55ee-5ec7-aa36a6cad635
+                      type: Rich Text
+                      text:
+                        html: <div><p>Always know where your towel is.</p></div>
               pagination:
                 limit: 7
                 offset: 0
@@ -189,7 +828,9 @@ service:
     update-content:
       path: /sites/{site_id}/components/{component_id}/dom
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - components:write
       docs: >
         This endpoint updates content within a component defintion for
         **secondary locales**. It supports updating up to 1000 nodes in a single
@@ -200,13 +841,18 @@ service:
 
         1. Use the [get component
         content](/data/reference/pages-and-components/components/get-content)
-        endpoint to identify available content nodes and their types
+        endpoint to identify available content nodes and their types.
 
         2. If your component definition has a component instance nested within
         it, retrieve the nested component instance's properties that you'll
         override using the [get component
         properties](/data/reference/pages-and-components/components/get-properties)
-        endpoint
+        endpoint.
+
+        3. DOM elements may include a `data-w-id` attribute. This attribute is
+        used by Webflow to maintain custom attributes and links across locales.
+        Always include the original `data-w-id` value in your update requests to
+        ensure consistent behavior across all locales.
 
 
         <Note>
@@ -216,7 +862,7 @@ service:
 
         Required scope | `components:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -226,13 +872,16 @@ service:
           docs: Unique identifier for a Component
       display-name: Update Component Content
       request:
-        name: ComponentDomWrite
+        name: ComponentsUpdateContentRequest
         query-parameters:
           localeId:
             type: optional<string>
-            docs: >-
-              Unique identifier for a specific locale. Applicable, when using
-              localization.
+            docs: >
+              Unique identifier for a specific Locale.
+
+
+              [Lear more about
+              localization.](/data/v2.0.0/docs/working-with-localization)
           branchId:
             type: optional<string>
             docs: Scope the operation to work on a specific branch.
@@ -242,7 +891,7 @@ service:
               docs: >-
                 List of DOM Nodes with the new content that will be updated in
                 each node.
-              type: list<ComponentDomWriteNodesItem>
+              type: list<ComponentsUpdateContentRequestNodesItem>
         content-type: application/json
       response:
         docs: Request was successful
@@ -294,7 +943,9 @@ service:
     get-properties:
       path: /sites/{site_id}/components/{component_id}/properties
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - components:read
       docs: >
         Get the default property values of a component definition.
 
@@ -306,7 +957,7 @@ service:
 
         Required scope | `components:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -320,9 +971,12 @@ service:
         query-parameters:
           localeId:
             type: optional<string>
-            docs: >-
-              Unique identifier for a specific locale. Applicable, when using
-              localization.
+            docs: >
+              Unique identifier for a specific Locale.
+
+
+              [Lear more about
+              localization.](/data/v2.0.0/docs/working-with-localization)
           branchId:
             type: optional<string>
             docs: Scope the operation to work on a specific branch.
@@ -336,7 +990,7 @@ service:
               records
       response:
         docs: Request was successful
-        type: root.ComponentProperties
+        type: ComponentsGetPropertiesResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -351,6 +1005,8 @@ service:
           query-parameters:
             localeId: 65427cf400e02b306eaa04a0
             branchId: 68026fa68ef6dc744c75b833
+            limit: 1.1
+            offset: 1.1
           response:
             body:
               componentId: 658205daa3e8206a523b5ad4
@@ -374,16 +1030,25 @@ service:
     update-properties:
       path: /sites/{site_id}/components/{component_id}/properties
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - components:write
       docs: >
         Update the default property values of a component definition in a
         specificed locale.
 
 
-        Before making updates, use the [get component
+        Before making updates:
+
+        1. Use the [get component
         properties](/data/reference/pages-and-components/components/get-properties)
         endpoint to identify properties that can be updated in a secondary
         locale.
+
+        2. Rich Text properties may include a `data-w-id` attribute. This
+        attribute is used by Webflow to maintain links across locales. Always
+        include the original `data-w-id` value in your update requests to ensure
+        consistent behavior across all locales.
 
 
         <Note>The request requires a secondary locale ID. If a `localeId` is
@@ -393,7 +1058,7 @@ service:
 
         Required scope | `components:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -403,13 +1068,16 @@ service:
           docs: Unique identifier for a Component
       display-name: Update Component Properties
       request:
-        name: ComponentPropertiesWrite
+        name: ComponentsUpdatePropertiesRequest
         query-parameters:
           localeId:
             type: optional<string>
-            docs: >-
-              Unique identifier for a specific locale. Applicable, when using
-              localization.
+            docs: >
+              Unique identifier for a specific Locale.
+
+
+              [Lear more about
+              localization.](/data/v2.0.0/docs/working-with-localization)
           branchId:
             type: optional<string>
             docs: Scope the operation to work on a specific branch.
@@ -419,7 +1087,7 @@ service:
               docs: >-
                 A list of component properties to update within the specified
                 secondary locale.
-              type: list<ComponentPropertiesWritePropertiesItem>
+              type: list<ComponentsUpdatePropertiesRequestPropertiesItem>
         content-type: application/json
       response:
         docs: Request was successful
@@ -451,54 +1119,4 @@ service:
               errors:
                 - errors
   source:
-    openapi: ../../../openapi/referenced-specs/v2.yml
-types:
-  ComponentDomWriteNodesItem:
-    discriminated: false
-    union:
-      - type: root.Text Node
-      - type: root.Component Instance
-      - type: root.Select
-      - type: root.Text Input
-      - type: root.Submit Button
-      - type: root.Search Button
-    source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
-    inline: true
-  ComponentsUpdateContentResponse:
-    properties:
-      errors:
-        docs: A list of error messages, if any.
-        type: list<string>
-    source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
-  ComponentPropertiesWritePropertiesItem:
-    properties:
-      propertyId:
-        type: string
-        docs: The ID of the property.
-      text:
-        type: string
-        docs: >
-          The new string or HTML value used to update the component property in
-          the secondary locale.
-
-
-          The provided value must be compatible with the type of the component
-          property.
-
-
-          For example, attempting to update a single-line plain-text property
-          with a multi-line 
-
-          value will result in an error.
-    source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
-    inline: true
-  ComponentsUpdatePropertiesResponse:
-    properties:
-      errors:
-        docs: A list of error messages, if any.
-        type: list<string>
-    source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
+    openapi: v2-data.yml

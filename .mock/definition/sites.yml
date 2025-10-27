@@ -1,3 +1,653 @@
+types:
+  SitesCreateResponseCustomDomainsItem:
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the Domain
+      url:
+        type: optional<string>
+        docs: The registered Domain name
+      lastPublished:
+        type: optional<datetime>
+        docs: The date the custom domain was last published to
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  SitesCreateResponseLocalesPrimary:
+    docs: The primary locale for the site or application.
+    properties:
+      id:
+        type: optional<string>
+        docs: The unique identifier for the locale.
+      cmsLocaleId:
+        type: optional<string>
+        docs: A CMS-specific identifier for the locale.
+      enabled:
+        type: optional<boolean>
+        docs: Indicates if the locale is enabled.
+      displayName:
+        type: optional<string>
+        docs: The display name of the locale, typically in English.
+      displayImageId:
+        type: optional<string>
+        docs: An optional ID for an image associated with the locale, nullable.
+      redirect:
+        type: optional<boolean>
+        docs: Determines if requests should redirect to the locale's subdirectory.
+      subdirectory:
+        type: optional<string>
+        docs: The subdirectory path for the locale, used in URLs.
+      tag:
+        type: optional<string>
+        docs: >-
+          A tag or code representing the locale, often following a standard
+          format like 'en-US'.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  SitesCreateResponseLocalesSecondaryItem:
+    properties:
+      id:
+        type: optional<string>
+        docs: The unique identifier for the locale.
+      cmsLocaleId:
+        type: optional<string>
+        docs: A CMS-specific identifier for the locale.
+      enabled:
+        type: optional<boolean>
+        docs: Indicates if the locale is enabled.
+      displayName:
+        type: optional<string>
+        docs: The display name of the locale, typically in English.
+      displayImageId:
+        type: optional<string>
+        docs: An optional ID for an image associated with the locale, nullable.
+      redirect:
+        type: optional<boolean>
+        docs: Determines if requests should redirect to the locale's subdirectory.
+      subdirectory:
+        type: optional<string>
+        docs: The subdirectory path for the locale, used in URLs.
+      tag:
+        type: optional<string>
+        docs: >-
+          A tag or code representing the locale, often following a standard
+          format like 'en-US'.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  SitesCreateResponseLocales:
+    properties:
+      primary:
+        type: optional<SitesCreateResponseLocalesPrimary>
+        docs: The primary locale for the site or application.
+      secondary:
+        type: optional<list<SitesCreateResponseLocalesSecondaryItem>>
+        docs: A list of secondary locales available for the site or application.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  SitesCreateResponseDataCollectionType:
+    enum:
+      - always
+      - optOut
+      - disabled
+    docs: The type of data collection enabled for the site.
+    inline: true
+    source:
+      openapi: v2-data.yml
+  SitesCreateResponse:
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the Site
+      workspaceId:
+        type: string
+        docs: Unique identifier for the Workspace
+      createdOn:
+        type: datetime
+        docs: Date the Site was created
+      displayName:
+        type: string
+        docs: Name given to Site
+      shortName:
+        type: string
+        docs: Slugified version of name
+      lastPublished:
+        type: datetime
+        docs: Date the Site was last published
+      lastUpdated:
+        type: datetime
+        docs: Date the Site was last updated
+      previewUrl:
+        type: string
+        docs: URL of a generated image for the given Site
+        validation:
+          format: uri
+      timeZone:
+        type: string
+        docs: Site timezone set under Site Settings
+      parentFolderId:
+        type: optional<string>
+        docs: The ID of the parent folder the Site exists in
+      customDomains: optional<list<SitesCreateResponseCustomDomainsItem>>
+      locales: optional<SitesCreateResponseLocales>
+      dataCollectionEnabled:
+        type: boolean
+        docs: Indicates if data collection is enabled for the site.
+      dataCollectionType:
+        type: SitesCreateResponseDataCollectionType
+        docs: The type of data collection enabled for the site.
+    source:
+      openapi: v2-data.yml
+  SitesListResponseSitesItemCustomDomainsItem:
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the Domain
+      url:
+        type: optional<string>
+        docs: The registered Domain name
+      lastPublished:
+        type: optional<datetime>
+        docs: The date the custom domain was last published to
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  SitesListResponseSitesItemLocalesPrimary:
+    docs: The primary locale for the site or application.
+    properties:
+      id:
+        type: optional<string>
+        docs: The unique identifier for the locale.
+      cmsLocaleId:
+        type: optional<string>
+        docs: A CMS-specific identifier for the locale.
+      enabled:
+        type: optional<boolean>
+        docs: Indicates if the locale is enabled.
+      displayName:
+        type: optional<string>
+        docs: The display name of the locale, typically in English.
+      displayImageId:
+        type: optional<string>
+        docs: An optional ID for an image associated with the locale, nullable.
+      redirect:
+        type: optional<boolean>
+        docs: Determines if requests should redirect to the locale's subdirectory.
+      subdirectory:
+        type: optional<string>
+        docs: The subdirectory path for the locale, used in URLs.
+      tag:
+        type: optional<string>
+        docs: >-
+          A tag or code representing the locale, often following a standard
+          format like 'en-US'.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  SitesListResponseSitesItemLocalesSecondaryItem:
+    properties:
+      id:
+        type: optional<string>
+        docs: The unique identifier for the locale.
+      cmsLocaleId:
+        type: optional<string>
+        docs: A CMS-specific identifier for the locale.
+      enabled:
+        type: optional<boolean>
+        docs: Indicates if the locale is enabled.
+      displayName:
+        type: optional<string>
+        docs: The display name of the locale, typically in English.
+      displayImageId:
+        type: optional<string>
+        docs: An optional ID for an image associated with the locale, nullable.
+      redirect:
+        type: optional<boolean>
+        docs: Determines if requests should redirect to the locale's subdirectory.
+      subdirectory:
+        type: optional<string>
+        docs: The subdirectory path for the locale, used in URLs.
+      tag:
+        type: optional<string>
+        docs: >-
+          A tag or code representing the locale, often following a standard
+          format like 'en-US'.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  SitesListResponseSitesItemLocales:
+    properties:
+      primary:
+        type: optional<SitesListResponseSitesItemLocalesPrimary>
+        docs: The primary locale for the site or application.
+      secondary:
+        type: optional<list<SitesListResponseSitesItemLocalesSecondaryItem>>
+        docs: A list of secondary locales available for the site or application.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  SitesListResponseSitesItemDataCollectionType:
+    enum:
+      - always
+      - optOut
+      - disabled
+    docs: The type of data collection enabled for the site.
+    inline: true
+    source:
+      openapi: v2-data.yml
+  SitesListResponseSitesItem:
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the Site
+      workspaceId:
+        type: optional<string>
+        docs: Unique identifier for the Workspace
+      createdOn:
+        type: optional<datetime>
+        docs: Date the Site was created
+      displayName:
+        type: optional<string>
+        docs: Name given to Site
+      shortName:
+        type: optional<string>
+        docs: Slugified version of name
+      lastPublished:
+        type: optional<datetime>
+        docs: Date the Site was last published
+      lastUpdated:
+        type: optional<datetime>
+        docs: Date the Site was last updated
+      previewUrl:
+        type: optional<string>
+        docs: URL of a generated image for the given Site
+        validation:
+          format: uri
+      timeZone:
+        type: optional<string>
+        docs: Site timezone set under Site Settings
+      parentFolderId:
+        type: optional<string>
+        docs: The ID of the parent folder the Site exists in
+      customDomains: optional<list<SitesListResponseSitesItemCustomDomainsItem>>
+      locales: optional<SitesListResponseSitesItemLocales>
+      dataCollectionEnabled:
+        type: optional<boolean>
+        docs: Indicates if data collection is enabled for the site.
+      dataCollectionType:
+        type: optional<SitesListResponseSitesItemDataCollectionType>
+        docs: The type of data collection enabled for the site.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  SitesListResponse:
+    properties:
+      sites: optional<list<SitesListResponseSitesItem>>
+    source:
+      openapi: v2-data.yml
+  SitesGetResponseCustomDomainsItem:
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the Domain
+      url:
+        type: optional<string>
+        docs: The registered Domain name
+      lastPublished:
+        type: optional<datetime>
+        docs: The date the custom domain was last published to
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  SitesGetResponseLocalesPrimary:
+    docs: The primary locale for the site or application.
+    properties:
+      id:
+        type: optional<string>
+        docs: The unique identifier for the locale.
+      cmsLocaleId:
+        type: optional<string>
+        docs: A CMS-specific identifier for the locale.
+      enabled:
+        type: optional<boolean>
+        docs: Indicates if the locale is enabled.
+      displayName:
+        type: optional<string>
+        docs: The display name of the locale, typically in English.
+      displayImageId:
+        type: optional<string>
+        docs: An optional ID for an image associated with the locale, nullable.
+      redirect:
+        type: optional<boolean>
+        docs: Determines if requests should redirect to the locale's subdirectory.
+      subdirectory:
+        type: optional<string>
+        docs: The subdirectory path for the locale, used in URLs.
+      tag:
+        type: optional<string>
+        docs: >-
+          A tag or code representing the locale, often following a standard
+          format like 'en-US'.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  SitesGetResponseLocalesSecondaryItem:
+    properties:
+      id:
+        type: optional<string>
+        docs: The unique identifier for the locale.
+      cmsLocaleId:
+        type: optional<string>
+        docs: A CMS-specific identifier for the locale.
+      enabled:
+        type: optional<boolean>
+        docs: Indicates if the locale is enabled.
+      displayName:
+        type: optional<string>
+        docs: The display name of the locale, typically in English.
+      displayImageId:
+        type: optional<string>
+        docs: An optional ID for an image associated with the locale, nullable.
+      redirect:
+        type: optional<boolean>
+        docs: Determines if requests should redirect to the locale's subdirectory.
+      subdirectory:
+        type: optional<string>
+        docs: The subdirectory path for the locale, used in URLs.
+      tag:
+        type: optional<string>
+        docs: >-
+          A tag or code representing the locale, often following a standard
+          format like 'en-US'.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  SitesGetResponseLocales:
+    properties:
+      primary:
+        type: optional<SitesGetResponseLocalesPrimary>
+        docs: The primary locale for the site or application.
+      secondary:
+        type: optional<list<SitesGetResponseLocalesSecondaryItem>>
+        docs: A list of secondary locales available for the site or application.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  SitesGetResponseDataCollectionType:
+    enum:
+      - always
+      - optOut
+      - disabled
+    docs: The type of data collection enabled for the site.
+    inline: true
+    source:
+      openapi: v2-data.yml
+  SitesGetResponse:
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the Site
+      workspaceId:
+        type: optional<string>
+        docs: Unique identifier for the Workspace
+      createdOn:
+        type: optional<datetime>
+        docs: Date the Site was created
+      displayName:
+        type: optional<string>
+        docs: Name given to Site
+      shortName:
+        type: optional<string>
+        docs: Slugified version of name
+      lastPublished:
+        type: optional<datetime>
+        docs: Date the Site was last published
+      lastUpdated:
+        type: optional<datetime>
+        docs: Date the Site was last updated
+      previewUrl:
+        type: optional<string>
+        docs: URL of a generated image for the given Site
+        validation:
+          format: uri
+      timeZone:
+        type: optional<string>
+        docs: Site timezone set under Site Settings
+      parentFolderId:
+        type: optional<string>
+        docs: The ID of the parent folder the Site exists in
+      customDomains: optional<list<SitesGetResponseCustomDomainsItem>>
+      locales: optional<SitesGetResponseLocales>
+      dataCollectionEnabled:
+        type: optional<boolean>
+        docs: Indicates if data collection is enabled for the site.
+      dataCollectionType:
+        type: optional<SitesGetResponseDataCollectionType>
+        docs: The type of data collection enabled for the site.
+    source:
+      openapi: v2-data.yml
+  SitesUpdateResponseCustomDomainsItem:
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the Domain
+      url:
+        type: optional<string>
+        docs: The registered Domain name
+      lastPublished:
+        type: optional<datetime>
+        docs: The date the custom domain was last published to
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  SitesUpdateResponseLocalesPrimary:
+    docs: The primary locale for the site or application.
+    properties:
+      id:
+        type: optional<string>
+        docs: The unique identifier for the locale.
+      cmsLocaleId:
+        type: optional<string>
+        docs: A CMS-specific identifier for the locale.
+      enabled:
+        type: optional<boolean>
+        docs: Indicates if the locale is enabled.
+      displayName:
+        type: optional<string>
+        docs: The display name of the locale, typically in English.
+      displayImageId:
+        type: optional<string>
+        docs: An optional ID for an image associated with the locale, nullable.
+      redirect:
+        type: optional<boolean>
+        docs: Determines if requests should redirect to the locale's subdirectory.
+      subdirectory:
+        type: optional<string>
+        docs: The subdirectory path for the locale, used in URLs.
+      tag:
+        type: optional<string>
+        docs: >-
+          A tag or code representing the locale, often following a standard
+          format like 'en-US'.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  SitesUpdateResponseLocalesSecondaryItem:
+    properties:
+      id:
+        type: optional<string>
+        docs: The unique identifier for the locale.
+      cmsLocaleId:
+        type: optional<string>
+        docs: A CMS-specific identifier for the locale.
+      enabled:
+        type: optional<boolean>
+        docs: Indicates if the locale is enabled.
+      displayName:
+        type: optional<string>
+        docs: The display name of the locale, typically in English.
+      displayImageId:
+        type: optional<string>
+        docs: An optional ID for an image associated with the locale, nullable.
+      redirect:
+        type: optional<boolean>
+        docs: Determines if requests should redirect to the locale's subdirectory.
+      subdirectory:
+        type: optional<string>
+        docs: The subdirectory path for the locale, used in URLs.
+      tag:
+        type: optional<string>
+        docs: >-
+          A tag or code representing the locale, often following a standard
+          format like 'en-US'.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  SitesUpdateResponseLocales:
+    properties:
+      primary:
+        type: optional<SitesUpdateResponseLocalesPrimary>
+        docs: The primary locale for the site or application.
+      secondary:
+        type: optional<list<SitesUpdateResponseLocalesSecondaryItem>>
+        docs: A list of secondary locales available for the site or application.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  SitesUpdateResponseDataCollectionType:
+    enum:
+      - always
+      - optOut
+      - disabled
+    docs: The type of data collection enabled for the site.
+    inline: true
+    source:
+      openapi: v2-data.yml
+  SitesUpdateResponse:
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the Site
+      workspaceId:
+        type: optional<string>
+        docs: Unique identifier for the Workspace
+      createdOn:
+        type: optional<datetime>
+        docs: Date the Site was created
+      displayName:
+        type: optional<string>
+        docs: Name given to Site
+      shortName:
+        type: optional<string>
+        docs: Slugified version of name
+      lastPublished:
+        type: optional<datetime>
+        docs: Date the Site was last published
+      lastUpdated:
+        type: optional<datetime>
+        docs: Date the Site was last updated
+      previewUrl:
+        type: optional<string>
+        docs: URL of a generated image for the given Site
+        validation:
+          format: uri
+      timeZone:
+        type: optional<string>
+        docs: Site timezone set under Site Settings
+      parentFolderId:
+        type: optional<string>
+        docs: The ID of the parent folder the Site exists in
+      customDomains: optional<list<SitesUpdateResponseCustomDomainsItem>>
+      locales: optional<SitesUpdateResponseLocales>
+      dataCollectionEnabled:
+        type: optional<boolean>
+        docs: Indicates if data collection is enabled for the site.
+      dataCollectionType:
+        type: optional<SitesUpdateResponseDataCollectionType>
+        docs: The type of data collection enabled for the site.
+    source:
+      openapi: v2-data.yml
+  SitesGetCustomDomainResponseCustomDomainsItem:
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the Domain
+      url:
+        type: optional<string>
+        docs: The registered Domain name
+      lastPublished:
+        type: optional<datetime>
+        docs: The date the custom domain was last published to
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  SitesGetCustomDomainResponse:
+    properties:
+      customDomains: optional<list<SitesGetCustomDomainResponseCustomDomainsItem>>
+    source:
+      openapi: v2-data.yml
+  SitesPublishResponseCustomDomainsItem:
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the Domain
+      url:
+        type: optional<string>
+        docs: The registered Domain name
+      lastPublished:
+        type: optional<datetime>
+        docs: The date the custom domain was last published to
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  SitesPublishResponse:
+    properties:
+      customDomains:
+        type: optional<list<SitesPublishResponseCustomDomainsItem>>
+        docs: Array of domains objects
+      publishToWebflowSubdomain:
+        type: optional<boolean>
+        docs: Flag for publishing to webflow.io subdomain
+        default: false
+    source:
+      openapi: v2-data.yml
+  SitePublishPayloadPayload:
+    docs: The payload of data sent from Webflow
+    properties:
+      siteId:
+        type: optional<string>
+        docs: The ID of the site that was published
+      publishedOn:
+        type: optional<datetime>
+        docs: The timestamp of the publish event
+      domains:
+        type: optional<list<string>>
+        docs: The domains that were published
+      publishedBy:
+        type: optional<map<string, unknown>>
+        docs: The name andID of the user who published the site
+    source:
+      openapi: v2-data.yml
+    inline: true
+  SitePublishPayload:
+    docs: The Webhook payload for when a Site is published
+    properties:
+      triggerType:
+        type: optional<string>
+        docs: The type of event that triggered the request
+      payload:
+        type: optional<SitePublishPayloadPayload>
+        docs: The payload of data sent from Webflow
+    source:
+      openapi: v2-data.yml
 imports:
   root: __package__.yml
 service:
@@ -7,7 +657,9 @@ service:
     create:
       path: /workspaces/{workspace_id}/sites
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - sites:write
       docs: >
         Create a site. 
 
@@ -18,7 +670,7 @@ service:
 
         Required scope | `workspace:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         workspace_id:
           type: string
@@ -40,7 +692,7 @@ service:
         content-type: application/json
       response:
         docs: Request was successful
-        type: root.Site
+        type: SitesCreateResponse
         status-code: 201
       errors:
         - root.BadRequestError
@@ -62,7 +714,11 @@ service:
               createdOn: '2024-10-15T20:24:38Z'
               displayName: The Hitchiker's Guide
               shortName: hitchikers-guide
+              lastPublished: '2016-10-24T19:43:17Z'
               lastUpdated: '2024-10-15T20:24:38Z'
+              previewUrl: >-
+                https://dev-assets.website-files.com/580e63e98c9a982ac9b8b741/201610241243.png
+              timeZone: America/Los_Angeles
               parentFolderId: 670ece123598db72d9648be1
               customDomains:
                 - id: 589a331aa51e760df7ccb89d
@@ -73,17 +729,19 @@ service:
     list:
       path: /sites
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - sites:read
       docs: |
         List of all sites the provided access token is able to access.
 
         Required scope | `sites:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       display-name: List Sites
       response:
         docs: Request was successful
-        type: root.Sites
+        type: SitesListResponse
         status-code: 200
       errors:
         - root.UnauthorizedError
@@ -203,13 +861,15 @@ service:
     get:
       path: /sites/{site_id}
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - sites:read
       docs: |
         Get details of a site.
 
         Required scope | `sites:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -217,7 +877,7 @@ service:
       display-name: Get Site
       response:
         docs: Request was successful
-        type: root.Site
+        type: SitesGetResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -226,7 +886,8 @@ service:
         - root.TooManyRequestsError
         - root.InternalServerError
       examples:
-        - path-parameters:
+        - name: SiteWithLocales
+          path-parameters:
             site_id: 580e63e98c9a982ac9b8b741
           response:
             body:
@@ -254,24 +915,32 @@ service:
                   cmsLocaleId: 653ad57de882f528b32e810e
                   enabled: false
                   displayName: English (United States)
-                  displayImageId: displayImageId
                   redirect: true
                   subdirectory: ''
                   tag: en-US
                 secondary:
-                  - id: 653fd9af6a07fc9cfd7a5e57
-                    cmsLocaleId: 653ad57de882f528b32e810e
-                    enabled: false
-                    displayName: English (United States)
+                  - id: 653fd9af6a07fc9cfd7a5e56
+                    cmsLocaleId: 653fd9af6a07fc9cfd7a5e5d
+                    enabled: true
+                    displayName: French (France)
                     redirect: true
-                    subdirectory: ''
-                    tag: en-US
+                    subdirectory: fr-fr
+                    tag: fr-FR
+                  - id: 654112a3a525b2739d97664c
+                    cmsLocaleId: 654112a3a525b2739d97664f
+                    enabled: true
+                    displayName: Spanish (Mexico)
+                    redirect: true
+                    subdirectory: es-mx
+                    tag: es-MX
               dataCollectionEnabled: true
               dataCollectionType: always
     delete:
       path: /sites/{site_id}
       method: DELETE
-      auth: true
+      auth:
+        - OAuth2:
+            - sites:write
       docs: >
         Delete a site. 
 
@@ -282,7 +951,7 @@ service:
 
         Required scope | `sites:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -301,7 +970,9 @@ service:
     update:
       path: /sites/{site_id}
       method: PATCH
-      auth: true
+      auth:
+        - OAuth2:
+            - sites:write
       docs: >
         Update a site. 
 
@@ -312,7 +983,7 @@ service:
 
         Required scope | `sites:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -331,7 +1002,7 @@ service:
         content-type: application/json
       response:
         docs: Request was successful
-        type: root.Site
+        type: SitesUpdateResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -370,30 +1041,38 @@ service:
                   cmsLocaleId: 653ad57de882f528b32e810e
                   enabled: false
                   displayName: English (United States)
-                  displayImageId: displayImageId
                   redirect: true
                   subdirectory: ''
                   tag: en-US
                 secondary:
-                  - id: 653fd9af6a07fc9cfd7a5e57
-                    cmsLocaleId: 653ad57de882f528b32e810e
-                    enabled: false
-                    displayName: English (United States)
+                  - id: 653fd9af6a07fc9cfd7a5e56
+                    cmsLocaleId: 653fd9af6a07fc9cfd7a5e5d
+                    enabled: true
+                    displayName: French (France)
                     redirect: true
-                    subdirectory: ''
-                    tag: en-US
+                    subdirectory: fr-fr
+                    tag: fr-FR
+                  - id: 654112a3a525b2739d97664c
+                    cmsLocaleId: 654112a3a525b2739d97664f
+                    enabled: true
+                    displayName: Spanish (Mexico)
+                    redirect: true
+                    subdirectory: es-mx
+                    tag: es-MX
               dataCollectionEnabled: true
               dataCollectionType: always
     get-custom-domain:
       path: /sites/{site_id}/custom_domains
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - sites:read
       docs: |
         Get a list of all custom domains related to site.
 
         Required scope | `sites:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -401,7 +1080,7 @@ service:
       display-name: Get Custom Domains
       response:
         docs: Request was successful
-        type: root.Domains
+        type: SitesGetCustomDomainResponse
         status-code: 200
       errors:
         - root.UnauthorizedError
@@ -424,7 +1103,9 @@ service:
     publish:
       path: /sites/{site_id}/publish
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - sites:write
       docs: >
         Publishes a site to one or more more domains. 
 
@@ -439,7 +1120,7 @@ service:
 
         Required scope | `sites:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -484,28 +1165,18 @@ service:
                   lastPublished: '2022-12-07T16:51:37Z'
               publishToWebflowSubdomain: true
   source:
-    openapi: ../../../openapi/referenced-specs/v2.yml
+    openapi: v2-data.yml
   display-name: Sites
 docs: Sites are the sites in your Webflow workspace.
-types:
-  SitesPublishResponse:
-    properties:
-      customDomains:
-        type: optional<list<root.Domain>>
-        docs: Array of domains objects
-      publishToWebflowSubdomain:
-        type: optional<boolean>
-        docs: Flag for publishing to webflow.io subdomain
-        default: false
-    source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
 webhooks:
   site_publish:
     audiences: []
     method: POST
     display-name: Site Publish
     headers: {}
-    payload: root.SitePublish
+    payload:
+      type: SitePublishPayload
+      docs: The Webhook payload for when a Site is published
     examples:
       - payload:
           triggerType: site_publish

@@ -1,3 +1,2841 @@
+types:
+  ProductsListResponseItemsItemProductFieldDataSkuPropertiesItemEnumItem:
+    docs: Enumerated Product variants/Options for the SKU
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a Product variant/Option
+      name:
+        type: string
+        docs: Name of the Product variant/Option
+      slug:
+        type: string
+        docs: Slug for the Product variant/Option in the Site URL structure
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsListResponseItemsItemProductFieldDataSkuPropertiesItem:
+    docs: A variant/option type for a SKU
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a collection of Product Variants
+      name:
+        type: string
+        docs: Name of the collection of Product Variants
+      enum:
+        docs: >-
+          The individual Product variants that are contained within the
+          collection
+        type: >-
+          list<ProductsListResponseItemsItemProductFieldDataSkuPropertiesItemEnumItem>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsListResponseItemsItemProductFieldDataTaxCategory:
+    enum:
+      - value: standard-taxable
+        name: StandardTaxable
+      - value: standard-exempt
+        name: StandardExempt
+      - value: books-religious
+        name: BooksReligious
+      - value: books-textbook
+        name: BooksTextbook
+      - clothing
+      - value: clothing-swimwear
+        name: ClothingSwimwear
+      - value: digital-goods
+        name: DigitalGoods
+      - value: digital-service
+        name: DigitalService
+      - value: drugs-non-prescription
+        name: DrugsNonPrescription
+      - value: drugs-prescription
+        name: DrugsPrescription
+      - value: food-bottled-water
+        name: FoodBottledWater
+      - value: food-candy
+        name: FoodCandy
+      - value: food-groceries
+        name: FoodGroceries
+      - value: food-prepared
+        name: FoodPrepared
+      - value: food-soda
+        name: FoodSoda
+      - value: food-supplements
+        name: FoodSupplements
+      - value: magazine-individual
+        name: MagazineIndividual
+      - value: magazine-subscription
+        name: MagazineSubscription
+      - value: service-admission
+        name: ServiceAdmission
+      - value: service-advertising
+        name: ServiceAdvertising
+      - value: service-dry-cleaning
+        name: ServiceDryCleaning
+      - value: service-hairdressing
+        name: ServiceHairdressing
+      - value: service-installation
+        name: ServiceInstallation
+      - value: service-miscellaneous
+        name: ServiceMiscellaneous
+      - value: service-parking
+        name: ServiceParking
+      - value: service-printing
+        name: ServicePrinting
+      - value: service-professional
+        name: ServiceProfessional
+      - value: service-repair
+        name: ServiceRepair
+      - value: service-training
+        name: ServiceTraining
+    docs: Product tax class
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsListResponseItemsItemProductFieldDataEcProductType:
+    enum:
+      - ff42fee0113744f693a764e3431a9cc2
+      - f22027db68002190aef89a4a2b7ac8a1
+      - c599e43b1a1c34d5a323aedf75d3adf6
+      - b6ccc1830db4b1babeb06a9ac5f6dd76
+    docs: >-
+      <a
+      href="https://university.webflow.com/lesson/add-and-manage-products-and-categories?topics=ecommerce#how-to-understand-product-types">Product
+      types.</a> Enums reflect the following values in order: Physical, Digital,
+      Service, Advanced"
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsListResponseItemsItemProductFieldData:
+    docs: >-
+      Contains content-specific details for a product, covering both standard
+      (e.g., title, description)  and custom fields tailored to the product
+      setup.
+    properties:
+      name:
+        type: optional<string>
+        docs: Name of the Product
+      slug:
+        type: optional<string>
+        docs: URL structure of the Product in your site.
+      description:
+        type: optional<string>
+        docs: A description of your product
+      shippable:
+        type: optional<boolean>
+        docs: Boolean determining if the Product is shippable
+      sku-properties:
+        type: >-
+          optional<list<ProductsListResponseItemsItemProductFieldDataSkuPropertiesItem>>
+        docs: Variant types to include in SKUs
+      category:
+        type: optional<list<string>>
+        docs: The category your product belongs to.
+      tax-category:
+        type: optional<ProductsListResponseItemsItemProductFieldDataTaxCategory>
+        docs: Product tax class
+      default-sku:
+        type: optional<string>
+        docs: The default SKU associated with this product.
+      ec-product-type:
+        type: optional<ProductsListResponseItemsItemProductFieldDataEcProductType>
+        docs: >-
+          <a
+          href="https://university.webflow.com/lesson/add-and-manage-products-and-categories?topics=ecommerce#how-to-understand-product-types">Product
+          types.</a> Enums reflect the following values in order: Physical,
+          Digital, Service, Advanced"
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsListResponseItemsItemProduct:
+    docs: The Product object
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Product
+        access: read-only
+      cmsLocaleId:
+        type: optional<string>
+        docs: Identifier for the locale of the CMS item
+        access: read-only
+      lastPublished:
+        type: optional<datetime>
+        docs: The date the Product was last published
+        access: read-only
+      lastUpdated:
+        type: optional<datetime>
+        docs: The date the Product was last updated
+        access: read-only
+      createdOn:
+        type: optional<datetime>
+        docs: The date the Product was created
+        access: read-only
+      isArchived:
+        type: optional<boolean>
+        docs: Boolean determining if the Product is set to archived
+        default: false
+      isDraft:
+        type: optional<boolean>
+        docs: Boolean determining if the Product is set to draft
+        default: false
+      fieldData:
+        type: optional<ProductsListResponseItemsItemProductFieldData>
+        docs: >-
+          Contains content-specific details for a product, covering both
+          standard (e.g., title, description)  and custom fields tailored to the
+          product setup.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsListResponseItemsItemSkusItemFieldDataPrice:
+    docs: price of SKU
+    properties:
+      value:
+        type: optional<double>
+        docs: Price of SKU
+      unit:
+        type: optional<string>
+        docs: Currency of Item
+      currency:
+        type: optional<string>
+        docs: Currency of Item (alternative representation)
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsListResponseItemsItemSkusItemFieldDataCompareAtPrice:
+    docs: comparison price of SKU
+    properties:
+      value:
+        type: optional<double>
+        docs: Price of SKU
+      unit:
+        type: optional<string>
+        docs: Currency of Item
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsListResponseItemsItemSkusItemFieldDataEcSkuBillingMethod:
+    enum:
+      - value: one-time
+        name: OneTime
+      - subscription
+    docs: >-
+      [Billing
+      method](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#billing-methods)for
+      the SKU
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsListResponseItemsItemSkusItemFieldDataEcSkuSubscriptionPlanInterval:
+    enum:
+      - day
+      - week
+      - month
+      - year
+    docs: Interval of subscription renewal
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsListResponseItemsItemSkusItemFieldDataEcSkuSubscriptionPlanPlansItemStatus:
+    enum:
+      - active
+      - inactive
+      - canceled
+    docs: The status of the plan
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsListResponseItemsItemSkusItemFieldDataEcSkuSubscriptionPlanPlansItem:
+    properties:
+      platform:
+        type: optional<literal<"stripe">>
+        docs: The platform of the subscription plan
+      id:
+        type: optional<string>
+        docs: The unique identifier of the plan
+      status:
+        type: >-
+          optional<ProductsListResponseItemsItemSkusItemFieldDataEcSkuSubscriptionPlanPlansItemStatus>
+        docs: The status of the plan
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsListResponseItemsItemSkusItemFieldDataEcSkuSubscriptionPlan:
+    docs: >-
+      [Subscription
+      plan](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#subscription)
+      for the SKU
+    properties:
+      interval:
+        type: >-
+          optional<ProductsListResponseItemsItemSkusItemFieldDataEcSkuSubscriptionPlanInterval>
+        docs: Interval of subscription renewal
+      frequency:
+        type: optional<double>
+        docs: Frequncy of billing within interval
+      trial:
+        type: optional<double>
+        docs: Number of days of a trial
+      plans:
+        type: >-
+          optional<list<ProductsListResponseItemsItemSkusItemFieldDataEcSkuSubscriptionPlanPlansItem>>
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsListResponseItemsItemSkusItemFieldDataSkuPropertiesItemEnumItem:
+    docs: Enumerated Product variants/Options for the SKU
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a Product variant/Option
+      name:
+        type: string
+        docs: Name of the Product variant/Option
+      slug:
+        type: string
+        docs: Slug for the Product variant/Option in the Site URL structure
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsListResponseItemsItemSkusItemFieldDataSkuPropertiesItem:
+    docs: A variant/option type for a SKU
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a collection of Product Variants
+      name:
+        type: string
+        docs: Name of the collection of Product Variants
+      enum:
+        docs: >-
+          The individual Product variants that are contained within the
+          collection
+        type: >-
+          list<ProductsListResponseItemsItemSkusItemFieldDataSkuPropertiesItemEnumItem>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsListResponseItemsItemSkusItemFieldData:
+    docs: Standard and Custom fields for a SKU
+    properties:
+      sku-values:
+        type: optional<map<string, string>>
+        docs: >
+          A mapping between SKU properties and their values, represented as
+          key-value pairs. Each key represents a SKU Property ID (e.g. "color")
+          and maps to its corresponding SKU Value ID (e.g. "blue"). This
+          structure defines the specific variant combination for a SKU.
+      name:
+        type: string
+        docs: Name of the Product
+      slug:
+        type: string
+        docs: URL structure of the Product in your site.
+      price:
+        type: ProductsListResponseItemsItemSkusItemFieldDataPrice
+        docs: price of SKU
+      compare-at-price:
+        type: optional<ProductsListResponseItemsItemSkusItemFieldDataCompareAtPrice>
+        docs: comparison price of SKU
+      ec-sku-billing-method:
+        type: >-
+          optional<ProductsListResponseItemsItemSkusItemFieldDataEcSkuBillingMethod>
+        docs: >-
+          [Billing
+          method](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#billing-methods)for
+          the SKU
+      ec-sku-subscription-plan:
+        type: >-
+          optional<ProductsListResponseItemsItemSkusItemFieldDataEcSkuSubscriptionPlan>
+        docs: >-
+          [Subscription
+          plan](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#subscription)
+          for the SKU
+      main-image:
+        type: optional<string>
+        docs: The URL for the main image of the SKU
+      sku:
+        type: optional<string>
+        docs: A unique identifier for the SKU
+      sku-properties:
+        type: >-
+          optional<list<ProductsListResponseItemsItemSkusItemFieldDataSkuPropertiesItem>>
+        docs: The properties of the SKU
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsListResponseItemsItemSkusItem:
+    docs: The SKU object
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Product
+        access: read-only
+      cmsLocaleId:
+        type: optional<string>
+        docs: Identifier for the locale of the CMS item
+        access: read-only
+      lastPublished:
+        type: optional<datetime>
+        docs: The date the Product was last published
+        access: read-only
+      lastUpdated:
+        type: optional<datetime>
+        docs: The date the Product was last updated
+        access: read-only
+      createdOn:
+        type: optional<datetime>
+        docs: The date the Product was created
+        access: read-only
+      fieldData:
+        type: optional<ProductsListResponseItemsItemSkusItemFieldData>
+        docs: Standard and Custom fields for a SKU
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsListResponseItemsItem:
+    docs: A product and its SKUs.
+    properties:
+      product:
+        type: optional<ProductsListResponseItemsItemProduct>
+        docs: The Product object
+      skus:
+        type: optional<list<ProductsListResponseItemsItemSkusItem>>
+        docs: A list of SKU Objects
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsListResponsePagination:
+    docs: Pagination object
+    properties:
+      limit:
+        type: optional<double>
+        docs: The limit used for pagination
+        access: read-only
+      offset:
+        type: optional<double>
+        docs: The offset used for pagination
+        access: read-only
+      total:
+        type: optional<double>
+        docs: The total number of records
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsListResponse:
+    docs: Results from product list
+    properties:
+      items:
+        type: optional<list<ProductsListResponseItemsItem>>
+        docs: >-
+          List of Item objects within the Collection. Contains product and skus
+          keys for each Item
+      pagination:
+        type: optional<ProductsListResponsePagination>
+        docs: Pagination object
+    source:
+      openapi: v2-data.yml
+  ProductsCreateRequestPublishStatus:
+    enum:
+      - staging
+      - live
+    docs: Indicate whether your Product should be set as "staging" or "live"
+    default: staging
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsCreateRequestProductFieldDataSkuPropertiesItemEnumItem:
+    docs: Enumerated Product variants/Options for the SKU
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a Product variant/Option
+      name:
+        type: string
+        docs: Name of the Product variant/Option
+      slug:
+        type: string
+        docs: Slug for the Product variant/Option in the Site URL structure
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateRequestProductFieldDataSkuPropertiesItem:
+    docs: A variant/option type for a SKU
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a collection of Product Variants
+      name:
+        type: string
+        docs: Name of the collection of Product Variants
+      enum:
+        docs: >-
+          The individual Product variants that are contained within the
+          collection
+        type: list<ProductsCreateRequestProductFieldDataSkuPropertiesItemEnumItem>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateRequestProductFieldDataTaxCategory:
+    enum:
+      - value: standard-taxable
+        name: StandardTaxable
+      - value: standard-exempt
+        name: StandardExempt
+      - value: books-religious
+        name: BooksReligious
+      - value: books-textbook
+        name: BooksTextbook
+      - clothing
+      - value: clothing-swimwear
+        name: ClothingSwimwear
+      - value: digital-goods
+        name: DigitalGoods
+      - value: digital-service
+        name: DigitalService
+      - value: drugs-non-prescription
+        name: DrugsNonPrescription
+      - value: drugs-prescription
+        name: DrugsPrescription
+      - value: food-bottled-water
+        name: FoodBottledWater
+      - value: food-candy
+        name: FoodCandy
+      - value: food-groceries
+        name: FoodGroceries
+      - value: food-prepared
+        name: FoodPrepared
+      - value: food-soda
+        name: FoodSoda
+      - value: food-supplements
+        name: FoodSupplements
+      - value: magazine-individual
+        name: MagazineIndividual
+      - value: magazine-subscription
+        name: MagazineSubscription
+      - value: service-admission
+        name: ServiceAdmission
+      - value: service-advertising
+        name: ServiceAdvertising
+      - value: service-dry-cleaning
+        name: ServiceDryCleaning
+      - value: service-hairdressing
+        name: ServiceHairdressing
+      - value: service-installation
+        name: ServiceInstallation
+      - value: service-miscellaneous
+        name: ServiceMiscellaneous
+      - value: service-parking
+        name: ServiceParking
+      - value: service-printing
+        name: ServicePrinting
+      - value: service-professional
+        name: ServiceProfessional
+      - value: service-repair
+        name: ServiceRepair
+      - value: service-training
+        name: ServiceTraining
+    docs: Product tax class
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsCreateRequestProductFieldDataEcProductType:
+    enum:
+      - ff42fee0113744f693a764e3431a9cc2
+      - f22027db68002190aef89a4a2b7ac8a1
+      - c599e43b1a1c34d5a323aedf75d3adf6
+      - b6ccc1830db4b1babeb06a9ac5f6dd76
+    docs: >-
+      <a
+      href="https://university.webflow.com/lesson/add-and-manage-products-and-categories?topics=ecommerce#how-to-understand-product-types">Product
+      types.</a> Enums reflect the following values in order: Physical, Digital,
+      Service, Advanced"
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsCreateRequestProductFieldData:
+    docs: >-
+      Contains content-specific details for a product, covering both standard
+      (e.g., title, description)  and custom fields tailored to the product
+      setup.
+    properties:
+      name:
+        type: optional<string>
+        docs: Name of the Product
+      slug:
+        type: optional<string>
+        docs: URL structure of the Product in your site.
+      description:
+        type: optional<string>
+        docs: A description of your product
+      shippable:
+        type: optional<boolean>
+        docs: Boolean determining if the Product is shippable
+      sku-properties:
+        type: optional<list<ProductsCreateRequestProductFieldDataSkuPropertiesItem>>
+        docs: Variant types to include in SKUs
+      category:
+        type: optional<list<string>>
+        docs: The category your product belongs to.
+      tax-category:
+        type: optional<ProductsCreateRequestProductFieldDataTaxCategory>
+        docs: Product tax class
+      default-sku:
+        type: optional<string>
+        docs: The default SKU associated with this product.
+      ec-product-type:
+        type: optional<ProductsCreateRequestProductFieldDataEcProductType>
+        docs: >-
+          <a
+          href="https://university.webflow.com/lesson/add-and-manage-products-and-categories?topics=ecommerce#how-to-understand-product-types">Product
+          types.</a> Enums reflect the following values in order: Physical,
+          Digital, Service, Advanced"
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateRequestProduct:
+    properties:
+      fieldData:
+        type: optional<ProductsCreateRequestProductFieldData>
+        docs: >-
+          Contains content-specific details for a product, covering both
+          standard (e.g., title, description)  and custom fields tailored to the
+          product setup.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateRequestSkuFieldDataPrice:
+    docs: price of SKU
+    properties:
+      value:
+        type: optional<double>
+        docs: Price of SKU
+      unit:
+        type: optional<string>
+        docs: Currency of Item
+      currency:
+        type: optional<string>
+        docs: Currency of Item (alternative representation)
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateRequestSkuFieldDataCompareAtPrice:
+    docs: comparison price of SKU
+    properties:
+      value:
+        type: optional<double>
+        docs: Price of SKU
+      unit:
+        type: optional<string>
+        docs: Currency of Item
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateRequestSkuFieldDataEcSkuBillingMethod:
+    enum:
+      - value: one-time
+        name: OneTime
+      - subscription
+    docs: >-
+      [Billing
+      method](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#billing-methods)for
+      the SKU
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsCreateRequestSkuFieldDataEcSkuSubscriptionPlanInterval:
+    enum:
+      - day
+      - week
+      - month
+      - year
+    docs: Interval of subscription renewal
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsCreateRequestSkuFieldDataEcSkuSubscriptionPlan:
+    docs: >-
+      [Subscription
+      plan](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#subscription)
+      for the SKU
+    properties:
+      interval:
+        type: >-
+          optional<ProductsCreateRequestSkuFieldDataEcSkuSubscriptionPlanInterval>
+        docs: Interval of subscription renewal
+      frequency:
+        type: optional<double>
+        docs: Frequncy of billing within interval
+      trial:
+        type: optional<double>
+        docs: Number of days of a trial
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateRequestSkuFieldDataSkuPropertiesItemEnumItem:
+    docs: Enumerated Product variants/Options for the SKU
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a Product variant/Option
+      name:
+        type: string
+        docs: Name of the Product variant/Option
+      slug:
+        type: string
+        docs: Slug for the Product variant/Option in the Site URL structure
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateRequestSkuFieldDataSkuPropertiesItem:
+    docs: A variant/option type for a SKU
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a collection of Product Variants
+      name:
+        type: string
+        docs: Name of the collection of Product Variants
+      enum:
+        docs: >-
+          The individual Product variants that are contained within the
+          collection
+        type: list<ProductsCreateRequestSkuFieldDataSkuPropertiesItemEnumItem>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateRequestSkuFieldData:
+    docs: Standard and Custom fields for a SKU
+    properties:
+      sku-values:
+        type: optional<map<string, string>>
+        docs: >
+          A mapping between SKU properties and their values, represented as
+          key-value pairs. Each key represents a SKU Property ID (e.g. "color")
+          and maps to its corresponding SKU Value ID (e.g. "blue"). This
+          structure defines the specific variant combination for a SKU.
+      name:
+        type: string
+        docs: Name of the Product
+      slug:
+        type: string
+        docs: URL structure of the Product in your site.
+      price:
+        type: ProductsCreateRequestSkuFieldDataPrice
+        docs: price of SKU
+      compare-at-price:
+        type: optional<ProductsCreateRequestSkuFieldDataCompareAtPrice>
+        docs: comparison price of SKU
+      ec-sku-billing-method:
+        type: optional<ProductsCreateRequestSkuFieldDataEcSkuBillingMethod>
+        docs: >-
+          [Billing
+          method](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#billing-methods)for
+          the SKU
+      ec-sku-subscription-plan:
+        type: optional<ProductsCreateRequestSkuFieldDataEcSkuSubscriptionPlan>
+        docs: >-
+          [Subscription
+          plan](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#subscription)
+          for the SKU
+      main-image:
+        type: optional<string>
+        docs: The URL for the main image of the SKU
+      sku:
+        type: optional<string>
+        docs: A unique identifier for the SKU
+      sku-properties:
+        type: optional<list<ProductsCreateRequestSkuFieldDataSkuPropertiesItem>>
+        docs: The properties of the SKU
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateRequestSku:
+    properties:
+      fieldData:
+        type: optional<ProductsCreateRequestSkuFieldData>
+        docs: Standard and Custom fields for a SKU
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateResponseProductFieldDataSkuPropertiesItemEnumItem:
+    docs: Enumerated Product variants/Options for the SKU
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a Product variant/Option
+      name:
+        type: string
+        docs: Name of the Product variant/Option
+      slug:
+        type: string
+        docs: Slug for the Product variant/Option in the Site URL structure
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateResponseProductFieldDataSkuPropertiesItem:
+    docs: A variant/option type for a SKU
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a collection of Product Variants
+      name:
+        type: string
+        docs: Name of the collection of Product Variants
+      enum:
+        docs: >-
+          The individual Product variants that are contained within the
+          collection
+        type: list<ProductsCreateResponseProductFieldDataSkuPropertiesItemEnumItem>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateResponseProductFieldDataTaxCategory:
+    enum:
+      - value: standard-taxable
+        name: StandardTaxable
+      - value: standard-exempt
+        name: StandardExempt
+      - value: books-religious
+        name: BooksReligious
+      - value: books-textbook
+        name: BooksTextbook
+      - clothing
+      - value: clothing-swimwear
+        name: ClothingSwimwear
+      - value: digital-goods
+        name: DigitalGoods
+      - value: digital-service
+        name: DigitalService
+      - value: drugs-non-prescription
+        name: DrugsNonPrescription
+      - value: drugs-prescription
+        name: DrugsPrescription
+      - value: food-bottled-water
+        name: FoodBottledWater
+      - value: food-candy
+        name: FoodCandy
+      - value: food-groceries
+        name: FoodGroceries
+      - value: food-prepared
+        name: FoodPrepared
+      - value: food-soda
+        name: FoodSoda
+      - value: food-supplements
+        name: FoodSupplements
+      - value: magazine-individual
+        name: MagazineIndividual
+      - value: magazine-subscription
+        name: MagazineSubscription
+      - value: service-admission
+        name: ServiceAdmission
+      - value: service-advertising
+        name: ServiceAdvertising
+      - value: service-dry-cleaning
+        name: ServiceDryCleaning
+      - value: service-hairdressing
+        name: ServiceHairdressing
+      - value: service-installation
+        name: ServiceInstallation
+      - value: service-miscellaneous
+        name: ServiceMiscellaneous
+      - value: service-parking
+        name: ServiceParking
+      - value: service-printing
+        name: ServicePrinting
+      - value: service-professional
+        name: ServiceProfessional
+      - value: service-repair
+        name: ServiceRepair
+      - value: service-training
+        name: ServiceTraining
+    docs: Product tax class
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsCreateResponseProductFieldDataEcProductType:
+    enum:
+      - ff42fee0113744f693a764e3431a9cc2
+      - f22027db68002190aef89a4a2b7ac8a1
+      - c599e43b1a1c34d5a323aedf75d3adf6
+      - b6ccc1830db4b1babeb06a9ac5f6dd76
+    docs: >-
+      <a
+      href="https://university.webflow.com/lesson/add-and-manage-products-and-categories?topics=ecommerce#how-to-understand-product-types">Product
+      types.</a> Enums reflect the following values in order: Physical, Digital,
+      Service, Advanced"
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsCreateResponseProductFieldData:
+    docs: >-
+      Contains content-specific details for a product, covering both standard
+      (e.g., title, description)  and custom fields tailored to the product
+      setup.
+    properties:
+      name:
+        type: optional<string>
+        docs: Name of the Product
+      slug:
+        type: optional<string>
+        docs: URL structure of the Product in your site.
+      description:
+        type: optional<string>
+        docs: A description of your product
+      shippable:
+        type: optional<boolean>
+        docs: Boolean determining if the Product is shippable
+      sku-properties:
+        type: >-
+          optional<list<ProductsCreateResponseProductFieldDataSkuPropertiesItem>>
+        docs: Variant types to include in SKUs
+      category:
+        type: optional<list<string>>
+        docs: The category your product belongs to.
+      tax-category:
+        type: optional<ProductsCreateResponseProductFieldDataTaxCategory>
+        docs: Product tax class
+      default-sku:
+        type: optional<string>
+        docs: The default SKU associated with this product.
+      ec-product-type:
+        type: optional<ProductsCreateResponseProductFieldDataEcProductType>
+        docs: >-
+          <a
+          href="https://university.webflow.com/lesson/add-and-manage-products-and-categories?topics=ecommerce#how-to-understand-product-types">Product
+          types.</a> Enums reflect the following values in order: Physical,
+          Digital, Service, Advanced"
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateResponseProduct:
+    docs: The Product object
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Product
+        access: read-only
+      cmsLocaleId:
+        type: optional<string>
+        docs: Identifier for the locale of the CMS item
+        access: read-only
+      lastPublished:
+        type: optional<datetime>
+        docs: The date the Product was last published
+        access: read-only
+      lastUpdated:
+        type: optional<datetime>
+        docs: The date the Product was last updated
+        access: read-only
+      createdOn:
+        type: optional<datetime>
+        docs: The date the Product was created
+        access: read-only
+      isArchived:
+        type: optional<boolean>
+        docs: Boolean determining if the Product is set to archived
+        default: false
+      isDraft:
+        type: optional<boolean>
+        docs: Boolean determining if the Product is set to draft
+        default: false
+      fieldData:
+        type: optional<ProductsCreateResponseProductFieldData>
+        docs: >-
+          Contains content-specific details for a product, covering both
+          standard (e.g., title, description)  and custom fields tailored to the
+          product setup.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateResponseSkusItemFieldDataPrice:
+    docs: price of SKU
+    properties:
+      value:
+        type: optional<double>
+        docs: Price of SKU
+      unit:
+        type: optional<string>
+        docs: Currency of Item
+      currency:
+        type: optional<string>
+        docs: Currency of Item (alternative representation)
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateResponseSkusItemFieldDataCompareAtPrice:
+    docs: comparison price of SKU
+    properties:
+      value:
+        type: optional<double>
+        docs: Price of SKU
+      unit:
+        type: optional<string>
+        docs: Currency of Item
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateResponseSkusItemFieldDataEcSkuBillingMethod:
+    enum:
+      - value: one-time
+        name: OneTime
+      - subscription
+    docs: >-
+      [Billing
+      method](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#billing-methods)for
+      the SKU
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsCreateResponseSkusItemFieldDataEcSkuSubscriptionPlanInterval:
+    enum:
+      - day
+      - week
+      - month
+      - year
+    docs: Interval of subscription renewal
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsCreateResponseSkusItemFieldDataEcSkuSubscriptionPlanPlansItemStatus:
+    enum:
+      - active
+      - inactive
+      - canceled
+    docs: The status of the plan
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsCreateResponseSkusItemFieldDataEcSkuSubscriptionPlanPlansItem:
+    properties:
+      platform:
+        type: optional<literal<"stripe">>
+        docs: The platform of the subscription plan
+      id:
+        type: optional<string>
+        docs: The unique identifier of the plan
+      status:
+        type: >-
+          optional<ProductsCreateResponseSkusItemFieldDataEcSkuSubscriptionPlanPlansItemStatus>
+        docs: The status of the plan
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateResponseSkusItemFieldDataEcSkuSubscriptionPlan:
+    docs: >-
+      [Subscription
+      plan](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#subscription)
+      for the SKU
+    properties:
+      interval:
+        type: >-
+          optional<ProductsCreateResponseSkusItemFieldDataEcSkuSubscriptionPlanInterval>
+        docs: Interval of subscription renewal
+      frequency:
+        type: optional<double>
+        docs: Frequncy of billing within interval
+      trial:
+        type: optional<double>
+        docs: Number of days of a trial
+      plans:
+        type: >-
+          optional<list<ProductsCreateResponseSkusItemFieldDataEcSkuSubscriptionPlanPlansItem>>
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateResponseSkusItemFieldDataSkuPropertiesItemEnumItem:
+    docs: Enumerated Product variants/Options for the SKU
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a Product variant/Option
+      name:
+        type: string
+        docs: Name of the Product variant/Option
+      slug:
+        type: string
+        docs: Slug for the Product variant/Option in the Site URL structure
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateResponseSkusItemFieldDataSkuPropertiesItem:
+    docs: A variant/option type for a SKU
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a collection of Product Variants
+      name:
+        type: string
+        docs: Name of the collection of Product Variants
+      enum:
+        docs: >-
+          The individual Product variants that are contained within the
+          collection
+        type: list<ProductsCreateResponseSkusItemFieldDataSkuPropertiesItemEnumItem>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateResponseSkusItemFieldData:
+    docs: Standard and Custom fields for a SKU
+    properties:
+      sku-values:
+        type: optional<map<string, string>>
+        docs: >
+          A mapping between SKU properties and their values, represented as
+          key-value pairs. Each key represents a SKU Property ID (e.g. "color")
+          and maps to its corresponding SKU Value ID (e.g. "blue"). This
+          structure defines the specific variant combination for a SKU.
+      name:
+        type: string
+        docs: Name of the Product
+      slug:
+        type: string
+        docs: URL structure of the Product in your site.
+      price:
+        type: ProductsCreateResponseSkusItemFieldDataPrice
+        docs: price of SKU
+      compare-at-price:
+        type: optional<ProductsCreateResponseSkusItemFieldDataCompareAtPrice>
+        docs: comparison price of SKU
+      ec-sku-billing-method:
+        type: optional<ProductsCreateResponseSkusItemFieldDataEcSkuBillingMethod>
+        docs: >-
+          [Billing
+          method](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#billing-methods)for
+          the SKU
+      ec-sku-subscription-plan:
+        type: optional<ProductsCreateResponseSkusItemFieldDataEcSkuSubscriptionPlan>
+        docs: >-
+          [Subscription
+          plan](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#subscription)
+          for the SKU
+      main-image:
+        type: optional<string>
+        docs: The URL for the main image of the SKU
+      sku:
+        type: optional<string>
+        docs: A unique identifier for the SKU
+      sku-properties:
+        type: >-
+          optional<list<ProductsCreateResponseSkusItemFieldDataSkuPropertiesItem>>
+        docs: The properties of the SKU
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateResponseSkusItem:
+    docs: The SKU object
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Product
+        access: read-only
+      cmsLocaleId:
+        type: optional<string>
+        docs: Identifier for the locale of the CMS item
+        access: read-only
+      lastPublished:
+        type: optional<datetime>
+        docs: The date the Product was last published
+        access: read-only
+      lastUpdated:
+        type: optional<datetime>
+        docs: The date the Product was last updated
+        access: read-only
+      createdOn:
+        type: optional<datetime>
+        docs: The date the Product was created
+        access: read-only
+      fieldData:
+        type: optional<ProductsCreateResponseSkusItemFieldData>
+        docs: Standard and Custom fields for a SKU
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateResponse:
+    docs: A product and its SKUs.
+    properties:
+      product:
+        type: optional<ProductsCreateResponseProduct>
+        docs: The Product object
+      skus:
+        type: optional<list<ProductsCreateResponseSkusItem>>
+        docs: A list of SKU Objects
+    source:
+      openapi: v2-data.yml
+  ProductsGetResponseProductFieldDataSkuPropertiesItemEnumItem:
+    docs: Enumerated Product variants/Options for the SKU
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a Product variant/Option
+      name:
+        type: string
+        docs: Name of the Product variant/Option
+      slug:
+        type: string
+        docs: Slug for the Product variant/Option in the Site URL structure
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsGetResponseProductFieldDataSkuPropertiesItem:
+    docs: A variant/option type for a SKU
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a collection of Product Variants
+      name:
+        type: string
+        docs: Name of the collection of Product Variants
+      enum:
+        docs: >-
+          The individual Product variants that are contained within the
+          collection
+        type: list<ProductsGetResponseProductFieldDataSkuPropertiesItemEnumItem>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsGetResponseProductFieldDataTaxCategory:
+    enum:
+      - value: standard-taxable
+        name: StandardTaxable
+      - value: standard-exempt
+        name: StandardExempt
+      - value: books-religious
+        name: BooksReligious
+      - value: books-textbook
+        name: BooksTextbook
+      - clothing
+      - value: clothing-swimwear
+        name: ClothingSwimwear
+      - value: digital-goods
+        name: DigitalGoods
+      - value: digital-service
+        name: DigitalService
+      - value: drugs-non-prescription
+        name: DrugsNonPrescription
+      - value: drugs-prescription
+        name: DrugsPrescription
+      - value: food-bottled-water
+        name: FoodBottledWater
+      - value: food-candy
+        name: FoodCandy
+      - value: food-groceries
+        name: FoodGroceries
+      - value: food-prepared
+        name: FoodPrepared
+      - value: food-soda
+        name: FoodSoda
+      - value: food-supplements
+        name: FoodSupplements
+      - value: magazine-individual
+        name: MagazineIndividual
+      - value: magazine-subscription
+        name: MagazineSubscription
+      - value: service-admission
+        name: ServiceAdmission
+      - value: service-advertising
+        name: ServiceAdvertising
+      - value: service-dry-cleaning
+        name: ServiceDryCleaning
+      - value: service-hairdressing
+        name: ServiceHairdressing
+      - value: service-installation
+        name: ServiceInstallation
+      - value: service-miscellaneous
+        name: ServiceMiscellaneous
+      - value: service-parking
+        name: ServiceParking
+      - value: service-printing
+        name: ServicePrinting
+      - value: service-professional
+        name: ServiceProfessional
+      - value: service-repair
+        name: ServiceRepair
+      - value: service-training
+        name: ServiceTraining
+    docs: Product tax class
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsGetResponseProductFieldDataEcProductType:
+    enum:
+      - ff42fee0113744f693a764e3431a9cc2
+      - f22027db68002190aef89a4a2b7ac8a1
+      - c599e43b1a1c34d5a323aedf75d3adf6
+      - b6ccc1830db4b1babeb06a9ac5f6dd76
+    docs: >-
+      <a
+      href="https://university.webflow.com/lesson/add-and-manage-products-and-categories?topics=ecommerce#how-to-understand-product-types">Product
+      types.</a> Enums reflect the following values in order: Physical, Digital,
+      Service, Advanced"
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsGetResponseProductFieldData:
+    docs: >-
+      Contains content-specific details for a product, covering both standard
+      (e.g., title, description)  and custom fields tailored to the product
+      setup.
+    properties:
+      name:
+        type: optional<string>
+        docs: Name of the Product
+      slug:
+        type: optional<string>
+        docs: URL structure of the Product in your site.
+      description:
+        type: optional<string>
+        docs: A description of your product
+      shippable:
+        type: optional<boolean>
+        docs: Boolean determining if the Product is shippable
+      sku-properties:
+        type: optional<list<ProductsGetResponseProductFieldDataSkuPropertiesItem>>
+        docs: Variant types to include in SKUs
+      category:
+        type: optional<list<string>>
+        docs: The category your product belongs to.
+      tax-category:
+        type: optional<ProductsGetResponseProductFieldDataTaxCategory>
+        docs: Product tax class
+      default-sku:
+        type: optional<string>
+        docs: The default SKU associated with this product.
+      ec-product-type:
+        type: optional<ProductsGetResponseProductFieldDataEcProductType>
+        docs: >-
+          <a
+          href="https://university.webflow.com/lesson/add-and-manage-products-and-categories?topics=ecommerce#how-to-understand-product-types">Product
+          types.</a> Enums reflect the following values in order: Physical,
+          Digital, Service, Advanced"
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsGetResponseProduct:
+    docs: The Product object
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Product
+        access: read-only
+      cmsLocaleId:
+        type: optional<string>
+        docs: Identifier for the locale of the CMS item
+        access: read-only
+      lastPublished:
+        type: optional<datetime>
+        docs: The date the Product was last published
+        access: read-only
+      lastUpdated:
+        type: optional<datetime>
+        docs: The date the Product was last updated
+        access: read-only
+      createdOn:
+        type: optional<datetime>
+        docs: The date the Product was created
+        access: read-only
+      isArchived:
+        type: optional<boolean>
+        docs: Boolean determining if the Product is set to archived
+        default: false
+      isDraft:
+        type: optional<boolean>
+        docs: Boolean determining if the Product is set to draft
+        default: false
+      fieldData:
+        type: optional<ProductsGetResponseProductFieldData>
+        docs: >-
+          Contains content-specific details for a product, covering both
+          standard (e.g., title, description)  and custom fields tailored to the
+          product setup.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsGetResponseSkusItemFieldDataPrice:
+    docs: price of SKU
+    properties:
+      value:
+        type: optional<double>
+        docs: Price of SKU
+      unit:
+        type: optional<string>
+        docs: Currency of Item
+      currency:
+        type: optional<string>
+        docs: Currency of Item (alternative representation)
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsGetResponseSkusItemFieldDataCompareAtPrice:
+    docs: comparison price of SKU
+    properties:
+      value:
+        type: optional<double>
+        docs: Price of SKU
+      unit:
+        type: optional<string>
+        docs: Currency of Item
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsGetResponseSkusItemFieldDataEcSkuBillingMethod:
+    enum:
+      - value: one-time
+        name: OneTime
+      - subscription
+    docs: >-
+      [Billing
+      method](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#billing-methods)for
+      the SKU
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsGetResponseSkusItemFieldDataEcSkuSubscriptionPlanInterval:
+    enum:
+      - day
+      - week
+      - month
+      - year
+    docs: Interval of subscription renewal
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsGetResponseSkusItemFieldDataEcSkuSubscriptionPlanPlansItemStatus:
+    enum:
+      - active
+      - inactive
+      - canceled
+    docs: The status of the plan
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsGetResponseSkusItemFieldDataEcSkuSubscriptionPlanPlansItem:
+    properties:
+      platform:
+        type: optional<literal<"stripe">>
+        docs: The platform of the subscription plan
+      id:
+        type: optional<string>
+        docs: The unique identifier of the plan
+      status:
+        type: >-
+          optional<ProductsGetResponseSkusItemFieldDataEcSkuSubscriptionPlanPlansItemStatus>
+        docs: The status of the plan
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsGetResponseSkusItemFieldDataEcSkuSubscriptionPlan:
+    docs: >-
+      [Subscription
+      plan](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#subscription)
+      for the SKU
+    properties:
+      interval:
+        type: >-
+          optional<ProductsGetResponseSkusItemFieldDataEcSkuSubscriptionPlanInterval>
+        docs: Interval of subscription renewal
+      frequency:
+        type: optional<double>
+        docs: Frequncy of billing within interval
+      trial:
+        type: optional<double>
+        docs: Number of days of a trial
+      plans:
+        type: >-
+          optional<list<ProductsGetResponseSkusItemFieldDataEcSkuSubscriptionPlanPlansItem>>
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsGetResponseSkusItemFieldDataSkuPropertiesItemEnumItem:
+    docs: Enumerated Product variants/Options for the SKU
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a Product variant/Option
+      name:
+        type: string
+        docs: Name of the Product variant/Option
+      slug:
+        type: string
+        docs: Slug for the Product variant/Option in the Site URL structure
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsGetResponseSkusItemFieldDataSkuPropertiesItem:
+    docs: A variant/option type for a SKU
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a collection of Product Variants
+      name:
+        type: string
+        docs: Name of the collection of Product Variants
+      enum:
+        docs: >-
+          The individual Product variants that are contained within the
+          collection
+        type: list<ProductsGetResponseSkusItemFieldDataSkuPropertiesItemEnumItem>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsGetResponseSkusItemFieldData:
+    docs: Standard and Custom fields for a SKU
+    properties:
+      sku-values:
+        type: optional<map<string, string>>
+        docs: >
+          A mapping between SKU properties and their values, represented as
+          key-value pairs. Each key represents a SKU Property ID (e.g. "color")
+          and maps to its corresponding SKU Value ID (e.g. "blue"). This
+          structure defines the specific variant combination for a SKU.
+      name:
+        type: string
+        docs: Name of the Product
+      slug:
+        type: string
+        docs: URL structure of the Product in your site.
+      price:
+        type: ProductsGetResponseSkusItemFieldDataPrice
+        docs: price of SKU
+      compare-at-price:
+        type: optional<ProductsGetResponseSkusItemFieldDataCompareAtPrice>
+        docs: comparison price of SKU
+      ec-sku-billing-method:
+        type: optional<ProductsGetResponseSkusItemFieldDataEcSkuBillingMethod>
+        docs: >-
+          [Billing
+          method](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#billing-methods)for
+          the SKU
+      ec-sku-subscription-plan:
+        type: optional<ProductsGetResponseSkusItemFieldDataEcSkuSubscriptionPlan>
+        docs: >-
+          [Subscription
+          plan](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#subscription)
+          for the SKU
+      main-image:
+        type: optional<string>
+        docs: The URL for the main image of the SKU
+      sku:
+        type: optional<string>
+        docs: A unique identifier for the SKU
+      sku-properties:
+        type: optional<list<ProductsGetResponseSkusItemFieldDataSkuPropertiesItem>>
+        docs: The properties of the SKU
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsGetResponseSkusItem:
+    docs: The SKU object
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Product
+        access: read-only
+      cmsLocaleId:
+        type: optional<string>
+        docs: Identifier for the locale of the CMS item
+        access: read-only
+      lastPublished:
+        type: optional<datetime>
+        docs: The date the Product was last published
+        access: read-only
+      lastUpdated:
+        type: optional<datetime>
+        docs: The date the Product was last updated
+        access: read-only
+      createdOn:
+        type: optional<datetime>
+        docs: The date the Product was created
+        access: read-only
+      fieldData:
+        type: optional<ProductsGetResponseSkusItemFieldData>
+        docs: Standard and Custom fields for a SKU
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsGetResponse:
+    docs: A product and its SKUs.
+    properties:
+      product:
+        type: optional<ProductsGetResponseProduct>
+        docs: The Product object
+      skus:
+        type: optional<list<ProductsGetResponseSkusItem>>
+        docs: A list of SKU Objects
+    source:
+      openapi: v2-data.yml
+  ProductsUpdateRequestPublishStatus:
+    enum:
+      - staging
+      - live
+    docs: Indicate whether your Product should be set as "staging" or "live"
+    default: staging
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsUpdateRequestProductFieldDataSkuPropertiesItemEnumItem:
+    docs: Enumerated Product variants/Options for the SKU
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a Product variant/Option
+      name:
+        type: string
+        docs: Name of the Product variant/Option
+      slug:
+        type: string
+        docs: Slug for the Product variant/Option in the Site URL structure
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsUpdateRequestProductFieldDataSkuPropertiesItem:
+    docs: A variant/option type for a SKU
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a collection of Product Variants
+      name:
+        type: string
+        docs: Name of the collection of Product Variants
+      enum:
+        docs: >-
+          The individual Product variants that are contained within the
+          collection
+        type: list<ProductsUpdateRequestProductFieldDataSkuPropertiesItemEnumItem>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsUpdateRequestProductFieldDataTaxCategory:
+    enum:
+      - value: standard-taxable
+        name: StandardTaxable
+      - value: standard-exempt
+        name: StandardExempt
+      - value: books-religious
+        name: BooksReligious
+      - value: books-textbook
+        name: BooksTextbook
+      - clothing
+      - value: clothing-swimwear
+        name: ClothingSwimwear
+      - value: digital-goods
+        name: DigitalGoods
+      - value: digital-service
+        name: DigitalService
+      - value: drugs-non-prescription
+        name: DrugsNonPrescription
+      - value: drugs-prescription
+        name: DrugsPrescription
+      - value: food-bottled-water
+        name: FoodBottledWater
+      - value: food-candy
+        name: FoodCandy
+      - value: food-groceries
+        name: FoodGroceries
+      - value: food-prepared
+        name: FoodPrepared
+      - value: food-soda
+        name: FoodSoda
+      - value: food-supplements
+        name: FoodSupplements
+      - value: magazine-individual
+        name: MagazineIndividual
+      - value: magazine-subscription
+        name: MagazineSubscription
+      - value: service-admission
+        name: ServiceAdmission
+      - value: service-advertising
+        name: ServiceAdvertising
+      - value: service-dry-cleaning
+        name: ServiceDryCleaning
+      - value: service-hairdressing
+        name: ServiceHairdressing
+      - value: service-installation
+        name: ServiceInstallation
+      - value: service-miscellaneous
+        name: ServiceMiscellaneous
+      - value: service-parking
+        name: ServiceParking
+      - value: service-printing
+        name: ServicePrinting
+      - value: service-professional
+        name: ServiceProfessional
+      - value: service-repair
+        name: ServiceRepair
+      - value: service-training
+        name: ServiceTraining
+    docs: Product tax class
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsUpdateRequestProductFieldDataEcProductType:
+    enum:
+      - ff42fee0113744f693a764e3431a9cc2
+      - f22027db68002190aef89a4a2b7ac8a1
+      - c599e43b1a1c34d5a323aedf75d3adf6
+      - b6ccc1830db4b1babeb06a9ac5f6dd76
+    docs: >-
+      <a
+      href="https://university.webflow.com/lesson/add-and-manage-products-and-categories?topics=ecommerce#how-to-understand-product-types">Product
+      types.</a> Enums reflect the following values in order: Physical, Digital,
+      Service, Advanced"
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsUpdateRequestProductFieldData:
+    docs: >-
+      Contains content-specific details for a product, covering both standard
+      (e.g., title, description)  and custom fields tailored to the product
+      setup.
+    properties:
+      name:
+        type: optional<string>
+        docs: Name of the Product
+      slug:
+        type: optional<string>
+        docs: URL structure of the Product in your site.
+      description:
+        type: optional<string>
+        docs: A description of your product
+      shippable:
+        type: optional<boolean>
+        docs: Boolean determining if the Product is shippable
+      sku-properties:
+        type: optional<list<ProductsUpdateRequestProductFieldDataSkuPropertiesItem>>
+        docs: Variant types to include in SKUs
+      category:
+        type: optional<list<string>>
+        docs: The category your product belongs to.
+      tax-category:
+        type: optional<ProductsUpdateRequestProductFieldDataTaxCategory>
+        docs: Product tax class
+      default-sku:
+        type: optional<string>
+        docs: The default SKU associated with this product.
+      ec-product-type:
+        type: optional<ProductsUpdateRequestProductFieldDataEcProductType>
+        docs: >-
+          <a
+          href="https://university.webflow.com/lesson/add-and-manage-products-and-categories?topics=ecommerce#how-to-understand-product-types">Product
+          types.</a> Enums reflect the following values in order: Physical,
+          Digital, Service, Advanced"
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsUpdateRequestProduct:
+    docs: The Product object
+    properties:
+      isArchived:
+        type: optional<boolean>
+        docs: Boolean determining if the Product is set to archived
+        default: false
+      isDraft:
+        type: optional<boolean>
+        docs: Boolean determining if the Product is set to draft
+        default: false
+      fieldData:
+        type: optional<ProductsUpdateRequestProductFieldData>
+        docs: >-
+          Contains content-specific details for a product, covering both
+          standard (e.g., title, description)  and custom fields tailored to the
+          product setup.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsUpdateRequestSkuFieldDataPrice:
+    docs: price of SKU
+    properties:
+      value:
+        type: optional<double>
+        docs: Price of SKU
+      unit:
+        type: optional<string>
+        docs: Currency of Item
+      currency:
+        type: optional<string>
+        docs: Currency of Item (alternative representation)
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsUpdateRequestSkuFieldDataCompareAtPrice:
+    docs: comparison price of SKU
+    properties:
+      value:
+        type: optional<double>
+        docs: Price of SKU
+      unit:
+        type: optional<string>
+        docs: Currency of Item
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsUpdateRequestSkuFieldDataEcSkuBillingMethod:
+    enum:
+      - value: one-time
+        name: OneTime
+      - subscription
+    docs: >-
+      [Billing
+      method](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#billing-methods)for
+      the SKU
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsUpdateRequestSkuFieldDataEcSkuSubscriptionPlanInterval:
+    enum:
+      - day
+      - week
+      - month
+      - year
+    docs: Interval of subscription renewal
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsUpdateRequestSkuFieldDataEcSkuSubscriptionPlan:
+    docs: >-
+      [Subscription
+      plan](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#subscription)
+      for the SKU
+    properties:
+      interval:
+        type: >-
+          optional<ProductsUpdateRequestSkuFieldDataEcSkuSubscriptionPlanInterval>
+        docs: Interval of subscription renewal
+      frequency:
+        type: optional<double>
+        docs: Frequncy of billing within interval
+      trial:
+        type: optional<double>
+        docs: Number of days of a trial
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsUpdateRequestSkuFieldDataSkuPropertiesItemEnumItem:
+    docs: Enumerated Product variants/Options for the SKU
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a Product variant/Option
+      name:
+        type: string
+        docs: Name of the Product variant/Option
+      slug:
+        type: string
+        docs: Slug for the Product variant/Option in the Site URL structure
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsUpdateRequestSkuFieldDataSkuPropertiesItem:
+    docs: A variant/option type for a SKU
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a collection of Product Variants
+      name:
+        type: string
+        docs: Name of the collection of Product Variants
+      enum:
+        docs: >-
+          The individual Product variants that are contained within the
+          collection
+        type: list<ProductsUpdateRequestSkuFieldDataSkuPropertiesItemEnumItem>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsUpdateRequestSkuFieldData:
+    docs: Standard and Custom fields for a SKU
+    properties:
+      sku-values:
+        type: optional<map<string, string>>
+        docs: >
+          A mapping between SKU properties and their values, represented as
+          key-value pairs. Each key represents a SKU Property ID (e.g. "color")
+          and maps to its corresponding SKU Value ID (e.g. "blue"). This
+          structure defines the specific variant combination for a SKU.
+      name:
+        type: string
+        docs: Name of the Product
+      slug:
+        type: string
+        docs: URL structure of the Product in your site.
+      price:
+        type: ProductsUpdateRequestSkuFieldDataPrice
+        docs: price of SKU
+      compare-at-price:
+        type: optional<ProductsUpdateRequestSkuFieldDataCompareAtPrice>
+        docs: comparison price of SKU
+      ec-sku-billing-method:
+        type: optional<ProductsUpdateRequestSkuFieldDataEcSkuBillingMethod>
+        docs: >-
+          [Billing
+          method](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#billing-methods)for
+          the SKU
+      ec-sku-subscription-plan:
+        type: optional<ProductsUpdateRequestSkuFieldDataEcSkuSubscriptionPlan>
+        docs: >-
+          [Subscription
+          plan](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#subscription)
+          for the SKU
+      main-image:
+        type: optional<string>
+        docs: The URL for the main image of the SKU
+      sku:
+        type: optional<string>
+        docs: A unique identifier for the SKU
+      sku-properties:
+        type: optional<list<ProductsUpdateRequestSkuFieldDataSkuPropertiesItem>>
+        docs: The properties of the SKU
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsUpdateRequestSku:
+    docs: The SKU object
+    properties:
+      fieldData:
+        type: optional<ProductsUpdateRequestSkuFieldData>
+        docs: Standard and Custom fields for a SKU
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsUpdateResponseFieldDataSkuPropertiesItemEnumItem:
+    docs: Enumerated Product variants/Options for the SKU
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a Product variant/Option
+      name:
+        type: string
+        docs: Name of the Product variant/Option
+      slug:
+        type: string
+        docs: Slug for the Product variant/Option in the Site URL structure
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsUpdateResponseFieldDataSkuPropertiesItem:
+    docs: A variant/option type for a SKU
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a collection of Product Variants
+      name:
+        type: string
+        docs: Name of the collection of Product Variants
+      enum:
+        docs: >-
+          The individual Product variants that are contained within the
+          collection
+        type: list<ProductsUpdateResponseFieldDataSkuPropertiesItemEnumItem>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsUpdateResponseFieldDataTaxCategory:
+    enum:
+      - value: standard-taxable
+        name: StandardTaxable
+      - value: standard-exempt
+        name: StandardExempt
+      - value: books-religious
+        name: BooksReligious
+      - value: books-textbook
+        name: BooksTextbook
+      - clothing
+      - value: clothing-swimwear
+        name: ClothingSwimwear
+      - value: digital-goods
+        name: DigitalGoods
+      - value: digital-service
+        name: DigitalService
+      - value: drugs-non-prescription
+        name: DrugsNonPrescription
+      - value: drugs-prescription
+        name: DrugsPrescription
+      - value: food-bottled-water
+        name: FoodBottledWater
+      - value: food-candy
+        name: FoodCandy
+      - value: food-groceries
+        name: FoodGroceries
+      - value: food-prepared
+        name: FoodPrepared
+      - value: food-soda
+        name: FoodSoda
+      - value: food-supplements
+        name: FoodSupplements
+      - value: magazine-individual
+        name: MagazineIndividual
+      - value: magazine-subscription
+        name: MagazineSubscription
+      - value: service-admission
+        name: ServiceAdmission
+      - value: service-advertising
+        name: ServiceAdvertising
+      - value: service-dry-cleaning
+        name: ServiceDryCleaning
+      - value: service-hairdressing
+        name: ServiceHairdressing
+      - value: service-installation
+        name: ServiceInstallation
+      - value: service-miscellaneous
+        name: ServiceMiscellaneous
+      - value: service-parking
+        name: ServiceParking
+      - value: service-printing
+        name: ServicePrinting
+      - value: service-professional
+        name: ServiceProfessional
+      - value: service-repair
+        name: ServiceRepair
+      - value: service-training
+        name: ServiceTraining
+    docs: Product tax class
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsUpdateResponseFieldDataEcProductType:
+    enum:
+      - ff42fee0113744f693a764e3431a9cc2
+      - f22027db68002190aef89a4a2b7ac8a1
+      - c599e43b1a1c34d5a323aedf75d3adf6
+      - b6ccc1830db4b1babeb06a9ac5f6dd76
+    docs: >-
+      <a
+      href="https://university.webflow.com/lesson/add-and-manage-products-and-categories?topics=ecommerce#how-to-understand-product-types">Product
+      types.</a> Enums reflect the following values in order: Physical, Digital,
+      Service, Advanced"
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsUpdateResponseFieldData:
+    docs: >-
+      Contains content-specific details for a product, covering both standard
+      (e.g., title, description)  and custom fields tailored to the product
+      setup.
+    properties:
+      name:
+        type: optional<string>
+        docs: Name of the Product
+      slug:
+        type: optional<string>
+        docs: URL structure of the Product in your site.
+      description:
+        type: optional<string>
+        docs: A description of your product
+      shippable:
+        type: optional<boolean>
+        docs: Boolean determining if the Product is shippable
+      sku-properties:
+        type: optional<list<ProductsUpdateResponseFieldDataSkuPropertiesItem>>
+        docs: Variant types to include in SKUs
+      category:
+        type: optional<list<string>>
+        docs: The category your product belongs to.
+      tax-category:
+        type: optional<ProductsUpdateResponseFieldDataTaxCategory>
+        docs: Product tax class
+      default-sku:
+        type: optional<string>
+        docs: The default SKU associated with this product.
+      ec-product-type:
+        type: optional<ProductsUpdateResponseFieldDataEcProductType>
+        docs: >-
+          <a
+          href="https://university.webflow.com/lesson/add-and-manage-products-and-categories?topics=ecommerce#how-to-understand-product-types">Product
+          types.</a> Enums reflect the following values in order: Physical,
+          Digital, Service, Advanced"
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsUpdateResponse:
+    docs: The Product object
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Product
+        access: read-only
+      cmsLocaleId:
+        type: optional<string>
+        docs: Identifier for the locale of the CMS item
+        access: read-only
+      lastPublished:
+        type: optional<datetime>
+        docs: The date the Product was last published
+        access: read-only
+      lastUpdated:
+        type: optional<datetime>
+        docs: The date the Product was last updated
+        access: read-only
+      createdOn:
+        type: optional<datetime>
+        docs: The date the Product was created
+        access: read-only
+      isArchived:
+        type: optional<boolean>
+        docs: Boolean determining if the Product is set to archived
+        default: false
+      isDraft:
+        type: optional<boolean>
+        docs: Boolean determining if the Product is set to draft
+        default: false
+      fieldData:
+        type: optional<ProductsUpdateResponseFieldData>
+        docs: >-
+          Contains content-specific details for a product, covering both
+          standard (e.g., title, description)  and custom fields tailored to the
+          product setup.
+    source:
+      openapi: v2-data.yml
+  ProductsCreateSkuRequestPublishStatus:
+    enum:
+      - staging
+      - live
+    docs: Indicate whether your Product should be set as "staging" or "live"
+    default: staging
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsCreateSkuRequestSkusItemFieldDataPrice:
+    docs: price of SKU
+    properties:
+      value:
+        type: optional<double>
+        docs: Price of SKU
+      unit:
+        type: optional<string>
+        docs: Currency of Item
+      currency:
+        type: optional<string>
+        docs: Currency of Item (alternative representation)
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateSkuRequestSkusItemFieldDataCompareAtPrice:
+    docs: comparison price of SKU
+    properties:
+      value:
+        type: optional<double>
+        docs: Price of SKU
+      unit:
+        type: optional<string>
+        docs: Currency of Item
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateSkuRequestSkusItemFieldDataEcSkuBillingMethod:
+    enum:
+      - value: one-time
+        name: OneTime
+      - subscription
+    docs: >-
+      [Billing
+      method](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#billing-methods)for
+      the SKU
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsCreateSkuRequestSkusItemFieldDataEcSkuSubscriptionPlanInterval:
+    enum:
+      - day
+      - week
+      - month
+      - year
+    docs: Interval of subscription renewal
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsCreateSkuRequestSkusItemFieldDataEcSkuSubscriptionPlan:
+    docs: >-
+      [Subscription
+      plan](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#subscription)
+      for the SKU
+    properties:
+      interval:
+        type: >-
+          optional<ProductsCreateSkuRequestSkusItemFieldDataEcSkuSubscriptionPlanInterval>
+        docs: Interval of subscription renewal
+      frequency:
+        type: optional<double>
+        docs: Frequncy of billing within interval
+      trial:
+        type: optional<double>
+        docs: Number of days of a trial
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateSkuRequestSkusItemFieldDataSkuPropertiesItemEnumItem:
+    docs: Enumerated Product variants/Options for the SKU
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a Product variant/Option
+      name:
+        type: string
+        docs: Name of the Product variant/Option
+      slug:
+        type: string
+        docs: Slug for the Product variant/Option in the Site URL structure
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateSkuRequestSkusItemFieldDataSkuPropertiesItem:
+    docs: A variant/option type for a SKU
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a collection of Product Variants
+      name:
+        type: string
+        docs: Name of the collection of Product Variants
+      enum:
+        docs: >-
+          The individual Product variants that are contained within the
+          collection
+        type: >-
+          list<ProductsCreateSkuRequestSkusItemFieldDataSkuPropertiesItemEnumItem>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateSkuRequestSkusItemFieldData:
+    docs: Standard and Custom fields for a SKU
+    properties:
+      sku-values:
+        type: optional<map<string, string>>
+        docs: >
+          A mapping between SKU properties and their values, represented as
+          key-value pairs. Each key represents a SKU Property ID (e.g. "color")
+          and maps to its corresponding SKU Value ID (e.g. "blue"). This
+          structure defines the specific variant combination for a SKU.
+      name:
+        type: string
+        docs: Name of the Product
+      slug:
+        type: string
+        docs: URL structure of the Product in your site.
+      price:
+        type: ProductsCreateSkuRequestSkusItemFieldDataPrice
+        docs: price of SKU
+      compare-at-price:
+        type: optional<ProductsCreateSkuRequestSkusItemFieldDataCompareAtPrice>
+        docs: comparison price of SKU
+      ec-sku-billing-method:
+        type: optional<ProductsCreateSkuRequestSkusItemFieldDataEcSkuBillingMethod>
+        docs: >-
+          [Billing
+          method](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#billing-methods)for
+          the SKU
+      ec-sku-subscription-plan:
+        type: >-
+          optional<ProductsCreateSkuRequestSkusItemFieldDataEcSkuSubscriptionPlan>
+        docs: >-
+          [Subscription
+          plan](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#subscription)
+          for the SKU
+      main-image:
+        type: optional<string>
+        docs: The URL for the main image of the SKU
+      sku:
+        type: optional<string>
+        docs: A unique identifier for the SKU
+      sku-properties:
+        type: >-
+          optional<list<ProductsCreateSkuRequestSkusItemFieldDataSkuPropertiesItem>>
+        docs: The properties of the SKU
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateSkuRequestSkusItem:
+    docs: The SKU object
+    properties:
+      fieldData:
+        type: optional<ProductsCreateSkuRequestSkusItemFieldData>
+        docs: Standard and Custom fields for a SKU
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateSkuResponseSkusItemFieldDataPrice:
+    docs: price of SKU
+    properties:
+      value:
+        type: optional<double>
+        docs: Price of SKU
+      unit:
+        type: optional<string>
+        docs: Currency of Item
+      currency:
+        type: optional<string>
+        docs: Currency of Item (alternative representation)
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateSkuResponseSkusItemFieldDataCompareAtPrice:
+    docs: comparison price of SKU
+    properties:
+      value:
+        type: optional<double>
+        docs: Price of SKU
+      unit:
+        type: optional<string>
+        docs: Currency of Item
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateSkuResponseSkusItemFieldDataEcSkuBillingMethod:
+    enum:
+      - value: one-time
+        name: OneTime
+      - subscription
+    docs: >-
+      [Billing
+      method](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#billing-methods)for
+      the SKU
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsCreateSkuResponseSkusItemFieldDataEcSkuSubscriptionPlanInterval:
+    enum:
+      - day
+      - week
+      - month
+      - year
+    docs: Interval of subscription renewal
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsCreateSkuResponseSkusItemFieldDataEcSkuSubscriptionPlanPlansItemStatus:
+    enum:
+      - active
+      - inactive
+      - canceled
+    docs: The status of the plan
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsCreateSkuResponseSkusItemFieldDataEcSkuSubscriptionPlanPlansItem:
+    properties:
+      platform:
+        type: optional<literal<"stripe">>
+        docs: The platform of the subscription plan
+      id:
+        type: optional<string>
+        docs: The unique identifier of the plan
+      status:
+        type: >-
+          optional<ProductsCreateSkuResponseSkusItemFieldDataEcSkuSubscriptionPlanPlansItemStatus>
+        docs: The status of the plan
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateSkuResponseSkusItemFieldDataEcSkuSubscriptionPlan:
+    docs: >-
+      [Subscription
+      plan](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#subscription)
+      for the SKU
+    properties:
+      interval:
+        type: >-
+          optional<ProductsCreateSkuResponseSkusItemFieldDataEcSkuSubscriptionPlanInterval>
+        docs: Interval of subscription renewal
+      frequency:
+        type: optional<double>
+        docs: Frequncy of billing within interval
+      trial:
+        type: optional<double>
+        docs: Number of days of a trial
+      plans:
+        type: >-
+          optional<list<ProductsCreateSkuResponseSkusItemFieldDataEcSkuSubscriptionPlanPlansItem>>
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateSkuResponseSkusItemFieldDataSkuPropertiesItemEnumItem:
+    docs: Enumerated Product variants/Options for the SKU
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a Product variant/Option
+      name:
+        type: string
+        docs: Name of the Product variant/Option
+      slug:
+        type: string
+        docs: Slug for the Product variant/Option in the Site URL structure
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateSkuResponseSkusItemFieldDataSkuPropertiesItem:
+    docs: A variant/option type for a SKU
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a collection of Product Variants
+      name:
+        type: string
+        docs: Name of the collection of Product Variants
+      enum:
+        docs: >-
+          The individual Product variants that are contained within the
+          collection
+        type: >-
+          list<ProductsCreateSkuResponseSkusItemFieldDataSkuPropertiesItemEnumItem>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateSkuResponseSkusItemFieldData:
+    docs: Standard and Custom fields for a SKU
+    properties:
+      sku-values:
+        type: optional<map<string, string>>
+        docs: >
+          A mapping between SKU properties and their values, represented as
+          key-value pairs. Each key represents a SKU Property ID (e.g. "color")
+          and maps to its corresponding SKU Value ID (e.g. "blue"). This
+          structure defines the specific variant combination for a SKU.
+      name:
+        type: string
+        docs: Name of the Product
+      slug:
+        type: string
+        docs: URL structure of the Product in your site.
+      price:
+        type: ProductsCreateSkuResponseSkusItemFieldDataPrice
+        docs: price of SKU
+      compare-at-price:
+        type: optional<ProductsCreateSkuResponseSkusItemFieldDataCompareAtPrice>
+        docs: comparison price of SKU
+      ec-sku-billing-method:
+        type: optional<ProductsCreateSkuResponseSkusItemFieldDataEcSkuBillingMethod>
+        docs: >-
+          [Billing
+          method](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#billing-methods)for
+          the SKU
+      ec-sku-subscription-plan:
+        type: >-
+          optional<ProductsCreateSkuResponseSkusItemFieldDataEcSkuSubscriptionPlan>
+        docs: >-
+          [Subscription
+          plan](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#subscription)
+          for the SKU
+      main-image:
+        type: optional<string>
+        docs: The URL for the main image of the SKU
+      sku:
+        type: optional<string>
+        docs: A unique identifier for the SKU
+      sku-properties:
+        type: >-
+          optional<list<ProductsCreateSkuResponseSkusItemFieldDataSkuPropertiesItem>>
+        docs: The properties of the SKU
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateSkuResponseSkusItem:
+    docs: The SKU object
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Product
+        access: read-only
+      cmsLocaleId:
+        type: optional<string>
+        docs: Identifier for the locale of the CMS item
+        access: read-only
+      lastPublished:
+        type: optional<datetime>
+        docs: The date the Product was last published
+        access: read-only
+      lastUpdated:
+        type: optional<datetime>
+        docs: The date the Product was last updated
+        access: read-only
+      createdOn:
+        type: optional<datetime>
+        docs: The date the Product was created
+        access: read-only
+      fieldData:
+        type: optional<ProductsCreateSkuResponseSkusItemFieldData>
+        docs: Standard and Custom fields for a SKU
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsCreateSkuResponse:
+    properties:
+      skus: list<ProductsCreateSkuResponseSkusItem>
+    source:
+      openapi: v2-data.yml
+  ProductsUpdateSkuRequestPublishStatus:
+    enum:
+      - staging
+      - live
+    docs: Indicate whether your Product should be set as "staging" or "live"
+    default: staging
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsUpdateSkuRequestSkuFieldDataPrice:
+    docs: price of SKU
+    properties:
+      value:
+        type: optional<double>
+        docs: Price of SKU
+      unit:
+        type: optional<string>
+        docs: Currency of Item
+      currency:
+        type: optional<string>
+        docs: Currency of Item (alternative representation)
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsUpdateSkuRequestSkuFieldDataCompareAtPrice:
+    docs: comparison price of SKU
+    properties:
+      value:
+        type: optional<double>
+        docs: Price of SKU
+      unit:
+        type: optional<string>
+        docs: Currency of Item
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsUpdateSkuRequestSkuFieldDataEcSkuBillingMethod:
+    enum:
+      - value: one-time
+        name: OneTime
+      - subscription
+    docs: >-
+      [Billing
+      method](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#billing-methods)for
+      the SKU
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsUpdateSkuRequestSkuFieldDataEcSkuSubscriptionPlanInterval:
+    enum:
+      - day
+      - week
+      - month
+      - year
+    docs: Interval of subscription renewal
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsUpdateSkuRequestSkuFieldDataEcSkuSubscriptionPlan:
+    docs: >-
+      [Subscription
+      plan](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#subscription)
+      for the SKU
+    properties:
+      interval:
+        type: >-
+          optional<ProductsUpdateSkuRequestSkuFieldDataEcSkuSubscriptionPlanInterval>
+        docs: Interval of subscription renewal
+      frequency:
+        type: optional<double>
+        docs: Frequncy of billing within interval
+      trial:
+        type: optional<double>
+        docs: Number of days of a trial
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsUpdateSkuRequestSkuFieldDataSkuPropertiesItemEnumItem:
+    docs: Enumerated Product variants/Options for the SKU
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a Product variant/Option
+      name:
+        type: string
+        docs: Name of the Product variant/Option
+      slug:
+        type: string
+        docs: Slug for the Product variant/Option in the Site URL structure
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsUpdateSkuRequestSkuFieldDataSkuPropertiesItem:
+    docs: A variant/option type for a SKU
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a collection of Product Variants
+      name:
+        type: string
+        docs: Name of the collection of Product Variants
+      enum:
+        docs: >-
+          The individual Product variants that are contained within the
+          collection
+        type: list<ProductsUpdateSkuRequestSkuFieldDataSkuPropertiesItemEnumItem>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsUpdateSkuRequestSkuFieldData:
+    docs: Standard and Custom fields for a SKU
+    properties:
+      sku-values:
+        type: optional<map<string, string>>
+        docs: >
+          A mapping between SKU properties and their values, represented as
+          key-value pairs. Each key represents a SKU Property ID (e.g. "color")
+          and maps to its corresponding SKU Value ID (e.g. "blue"). This
+          structure defines the specific variant combination for a SKU.
+      name:
+        type: string
+        docs: Name of the Product
+      slug:
+        type: string
+        docs: URL structure of the Product in your site.
+      price:
+        type: ProductsUpdateSkuRequestSkuFieldDataPrice
+        docs: price of SKU
+      compare-at-price:
+        type: optional<ProductsUpdateSkuRequestSkuFieldDataCompareAtPrice>
+        docs: comparison price of SKU
+      ec-sku-billing-method:
+        type: optional<ProductsUpdateSkuRequestSkuFieldDataEcSkuBillingMethod>
+        docs: >-
+          [Billing
+          method](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#billing-methods)for
+          the SKU
+      ec-sku-subscription-plan:
+        type: optional<ProductsUpdateSkuRequestSkuFieldDataEcSkuSubscriptionPlan>
+        docs: >-
+          [Subscription
+          plan](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#subscription)
+          for the SKU
+      main-image:
+        type: optional<string>
+        docs: The URL for the main image of the SKU
+      sku:
+        type: optional<string>
+        docs: A unique identifier for the SKU
+      sku-properties:
+        type: optional<list<ProductsUpdateSkuRequestSkuFieldDataSkuPropertiesItem>>
+        docs: The properties of the SKU
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsUpdateSkuRequestSku:
+    docs: The SKU object
+    properties:
+      fieldData:
+        type: optional<ProductsUpdateSkuRequestSkuFieldData>
+        docs: Standard and Custom fields for a SKU
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsUpdateSkuResponseFieldDataPrice:
+    docs: price of SKU
+    properties:
+      value:
+        type: optional<double>
+        docs: Price of SKU
+      unit:
+        type: optional<string>
+        docs: Currency of Item
+      currency:
+        type: optional<string>
+        docs: Currency of Item (alternative representation)
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsUpdateSkuResponseFieldDataCompareAtPrice:
+    docs: comparison price of SKU
+    properties:
+      value:
+        type: optional<double>
+        docs: Price of SKU
+      unit:
+        type: optional<string>
+        docs: Currency of Item
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsUpdateSkuResponseFieldDataEcSkuBillingMethod:
+    enum:
+      - value: one-time
+        name: OneTime
+      - subscription
+    docs: >-
+      [Billing
+      method](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#billing-methods)for
+      the SKU
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsUpdateSkuResponseFieldDataEcSkuSubscriptionPlanInterval:
+    enum:
+      - day
+      - week
+      - month
+      - year
+    docs: Interval of subscription renewal
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsUpdateSkuResponseFieldDataEcSkuSubscriptionPlanPlansItemStatus:
+    enum:
+      - active
+      - inactive
+      - canceled
+    docs: The status of the plan
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ProductsUpdateSkuResponseFieldDataEcSkuSubscriptionPlanPlansItem:
+    properties:
+      platform:
+        type: optional<literal<"stripe">>
+        docs: The platform of the subscription plan
+      id:
+        type: optional<string>
+        docs: The unique identifier of the plan
+      status:
+        type: >-
+          optional<ProductsUpdateSkuResponseFieldDataEcSkuSubscriptionPlanPlansItemStatus>
+        docs: The status of the plan
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsUpdateSkuResponseFieldDataEcSkuSubscriptionPlan:
+    docs: >-
+      [Subscription
+      plan](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#subscription)
+      for the SKU
+    properties:
+      interval:
+        type: >-
+          optional<ProductsUpdateSkuResponseFieldDataEcSkuSubscriptionPlanInterval>
+        docs: Interval of subscription renewal
+      frequency:
+        type: optional<double>
+        docs: Frequncy of billing within interval
+      trial:
+        type: optional<double>
+        docs: Number of days of a trial
+      plans:
+        type: >-
+          optional<list<ProductsUpdateSkuResponseFieldDataEcSkuSubscriptionPlanPlansItem>>
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsUpdateSkuResponseFieldDataSkuPropertiesItemEnumItem:
+    docs: Enumerated Product variants/Options for the SKU
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a Product variant/Option
+      name:
+        type: string
+        docs: Name of the Product variant/Option
+      slug:
+        type: string
+        docs: Slug for the Product variant/Option in the Site URL structure
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsUpdateSkuResponseFieldDataSkuPropertiesItem:
+    docs: A variant/option type for a SKU
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a collection of Product Variants
+      name:
+        type: string
+        docs: Name of the collection of Product Variants
+      enum:
+        docs: >-
+          The individual Product variants that are contained within the
+          collection
+        type: list<ProductsUpdateSkuResponseFieldDataSkuPropertiesItemEnumItem>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsUpdateSkuResponseFieldData:
+    docs: Standard and Custom fields for a SKU
+    properties:
+      sku-values:
+        type: optional<map<string, string>>
+        docs: >
+          A mapping between SKU properties and their values, represented as
+          key-value pairs. Each key represents a SKU Property ID (e.g. "color")
+          and maps to its corresponding SKU Value ID (e.g. "blue"). This
+          structure defines the specific variant combination for a SKU.
+      name:
+        type: string
+        docs: Name of the Product
+      slug:
+        type: string
+        docs: URL structure of the Product in your site.
+      price:
+        type: ProductsUpdateSkuResponseFieldDataPrice
+        docs: price of SKU
+      compare-at-price:
+        type: optional<ProductsUpdateSkuResponseFieldDataCompareAtPrice>
+        docs: comparison price of SKU
+      ec-sku-billing-method:
+        type: optional<ProductsUpdateSkuResponseFieldDataEcSkuBillingMethod>
+        docs: >-
+          [Billing
+          method](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#billing-methods)for
+          the SKU
+      ec-sku-subscription-plan:
+        type: optional<ProductsUpdateSkuResponseFieldDataEcSkuSubscriptionPlan>
+        docs: >-
+          [Subscription
+          plan](https://help.webflow.com/hc/en-us/articles/33961432087955-Add-and-manage-products-and-categories#subscription)
+          for the SKU
+      main-image:
+        type: optional<string>
+        docs: The URL for the main image of the SKU
+      sku:
+        type: optional<string>
+        docs: A unique identifier for the SKU
+      sku-properties:
+        type: optional<list<ProductsUpdateSkuResponseFieldDataSkuPropertiesItem>>
+        docs: The properties of the SKU
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ProductsUpdateSkuResponse:
+    docs: The SKU object
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Product
+        access: read-only
+      cmsLocaleId:
+        type: optional<string>
+        docs: Identifier for the locale of the CMS item
+        access: read-only
+      lastPublished:
+        type: optional<datetime>
+        docs: The date the Product was last published
+        access: read-only
+      lastUpdated:
+        type: optional<datetime>
+        docs: The date the Product was last updated
+        access: read-only
+      createdOn:
+        type: optional<datetime>
+        docs: The date the Product was created
+        access: read-only
+      fieldData:
+        type: ProductsUpdateSkuResponseFieldData
+        docs: Standard and Custom fields for a SKU
+    source:
+      openapi: v2-data.yml
 imports:
   root: __package__.yml
 service:
@@ -7,7 +2845,9 @@ service:
     list:
       path: /sites/{site_id}/products
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - ecommerce:read
       docs: >
         Retrieve all products for a site. 
 
@@ -21,7 +2861,7 @@ service:
 
         Required scope | `ecommerce:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -40,7 +2880,7 @@ service:
             docs: 'Maximum number of records to be returned (max limit: 100)'
       response:
         docs: Request was successful
-        type: root.ProductAndSkUsList
+        type: ProductsListResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -53,6 +2893,9 @@ service:
       examples:
         - path-parameters:
             site_id: 580e63e98c9a982ac9b8b741
+          query-parameters:
+            offset: 1.1
+            limit: 1.1
           response:
             body:
               items:
@@ -67,15 +2910,36 @@ service:
                     fieldData:
                       name: T-Shirt
                       slug: t-shirt
-                      description: A plain cotton t-shirt.
+                      description: A plain t-shirt
                       shippable: true
                       sku-properties:
-                        - id: Color
+                        - id: 31b77fa66fa376c2c0abb458d5be39fb
+                          name: Size
+                          enum:
+                            - id: 8d21a625d655ab260e9941c27180c75b
+                              name: Small
+                              slug: small
+                            - id: ecdca17106ad86c0dfe3b5f3ac8be6c9
+                              name: Medium
+                              slug: medium
+                            - id: ec7877d6137ecf7ec86f726c135b1812
+                              name: Large
+                              slug: large
+                        - id: 74d3738e62c568d5634dd6989daec5ec
                           name: Color
                           enum:
-                            - id: royal-blue
+                            - id: e539b0d6c3a609cd06ddb2da804f68f0
                               name: Royal Blue
                               slug: royal-blue
+                            - id: 68d98f2fbafc0fd45651cddc44798dd0
+                              name: Crimson Red
+                              slug: crimson-red
+                            - id: 996cd95c97fd5620d0a374c835b37205
+                              name: Forrest Green
+                              slug: forrest-green
+                      tax-category: standard-taxable
+                      default-sku: 66072fb71b89448912e2681c
+                      ec-product-type: b6ccc1830db4b1babeb06a9ac5f6dd76
                   skus:
                     - id: 66072fb71b89448912e2681c
                       cmsLocaleId: 653ad57de882f528b32e810e
@@ -108,7 +2972,9 @@ service:
     create:
       path: /sites/{site_id}/products
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - ecommerce:write
       docs: >
         Create a new ecommerce product and defaultSKU. A product, at minimum,
         must have a single SKU.
@@ -126,23 +2992,28 @@ service:
 
         Required scope | `ecommerce:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
           docs: Unique identifier for a Site
       display-name: Create Product & SKU
       request:
-        name: ProductSkuCreate
+        name: ProductsCreateRequest
         body:
           properties:
-            publishStatus: optional<root.PublishStatus>
-            product: ProductSkuCreateProduct
-            sku: ProductSkuCreateSku
+            publishStatus:
+              type: optional<ProductsCreateRequestPublishStatus>
+              docs: >-
+                Indicate whether your Product should be set as "staging" or
+                "live"
+              default: staging
+            product: ProductsCreateRequestProduct
+            sku: ProductsCreateRequestSku
         content-type: application/json
       response:
         docs: Request was successful
-        type: root.ProductAndSkUs
+        type: ProductsCreateResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -212,20 +3083,38 @@ service:
                 fieldData:
                   name: T-Shirt
                   slug: t-shirt
-                  description: A plain cotton t-shirt.
+                  description: A plain t-shirt
                   shippable: true
                   sku-properties:
-                    - id: Color
+                    - id: 31b77fa66fa376c2c0abb458d5be39fb
+                      name: Size
+                      enum:
+                        - id: 8d21a625d655ab260e9941c27180c75b
+                          name: Small
+                          slug: small
+                        - id: ecdca17106ad86c0dfe3b5f3ac8be6c9
+                          name: Medium
+                          slug: medium
+                        - id: ec7877d6137ecf7ec86f726c135b1812
+                          name: Large
+                          slug: large
+                    - id: 74d3738e62c568d5634dd6989daec5ec
                       name: Color
                       enum:
-                        - id: royal-blue
+                        - id: e539b0d6c3a609cd06ddb2da804f68f0
                           name: Royal Blue
                           slug: royal-blue
+                        - id: 68d98f2fbafc0fd45651cddc44798dd0
+                          name: Crimson Red
+                          slug: crimson-red
+                        - id: 996cd95c97fd5620d0a374c835b37205
+                          name: Forrest Green
+                          slug: forrest-green
                   category:
                     - category
                   tax-category: standard-taxable
-                  default-sku: default-sku
-                  ec-product-type: ff42fee0113744f693a764e3431a9cc2
+                  default-sku: 66072fb71b89448912e2681c
+                  ec-product-type: b6ccc1830db4b1babeb06a9ac5f6dd76
               skus:
                 - id: 66072fb71b89448912e2681c
                   cmsLocaleId: 653ad57de882f528b32e810e
@@ -254,14 +3143,16 @@ service:
     get:
       path: /sites/{site_id}/products/{product_id}
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - ecommerce:read
       docs: |
         Retrieve a single product by its ID. All of its SKUs will also be
         retrieved.
 
         Required scope | `ecommerce:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -272,7 +3163,7 @@ service:
       display-name: Get Product and SKUs
       response:
         docs: Request was successful
-        type: root.ProductAndSkUs
+        type: ProductsGetResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -299,20 +3190,38 @@ service:
                 fieldData:
                   name: T-Shirt
                   slug: t-shirt
-                  description: A plain cotton t-shirt.
+                  description: A plain t-shirt
                   shippable: true
                   sku-properties:
-                    - id: Color
+                    - id: 31b77fa66fa376c2c0abb458d5be39fb
+                      name: Size
+                      enum:
+                        - id: 8d21a625d655ab260e9941c27180c75b
+                          name: Small
+                          slug: small
+                        - id: ecdca17106ad86c0dfe3b5f3ac8be6c9
+                          name: Medium
+                          slug: medium
+                        - id: ec7877d6137ecf7ec86f726c135b1812
+                          name: Large
+                          slug: large
+                    - id: 74d3738e62c568d5634dd6989daec5ec
                       name: Color
                       enum:
-                        - id: royal-blue
+                        - id: e539b0d6c3a609cd06ddb2da804f68f0
                           name: Royal Blue
                           slug: royal-blue
+                        - id: 68d98f2fbafc0fd45651cddc44798dd0
+                          name: Crimson Red
+                          slug: crimson-red
+                        - id: 996cd95c97fd5620d0a374c835b37205
+                          name: Forrest Green
+                          slug: forrest-green
                   category:
                     - category
                   tax-category: standard-taxable
-                  default-sku: default-sku
-                  ec-product-type: ff42fee0113744f693a764e3431a9cc2
+                  default-sku: 66072fb71b89448912e2681c
+                  ec-product-type: b6ccc1830db4b1babeb06a9ac5f6dd76
               skus:
                 - id: 66072fb71b89448912e2681c
                   cmsLocaleId: 653ad57de882f528b32e810e
@@ -341,7 +3250,9 @@ service:
     update:
       path: /sites/{site_id}/products/{product_id}
       method: PATCH
-      auth: true
+      auth:
+        - OAuth2:
+            - ecommerce:write
       docs: >
         Update an existing Product.
 
@@ -353,7 +3264,7 @@ service:
 
         Required scope | `ecommerce:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -363,16 +3274,25 @@ service:
           docs: Unique identifier for a Product
       display-name: Update Product
       request:
-        name: ProductSkuUpdate
+        name: ProductsUpdateRequest
         body:
           properties:
-            publishStatus: optional<root.PublishStatus>
-            product: optional<root.Product>
-            sku: optional<root.Sku>
+            publishStatus:
+              type: optional<ProductsUpdateRequestPublishStatus>
+              docs: >-
+                Indicate whether your Product should be set as "staging" or
+                "live"
+              default: staging
+            product:
+              type: optional<ProductsUpdateRequestProduct>
+              docs: The Product object
+            sku:
+              type: optional<ProductsUpdateRequestSku>
+              docs: The SKU object
         content-type: application/json
       response:
         docs: Request was successful
-        type: root.Product
+        type: ProductsUpdateResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -399,24 +3319,44 @@ service:
               fieldData:
                 name: T-Shirt
                 slug: t-shirt
-                description: A plain cotton t-shirt.
+                description: A plain t-shirt
                 shippable: true
                 sku-properties:
-                  - id: Color
+                  - id: 31b77fa66fa376c2c0abb458d5be39fb
+                    name: Size
+                    enum:
+                      - id: 8d21a625d655ab260e9941c27180c75b
+                        name: Small
+                        slug: small
+                      - id: ecdca17106ad86c0dfe3b5f3ac8be6c9
+                        name: Medium
+                        slug: medium
+                      - id: ec7877d6137ecf7ec86f726c135b1812
+                        name: Large
+                        slug: large
+                  - id: 74d3738e62c568d5634dd6989daec5ec
                     name: Color
                     enum:
-                      - id: royal-blue
+                      - id: e539b0d6c3a609cd06ddb2da804f68f0
                         name: Royal Blue
                         slug: royal-blue
+                      - id: 68d98f2fbafc0fd45651cddc44798dd0
+                        name: Crimson Red
+                        slug: crimson-red
+                      - id: 996cd95c97fd5620d0a374c835b37205
+                        name: Forrest Green
+                        slug: forrest-green
                 category:
                   - category
                 tax-category: standard-taxable
-                default-sku: default-sku
-                ec-product-type: ff42fee0113744f693a764e3431a9cc2
+                default-sku: 66072fb71b89448912e2681c
+                ec-product-type: b6ccc1830db4b1babeb06a9ac5f6dd76
     create-sku:
       path: /sites/{site_id}/products/{product_id}/skus
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - ecommerce:write
       docs: >
         Create additional SKUs to manage every [option and variant of your
         Product.](https://help.webflow.com/hc/en-us/articles/33961334531347-Create-product-options-and-variants)
@@ -429,7 +3369,7 @@ service:
 
         Required scope | `ecommerce:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -442,10 +3382,15 @@ service:
         name: ProductsCreateSkuRequest
         body:
           properties:
-            publishStatus: optional<root.PublishStatus>
+            publishStatus:
+              type: optional<ProductsCreateSkuRequestPublishStatus>
+              docs: >-
+                Indicate whether your Product should be set as "staging" or
+                "live"
+              default: staging
             skus:
               docs: An array of the SKU data your are adding
-              type: list<root.Sku>
+              type: list<ProductsCreateSkuRequestSkusItem>
         content-type: application/json
       response:
         docs: Request was successful
@@ -465,12 +3410,7 @@ service:
             product_id: 580e63fc8c9a982ac9b8b745
           request:
             skus:
-              - id: 66072fb71b89448912e2681c
-                cmsLocaleId: 653ad57de882f528b32e810e
-                lastPublished: '2023-03-17T18:47:35Z'
-                lastUpdated: '2023-03-17T18:47:35Z'
-                createdOn: '2023-03-17T18:47:35Z'
-                fieldData:
+              - fieldData:
                   name: Colorful T-shirt - Default
                   slug: colorful-t-shirt-default
                   price:
@@ -507,7 +3447,9 @@ service:
     update-sku:
       path: /sites/{site_id}/products/{product_id}/skus/{sku_id}
       method: PATCH
-      auth: true
+      auth:
+        - OAuth2:
+            - ecommerce:write
       docs: >
         Update a specified SKU.
 
@@ -519,7 +3461,7 @@ service:
 
         Required scope | `ecommerce:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -535,12 +3477,19 @@ service:
         name: ProductsUpdateSkuRequest
         body:
           properties:
-            publishStatus: optional<root.PublishStatus>
-            sku: root.Sku
+            publishStatus:
+              type: optional<ProductsUpdateSkuRequestPublishStatus>
+              docs: >-
+                Indicate whether your Product should be set as "staging" or
+                "live"
+              default: staging
+            sku:
+              type: ProductsUpdateSkuRequestSku
+              docs: The SKU object
         content-type: application/json
       response:
         docs: Request was successful
-        type: root.Sku
+        type: ProductsUpdateSkuResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -557,11 +3506,6 @@ service:
             sku_id: 5e8518516e147040726cc415
           request:
             sku:
-              id: 66072fb71b89448912e2681c
-              cmsLocaleId: 653ad57de882f528b32e810e
-              lastPublished: '2023-03-17T18:47:35Z'
-              lastUpdated: '2023-03-17T18:47:35Z'
-              createdOn: '2023-03-17T18:47:35Z'
               fieldData:
                 name: Colorful T-shirt - Default
                 slug: colorful-t-shirt-default
@@ -606,22 +3550,4 @@ service:
                         name: Royal Blue
                         slug: royal-blue
   source:
-    openapi: ../../../openapi/referenced-specs/v2.yml
-types:
-  ProductSkuCreateProduct:
-    properties:
-      fieldData: optional<root.ProductFieldData>
-    source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
-    inline: true
-  ProductSkuCreateSku:
-    properties:
-      fieldData: optional<root.SkuFieldData>
-    source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
-    inline: true
-  ProductsCreateSkuResponse:
-    properties:
-      skus: list<root.Sku>
-    source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
+    openapi: v2-data.yml
