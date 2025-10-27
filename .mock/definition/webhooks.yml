@@ -1,3 +1,289 @@
+types:
+  WebhooksListResponseWebhooksItemTriggerType:
+    enum:
+      - form_submission
+      - site_publish
+      - page_created
+      - page_metadata_updated
+      - page_deleted
+      - ecomm_new_order
+      - ecomm_order_changed
+      - ecomm_inventory_changed
+      - user_account_added
+      - user_account_updated
+      - user_account_deleted
+      - collection_item_created
+      - collection_item_changed
+      - collection_item_deleted
+      - collection_item_published
+      - collection_item_unpublished
+      - comment_created
+    docs: >
+      The type of event that triggered the request. See the the documentation
+      for details on [supported events](/data/reference/all-events).
+    inline: true
+    source:
+      openapi: v2-data.yml
+  WebhooksListResponseWebhooksItemFilter:
+    docs: >-
+      Only supported for the `form_submission` trigger type. Filter for the form
+      you want Webhooks to be sent for.
+    properties:
+      name:
+        type: optional<string>
+        docs: The name of the form you'd like to recieve notifications for.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  WebhooksListResponseWebhooksItem:
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Webhook registration
+        access: read-only
+      triggerType:
+        type: optional<WebhooksListResponseWebhooksItemTriggerType>
+        docs: >
+          The type of event that triggered the request. See the the
+          documentation for details on [supported
+          events](/data/reference/all-events).
+      url:
+        type: optional<string>
+        docs: URL to send the Webhook payload to
+      workspaceId:
+        type: optional<string>
+        docs: Unique identifier for the Workspace the Webhook is registered in
+        access: read-only
+      siteId:
+        type: optional<string>
+        docs: Unique identifier for the Site the Webhook is registered in
+        access: read-only
+      filter:
+        type: optional<WebhooksListResponseWebhooksItemFilter>
+        docs: >-
+          Only supported for the `form_submission` trigger type. Filter for the
+          form you want Webhooks to be sent for.
+      lastTriggered:
+        type: optional<datetime>
+        docs: Date the Webhook instance was last triggered
+        access: read-only
+      createdOn:
+        type: optional<datetime>
+        docs: Date the Webhook registration was created
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  WebhooksListResponsePagination:
+    docs: Pagination object
+    properties:
+      limit:
+        type: optional<double>
+        docs: The limit used for pagination
+        access: read-only
+      offset:
+        type: optional<double>
+        docs: The offset used for pagination
+        access: read-only
+      total:
+        type: optional<double>
+        docs: The total number of records
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  WebhooksListResponse:
+    properties:
+      webhooks: optional<list<WebhooksListResponseWebhooksItem>>
+      pagination:
+        type: optional<WebhooksListResponsePagination>
+        docs: Pagination object
+    source:
+      openapi: v2-data.yml
+  WebhooksCreateRequestTriggerType:
+    enum:
+      - form_submission
+      - site_publish
+      - page_created
+      - page_metadata_updated
+      - page_deleted
+      - ecomm_new_order
+      - ecomm_order_changed
+      - ecomm_inventory_changed
+      - user_account_added
+      - user_account_updated
+      - user_account_deleted
+      - collection_item_created
+      - collection_item_changed
+      - collection_item_deleted
+      - collection_item_published
+      - collection_item_unpublished
+      - comment_created
+    docs: >
+      The type of event that triggered the request. See the the documentation
+      for details on [supported events](/data/reference/all-events).
+    inline: true
+    source:
+      openapi: v2-data.yml
+  WebhooksCreateRequestFilter:
+    docs: >-
+      Only supported for the `form_submission` trigger type. Filter for the form
+      you want Webhooks to be sent for.
+    properties:
+      name:
+        type: optional<string>
+        docs: The name of the form you'd like to recieve notifications for.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  WebhooksCreateResponseTriggerType:
+    enum:
+      - form_submission
+      - site_publish
+      - page_created
+      - page_metadata_updated
+      - page_deleted
+      - ecomm_new_order
+      - ecomm_order_changed
+      - ecomm_inventory_changed
+      - user_account_added
+      - user_account_updated
+      - user_account_deleted
+      - collection_item_created
+      - collection_item_changed
+      - collection_item_deleted
+      - collection_item_published
+      - collection_item_unpublished
+      - comment_created
+    docs: >
+      The type of event that triggered the request. See the the documentation
+      for details on [supported events](/data/reference/all-events).
+    inline: true
+    source:
+      openapi: v2-data.yml
+  WebhooksCreateResponseFilter:
+    docs: >-
+      Only supported for the `form_submission` trigger type. Filter for the form
+      you want Webhooks to be sent for.
+    properties:
+      name:
+        type: optional<string>
+        docs: The name of the form you'd like to recieve notifications for.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  WebhooksCreateResponse:
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Webhook registration
+        access: read-only
+      triggerType:
+        type: optional<WebhooksCreateResponseTriggerType>
+        docs: >
+          The type of event that triggered the request. See the the
+          documentation for details on [supported
+          events](/data/reference/all-events).
+      url:
+        type: optional<string>
+        docs: URL to send the Webhook payload to
+      workspaceId:
+        type: optional<string>
+        docs: Unique identifier for the Workspace the Webhook is registered in
+        access: read-only
+      siteId:
+        type: optional<string>
+        docs: Unique identifier for the Site the Webhook is registered in
+        access: read-only
+      filter:
+        type: optional<WebhooksCreateResponseFilter>
+        docs: >-
+          Only supported for the `form_submission` trigger type. Filter for the
+          form you want Webhooks to be sent for.
+      lastTriggered:
+        type: optional<datetime>
+        docs: Date the Webhook instance was last triggered
+        access: read-only
+      createdOn:
+        type: optional<datetime>
+        docs: Date the Webhook registration was created
+        access: read-only
+    source:
+      openapi: v2-data.yml
+  WebhooksGetResponseTriggerType:
+    enum:
+      - form_submission
+      - site_publish
+      - page_created
+      - page_metadata_updated
+      - page_deleted
+      - ecomm_new_order
+      - ecomm_order_changed
+      - ecomm_inventory_changed
+      - user_account_added
+      - user_account_updated
+      - user_account_deleted
+      - collection_item_created
+      - collection_item_changed
+      - collection_item_deleted
+      - collection_item_published
+      - collection_item_unpublished
+      - comment_created
+    docs: >
+      The type of event that triggered the request. See the the documentation
+      for details on [supported events](/data/reference/all-events).
+    inline: true
+    source:
+      openapi: v2-data.yml
+  WebhooksGetResponseFilter:
+    docs: >-
+      Only supported for the `form_submission` trigger type. Filter for the form
+      you want Webhooks to be sent for.
+    properties:
+      name:
+        type: optional<string>
+        docs: The name of the form you'd like to recieve notifications for.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  WebhooksGetResponse:
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Webhook registration
+        access: read-only
+      triggerType:
+        type: optional<WebhooksGetResponseTriggerType>
+        docs: >
+          The type of event that triggered the request. See the the
+          documentation for details on [supported
+          events](/data/reference/all-events).
+      url:
+        type: optional<string>
+        docs: URL to send the Webhook payload to
+      workspaceId:
+        type: optional<string>
+        docs: Unique identifier for the Workspace the Webhook is registered in
+        access: read-only
+      siteId:
+        type: optional<string>
+        docs: Unique identifier for the Site the Webhook is registered in
+        access: read-only
+      filter:
+        type: optional<WebhooksGetResponseFilter>
+        docs: >-
+          Only supported for the `form_submission` trigger type. Filter for the
+          form you want Webhooks to be sent for.
+      lastTriggered:
+        type: optional<datetime>
+        docs: Date the Webhook instance was last triggered
+        access: read-only
+      createdOn:
+        type: optional<datetime>
+        docs: Date the Webhook registration was created
+        access: read-only
+    source:
+      openapi: v2-data.yml
 imports:
   root: __package__.yml
 service:
@@ -7,13 +293,12 @@ service:
     list:
       path: /sites/{site_id}/webhooks
       method: GET
-      auth: true
       docs: |
         List all App-created Webhooks registered for a given site
 
         Required scope | `sites:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -21,7 +306,7 @@ service:
       display-name: List Webhooks
       response:
         docs: Request was successful
-        type: root.WebhookList
+        type: WebhooksListResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -69,7 +354,6 @@ service:
     create:
       path: /sites/{site_id}/webhooks
       method: POST
-      auth: true
       docs: >
         Create a new Webhook.
 
@@ -82,18 +366,34 @@ service:
 
         Required scope | `sites:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
           docs: Unique identifier for a Site
       display-name: Create Webhook
       request:
-        body: root.Webhook
+        name: WebhooksCreateRequest
+        body:
+          properties:
+            triggerType:
+              type: optional<WebhooksCreateRequestTriggerType>
+              docs: >
+                The type of event that triggered the request. See the the
+                documentation for details on [supported
+                events](/data/reference/all-events).
+            url:
+              type: optional<string>
+              docs: URL to send the Webhook payload to
+            filter:
+              type: optional<WebhooksCreateRequestFilter>
+              docs: >-
+                Only supported for the `form_submission` trigger type. Filter
+                for the form you want Webhooks to be sent for.
         content-type: application/json
       response:
         docs: Request was successful
-        type: root.Webhook
+        type: WebhooksCreateResponse
         status-code: 201
       errors:
         - root.BadRequestError
@@ -105,13 +405,8 @@ service:
         - path-parameters:
             site_id: 580e63e98c9a982ac9b8b741
           request:
-            id: 582266e0cd48de0f0e3c6d8b
             triggerType: form_submission
             url: https://webhook.site/7f7f7f7f-7f7f-7f7f-7f7f-7f7f7f7f7f7f
-            workspaceId: 4f4e46fd476ea8c507000001
-            siteId: 562ac0395358780a1f5e6fbd
-            lastTriggered: '2023-02-08T23:59:28Z'
-            createdOn: '2022-11-08T23:59:28Z'
           response:
             body:
               id: 582266e0cd48de0f0e3c6d8b
@@ -124,13 +419,12 @@ service:
     get:
       path: /webhooks/{webhook_id}
       method: GET
-      auth: true
       docs: |
         Get a specific Webhook instance
 
         Required scope: `sites:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         webhook_id:
           type: string
@@ -138,7 +432,7 @@ service:
       display-name: Get Webhook
       response:
         docs: Request was successful
-        type: root.Webhook
+        type: WebhooksGetResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -161,13 +455,12 @@ service:
     delete:
       path: /webhooks/{webhook_id}
       method: DELETE
-      auth: true
       docs: |
         Remove a Webhook
 
         Required scope: `sites:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         webhook_id:
           type: string
@@ -183,6 +476,6 @@ service:
         - path-parameters:
             webhook_id: 580e64008c9a982ac9b8b754
   source:
-    openapi: ../../../openapi/referenced-specs/v2.yml
+    openapi: v2-data.yml
   display-name: Webhooks
 docs: Webhooks are the webhooks in your Webflow site.

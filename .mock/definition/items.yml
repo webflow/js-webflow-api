@@ -1,12 +1,262 @@
-imports:
-  root: __package__.yml
+types:
+  CollectionItemCreatedPayloadPayloadFieldData:
+    properties:
+      name: string
+      slug: string
+    extra-properties: true
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CollectionItemCreatedPayloadPayload:
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the Item
+        validation:
+          format: uuid
+      workspaceId:
+        type: string
+        docs: Unique identifier of the workspace
+        validation:
+          format: uuid
+      siteId:
+        type: string
+        docs: Unique identifier of the site
+        validation:
+          format: uuid
+      collectionId:
+        type: string
+        docs: Unique identifier of the collection
+        validation:
+          format: uuid
+      cmsLocaleId:
+        type: optional<string>
+        docs: Unique identifier of the CMS locale for this item
+        validation:
+          format: uuid
+      lastPublished: optional<datetime>
+      lastUpdated: optional<datetime>
+      createdOn: optional<datetime>
+      isArchived: optional<boolean>
+      isDraft: optional<boolean>
+      fieldData: CollectionItemCreatedPayloadPayloadFieldData
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CollectionItemCreatedPayload:
+    docs: The Webhook payload for when a Collection Item is created
+    properties:
+      triggerType:
+        type: literal<"collection_item_created">
+        docs: The type of event that triggered the request
+      payload:
+        type: CollectionItemCreatedPayloadPayload
+    source:
+      openapi: v2-data.yml
+  CollectionItemChangedPayloadPayloadFieldData:
+    properties:
+      name: string
+      slug: string
+    extra-properties: true
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CollectionItemChangedPayloadPayload:
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the Item
+        validation:
+          format: uuid
+      workspaceId:
+        type: string
+        docs: Unique identifier of the workspace
+        validation:
+          format: uuid
+      siteId:
+        type: string
+        docs: Unique identifier of the site
+        validation:
+          format: uuid
+      collectionId:
+        type: string
+        docs: Unique identifier of the collection
+        validation:
+          format: uuid
+      cmsLocaleId:
+        type: optional<string>
+        docs: Unique identifier of the CMS locale for this item
+        validation:
+          format: uuid
+      lastPublished: optional<datetime>
+      lastUpdated: optional<datetime>
+      createdOn: optional<datetime>
+      isArchived: optional<boolean>
+      isDraft: optional<boolean>
+      fieldData: CollectionItemChangedPayloadPayloadFieldData
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CollectionItemChangedPayload:
+    docs: The Webhook payload for when a Collection Item is changed
+    properties:
+      triggerType:
+        type: literal<"collection_item_changed">
+        docs: The type of event that triggered the request
+      payload:
+        type: CollectionItemChangedPayloadPayload
+    source:
+      openapi: v2-data.yml
+  CollectionItemDeletedPayloadPayloadFieldData:
+    properties:
+      name: string
+      slug: string
+    extra-properties: true
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CollectionItemDeletedPayloadPayload:
+    docs: The payload of data sent from Webflow
+    properties:
+      id:
+        type: optional<string>
+        docs: The ID of the collection item that was deleted
+      siteId:
+        type: optional<string>
+        docs: The ID of the site
+      workspaceId:
+        type: optional<string>
+        docs: The ID of the workspace
+      collectionId:
+        type: optional<string>
+        docs: The ID of the collection
+      cmsLocaleId:
+        type: optional<string>
+        docs: Unique identifier of the CMS locale for this item
+        validation:
+          format: uuid
+      lastPublished: optional<datetime>
+      lastUpdated: optional<datetime>
+      createdOn: optional<datetime>
+      isArchived: optional<boolean>
+      isDraft: optional<boolean>
+      fieldData: optional<CollectionItemDeletedPayloadPayloadFieldData>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CollectionItemDeletedPayload:
+    properties:
+      triggerType:
+        type: optional<string>
+        docs: The type of event that triggered the request
+      payload:
+        type: optional<CollectionItemDeletedPayloadPayload>
+        docs: The payload of data sent from Webflow
+    source:
+      openapi: v2-data.yml
+  CollectionItemPublishedPayloadPayloadFieldData:
+    properties:
+      name: string
+      slug: string
+    extra-properties: true
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CollectionItemPublishedPayloadPayload:
+    docs: The payload of data sent from Webflow
+    properties:
+      id:
+        type: optional<string>
+        docs: The ID of the collection item that was unpublished
+      siteId:
+        type: optional<string>
+        docs: The ID of the site
+      workspaceId:
+        type: optional<string>
+        docs: The ID of the workspace
+      collectionId:
+        type: optional<string>
+        docs: The ID of the collection
+      cmsLocaleId:
+        type: optional<string>
+        docs: Unique identifier of the CMS locale for this item
+        validation:
+          format: uuid
+      lastPublished: optional<datetime>
+      lastUpdated: optional<datetime>
+      createdOn: optional<datetime>
+      isArchived: optional<boolean>
+      isDraft: optional<boolean>
+      fieldData: optional<CollectionItemPublishedPayloadPayloadFieldData>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CollectionItemPublishedPayload:
+    properties:
+      triggerType:
+        type: optional<string>
+        docs: The type of event that triggered the request
+      payload:
+        type: optional<CollectionItemPublishedPayloadPayload>
+        docs: The payload of data sent from Webflow
+    source:
+      openapi: v2-data.yml
+  CollectionItemUnpublishedPayloadPayloadFieldData:
+    properties:
+      name: string
+      slug: string
+    extra-properties: true
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CollectionItemUnpublishedPayloadPayload:
+    docs: The payload of data sent from Webflow
+    properties:
+      id:
+        type: optional<string>
+        docs: The ID of the collection item that was unpublished
+      siteId:
+        type: optional<string>
+        docs: The ID of the site
+      workspaceId:
+        type: optional<string>
+        docs: The ID of the workspace
+      collectionId:
+        type: optional<string>
+        docs: The ID of the collection
+      cmsLocaleId:
+        type: optional<string>
+        docs: Unique identifier of the CMS locale for this item
+        validation:
+          format: uuid
+      lastPublished: optional<datetime>
+      lastUpdated: optional<datetime>
+      createdOn: optional<datetime>
+      isArchived: optional<boolean>
+      isDraft: optional<boolean>
+      fieldData: optional<CollectionItemUnpublishedPayloadPayloadFieldData>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CollectionItemUnpublishedPayload:
+    properties:
+      triggerType:
+        type: optional<string>
+        docs: The type of event that triggered the request
+      payload:
+        type: optional<CollectionItemUnpublishedPayloadPayload>
+        docs: The payload of data sent from Webflow
+    source:
+      openapi: v2-data.yml
 webhooks:
   collection_item_created:
     audiences: []
     method: POST
     display-name: Collection Item Created
     headers: {}
-    payload: root.CollectionItemCreated
+    payload:
+      type: CollectionItemCreatedPayload
+      docs: The Webhook payload for when a Collection Item is created
     examples:
       - payload:
           triggerType: collection_item_created
@@ -15,7 +265,7 @@ webhooks:
             workspaceId: 625860a7a6c16d624927122f
             siteId: 65427cf400e02b306eaa049c
             collectionId: 664243617fcc8b464b23c4ee
-            cmsLocaleId: 681442a144bb80bd00480fda
+            lastPublished: '2023-03-17T18:47:35Z'
             lastUpdated: '2023-03-17T18:47:35Z'
             createdOn: '2023-03-17T18:47:35Z'
             isArchived: false
@@ -29,33 +279,57 @@ webhooks:
     method: POST
     display-name: Collection Item Updated
     headers: {}
-    payload: root.CollectionItemChanged
+    payload:
+      type: CollectionItemChangedPayload
+      docs: The Webhook payload for when a Collection Item is changed
     examples:
       - payload:
           triggerType: collection_item_changed
           payload:
-            id: 580e64008c9a982ac9b8b754
-            workspaceId: 625860a7a6c16d624927122f
-            siteId: 65427cf400e02b306eaa049c
-            collectionId: 664243617fcc8b464b23c4ee
-            cmsLocaleId: 681442a144bb80bd00480fda
-            lastUpdated: '2023-03-17T18:47:35Z'
-            createdOn: '2023-03-17T18:47:35Z'
-            isArchived: false
-            isDraft: false
+            id: id
+            workspaceId: workspaceId
+            siteId: siteId
+            collectionId: collectionId
             fieldData:
-              name: Pan-Galactic Gargle Blaster
-              slug: pan-galactic-gargle-blaster
+              name: name
+              slug: slug
     docs: Information about an updated collection item
   collection_item_deleted:
     audiences: []
     method: POST
     display-name: Collection Item Deleted
     headers: {}
-    payload: root.CollectionItemRemoved
+    payload: CollectionItemDeletedPayload
     examples:
       - payload:
           triggerType: collection_item_deleted
+          payload:
+            id: 66424365e972c886137a1cf1
+            siteId: 65427cf400e02b306eaa049c
+            workspaceId: 625860a7a6c16d624927122f
+            collectionId: 664243617fcc8b464b23c4ee
+            cmsLocaleId: 681442a144bb80bd00480fda
+            lastUpdated: '2025-05-28T04:44:33Z'
+            createdOn: '2025-05-28T04:27:12Z'
+            isArchived: false
+            isDraft: false
+            fieldData:
+              name: Earth
+              slug: earth
+              description: Mostly harmless
+              color: '#0000FF'
+              type: planet
+              galaxy: Milky Way
+    docs: Information about a deleted collection item
+  collection_item_published:
+    audiences: []
+    method: POST
+    display-name: Collection Item Published
+    headers: {}
+    payload: CollectionItemPublishedPayload
+    examples:
+      - payload:
+          triggerType: collection_item_published
           payload:
             id: 66424365e972c886137a1cf1
             siteId: 65427cf400e02b306eaa049c
@@ -71,13 +345,13 @@ webhooks:
               slug: anna-gunn
               _locale: 681442a144bb80bd00480fda
               _noSearch: false
-    docs: Information about a deleted collection item
+    docs: Information about a collection item that was published
   collection_item_unpublished:
     audiences: []
     method: POST
     display-name: Collection Item Unpublished
     headers: {}
-    payload: root.CollectionItemUnpublished
+    payload: CollectionItemUnpublishedPayload
     examples:
       - payload:
           triggerType: collection_item_unpublished

@@ -1,1 +1,0 @@
-export { InventoryUpdateRequest } from "./InventoryUpdateRequest";

@@ -1,3 +1,65 @@
+types:
+  PlansGetSitePlanResponseId:
+    enum:
+      - value: hosting-basic-v3
+        name: HostingBasicV3
+      - value: hosting-cms-v3
+        name: HostingCmsV3
+      - value: hosting-business-v3
+        name: HostingBusinessV3
+      - value: hosting-ecommerce-standard-v2
+        name: HostingEcommerceStandardV2
+      - value: hosting-ecommerce-plus-v2
+        name: HostingEcommercePlusV2
+      - value: hosting-ecommerce-advanced-v2
+        name: HostingEcommerceAdvancedV2
+      - value: hosting-basic-v4
+        name: HostingBasicV4
+      - value: hosting-cms-v4
+        name: HostingCmsV4
+      - value: hosting-business-v4
+        name: HostingBusinessV4
+      - value: hosting-ecommerce-standard-v3
+        name: HostingEcommerceStandardV3
+      - value: hosting-ecommerce-plus-v3
+        name: HostingEcommercePlusV3
+      - value: hosting-ecommerce-advanced-v3
+        name: HostingEcommerceAdvancedV3
+    docs: ID of the hosting plan.
+    inline: true
+    source:
+      openapi: v2-data.yml
+  PlansGetSitePlanResponseName:
+    enum:
+      - value: Basic Hosting
+        name: BasicHosting
+      - value: CMS Hosting
+        name: CmsHosting
+      - value: Business Hosting
+        name: BusinessHosting
+      - value: ECommerce Standard Hosting
+        name: ECommerceStandardHosting
+      - value: ECommerce Plus Hosting
+        name: ECommercePlusHosting
+      - value: ECommerce Advanced Hosting
+        name: ECommerceAdvancedHosting
+    docs: Name of the hosting plan.
+    inline: true
+    source:
+      openapi: v2-data.yml
+  PlansGetSitePlanResponse:
+    properties:
+      id:
+        type: optional<PlansGetSitePlanResponseId>
+        docs: ID of the hosting plan.
+      name:
+        type: optional<PlansGetSitePlanResponseName>
+        docs: Name of the hosting plan.
+      pricingInfo:
+        type: optional<string>
+        docs: URL for more information about Webflow hosting plan pricing.
+    source:
+      openapi: v2-data.yml
 imports:
   root: ../__package__.yml
 service:
@@ -7,7 +69,9 @@ service:
     get-site-plan:
       path: /sites/{site_id}/plan
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - sites:read
       docs: >
         Get site plan details for the specified Site.
 
@@ -18,7 +82,7 @@ service:
 
         Required scope | `sites:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -26,7 +90,7 @@ service:
       display-name: Get Site Plan
       response:
         docs: Request was successful
-        type: root.SitePlan
+        type: PlansGetSitePlanResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -43,4 +107,4 @@ service:
               name: Business Hosting
               pricingInfo: https://webflow.com/pricing
   source:
-    openapi: ../../../openapi/referenced-specs/v2.yml
+    openapi: v2-data.yml

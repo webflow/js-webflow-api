@@ -1,3 +1,420 @@
+types:
+  FormsListResponseFormsItemFieldsValueType:
+    enum:
+      - Plain
+      - Email
+      - Password
+      - Phone
+      - Number
+    docs: The field type
+    inline: true
+    source:
+      openapi: v2-data.yml
+  FormsListResponseFormsItemFieldsValue:
+    docs: An object containing field info for a specific fieldID.
+    properties:
+      displayName:
+        type: optional<string>
+        docs: The field name displayed on the site
+      type:
+        type: optional<FormsListResponseFormsItemFieldsValueType>
+        docs: The field type
+      placeholder:
+        type: optional<string>
+        docs: The placeholder text for the field
+      userVisible:
+        type: optional<boolean>
+        docs: Whether the field is visible to the user
+    source:
+      openapi: v2-data.yml
+    inline: true
+  FormsListResponseFormsItemResponseSettings:
+    docs: Settings for form responses
+    properties:
+      redirectUrl:
+        type: optional<string>
+        docs: The url or path to redirect the user to after form submission
+      redirectMethod:
+        type: optional<string>
+        docs: The HTTP request method to use for the redirectUrl (eg. POST or GET)
+      redirectAction:
+        type: optional<string>
+        docs: The action to take after form submission
+      sendEmailConfirmation:
+        type: optional<boolean>
+        docs: Whether to send an email confirmation to the user
+    source:
+      openapi: v2-data.yml
+    inline: true
+  FormsListResponseFormsItem:
+    docs: A Webflow form
+    properties:
+      displayName:
+        type: optional<string>
+        docs: The Form name displayed on the site
+      createdOn:
+        type: optional<datetime>
+        docs: Date that the Form was created on
+      lastUpdated:
+        type: optional<datetime>
+        docs: Date that the Form was last updated on
+      fields:
+        type: optional<map<string, FormsListResponseFormsItemFieldsValue>>
+        docs: A collection of form field objects
+      responseSettings:
+        type: optional<FormsListResponseFormsItemResponseSettings>
+        docs: Settings for form responses
+      id:
+        type: optional<string>
+        docs: The unique ID for the Form
+      siteId:
+        type: optional<string>
+        docs: The unique ID of the Site the Form belongs to
+      siteDomainId:
+        type: optional<string>
+        docs: The unique ID corresponding to the site's Domain name
+      pageId:
+        type: optional<string>
+        docs: The unique ID for the Page on which the Form is placed
+      pageName:
+        type: optional<string>
+        docs: The user-visible name of the Page where the Form is placed
+      formElementId:
+        type: optional<string>
+        docs: The unique ID of the Form element
+      workspaceId:
+        type: optional<string>
+        docs: The unique ID of the Workspace the Site belongs to
+    source:
+      openapi: v2-data.yml
+    inline: true
+  FormsListResponsePagination:
+    docs: Pagination object
+    properties:
+      limit:
+        type: optional<double>
+        docs: The limit used for pagination
+        access: read-only
+      offset:
+        type: optional<double>
+        docs: The offset used for pagination
+        access: read-only
+      total:
+        type: optional<double>
+        docs: The total number of records
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  FormsListResponse:
+    docs: A list of forms
+    properties:
+      forms: list<FormsListResponseFormsItem>
+      pagination:
+        type: FormsListResponsePagination
+        docs: Pagination object
+    source:
+      openapi: v2-data.yml
+  FormsGetResponseFieldsValueType:
+    enum:
+      - Plain
+      - Email
+      - Password
+      - Phone
+      - Number
+    docs: The field type
+    inline: true
+    source:
+      openapi: v2-data.yml
+  FormsGetResponseFieldsValue:
+    docs: An object containing field info for a specific fieldID.
+    properties:
+      displayName:
+        type: optional<string>
+        docs: The field name displayed on the site
+      type:
+        type: optional<FormsGetResponseFieldsValueType>
+        docs: The field type
+      placeholder:
+        type: optional<string>
+        docs: The placeholder text for the field
+      userVisible:
+        type: optional<boolean>
+        docs: Whether the field is visible to the user
+    source:
+      openapi: v2-data.yml
+    inline: true
+  FormsGetResponseResponseSettings:
+    docs: Settings for form responses
+    properties:
+      redirectUrl:
+        type: optional<string>
+        docs: The url or path to redirect the user to after form submission
+      redirectMethod:
+        type: optional<string>
+        docs: The HTTP request method to use for the redirectUrl (eg. POST or GET)
+      redirectAction:
+        type: optional<string>
+        docs: The action to take after form submission
+      sendEmailConfirmation:
+        type: optional<boolean>
+        docs: Whether to send an email confirmation to the user
+    source:
+      openapi: v2-data.yml
+    inline: true
+  FormsGetResponse:
+    docs: A Webflow form
+    properties:
+      displayName:
+        type: optional<string>
+        docs: The Form name displayed on the site
+      createdOn:
+        type: optional<datetime>
+        docs: Date that the Form was created on
+      lastUpdated:
+        type: optional<datetime>
+        docs: Date that the Form was last updated on
+      fields:
+        type: optional<map<string, FormsGetResponseFieldsValue>>
+        docs: A collection of form field objects
+      responseSettings:
+        type: optional<FormsGetResponseResponseSettings>
+        docs: Settings for form responses
+      id:
+        type: optional<string>
+        docs: The unique ID for the Form
+      siteId:
+        type: optional<string>
+        docs: The unique ID of the Site the Form belongs to
+      siteDomainId:
+        type: optional<string>
+        docs: The unique ID corresponding to the site's Domain name
+      pageId:
+        type: optional<string>
+        docs: The unique ID for the Page on which the Form is placed
+      pageName:
+        type: optional<string>
+        docs: The user-visible name of the Page where the Form is placed
+      formElementId:
+        type: optional<string>
+        docs: The unique ID of the Form element
+      workspaceId:
+        type: optional<string>
+        docs: The unique ID of the Workspace the Site belongs to
+    source:
+      openapi: v2-data.yml
+  FormsListSubmissionsResponseFormSubmissionsItem:
+    properties:
+      id:
+        type: optional<string>
+        docs: The unique ID of the Form submission
+      displayName:
+        type: optional<string>
+        docs: The Form name displayed on the site
+      siteId:
+        type: optional<string>
+        docs: The unique ID of the Site the Form belongs to
+      workspaceId:
+        type: optional<string>
+        docs: The unique ID of the Workspace the Site belongs to
+      dateSubmitted:
+        type: optional<datetime>
+        docs: Date that the Form was submitted on
+      formResponse:
+        type: optional<map<string, unknown>>
+        docs: The data submitted in the Form
+    source:
+      openapi: v2-data.yml
+    inline: true
+  FormsListSubmissionsResponsePagination:
+    docs: Pagination object
+    properties:
+      limit:
+        type: optional<double>
+        docs: The limit used for pagination
+        access: read-only
+      offset:
+        type: optional<double>
+        docs: The offset used for pagination
+        access: read-only
+      total:
+        type: optional<double>
+        docs: The total number of records
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  FormsListSubmissionsResponse:
+    docs: A list of form submissions
+    properties:
+      formSubmissions: optional<list<FormsListSubmissionsResponseFormSubmissionsItem>>
+      pagination:
+        type: optional<FormsListSubmissionsResponsePagination>
+        docs: Pagination object
+    source:
+      openapi: v2-data.yml
+  FormsGetSubmissionResponse:
+    docs: A form submission
+    properties:
+      id:
+        type: optional<string>
+        docs: The unique ID of the Form submission
+      displayName:
+        type: optional<string>
+        docs: The Form name displayed on the site
+      siteId:
+        type: optional<string>
+        docs: The unique ID of the Site the Form belongs to
+      workspaceId:
+        type: optional<string>
+        docs: The unique ID of the Workspace the Site belongs to
+      dateSubmitted:
+        type: optional<datetime>
+        docs: Date that the Form was submitted on
+      formResponse:
+        type: optional<map<string, unknown>>
+        docs: The data submitted in the Form
+    source:
+      openapi: v2-data.yml
+  FormsUpdateSubmissionResponse:
+    docs: A form submission
+    properties:
+      id:
+        type: optional<string>
+        docs: The unique ID of the Form submission
+      displayName:
+        type: optional<string>
+        docs: The Form name displayed on the site
+      siteId:
+        type: optional<string>
+        docs: The unique ID of the Site the Form belongs to
+      workspaceId:
+        type: optional<string>
+        docs: The unique ID of the Workspace the Site belongs to
+      dateSubmitted:
+        type: optional<datetime>
+        docs: Date that the Form was submitted on
+      formResponse:
+        type: optional<map<string, unknown>>
+        docs: The data submitted in the Form
+    source:
+      openapi: v2-data.yml
+  FormsListSubmissionsBySiteResponseFormSubmissionsItem:
+    properties:
+      id:
+        type: optional<string>
+        docs: The unique ID of the Form submission
+      displayName:
+        type: optional<string>
+        docs: The Form name displayed on the site
+      siteId:
+        type: optional<string>
+        docs: The unique ID of the Site the Form belongs to
+      workspaceId:
+        type: optional<string>
+        docs: The unique ID of the Workspace the Site belongs to
+      dateSubmitted:
+        type: optional<datetime>
+        docs: Date that the Form was submitted on
+      formResponse:
+        type: optional<map<string, unknown>>
+        docs: The data submitted in the Form
+    source:
+      openapi: v2-data.yml
+    inline: true
+  FormsListSubmissionsBySiteResponsePagination:
+    docs: Pagination object
+    properties:
+      limit:
+        type: optional<double>
+        docs: The limit used for pagination
+        access: read-only
+      offset:
+        type: optional<double>
+        docs: The offset used for pagination
+        access: read-only
+      total:
+        type: optional<double>
+        docs: The total number of records
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  FormsListSubmissionsBySiteResponse:
+    docs: A list of form submissions
+    properties:
+      formSubmissions: optional<list<FormsListSubmissionsBySiteResponseFormSubmissionsItem>>
+      pagination:
+        type: optional<FormsListSubmissionsBySiteResponsePagination>
+        docs: Pagination object
+    source:
+      openapi: v2-data.yml
+  FormSubmissionPayloadPayloadSchemaItemFieldType:
+    enum:
+      - FormTextInput
+      - FormTextarea
+      - FormCheckboxInput
+      - FormRadioInput
+      - FormFileUploadInput
+    docs: Form field type
+    inline: true
+    source:
+      openapi: v2-data.yml
+  FormSubmissionPayloadPayloadSchemaItem:
+    properties:
+      fieldName:
+        type: optional<string>
+        docs: Form field name
+      fieldType:
+        type: optional<FormSubmissionPayloadPayloadSchemaItemFieldType>
+        docs: Form field type
+      fieldElementId:
+        type: optional<string>
+        docs: Element ID of the Form Field
+    source:
+      openapi: v2-data.yml
+    inline: true
+  FormSubmissionPayloadPayload:
+    docs: The payload of data sent from Webflow
+    properties:
+      name:
+        type: optional<string>
+        docs: The name of the form
+      siteId:
+        type: optional<string>
+        docs: The ID of the site that the form was submitted from
+      data:
+        type: optional<map<string, unknown>>
+        docs: The data submitted in the form
+      schema:
+        type: optional<list<FormSubmissionPayloadPayloadSchemaItem>>
+        docs: A list of fields from the submitted form
+      submittedAt:
+        type: optional<string>
+        docs: The timestamp the form was submitted
+      id:
+        type: optional<string>
+        docs: the ID of the event
+      formId:
+        type: optional<string>
+        docs: The ID of the form submission
+      formElementId:
+        type: optional<string>
+        docs: The uniqueID of the Form element
+    source:
+      openapi: v2-data.yml
+    inline: true
+  FormSubmissionPayload:
+    docs: The Webhook payload for when a form is submitted
+    properties:
+      triggerType:
+        type: optional<string>
+        docs: The type of event that triggered the request
+      payload:
+        type: optional<FormSubmissionPayloadPayload>
+        docs: The payload of data sent from Webflow
+    source:
+      openapi: v2-data.yml
 imports:
   root: __package__.yml
 service:
@@ -7,13 +424,15 @@ service:
     list:
       path: /sites/{site_id}/forms
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - forms:read
       docs: |
         List forms for a given site.
 
         Required scope | `forms:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -32,7 +451,7 @@ service:
               records
       response:
         docs: Request was successful
-        type: root.FormList
+        type: FormsListResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -45,6 +464,9 @@ service:
       examples:
         - path-parameters:
             site_id: 580e63e98c9a982ac9b8b741
+          query-parameters:
+            limit: 1.1
+            offset: 1.1
           response:
             body:
               forms:
@@ -94,13 +516,15 @@ service:
     get:
       path: /forms/{form_id}
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - forms:read
       docs: |
         Get information about a given form.
 
         Required scope | `forms:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         form_id:
           type: string
@@ -108,7 +532,7 @@ service:
       display-name: Get Form Schema
       response:
         docs: Request was successful
-        type: root.Form
+        type: FormsGetResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -149,7 +573,9 @@ service:
     list-submissions:
       path: /forms/{form_id}/submissions
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - forms:read
       docs: |
         List form submissions for a given form
 
@@ -161,7 +587,7 @@ service:
 
         Required scope | `forms:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         form_id:
           type: string
@@ -180,7 +606,7 @@ service:
             docs: 'Maximum number of records to be returned (max limit: 100)'
       response:
         docs: Request was successful
-        type: root.FormSubmissionList
+        type: FormsListSubmissionsResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -192,6 +618,9 @@ service:
       examples:
         - path-parameters:
             form_id: 580e63e98c9a982ac9b8b741
+          query-parameters:
+            offset: 1.1
+            limit: 1.1
           response:
             body:
               formSubmissions:
@@ -218,13 +647,15 @@ service:
     get-submission:
       path: /form_submissions/{form_submission_id}
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - forms:read
       docs: |
         Get information about a given form submissio.
 
         Required scope | `forms:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         form_submission_id:
           type: string
@@ -232,7 +663,7 @@ service:
       display-name: Get Form Submission
       response:
         docs: Request was successful
-        type: root.FormSubmission
+        type: FormsGetSubmissionResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -257,14 +688,16 @@ service:
     delete-submission:
       path: /form_submissions/{form_submission_id}
       method: DELETE
-      auth: true
+      auth:
+        - OAuth2:
+            - forms:write
       docs: |
         Delete a form submission
 
 
         Required scope | `forms:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         form_submission_id:
           type: string
@@ -284,13 +717,15 @@ service:
     update-submission:
       path: /form_submissions/{form_submission_id}
       method: PATCH
-      auth: true
+      auth:
+        - OAuth2:
+            - forms:write
       docs: |
         Update hidden fields on a form submission
 
         Required scope | `forms:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         form_submission_id:
           type: string
@@ -308,7 +743,7 @@ service:
         content-type: application/json
       response:
         docs: Request was successful
-        type: root.FormSubmission
+        type: FormsUpdateSubmissionResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -335,7 +770,9 @@ service:
     list-submissions-by-site:
       path: /sites/{site_id}/form_submissions
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - forms:read
       docs: >
         List form submissions for a given site. This endpoint differs from the
         existing [List Form Submissions
@@ -349,7 +786,7 @@ service:
 
         Required scope | `forms:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -371,7 +808,7 @@ service:
             docs: 'Maximum number of records to be returned (max limit: 100)'
       response:
         docs: Request was successful
-        type: root.FormSubmissionList
+        type: FormsListSubmissionsBySiteResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -385,6 +822,8 @@ service:
             site_id: 580e63e98c9a982ac9b8b741
           query-parameters:
             elementId: 18259716-3e5a-646a-5f41-5dc4b9405aa0
+            offset: 1.1
+            limit: 1.1
           response:
             body:
               formSubmissions:
@@ -409,7 +848,7 @@ service:
                 offset: 0
                 total: 2
   source:
-    openapi: ../../../openapi/referenced-specs/v2.yml
+    openapi: v2-data.yml
   display-name: Forms
 docs: Forms are forms that are created on your Webflow site.
 webhooks:
@@ -418,7 +857,9 @@ webhooks:
     method: POST
     display-name: Form Submission
     headers: {}
-    payload: root.FormSubmissionTrigger
+    payload:
+      type: FormSubmissionPayload
+      docs: The Webhook payload for when a form is submitted
     examples:
       - payload:
           triggerType: form_submission

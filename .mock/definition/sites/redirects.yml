@@ -1,3 +1,124 @@
+types:
+  RedirectsListResponseRedirectsItem:
+    docs: A single redirection rule, specifying a source URL and a destination URL.
+    properties:
+      id:
+        type: optional<string>
+        docs: The ID of the specific redirect rule
+        access: read-only
+      fromUrl:
+        type: optional<string>
+        docs: The source URL path that will be redirected.
+      toUrl:
+        type: optional<string>
+        docs: The target URL path where the user or client will be redirected.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  RedirectsListResponsePagination:
+    docs: Pagination object
+    properties:
+      limit:
+        type: optional<double>
+        docs: The limit used for pagination
+        access: read-only
+      offset:
+        type: optional<double>
+        docs: The offset used for pagination
+        access: read-only
+      total:
+        type: optional<double>
+        docs: The total number of records
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  RedirectsListResponse:
+    docs: Site redirects response
+    properties:
+      redirects:
+        type: optional<list<RedirectsListResponseRedirectsItem>>
+        docs: List of redirects for a given site
+      pagination:
+        type: optional<RedirectsListResponsePagination>
+        docs: Pagination object
+    source:
+      openapi: v2-data.yml
+  RedirectsCreateResponse:
+    docs: A single redirection rule, specifying a source URL and a destination URL.
+    properties:
+      id:
+        type: optional<string>
+        docs: The ID of the specific redirect rule
+        access: read-only
+      fromUrl:
+        type: optional<string>
+        docs: The source URL path that will be redirected.
+      toUrl:
+        type: optional<string>
+        docs: The target URL path where the user or client will be redirected.
+    source:
+      openapi: v2-data.yml
+  RedirectsDeleteResponseRedirectsItem:
+    docs: A single redirection rule, specifying a source URL and a destination URL.
+    properties:
+      id:
+        type: optional<string>
+        docs: The ID of the specific redirect rule
+        access: read-only
+      fromUrl:
+        type: optional<string>
+        docs: The source URL path that will be redirected.
+      toUrl:
+        type: optional<string>
+        docs: The target URL path where the user or client will be redirected.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  RedirectsDeleteResponsePagination:
+    docs: Pagination object
+    properties:
+      limit:
+        type: optional<double>
+        docs: The limit used for pagination
+        access: read-only
+      offset:
+        type: optional<double>
+        docs: The offset used for pagination
+        access: read-only
+      total:
+        type: optional<double>
+        docs: The total number of records
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  RedirectsDeleteResponse:
+    docs: Site redirects response
+    properties:
+      redirects:
+        type: optional<list<RedirectsDeleteResponseRedirectsItem>>
+        docs: List of redirects for a given site
+      pagination:
+        type: optional<RedirectsDeleteResponsePagination>
+        docs: Pagination object
+    source:
+      openapi: v2-data.yml
+  RedirectsUpdateResponse:
+    docs: A single redirection rule, specifying a source URL and a destination URL.
+    properties:
+      id:
+        type: optional<string>
+        docs: The ID of the specific redirect rule
+        access: read-only
+      fromUrl:
+        type: optional<string>
+        docs: The source URL path that will be redirected.
+      toUrl:
+        type: optional<string>
+        docs: The target URL path where the user or client will be redirected.
+    source:
+      openapi: v2-data.yml
 imports:
   root: ../__package__.yml
 service:
@@ -7,7 +128,9 @@ service:
     list:
       path: /sites/{site_id}/redirects
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - sites:read
       docs: >
         Fetch a list of all 301 redirect rules configured for a specific site.
 
@@ -22,7 +145,7 @@ service:
 
         Required scope: `sites:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -30,7 +153,7 @@ service:
       display-name: Get 301 redirects
       response:
         docs: Request was successful
-        type: root.Redirects
+        type: RedirectsListResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -57,7 +180,9 @@ service:
     create:
       path: /sites/{site_id}/redirects
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - sites:write
       docs: >
         Add a new 301 redirection rule to a site.
 
@@ -74,18 +199,26 @@ service:
 
         Required scope: `sites:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
           docs: Unique identifier for a Site
       display-name: Create a 301 redirect
       request:
-        body: root.Redirect
+        name: RedirectsCreateRequest
+        body:
+          properties:
+            fromUrl:
+              type: optional<string>
+              docs: The source URL path that will be redirected.
+            toUrl:
+              type: optional<string>
+              docs: The target URL path where the user or client will be redirected.
         content-type: application/json
       response:
         docs: Request was successful
-        type: root.Redirect
+        type: RedirectsCreateResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -97,7 +230,6 @@ service:
         - path-parameters:
             site_id: 580e63e98c9a982ac9b8b741
           request:
-            id: 42e1a2b7aa1a13f768a0042a
             fromUrl: /mostly-harmless
             toUrl: /earth
           response:
@@ -108,7 +240,9 @@ service:
     delete:
       path: /sites/{site_id}/redirects/{redirect_id}
       method: DELETE
-      auth: true
+      auth:
+        - OAuth2:
+            - sites:write
       docs: >
         Remove a 301 redirection rule from a site.
 
@@ -124,7 +258,7 @@ service:
 
         Required scope: `sites:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -135,7 +269,7 @@ service:
       display-name: Delete 301 redirects
       response:
         docs: Request was successful
-        type: root.Redirects
+        type: RedirectsDeleteResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -163,7 +297,9 @@ service:
     update:
       path: /sites/{site_id}/redirects/{redirect_id}
       method: PATCH
-      auth: true
+      auth:
+        - OAuth2:
+            - sites:write
       docs: >
         Update a 301 redirection rule from a site.
 
@@ -174,7 +310,7 @@ service:
 
         Required scope: `sites:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -184,11 +320,19 @@ service:
           docs: Unique identifier site rediect
       display-name: Update 301 redirect
       request:
-        body: root.Redirect
+        name: RedirectsUpdateRequest
+        body:
+          properties:
+            fromUrl:
+              type: optional<string>
+              docs: The source URL path that will be redirected.
+            toUrl:
+              type: optional<string>
+              docs: The target URL path where the user or client will be redirected.
         content-type: application/json
       response:
         docs: Request was successful
-        type: root.Redirect
+        type: RedirectsUpdateResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -201,7 +345,6 @@ service:
             site_id: 580e63e98c9a982ac9b8b741
             redirect_id: 66c4cb9a20cac35ed19500e6
           request:
-            id: 42e1a2b7aa1a13f768a0042a
             fromUrl: /mostly-harmless
             toUrl: /earth
           response:
@@ -210,4 +353,4 @@ service:
               fromUrl: /mostly-harmless
               toUrl: /earth
   source:
-    openapi: ../../../openapi/referenced-specs/v2.yml
+    openapi: v2-data.yml

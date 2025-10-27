@@ -7,28 +7,278 @@ types:
       - name
       - slug
     source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
+      openapi: v2-data.yml
   ItemsListItemsRequestSortOrder:
     enum:
       - asc
       - desc
     source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
+      openapi: v2-data.yml
+  ItemsListItemsResponseItemsItemFieldData:
+    properties:
+      name:
+        type: string
+        docs: Name of the Item
+      slug:
+        type: string
+        docs: >-
+          URL structure of the Item in your site. Note: Updates to an item slug
+          will break all links referencing the old slug.
+    extra-properties: true
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ItemsListItemsResponseItemsItem:
+    docs: >
+      A Collection Item represents a single entry in your collection. Each item
+      includes:
+
+
+      - **System metadata** - Automatically managed fields like IDs and
+      timestamp <br/>
+
+      - **Status flags** - Controls for managing content state: `isDraft`,
+      `isArchived `<br/> 
+
+      - **Content fields** - Stored in `fieldData`. Each item needs a `name` and
+      `slug`, and may include additional fields matching your collection's
+      schema definition.
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Item
+        access: read-only
+      cmsLocaleId:
+        type: optional<string>
+        docs: Identifier for the locale of the CMS item
+      lastPublished:
+        type: optional<string>
+        docs: The date the item was last published
+        access: read-only
+      lastUpdated:
+        type: optional<string>
+        docs: The date the item was last updated
+        access: read-only
+      createdOn:
+        type: optional<string>
+        docs: The date the item was created
+        access: read-only
+      isArchived:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to archived
+        default: false
+      isDraft:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to draft
+        default: false
+      fieldData: ItemsListItemsResponseItemsItemFieldData
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ItemsListItemsResponsePagination:
+    properties:
+      limit:
+        type: optional<double>
+        docs: The limit specified in the request
+        default: 100
+      offset:
+        type: optional<double>
+        docs: The offset specified for pagination
+        default: 0
+      total:
+        type: optional<double>
+        docs: Total number of items in the collection
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ItemsListItemsResponse:
+    docs: Results from collection items list
+    properties:
+      items:
+        docs: List of Items within the collection
+        type: list<ItemsListItemsResponseItemsItem>
+      pagination: ItemsListItemsResponsePagination
+    source:
+      openapi: v2-data.yml
+  ItemsCreateItemRequestBodyCmsLocaleIdFieldData:
+    properties:
+      name:
+        type: string
+        docs: Name of the Item
+      slug:
+        type: string
+        docs: >-
+          URL structure of the Item in your site. Note: Updates to an item slug
+          will break all links referencing the old slug.
+    extra-properties: true
+    source:
+      openapi: v2-data.yml
+    inline: true
+  Single Item:
+    docs: >
+      A Collection Item represents a single entry in your collection. Each item
+      includes:
+
+
+      - **System metadata** - Automatically managed fields like IDs and
+      timestamp <br/>
+
+      - **Status flags** - Controls for managing content state: `isDraft`,
+      `isArchived `<br/> 
+
+      - **Content fields** - Stored in `fieldData`. Each item needs a `name` and
+      `slug`, and may include additional fields matching your collection's
+      schema definition.
+    properties:
+      cmsLocaleId:
+        type: optional<string>
+        docs: Identifier for the locale of the CMS item
+      isArchived:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is in an archived state.
+        default: false
+      isDraft:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is in a draft state.
+        default: true
+      fieldData: ItemsCreateItemRequestBodyCmsLocaleIdFieldData
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ItemsCreateItemRequestBodyItemsItemsItemFieldData:
+    properties:
+      name:
+        type: string
+        docs: Name of the Item
+      slug:
+        type: string
+        docs: >-
+          URL structure of the Item in your site. Note: Updates to an item slug
+          will break all links referencing the old slug.
+    extra-properties: true
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ItemsCreateItemRequestBodyItemsItemsItem:
+    docs: >
+      A Collection Item represents a single entry in your collection. Each item
+      includes:
+
+
+      - **System metadata** - Automatically managed fields like IDs and
+      timestamp <br/>
+
+      - **Status flags** - Controls for managing content state: `isDraft`,
+      `isArchived `<br/> 
+
+      - **Content fields** - Stored in `fieldData`. Each item needs a `name` and
+      `slug`, and may include additional fields matching your collection's
+      schema definition.
+    properties:
+      cmsLocaleId:
+        type: optional<string>
+        docs: Identifier for the locale of the CMS item
+      isArchived:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is in an archived state.
+        default: false
+      isDraft:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is in a draft state.
+        default: true
+      fieldData: ItemsCreateItemRequestBodyItemsItemsItemFieldData
+    source:
+      openapi: v2-data.yml
+    inline: true
   Multiple Items:
     properties:
       items:
-        type: optional<list<root.CollectionItemPostSingle>>
+        type: optional<list<ItemsCreateItemRequestBodyItemsItemsItem>>
         docs: An array of items to create
     source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
+      openapi: v2-data.yml
     inline: true
   ItemsCreateItemRequestBody:
     discriminated: false
     union:
-      - root.CollectionItemPostSingle
+      - type: Single Item
+        docs: >
+          A Collection Item represents a single entry in your collection. Each
+          item includes:
+
+
+          - **System metadata** - Automatically managed fields like IDs and
+          timestamp <br/>
+
+          - **Status flags** - Controls for managing content state: `isDraft`,
+          `isArchived `<br/> 
+
+          - **Content fields** - Stored in `fieldData`. Each item needs a `name`
+          and `slug`, and may include additional fields matching your
+          collection's schema definition.
       - type: Multiple Items
     source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
+      openapi: v2-data.yml
+  ItemsCreateItemResponseFieldData:
+    properties:
+      name:
+        type: string
+        docs: Name of the Item
+      slug:
+        type: string
+        docs: >-
+          URL structure of the Item in your site. Note: Updates to an item slug
+          will break all links referencing the old slug.
+    extra-properties: true
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ItemsCreateItemResponse:
+    docs: >
+      A Collection Item represents a single entry in your collection. Each item
+      includes:
+
+
+      - **System metadata** - Automatically managed fields like IDs and
+      timestamp <br/>
+
+      - **Status flags** - Controls for managing content state: `isDraft`,
+      `isArchived `<br/> 
+
+      - **Content fields** - Stored in `fieldData`. Each item needs a `name` and
+      `slug`, and may include additional fields matching your collection's
+      schema definition.
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Item
+        access: read-only
+      cmsLocaleId:
+        type: optional<string>
+        docs: Identifier for the locale of the CMS item
+      lastPublished:
+        type: optional<string>
+        docs: The date the item was last published
+        access: read-only
+      lastUpdated:
+        type: optional<string>
+        docs: The date the item was last updated
+        access: read-only
+      createdOn:
+        type: optional<string>
+        docs: The date the item was created
+        access: read-only
+      isArchived:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to archived
+        default: false
+      isDraft:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to draft
+        default: false
+      fieldData: ItemsCreateItemResponseFieldData
+    source:
+      openapi: v2-data.yml
   ItemsDeleteItemsRequestItemsItem:
     properties:
       id:
@@ -38,43 +288,493 @@ types:
         type: optional<list<string>>
         docs: Array of identifiers for the locales where the item will be created
     source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
+      openapi: v2-data.yml
+    inline: true
+  ItemsUpdateItemsRequestItemsItemFieldData:
+    properties:
+      name:
+        type: optional<string>
+        docs: Name of the Item
+      slug:
+        type: optional<string>
+        docs: >-
+          URL structure of the Item in your site. Note: Updates to an item slug
+          will break all links referencing the old slug.
+    extra-properties: true
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ItemsUpdateItemsRequestItemsItem:
+    docs: >
+      The fields that define the schema for a given Item are based on the
+      Collection that Item belongs to. Beyond the user defined fields, there are
+      a handful of additional fields that are automatically created for all
+      items
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the Item
+      cmsLocaleId:
+        type: optional<string>
+        docs: Identifier for the locale of the CMS item
+      isArchived:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to archived
+      isDraft:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to draft
+      fieldData: optional<ItemsUpdateItemsRequestItemsItemFieldData>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ItemsUpdateItemsResponseCmsLocaleIdFieldData:
+    properties:
+      name:
+        type: string
+        docs: Name of the Item
+      slug:
+        type: string
+        docs: >-
+          URL structure of the Item in your site. Note: Updates to an item slug
+          will break all links referencing the old slug.
+    extra-properties: true
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ItemsUpdateItemsResponseCmsLocaleId:
+    docs: >
+      A Collection Item represents a single entry in your collection. Each item
+      includes:
+
+
+      - **System metadata** - Automatically managed fields like IDs and
+      timestamp <br/>
+
+      - **Status flags** - Controls for managing content state: `isDraft`,
+      `isArchived `<br/> 
+
+      - **Content fields** - Stored in `fieldData`. Each item needs a `name` and
+      `slug`, and may include additional fields matching your collection's
+      schema definition.
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Item
+        access: read-only
+      cmsLocaleId:
+        type: optional<string>
+        docs: Identifier for the locale of the CMS item
+      lastPublished:
+        type: optional<string>
+        docs: The date the item was last published
+        access: read-only
+      lastUpdated:
+        type: optional<string>
+        docs: The date the item was last updated
+        access: read-only
+      createdOn:
+        type: optional<string>
+        docs: The date the item was created
+        access: read-only
+      isArchived:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to archived
+        default: false
+      isDraft:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to draft
+        default: false
+      fieldData: ItemsUpdateItemsResponseCmsLocaleIdFieldData
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ItemsUpdateItemsResponseItemsItemsItemFieldData:
+    properties:
+      name:
+        type: string
+        docs: Name of the Item
+      slug:
+        type: string
+        docs: >-
+          URL structure of the Item in your site. Note: Updates to an item slug
+          will break all links referencing the old slug.
+    extra-properties: true
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ItemsUpdateItemsResponseItemsItemsItem:
+    docs: >
+      A Collection Item represents a single entry in your collection. Each item
+      includes:
+
+
+      - **System metadata** - Automatically managed fields like IDs and
+      timestamp <br/>
+
+      - **Status flags** - Controls for managing content state: `isDraft`,
+      `isArchived `<br/> 
+
+      - **Content fields** - Stored in `fieldData`. Each item needs a `name` and
+      `slug`, and may include additional fields matching your collection's
+      schema definition.
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Item
+        access: read-only
+      cmsLocaleId:
+        type: optional<string>
+        docs: Identifier for the locale of the CMS item
+      lastPublished:
+        type: optional<string>
+        docs: The date the item was last published
+        access: read-only
+      lastUpdated:
+        type: optional<string>
+        docs: The date the item was last updated
+        access: read-only
+      createdOn:
+        type: optional<string>
+        docs: The date the item was created
+        access: read-only
+      isArchived:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to archived
+        default: false
+      isDraft:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to draft
+        default: false
+      fieldData: ItemsUpdateItemsResponseItemsItemsItemFieldData
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ItemsUpdateItemsResponseItemsPagination:
+    properties:
+      limit:
+        type: optional<double>
+        docs: The limit specified in the request
+        default: 100
+      offset:
+        type: optional<double>
+        docs: The offset specified for pagination
+        default: 0
+      total:
+        type: optional<double>
+        docs: Total number of items in the collection
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ItemsUpdateItemsResponseItems:
+    docs: Results from collection items list
+    properties:
+      items:
+        type: optional<list<ItemsUpdateItemsResponseItemsItemsItem>>
+        docs: List of Items within the collection
+      pagination: optional<ItemsUpdateItemsResponseItemsPagination>
+    source:
+      openapi: v2-data.yml
     inline: true
   ItemsUpdateItemsResponse:
     discriminated: false
     union:
-      - type: root.CollectionItem
-      - type: root.CollectionItemList
+      - type: ItemsUpdateItemsResponseCmsLocaleId
+        docs: >
+          A Collection Item represents a single entry in your collection. Each
+          item includes:
+
+
+          - **System metadata** - Automatically managed fields like IDs and
+          timestamp <br/>
+
+          - **Status flags** - Controls for managing content state: `isDraft`,
+          `isArchived `<br/> 
+
+          - **Content fields** - Stored in `fieldData`. Each item needs a `name`
+          and `slug`, and may include additional fields matching your
+          collection's schema definition.
+      - type: ItemsUpdateItemsResponseItems
+        docs: Results from collection items list
     source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
+      openapi: v2-data.yml
   ItemsListItemsLiveRequestSortBy:
     enum:
       - lastPublished
       - name
       - slug
     source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
+      openapi: v2-data.yml
   ItemsListItemsLiveRequestSortOrder:
     enum:
       - asc
       - desc
     source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
+      openapi: v2-data.yml
+  ItemsListItemsLiveResponseItemsItemFieldData:
+    properties:
+      name:
+        type: string
+        docs: Name of the Item
+      slug:
+        type: string
+        docs: >-
+          URL structure of the Item in your site. Note: Updates to an item slug
+          will break all links referencing the old slug.
+    extra-properties: true
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ItemsListItemsLiveResponseItemsItem:
+    docs: >
+      A Collection Item represents a single entry in your collection. Each item
+      includes:
+
+
+      - **System metadata** - Automatically managed fields like IDs and
+      timestamp <br/>
+
+      - **Status flags** - Controls for managing content state: `isDraft`,
+      `isArchived `<br/> 
+
+      - **Content fields** - Stored in `fieldData`. Each item needs a `name` and
+      `slug`, and may include additional fields matching your collection's
+      schema definition.
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Item
+        access: read-only
+      cmsLocaleId:
+        type: optional<string>
+        docs: Identifier for the locale of the CMS item
+      lastPublished:
+        type: optional<string>
+        docs: The date the item was last published
+        access: read-only
+      lastUpdated:
+        type: optional<string>
+        docs: The date the item was last updated
+        access: read-only
+      createdOn:
+        type: optional<string>
+        docs: The date the item was created
+        access: read-only
+      isArchived:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to archived
+        default: false
+      isDraft:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to draft
+        default: false
+      fieldData: ItemsListItemsLiveResponseItemsItemFieldData
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ItemsListItemsLiveResponsePagination:
+    properties:
+      limit:
+        type: optional<double>
+        docs: The limit specified in the request
+        default: 100
+      offset:
+        type: optional<double>
+        docs: The offset specified for pagination
+        default: 0
+      total:
+        type: optional<double>
+        docs: Total number of items in the collection
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ItemsListItemsLiveResponse:
+    docs: Results from collection items list
+    properties:
+      items:
+        docs: List of Items within the collection
+        type: list<ItemsListItemsLiveResponseItemsItem>
+      pagination: ItemsListItemsLiveResponsePagination
+    source:
+      openapi: v2-data.yml
+  ItemsCreateItemLiveRequestBodyCmsLocaleIdFieldData:
+    properties:
+      name:
+        type: string
+        docs: Name of the Item
+      slug:
+        type: string
+        docs: >-
+          URL structure of the Item in your site. Note: Updates to an item slug
+          will break all links referencing the old slug.
+    extra-properties: true
+    source:
+      openapi: v2-data.yml
+    inline: true
+  Single Live Item:
+    docs: >
+      A Collection Item represents a single entry in your collection. Each item
+      includes:
+
+
+      - **System metadata** - Automatically managed fields like IDs and
+      timestamp <br/>
+
+      - **Status flags** - Controls for managing content state: `isDraft`,
+      `isArchived `<br/> 
+
+      - **Content fields** - Stored in `fieldData`. Each item needs a `name` and
+      `slug`, and may include additional fields matching your collection's
+      schema definition.
+    properties:
+      cmsLocaleId:
+        type: optional<string>
+        docs: Identifier for the locale of the CMS item
+      isArchived:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to archived
+        default: false
+      isDraft:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to draft
+        default: false
+      fieldData: ItemsCreateItemLiveRequestBodyCmsLocaleIdFieldData
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ItemsCreateItemLiveRequestBodyItemsItemsItemFieldData:
+    properties:
+      name:
+        type: string
+        docs: Name of the Item
+      slug:
+        type: string
+        docs: >-
+          URL structure of the Item in your site. Note: Updates to an item slug
+          will break all links referencing the old slug.
+    extra-properties: true
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ItemsCreateItemLiveRequestBodyItemsItemsItem:
+    docs: >
+      A Collection Item represents a single entry in your collection. Each item
+      includes:
+
+
+      - **System metadata** - Automatically managed fields like IDs and
+      timestamp <br/>
+
+      - **Status flags** - Controls for managing content state: `isDraft`,
+      `isArchived `<br/> 
+
+      - **Content fields** - Stored in `fieldData`. Each item needs a `name` and
+      `slug`, and may include additional fields matching your collection's
+      schema definition.
+    properties:
+      cmsLocaleId:
+        type: optional<string>
+        docs: Identifier for the locale of the CMS item
+      isArchived:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to archived
+        default: false
+      isDraft:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to draft
+        default: false
+      fieldData: ItemsCreateItemLiveRequestBodyItemsItemsItemFieldData
+    source:
+      openapi: v2-data.yml
+    inline: true
   Multiple Live Items:
     properties:
       items:
-        type: optional<list<root.CollectionItem>>
+        type: optional<list<ItemsCreateItemLiveRequestBodyItemsItemsItem>>
         docs: List of collection items to create
     source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
+      openapi: v2-data.yml
     inline: true
   ItemsCreateItemLiveRequestBody:
     discriminated: false
     union:
-      - type: root.CollectionItem
+      - type: Single Live Item
+        docs: >
+          A Collection Item represents a single entry in your collection. Each
+          item includes:
+
+
+          - **System metadata** - Automatically managed fields like IDs and
+          timestamp <br/>
+
+          - **Status flags** - Controls for managing content state: `isDraft`,
+          `isArchived `<br/> 
+
+          - **Content fields** - Stored in `fieldData`. Each item needs a `name`
+          and `slug`, and may include additional fields matching your
+          collection's schema definition.
       - type: Multiple Live Items
     source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
+      openapi: v2-data.yml
+  ItemsCreateItemLiveResponseFieldData:
+    properties:
+      name:
+        type: string
+        docs: Name of the Item
+      slug:
+        type: string
+        docs: >-
+          URL structure of the Item in your site. Note: Updates to an item slug
+          will break all links referencing the old slug.
+    extra-properties: true
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ItemsCreateItemLiveResponse:
+    docs: >
+      A Collection Item represents a single entry in your collection. Each item
+      includes:
+
+
+      - **System metadata** - Automatically managed fields like IDs and
+      timestamp <br/>
+
+      - **Status flags** - Controls for managing content state: `isDraft`,
+      `isArchived `<br/> 
+
+      - **Content fields** - Stored in `fieldData`. Each item needs a `name` and
+      `slug`, and may include additional fields matching your collection's
+      schema definition.
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Item
+        access: read-only
+      cmsLocaleId:
+        type: optional<string>
+        docs: Identifier for the locale of the CMS item
+      lastPublished:
+        type: optional<string>
+        docs: The date the item was last published
+        access: read-only
+      lastUpdated:
+        type: optional<string>
+        docs: The date the item was last updated
+        access: read-only
+      createdOn:
+        type: optional<string>
+        docs: The date the item was created
+        access: read-only
+      isArchived:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to archived
+        default: false
+      isDraft:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to draft
+        default: false
+      fieldData: ItemsCreateItemLiveResponseFieldData
+    source:
+      openapi: v2-data.yml
   ItemsDeleteItemsLiveRequestItemsItem:
     properties:
       id:
@@ -84,8 +784,114 @@ types:
         type: optional<list<string>>
         docs: Array of identifiers for the locales where the item will be created
     source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
+      openapi: v2-data.yml
     inline: true
+  ItemsUpdateItemsLiveRequestItemsItemFieldData:
+    properties:
+      name:
+        type: optional<string>
+        docs: Name of the Item
+      slug:
+        type: optional<string>
+        docs: >-
+          URL structure of the Item in your site. Note: Updates to an item slug
+          will break all links referencing the old slug.
+    extra-properties: true
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ItemsUpdateItemsLiveRequestItemsItem:
+    docs: >
+      The fields that define the schema for a given Item are based on the
+      Collection that Item belongs to. Beyond the user defined fields, there are
+      a handful of additional fields that are automatically created for all
+      items
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the Item
+      cmsLocaleId:
+        type: optional<string>
+        docs: Identifier for the locale of the CMS item
+      isArchived:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to archived
+      isDraft:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to draft
+      fieldData: optional<ItemsUpdateItemsLiveRequestItemsItemFieldData>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ItemsUpdateItemsLiveResponseItemsItemFieldData:
+    properties:
+      name:
+        type: string
+        docs: Name of the Item
+      slug:
+        type: string
+        docs: >-
+          URL structure of the Item in your site. Note: Updates to an item slug
+          will break all links referencing the old slug.
+    extra-properties: true
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ItemsUpdateItemsLiveResponseItemsItem:
+    docs: >
+      A Collection Item represents a single entry in your collection. Each item
+      includes:
+
+
+      - **System metadata** - Automatically managed fields like IDs and
+      timestamp <br/>
+
+      - **Status flags** - Controls for managing content state: `isDraft`,
+      `isArchived `<br/> 
+
+      - **Content fields** - Stored in `fieldData`. Each item needs a `name` and
+      `slug`, and may include additional fields matching your collection's
+      schema definition.
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Item
+        access: read-only
+      cmsLocaleId:
+        type: optional<string>
+        docs: Identifier for the locale of the CMS item
+      lastPublished:
+        type: optional<string>
+        docs: The date the item was last published
+        access: read-only
+      lastUpdated:
+        type: optional<string>
+        docs: The date the item was last updated
+        access: read-only
+      createdOn:
+        type: optional<string>
+        docs: The date the item was created
+        access: read-only
+      isArchived:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to archived
+        default: false
+      isDraft:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to draft
+        default: false
+      fieldData: ItemsUpdateItemsLiveResponseItemsItemFieldData
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ItemsUpdateItemsLiveResponse:
+    docs: Results from collection items list
+    properties:
+      items:
+        type: optional<list<ItemsUpdateItemsLiveResponseItemsItem>>
+        docs: List of Items within the collection
+    source:
+      openapi: v2-data.yml
   Single CMS Item:
     properties:
       name:
@@ -100,9 +906,9 @@ types:
           slug.
     extra-properties: true
     source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
+      openapi: v2-data.yml
     inline: true
-  CreateBulkCollectionItemRequestBodyFieldDataItem:
+  ItemsCreateItemsRequestFieldDataItem:
     docs: A single CMS item to create
     properties:
       name:
@@ -117,24 +923,341 @@ types:
           slug.
     extra-properties: true
     source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
+      openapi: v2-data.yml
     inline: true
-  CreateBulkCollectionItemRequestBodyFieldData:
+  ItemsCreateItemsRequestFieldData:
     discriminated: false
     union:
       - type: Single CMS Item
       - docs: A list of CMS items to create
-        type: list<CreateBulkCollectionItemRequestBodyFieldDataItem>
+        type: list<ItemsCreateItemsRequestFieldDataItem>
     source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
+      openapi: v2-data.yml
     inline: true
+  ItemsCreateItemsResponseFieldData:
+    properties:
+      name:
+        type: optional<string>
+        docs: Name of the Item
+      slug:
+        type: optional<string>
+        docs: >-
+          URL structure of the Item in your site. Note: Updates to an item slug
+          will break all links referencing the old slug.
+    extra-properties: true
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ItemsCreateItemsResponse:
+    docs: >
+      The fields that define the schema for a given Item are based on the
+      Collection that Item belongs to. Beyond the user defined fields, there are
+      a handful of additional fields that are automatically created for all
+      items
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the Item
+      cmsLocaleIds:
+        docs: Array of identifiers for the locales where the item will be created
+        type: list<string>
+      lastPublished:
+        type: optional<string>
+        docs: The date the item was last published
+        access: read-only
+      lastUpdated:
+        type: optional<string>
+        docs: The date the item was last updated
+        access: read-only
+      createdOn:
+        type: optional<string>
+        docs: The date the item was created
+        access: read-only
+      isArchived:
+        type: boolean
+        docs: Boolean determining if the Item is set to archived
+        default: false
+      isDraft:
+        type: boolean
+        docs: Boolean determining if the Item is set to draft
+        default: false
+      fieldData: ItemsCreateItemsResponseFieldData
+    source:
+      openapi: v2-data.yml
+  ItemsGetItemResponseFieldData:
+    properties:
+      name:
+        type: string
+        docs: Name of the Item
+      slug:
+        type: string
+        docs: >-
+          URL structure of the Item in your site. Note: Updates to an item slug
+          will break all links referencing the old slug.
+    extra-properties: true
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ItemsGetItemResponse:
+    docs: >
+      A Collection Item represents a single entry in your collection. Each item
+      includes:
+
+
+      - **System metadata** - Automatically managed fields like IDs and
+      timestamp <br/>
+
+      - **Status flags** - Controls for managing content state: `isDraft`,
+      `isArchived `<br/> 
+
+      - **Content fields** - Stored in `fieldData`. Each item needs a `name` and
+      `slug`, and may include additional fields matching your collection's
+      schema definition.
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Item
+        access: read-only
+      cmsLocaleId:
+        type: optional<string>
+        docs: Identifier for the locale of the CMS item
+      lastPublished:
+        type: optional<string>
+        docs: The date the item was last published
+        access: read-only
+      lastUpdated:
+        type: optional<string>
+        docs: The date the item was last updated
+        access: read-only
+      createdOn:
+        type: optional<string>
+        docs: The date the item was created
+        access: read-only
+      isArchived:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to archived
+        default: false
+      isDraft:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to draft
+        default: false
+      fieldData: ItemsGetItemResponseFieldData
+    source:
+      openapi: v2-data.yml
+  ItemsUpdateItemRequestFieldData:
+    properties:
+      name:
+        type: optional<string>
+        docs: Name of the Item
+      slug:
+        type: optional<string>
+        docs: >-
+          URL structure of the Item in your site. Note: Updates to an item slug
+          will break all links referencing the old slug.
+    extra-properties: true
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ItemsUpdateItemResponseFieldData:
+    properties:
+      name:
+        type: string
+        docs: Name of the Item
+      slug:
+        type: string
+        docs: >-
+          URL structure of the Item in your site. Note: Updates to an item slug
+          will break all links referencing the old slug.
+    extra-properties: true
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ItemsUpdateItemResponse:
+    docs: >
+      A Collection Item represents a single entry in your collection. Each item
+      includes:
+
+
+      - **System metadata** - Automatically managed fields like IDs and
+      timestamp <br/>
+
+      - **Status flags** - Controls for managing content state: `isDraft`,
+      `isArchived `<br/> 
+
+      - **Content fields** - Stored in `fieldData`. Each item needs a `name` and
+      `slug`, and may include additional fields matching your collection's
+      schema definition.
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Item
+        access: read-only
+      cmsLocaleId:
+        type: optional<string>
+        docs: Identifier for the locale of the CMS item
+      lastPublished:
+        type: optional<string>
+        docs: The date the item was last published
+        access: read-only
+      lastUpdated:
+        type: optional<string>
+        docs: The date the item was last updated
+        access: read-only
+      createdOn:
+        type: optional<string>
+        docs: The date the item was created
+        access: read-only
+      isArchived:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to archived
+        default: false
+      isDraft:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to draft
+        default: false
+      fieldData: ItemsUpdateItemResponseFieldData
+    source:
+      openapi: v2-data.yml
+  ItemsGetItemLiveResponseFieldData:
+    properties:
+      name:
+        type: string
+        docs: Name of the Item
+      slug:
+        type: string
+        docs: >-
+          URL structure of the Item in your site. Note: Updates to an item slug
+          will break all links referencing the old slug.
+    extra-properties: true
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ItemsGetItemLiveResponse:
+    docs: >
+      A Collection Item represents a single entry in your collection. Each item
+      includes:
+
+
+      - **System metadata** - Automatically managed fields like IDs and
+      timestamp <br/>
+
+      - **Status flags** - Controls for managing content state: `isDraft`,
+      `isArchived `<br/> 
+
+      - **Content fields** - Stored in `fieldData`. Each item needs a `name` and
+      `slug`, and may include additional fields matching your collection's
+      schema definition.
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Item
+        access: read-only
+      cmsLocaleId:
+        type: optional<string>
+        docs: Identifier for the locale of the CMS item
+      lastPublished:
+        type: optional<string>
+        docs: The date the item was last published
+        access: read-only
+      lastUpdated:
+        type: optional<string>
+        docs: The date the item was last updated
+        access: read-only
+      createdOn:
+        type: optional<string>
+        docs: The date the item was created
+        access: read-only
+      isArchived:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to archived
+        default: false
+      isDraft:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to draft
+        default: false
+      fieldData: ItemsGetItemLiveResponseFieldData
+    source:
+      openapi: v2-data.yml
+  ItemsUpdateItemLiveRequestFieldData:
+    properties:
+      name:
+        type: optional<string>
+        docs: Name of the Item
+      slug:
+        type: optional<string>
+        docs: >-
+          URL structure of the Item in your site. Note: Updates to an item slug
+          will break all links referencing the old slug.
+    extra-properties: true
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ItemsUpdateItemLiveResponseFieldData:
+    properties:
+      name:
+        type: string
+        docs: Name of the Item
+      slug:
+        type: string
+        docs: >-
+          URL structure of the Item in your site. Note: Updates to an item slug
+          will break all links referencing the old slug.
+    extra-properties: true
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ItemsUpdateItemLiveResponse:
+    docs: >
+      A Collection Item represents a single entry in your collection. Each item
+      includes:
+
+
+      - **System metadata** - Automatically managed fields like IDs and
+      timestamp <br/>
+
+      - **Status flags** - Controls for managing content state: `isDraft`,
+      `isArchived `<br/> 
+
+      - **Content fields** - Stored in `fieldData`. Each item needs a `name` and
+      `slug`, and may include additional fields matching your collection's
+      schema definition.
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Item
+        access: read-only
+      cmsLocaleId:
+        type: optional<string>
+        docs: Identifier for the locale of the CMS item
+      lastPublished:
+        type: optional<string>
+        docs: The date the item was last published
+        access: read-only
+      lastUpdated:
+        type: optional<string>
+        docs: The date the item was last updated
+        access: read-only
+      createdOn:
+        type: optional<string>
+        docs: The date the item was created
+        access: read-only
+      isArchived:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to archived
+        default: false
+      isDraft:
+        type: optional<boolean>
+        docs: Boolean determining if the Item is set to draft
+        default: false
+      fieldData: ItemsUpdateItemLiveResponseFieldData
+    source:
+      openapi: v2-data.yml
   Item IDs:
     docs: An array of Item IDs in a single locale
     properties:
-      itemIds:
-        type: optional<list<string>>
+      itemIds: optional<list<string>>
     source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
+      openapi: v2-data.yml
     inline: true
   ItemsPublishItemRequestItemsItemsItem:
     properties:
@@ -145,15 +1268,14 @@ types:
         type: optional<list<string>>
         docs: Array of identifiers for the locales where the item will be published
     source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
+      openapi: v2-data.yml
     inline: true
   Item IDs with Locales:
     docs: An array of Item IDs with included `cmsLocaleIds`
     properties:
-      items:
-        type: optional<list<ItemsPublishItemRequestItemsItemsItem>>
+      items: optional<list<ItemsPublishItemRequestItemsItemsItem>>
     source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
+      openapi: v2-data.yml
     inline: true
   ItemsPublishItemRequest:
     discriminated: false
@@ -163,13 +1285,13 @@ types:
       - type: Item IDs with Locales
         docs: An array of Item IDs with included `cmsLocaleIds`
     source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
+      openapi: v2-data.yml
   ItemsPublishItemResponse:
     properties:
       publishedItemIds: optional<list<string>>
       errors: optional<list<string>>
     source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
+      openapi: v2-data.yml
 service:
   auth: false
   base-path: ''
@@ -177,13 +1299,15 @@ service:
     list-items:
       path: /collections/{collection_id}/items
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:read
       docs: |
         List of all Items within a Collection.
 
         Required scope | `CMS:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         collection_id:
           type: string
@@ -224,7 +1348,7 @@ service:
             docs: Sorts the results by asc or desc
       response:
         docs: Request was successful
-        type: root.CollectionItemList
+        type: ItemsListItemsResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -235,6 +1359,14 @@ service:
       examples:
         - path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
+          query-parameters:
+            cmsLocaleId: cmsLocaleId
+            offset: 1.1
+            limit: 1.1
+            name: name
+            slug: slug
+            sortBy: lastPublished
+            sortOrder: asc
           response:
             body:
               items:
@@ -269,7 +1401,9 @@ service:
     create-item:
       path: /collections/{collection_id}/items
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: >
         Create Item(s) in a Collection.
 
@@ -281,7 +1415,7 @@ service:
 
         Required scope | `CMS:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         collection_id:
           type: string
@@ -300,7 +1434,7 @@ service:
         content-type: application/json
       response:
         docs: Request was successful
-        type: root.CollectionItem
+        type: ItemsCreateItemResponse
         status-code: 202
       errors:
         - root.BadRequestError
@@ -312,15 +1446,44 @@ service:
         - name: SingleItem
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
+          query-parameters:
+            skipInvalidFiles: true
           request:
             isArchived: false
             isDraft: false
             fieldData:
-              name: Pan Galactic Gargle Blaster Recipe
-              slug: pan-galactic-gargle-blaster
-              date: '2022-11-18T00:00:00.000Z'
-              featured: true
-              color: '#db4b68'
+              name: The Hitchhiker's Guide to the Galaxy
+              slug: hitchhikers-guide-to-the-galaxy
+              plain-text: Don't Panic.
+              rich-text: >-
+                <h3>A Guide to Interstellar Travel</h3><p>A towel is about the
+                most massively useful thing an interstellar hitchhiker can have.
+                <strong>Don't forget yours!</strong></p>
+              main-image:
+                fileId: 62b720ef280c7a7a3be8cabe
+                url: /files/62b720ef280c7a7a3be8cabe_image.png
+              image-gallery:
+                - fileId: 62b720ef280c7a7a3be8cabd
+                  url: /files/62b720ef280c7a7a3be8cabd_image.png
+                - fileId: 62b720ef280c7a7a3be8cabe
+                  url: /files/62b720ef280c7a7a3be8cabe_image.png
+              intro-video: https://www.youtube.com/watch?v=aJ83KAggd-4
+              official-site: >-
+                https://hitchhikers.fandom.com/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy
+              contact-email: zaphod.beeblebrox@heartofgold.gov
+              support-phone: 424-242-4242
+              answer-to-everything: 42
+              release-date: '1979-10-12T00:00:00.000Z'
+              is-featured: true
+              brand-color: '#000000'
+              category: 62b720ef280c7a7a3be8cabf
+              author: 62b720ef280c7a7a3be8cab0
+              tags:
+                - 62b720ef280c7a7a3be8cab1
+                - 62b720ef280c7a7a3be8cab2
+              downloadable-asset:
+                fileId: 62b720ef280c7a7a3be8cab3
+                url: /files/62b720ef280c7a7a3be8cab3_document.pdf
           response:
             body:
               id: 42b720ef280c7a7a3be8cabe
@@ -331,14 +1494,43 @@ service:
               isArchived: false
               isDraft: false
               fieldData:
-                name: Pan Galactic Gargle Blaster Recipe
-                slug: pan-galactic-gargle-blaster
-                color: '#db4b68'
-                date: '2022-11-18T00:00:00.000Z'
-                featured: true
+                name: The Hitchhiker's Guide to the Galaxy
+                slug: hitchhikers-guide-to-the-galaxy
+                plain-text: Don't Panic.
+                rich-text: >-
+                  <h3>A Guide to Interstellar Travel</h3><p>A towel is about the
+                  most massively useful thing an interstellar hitchhiker can
+                  have. <strong>Don't forget yours!</strong></p>
+                main-image:
+                  fileId: 62b720ef280c7a7a3be8cabe
+                  url: /files/62b720ef280c7a7a3be8cabe_image.png
+                image-gallery:
+                  - fileId: 62b720ef280c7a7a3be8cabd
+                    url: /files/62b720ef280c7a7a3be8cabd_image.png
+                  - fileId: 62b720ef280c7a7a3be8cabe
+                    url: /files/62b720ef280c7a7a3be8cabe_image.png
+                intro-video: https://www.youtube.com/watch?v=aJ83KAggd-4
+                official-site: >-
+                  https://hitchhikers.fandom.com/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy
+                contact-email: zaphod.beeblebrox@heartofgold.gov
+                support-phone: 424-242-4242
+                answer-to-everything: 42
+                release-date: '1979-10-12T00:00:00.000Z'
+                is-featured: true
+                brand-color: '#000000'
+                category: 62b720ef280c7a7a3be8cabf
+                author: 62b720ef280c7a7a3be8cab0
+                tags:
+                  - 62b720ef280c7a7a3be8cab1
+                  - 62b720ef280c7a7a3be8cab2
+                downloadable-asset:
+                  fileId: 62b720ef280c7a7a3be8cab3
+                  url: /files/62b720ef280c7a7a3be8cab3_document.pdf
         - name: MultipleItems
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
+          query-parameters:
+            skipInvalidFiles: true
           request:
             items:
               - isArchived: false
@@ -357,7 +1549,7 @@ service:
                   department: Product
           response:
             body:
-              id: id
+              id: 580e64008c9a982ac9b8b754
               cmsLocaleId: 653ad57de882f528b32e810e
               lastPublished: '2023-03-17T18:47:35.560Z'
               lastUpdated: '2023-03-17T18:47:35.560Z'
@@ -373,7 +1565,9 @@ service:
     delete-items:
       path: /collections/{collection_id}/items
       method: DELETE
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: >
         Delete Items from a Collection.
 
@@ -384,7 +1578,7 @@ service:
 
         Required scope | `CMS:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         collection_id:
           type: string
@@ -412,7 +1606,9 @@ service:
     update-items:
       path: /collections/{collection_id}/items
       method: PATCH
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: >
         Update a single item or multiple items in a Collection.
 
@@ -426,7 +1622,7 @@ service:
 
         Required scope | `CMS:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         collection_id:
           type: string
@@ -443,7 +1639,7 @@ service:
               When false, the entire request fails if any file is invalid.
         body:
           properties:
-            items: optional<list<root.CollectionItemWithIdInput>>
+            items: optional<list<ItemsUpdateItemsRequestItemsItem>>
         content-type: application/json
       response:
         docs: Request was successful
@@ -459,6 +1655,8 @@ service:
         - name: LocalizedItems
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
+          query-parameters:
+            skipInvalidFiles: true
           request:
             items:
               - id: 66f6ed9576ddacf3149d5ea6
@@ -539,6 +1737,8 @@ service:
         - name: MultipleItems
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
+          query-parameters:
+            skipInvalidFiles: true
           request:
             items:
               - id: 580e64008c9a982ac9b8b754
@@ -591,7 +1791,9 @@ service:
     list-items-live:
       path: /collections/{collection_id}/items/live
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:read
       docs: |
         List all published items in a collection.
 
@@ -602,7 +1804,7 @@ service:
 
         Required scope | `CMS:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         collection_id:
           type: string
@@ -643,7 +1845,7 @@ service:
             docs: Sorts the results by asc or desc
       response:
         docs: Request was successful
-        type: root.CollectionItemList
+        type: ItemsListItemsLiveResponse
         status-code: 200
       url: Data API
       errors:
@@ -655,6 +1857,14 @@ service:
       examples:
         - path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
+          query-parameters:
+            cmsLocaleId: cmsLocaleId
+            offset: 1.1
+            limit: 1.1
+            name: name
+            slug: slug
+            sortBy: lastPublished
+            sortOrder: asc
           response:
             body:
               items:
@@ -689,7 +1899,9 @@ service:
     create-item-live:
       path: /collections/{collection_id}/items/live
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: >
         Create item(s) in a collection that will be immediately published to the
         live site.
@@ -703,7 +1915,7 @@ service:
 
         Required scope | `CMS:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         collection_id:
           type: string
@@ -722,7 +1934,7 @@ service:
         content-type: application/json
       response:
         docs: Request was successful
-        type: root.CollectionItem
+        type: ItemsCreateItemLiveResponse
         status-code: 202
       errors:
         - root.BadRequestError
@@ -734,15 +1946,44 @@ service:
         - name: SingleItem
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
+          query-parameters:
+            skipInvalidFiles: true
           request:
             isArchived: false
             isDraft: false
             fieldData:
-              name: Pan Galactic Gargle Blaster Recipe
-              slug: pan-galactic-gargle-blaster
-              date: '2022-11-18T00:00:00.000Z'
-              featured: true
-              color: '#db4b68'
+              name: The Hitchhiker's Guide to the Galaxy
+              slug: hitchhikers-guide-to-the-galaxy
+              plain-text: Don't Panic.
+              rich-text: >-
+                <h3>A Guide to Interstellar Travel</h3><p>A towel is about the
+                most massively useful thing an interstellar hitchhiker can have.
+                <strong>Don't forget yours!</strong></p>
+              main-image:
+                fileId: 62b720ef280c7a7a3be8cabe
+                url: /files/62b720ef280c7a7a3be8cabe_image.png
+              image-gallery:
+                - fileId: 62b720ef280c7a7a3be8cabd
+                  url: /files/62b720ef280c7a7a3be8cabd_image.png
+                - fileId: 62b720ef280c7a7a3be8cabe
+                  url: /files/62b720ef280c7a7a3be8cabe_image.png
+              intro-video: https://www.youtube.com/watch?v=aJ83KAggd-4
+              official-site: >-
+                https://hitchhikers.fandom.com/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy
+              contact-email: zaphod.beeblebrox@heartofgold.gov
+              support-phone: 424-242-4242
+              answer-to-everything: 42
+              release-date: '1979-10-12T00:00:00.000Z'
+              is-featured: true
+              brand-color: '#000000'
+              category: 62b720ef280c7a7a3be8cabf
+              author: 62b720ef280c7a7a3be8cab0
+              tags:
+                - 62b720ef280c7a7a3be8cab1
+                - 62b720ef280c7a7a3be8cab2
+              downloadable-asset:
+                fileId: 62b720ef280c7a7a3be8cab3
+                url: /files/62b720ef280c7a7a3be8cab3_document.pdf
           response:
             body:
               id: 42b720ef280c7a7a3be8cabe
@@ -753,14 +1994,43 @@ service:
               isArchived: false
               isDraft: false
               fieldData:
-                name: Pan Galactic Gargle Blaster Recipe
-                slug: pan-galactic-gargle-blaster
-                color: '#db4b68'
-                date: '2022-11-18T00:00:00.000Z'
-                featured: true
+                name: The Hitchhiker's Guide to the Galaxy
+                slug: hitchhikers-guide-to-the-galaxy
+                plain-text: Don't Panic.
+                rich-text: >-
+                  <h3>A Guide to Interstellar Travel</h3><p>A towel is about the
+                  most massively useful thing an interstellar hitchhiker can
+                  have. <strong>Don't forget yours!</strong></p>
+                main-image:
+                  fileId: 62b720ef280c7a7a3be8cabe
+                  url: /files/62b720ef280c7a7a3be8cabe_image.png
+                image-gallery:
+                  - fileId: 62b720ef280c7a7a3be8cabd
+                    url: /files/62b720ef280c7a7a3be8cabd_image.png
+                  - fileId: 62b720ef280c7a7a3be8cabe
+                    url: /files/62b720ef280c7a7a3be8cabe_image.png
+                intro-video: https://www.youtube.com/watch?v=aJ83KAggd-4
+                official-site: >-
+                  https://hitchhikers.fandom.com/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy
+                contact-email: zaphod.beeblebrox@heartofgold.gov
+                support-phone: 424-242-4242
+                answer-to-everything: 42
+                release-date: '1979-10-12T00:00:00.000Z'
+                is-featured: true
+                brand-color: '#000000'
+                category: 62b720ef280c7a7a3be8cabf
+                author: 62b720ef280c7a7a3be8cab0
+                tags:
+                  - 62b720ef280c7a7a3be8cab1
+                  - 62b720ef280c7a7a3be8cab2
+                downloadable-asset:
+                  fileId: 62b720ef280c7a7a3be8cab3
+                  url: /files/62b720ef280c7a7a3be8cab3_document.pdf
         - name: MultipleItems
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
+          query-parameters:
+            skipInvalidFiles: true
           request:
             items:
               - isArchived: false
@@ -787,15 +2057,44 @@ service:
               isArchived: false
               isDraft: false
               fieldData:
-                name: Pan Galactic Gargle Blaster Recipe
-                slug: pan-galactic-gargle-blaster
-                color: '#db4b68'
-                date: '2022-11-18T00:00:00.000Z'
-                featured: true
+                name: The Hitchhiker's Guide to the Galaxy
+                slug: hitchhikers-guide-to-the-galaxy
+                plain-text: Don't Panic.
+                rich-text: >-
+                  <h3>A Guide to Interstellar Travel</h3><p>A towel is about the
+                  most massively useful thing an interstellar hitchhiker can
+                  have. <strong>Don't forget yours!</strong></p>
+                main-image:
+                  fileId: 62b720ef280c7a7a3be8cabe
+                  url: /files/62b720ef280c7a7a3be8cabe_image.png
+                image-gallery:
+                  - fileId: 62b720ef280c7a7a3be8cabd
+                    url: /files/62b720ef280c7a7a3be8cabd_image.png
+                  - fileId: 62b720ef280c7a7a3be8cabe
+                    url: /files/62b720ef280c7a7a3be8cabe_image.png
+                intro-video: https://www.youtube.com/watch?v=aJ83KAggd-4
+                official-site: >-
+                  https://hitchhikers.fandom.com/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy
+                contact-email: zaphod.beeblebrox@heartofgold.gov
+                support-phone: 424-242-4242
+                answer-to-everything: 42
+                release-date: '1979-10-12T00:00:00.000Z'
+                is-featured: true
+                brand-color: '#000000'
+                category: 62b720ef280c7a7a3be8cabf
+                author: 62b720ef280c7a7a3be8cab0
+                tags:
+                  - 62b720ef280c7a7a3be8cab1
+                  - 62b720ef280c7a7a3be8cab2
+                downloadable-asset:
+                  fileId: 62b720ef280c7a7a3be8cab3
+                  url: /files/62b720ef280c7a7a3be8cab3_document.pdf
     delete-items-live:
       path: /collections/{collection_id}/items/live
       method: DELETE
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: >
         Unpublish up to 100 items from the live site and set the `isDraft`
         property to `true`. 
@@ -807,7 +2106,7 @@ service:
 
         Required scope | `CMS:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         collection_id:
           type: string
@@ -834,7 +2133,9 @@ service:
     update-items-live:
       path: /collections/{collection_id}/items/live
       method: PATCH
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: >
         Update a single published item or multiple published items (up to 100)
         in a Collection
@@ -846,7 +2147,7 @@ service:
 
         Required scope | `CMS:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         collection_id:
           type: string
@@ -863,11 +2164,11 @@ service:
               When false, the entire request fails if any file is invalid.
         body:
           properties:
-            items: optional<list<root.CollectionItemWithIdInput>>
+            items: optional<list<ItemsUpdateItemsLiveRequestItemsItem>>
         content-type: application/json
       response:
         docs: Request was successful
-        type: root.CollectionItemListNoPagination
+        type: ItemsUpdateItemsLiveResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -880,6 +2181,8 @@ service:
         - name: LocalizedItems
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
+          query-parameters:
+            skipInvalidFiles: true
           request:
             items:
               - id: 66f6ed9576ddacf3149d5ea6
@@ -956,6 +2259,8 @@ service:
         - name: MultipleItems
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
+          query-parameters:
+            skipInvalidFiles: true
           request:
             items:
               - id: 580e64008c9a982ac9b8b754
@@ -1024,6 +2329,8 @@ service:
         - name: Multiple items updated across multiple locales
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
+          query-parameters:
+            skipInvalidFiles: true
           request:
             items:
               - id: 66f6ed9576ddacf3149d5ea6
@@ -1100,6 +2407,8 @@ service:
         - name: Multiple items updated in a single locale
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
+          query-parameters:
+            skipInvalidFiles: true
           request:
             items:
               - id: 66f6ed9576ddacf3149d5ea6
@@ -1156,7 +2465,9 @@ service:
     create-items:
       path: /collections/{collection_id}/items/bulk
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: >
         Create an item or multiple items in a CMS Collection across multiple
         corresponding locales.
@@ -1170,14 +2481,14 @@ service:
 
         Required scope | `CMS:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         collection_id:
           type: string
           docs: Unique identifier for a Collection
       display-name: Create Collection Items
       request:
-        name: CreateBulkCollectionItemRequestBody
+        name: ItemsCreateItemsRequest
         query-parameters:
           skipInvalidFiles:
             type: optional<boolean>
@@ -1200,11 +2511,11 @@ service:
               type: optional<boolean>
               docs: Indicates whether the item is in draft state.
               default: true
-            fieldData: CreateBulkCollectionItemRequestBodyFieldData
+            fieldData: ItemsCreateItemsRequestFieldData
         content-type: application/json
       response:
         docs: Request was successful
-        type: root.BulkCollectionItem
+        type: ItemsCreateItemsResponse
         status-code: 202
       errors:
         - root.BadRequestError
@@ -1216,6 +2527,8 @@ service:
         - name: Create a single item across multiple locales
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
+          query-parameters:
+            skipInvalidFiles: true
           request:
             cmsLocaleIds:
               - 66f6e966c9e1dc700a857ca3
@@ -1247,6 +2560,8 @@ service:
         - name: Create multiple items across multiple locales
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
+          query-parameters:
+            skipInvalidFiles: true
           request:
             cmsLocaleIds:
               - 66f6e966c9e1dc700a857ca3
@@ -1279,6 +2594,8 @@ service:
         - name: Single item created across multiple locales
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
+          query-parameters:
+            skipInvalidFiles: true
           request:
             cmsLocaleIds:
               - 66f6e966c9e1dc700a857ca3
@@ -1310,6 +2627,8 @@ service:
         - name: Multiple items created across multiple locales
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
+          query-parameters:
+            skipInvalidFiles: true
           request:
             cmsLocaleIds:
               - 66f6e966c9e1dc700a857ca3
@@ -1341,13 +2660,15 @@ service:
     get-item:
       path: /collections/{collection_id}/items/{item_id}
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:read
       docs: |
         Get details of a selected Collection Item.
 
         Required scope | `CMS:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         collection_id:
           type: string
@@ -1368,9 +2689,8 @@ service:
               string.
       response:
         docs: Request was successful
-        type: root.CollectionItem
+        type: ItemsGetItemResponse
         status-code: 200
-      url: Production
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -1381,6 +2701,8 @@ service:
         - path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
             item_id: 580e64008c9a982ac9b8b754
+          query-parameters:
+            cmsLocaleId: cmsLocaleId
           response:
             body:
               id: 42b720ef280c7a7a3be8cabe
@@ -1391,21 +2713,50 @@ service:
               isArchived: false
               isDraft: false
               fieldData:
-                name: Pan Galactic Gargle Blaster Recipe
-                slug: pan-galactic-gargle-blaster
-                color: '#db4b68'
-                date: '2022-11-18T00:00:00.000Z'
-                featured: true
+                name: The Hitchhiker's Guide to the Galaxy
+                slug: hitchhikers-guide-to-the-galaxy
+                plain-text: Don't Panic.
+                rich-text: >-
+                  <h3>A Guide to Interstellar Travel</h3><p>A towel is about the
+                  most massively useful thing an interstellar hitchhiker can
+                  have. <strong>Don't forget yours!</strong></p>
+                main-image:
+                  fileId: 62b720ef280c7a7a3be8cabe
+                  url: /files/62b720ef280c7a7a3be8cabe_image.png
+                image-gallery:
+                  - fileId: 62b720ef280c7a7a3be8cabd
+                    url: /files/62b720ef280c7a7a3be8cabd_image.png
+                  - fileId: 62b720ef280c7a7a3be8cabe
+                    url: /files/62b720ef280c7a7a3be8cabe_image.png
+                intro-video: https://www.youtube.com/watch?v=aJ83KAggd-4
+                official-site: >-
+                  https://hitchhikers.fandom.com/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy
+                contact-email: zaphod.beeblebrox@heartofgold.gov
+                support-phone: 424-242-4242
+                answer-to-everything: 42
+                release-date: '1979-10-12T00:00:00.000Z'
+                is-featured: true
+                brand-color: '#000000'
+                category: 62b720ef280c7a7a3be8cabf
+                author: 62b720ef280c7a7a3be8cab0
+                tags:
+                  - 62b720ef280c7a7a3be8cab1
+                  - 62b720ef280c7a7a3be8cab2
+                downloadable-asset:
+                  fileId: 62b720ef280c7a7a3be8cab3
+                  url: /files/62b720ef280c7a7a3be8cab3_document.pdf
     delete-item:
       path: /collections/{collection_id}/items/{item_id}
       method: DELETE
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: |
         Delete an item from a collection. 
 
         Required scope | `CMS:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         collection_id:
           type: string
@@ -1434,16 +2785,20 @@ service:
         - path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
             item_id: 580e64008c9a982ac9b8b754
+          query-parameters:
+            cmsLocaleId: cmsLocaleId
     update-item:
       path: /collections/{collection_id}/items/{item_id}
       method: PATCH
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: |
         Update a selected Item in a Collection.
 
         Required scope | `CMS:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         collection_id:
           type: string
@@ -1453,7 +2808,7 @@ service:
           docs: Unique identifier for an Item
       display-name: Update Collection Item
       request:
-        body: root.CollectionItemPatchSingle
+        name: ItemsUpdateItemRequest
         query-parameters:
           skipInvalidFiles:
             type: optional<boolean>
@@ -1461,11 +2816,22 @@ service:
             docs: >-
               When true, invalid files are skipped and processing continues.
               When false, the entire request fails if any file is invalid.
-        name: ItemsUpdateItemRequest
+        body:
+          properties:
+            cmsLocaleId:
+              type: optional<string>
+              docs: Identifier for the locale of the CMS item
+            isArchived:
+              type: optional<boolean>
+              docs: Boolean determining if the Item is set to archived
+            isDraft:
+              type: optional<boolean>
+              docs: Boolean determining if the Item is set to draft
+            fieldData: optional<ItemsUpdateItemRequestFieldData>
         content-type: application/json
       response:
         docs: Request was successful
-        type: root.CollectionItem
+        type: ItemsUpdateItemResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -1477,15 +2843,44 @@ service:
         - path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
             item_id: 580e64008c9a982ac9b8b754
+          query-parameters:
+            skipInvalidFiles: true
           request:
             isArchived: false
             isDraft: false
             fieldData:
-              name: Pan Galactic Gargle Blaster Recipe
-              slug: pan-galactic-gargle-blaster
-              date: '2022-11-18T00:00:00.000Z'
-              featured: true
-              color: '#db4b68'
+              name: The Hitchhiker's Guide to the Galaxy
+              slug: hitchhikers-guide-to-the-galaxy
+              plain-text: Don't Panic.
+              rich-text: >-
+                <h3>A Guide to Interstellar Travel</h3><p>A towel is about the
+                most massively useful thing an interstellar hitchhiker can have.
+                <strong>Don't forget yours!</strong></p>
+              main-image:
+                fileId: 62b720ef280c7a7a3be8cabe
+                url: /files/62b720ef280c7a7a3be8cabe_image.png
+              image-gallery:
+                - fileId: 62b720ef280c7a7a3be8cabd
+                  url: /files/62b720ef280c7a7a3be8cabd_image.png
+                - fileId: 62b720ef280c7a7a3be8cabe
+                  url: /files/62b720ef280c7a7a3be8cabe_image.png
+              intro-video: https://www.youtube.com/watch?v=aJ83KAggd-4
+              official-site: >-
+                https://hitchhikers.fandom.com/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy
+              contact-email: zaphod.beeblebrox@heartofgold.gov
+              support-phone: 424-242-4242
+              answer-to-everything: 42
+              release-date: '1979-10-12T00:00:00.000Z'
+              is-featured: true
+              brand-color: '#000000'
+              category: 62b720ef280c7a7a3be8cabf
+              author: 62b720ef280c7a7a3be8cab0
+              tags:
+                - 62b720ef280c7a7a3be8cab1
+                - 62b720ef280c7a7a3be8cab2
+              downloadable-asset:
+                fileId: 62b720ef280c7a7a3be8cab3
+                url: /files/62b720ef280c7a7a3be8cab3_document.pdf
           response:
             body:
               id: 42b720ef280c7a7a3be8cabe
@@ -1496,15 +2891,44 @@ service:
               isArchived: false
               isDraft: false
               fieldData:
-                name: Pan Galactic Gargle Blaster Recipe
-                slug: pan-galactic-gargle-blaster
-                color: '#db4b68'
-                date: '2022-11-18T00:00:00.000Z'
-                featured: true
+                name: The Hitchhiker's Guide to the Galaxy
+                slug: hitchhikers-guide-to-the-galaxy
+                plain-text: Don't Panic.
+                rich-text: >-
+                  <h3>A Guide to Interstellar Travel</h3><p>A towel is about the
+                  most massively useful thing an interstellar hitchhiker can
+                  have. <strong>Don't forget yours!</strong></p>
+                main-image:
+                  fileId: 62b720ef280c7a7a3be8cabe
+                  url: /files/62b720ef280c7a7a3be8cabe_image.png
+                image-gallery:
+                  - fileId: 62b720ef280c7a7a3be8cabd
+                    url: /files/62b720ef280c7a7a3be8cabd_image.png
+                  - fileId: 62b720ef280c7a7a3be8cabe
+                    url: /files/62b720ef280c7a7a3be8cabe_image.png
+                intro-video: https://www.youtube.com/watch?v=aJ83KAggd-4
+                official-site: >-
+                  https://hitchhikers.fandom.com/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy
+                contact-email: zaphod.beeblebrox@heartofgold.gov
+                support-phone: 424-242-4242
+                answer-to-everything: 42
+                release-date: '1979-10-12T00:00:00.000Z'
+                is-featured: true
+                brand-color: '#000000'
+                category: 62b720ef280c7a7a3be8cabf
+                author: 62b720ef280c7a7a3be8cab0
+                tags:
+                  - 62b720ef280c7a7a3be8cab1
+                  - 62b720ef280c7a7a3be8cab2
+                downloadable-asset:
+                  fileId: 62b720ef280c7a7a3be8cab3
+                  url: /files/62b720ef280c7a7a3be8cab3_document.pdf
     get-item-live:
       path: /collections/{collection_id}/items/{item_id}/live
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:read
       docs: |
         Get details of a selected Collection live Item.
 
@@ -1515,7 +2939,7 @@ service:
 
         Required scope | `CMS:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         collection_id:
           type: string
@@ -1536,7 +2960,7 @@ service:
               string.
       response:
         docs: Request was successful
-        type: root.CollectionItem
+        type: ItemsGetItemLiveResponse
         status-code: 200
       url: Data API
       errors:
@@ -1549,6 +2973,8 @@ service:
         - path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
             item_id: 580e64008c9a982ac9b8b754
+          query-parameters:
+            cmsLocaleId: cmsLocaleId
           response:
             body:
               id: 42b720ef280c7a7a3be8cabe
@@ -1559,15 +2985,44 @@ service:
               isArchived: false
               isDraft: false
               fieldData:
-                name: Pan Galactic Gargle Blaster Recipe
-                slug: pan-galactic-gargle-blaster
-                color: '#db4b68'
-                date: '2022-11-18T00:00:00.000Z'
-                featured: true
+                name: The Hitchhiker's Guide to the Galaxy
+                slug: hitchhikers-guide-to-the-galaxy
+                plain-text: Don't Panic.
+                rich-text: >-
+                  <h3>A Guide to Interstellar Travel</h3><p>A towel is about the
+                  most massively useful thing an interstellar hitchhiker can
+                  have. <strong>Don't forget yours!</strong></p>
+                main-image:
+                  fileId: 62b720ef280c7a7a3be8cabe
+                  url: /files/62b720ef280c7a7a3be8cabe_image.png
+                image-gallery:
+                  - fileId: 62b720ef280c7a7a3be8cabd
+                    url: /files/62b720ef280c7a7a3be8cabd_image.png
+                  - fileId: 62b720ef280c7a7a3be8cabe
+                    url: /files/62b720ef280c7a7a3be8cabe_image.png
+                intro-video: https://www.youtube.com/watch?v=aJ83KAggd-4
+                official-site: >-
+                  https://hitchhikers.fandom.com/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy
+                contact-email: zaphod.beeblebrox@heartofgold.gov
+                support-phone: 424-242-4242
+                answer-to-everything: 42
+                release-date: '1979-10-12T00:00:00.000Z'
+                is-featured: true
+                brand-color: '#000000'
+                category: 62b720ef280c7a7a3be8cabf
+                author: 62b720ef280c7a7a3be8cab0
+                tags:
+                  - 62b720ef280c7a7a3be8cab1
+                  - 62b720ef280c7a7a3be8cab2
+                downloadable-asset:
+                  fileId: 62b720ef280c7a7a3be8cab3
+                  url: /files/62b720ef280c7a7a3be8cab3_document.pdf
     delete-item-live:
       path: /collections/{collection_id}/items/{item_id}/live
       method: DELETE
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: >
         Unpublish a live item from the site and set the `isDraft` property to
         `true`. 
@@ -1579,7 +3034,7 @@ service:
 
         Required scope | `CMS:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         collection_id:
           type: string
@@ -1608,10 +3063,14 @@ service:
         - path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
             item_id: 580e64008c9a982ac9b8b754
+          query-parameters:
+            cmsLocaleId: cmsLocaleId
     update-item-live:
       path: /collections/{collection_id}/items/{item_id}/live
       method: PATCH
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: >
         Update a selected live Item in a Collection. The updates for this Item
         will be published to the live site.
@@ -1619,7 +3078,7 @@ service:
 
         Required scope | `CMS:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         collection_id:
           type: string
@@ -1629,7 +3088,7 @@ service:
           docs: Unique identifier for an Item
       display-name: Update Live Collection Item
       request:
-        body: root.CollectionItemPatchSingle
+        name: ItemsUpdateItemLiveRequest
         query-parameters:
           skipInvalidFiles:
             type: optional<boolean>
@@ -1637,11 +3096,22 @@ service:
             docs: >-
               When true, invalid files are skipped and processing continues.
               When false, the entire request fails if any file is invalid.
-        name: ItemsUpdateItemLiveRequest
+        body:
+          properties:
+            cmsLocaleId:
+              type: optional<string>
+              docs: Identifier for the locale of the CMS item
+            isArchived:
+              type: optional<boolean>
+              docs: Boolean determining if the Item is set to archived
+            isDraft:
+              type: optional<boolean>
+              docs: Boolean determining if the Item is set to draft
+            fieldData: optional<ItemsUpdateItemLiveRequestFieldData>
         content-type: application/json
       response:
         docs: Request was successful
-        type: root.CollectionItem
+        type: ItemsUpdateItemLiveResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -1654,15 +3124,44 @@ service:
         - path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
             item_id: 580e64008c9a982ac9b8b754
+          query-parameters:
+            skipInvalidFiles: true
           request:
             isArchived: false
             isDraft: false
             fieldData:
-              name: Pan Galactic Gargle Blaster Recipe
-              slug: pan-galactic-gargle-blaster
-              date: '2022-11-18T00:00:00.000Z'
-              featured: true
-              color: '#db4b68'
+              name: The Hitchhiker's Guide to the Galaxy
+              slug: hitchhikers-guide-to-the-galaxy
+              plain-text: Don't Panic.
+              rich-text: >-
+                <h3>A Guide to Interstellar Travel</h3><p>A towel is about the
+                most massively useful thing an interstellar hitchhiker can have.
+                <strong>Don't forget yours!</strong></p>
+              main-image:
+                fileId: 62b720ef280c7a7a3be8cabe
+                url: /files/62b720ef280c7a7a3be8cabe_image.png
+              image-gallery:
+                - fileId: 62b720ef280c7a7a3be8cabd
+                  url: /files/62b720ef280c7a7a3be8cabd_image.png
+                - fileId: 62b720ef280c7a7a3be8cabe
+                  url: /files/62b720ef280c7a7a3be8cabe_image.png
+              intro-video: https://www.youtube.com/watch?v=aJ83KAggd-4
+              official-site: >-
+                https://hitchhikers.fandom.com/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy
+              contact-email: zaphod.beeblebrox@heartofgold.gov
+              support-phone: 424-242-4242
+              answer-to-everything: 42
+              release-date: '1979-10-12T00:00:00.000Z'
+              is-featured: true
+              brand-color: '#000000'
+              category: 62b720ef280c7a7a3be8cabf
+              author: 62b720ef280c7a7a3be8cab0
+              tags:
+                - 62b720ef280c7a7a3be8cab1
+                - 62b720ef280c7a7a3be8cab2
+              downloadable-asset:
+                fileId: 62b720ef280c7a7a3be8cab3
+                url: /files/62b720ef280c7a7a3be8cab3_document.pdf
           response:
             body:
               id: 42b720ef280c7a7a3be8cabe
@@ -1673,21 +3172,50 @@ service:
               isArchived: false
               isDraft: false
               fieldData:
-                name: Pan Galactic Gargle Blaster Recipe
-                slug: pan-galactic-gargle-blaster
-                color: '#db4b68'
-                date: '2022-11-18T00:00:00.000Z'
-                featured: true
+                name: The Hitchhiker's Guide to the Galaxy
+                slug: hitchhikers-guide-to-the-galaxy
+                plain-text: Don't Panic.
+                rich-text: >-
+                  <h3>A Guide to Interstellar Travel</h3><p>A towel is about the
+                  most massively useful thing an interstellar hitchhiker can
+                  have. <strong>Don't forget yours!</strong></p>
+                main-image:
+                  fileId: 62b720ef280c7a7a3be8cabe
+                  url: /files/62b720ef280c7a7a3be8cabe_image.png
+                image-gallery:
+                  - fileId: 62b720ef280c7a7a3be8cabd
+                    url: /files/62b720ef280c7a7a3be8cabd_image.png
+                  - fileId: 62b720ef280c7a7a3be8cabe
+                    url: /files/62b720ef280c7a7a3be8cabe_image.png
+                intro-video: https://www.youtube.com/watch?v=aJ83KAggd-4
+                official-site: >-
+                  https://hitchhikers.fandom.com/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy
+                contact-email: zaphod.beeblebrox@heartofgold.gov
+                support-phone: 424-242-4242
+                answer-to-everything: 42
+                release-date: '1979-10-12T00:00:00.000Z'
+                is-featured: true
+                brand-color: '#000000'
+                category: 62b720ef280c7a7a3be8cabf
+                author: 62b720ef280c7a7a3be8cab0
+                tags:
+                  - 62b720ef280c7a7a3be8cab1
+                  - 62b720ef280c7a7a3be8cab2
+                downloadable-asset:
+                  fileId: 62b720ef280c7a7a3be8cab3
+                  url: /files/62b720ef280c7a7a3be8cab3_document.pdf
     publish-item:
       path: /collections/{collection_id}/items/publish
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: |
         Publish an item or multiple items.
 
         Required scope | `cms:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         collection_id:
           type: string
@@ -1762,4 +3290,4 @@ service:
               errors:
                 - Staging item ID 643fd856d66b6528195ee2cf not found.
   source:
-    openapi: ../../../openapi/referenced-specs/v2.yml
+    openapi: v2-data.yml

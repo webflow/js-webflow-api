@@ -8,7 +8,53 @@ types:
         name: CreatedOnDescending
         docs: Sorts users in descending order based on their created date
     source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
+      openapi: v2-data.yml
+  AccessGroupsListResponseAccessGroupsItem:
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for the Access Group
+      name:
+        type: optional<string>
+        docs: Name of the the Access Group
+      shortId:
+        type: optional<string>
+        docs: >-
+          Shortened unique identifier based on name, optimized for its use in
+          the user’s JWT
+      slug:
+        type: optional<string>
+        docs: >-
+          Shortened unique identifier based on name, optimized for human
+          readability and public API use
+      createdOn:
+        type: optional<datetime>
+        docs: The date the Access Group was created
+    source:
+      openapi: v2-data.yml
+    inline: true
+  AccessGroupsListResponse:
+    docs: The list access groups results
+    properties:
+      count:
+        type: optional<double>
+        docs: Number of access groups returned
+      limit:
+        type: optional<double>
+        docs: The limit specified in the request
+        default: 10
+      offset:
+        type: optional<double>
+        docs: The offset specified for pagination
+        default: 0
+      total:
+        type: optional<double>
+        docs: Total number of access groups in the collection
+      accessGroups:
+        type: optional<list<AccessGroupsListResponseAccessGroupsItem>>
+        docs: List of Site Access Groups
+    source:
+      openapi: v2-data.yml
 imports:
   root: __package__.yml
 service:
@@ -18,13 +64,15 @@ service:
     list:
       path: /sites/{site_id}/accessgroups
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - users:read
       docs: |
         Get a list of access groups for a site
 
         Required scope | `users:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -48,7 +96,7 @@ service:
               Can be prefixed with a `-` to reverse the sort (ex. `-CreatedOn`)
       response:
         docs: Request was successful
-        type: root.AccessGroupList
+        type: AccessGroupsListResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -60,6 +108,10 @@ service:
       examples:
         - path-parameters:
             site_id: 580e63e98c9a982ac9b8b741
+          query-parameters:
+            offset: 1.1
+            limit: 1.1
+            sort: CreatedOn
           response:
             body:
               count: 1
@@ -78,4 +130,4 @@ service:
                   slug: admin
                   createdOn: '2022-08-01T19:41:48Z'
   source:
-    openapi: ../../../openapi/referenced-specs/v2.yml
+    openapi: v2-data.yml

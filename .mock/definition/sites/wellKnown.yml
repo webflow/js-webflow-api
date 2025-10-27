@@ -1,5 +1,5 @@
 types:
-  WellKnownFileContentType:
+  WellKnownPutRequestContentType:
     enum:
       - value: application/json
         name: ApplicationJson
@@ -9,7 +9,7 @@ types:
     default: application/json
     inline: true
     source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
+      openapi: v2-data.yml
 imports:
   root: ../__package__.yml
 service:
@@ -19,7 +19,9 @@ service:
     put:
       path: /sites/{site_id}/well_known
       method: PUT
-      auth: true
+      auth:
+        - OAuth2:
+            - site_config:write
       docs: >
         Upload a supported well-known file to a site.
 
@@ -39,14 +41,14 @@ service:
 
         Required scope: `site_config:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
           docs: Unique identifier for a Site
       display-name: Set a well-known file
       request:
-        name: WellKnownFile
+        name: WellKnownPutRequest
         body:
           properties:
             fileName:
@@ -56,7 +58,7 @@ service:
               type: string
               docs: The contents of the file
             contentType:
-              type: optional<WellKnownFileContentType>
+              type: optional<WellKnownPutRequestContentType>
               docs: The content type of the file. Defaults to application/json
               default: application/json
         content-type: application/json
@@ -70,12 +72,26 @@ service:
         - path-parameters:
             site_id: 580e63e98c9a982ac9b8b741
           request:
-            fileName: fileName
-            fileData: fileData
+            fileName: apple-app-site-association.txt
+            fileData: |
+              {
+                "applinks": {
+                  "apps": [],
+                  "details": [
+                {
+                  "appID": "ABCDE12345.com.example.app",
+                  "paths": [ "/*", "/some/path/*" ]
+                    }
+                  ]
+                }
+              }
+            contentType: application/json
     delete:
       path: /sites/{site_id}/well_known
       method: DELETE
-      auth: true
+      auth:
+        - OAuth2:
+            - site_config:write
       docs: >
         Delete existing well-known files from a site.
 
@@ -86,7 +102,7 @@ service:
 
         Required scope: `site_config:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -111,4 +127,4 @@ service:
             site_id: 580e63e98c9a982ac9b8b741
           request: {}
   source:
-    openapi: ../../../openapi/referenced-specs/v2.yml
+    openapi: v2-data.yml

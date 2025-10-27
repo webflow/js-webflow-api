@@ -1,12 +1,122 @@
-imports:
-  root: __package__.yml
+types:
+  CommentCreatedPayloadPayloadAuthor:
+    properties:
+      userId:
+        type: string
+        docs: The unique identifier of the author
+      email:
+        type: string
+        docs: Email of the author
+      name:
+        type: string
+        docs: Name of the author
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CommentCreatedPayloadPayloadMentionedUsersItem:
+    properties:
+      userId:
+        type: string
+        docs: The unique identifier of the mentioned user
+      email:
+        type: string
+        docs: Email of the user
+      name:
+        type: string
+        docs: Name of the  User
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CommentCreatedPayloadPayload:
+    docs: >
+      The comment webhook payload contains data for the thread and for replies. 
+      Check the type to determine if the payload is for a thread or a reply. 
+      The webhook payload may be delayed by up to 5 minutes.
+    properties:
+      threadId:
+        type: optional<string>
+        docs: Unique identifier for the comment thread
+        access: read-only
+      commentId:
+        type: optional<string>
+        docs: Unique identifier for the comment reply
+        access: read-only
+      type:
+        type: optional<string>
+        docs: The type of comment payload
+        access: read-only
+      siteId:
+        type: optional<string>
+        docs: The site unique identifier
+        access: read-only
+      pageId:
+        type: optional<string>
+        docs: The page unique identifier
+        access: read-only
+      localeId:
+        type: optional<string>
+        docs: The locale unique identifier
+        access: read-only
+      itemId:
+        type: optional<string>
+        docs: The item unique identifier
+        access: read-only
+      breakpoint:
+        type: optional<string>
+        docs: The breakpoint the comment was left on
+        access: read-only
+      url:
+        type: optional<string>
+        docs: The URL of the page the comment was left on
+        access: read-only
+      content:
+        type: string
+        docs: The content of the comment reply
+      isResolved:
+        type: boolean
+        docs: Boolean determining if the comment thread is resolved
+        default: false
+      author: CommentCreatedPayloadPayloadAuthor
+      mentionedUsers:
+        docs: >-
+          List of mentioned users. This is an empty array until email
+          notifications are sent, which can take up to 5 minutes after the
+          comment is created.
+        type: list<CommentCreatedPayloadPayloadMentionedUsersItem>
+      createdOn:
+        type: optional<string>
+        docs: The date the item was created
+        access: read-only
+      lastUpdated:
+        type: optional<string>
+        docs: The date the item was last updated
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CommentCreatedPayload:
+    docs: The Webhook payload for when a comment thread or reply is made on a Site
+    properties:
+      triggerType:
+        type: optional<string>
+        docs: The type of event that triggered the request
+      payload:
+        type: optional<CommentCreatedPayloadPayload>
+        docs: >
+          The comment webhook payload contains data for the thread and for
+          replies.  Check the type to determine if the payload is for a thread
+          or a reply.  The webhook payload may be delayed by up to 5 minutes.
+    source:
+      openapi: v2-data.yml
 webhooks:
   comment_created:
     audiences: []
     method: POST
     display-name: New Comment Thread
     headers: {}
-    payload: root.Comment
+    payload:
+      type: CommentCreatedPayload
+      docs: The Webhook payload for when a comment thread or reply is made on a Site
     examples:
       - payload:
           triggerType: comment_created

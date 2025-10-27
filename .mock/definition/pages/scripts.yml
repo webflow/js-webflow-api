@@ -1,3 +1,133 @@
+types:
+  ScriptsGetCustomCodeResponseScriptsItemLocation:
+    enum:
+      - header
+      - footer
+    docs: >-
+      Location of the script, either in the header or footer of the published
+      site
+    default: header
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ScriptsGetCustomCodeResponseScriptsItem:
+    properties:
+      id:
+        type: string
+        docs: ID of the registered custom code script
+      location:
+        type: ScriptsGetCustomCodeResponseScriptsItemLocation
+        docs: >-
+          Location of the script, either in the header or footer of the
+          published site
+        default: header
+      version:
+        type: string
+        docs: Semantic Version String for the registered script *e.g. 0.0.1*
+      attributes:
+        type: optional<map<string, unknown>>
+        docs: >-
+          Developer-specified key/value pairs to be applied as attributes to the
+          script
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ScriptsGetCustomCodeResponse:
+    properties:
+      scripts:
+        type: optional<list<ScriptsGetCustomCodeResponseScriptsItem>>
+        docs: A list of scripts applied to a Site or a Page
+      lastUpdated:
+        type: optional<string>
+        docs: Date when the Site's scripts were last updated
+        access: read-only
+      createdOn:
+        type: optional<string>
+        docs: Date when the Site's scripts were created
+        access: read-only
+    source:
+      openapi: v2-data.yml
+  ScriptsUpsertCustomCodeRequestScriptsItemLocation:
+    enum:
+      - header
+      - footer
+    docs: >-
+      Location of the script, either in the header or footer of the published
+      site
+    default: header
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ScriptsUpsertCustomCodeRequestScriptsItem:
+    properties:
+      id:
+        type: string
+        docs: ID of the registered custom code script
+      location:
+        type: ScriptsUpsertCustomCodeRequestScriptsItemLocation
+        docs: >-
+          Location of the script, either in the header or footer of the
+          published site
+        default: header
+      version:
+        type: string
+        docs: Semantic Version String for the registered script *e.g. 0.0.1*
+      attributes:
+        type: optional<map<string, unknown>>
+        docs: >-
+          Developer-specified key/value pairs to be applied as attributes to the
+          script
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ScriptsUpsertCustomCodeResponseScriptsItemLocation:
+    enum:
+      - header
+      - footer
+    docs: >-
+      Location of the script, either in the header or footer of the published
+      site
+    default: header
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ScriptsUpsertCustomCodeResponseScriptsItem:
+    properties:
+      id:
+        type: string
+        docs: ID of the registered custom code script
+      location:
+        type: ScriptsUpsertCustomCodeResponseScriptsItemLocation
+        docs: >-
+          Location of the script, either in the header or footer of the
+          published site
+        default: header
+      version:
+        type: string
+        docs: Semantic Version String for the registered script *e.g. 0.0.1*
+      attributes:
+        type: optional<map<string, unknown>>
+        docs: >-
+          Developer-specified key/value pairs to be applied as attributes to the
+          script
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ScriptsUpsertCustomCodeResponse:
+    properties:
+      scripts:
+        type: optional<list<ScriptsUpsertCustomCodeResponseScriptsItem>>
+        docs: A list of scripts applied to a Site or a Page
+      lastUpdated:
+        type: optional<string>
+        docs: Date when the Site's scripts were last updated
+        access: read-only
+      createdOn:
+        type: optional<string>
+        docs: Date when the Site's scripts were created
+        access: read-only
+    source:
+      openapi: v2-data.yml
 imports:
   root: ../__package__.yml
 service:
@@ -7,13 +137,15 @@ service:
     get-custom-code:
       path: /pages/{page_id}/custom_code
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - custom_code:read
       docs: |
         Get all scripts applied to a page. 
 
         Required scope | `custom_code:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         page_id:
           type: string
@@ -21,7 +153,7 @@ service:
       display-name: Get Custom Code
       response:
         docs: Request was successful
-        type: root.ScriptApplyList
+        type: ScriptsGetCustomCodeResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -45,7 +177,9 @@ service:
     upsert-custom-code:
       path: /pages/{page_id}/custom_code
       method: PUT
-      auth: true
+      auth:
+        - OAuth2:
+            - custom_code:write
       docs: >
         Apply registered scripts to a page. If you have multiple scripts your
         App needs to apply or maintain on a page, ensure they are always
@@ -61,18 +195,23 @@ service:
 
         Required scope | `custom_code:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         page_id:
           type: string
           docs: Unique identifier for a Page
       display-name: Add/Update Custom Code
       request:
-        body: root.ScriptApplyList
+        name: ScriptsUpsertCustomCodeRequest
+        body:
+          properties:
+            scripts:
+              type: optional<list<ScriptsUpsertCustomCodeRequestScriptsItem>>
+              docs: A list of scripts applied to a Site or a Page
         content-type: application/json
       response:
         docs: Request was successful
-        type: root.ScriptApplyList
+        type: ScriptsUpsertCustomCodeResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -112,7 +251,9 @@ service:
     delete-custom-code:
       path: /pages/{page_id}/custom_code
       method: DELETE
-      auth: true
+      auth:
+        - OAuth2:
+            - custom_code:write
       docs: >
         Remove all scripts from a page applied by the App. This endpoint will
         not remove scripts from the site's registered scripts.
@@ -130,7 +271,7 @@ service:
 
         Required scope | `custom_code:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         page_id:
           type: string
@@ -146,4 +287,4 @@ service:
         - path-parameters:
             page_id: 63c720f9347c2139b248e552
   source:
-    openapi: ../../../openapi/referenced-specs/v2.yml
+    openapi: v2-data.yml

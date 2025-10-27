@@ -4,7 +4,7 @@ types:
       - asc
       - desc
     source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
+      openapi: v2-data.yml
   AuditLogsGetWorkspaceAuditLogsRequestEventType:
     enum:
       - user_access
@@ -13,7 +13,343 @@ types:
       - site_membership
       - workspace_invitation
     source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
+      openapi: v2-data.yml
+  AuditLogsGetWorkspaceAuditLogsResponseItemsItemActor:
+    properties:
+      id: optional<string>
+      email: optional<string>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  AuditLogsGetWorkspaceAuditLogsResponseItemsItemWorkspace:
+    properties:
+      id: optional<string>
+      slug: optional<string>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  AuditLogsGetWorkspaceAuditLogsResponseItemsItemUserAccessEventSubType:
+    enum:
+      - login
+      - logout
+    inline: true
+    source:
+      openapi: v2-data.yml
+  AuditLogsGetWorkspaceAuditLogsResponseItemsItemUserAccessPayloadMethod:
+    enum:
+      - dashboard
+      - sso
+      - api
+      - google
+    inline: true
+    source:
+      openapi: v2-data.yml
+  User access:
+    properties:
+      method: >-
+        optional<AuditLogsGetWorkspaceAuditLogsResponseItemsItemUserAccessPayloadMethod>
+      location:
+        type: optional<string>
+        docs: The geolocation based on the logged IP address
+      ipAddress:
+        type: optional<string>
+        docs: The captured IP address of the user
+    source:
+      openapi: v2-data.yml
+    inline: true
+  AuditLogsGetWorkspaceAuditLogsResponseItemsItemUserAccess:
+    properties:
+      eventSubType: >-
+        optional<AuditLogsGetWorkspaceAuditLogsResponseItemsItemUserAccessEventSubType>
+      payload:
+        type: optional<User access>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  AuditLogsGetWorkspaceAuditLogsResponseItemsItemCustomRoleEventSubType:
+    enum:
+      - role_created
+      - role_updated
+      - role_deleted
+    inline: true
+    source:
+      openapi: v2-data.yml
+  Custom role:
+    properties:
+      roleName:
+        type: optional<string>
+        docs: The name of the custom role
+      previousRoleName:
+        type: optional<string>
+        docs: The previous name of the custom role
+    source:
+      openapi: v2-data.yml
+    inline: true
+  AuditLogsGetWorkspaceAuditLogsResponseItemsItemCustomRole:
+    properties:
+      eventSubType: >-
+        optional<AuditLogsGetWorkspaceAuditLogsResponseItemsItemCustomRoleEventSubType>
+      payload:
+        type: optional<Custom role>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  AuditLogsGetWorkspaceAuditLogsResponseItemsItemWorkspaceMembershipEventSubType:
+    enum:
+      - user_added
+      - user_removed
+      - user_role_updated
+    inline: true
+    source:
+      openapi: v2-data.yml
+  AuditLogsGetWorkspaceAuditLogsResponseItemsItemWorkspaceMembershipPayloadTargetUser:
+    properties:
+      id: optional<string>
+      email: optional<string>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  AuditLogsGetWorkspaceAuditLogsResponseItemsItemWorkspaceMembershipPayloadMethod:
+    enum:
+      - sso
+      - dashboard
+      - admin
+      - access_request
+    inline: true
+    source:
+      openapi: v2-data.yml
+  AuditLogsGetWorkspaceAuditLogsResponseItemsItemWorkspaceMembershipPayloadUserType:
+    enum:
+      - member
+      - guest
+      - reviewer
+      - client
+    inline: true
+    source:
+      openapi: v2-data.yml
+  Workspace membership:
+    properties:
+      targetUser: >-
+        optional<AuditLogsGetWorkspaceAuditLogsResponseItemsItemWorkspaceMembershipPayloadTargetUser>
+      method: >-
+        optional<AuditLogsGetWorkspaceAuditLogsResponseItemsItemWorkspaceMembershipPayloadMethod>
+      userType: >-
+        optional<AuditLogsGetWorkspaceAuditLogsResponseItemsItemWorkspaceMembershipPayloadUserType>
+      roleName:
+        type: optional<string>
+        docs: The name of the role that was assigned to the user
+      previousRoleName:
+        type: optional<string>
+        docs: The previous role that the user had
+    source:
+      openapi: v2-data.yml
+    inline: true
+  AuditLogsGetWorkspaceAuditLogsResponseItemsItemWorkspaceMembership:
+    properties:
+      eventSubType: >-
+        optional<AuditLogsGetWorkspaceAuditLogsResponseItemsItemWorkspaceMembershipEventSubType>
+      payload:
+        type: optional<Workspace membership>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  AuditLogsGetWorkspaceAuditLogsResponseItemsItemSiteMembershipEventSubType:
+    enum:
+      - user_added
+      - user_removed
+      - user_role_updated
+      - user_granular_access_updated
+    inline: true
+    source:
+      openapi: v2-data.yml
+  AuditLogsGetWorkspaceAuditLogsResponseItemsItemSiteMembershipPayloadSite:
+    properties:
+      id: optional<string>
+      slug: optional<string>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  AuditLogsGetWorkspaceAuditLogsResponseItemsItemSiteMembershipPayloadTargetUser:
+    properties:
+      id: optional<string>
+      email: optional<string>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  AuditLogsGetWorkspaceAuditLogsResponseItemsItemSiteMembershipPayloadMethod:
+    enum:
+      - sso
+      - invite
+      - scim
+      - dashboard
+      - admin
+      - access_request
+    inline: true
+    source:
+      openapi: v2-data.yml
+  AuditLogsGetWorkspaceAuditLogsResponseItemsItemSiteMembershipPayloadUserType:
+    enum:
+      - member
+      - guest
+      - reviewer
+      - client
+    inline: true
+    source:
+      openapi: v2-data.yml
+  AuditLogsGetWorkspaceAuditLogsResponseItemsItemSiteMembershipPayloadGranularAccess:
+    properties:
+      id: optional<string>
+      name: optional<string>
+      type: optional<literal<"cms">>
+      restricted: optional<boolean>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  Site membership:
+    properties:
+      site: >-
+        optional<AuditLogsGetWorkspaceAuditLogsResponseItemsItemSiteMembershipPayloadSite>
+      targetUser: >-
+        optional<AuditLogsGetWorkspaceAuditLogsResponseItemsItemSiteMembershipPayloadTargetUser>
+      method: >-
+        optional<AuditLogsGetWorkspaceAuditLogsResponseItemsItemSiteMembershipPayloadMethod>
+      userType: >-
+        optional<AuditLogsGetWorkspaceAuditLogsResponseItemsItemSiteMembershipPayloadUserType>
+      roleName:
+        type: optional<string>
+        docs: The name of the role that was assigned to the user
+      previousRoleName:
+        type: optional<string>
+        docs: The previous role that the user had
+      granularAccess: >-
+        optional<AuditLogsGetWorkspaceAuditLogsResponseItemsItemSiteMembershipPayloadGranularAccess>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  AuditLogsGetWorkspaceAuditLogsResponseItemsItemSiteMembership:
+    properties:
+      eventSubType: >-
+        optional<AuditLogsGetWorkspaceAuditLogsResponseItemsItemSiteMembershipEventSubType>
+      payload:
+        type: optional<Site membership>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  AuditLogsGetWorkspaceAuditLogsResponseItemsItemWorkspaceInvitationEventSubType:
+    enum:
+      - invite_sent
+      - invite_accepted
+      - invite_updated
+      - invite_canceled
+      - invite_declined
+      - access_request_accepted
+    inline: true
+    source:
+      openapi: v2-data.yml
+  AuditLogsGetWorkspaceAuditLogsResponseItemsItemWorkspaceInvitationPayloadTargetUser:
+    properties:
+      id: optional<string>
+      email: optional<string>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  AuditLogsGetWorkspaceAuditLogsResponseItemsItemWorkspaceInvitationPayloadMethod:
+    enum:
+      - sso
+      - dashboard
+      - admin
+    inline: true
+    source:
+      openapi: v2-data.yml
+  AuditLogsGetWorkspaceAuditLogsResponseItemsItemWorkspaceInvitationPayloadUserType:
+    enum:
+      - member
+      - guest
+      - reviewer
+      - client
+    inline: true
+    source:
+      openapi: v2-data.yml
+  AuditLogsGetWorkspaceAuditLogsResponseItemsItemWorkspaceInvitationPayloadTargetUsersItem:
+    properties:
+      id: optional<string>
+      email: optional<string>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  Workspace invitation:
+    properties:
+      targetUser: >-
+        optional<AuditLogsGetWorkspaceAuditLogsResponseItemsItemWorkspaceInvitationPayloadTargetUser>
+      method: >-
+        optional<AuditLogsGetWorkspaceAuditLogsResponseItemsItemWorkspaceInvitationPayloadMethod>
+      userType: >-
+        optional<AuditLogsGetWorkspaceAuditLogsResponseItemsItemWorkspaceInvitationPayloadUserType>
+      roleName:
+        type: optional<string>
+        docs: The name of the role that was assigned to the user
+      previousRoleName:
+        type: optional<string>
+        docs: The previous role that the user had
+      targetUsers: >-
+        optional<list<AuditLogsGetWorkspaceAuditLogsResponseItemsItemWorkspaceInvitationPayloadTargetUsersItem>>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  AuditLogsGetWorkspaceAuditLogsResponseItemsItemWorkspaceInvitation:
+    properties:
+      eventSubType: >-
+        optional<AuditLogsGetWorkspaceAuditLogsResponseItemsItemWorkspaceInvitationEventSubType>
+      payload:
+        type: optional<Workspace invitation>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  AuditLogsGetWorkspaceAuditLogsResponseItemsItem:
+    discriminant: eventType
+    base-properties:
+      timestamp: optional<datetime>
+      actor: optional<AuditLogsGetWorkspaceAuditLogsResponseItemsItemActor>
+      workspace: optional<AuditLogsGetWorkspaceAuditLogsResponseItemsItemWorkspace>
+    union:
+      user_access:
+        type: AuditLogsGetWorkspaceAuditLogsResponseItemsItemUserAccess
+      custom_role:
+        type: AuditLogsGetWorkspaceAuditLogsResponseItemsItemCustomRole
+      workspace_membership:
+        type: AuditLogsGetWorkspaceAuditLogsResponseItemsItemWorkspaceMembership
+      site_membership:
+        type: AuditLogsGetWorkspaceAuditLogsResponseItemsItemSiteMembership
+      workspace_invitation:
+        type: AuditLogsGetWorkspaceAuditLogsResponseItemsItemWorkspaceInvitation
+    source:
+      openapi: v2-data.yml
+  AuditLogsGetWorkspaceAuditLogsResponsePagination:
+    docs: Pagination object
+    properties:
+      limit:
+        type: optional<double>
+        docs: The limit used for pagination
+        access: read-only
+      offset:
+        type: optional<double>
+        docs: The offset used for pagination
+        access: read-only
+      total:
+        type: optional<double>
+        docs: The total number of records
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  AuditLogsGetWorkspaceAuditLogsResponse:
+    properties:
+      items: optional<list<AuditLogsGetWorkspaceAuditLogsResponseItemsItem>>
+      pagination:
+        type: optional<AuditLogsGetWorkspaceAuditLogsResponsePagination>
+        docs: Pagination object
+    source:
+      openapi: v2-data.yml
 imports:
   root: ../__package__.yml
 service:
@@ -23,7 +359,9 @@ service:
     get-workspace-audit_logs:
       path: /workspaces/{workspace_id_or_slug}/audit_logs
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - workspace_activity:read
       docs: >
         Get audit logs for a workspace.
 
@@ -36,7 +374,7 @@ service:
 
         Required scope | `workspace_activity:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         workspace_id_or_slug:
           type: string
@@ -67,7 +405,7 @@ service:
             docs: The end date to filter by
       response:
         docs: A list of workspace audit logs
-        type: root.WorkspaceAuditLogResponse
+        type: AuditLogsGetWorkspaceAuditLogsResponse
         status-code: 200
       errors:
         - root.UnauthorizedError
@@ -79,13 +417,21 @@ service:
         - path-parameters:
             workspace_id_or_slug: hitchhikers-workspace
           query-parameters:
-            from: '2024-04-22T16:00:31Z'
-            to: '2024-04-22T16:00:31Z'
+            limit: 1.1
+            offset: 1.1
+            sortOrder: asc
+            eventType: user_access
+            from: '2025-06-22T16:00:31Z'
+            to: '2025-07-22T16:00:31Z'
           response:
             body:
               items:
-                - eventSubType: login
-                  eventType: user_access
+                - eventType: user_access
+                  eventSubType: login
+                  payload:
+                    method: dashboard
+                    location: Ashburn US
+                    ipAddress: 54.165.18.93
                   timestamp: '2025-04-29T20:30:06Z'
                   actor:
                     id: 6661ccb359b561c69f29d554
@@ -93,8 +439,15 @@ service:
                   workspace:
                     id: 6621ccb459b561c69f29d57c
                     slug: hitchhikers-workspace
-                - eventSubType: user_added
-                  eventType: workspace_membership
+                - eventType: workspace_membership
+                  eventSubType: user_added
+                  payload:
+                    targetUser:
+                      id: 60492e55bbddce079561cd7a
+                      email: someone@webflow.com
+                    method: sso
+                    userType: member
+                    roleName: member
                   timestamp: '2025-04-30T20:30:06Z'
                   actor:
                     id: 60492e55bbddce079561cd7a
@@ -102,8 +455,23 @@ service:
                   workspace:
                     id: 6621ccb459b561c69f29d57c
                     slug: hitchhikers-workspace
-                - eventSubType: user_added
-                  eventType: site_membership
+                - eventType: site_membership
+                  eventSubType: user_added
+                  payload:
+                    site:
+                      id: 67dc519889286123da057175
+                      slug: hitchhikers-site
+                    targetUser:
+                      id: 672946bf5d384ea895bb95e2
+                      email: someone@webflow.com
+                    method: dashboard
+                    userType: member
+                    roleName: Edit - Cannot publish
+                    granularAccess:
+                      id: 67dc519889286123da057175
+                      name: Blogs
+                      type: cms
+                      restricted: false
                   timestamp: '2025-04-30T00:33:31Z'
                   actor:
                     id: 671fe00d185fc8c1ad409d37
@@ -116,4 +484,4 @@ service:
                 offset: 0
                 total: 3
   source:
-    openapi: ../../../openapi/referenced-specs/v2.yml
+    openapi: v2-data.yml

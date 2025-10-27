@@ -1,3 +1,96 @@
+types:
+  InventoryListResponseInventoryType:
+    enum:
+      - infinite
+      - finite
+    docs: infinite or finite
+    inline: true
+    source:
+      openapi: v2-data.yml
+  InventoryListResponse:
+    docs: The availabile inventory for an item
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for a SKU item
+        access: read-only
+      quantity:
+        type: optional<double>
+        docs: >-
+          Total quantity of items remaining in inventory (if inventoryType is
+          finite)
+      inventoryType:
+        type: optional<InventoryListResponseInventoryType>
+        docs: infinite or finite
+    source:
+      openapi: v2-data.yml
+  InventoryUpdateRequestInventoryType:
+    enum:
+      - infinite
+      - finite
+    docs: infinite or finite
+    inline: true
+    source:
+      openapi: v2-data.yml
+  InventoryUpdateResponseInventoryType:
+    enum:
+      - infinite
+      - finite
+    docs: infinite or finite
+    inline: true
+    source:
+      openapi: v2-data.yml
+  InventoryUpdateResponse:
+    docs: The availabile inventory for an item
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for a SKU item
+        access: read-only
+      quantity:
+        type: optional<double>
+        docs: >-
+          Total quantity of items remaining in inventory (if inventoryType is
+          finite)
+      inventoryType:
+        type: optional<InventoryUpdateResponseInventoryType>
+        docs: infinite or finite
+    source:
+      openapi: v2-data.yml
+  EcommInventoryChangedPayloadPayloadInventoryType:
+    enum:
+      - infinite
+      - finite
+    docs: infinite or finite
+    inline: true
+    source:
+      openapi: v2-data.yml
+  EcommInventoryChangedPayloadPayload:
+    docs: The availabile inventory for an item
+    properties:
+      id:
+        type: optional<string>
+        docs: Unique identifier for a SKU item
+        access: read-only
+      quantity:
+        type: optional<double>
+        docs: >-
+          Total quantity of items remaining in inventory (if inventoryType is
+          finite)
+      inventoryType:
+        type: optional<EcommInventoryChangedPayloadPayloadInventoryType>
+        docs: infinite or finite
+    source:
+      openapi: v2-data.yml
+    inline: true
+  EcommInventoryChangedPayload:
+    properties:
+      triggerType: optional<literal<"ecomm_inventory_changed">>
+      payload:
+        type: optional<EcommInventoryChangedPayloadPayload>
+        docs: The availabile inventory for an item
+    source:
+      openapi: v2-data.yml
 imports:
   root: __package__.yml
 service:
@@ -7,13 +100,15 @@ service:
     list:
       path: /collections/{sku_collection_id}/items/{sku_id}/inventory
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - ecommerce:read
       docs: |
         List the current inventory levels for a particular SKU item.
 
         Required scope | `ecommerce:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         sku_collection_id:
           type: string
@@ -26,7 +121,7 @@ service:
       display-name: List Inventory
       response:
         docs: Request was successful
-        type: root.InventoryItem
+        type: InventoryListResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -48,7 +143,9 @@ service:
     update:
       path: /collections/{sku_collection_id}/items/{sku_id}/inventory
       method: PATCH
-      auth: true
+      auth:
+        - OAuth2:
+            - ecommerce:write
       docs: >
         Updates the current inventory levels for a particular SKU item. 
 
@@ -65,7 +162,7 @@ service:
 
         Required scope | `ecommerce:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         sku_collection_id:
           type: string
@@ -92,7 +189,7 @@ service:
         content-type: application/json
       response:
         docs: Request was successful
-        type: root.InventoryItem
+        type: InventoryUpdateResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -114,24 +211,9 @@ service:
               quantity: 100
               inventoryType: finite
   source:
-    openapi: ../../../openapi/referenced-specs/v2.yml
+    openapi: v2-data.yml
   display-name: Inventory
 docs: Inventory is the stock of e-commerce items in your Webflow site.
-types:
-  InventoryUpdateRequestInventoryType:
-    enum:
-      - infinite
-      - finite
-    docs: infinite or finite
-    inline: true
-    source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
-  EcommInventoryChangedPayload:
-    properties:
-      triggerType: optional<literal<"ecomm_inventory_changed">>
-      payload: optional<root.InventoryItem>
-    source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
 webhooks:
   ecomm_inventory_changed:
     audiences: []
@@ -144,5 +226,7 @@ webhooks:
         payload:
           triggerType: ecomm_inventory_changed
           payload:
-            ref: ./schemas/inventory.yml#/InventoryItem/example
+            id: 5bfedb42bab0ad90fa7dad39
+            quantity: 100
+            inventoryType: finite
     docs: Information about updated ecommerce inventory values

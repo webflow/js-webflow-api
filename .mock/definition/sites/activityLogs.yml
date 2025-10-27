@@ -1,3 +1,114 @@
+types:
+  ActivityLogsListResponseItemsItemEvent:
+    enum:
+      - styles_modified
+      - site_published
+      - ix2_modified_on_page
+      - page_dom_modified
+      - cms_item
+      - backup_created
+      - page_custom_code_modified
+      - symbols_modified
+      - variable_modified
+      - variables_modified
+      - cms_collection
+      - page_settings_modified
+      - page_settings_custom_code_modified
+      - ix2_modified_on_component
+      - ix2_modified_on_class
+      - site_custom_code_modified
+      - page_duplicated
+      - secondary_locale_page_content_modified
+      - page_renamed
+      - page_created
+      - page_deleted
+      - site_unpublished
+      - backup_restored
+      - locale_added
+      - branch_created
+      - locale_display_name_updated
+      - locale_subdirectory_updated
+      - branch_merged
+      - locale_tag_updated
+      - branch_deleted
+      - locale_enabled
+      - locale_removed
+      - locale_disabled
+      - library_shared
+      - library_unshared
+      - library_installed
+      - library_uninstalled
+      - library_update_shared
+      - library_update_accepted
+      - branch_review_created
+      - branch_review_approved
+      - branch_review_canceled
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ActivityLogsListResponseItemsItemResourceOperation:
+    enum:
+      - CREATED
+      - MODIFIED
+      - PUBLISHED
+      - UNPUBLISHED
+      - DELETED
+      - GROUP_REORDERED
+      - GROUP_CREATED
+      - GROUP_DELETED
+      - REORDERED
+    inline: true
+    source:
+      openapi: v2-data.yml
+  ActivityLogsListResponseItemsItemUser:
+    properties:
+      id: optional<string>
+      displayName: optional<string>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ActivityLogsListResponseItemsItem:
+    properties:
+      id: optional<string>
+      createdOn: optional<datetime>
+      lastUpdated: optional<datetime>
+      event: optional<ActivityLogsListResponseItemsItemEvent>
+      resourceOperation: optional<ActivityLogsListResponseItemsItemResourceOperation>
+      user: optional<ActivityLogsListResponseItemsItemUser>
+      resourceId: optional<string>
+      resourceName: optional<string>
+      newValue: optional<string>
+      previousValue: optional<string>
+      payload: optional<map<string, unknown>>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ActivityLogsListResponsePagination:
+    docs: Pagination object
+    properties:
+      limit:
+        type: optional<double>
+        docs: The limit used for pagination
+        access: read-only
+      offset:
+        type: optional<double>
+        docs: The offset used for pagination
+        access: read-only
+      total:
+        type: optional<double>
+        docs: The total number of records
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  ActivityLogsListResponse:
+    properties:
+      items: optional<list<ActivityLogsListResponseItemsItem>>
+      pagination:
+        type: optional<ActivityLogsListResponsePagination>
+        docs: Pagination object
+    source:
+      openapi: v2-data.yml
 imports:
   root: ../__package__.yml
 service:
@@ -7,7 +118,9 @@ service:
     list:
       path: /sites/{site_id}/activity_logs
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - site_activity:read
       docs: >
         Retrieve Activity Logs for a specific Site. 
 
@@ -18,7 +131,7 @@ service:
 
         Required scope: `site_activity:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -37,7 +150,7 @@ service:
               records
       response:
         docs: A list of site activity logs
-        type: root.SiteActivityLogResponse
+        type: ActivityLogsListResponse
         status-code: 200
       errors:
         - root.ForbiddenError
@@ -47,6 +160,9 @@ service:
       examples:
         - path-parameters:
             site_id: 580e63e98c9a982ac9b8b741
+          query-parameters:
+            limit: 1.1
+            offset: 1.1
           response:
             body:
               items:
@@ -65,4 +181,4 @@ service:
                 offset: 0
                 total: 1
   source:
-    openapi: ../../../openapi/referenced-specs/v2.yml
+    openapi: v2-data.yml

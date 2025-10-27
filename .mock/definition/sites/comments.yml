@@ -4,37 +4,323 @@ types:
       - createdOn
       - lastUpdated
     source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
+      openapi: v2-data.yml
   CommentsListCommentThreadsRequestSortOrder:
     enum:
       - asc
       - desc
     source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
+      openapi: v2-data.yml
+  CommentsListCommentThreadsResponseCommentsItemAuthor:
+    properties:
+      userId:
+        type: string
+        docs: The unique identifier of the author
+      email:
+        type: string
+        docs: Email of the author
+      name:
+        type: string
+        docs: Name of the author
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CommentsListCommentThreadsResponseCommentsItemMentionedUsersItem:
+    properties:
+      userId:
+        type: string
+        docs: The unique identifier of the mentioned user
+      email:
+        type: string
+        docs: Email of the user
+      name:
+        type: string
+        docs: Name of the  User
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CommentsListCommentThreadsResponseCommentsItem:
+    docs: >
+      A comment thread represents a conversation between users on a specific
+      page. Each comment thread has a unique identifier and can contain multiple
+      comments. Retrieve comment replies using the replies API endpoint.
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the comment thread
+      siteId:
+        type: string
+        docs: The site unique identifier
+      pageId:
+        type: string
+        docs: The page unique identifier
+      localeId:
+        type: optional<string>
+        docs: The locale unique identifier
+        access: read-only
+      itemId:
+        type: optional<string>
+        docs: The item unique identifier
+        access: read-only
+      breakpoint:
+        type: string
+        docs: The breakpoint the comment was left on
+      url:
+        type: string
+        docs: The URL of the page the comment was left on
+      content:
+        type: string
+        docs: The content of the comment reply
+      isResolved:
+        type: boolean
+        docs: Boolean determining if the comment thread is resolved
+        default: false
+      author: CommentsListCommentThreadsResponseCommentsItemAuthor
+      mentionedUsers:
+        docs: >-
+          List of mentioned users. This is an empty array until email
+          notifications are sent, which can take up to 5 minutes after the
+          comment is created.
+        type: list<CommentsListCommentThreadsResponseCommentsItemMentionedUsersItem>
+      createdOn:
+        type: string
+        docs: The date the item was created
+      lastUpdated:
+        type: string
+        docs: The date the item was last updated
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CommentsListCommentThreadsResponsePagination:
+    properties:
+      limit:
+        type: double
+        docs: The limit specified in the request (default 100)
+        default: 100
+      offset:
+        type: double
+        docs: The offset specified for pagination
+        default: 0
+      total:
+        type: double
+        docs: Total number of comment threads
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CommentsListCommentThreadsResponse:
+    docs: >
+      A list of comment threads on the site. Contains the content of the first
+      reply.
+    properties:
+      comments: list<CommentsListCommentThreadsResponseCommentsItem>
+      pagination: CommentsListCommentThreadsResponsePagination
+    source:
+      openapi: v2-data.yml
   CommentsGetCommentThreadRequestSortBy:
     enum:
       - createdOn
       - lastUpdated
     source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
+      openapi: v2-data.yml
   CommentsGetCommentThreadRequestSortOrder:
     enum:
       - asc
       - desc
     source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
+      openapi: v2-data.yml
+  CommentsGetCommentThreadResponseAuthor:
+    properties:
+      userId:
+        type: string
+        docs: The unique identifier of the author
+      email:
+        type: string
+        docs: Email of the author
+      name:
+        type: string
+        docs: Name of the author
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CommentsGetCommentThreadResponseMentionedUsersItem:
+    properties:
+      userId:
+        type: string
+        docs: The unique identifier of the mentioned user
+      email:
+        type: string
+        docs: Email of the user
+      name:
+        type: string
+        docs: Name of the  User
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CommentsGetCommentThreadResponse:
+    docs: >
+      A comment thread represents a conversation between users on a specific
+      page. Each comment thread has a unique identifier and can contain multiple
+      comments. Retrieve comment replies using the replies API endpoint.
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the comment thread
+      siteId:
+        type: string
+        docs: The site unique identifier
+      pageId:
+        type: string
+        docs: The page unique identifier
+      localeId:
+        type: optional<string>
+        docs: The locale unique identifier
+        access: read-only
+      itemId:
+        type: optional<string>
+        docs: The item unique identifier
+        access: read-only
+      breakpoint:
+        type: string
+        docs: The breakpoint the comment was left on
+      url:
+        type: string
+        docs: The URL of the page the comment was left on
+      content:
+        type: string
+        docs: The content of the comment reply
+      isResolved:
+        type: boolean
+        docs: Boolean determining if the comment thread is resolved
+        default: false
+      author: CommentsGetCommentThreadResponseAuthor
+      mentionedUsers:
+        docs: >-
+          List of mentioned users. This is an empty array until email
+          notifications are sent, which can take up to 5 minutes after the
+          comment is created.
+        type: list<CommentsGetCommentThreadResponseMentionedUsersItem>
+      createdOn:
+        type: string
+        docs: The date the item was created
+      lastUpdated:
+        type: string
+        docs: The date the item was last updated
+    source:
+      openapi: v2-data.yml
   CommentsListCommentRepliesRequestSortBy:
     enum:
       - createdOn
       - lastUpdated
     source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
+      openapi: v2-data.yml
   CommentsListCommentRepliesRequestSortOrder:
     enum:
       - asc
       - desc
     source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
+      openapi: v2-data.yml
+  CommentsListCommentRepliesResponseCommentsItemAuthor:
+    properties:
+      id:
+        type: string
+        docs: The unique identifier of the author
+      email:
+        type: string
+        docs: Email of the author
+      name:
+        type: string
+        docs: Name of the author
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CommentsListCommentRepliesResponseCommentsItemMentionedUsersItem:
+    properties:
+      id:
+        type: string
+        docs: The unique identifier of the mentioned user
+      email:
+        type: string
+        docs: Email of the user
+      name:
+        type: string
+        docs: Name of the  User
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CommentsListCommentRepliesResponseCommentsItem:
+    docs: >
+      A comment thread represents a conversation between users on a specific
+      page. Each comment thread has a unique identifier and can contain multiple
+      comments.
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for the comment thread
+      commentId:
+        type: string
+        docs: The comment reply unique identifier
+      siteId:
+        type: string
+        docs: The site unique identifier
+      pageId:
+        type: string
+        docs: The page unique identifier
+      localeId:
+        type: optional<string>
+        docs: The locale unique identifier
+        access: read-only
+      breakpoint:
+        type: string
+        docs: The breakpoint the comment was left on
+      content:
+        type: string
+        docs: The content of the comment reply
+      isResolved:
+        type: boolean
+        docs: Boolean determining if the comment thread is resolved
+        default: false
+      author: CommentsListCommentRepliesResponseCommentsItemAuthor
+      mentionedUsers:
+        type: >-
+          optional<list<CommentsListCommentRepliesResponseCommentsItemMentionedUsersItem>>
+        docs: >-
+          List of mentioned users is an empty array until email notifications
+          are sent.
+      lastUpdated:
+        type: optional<string>
+        docs: The date the item was last updated
+        access: read-only
+      createdOn:
+        type: optional<string>
+        docs: The date the item was created
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CommentsListCommentRepliesResponsePagination:
+    properties:
+      limit:
+        type: double
+        docs: The limit specified in the request (default 100)
+        default: 100
+      offset:
+        type: double
+        docs: The offset specified for pagination
+        default: 0
+      total:
+        type: double
+        docs: Total number of comment replies
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CommentsListCommentRepliesResponse:
+    docs: |
+      A list of comment replies.
+    properties:
+      comments: list<CommentsListCommentRepliesResponseCommentsItem>
+      pagination: CommentsListCommentRepliesResponsePagination
+    source:
+      openapi: v2-data.yml
 imports:
   root: ../__package__.yml
 service:
@@ -44,7 +330,9 @@ service:
     list-comment-threads:
       path: /sites/{site_id}/comments
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - comments:read
       docs: |
         List all comment threads for a site.
 
@@ -54,7 +342,7 @@ service:
 
         Required scope | `comments:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -65,9 +353,12 @@ service:
         query-parameters:
           localeId:
             type: optional<string>
-            docs: >-
-              Unique identifier for a specific locale. Applicable, when using
-              localization.
+            docs: >
+              Unique identifier for a specific Locale.
+
+
+              [Lear more about
+              localization.](/data/v2.0.0/docs/working-with-localization)
           offset:
             type: optional<double>
             docs: >-
@@ -86,7 +377,7 @@ service:
             docs: Sorts the results by asc or desc
       response:
         docs: Request was successful
-        type: root.CommentThreadList
+        type: CommentsListCommentThreadsResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -99,6 +390,10 @@ service:
             site_id: 580e63e98c9a982ac9b8b741
           query-parameters:
             localeId: 65427cf400e02b306eaa04a0
+            offset: 1.1
+            limit: 1.1
+            sortBy: createdOn
+            sortOrder: asc
           response:
             body:
               comments:
@@ -149,7 +444,9 @@ service:
     get-comment-thread:
       path: /sites/{site_id}/comments/{comment_thread_id}
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - comments:read
       docs: |
         Get details of a specific comment thread.
 
@@ -159,7 +456,7 @@ service:
 
         Required scope | `comments:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -173,9 +470,12 @@ service:
         query-parameters:
           localeId:
             type: optional<string>
-            docs: >-
-              Unique identifier for a specific locale. Applicable, when using
-              localization.
+            docs: >
+              Unique identifier for a specific Locale.
+
+
+              [Lear more about
+              localization.](/data/v2.0.0/docs/working-with-localization)
           offset:
             type: optional<double>
             docs: >-
@@ -194,7 +494,7 @@ service:
             docs: Sorts the results by asc or desc
       response:
         docs: Request was successful
-        type: root.CommentThread
+        type: CommentsGetCommentThreadResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -208,6 +508,10 @@ service:
             comment_thread_id: 580e63e98c9a982ac9b8b741
           query-parameters:
             localeId: 65427cf400e02b306eaa04a0
+            offset: 1.1
+            limit: 1.1
+            sortBy: createdOn
+            sortOrder: asc
           response:
             body:
               id: 580e64008c9a982ac9b8b754
@@ -233,7 +537,9 @@ service:
     list-comment-replies:
       path: /sites/{site_id}/comments/{comment_thread_id}/replies
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - comments:read
       docs: |
         List all replies to a specific comment thread.
 
@@ -243,7 +549,7 @@ service:
 
         Required scope | `comments:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -257,9 +563,12 @@ service:
         query-parameters:
           localeId:
             type: optional<string>
-            docs: >-
-              Unique identifier for a specific locale. Applicable, when using
-              localization.
+            docs: >
+              Unique identifier for a specific Locale.
+
+
+              [Lear more about
+              localization.](/data/v2.0.0/docs/working-with-localization)
           offset:
             type: optional<double>
             docs: >-
@@ -278,7 +587,7 @@ service:
             docs: Sorts the results by asc or desc
       response:
         docs: Request was successful
-        type: root.CommentReplyList
+        type: CommentsListCommentRepliesResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -292,6 +601,10 @@ service:
             comment_thread_id: 580e63e98c9a982ac9b8b741
           query-parameters:
             localeId: 65427cf400e02b306eaa04a0
+            offset: 1.1
+            limit: 1.1
+            sortBy: createdOn
+            sortOrder: asc
           response:
             body:
               comments:
@@ -320,4 +633,4 @@ service:
                 offset: 0
                 total: 1
   source:
-    openapi: ../../../openapi/referenced-specs/v2.yml
+    openapi: v2-data.yml

@@ -1,3 +1,392 @@
+types:
+  CollectionsListResponseCollectionsItem:
+    docs: A collection object
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a Collection
+      displayName:
+        type: optional<string>
+        docs: Name given to the Collection
+      singularName:
+        type: optional<string>
+        docs: >-
+          The name of one Item in Collection (e.g. ”Blog Post” if the Collection
+          is called “Blog Posts”)
+      slug:
+        type: optional<string>
+        docs: Slug of Collection in Site URL structure
+      createdOn:
+        type: optional<datetime>
+        docs: The date the collection was created
+        access: read-only
+      lastUpdated:
+        type: optional<datetime>
+        docs: The date the collection was last updated
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CollectionsListResponse:
+    properties:
+      collections:
+        type: optional<list<CollectionsListResponseCollectionsItem>>
+        docs: An array of Collections
+    source:
+      openapi: v2-data.yml
+  CollectionsCreateRequestFieldsItemZeroType:
+    enum:
+      - Color
+      - DateTime
+      - Email
+      - File
+      - Image
+      - Link
+      - MultiImage
+      - Number
+      - Phone
+      - PlainText
+      - RichText
+      - Switch
+      - VideoLink
+    docs: Choose these appropriate field type for your collection data
+    inline: true
+    source:
+      openapi: v2-data.yml
+  Static Field:
+    properties:
+      isRequired:
+        type: optional<boolean>
+        docs: define whether a field is required in a collection
+      type:
+        type: CollectionsCreateRequestFieldsItemZeroType
+        docs: Choose these appropriate field type for your collection data
+      displayName:
+        type: string
+        docs: The name of a field
+      helpText:
+        type: optional<string>
+        docs: Additional text to help anyone filling out this field
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CollectionsCreateRequestFieldsItemOneMetadataOptionsItem:
+    docs: A single option value for the Option field.
+    properties:
+      name:
+        type: string
+        docs: The name of the option
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CollectionsCreateRequestFieldsItemOneMetadata:
+    docs: The metadata for the Option field.
+    properties:
+      options:
+        docs: The option values for the Option field.
+        type: list<CollectionsCreateRequestFieldsItemOneMetadataOptionsItem>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  Option Field:
+    properties:
+      isRequired:
+        type: optional<boolean>
+        docs: define whether a field is required in a collection
+      type:
+        type: literal<"Option">
+        docs: >-
+          The [Option field
+          type](/data/reference/field-types-item-values#option)
+      displayName:
+        type: string
+        docs: The name of a field
+      helpText:
+        type: optional<string>
+        docs: Additional text to help anyone filling out this field
+      metadata:
+        type: CollectionsCreateRequestFieldsItemOneMetadata
+        docs: The metadata for the Option field.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CollectionsCreateRequestFieldsItemDisplayNameType:
+    enum:
+      - MultiReference
+      - Reference
+    docs: Choose these appropriate field type for your collection data
+    inline: true
+    source:
+      openapi: v2-data.yml
+  CollectionsCreateRequestFieldsItemDisplayNameMetadata:
+    docs: >-
+      The collectionId for the referenced collection. Only applicable for
+      Reference and MultiReference fields.
+    properties:
+      collectionId:
+        type: string
+        docs: The unique identifier of the collection
+    source:
+      openapi: v2-data.yml
+    inline: true
+  Reference Field:
+    properties:
+      isRequired:
+        type: optional<boolean>
+        docs: define whether a field is required in a collection
+      type:
+        type: CollectionsCreateRequestFieldsItemDisplayNameType
+        docs: Choose these appropriate field type for your collection data
+      displayName:
+        type: string
+        docs: The name of a field
+      helpText:
+        type: optional<string>
+        docs: Additional text to help anyone filling out this field
+      metadata:
+        type: CollectionsCreateRequestFieldsItemDisplayNameMetadata
+        docs: >-
+          The collectionId for the referenced collection. Only applicable for
+          Reference and MultiReference fields.
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CollectionsCreateRequestFieldsItem:
+    discriminated: false
+    docs: Details about the field of a collection
+    union:
+      - type: Static Field
+      - type: Option Field
+      - type: Reference Field
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CollectionsCreateResponseFieldsItemType:
+    enum:
+      - Color
+      - DateTime
+      - Email
+      - ExtFileRef
+      - File
+      - Image
+      - Link
+      - MultiImage
+      - MultiReference
+      - Number
+      - Option
+      - Phone
+      - PlainText
+      - Reference
+      - RichText
+      - Switch
+      - VideoLink
+    docs: Choose these appropriate field type for your collection data
+    inline: true
+    source:
+      openapi: v2-data.yml
+  CollectionsCreateResponseFieldsItemValidationsAdditionalPropertiesAdditionalProperties:
+    properties:
+      additionalProperties: unknown
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CollectionsCreateResponseFieldsItemValidationsAdditionalProperties:
+    discriminated: false
+    union:
+      - string
+      - double
+      - boolean
+      - integer
+      - >-
+        CollectionsCreateResponseFieldsItemValidationsAdditionalPropertiesAdditionalProperties
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CollectionsCreateResponseFieldsItemValidations:
+    docs: The validations for the field
+    properties:
+      additionalProperties: >-
+        optional<CollectionsCreateResponseFieldsItemValidationsAdditionalProperties>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CollectionsCreateResponseFieldsItem:
+    docs: The details of a field in a collection
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a Field
+      isRequired:
+        type: boolean
+        docs: define whether a field is required in a collection
+      isEditable:
+        type: optional<boolean>
+        docs: Define whether the field is editable
+        access: read-only
+      type:
+        type: CollectionsCreateResponseFieldsItemType
+        docs: Choose these appropriate field type for your collection data
+      slug:
+        type: optional<string>
+        docs: >-
+          Slug of Field in Site URL structure. Slugs should be all lowercase
+          with no spaces. Any spaces will be converted to "-."
+      displayName:
+        type: string
+        docs: The name of a field
+      helpText:
+        type: optional<string>
+        docs: Additional text to help anyone filling out this field
+      validations:
+        type: optional<CollectionsCreateResponseFieldsItemValidations>
+        docs: The validations for the field
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CollectionsCreateResponse:
+    docs: A collection object
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a Collection
+      displayName:
+        type: string
+        docs: Name given to the Collection
+      singularName:
+        type: string
+        docs: >-
+          The name of one Item in Collection (e.g. ”Blog Post” if the Collection
+          is called “Blog Posts”)
+      slug:
+        type: optional<string>
+        docs: Slug of Collection in Site URL structure
+      createdOn:
+        type: optional<datetime>
+        docs: The date the collection was created
+        access: read-only
+      lastUpdated:
+        type: optional<datetime>
+        docs: The date the collection was last updated
+        access: read-only
+      fields:
+        docs: The list of fields in the Collection
+        type: list<CollectionsCreateResponseFieldsItem>
+    source:
+      openapi: v2-data.yml
+  CollectionsGetResponseFieldsItemType:
+    enum:
+      - Color
+      - DateTime
+      - Email
+      - ExtFileRef
+      - File
+      - Image
+      - Link
+      - MultiImage
+      - MultiReference
+      - Number
+      - Option
+      - Phone
+      - PlainText
+      - Reference
+      - RichText
+      - Switch
+      - VideoLink
+    docs: Choose these appropriate field type for your collection data
+    inline: true
+    source:
+      openapi: v2-data.yml
+  CollectionsGetResponseFieldsItemValidationsAdditionalPropertiesAdditionalProperties:
+    properties:
+      additionalProperties: unknown
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CollectionsGetResponseFieldsItemValidationsAdditionalProperties:
+    discriminated: false
+    union:
+      - string
+      - double
+      - boolean
+      - integer
+      - >-
+        CollectionsGetResponseFieldsItemValidationsAdditionalPropertiesAdditionalProperties
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CollectionsGetResponseFieldsItemValidations:
+    docs: The validations for the field
+    properties:
+      additionalProperties: >-
+        optional<CollectionsGetResponseFieldsItemValidationsAdditionalProperties>
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CollectionsGetResponseFieldsItem:
+    docs: The details of a field in a collection
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a Field
+      isRequired:
+        type: boolean
+        docs: define whether a field is required in a collection
+      isEditable:
+        type: optional<boolean>
+        docs: Define whether the field is editable
+        access: read-only
+      type:
+        type: CollectionsGetResponseFieldsItemType
+        docs: Choose these appropriate field type for your collection data
+      slug:
+        type: optional<string>
+        docs: >-
+          Slug of Field in Site URL structure. Slugs should be all lowercase
+          with no spaces. Any spaces will be converted to "-."
+      displayName:
+        type: string
+        docs: The name of a field
+      helpText:
+        type: optional<string>
+        docs: Additional text to help anyone filling out this field
+      validations:
+        type: optional<CollectionsGetResponseFieldsItemValidations>
+        docs: The validations for the field
+        access: read-only
+    source:
+      openapi: v2-data.yml
+    inline: true
+  CollectionsGetResponse:
+    docs: A collection object
+    properties:
+      id:
+        type: string
+        docs: Unique identifier for a Collection
+      displayName:
+        type: string
+        docs: Name given to the Collection
+      singularName:
+        type: string
+        docs: >-
+          The name of one Item in Collection (e.g. ”Blog Post” if the Collection
+          is called “Blog Posts”)
+      slug:
+        type: optional<string>
+        docs: Slug of Collection in Site URL structure
+      createdOn:
+        type: optional<datetime>
+        docs: The date the collection was created
+        access: read-only
+      lastUpdated:
+        type: optional<datetime>
+        docs: The date the collection was last updated
+        access: read-only
+      fields:
+        docs: The list of fields in the Collection
+        type: list<CollectionsGetResponseFieldsItem>
+    source:
+      openapi: v2-data.yml
 imports:
   root: __package__.yml
 service:
@@ -7,13 +396,15 @@ service:
     list:
       path: /sites/{site_id}/collections
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:read
       docs: |
         List of all Collections within a Site.
 
         Required scope | `cms:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -21,7 +412,7 @@ service:
       display-name: List Collections
       response:
         docs: Request was successful
-        type: root.CollectionList
+        type: CollectionsListResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -56,7 +447,9 @@ service:
     create:
       path: /sites/{site_id}/collections
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: >
         Create a Collection for a site with collection fields.
 
@@ -70,7 +463,7 @@ service:
 
         Required scope | `cms:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         site_id:
           type: string
@@ -90,12 +483,12 @@ service:
               type: optional<string>
               docs: Part of a URL that identifier
             fields:
-              type: optional<list<root.FieldCreate>>
+              type: optional<list<CollectionsCreateRequestFieldsItem>>
               docs: An array of custom fields to add to the collection
         content-type: application/json
       response:
         docs: Request was successful
-        type: root.Collection
+        type: CollectionsCreateResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -159,13 +552,15 @@ service:
     get:
       path: /collections/{collection_id}
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:read
       docs: |
         Get the full details of a collection from its ID.
 
         Required scope | `cms:read`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         collection_id:
           type: string
@@ -173,7 +568,7 @@ service:
       display-name: Get Collection Details
       response:
         docs: Request was successful
-        type: root.Collection
+        type: CollectionsGetResponse
         status-code: 200
       errors:
         - root.BadRequestError
@@ -312,13 +707,15 @@ service:
     delete:
       path: /collections/{collection_id}
       method: DELETE
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: |
         Delete a collection using its ID.
 
         Required scope | `cms:write`
       source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
+        openapi: v2-data.yml
       path-parameters:
         collection_id:
           type: string
@@ -334,6 +731,6 @@ service:
         - path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
   source:
-    openapi: ../../../openapi/referenced-specs/v2.yml
+    openapi: v2-data.yml
   display-name: Collections
 docs: Collections are CMS collections of items.
