@@ -15,7 +15,7 @@ export declare namespace Forms {
         environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        accessToken: core.Supplier<core.BearerToken>;
+        accessToken?: core.Supplier<core.BearerToken | undefined>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
@@ -38,7 +38,7 @@ export declare namespace Forms {
 export class Forms {
     protected readonly _options: Forms.Options;
 
-    constructor(_options: Forms.Options) {
+    constructor(_options: Forms.Options = {}) {
         this._options = _options;
     }
 
@@ -60,7 +60,10 @@ export class Forms {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.forms.list("580e63e98c9a982ac9b8b741")
+     *     await client.forms.list("580e63e98c9a982ac9b8b741", {
+     *         limit: 1.1,
+     *         offset: 1.1
+     *     })
      */
     public list(
         siteId: string,
@@ -349,7 +352,10 @@ export class Forms {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.forms.listSubmissions("580e63e98c9a982ac9b8b741")
+     *     await client.forms.listSubmissions("580e63e98c9a982ac9b8b741", {
+     *         offset: 1.1,
+     *         limit: 1.1
+     *     })
      */
     public listSubmissions(
         formId: string,
@@ -920,7 +926,9 @@ export class Forms {
      *
      * @example
      *     await client.forms.listSubmissionsBySite("580e63e98c9a982ac9b8b741", {
-     *         elementId: "18259716-3e5a-646a-5f41-5dc4b9405aa0"
+     *         elementId: "18259716-3e5a-646a-5f41-5dc4b9405aa0",
+     *         offset: 1.1,
+     *         limit: 1.1
      *     })
      */
     public listSubmissionsBySite(
@@ -1059,7 +1067,12 @@ export class Forms {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
+    protected async _getAuthorizationHeader(): Promise<string | undefined> {
+        const bearer = await core.Supplier.get(this._options.accessToken);
+        if (bearer != null) {
+            return `Bearer ${bearer}`;
+        }
+
+        return undefined;
     }
 }

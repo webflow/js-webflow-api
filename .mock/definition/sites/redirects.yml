@@ -7,7 +7,9 @@ service:
     list:
       path: /sites/{site_id}/redirects
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - sites:read
       docs: >
         Fetch a list of all 301 redirect rules configured for a specific site.
 
@@ -57,7 +59,9 @@ service:
     create:
       path: /sites/{site_id}/redirects
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - sites:write
       docs: >
         Add a new 301 redirection rule to a site.
 
@@ -108,7 +112,9 @@ service:
     delete:
       path: /sites/{site_id}/redirects/{redirect_id}
       method: DELETE
-      auth: true
+      auth:
+        - OAuth2:
+            - sites:write
       docs: >
         Remove a 301 redirection rule from a site.
 
@@ -163,7 +169,9 @@ service:
     update:
       path: /sites/{site_id}/redirects/{redirect_id}
       method: PATCH
-      auth: true
+      auth:
+        - OAuth2:
+            - sites:write
       docs: >
         Update a 301 redirection rule from a site.
 

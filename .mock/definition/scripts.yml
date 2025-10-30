@@ -7,7 +7,9 @@ service:
     list:
       path: /sites/{site_id}/registered_scripts
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - custom_code:read
       docs: >
         Get a list of scripts that have been registered to a site. A site can
         have a maximum of 800 registered scripts.
@@ -72,7 +74,9 @@ service:
     register-hosted:
       path: /sites/{site_id}/registered_scripts/hosted
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - custom_code:write
       docs: |
         Register a hosted script to a site.
 
@@ -147,7 +151,9 @@ service:
     register-inline:
       path: /sites/{site_id}/registered_scripts/inline
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - custom_code:write
       docs: >
         Register an inline script to a site. Inline scripts are limited to 2000
         characters.

@@ -7,7 +7,6 @@ service:
     list:
       path: /sites/{site_id}/webhooks
       method: GET
-      auth: true
       docs: |
         List all App-created Webhooks registered for a given site
 
@@ -69,7 +68,6 @@ service:
     create:
       path: /sites/{site_id}/webhooks
       method: POST
-      auth: true
       docs: >
         Create a new Webhook.
 
@@ -124,7 +122,6 @@ service:
     get:
       path: /webhooks/{webhook_id}
       method: GET
-      auth: true
       docs: |
         Get a specific Webhook instance
 
@@ -161,7 +158,6 @@ service:
     delete:
       path: /webhooks/{webhook_id}
       method: DELETE
-      auth: true
       docs: |
         Remove a Webhook
 

@@ -7,7 +7,9 @@ service:
     list:
       path: /sites/{site_id}/forms
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - forms:read
       docs: |
         List forms for a given site.
 
@@ -45,6 +47,9 @@ service:
       examples:
         - path-parameters:
             site_id: 580e63e98c9a982ac9b8b741
+          query-parameters:
+            limit: 1.1
+            offset: 1.1
           response:
             body:
               forms:
@@ -94,7 +99,9 @@ service:
     get:
       path: /forms/{form_id}
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - forms:read
       docs: |
         Get information about a given form.
 
@@ -149,7 +156,9 @@ service:
     list-submissions:
       path: /forms/{form_id}/submissions
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - forms:read
       docs: |
         List form submissions for a given form
 
@@ -192,6 +201,9 @@ service:
       examples:
         - path-parameters:
             form_id: 580e63e98c9a982ac9b8b741
+          query-parameters:
+            offset: 1.1
+            limit: 1.1
           response:
             body:
               formSubmissions:
@@ -218,7 +230,9 @@ service:
     get-submission:
       path: /form_submissions/{form_submission_id}
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - forms:read
       docs: |
         Get information about a given form submissio.
 
@@ -257,7 +271,9 @@ service:
     delete-submission:
       path: /form_submissions/{form_submission_id}
       method: DELETE
-      auth: true
+      auth:
+        - OAuth2:
+            - forms:write
       docs: |
         Delete a form submission
 
@@ -284,7 +300,9 @@ service:
     update-submission:
       path: /form_submissions/{form_submission_id}
       method: PATCH
-      auth: true
+      auth:
+        - OAuth2:
+            - forms:write
       docs: |
         Update hidden fields on a form submission
 
@@ -335,7 +353,9 @@ service:
     list-submissions-by-site:
       path: /sites/{site_id}/form_submissions
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - forms:read
       docs: >
         List form submissions for a given site. This endpoint differs from the
         existing [List Form Submissions
@@ -385,6 +405,8 @@ service:
             site_id: 580e63e98c9a982ac9b8b741
           query-parameters:
             elementId: 18259716-3e5a-646a-5f41-5dc4b9405aa0
+            offset: 1.1
+            limit: 1.1
           response:
             body:
               formSubmissions:

@@ -5,12 +5,16 @@
 /**
  * @example
  *     {
- *         localeId: "65427cf400e02b306eaa04a0"
+ *         localeId: "65427cf400e02b306eaa04a0",
+ *         limit: 1.1,
+ *         offset: 1.1
  *     }
  */
 export interface PagesGetContentRequest {
     /**
-     * Unique identifier for a specific locale. Applicable, when using localization.
+     * Unique identifier for a specific Locale.
+     *
+     * [Lear more about localization.](/data/v2.0.0/docs/working-with-localization)
      */
     localeId?: string;
     /**

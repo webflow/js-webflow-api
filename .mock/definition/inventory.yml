@@ -7,7 +7,9 @@ service:
     list:
       path: /collections/{sku_collection_id}/items/{sku_id}/inventory
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - ecommerce:read
       docs: |
         List the current inventory levels for a particular SKU item.
 
@@ -48,7 +50,9 @@ service:
     update:
       path: /collections/{sku_collection_id}/items/{sku_id}/inventory
       method: PATCH
-      auth: true
+      auth:
+        - OAuth2:
+            - ecommerce:write
       docs: >
         Updates the current inventory levels for a particular SKU item. 
 
@@ -144,5 +148,5 @@ webhooks:
         payload:
           triggerType: ecomm_inventory_changed
           payload:
-            ref: ./schemas/inventory.yml#/InventoryItem/example
+            \$ref: ./schemas/inventory.yml#/InventoryItem/example
     docs: Information about updated ecommerce inventory values

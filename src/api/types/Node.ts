@@ -17,31 +17,31 @@ export type Node =
     | Webflow.Node.SearchButton;
 
 export namespace Node {
-    export interface Text extends Webflow.TextNodeDom {
+    export interface Text extends Webflow.TextNode {
         type: "text";
     }
 
-    export interface Image extends Webflow.ImageNodeDom {
+    export interface Image extends Webflow.ImageNode {
         type: "image";
     }
 
-    export interface ComponentInstance extends Webflow.ComponentNodeDom {
+    export interface ComponentInstance extends Webflow.ComponentNode {
         type: "component-instance";
     }
 
-    export interface TextInput extends Webflow.TextInputNodeDom {
+    export interface TextInput extends Webflow.TextInputNode {
         type: "text-input";
     }
 
-    export interface Select extends Webflow.SelectNodeDom {
+    export interface Select extends Webflow.SelectNode {
         type: "select";
     }
 
-    export interface SubmitButton extends Webflow.SubmitButtonNodeDom {
+    export interface SubmitButton extends Webflow.SubmitButtonNode {
         type: "submit-button";
     }
 
-    export interface SearchButton extends Webflow.SearchButtonNodeDom {
+    export interface SearchButton extends Webflow.SearchButtonNode {
         type: "search-button";
     }
 }

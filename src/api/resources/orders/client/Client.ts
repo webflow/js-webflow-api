@@ -15,7 +15,7 @@ export declare namespace Orders {
         environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        accessToken: core.Supplier<core.BearerToken>;
+        accessToken?: core.Supplier<core.BearerToken | undefined>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
@@ -38,7 +38,7 @@ export declare namespace Orders {
 export class Orders {
     protected readonly _options: Orders.Options;
 
-    constructor(_options: Orders.Options) {
+    constructor(_options: Orders.Options = {}) {
         this._options = _options;
     }
 
@@ -60,7 +60,11 @@ export class Orders {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.orders.list("580e63e98c9a982ac9b8b741")
+     *     await client.orders.list("580e63e98c9a982ac9b8b741", {
+     *         status: "pending",
+     *         offset: 1.1,
+     *         limit: 1.1
+     *     })
      */
     public list(
         siteId: string,
@@ -951,7 +955,12 @@ export class Orders {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
+    protected async _getAuthorizationHeader(): Promise<string | undefined> {
+        const bearer = await core.Supplier.get(this._options.accessToken);
+        if (bearer != null) {
+            return `Bearer ${bearer}`;
+        }
+
+        return undefined;
     }
 }

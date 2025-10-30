@@ -15,8 +15,15 @@ export const WorkspaceInvitationAuditLogItemEventSubType: core.serialization.Sch
     "invite_updated",
     "invite_canceled",
     "invite_declined",
+    "access_request_accepted",
 ]);
 
 export declare namespace WorkspaceInvitationAuditLogItemEventSubType {
-    export type Raw = "invite_sent" | "invite_accepted" | "invite_updated" | "invite_canceled" | "invite_declined";
+    export type Raw =
+        | "invite_sent"
+        | "invite_accepted"
+        | "invite_updated"
+        | "invite_canceled"
+        | "invite_declined"
+        | "access_request_accepted";
 }

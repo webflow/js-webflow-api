@@ -10,11 +10,11 @@ export const FieldValidationsAdditionalPropertiesAdditionalProperties: core.seri
     serializers.FieldValidationsAdditionalPropertiesAdditionalProperties.Raw,
     Webflow.FieldValidationsAdditionalPropertiesAdditionalProperties
 > = core.serialization.object({
-    additionalProperties: core.serialization.unknown().optional(),
+    additionalProperties: core.serialization.unknown(),
 });
 
 export declare namespace FieldValidationsAdditionalPropertiesAdditionalProperties {
     export interface Raw {
-        additionalProperties?: unknown | null;
+        additionalProperties?: unknown;
     }
 }

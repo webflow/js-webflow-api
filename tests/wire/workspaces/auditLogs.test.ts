@@ -10,13 +10,7 @@ describe("AuditLogs", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -54,8 +48,12 @@ describe("AuditLogs", () => {
             .build();
 
         const response = await client.workspaces.auditLogs.getWorkspaceAuditLogs("hitchhikers-workspace", {
-            from: new Date("2024-04-22T16:00:31.000Z"),
-            to: new Date("2024-04-22T16:00:31.000Z"),
+            limit: 1.1,
+            offset: 1.1,
+            sortOrder: "asc",
+            eventType: "user_access",
+            from: new Date("2025-06-22T16:00:31.000Z"),
+            to: new Date("2025-07-22T16:00:31.000Z"),
         });
         expect(response).toEqual({
             items: [

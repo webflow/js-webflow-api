@@ -7,7 +7,9 @@ service:
     get-settings:
       path: /sites/{site_id}/ecommerce/settings
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - ecommerce:read
       docs: |
         Retrieve ecommerce settings for a site.
 

@@ -6,7 +6,15 @@ import * as Webflow from "../../../../../../index";
 
 /**
  * @example
- *     {}
+ *     {
+ *         cmsLocaleId: "cmsLocaleId",
+ *         offset: 1.1,
+ *         limit: 1.1,
+ *         name: "name",
+ *         slug: "slug",
+ *         sortBy: "lastPublished",
+ *         sortOrder: "asc"
+ *     }
  */
 export interface ItemsListItemsLiveRequest {
     /**

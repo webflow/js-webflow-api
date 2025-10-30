@@ -7,7 +7,9 @@ service:
     get:
       path: /sites/{site_id}/robots_txt
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - site_config:read
       docs: >
         Retrieve the robots.txt configuration for various user agents.
 
@@ -50,7 +52,9 @@ service:
     put:
       path: /sites/{site_id}/robots_txt
       method: PUT
-      auth: true
+      auth:
+        - OAuth2:
+            - site_config:write
       docs: >
         Replace the `robots.txt` configuration for various user agents.
 
@@ -105,7 +109,9 @@ service:
     delete:
       path: /sites/{site_id}/robots_txt
       method: DELETE
-      auth: true
+      auth:
+        - OAuth2:
+            - site_config:write
       docs: >
         Remove specific rules for a user-agent in your `robots.txt` file. To
         delete all rules for a user-agent, provide an empty rule set. This will
@@ -165,7 +171,9 @@ service:
     patch:
       path: /sites/{site_id}/robots_txt
       method: PATCH
-      auth: true
+      auth:
+        - OAuth2:
+            - site_config:write
       docs: >
         Update the `robots.txt` configuration for various user agents.
 

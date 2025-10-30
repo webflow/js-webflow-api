@@ -10,13 +10,7 @@ describe("Inventory", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = { id: "5bfedb42bab0ad90fa7dad39", quantity: 100, inventoryType: "finite" };
@@ -40,13 +34,7 @@ describe("Inventory", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
         const rawRequestBody = { inventoryType: "infinite" };
         const rawResponseBody = { id: "5bfedb42bab0ad90fa7dad39", quantity: 100, inventoryType: "finite" };

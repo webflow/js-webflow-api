@@ -24,12 +24,19 @@ import * as Webflow from "../../../../index";
  */
 export interface PageMetadataWrite {
     /**
-     * Unique identifier for a specific locale. Applicable, when using localization.
+     * Unique identifier for a specific Locale.
+     *
+     * [Lear more about localization.](/data/v2.0.0/docs/working-with-localization)
      */
     localeId?: string;
     /** Title for the page */
     title?: string;
-    /** Slug for the page */
+    /**
+     * Slug for the page.
+     *
+     *
+     * **Note:** Updating slugs in secondary locales is only supported in <a href="https://webflow.com/localization">Advanced and Enterprise localization add-on plans.</a>
+     */
     slug?: string;
     /** SEO-related fields for the Page */
     seo?: Webflow.PageMetadataWriteSeo;

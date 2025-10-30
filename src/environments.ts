@@ -6,8 +6,6 @@ export interface WebflowEnvironmentUrls {
     base: string;
     dataApi: string;
     contentDeliveryApi: string;
-    production: string;
-    cdn: string;
 }
 
 export const WebflowEnvironment = {
@@ -15,8 +13,6 @@ export const WebflowEnvironment = {
         base: "https://api.webflow.com/v2",
         dataApi: "https://api.webflow.com/v2",
         contentDeliveryApi: "https://api-cdn.webflow.com/v2",
-        production: "https://api.webflow.com/v2",
-        cdn: "https://api-cdn.webflow.com/v2",
     },
 } as const;
 

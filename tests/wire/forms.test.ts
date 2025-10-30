@@ -10,13 +10,7 @@ describe("Forms", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -71,7 +65,10 @@ describe("Forms", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.forms.list("580e63e98c9a982ac9b8b741");
+        const response = await client.forms.list("580e63e98c9a982ac9b8b741", {
+            limit: 1.1,
+            offset: 1.1,
+        });
         expect(response).toEqual({
             forms: [
                 {
@@ -137,13 +134,7 @@ describe("Forms", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -217,13 +208,7 @@ describe("Forms", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -255,7 +240,10 @@ describe("Forms", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.forms.listSubmissions("580e63e98c9a982ac9b8b741");
+        const response = await client.forms.listSubmissions("580e63e98c9a982ac9b8b741", {
+            offset: 1.1,
+            limit: 1.1,
+        });
         expect(response).toEqual({
             formSubmissions: [
                 {
@@ -293,13 +281,7 @@ describe("Forms", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -336,13 +318,7 @@ describe("Forms", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         server
@@ -360,13 +336,7 @@ describe("Forms", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
         const rawRequestBody = {};
         const rawResponseBody = {
@@ -404,13 +374,7 @@ describe("Forms", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -444,6 +408,8 @@ describe("Forms", () => {
 
         const response = await client.forms.listSubmissionsBySite("580e63e98c9a982ac9b8b741", {
             elementId: "18259716-3e5a-646a-5f41-5dc4b9405aa0",
+            offset: 1.1,
+            limit: 1.1,
         });
         expect(response).toEqual({
             formSubmissions: [

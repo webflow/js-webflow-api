@@ -19,7 +19,9 @@ service:
     put:
       path: /sites/{site_id}/well_known
       method: PUT
-      auth: true
+      auth:
+        - OAuth2:
+            - site_config:write
       docs: >
         Upload a supported well-known file to a site.
 
@@ -70,12 +72,26 @@ service:
         - path-parameters:
             site_id: 580e63e98c9a982ac9b8b741
           request:
-            fileName: fileName
-            fileData: fileData
+            fileName: apple-app-site-association.txt
+            fileData: |
+              {
+                "applinks": {
+                  "apps": [],
+                  "details": [
+                {
+                  "appID": "ABCDE12345.com.example.app",
+                  "paths": [ "/*", "/some/path/*" ]
+                    }
+                  ]
+                }
+              }
+            contentType: application/json
     delete:
       path: /sites/{site_id}/well_known
       method: DELETE
-      auth: true
+      auth:
+        - OAuth2:
+            - site_config:write
       docs: >
         Delete existing well-known files from a site.
 

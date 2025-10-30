@@ -7,8 +7,9 @@ import * as Webflow from "../../../../../../index";
 /**
  * @example
  *     {
- *         fileName: "fileName",
- *         fileData: "fileData"
+ *         fileName: "apple-app-site-association.txt",
+ *         fileData: "{\n  \"applinks\": {\n    \"apps\": [],\n    \"details\": [\n  {\n    \"appID\": \"ABCDE12345.com.example.app\",\n    \"paths\": [ \"/*\", \"/some/path/*\" ]\n      }\n    ]\n  }\n}\n",
+ *         contentType: "application/json"
  *     }
  */
 export interface WellKnownFile {
