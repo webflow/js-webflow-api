@@ -7,7 +7,9 @@ service:
     list:
       path: /sites/{site_id}/assets
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - assets:read
       docs: |
         List of assets uploaded to a site
 
@@ -19,6 +21,17 @@ service:
           type: string
           docs: Unique identifier for a Site
       display-name: List Assets
+      request:
+        name: AssetsListRequest
+        query-parameters:
+          offset:
+            type: optional<double>
+            docs: >-
+              Offset used for pagination if the results have more than limit
+              records
+          limit:
+            type: optional<double>
+            docs: 'Maximum number of records to be returned (max limit: 100)'
       response:
         docs: Request was successful
         type: root.Assets
@@ -32,6 +45,9 @@ service:
       examples:
         - path-parameters:
             site_id: 580e63e98c9a982ac9b8b741
+          query-parameters:
+            offset: 1.1
+            limit: 1.1
           response:
             body:
               assets:
@@ -86,7 +102,9 @@ service:
     create:
       path: /sites/{site_id}/assets
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - assets:write
       docs: >
         The first step in uploading an asset to a site. 
 
@@ -175,7 +193,9 @@ service:
     get:
       path: /assets/{asset_id}
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - assets:read
       docs: |
         Get details about an asset
 
@@ -226,7 +246,9 @@ service:
     delete:
       path: /assets/{asset_id}
       method: DELETE
-      auth: true
+      auth:
+        - OAuth2:
+            - assets:write
       docs: |
         Delete an Asset
 
@@ -250,7 +272,9 @@ service:
     update:
       path: /assets/{asset_id}
       method: PATCH
-      auth: true
+      auth:
+        - OAuth2:
+            - assets:write
       docs: |
         Update details of an Asset.
 
@@ -315,7 +339,9 @@ service:
     list-folders:
       path: /sites/{site_id}/asset_folders
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - assets:read
       docs: |
         List Asset Folders within a given site
 
@@ -358,7 +384,9 @@ service:
     create-folder:
       path: /sites/{site_id}/asset_folders
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - assets:write
       docs: |
         Create an Asset Folder within a given site
 
@@ -412,7 +440,9 @@ service:
     get-folder:
       path: /asset_folders/{asset_folder_id}
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - assets:read
       docs: |
         Get details about a specific Asset Folder
 

@@ -10,13 +10,7 @@ describe("Items", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -52,7 +46,15 @@ describe("Items", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.collections.items.listItems("580e63fc8c9a982ac9b8b745");
+        const response = await client.collections.items.listItems("580e63fc8c9a982ac9b8b745", {
+            cmsLocaleId: "cmsLocaleId",
+            offset: 1.1,
+            limit: 1.1,
+            name: "name",
+            slug: "slug",
+            sortBy: "lastPublished",
+            sortOrder: "asc",
+        });
         expect(response).toEqual({
             items: [
                 {
@@ -94,18 +96,12 @@ describe("Items", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
         const rawRequestBody = {
             isArchived: false,
             isDraft: false,
-            fieldData: { name: "Pan Galactic Gargle Blaster Recipe", slug: "pan-galactic-gargle-blaster" },
+            fieldData: { name: "The Hitchhiker's Guide to the Galaxy", slug: "hitchhikers-guide-to-the-galaxy" },
         };
         const rawResponseBody = {
             id: "42b720ef280c7a7a3be8cabe",
@@ -115,7 +111,7 @@ describe("Items", () => {
             createdOn: "2022-11-17T17:11:57.148Z",
             isArchived: false,
             isDraft: false,
-            fieldData: { name: "Pan Galactic Gargle Blaster Recipe", slug: "pan-galactic-gargle-blaster" },
+            fieldData: { name: "The Hitchhiker's Guide to the Galaxy", slug: "hitchhikers-guide-to-the-galaxy" },
         };
         server
             .mockEndpoint()
@@ -127,12 +123,13 @@ describe("Items", () => {
             .build();
 
         const response = await client.collections.items.createItem("580e63fc8c9a982ac9b8b745", {
+            skipInvalidFiles: true,
             body: {
                 isArchived: false,
                 isDraft: false,
                 fieldData: {
-                    name: "Pan Galactic Gargle Blaster Recipe",
-                    slug: "pan-galactic-gargle-blaster",
+                    name: "The Hitchhiker's Guide to the Galaxy",
+                    slug: "hitchhikers-guide-to-the-galaxy",
                 },
             },
         });
@@ -145,8 +142,8 @@ describe("Items", () => {
             isArchived: false,
             isDraft: false,
             fieldData: {
-                name: "Pan Galactic Gargle Blaster Recipe",
-                slug: "pan-galactic-gargle-blaster",
+                name: "The Hitchhiker's Guide to the Galaxy",
+                slug: "hitchhikers-guide-to-the-galaxy",
             },
         });
     });
@@ -155,13 +152,7 @@ describe("Items", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
         const rawRequestBody = { items: [{ id: "580e64008c9a982ac9b8b754" }] };
 
@@ -187,13 +178,7 @@ describe("Items", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
         const rawRequestBody = {
             items: [
@@ -274,6 +259,7 @@ describe("Items", () => {
             .build();
 
         const response = await client.collections.items.updateItems("580e63fc8c9a982ac9b8b745", {
+            skipInvalidFiles: true,
             items: [
                 {
                     id: "66f6ed9576ddacf3149d5ea6",
@@ -376,13 +362,7 @@ describe("Items", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -418,7 +398,15 @@ describe("Items", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.collections.items.listItemsLive("580e63fc8c9a982ac9b8b745");
+        const response = await client.collections.items.listItemsLive("580e63fc8c9a982ac9b8b745", {
+            cmsLocaleId: "cmsLocaleId",
+            offset: 1.1,
+            limit: 1.1,
+            name: "name",
+            slug: "slug",
+            sortBy: "lastPublished",
+            sortOrder: "asc",
+        });
         expect(response).toEqual({
             items: [
                 {
@@ -460,18 +448,12 @@ describe("Items", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
         const rawRequestBody = {
             isArchived: false,
             isDraft: false,
-            fieldData: { name: "Pan Galactic Gargle Blaster Recipe", slug: "pan-galactic-gargle-blaster" },
+            fieldData: { name: "The Hitchhiker's Guide to the Galaxy", slug: "hitchhikers-guide-to-the-galaxy" },
         };
         const rawResponseBody = {
             id: "42b720ef280c7a7a3be8cabe",
@@ -481,7 +463,7 @@ describe("Items", () => {
             createdOn: "2022-11-17T17:11:57.148Z",
             isArchived: false,
             isDraft: false,
-            fieldData: { name: "Pan Galactic Gargle Blaster Recipe", slug: "pan-galactic-gargle-blaster" },
+            fieldData: { name: "The Hitchhiker's Guide to the Galaxy", slug: "hitchhikers-guide-to-the-galaxy" },
         };
         server
             .mockEndpoint()
@@ -493,12 +475,13 @@ describe("Items", () => {
             .build();
 
         const response = await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
+            skipInvalidFiles: true,
             body: {
                 isArchived: false,
                 isDraft: false,
                 fieldData: {
-                    name: "Pan Galactic Gargle Blaster Recipe",
-                    slug: "pan-galactic-gargle-blaster",
+                    name: "The Hitchhiker's Guide to the Galaxy",
+                    slug: "hitchhikers-guide-to-the-galaxy",
                 },
             },
         });
@@ -511,8 +494,8 @@ describe("Items", () => {
             isArchived: false,
             isDraft: false,
             fieldData: {
-                name: "Pan Galactic Gargle Blaster Recipe",
-                slug: "pan-galactic-gargle-blaster",
+                name: "The Hitchhiker's Guide to the Galaxy",
+                slug: "hitchhikers-guide-to-the-galaxy",
             },
         });
     });
@@ -521,13 +504,7 @@ describe("Items", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
         const rawRequestBody = { items: [{ id: "580e64008c9a982ac9b8b754" }] };
 
@@ -553,13 +530,7 @@ describe("Items", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
         const rawRequestBody = {
             items: [
@@ -639,6 +610,7 @@ describe("Items", () => {
             .build();
 
         const response = await client.collections.items.updateItemsLive("580e63fc8c9a982ac9b8b745", {
+            skipInvalidFiles: true,
             items: [
                 {
                     id: "66f6ed9576ddacf3149d5ea6",
@@ -736,13 +708,7 @@ describe("Items", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
         const rawRequestBody = {
             cmsLocaleIds: ["66f6e966c9e1dc700a857ca3", "66f6e966c9e1dc700a857ca4", "66f6e966c9e1dc700a857ca5"],
@@ -770,6 +736,7 @@ describe("Items", () => {
             .build();
 
         const response = await client.collections.items.createItems("580e63fc8c9a982ac9b8b745", {
+            skipInvalidFiles: true,
             cmsLocaleIds: ["66f6e966c9e1dc700a857ca3", "66f6e966c9e1dc700a857ca4", "66f6e966c9e1dc700a857ca5"],
             isArchived: false,
             isDraft: false,
@@ -797,13 +764,7 @@ describe("Items", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -814,7 +775,7 @@ describe("Items", () => {
             createdOn: "2022-11-17T17:11:57.148Z",
             isArchived: false,
             isDraft: false,
-            fieldData: { name: "Pan Galactic Gargle Blaster Recipe", slug: "pan-galactic-gargle-blaster" },
+            fieldData: { name: "The Hitchhiker's Guide to the Galaxy", slug: "hitchhikers-guide-to-the-galaxy" },
         };
         server
             .mockEndpoint()
@@ -824,7 +785,13 @@ describe("Items", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.collections.items.getItem("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754");
+        const response = await client.collections.items.getItem(
+            "580e63fc8c9a982ac9b8b745",
+            "580e64008c9a982ac9b8b754",
+            {
+                cmsLocaleId: "cmsLocaleId",
+            },
+        );
         expect(response).toEqual({
             id: "42b720ef280c7a7a3be8cabe",
             cmsLocaleId: "653ad57de882f528b32e810e",
@@ -834,8 +801,8 @@ describe("Items", () => {
             isArchived: false,
             isDraft: false,
             fieldData: {
-                name: "Pan Galactic Gargle Blaster Recipe",
-                slug: "pan-galactic-gargle-blaster",
+                name: "The Hitchhiker's Guide to the Galaxy",
+                slug: "hitchhikers-guide-to-the-galaxy",
             },
         });
     });
@@ -844,13 +811,7 @@ describe("Items", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         server
@@ -863,6 +824,9 @@ describe("Items", () => {
         const response = await client.collections.items.deleteItem(
             "580e63fc8c9a982ac9b8b745",
             "580e64008c9a982ac9b8b754",
+            {
+                cmsLocaleId: "cmsLocaleId",
+            },
         );
         expect(response).toEqual(undefined);
     });
@@ -871,18 +835,12 @@ describe("Items", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
         const rawRequestBody = {
             isArchived: false,
             isDraft: false,
-            fieldData: { name: "Pan Galactic Gargle Blaster Recipe", slug: "pan-galactic-gargle-blaster" },
+            fieldData: { name: "The Hitchhiker's Guide to the Galaxy", slug: "hitchhikers-guide-to-the-galaxy" },
         };
         const rawResponseBody = {
             id: "42b720ef280c7a7a3be8cabe",
@@ -892,7 +850,7 @@ describe("Items", () => {
             createdOn: "2022-11-17T17:11:57.148Z",
             isArchived: false,
             isDraft: false,
-            fieldData: { name: "Pan Galactic Gargle Blaster Recipe", slug: "pan-galactic-gargle-blaster" },
+            fieldData: { name: "The Hitchhiker's Guide to the Galaxy", slug: "hitchhikers-guide-to-the-galaxy" },
         };
         server
             .mockEndpoint()
@@ -907,12 +865,13 @@ describe("Items", () => {
             "580e63fc8c9a982ac9b8b745",
             "580e64008c9a982ac9b8b754",
             {
+                skipInvalidFiles: true,
                 body: {
                     isArchived: false,
                     isDraft: false,
                     fieldData: {
-                        name: "Pan Galactic Gargle Blaster Recipe",
-                        slug: "pan-galactic-gargle-blaster",
+                        name: "The Hitchhiker's Guide to the Galaxy",
+                        slug: "hitchhikers-guide-to-the-galaxy",
                     },
                 },
             },
@@ -926,8 +885,8 @@ describe("Items", () => {
             isArchived: false,
             isDraft: false,
             fieldData: {
-                name: "Pan Galactic Gargle Blaster Recipe",
-                slug: "pan-galactic-gargle-blaster",
+                name: "The Hitchhiker's Guide to the Galaxy",
+                slug: "hitchhikers-guide-to-the-galaxy",
             },
         });
     });
@@ -936,13 +895,7 @@ describe("Items", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -953,7 +906,7 @@ describe("Items", () => {
             createdOn: "2022-11-17T17:11:57.148Z",
             isArchived: false,
             isDraft: false,
-            fieldData: { name: "Pan Galactic Gargle Blaster Recipe", slug: "pan-galactic-gargle-blaster" },
+            fieldData: { name: "The Hitchhiker's Guide to the Galaxy", slug: "hitchhikers-guide-to-the-galaxy" },
         };
         server
             .mockEndpoint()
@@ -966,6 +919,9 @@ describe("Items", () => {
         const response = await client.collections.items.getItemLive(
             "580e63fc8c9a982ac9b8b745",
             "580e64008c9a982ac9b8b754",
+            {
+                cmsLocaleId: "cmsLocaleId",
+            },
         );
         expect(response).toEqual({
             id: "42b720ef280c7a7a3be8cabe",
@@ -976,8 +932,8 @@ describe("Items", () => {
             isArchived: false,
             isDraft: false,
             fieldData: {
-                name: "Pan Galactic Gargle Blaster Recipe",
-                slug: "pan-galactic-gargle-blaster",
+                name: "The Hitchhiker's Guide to the Galaxy",
+                slug: "hitchhikers-guide-to-the-galaxy",
             },
         });
     });
@@ -986,13 +942,7 @@ describe("Items", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         server
@@ -1005,6 +955,9 @@ describe("Items", () => {
         const response = await client.collections.items.deleteItemLive(
             "580e63fc8c9a982ac9b8b745",
             "580e64008c9a982ac9b8b754",
+            {
+                cmsLocaleId: "cmsLocaleId",
+            },
         );
         expect(response).toEqual(undefined);
     });
@@ -1013,18 +966,12 @@ describe("Items", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
         const rawRequestBody = {
             isArchived: false,
             isDraft: false,
-            fieldData: { name: "Pan Galactic Gargle Blaster Recipe", slug: "pan-galactic-gargle-blaster" },
+            fieldData: { name: "The Hitchhiker's Guide to the Galaxy", slug: "hitchhikers-guide-to-the-galaxy" },
         };
         const rawResponseBody = {
             id: "42b720ef280c7a7a3be8cabe",
@@ -1034,7 +981,7 @@ describe("Items", () => {
             createdOn: "2022-11-17T17:11:57.148Z",
             isArchived: false,
             isDraft: false,
-            fieldData: { name: "Pan Galactic Gargle Blaster Recipe", slug: "pan-galactic-gargle-blaster" },
+            fieldData: { name: "The Hitchhiker's Guide to the Galaxy", slug: "hitchhikers-guide-to-the-galaxy" },
         };
         server
             .mockEndpoint()
@@ -1049,12 +996,13 @@ describe("Items", () => {
             "580e63fc8c9a982ac9b8b745",
             "580e64008c9a982ac9b8b754",
             {
+                skipInvalidFiles: true,
                 body: {
                     isArchived: false,
                     isDraft: false,
                     fieldData: {
-                        name: "Pan Galactic Gargle Blaster Recipe",
-                        slug: "pan-galactic-gargle-blaster",
+                        name: "The Hitchhiker's Guide to the Galaxy",
+                        slug: "hitchhikers-guide-to-the-galaxy",
                     },
                 },
             },
@@ -1068,8 +1016,8 @@ describe("Items", () => {
             isArchived: false,
             isDraft: false,
             fieldData: {
-                name: "Pan Galactic Gargle Blaster Recipe",
-                slug: "pan-galactic-gargle-blaster",
+                name: "The Hitchhiker's Guide to the Galaxy",
+                slug: "hitchhikers-guide-to-the-galaxy",
             },
         });
     });
@@ -1078,13 +1026,7 @@ describe("Items", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
         const rawRequestBody = {
             itemIds: ["643fd856d66b6528195ee2ca", "643fd856d66b6528195ee2cb", "643fd856d66b6528195ee2cc"],

@@ -15,7 +15,7 @@ export declare namespace Webhooks {
         environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        accessToken: core.Supplier<core.BearerToken>;
+        accessToken?: core.Supplier<core.BearerToken | undefined>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
@@ -38,7 +38,7 @@ export declare namespace Webhooks {
 export class Webhooks {
     protected readonly _options: Webhooks.Options;
 
-    constructor(_options: Webhooks.Options) {
+    constructor(_options: Webhooks.Options = {}) {
         this._options = _options;
     }
 
@@ -576,7 +576,12 @@ export class Webhooks {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
+    protected async _getAuthorizationHeader(): Promise<string | undefined> {
+        const bearer = await core.Supplier.get(this._options.accessToken);
+        if (bearer != null) {
+            return `Bearer ${bearer}`;
+        }
+
+        return undefined;
     }
 }
