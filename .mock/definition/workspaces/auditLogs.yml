@@ -23,7 +23,9 @@ service:
     get-workspace-audit_logs:
       path: /workspaces/{workspace_id_or_slug}/audit_logs
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - workspace_activity:read
       docs: >
         Get audit logs for a workspace.
 
@@ -79,8 +81,12 @@ service:
         - path-parameters:
             workspace_id_or_slug: hitchhikers-workspace
           query-parameters:
-            from: '2024-04-22T16:00:31Z'
-            to: '2024-04-22T16:00:31Z'
+            limit: 1.1
+            offset: 1.1
+            sortOrder: asc
+            eventType: user_access
+            from: '2025-06-22T16:00:31Z'
+            to: '2025-07-22T16:00:31Z'
           response:
             body:
               items:

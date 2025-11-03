@@ -7,12 +7,13 @@ import * as Webflow from "../../../../../../index";
 /**
  * @example
  *     {
+ *         skipInvalidFiles: true,
  *         body: {
  *             isArchived: false,
  *             isDraft: false,
  *             fieldData: {
- *                 name: "Pan Galactic Gargle Blaster Recipe",
- *                 slug: "pan-galactic-gargle-blaster"
+ *                 name: "The Hitchhiker's Guide to the Galaxy",
+ *                 slug: "hitchhikers-guide-to-the-galaxy"
  *             }
  *         }
  *     }

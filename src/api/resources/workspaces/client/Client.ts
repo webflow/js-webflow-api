@@ -11,7 +11,7 @@ export declare namespace Workspaces {
         environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        accessToken: core.Supplier<core.BearerToken>;
+        accessToken?: core.Supplier<core.BearerToken | undefined>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
@@ -21,7 +21,7 @@ export class Workspaces {
     protected readonly _options: Workspaces.Options;
     protected _auditLogs: AuditLogs | undefined;
 
-    constructor(_options: Workspaces.Options) {
+    constructor(_options: Workspaces.Options = {}) {
         this._options = _options;
     }
 

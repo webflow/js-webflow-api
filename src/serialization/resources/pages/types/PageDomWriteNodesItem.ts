@@ -5,31 +5,31 @@
 import * as serializers from "../../../index";
 import * as Webflow from "../../../../api/index";
 import * as core from "../../../../core";
-import { TextNode } from "../../../types/TextNode";
-import { ComponentInstance } from "../../../types/ComponentInstance";
+import { TextNodeWrite } from "../../../types/TextNodeWrite";
+import { ComponentInstanceNodePropertyOverridesWrite } from "../../../types/ComponentInstanceNodePropertyOverridesWrite";
 import { Select } from "../../../types/Select";
-import { TextInput } from "../../../types/TextInput";
-import { SubmitButton } from "../../../types/SubmitButton";
-import { SearchButton } from "../../../types/SearchButton";
+import { TextInputNodeWrite } from "../../../types/TextInputNodeWrite";
+import { SubmitButtonNodeWrite } from "../../../types/SubmitButtonNodeWrite";
+import { SearchButtonNodeWrite } from "../../../types/SearchButtonNodeWrite";
 
 export const PageDomWriteNodesItem: core.serialization.Schema<
     serializers.PageDomWriteNodesItem.Raw,
     Webflow.PageDomWriteNodesItem
 > = core.serialization.undiscriminatedUnion([
-    TextNode,
-    ComponentInstance,
+    TextNodeWrite,
+    ComponentInstanceNodePropertyOverridesWrite,
     Select,
-    TextInput,
-    SubmitButton,
-    SearchButton,
+    TextInputNodeWrite,
+    SubmitButtonNodeWrite,
+    SearchButtonNodeWrite,
 ]);
 
 export declare namespace PageDomWriteNodesItem {
     export type Raw =
-        | TextNode.Raw
-        | ComponentInstance.Raw
+        | TextNodeWrite.Raw
+        | ComponentInstanceNodePropertyOverridesWrite.Raw
         | Select.Raw
-        | TextInput.Raw
-        | SubmitButton.Raw
-        | SearchButton.Raw;
+        | TextInputNodeWrite.Raw
+        | SubmitButtonNodeWrite.Raw
+        | SearchButtonNodeWrite.Raw;
 }

@@ -7,7 +7,9 @@ service:
     list:
       path: /sites/{site_id}/collections
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:read
       docs: |
         List of all Collections within a Site.
 
@@ -56,7 +58,9 @@ service:
     create:
       path: /sites/{site_id}/collections
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: >
         Create a Collection for a site with collection fields.
 
@@ -159,7 +163,9 @@ service:
     get:
       path: /collections/{collection_id}
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:read
       docs: |
         Get the full details of a collection from its ID.
 
@@ -312,7 +318,9 @@ service:
     delete:
       path: /collections/{collection_id}
       method: DELETE
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: |
         Delete a collection using its ID.
 

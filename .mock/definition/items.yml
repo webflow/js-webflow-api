@@ -15,7 +15,7 @@ webhooks:
             workspaceId: 625860a7a6c16d624927122f
             siteId: 65427cf400e02b306eaa049c
             collectionId: 664243617fcc8b464b23c4ee
-            cmsLocaleId: 681442a144bb80bd00480fda
+            lastPublished: '2023-03-17T18:47:35Z'
             lastUpdated: '2023-03-17T18:47:35Z'
             createdOn: '2023-03-17T18:47:35Z'
             isArchived: false
@@ -34,18 +34,13 @@ webhooks:
       - payload:
           triggerType: collection_item_changed
           payload:
-            id: 580e64008c9a982ac9b8b754
-            workspaceId: 625860a7a6c16d624927122f
-            siteId: 65427cf400e02b306eaa049c
-            collectionId: 664243617fcc8b464b23c4ee
-            cmsLocaleId: 681442a144bb80bd00480fda
-            lastUpdated: '2023-03-17T18:47:35Z'
-            createdOn: '2023-03-17T18:47:35Z'
-            isArchived: false
-            isDraft: false
+            id: id
+            workspaceId: workspaceId
+            siteId: siteId
+            collectionId: collectionId
             fieldData:
-              name: Pan-Galactic Gargle Blaster
-              slug: pan-galactic-gargle-blaster
+              name: name
+              slug: slug
     docs: Information about an updated collection item
   collection_item_deleted:
     audiences: []
@@ -67,11 +62,28 @@ webhooks:
             isArchived: false
             isDraft: false
             fieldData:
-              name: Anna Gunn
-              slug: anna-gunn
-              _locale: 681442a144bb80bd00480fda
-              _noSearch: false
+              name: Earth
+              slug: earth
+              description: Mostly harmless
+              color: '#0000FF'
+              type: planet
+              galaxy: Milky Way
     docs: Information about a deleted collection item
+  collection_item_published:
+    audiences: []
+    method: POST
+    display-name: Collection Item Published
+    headers: {}
+    payload: root.CollectionItemPublished
+    examples:
+      - payload:
+          triggerType: collection_item_published
+          payload:
+            id: 6321ca84df3949bfc6752327
+            siteId: 65427cf400e02b306eaa049c
+            workspaceId: 625860a7a6c16d624927122f
+            collectionId: 664243617fcc8b464b23c4ee
+    docs: Information about a collection item that was published
   collection_item_unpublished:
     audiences: []
     method: POST

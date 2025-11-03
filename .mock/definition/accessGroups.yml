@@ -18,7 +18,9 @@ service:
     list:
       path: /sites/{site_id}/accessgroups
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - users:read
       docs: |
         Get a list of access groups for a site
 
@@ -60,6 +62,10 @@ service:
       examples:
         - path-parameters:
             site_id: 580e63e98c9a982ac9b8b741
+          query-parameters:
+            offset: 1.1
+            limit: 1.1
+            sort: CreatedOn
           response:
             body:
               count: 1

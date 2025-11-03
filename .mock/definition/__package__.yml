@@ -386,8 +386,7 @@ types:
       openapi: ../../../openapi/referenced-specs/v2.yml
   User access:
     properties:
-      method:
-        type: optional<WorkspaceAuditLogItemPayloadUserAccessMethod>
+      method: optional<WorkspaceAuditLogItemPayloadUserAccessMethod>
       location:
         type: optional<string>
         docs: The geolocation based on the logged IP address
@@ -405,10 +404,8 @@ types:
       openapi: ../../../openapi/referenced-specs/v2.yml
   UserAccessAuditLogItem:
     properties:
-      eventSubType:
-        type: optional<UserAccessAuditLogItemEventSubType>
-      payload:
-        type: optional<User access>
+      eventSubType: optional<UserAccessAuditLogItemEventSubType>
+      payload: optional<User access>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   Custom role:
@@ -431,10 +428,8 @@ types:
       openapi: ../../../openapi/referenced-specs/v2.yml
   CustomRoleAuditLogItem:
     properties:
-      eventSubType:
-        type: optional<CustomRoleAuditLogItemEventSubType>
-      payload:
-        type: optional<Custom role>
+      eventSubType: optional<CustomRoleAuditLogItemEventSubType>
+      payload: optional<Custom role>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   WorkspaceAuditLogItemPayloadWorkspaceMembershipTargetUser:
@@ -449,6 +444,7 @@ types:
       - sso
       - dashboard
       - admin
+      - access_request
     inline: true
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
@@ -463,12 +459,9 @@ types:
       openapi: ../../../openapi/referenced-specs/v2.yml
   Workspace membership:
     properties:
-      targetUser:
-        type: optional<WorkspaceAuditLogItemPayloadWorkspaceMembershipTargetUser>
-      method:
-        type: optional<WorkspaceAuditLogItemPayloadWorkspaceMembershipMethod>
-      userType:
-        type: optional<WorkspaceAuditLogItemPayloadWorkspaceMembershipUserType>
+      targetUser: optional<WorkspaceAuditLogItemPayloadWorkspaceMembershipTargetUser>
+      method: optional<WorkspaceAuditLogItemPayloadWorkspaceMembershipMethod>
+      userType: optional<WorkspaceAuditLogItemPayloadWorkspaceMembershipUserType>
       roleName:
         type: optional<string>
         docs: The name of the role that was assigned to the user
@@ -487,10 +480,8 @@ types:
       openapi: ../../../openapi/referenced-specs/v2.yml
   WorkspaceMembershipAuditLogItem:
     properties:
-      eventSubType:
-        type: optional<WorkspaceMembershipAuditLogItemEventSubType>
-      payload:
-        type: optional<Workspace membership>
+      eventSubType: optional<WorkspaceMembershipAuditLogItemEventSubType>
+      payload: optional<Workspace membership>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   WorkspaceAuditLogItemPayloadSiteMembershipSite:
@@ -514,6 +505,7 @@ types:
       - scim
       - dashboard
       - admin
+      - access_request
     inline: true
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
@@ -526,22 +518,28 @@ types:
     inline: true
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
+  WorkspaceAuditLogItemPayloadSiteMembershipGranularAccess:
+    properties:
+      id: optional<string>
+      name: optional<string>
+      type: optional<literal<"cms">>
+      restricted: optional<boolean>
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
   Site membership:
     properties:
-      site:
-        type: optional<WorkspaceAuditLogItemPayloadSiteMembershipSite>
-      targetUser:
-        type: optional<WorkspaceAuditLogItemPayloadSiteMembershipTargetUser>
-      method:
-        type: optional<WorkspaceAuditLogItemPayloadSiteMembershipMethod>
-      userType:
-        type: optional<WorkspaceAuditLogItemPayloadSiteMembershipUserType>
+      site: optional<WorkspaceAuditLogItemPayloadSiteMembershipSite>
+      targetUser: optional<WorkspaceAuditLogItemPayloadSiteMembershipTargetUser>
+      method: optional<WorkspaceAuditLogItemPayloadSiteMembershipMethod>
+      userType: optional<WorkspaceAuditLogItemPayloadSiteMembershipUserType>
       roleName:
         type: optional<string>
         docs: The name of the role that was assigned to the user
       previousRoleName:
         type: optional<string>
         docs: The previous role that the user had
+      granularAccess: optional<WorkspaceAuditLogItemPayloadSiteMembershipGranularAccess>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   SiteMembershipAuditLogItemEventSubType:
@@ -549,15 +547,14 @@ types:
       - user_added
       - user_removed
       - user_role_updated
+      - user_granular_access_updated
     inline: true
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   SiteMembershipAuditLogItem:
     properties:
-      eventSubType:
-        type: optional<SiteMembershipAuditLogItemEventSubType>
-      payload:
-        type: optional<Site membership>
+      eventSubType: optional<SiteMembershipAuditLogItemEventSubType>
+      payload: optional<Site membership>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   WorkspaceAuditLogItemPayloadWorkspaceInvitationTargetUser:
@@ -584,20 +581,26 @@ types:
     inline: true
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
+  WorkspaceAuditLogItemPayloadWorkspaceInvitationTargetUsersItem:
+    properties:
+      id: optional<string>
+      email: optional<string>
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
   Workspace invitation:
     properties:
-      targetUser:
-        type: optional<WorkspaceAuditLogItemPayloadWorkspaceInvitationTargetUser>
-      method:
-        type: optional<WorkspaceAuditLogItemPayloadWorkspaceInvitationMethod>
-      userType:
-        type: optional<WorkspaceAuditLogItemPayloadWorkspaceInvitationUserType>
+      targetUser: optional<WorkspaceAuditLogItemPayloadWorkspaceInvitationTargetUser>
+      method: optional<WorkspaceAuditLogItemPayloadWorkspaceInvitationMethod>
+      userType: optional<WorkspaceAuditLogItemPayloadWorkspaceInvitationUserType>
       roleName:
         type: optional<string>
         docs: The name of the role that was assigned to the user
       previousRoleName:
         type: optional<string>
         docs: The previous role that the user had
+      targetUsers: >-
+        optional<list<WorkspaceAuditLogItemPayloadWorkspaceInvitationTargetUsersItem>>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   WorkspaceInvitationAuditLogItemEventSubType:
@@ -607,15 +610,14 @@ types:
       - invite_updated
       - invite_canceled
       - invite_declined
+      - access_request_accepted
     inline: true
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   WorkspaceInvitationAuditLogItem:
     properties:
-      eventSubType:
-        type: optional<WorkspaceInvitationAuditLogItemEventSubType>
-      payload:
-        type: optional<Workspace invitation>
+      eventSubType: optional<WorkspaceInvitationAuditLogItemEventSubType>
+      payload: optional<Workspace invitation>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   WorkspaceAuditLogItemActor:
@@ -1093,7 +1095,7 @@ types:
       openapi: ../../../openapi/referenced-specs/v2.yml
   FieldValidationsAdditionalPropertiesAdditionalProperties:
     properties:
-      additionalProperties: optional<unknown>
+      additionalProperties: unknown
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
@@ -1260,8 +1262,7 @@ types:
       items:
         type: optional<list<CollectionItem>>
         docs: List of Items within the collection
-      pagination:
-        type: optional<CollectionItemListPagination>
+      pagination: optional<CollectionItemListPagination>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   CollectionItemPostSingleFieldData:
@@ -1817,7 +1818,7 @@ types:
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
-  Text Node DOM:
+  TextNode:
     docs: >
       Represents text content within the DOM. It contains both the raw text and
       its HTML representation. Additional attributes can be associated with the
@@ -1842,7 +1843,7 @@ types:
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
-  Image Node DOM:
+  ImageNode:
     docs: >
       Represents an image within the DOM. It contains details about the image,
       such as its alternative text (alt) for accessibility and an asset
@@ -1906,7 +1907,7 @@ types:
           and its HTML representation.
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
-  Component Node DOM:
+  ComponentNode:
     docs: >
       Represents a component instance within the DOM. It contains details about
       the component instance, such as its type and properties.
@@ -1922,7 +1923,7 @@ types:
         type: list<ComponentProperty>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
-  Text Input Node DOM:
+  TextInputNode:
     docs: >
       Represents text input and textarea elements within the DOM. It contains
       the placeholder text in the input. Additional attributes can be associated
@@ -1950,7 +1951,7 @@ types:
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
-  Select Node DOM:
+  SelectNode:
     docs: >
       Represents select elements within the DOM. It contains the list of choices
       in the select. Additional attributes can be associated with the text for
@@ -1967,7 +1968,7 @@ types:
         docs: The custom attributes of the node
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
-  Submit Button Node DOM:
+  SubmitButtonNode:
     docs: >
       Represents submit button elements within the DOM. It contains the text and
       waiting text of the button. Additional attributes can be associated with
@@ -1987,7 +1988,7 @@ types:
         docs: The custom attributes of the node
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
-  Search Button Node DOM:
+  SearchButtonNode:
     docs: >
       Represents search button elements within the DOM. It contains the text of
       the button. Additional attributes can be associated with the text for
@@ -2013,19 +2014,19 @@ types:
       determines its content structure and attributes.
     union:
       text:
-        type: Text Node DOM
+        type: TextNode
       image:
-        type: Image Node DOM
+        type: ImageNode
       component-instance:
-        type: Component Node DOM
+        type: ComponentNode
       text-input:
-        type: Text Input Node DOM
+        type: TextInputNode
       select:
-        type: Select Node DOM
+        type: SelectNode
       submit-button:
-        type: Submit Button Node DOM
+        type: SubmitButtonNode
       search-button:
-        type: Search Button Node DOM
+        type: SearchButtonNode
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   Dom:
@@ -2042,7 +2043,9 @@ types:
         docs: Page ID
       branchId:
         type: optional<string>
-        docs: If the page is a branch, this is the ID of the branch
+        docs: >-
+          The unique identifier of a [specific page
+          branch.](https://help.webflow.com/hc/en-us/articles/33961355506195-Page-branching)
       nodes: optional<list<Node>>
       pagination: optional<Pagination>
       lastUpdated:
@@ -2051,7 +2054,7 @@ types:
         access: read-only
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
-  Text Node:
+  TextNodeWrite:
     docs: Update a text node
     properties:
       nodeId:
@@ -2085,7 +2088,7 @@ types:
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
-  Component Instance:
+  ComponentInstanceNodePropertyOverridesWrite:
     docs: Update text property overrides of a component instance
     properties:
       nodeId:
@@ -2120,7 +2123,7 @@ types:
         type: list<SelectNodeWriteChoicesItem>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
-  Text Input:
+  TextInputNodeWrite:
     docs: Update placeholder text on a text input node
     properties:
       nodeId:
@@ -2131,7 +2134,7 @@ types:
         docs: The placeholder text of the input node
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
-  Submit Button:
+  SubmitButtonNodeWrite:
     docs: Update a submit button node
     properties:
       nodeId:
@@ -2145,7 +2148,7 @@ types:
         docs: The text to show while the form is submitting.
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
-  Search Button:
+  SearchButtonNodeWrite:
     docs: Update a search button node
     properties:
       nodeId:
@@ -2590,6 +2593,7 @@ types:
       - collection_item_created
       - collection_item_changed
       - collection_item_deleted
+      - collection_item_published
       - collection_item_unpublished
       - comment_created
     docs: >
@@ -4130,228 +4134,32 @@ types:
         docs: Unique identifier of the CMS locale for this item
         validation:
           format: uuid
-      lastPublished:
-        type: optional<datetime>
-      lastUpdated:
-        type: optional<datetime>
-      createdOn:
-        type: optional<datetime>
-      isArchived:
-        type: optional<boolean>
-      isDraft:
-        type: optional<boolean>
+      lastPublished: optional<datetime>
+      lastUpdated: optional<datetime>
+      createdOn: optional<datetime>
+      isArchived: optional<boolean>
+      isDraft: optional<boolean>
       fieldData: SingleLocaleCreatedPayloadFieldData
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
-  LocalizedItem:
-    properties:
-      _cid:
-        type: string
-        docs: Collection ID the item belongs to
-        validation:
-          format: uuid
-      _id:
-        type: string
-        docs: Unique identifier for the item
-        validation:
-          format: uuid
-      _locale:
-        type: string
-        docs: Locale identifier for this version of the item
-        validation:
-          format: uuid
-      _draft:
-        type: boolean
-        docs: Whether the item is in draft state
-      _archived:
-        type: boolean
-        docs: Whether the item is archived
-      name:
-        type: string
-        docs: Name of the item
-      slug:
-        type: string
-        docs: URL-friendly version of the name
-      updated-on:
-        type: datetime
-        docs: Timestamp of last update
-      updated-by:
-        type: string
-        docs: Identifier of user who last updated the item
-      created-on:
-        type: datetime
-        docs: Timestamp of creation
-      created-by:
-        type: string
-        docs: Identifier of user who created the item
-      published-on:
-        type: optional<datetime>
-        docs: Timestamp of last publish, if published
-      published-by:
-        type: optional<string>
-        docs: Identifier of user who last published the item
-    source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
-  MultiLocaleCreatedPayload:
-    properties:
-      siteId:
-        type: string
-        docs: Unique identifier of the site
-        validation:
-          format: uuid
-      workspaceId:
-        type: string
-        docs: Unique identifier of the workspace
-        validation:
-          format: uuid
-      collectionId:
-        type: string
-        docs: Unique identifier of the collection
-        validation:
-          format: uuid
-      cmsLocaleId:
-        type: optional<string>
-        docs: Unique identifier of the CMS locale for this item
-        validation:
-          format: uuid
-      fieldData:
-        type: map<string, LocalizedItem>
-        docs: Collection of localized items, keyed by locale index (0-n)
-    source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
-  CollectionItemCreatedPayload:
-    discriminated: false
-    union:
-      - type: SingleLocaleCreatedPayload
-      - type: MultiLocaleCreatedPayload
-    source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
-    inline: true
   CollectionItemCreated:
     docs: The Webhook payload for when a Collection Item is created
     properties:
       triggerType:
         type: literal<"collection_item_created">
         docs: The type of event that triggered the request
-      payload: CollectionItemCreatedPayload
+      payload:
+        type: SingleLocaleCreatedPayload
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
-  SingleLocaleChangedPayloadFieldData:
-    properties:
-      name: string
-      slug: string
-    extra-properties: true
-    source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
-    inline: true
-  SingleLocaleChangedPayload:
-    properties:
-      id:
-        type: string
-        docs: Unique identifier for the Item
-        validation:
-          format: uuid
-      workspaceId:
-        type: string
-        docs: Unique identifier of the workspace
-        validation:
-          format: uuid
-      siteId:
-        type: string
-        docs: Unique identifier of the site
-        validation:
-          format: uuid
-      collectionId:
-        type: string
-        docs: Unique identifier of the collection
-        validation:
-          format: uuid
-      cmsLocaleId:
-        type: optional<string>
-        docs: Unique identifier of the CMS locale for this item
-        validation:
-          format: uuid
-      lastPublished:
-        type: optional<datetime>
-      lastUpdated:
-        type: optional<datetime>
-      createdOn:
-        type: optional<datetime>
-      isArchived:
-        type: optional<boolean>
-      isDraft:
-        type: optional<boolean>
-      fieldData: SingleLocaleChangedPayloadFieldData
-    source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
-  MultiLocaleChangedPayloadFieldData:
-    properties:
-      name: string
-      slug: string
-      _locale:
-        type: string
-        docs: Locale identifier for this version of the item
-        validation:
-          format: uuid
-    extra-properties: true
-    source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
-    inline: true
-  MultiLocaleChangedPayload:
-    properties:
-      id:
-        type: string
-        docs: Unique identifier for the Item
-        validation:
-          format: uuid
-      workspaceId:
-        type: string
-        docs: Unique identifier of the workspace
-        validation:
-          format: uuid
-      siteId:
-        type: string
-        docs: Unique identifier of the site
-        validation:
-          format: uuid
-      collectionId:
-        type: string
-        docs: Unique identifier of the collection
-        validation:
-          format: uuid
-      cmsLocaleId:
-        type: optional<string>
-        docs: Unique identifier of the CMS locale for this item
-        validation:
-          format: uuid
-      lastPublished:
-        type: optional<datetime>
-      lastUpdated:
-        type: optional<datetime>
-      createdOn:
-        type: optional<datetime>
-      isArchived:
-        type: optional<boolean>
-      isDraft:
-        type: optional<boolean>
-      fieldData: MultiLocaleChangedPayloadFieldData
-    source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
-  CollectionItemChangedPayload:
-    discriminated: false
-    union:
-      - type: SingleLocaleChangedPayload
-      - type: MultiLocaleChangedPayload
-    source:
-      openapi: ../../../openapi/referenced-specs/v2.yml
-    inline: true
   CollectionItemChanged:
     docs: The Webhook payload for when a Collection Item is changed
     properties:
       triggerType:
         type: literal<"collection_item_changed">
         docs: The type of event that triggered the request
-      payload: CollectionItemChangedPayload
+      payload:
+        type: SingleLocaleCreatedPayload
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   CollectionItemRemovedPayloadFieldData:
@@ -4399,6 +4207,50 @@ types:
       payload:
         type: optional<CollectionItemRemovedPayload>
         docs: The payload of data sent from Webflow
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  PayloadFieldData:
+    properties:
+      name: string
+      slug: string
+    extra-properties: true
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+    inline: true
+  Payload:
+    docs: The payload of data sent from Webflow
+    properties:
+      id:
+        type: optional<string>
+        docs: The ID of the collection item that was unpublished
+      siteId:
+        type: optional<string>
+        docs: The ID of the site
+      workspaceId:
+        type: optional<string>
+        docs: The ID of the workspace
+      collectionId:
+        type: optional<string>
+        docs: The ID of the collection
+      cmsLocaleId:
+        type: optional<string>
+        docs: Unique identifier of the CMS locale for this item
+        validation:
+          format: uuid
+      lastPublished: optional<datetime>
+      lastUpdated: optional<datetime>
+      createdOn: optional<datetime>
+      isArchived: optional<boolean>
+      isDraft: optional<boolean>
+      fieldData: optional<PayloadFieldData>
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  CollectionItemPublished:
+    properties:
+      triggerType:
+        type: optional<string>
+        docs: The type of event that triggered the request
+      payload: optional<Payload>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   CollectionItemUnpublishedPayloadFieldData:

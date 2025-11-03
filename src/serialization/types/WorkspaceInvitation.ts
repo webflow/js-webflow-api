@@ -8,6 +8,7 @@ import * as core from "../../core";
 import { WorkspaceAuditLogItemPayloadWorkspaceInvitationTargetUser } from "./WorkspaceAuditLogItemPayloadWorkspaceInvitationTargetUser";
 import { WorkspaceAuditLogItemPayloadWorkspaceInvitationMethod } from "./WorkspaceAuditLogItemPayloadWorkspaceInvitationMethod";
 import { WorkspaceAuditLogItemPayloadWorkspaceInvitationUserType } from "./WorkspaceAuditLogItemPayloadWorkspaceInvitationUserType";
+import { WorkspaceAuditLogItemPayloadWorkspaceInvitationTargetUsersItem } from "./WorkspaceAuditLogItemPayloadWorkspaceInvitationTargetUsersItem";
 
 export const WorkspaceInvitation: core.serialization.ObjectSchema<
     serializers.WorkspaceInvitation.Raw,
@@ -18,6 +19,7 @@ export const WorkspaceInvitation: core.serialization.ObjectSchema<
     userType: WorkspaceAuditLogItemPayloadWorkspaceInvitationUserType.optional(),
     roleName: core.serialization.string().optional(),
     previousRoleName: core.serialization.string().optional(),
+    targetUsers: core.serialization.list(WorkspaceAuditLogItemPayloadWorkspaceInvitationTargetUsersItem).optional(),
 });
 
 export declare namespace WorkspaceInvitation {
@@ -27,5 +29,6 @@ export declare namespace WorkspaceInvitation {
         userType?: WorkspaceAuditLogItemPayloadWorkspaceInvitationUserType.Raw | null;
         roleName?: string | null;
         previousRoleName?: string | null;
+        targetUsers?: WorkspaceAuditLogItemPayloadWorkspaceInvitationTargetUsersItem.Raw[] | null;
     }
 }
