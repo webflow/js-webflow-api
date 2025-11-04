@@ -7,12 +7,18 @@ import * as Webflow from "../../../../../../index";
 /**
  * @example
  *     {
- *         localeId: "65427cf400e02b306eaa04a0"
+ *         localeId: "65427cf400e02b306eaa04a0",
+ *         offset: 1.1,
+ *         limit: 1.1,
+ *         sortBy: "createdOn",
+ *         sortOrder: "asc"
  *     }
  */
 export interface CommentsListCommentThreadsRequest {
     /**
-     * Unique identifier for a specific locale. Applicable, when using localization.
+     * Unique identifier for a specific Locale.
+     *
+     * [Lear more about localization.](/data/v2.0.0/docs/working-with-localization)
      */
     localeId?: string;
     /**

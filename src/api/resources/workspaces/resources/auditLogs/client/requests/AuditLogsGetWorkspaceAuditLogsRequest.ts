@@ -7,8 +7,12 @@ import * as Webflow from "../../../../../../index";
 /**
  * @example
  *     {
- *         from: new Date("2024-04-22T16:00:31.000Z"),
- *         to: new Date("2024-04-22T16:00:31.000Z")
+ *         limit: 1.1,
+ *         offset: 1.1,
+ *         sortOrder: "asc",
+ *         eventType: "user_access",
+ *         from: new Date("2025-06-22T16:00:31.000Z"),
+ *         to: new Date("2025-07-22T16:00:31.000Z")
  *     }
  */
 export interface AuditLogsGetWorkspaceAuditLogsRequest {

@@ -7,7 +7,9 @@ service:
     create:
       path: /collections/{collection_id}/fields
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: >
         Create a custom field in a collection.
 
@@ -114,7 +116,9 @@ service:
     delete:
       path: /collections/{collection_id}/fields/{field_id}
       method: DELETE
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: >
         Delete a custom field in a collection. This endpoint does not currently
         support bulk deletion.
@@ -144,7 +148,9 @@ service:
     update:
       path: /collections/{collection_id}/fields/{field_id}
       method: PATCH
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: |
         Update a custom field in a collection.
 

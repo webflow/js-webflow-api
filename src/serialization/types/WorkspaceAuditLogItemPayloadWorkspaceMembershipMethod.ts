@@ -9,8 +9,8 @@ import * as core from "../../core";
 export const WorkspaceAuditLogItemPayloadWorkspaceMembershipMethod: core.serialization.Schema<
     serializers.WorkspaceAuditLogItemPayloadWorkspaceMembershipMethod.Raw,
     Webflow.WorkspaceAuditLogItemPayloadWorkspaceMembershipMethod
-> = core.serialization.enum_(["sso", "dashboard", "admin"]);
+> = core.serialization.enum_(["sso", "dashboard", "admin", "access_request"]);
 
 export declare namespace WorkspaceAuditLogItemPayloadWorkspaceMembershipMethod {
-    export type Raw = "sso" | "dashboard" | "admin";
+    export type Raw = "sso" | "dashboard" | "admin" | "access_request";
 }

@@ -10,7 +10,9 @@
  */
 export interface PagesGetMetadataRequest {
     /**
-     * Unique identifier for a specific locale. Applicable, when using localization.
+     * Unique identifier for a specific Locale.
+     *
+     * [Lear more about localization.](/data/v2.0.0/docs/working-with-localization)
      */
     localeId?: string;
 }

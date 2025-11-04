@@ -5,23 +5,23 @@
 import * as serializers from "../index";
 import * as Webflow from "../../api/index";
 import * as core from "../../core";
-import { TextNodeDom } from "./TextNodeDom";
-import { ImageNodeDom } from "./ImageNodeDom";
-import { ComponentNodeDom } from "./ComponentNodeDom";
-import { TextInputNodeDom } from "./TextInputNodeDom";
-import { SelectNodeDom } from "./SelectNodeDom";
-import { SubmitButtonNodeDom } from "./SubmitButtonNodeDom";
-import { SearchButtonNodeDom } from "./SearchButtonNodeDom";
+import { TextNode } from "./TextNode";
+import { ImageNode } from "./ImageNode";
+import { ComponentNode } from "./ComponentNode";
+import { TextInputNode } from "./TextInputNode";
+import { SelectNode } from "./SelectNode";
+import { SubmitButtonNode } from "./SubmitButtonNode";
+import { SearchButtonNode } from "./SearchButtonNode";
 
 export const Node: core.serialization.Schema<serializers.Node.Raw, Webflow.Node> = core.serialization
     .union("type", {
-        text: TextNodeDom,
-        image: ImageNodeDom,
-        "component-instance": ComponentNodeDom,
-        "text-input": TextInputNodeDom,
-        select: SelectNodeDom,
-        "submit-button": SubmitButtonNodeDom,
-        "search-button": SearchButtonNodeDom,
+        text: TextNode,
+        image: ImageNode,
+        "component-instance": ComponentNode,
+        "text-input": TextInputNode,
+        select: SelectNode,
+        "submit-button": SubmitButtonNode,
+        "search-button": SearchButtonNode,
     })
     .transform<Webflow.Node>({
         transform: (value) => value,
@@ -38,31 +38,31 @@ export declare namespace Node {
         | Node.SubmitButton
         | Node.SearchButton;
 
-    export interface Text extends TextNodeDom.Raw {
+    export interface Text extends TextNode.Raw {
         type: "text";
     }
 
-    export interface Image extends ImageNodeDom.Raw {
+    export interface Image extends ImageNode.Raw {
         type: "image";
     }
 
-    export interface ComponentInstance extends ComponentNodeDom.Raw {
+    export interface ComponentInstance extends ComponentNode.Raw {
         type: "component-instance";
     }
 
-    export interface TextInput extends TextInputNodeDom.Raw {
+    export interface TextInput extends TextInputNode.Raw {
         type: "text-input";
     }
 
-    export interface Select extends SelectNodeDom.Raw {
+    export interface Select extends SelectNode.Raw {
         type: "select";
     }
 
-    export interface SubmitButton extends SubmitButtonNodeDom.Raw {
+    export interface SubmitButton extends SubmitButtonNode.Raw {
         type: "submit-button";
     }
 
-    export interface SearchButton extends SearchButtonNodeDom.Raw {
+    export interface SearchButton extends SearchButtonNode.Raw {
         type: "search-button";
     }
 }

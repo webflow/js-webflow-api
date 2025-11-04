@@ -180,7 +180,9 @@ service:
     list:
       path: /sites/{site_id}/users
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - users:read
       docs: |
         Get a list of users for a site
 
@@ -225,6 +227,10 @@ service:
       examples:
         - path-parameters:
             site_id: 580e63e98c9a982ac9b8b741
+          query-parameters:
+            offset: 1.1
+            limit: 1.1
+            sort: CreatedOn
           response:
             body:
               count: 5
@@ -285,7 +291,9 @@ service:
     get:
       path: /sites/{site_id}/users/{user_id}
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - users:read
       docs: |
         Get a User by ID
 
@@ -337,7 +345,9 @@ service:
     delete:
       path: /sites/{site_id}/users/{user_id}
       method: DELETE
-      auth: true
+      auth:
+        - OAuth2:
+            - users:write
       docs: |
         Delete a User by ID
 
@@ -366,7 +376,9 @@ service:
     update:
       path: /sites/{site_id}/users/{user_id}
       method: PATCH
-      auth: true
+      auth:
+        - OAuth2:
+            - users:write
       docs: |
         Update a User by ID 
 
@@ -435,7 +447,9 @@ service:
     invite:
       path: /sites/{site_id}/users/invite
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - users:write
       docs: >
         Create and invite a user with an email address. 
 

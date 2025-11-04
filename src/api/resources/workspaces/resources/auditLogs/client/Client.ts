@@ -15,7 +15,7 @@ export declare namespace AuditLogs {
         environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        accessToken: core.Supplier<core.BearerToken>;
+        accessToken?: core.Supplier<core.BearerToken | undefined>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
@@ -35,7 +35,7 @@ export declare namespace AuditLogs {
 export class AuditLogs {
     protected readonly _options: AuditLogs.Options;
 
-    constructor(_options: AuditLogs.Options) {
+    constructor(_options: AuditLogs.Options = {}) {
         this._options = _options;
     }
 
@@ -58,8 +58,12 @@ export class AuditLogs {
      *
      * @example
      *     await client.workspaces.auditLogs.getWorkspaceAuditLogs("hitchhikers-workspace", {
-     *         from: new Date("2024-04-22T16:00:31.000Z"),
-     *         to: new Date("2024-04-22T16:00:31.000Z")
+     *         limit: 1.1,
+     *         offset: 1.1,
+     *         sortOrder: "asc",
+     *         eventType: "user_access",
+     *         from: new Date("2025-06-22T16:00:31.000Z"),
+     *         to: new Date("2025-07-22T16:00:31.000Z")
      *     })
      */
     public getWorkspaceAuditLogs(
@@ -220,7 +224,12 @@ export class AuditLogs {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
+    protected async _getAuthorizationHeader(): Promise<string | undefined> {
+        const bearer = await core.Supplier.get(this._options.accessToken);
+        if (bearer != null) {
+            return `Bearer ${bearer}`;
+        }
+
+        return undefined;
     }
 }

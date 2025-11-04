@@ -7,7 +7,9 @@ service:
     authorized-by:
       path: /token/authorized_by
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - authorized_user:read
       docs: |
         Information about the Authorized User
 
@@ -32,7 +34,6 @@ service:
     introspect:
       path: /token/introspect
       method: GET
-      auth: true
       docs: >
         Information about the authorization token
 

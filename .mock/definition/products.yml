@@ -7,7 +7,9 @@ service:
     list:
       path: /sites/{site_id}/products
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - ecommerce:read
       docs: >
         Retrieve all products for a site. 
 
@@ -53,6 +55,9 @@ service:
       examples:
         - path-parameters:
             site_id: 580e63e98c9a982ac9b8b741
+          query-parameters:
+            offset: 1.1
+            limit: 1.1
           response:
             body:
               items:
@@ -108,7 +113,9 @@ service:
     create:
       path: /sites/{site_id}/products
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - ecommerce:write
       docs: >
         Create a new ecommerce product and defaultSKU. A product, at minimum,
         must have a single SKU.
@@ -254,7 +261,9 @@ service:
     get:
       path: /sites/{site_id}/products/{product_id}
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - ecommerce:read
       docs: |
         Retrieve a single product by its ID. All of its SKUs will also be
         retrieved.
@@ -341,7 +350,9 @@ service:
     update:
       path: /sites/{site_id}/products/{product_id}
       method: PATCH
-      auth: true
+      auth:
+        - OAuth2:
+            - ecommerce:write
       docs: >
         Update an existing Product.
 
@@ -416,7 +427,9 @@ service:
     create-sku:
       path: /sites/{site_id}/products/{product_id}/skus
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - ecommerce:write
       docs: >
         Create additional SKUs to manage every [option and variant of your
         Product.](https://help.webflow.com/hc/en-us/articles/33961334531347-Create-product-options-and-variants)
@@ -507,7 +520,9 @@ service:
     update-sku:
       path: /sites/{site_id}/products/{product_id}/skus/{sku_id}
       method: PATCH
-      auth: true
+      auth:
+        - OAuth2:
+            - ecommerce:write
       docs: >
         Update a specified SKU.
 

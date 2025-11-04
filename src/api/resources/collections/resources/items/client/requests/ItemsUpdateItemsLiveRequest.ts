@@ -7,6 +7,7 @@ import * as Webflow from "../../../../../../index";
 /**
  * @example
  *     {
+ *         skipInvalidFiles: true,
  *         items: [{
  *                 id: "66f6ed9576ddacf3149d5ea6",
  *                 cmsLocaleId: "66f6e966c9e1dc700a857ca5",
@@ -40,6 +41,7 @@ import * as Webflow from "../../../../../../index";
  *
  * @example
  *     {
+ *         skipInvalidFiles: true,
  *         items: [{
  *                 id: "580e64008c9a982ac9b8b754",
  *                 isArchived: false,
@@ -61,6 +63,7 @@ import * as Webflow from "../../../../../../index";
  *
  * @example
  *     {
+ *         skipInvalidFiles: true,
  *         items: [{
  *                 id: "66f6ed9576ddacf3149d5ea6",
  *                 cmsLocaleId: "66f6e966c9e1dc700a857ca5",
@@ -94,6 +97,7 @@ import * as Webflow from "../../../../../../index";
  *
  * @example
  *     {
+ *         skipInvalidFiles: true,
  *         items: [{
  *                 id: "66f6ed9576ddacf3149d5ea6",
  *                 cmsLocaleId: "66f6e966c9e1dc700a857ca5",

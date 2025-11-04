@@ -6,7 +6,11 @@ import * as Webflow from "../../../../index";
 
 /**
  * @example
- *     {}
+ *     {
+ *         status: "pending",
+ *         offset: 1.1,
+ *         limit: 1.1
+ *     }
  */
 export interface OrdersListRequest {
     /**

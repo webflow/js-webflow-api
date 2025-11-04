@@ -7,7 +7,9 @@ service:
     get-custom-code:
       path: /pages/{page_id}/custom_code
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - custom_code:read
       docs: |
         Get all scripts applied to a page. 
 
@@ -45,7 +47,9 @@ service:
     upsert-custom-code:
       path: /pages/{page_id}/custom_code
       method: PUT
-      auth: true
+      auth:
+        - OAuth2:
+            - custom_code:write
       docs: >
         Apply registered scripts to a page. If you have multiple scripts your
         App needs to apply or maintain on a page, ensure they are always
@@ -112,7 +116,9 @@ service:
     delete-custom-code:
       path: /pages/{page_id}/custom_code
       method: DELETE
-      auth: true
+      auth:
+        - OAuth2:
+            - custom_code:write
       docs: >
         Remove all scripts from a page applied by the App. This endpoint will
         not remove scripts from the site's registered scripts.

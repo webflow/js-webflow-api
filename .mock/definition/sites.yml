@@ -7,7 +7,9 @@ service:
     create:
       path: /workspaces/{workspace_id}/sites
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - sites:write
       docs: >
         Create a site. 
 
@@ -73,7 +75,9 @@ service:
     list:
       path: /sites
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - sites:read
       docs: |
         List of all sites the provided access token is able to access.
 
@@ -203,7 +207,9 @@ service:
     get:
       path: /sites/{site_id}
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - sites:read
       docs: |
         Get details of a site.
 
@@ -226,7 +232,8 @@ service:
         - root.TooManyRequestsError
         - root.InternalServerError
       examples:
-        - path-parameters:
+        - name: SiteWithLocales
+          path-parameters:
             site_id: 580e63e98c9a982ac9b8b741
           response:
             body:
@@ -271,7 +278,9 @@ service:
     delete:
       path: /sites/{site_id}
       method: DELETE
-      auth: true
+      auth:
+        - OAuth2:
+            - sites:write
       docs: >
         Delete a site. 
 
@@ -301,7 +310,9 @@ service:
     update:
       path: /sites/{site_id}
       method: PATCH
-      auth: true
+      auth:
+        - OAuth2:
+            - sites:write
       docs: >
         Update a site. 
 
@@ -387,7 +398,9 @@ service:
     get-custom-domain:
       path: /sites/{site_id}/custom_domains
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - sites:read
       docs: |
         Get a list of all custom domains related to site.
 
@@ -424,7 +437,9 @@ service:
     publish:
       path: /sites/{site_id}/publish
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - sites:write
       docs: >
         Publishes a site to one or more more domains. 
 
