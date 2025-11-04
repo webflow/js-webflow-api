@@ -5,7 +5,9 @@
 /**
  * @example
  *     {
- *         elementId: "18259716-3e5a-646a-5f41-5dc4b9405aa0"
+ *         elementId: "18259716-3e5a-646a-5f41-5dc4b9405aa0",
+ *         offset: 1.1,
+ *         limit: 1.1
  *     }
  */
 export interface FormsListSubmissionsBySiteRequest {
