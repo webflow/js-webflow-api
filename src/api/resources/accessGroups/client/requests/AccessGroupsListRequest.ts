@@ -6,7 +6,11 @@ import * as Webflow from "../../../../index";
 
 /**
  * @example
- *     {}
+ *     {
+ *         offset: 1.1,
+ *         limit: 1.1,
+ *         sort: "CreatedOn"
+ *     }
  */
 export interface AccessGroupsListRequest {
     /**

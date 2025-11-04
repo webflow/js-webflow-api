@@ -5,7 +5,9 @@
 /**
  * @example
  *     {
- *         branchId: "68026fa68ef6dc744c75b833"
+ *         branchId: "68026fa68ef6dc744c75b833",
+ *         limit: 1.1,
+ *         offset: 1.1
  *     }
  */
 export interface ComponentsListRequest {

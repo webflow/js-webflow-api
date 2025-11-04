@@ -13,4 +13,5 @@ export interface SiteMembership {
     roleName?: string;
     /** The previous role that the user had */
     previousRoleName?: string;
+    granularAccess?: Webflow.WorkspaceAuditLogItemPayloadSiteMembershipGranularAccess;
 }

@@ -15,7 +15,7 @@ export declare namespace Assets {
         environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        accessToken: core.Supplier<core.BearerToken>;
+        accessToken?: core.Supplier<core.BearerToken | undefined>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
@@ -38,7 +38,7 @@ export declare namespace Assets {
 export class Assets {
     protected readonly _options: Assets.Options;
 
-    constructor(_options: Assets.Options) {
+    constructor(_options: Assets.Options = {}) {
         this._options = _options;
     }
 
@@ -48,6 +48,7 @@ export class Assets {
      * Required scope | `assets:read`
      *
      * @param {string} siteId - Unique identifier for a Site
+     * @param {Webflow.AssetsListRequest} request
      * @param {Assets.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Webflow.BadRequestError}
@@ -57,16 +58,34 @@ export class Assets {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.assets.list("580e63e98c9a982ac9b8b741")
+     *     await client.assets.list("580e63e98c9a982ac9b8b741", {
+     *         offset: 1.1,
+     *         limit: 1.1
+     *     })
      */
-    public list(siteId: string, requestOptions?: Assets.RequestOptions): core.HttpResponsePromise<Webflow.Assets> {
-        return core.HttpResponsePromise.fromPromise(this.__list(siteId, requestOptions));
+    public list(
+        siteId: string,
+        request: Webflow.AssetsListRequest = {},
+        requestOptions?: Assets.RequestOptions,
+    ): core.HttpResponsePromise<Webflow.Assets> {
+        return core.HttpResponsePromise.fromPromise(this.__list(siteId, request, requestOptions));
     }
 
     private async __list(
         siteId: string,
+        request: Webflow.AssetsListRequest = {},
         requestOptions?: Assets.RequestOptions,
     ): Promise<core.WithRawResponse<Webflow.Assets>> {
+        const { offset, limit } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        if (offset != null) {
+            _queryParams["offset"] = offset.toString();
+        }
+
+        if (limit != null) {
+            _queryParams["limit"] = limit.toString();
+        }
+
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -80,6 +99,7 @@ export class Assets {
                 mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
                 requestOptions?.headers,
             ),
+            queryParameters: _queryParams,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -1130,7 +1150,12 @@ export class Assets {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
+    protected async _getAuthorizationHeader(): Promise<string | undefined> {
+        const bearer = await core.Supplier.get(this._options.accessToken);
+        if (bearer != null) {
+            return `Bearer ${bearer}`;
+        }
+
+        return undefined;
     }
 }

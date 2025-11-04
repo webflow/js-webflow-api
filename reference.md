@@ -937,6 +937,8 @@ Required scope | `pages:read`
 ```typescript
 await client.pages.list("580e63e98c9a982ac9b8b741", {
     localeId: "65427cf400e02b306eaa04a0",
+    limit: 1.1,
+    offset: 1.1,
 });
 ```
 
@@ -1069,10 +1071,6 @@ await client.pages.getMetadata("63c720f9347c2139b248e552", {
 
 Update Page-level metadata, including SEO and Open Graph fields.
 
-<Note>
-  Note: When updating Page Metadata in secondary locales, you may only add `slug` to the request if your Site has the [Advanced or Enterprise Localization](https://webflow.com/localization) add-on.
-</Note>
-
 Required scope | `pages:write`
 
 </dd>
@@ -1159,11 +1157,9 @@ await client.pages.updatePageSettings("63c720f9347c2139b248e552", {
 <dl>
 <dd>
 
-Get content from a static page. This includes text nodes, image nodes, select nodes, text input nodes, submit button nodes, and component instances with [property overrides](https://help.webflow.com/hc/en-us/articles/33961219350547-Component-properties#how-to-modify-property-values-on-component-instances).
+Get text and component instance content from a static page.
 
-To retrieve the static content of a component instance, use the [Get Component Content](/data/reference/pages-and-components/components/get-content) endpoint.
-
-<Note>If you do not include a `localeId` in your request, the response will return any content that can be localized from the Primary locale.</Note>
+<Badge intent="info">Localization</Badge>
 
 Required scope | `pages:read`
 
@@ -1183,6 +1179,8 @@ Required scope | `pages:read`
 ```typescript
 await client.pages.getContent("63c720f9347c2139b248e552", {
     localeId: "65427cf400e02b306eaa04a0",
+    limit: 1.1,
+    offset: 1.1,
 });
 ```
 
@@ -1242,8 +1240,9 @@ This endpoint updates content on a static page in **secondary locales**. It supp
 
 Before making updates:
 
-1. Use the [get page content](/data/reference/pages-and-components/pages/get-content) endpoint to identify available content nodes and their types
-2. If the page has component instances, retrieve the component's properties that you'll override using the [get component properties](/data/reference/pages-and-components/components/get-properties) endpoint
+1. Use the [get page content](/data/reference/pages-and-components/pages/get-content) endpoint to identify available content nodes and their types.
+2. If the page has component instances, retrieve the component's properties that you'll override using the [get component properties](/data/reference/pages-and-components/components/get-properties) endpoint.
+3. DOM elements may include a `data-w-id` attribute. This attribute is used by Webflow to maintain custom attributes and links across locales. Always include the original `data-w-id` value in your update requests to ensure consistent behavior across all locales.
 
 <Note>
   This endpoint is specifically for localized pages. Ensure that the specified `localeId` is a valid **secondary locale** for the site otherwise the request will fail.
@@ -1389,6 +1388,8 @@ Required scope | `components:read`
 ```typescript
 await client.components.list("580e63e98c9a982ac9b8b741", {
     branchId: "68026fa68ef6dc744c75b833",
+    limit: 1.1,
+    offset: 1.1,
 });
 ```
 
@@ -1468,6 +1469,8 @@ Required scope | `components:read`
 await client.components.getContent("580e63e98c9a982ac9b8b741", "8505ba55-ef72-629e-f85c-33e4b703d48b", {
     localeId: "65427cf400e02b306eaa04a0",
     branchId: "68026fa68ef6dc744c75b833",
+    limit: 1.1,
+    offset: 1.1,
 });
 ```
 
@@ -1535,8 +1538,9 @@ This endpoint updates content within a component defintion for **secondary local
 
 Before making updates:
 
-1. Use the [get component content](/data/reference/pages-and-components/components/get-content) endpoint to identify available content nodes and their types
-2. If your component definition has a component instance nested within it, retrieve the nested component instance's properties that you'll override using the [get component properties](/data/reference/pages-and-components/components/get-properties) endpoint
+1. Use the [get component content](/data/reference/pages-and-components/components/get-content) endpoint to identify available content nodes and their types.
+2. If your component definition has a component instance nested within it, retrieve the nested component instance's properties that you'll override using the [get component properties](/data/reference/pages-and-components/components/get-properties) endpoint.
+3. DOM elements may include a `data-w-id` attribute. This attribute is used by Webflow to maintain custom attributes and links across locales. Always include the original `data-w-id` value in your update requests to ensure consistent behavior across all locales.
 
 <Note>
   This endpoint is specifically for localizing component definitions. Ensure that the specified `localeId` is a valid **secondary locale** for the site otherwise the request will fail.
@@ -1692,6 +1696,8 @@ Required scope | `components:read`
 await client.components.getProperties("580e63e98c9a982ac9b8b741", "8505ba55-ef72-629e-f85c-33e4b703d48b", {
     localeId: "65427cf400e02b306eaa04a0",
     branchId: "68026fa68ef6dc744c75b833",
+    limit: 1.1,
+    offset: 1.1,
 });
 ```
 
@@ -1757,7 +1763,10 @@ await client.components.getProperties("580e63e98c9a982ac9b8b741", "8505ba55-ef72
 
 Update the default property values of a component definition in a specificed locale.
 
-Before making updates, use the [get component properties](/data/reference/pages-and-components/components/get-properties) endpoint to identify properties that can be updated in a secondary locale.
+Before making updates:
+
+1. Use the [get component properties](/data/reference/pages-and-components/components/get-properties) endpoint to identify properties that can be updated in a secondary locale.
+2. Rich Text properties may include a `data-w-id` attribute. This attribute is used by Webflow to maintain links across locales. Always include the original `data-w-id` value in your update requests to ensure consistent behavior across all locales.
 
 <Note>The request requires a secondary locale ID. If a `localeId` is missing, the request will not be processed and will result in an error.</Note>
 
@@ -2077,7 +2086,7 @@ await client.scripts.registerInline("580e63e98c9a982ac9b8b741", {
 
 ## Assets
 
-<details><summary><code>client.assets.<a href="/src/api/resources/assets/client/Client.ts">list</a>(siteId) -> Webflow.Assets</code></summary>
+<details><summary><code>client.assets.<a href="/src/api/resources/assets/client/Client.ts">list</a>(siteId, { ...params }) -> Webflow.Assets</code></summary>
 <dl>
 <dd>
 
@@ -2107,7 +2116,10 @@ Required scope | `assets:read`
 <dd>
 
 ```typescript
-await client.assets.list("580e63e98c9a982ac9b8b741");
+await client.assets.list("580e63e98c9a982ac9b8b741", {
+    offset: 1.1,
+    limit: 1.1,
+});
 ```
 
 </dd>
@@ -2124,6 +2136,14 @@ await client.assets.list("580e63e98c9a982ac9b8b741");
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.AssetsListRequest`
 
 </dd>
 </dl>
@@ -2945,7 +2965,10 @@ Required scope | `forms:read`
 <dd>
 
 ```typescript
-await client.forms.list("580e63e98c9a982ac9b8b741");
+await client.forms.list("580e63e98c9a982ac9b8b741", {
+    limit: 1.1,
+    offset: 1.1,
+});
 ```
 
 </dd>
@@ -3089,7 +3112,10 @@ Required scope | `forms:read`
 <dd>
 
 ```typescript
-await client.forms.listSubmissions("580e63e98c9a982ac9b8b741");
+await client.forms.listSubmissions("580e63e98c9a982ac9b8b741", {
+    offset: 1.1,
+    limit: 1.1,
+});
 ```
 
 </dd>
@@ -3367,6 +3393,8 @@ Required scope | `forms:read`
 ```typescript
 await client.forms.listSubmissionsBySite("580e63e98c9a982ac9b8b741", {
     elementId: "18259716-3e5a-646a-5f41-5dc4b9405aa0",
+    offset: 1.1,
+    limit: 1.1,
 });
 ```
 
@@ -3392,6 +3420,317 @@ await client.forms.listSubmissionsBySite("580e63e98c9a982ac9b8b741", {
 <dd>
 
 **request:** `Webflow.FormsListSubmissionsBySiteRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Forms.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">listSubmissionsByFormAndSite</a>(siteId, formId, { ...params }) -> Webflow.FormSubmissionList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List form submissions for a given form within a specific site.
+
+Required scope | `forms:read`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.forms.listSubmissionsByFormAndSite("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741", {
+    offset: 1.1,
+    limit: 1.1,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**formId:** `string` — Unique identifier for a Form
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.FormsListSubmissionsByFormAndSiteRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Forms.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">getSubmissionBySite</a>(siteId, formSubmissionId) -> Webflow.FormSubmission</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get information about a form submission within a specific site.
+
+Required scope | `forms:read`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.forms.getSubmissionBySite("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**formSubmissionId:** `string` — Unique identifier for a Form Submission
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Forms.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">deleteSubmissionBySite</a>(siteId, formSubmissionId) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a form submission within a specific site.
+
+Required scope | `forms:write`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.forms.deleteSubmissionBySite("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**formSubmissionId:** `string` — Unique identifier for a Form Submission
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Forms.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">updateSubmissionBySite</a>(siteId, formSubmissionId, { ...params }) -> Webflow.FormSubmission</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update hidden fields on a form submission within a specific site.
+
+Required scope | `forms:write`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.forms.updateSubmissionBySite("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**formSubmissionId:** `string` — Unique identifier for a Form Submission
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.FormsUpdateSubmissionBySiteRequest`
 
 </dd>
 </dl>
@@ -3442,7 +3781,11 @@ Required scope | `users:read`
 <dd>
 
 ```typescript
-await client.users.list("580e63e98c9a982ac9b8b741");
+await client.users.list("580e63e98c9a982ac9b8b741", {
+    offset: 1.1,
+    limit: 1.1,
+    sort: "CreatedOn",
+});
 ```
 
 </dd>
@@ -3839,7 +4182,11 @@ Required scope | `users:read`
 <dd>
 
 ```typescript
-await client.accessGroups.list("580e63e98c9a982ac9b8b741");
+await client.accessGroups.list("580e63e98c9a982ac9b8b741", {
+    offset: 1.1,
+    limit: 1.1,
+    sort: "CreatedOn",
+});
 ```
 
 </dd>
@@ -3917,7 +4264,10 @@ Required scope | `ecommerce:read`
 <dd>
 
 ```typescript
-await client.products.list("580e63e98c9a982ac9b8b741");
+await client.products.list("580e63e98c9a982ac9b8b741", {
+    offset: 1.1,
+    limit: 1.1,
+});
 ```
 
 </dd>
@@ -4506,7 +4856,11 @@ Required scope | `ecommerce:read`
 <dd>
 
 ```typescript
-await client.orders.list("580e63e98c9a982ac9b8b741");
+await client.orders.list("580e63e98c9a982ac9b8b741", {
+    status: "pending",
+    offset: 1.1,
+    limit: 1.1,
+});
 ```
 
 </dd>
@@ -5448,7 +5802,15 @@ Required scope | `CMS:read`
 <dd>
 
 ```typescript
-await client.collections.items.listItems("580e63fc8c9a982ac9b8b745");
+await client.collections.items.listItems("580e63fc8c9a982ac9b8b745", {
+    cmsLocaleId: "cmsLocaleId",
+    offset: 1.1,
+    limit: 1.1,
+    name: "name",
+    slug: "slug",
+    sortBy: "lastPublished",
+    sortOrder: "asc",
+});
 ```
 
 </dd>
@@ -5524,12 +5886,13 @@ Required scope | `CMS:write`
 
 ```typescript
 await client.collections.items.createItem("580e63fc8c9a982ac9b8b745", {
+    skipInvalidFiles: true,
     body: {
         isArchived: false,
         isDraft: false,
         fieldData: {
-            name: "Pan Galactic Gargle Blaster Recipe",
-            slug: "pan-galactic-gargle-blaster",
+            name: "The Hitchhiker's Guide to the Galaxy",
+            slug: "hitchhikers-guide-to-the-galaxy",
         },
     },
 });
@@ -5691,6 +6054,7 @@ Required scope | `CMS:write`
 
 ```typescript
 await client.collections.items.updateItems("580e63fc8c9a982ac9b8b745", {
+    skipInvalidFiles: true,
     items: [
         {
             id: "66f6ed9576ddacf3149d5ea6",
@@ -5803,7 +6167,15 @@ Required scope | `CMS:read`
 <dd>
 
 ```typescript
-await client.collections.items.listItemsLive("580e63fc8c9a982ac9b8b745");
+await client.collections.items.listItemsLive("580e63fc8c9a982ac9b8b745", {
+    cmsLocaleId: "cmsLocaleId",
+    offset: 1.1,
+    limit: 1.1,
+    name: "name",
+    slug: "slug",
+    sortBy: "lastPublished",
+    sortOrder: "asc",
+});
 ```
 
 </dd>
@@ -5879,12 +6251,13 @@ Required scope | `CMS:write`
 
 ```typescript
 await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
+    skipInvalidFiles: true,
     body: {
         isArchived: false,
         isDraft: false,
         fieldData: {
-            name: "Pan Galactic Gargle Blaster Recipe",
-            slug: "pan-galactic-gargle-blaster",
+            name: "The Hitchhiker's Guide to the Galaxy",
+            slug: "hitchhikers-guide-to-the-galaxy",
         },
     },
 });
@@ -6044,6 +6417,7 @@ Required scope | `CMS:write`
 
 ```typescript
 await client.collections.items.updateItemsLive("580e63fc8c9a982ac9b8b745", {
+    skipInvalidFiles: true,
     items: [
         {
             id: "66f6ed9576ddacf3149d5ea6",
@@ -6157,6 +6531,7 @@ Required scope | `CMS:write`
 
 ```typescript
 await client.collections.items.createItems("580e63fc8c9a982ac9b8b745", {
+    skipInvalidFiles: true,
     cmsLocaleIds: ["66f6e966c9e1dc700a857ca3", "66f6e966c9e1dc700a857ca4", "66f6e966c9e1dc700a857ca5"],
     isArchived: false,
     isDraft: false,
@@ -6237,7 +6612,9 @@ Required scope | `CMS:read`
 <dd>
 
 ```typescript
-await client.collections.items.getItem("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754");
+await client.collections.items.getItem("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754", {
+    cmsLocaleId: "cmsLocaleId",
+});
 ```
 
 </dd>
@@ -6318,7 +6695,9 @@ Required scope | `CMS:write`
 <dd>
 
 ```typescript
-await client.collections.items.deleteItem("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754");
+await client.collections.items.deleteItem("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754", {
+    cmsLocaleId: "cmsLocaleId",
+});
 ```
 
 </dd>
@@ -6400,12 +6779,13 @@ Required scope | `CMS:write`
 
 ```typescript
 await client.collections.items.updateItem("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754", {
+    skipInvalidFiles: true,
     body: {
         isArchived: false,
         isDraft: false,
         fieldData: {
-            name: "Pan Galactic Gargle Blaster Recipe",
-            slug: "pan-galactic-gargle-blaster",
+            name: "The Hitchhiker's Guide to the Galaxy",
+            slug: "hitchhikers-guide-to-the-galaxy",
         },
     },
 });
@@ -6494,7 +6874,9 @@ Required scope | `CMS:read`
 <dd>
 
 ```typescript
-await client.collections.items.getItemLive("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754");
+await client.collections.items.getItemLive("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754", {
+    cmsLocaleId: "cmsLocaleId",
+});
 ```
 
 </dd>
@@ -6577,7 +6959,9 @@ Required scope | `CMS:write`
 <dd>
 
 ```typescript
-await client.collections.items.deleteItemLive("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754");
+await client.collections.items.deleteItemLive("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754", {
+    cmsLocaleId: "cmsLocaleId",
+});
 ```
 
 </dd>
@@ -6659,12 +7043,13 @@ Required scope | `CMS:write`
 
 ```typescript
 await client.collections.items.updateItemLive("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754", {
+    skipInvalidFiles: true,
     body: {
         isArchived: false,
         isDraft: false,
         fieldData: {
-            name: "Pan Galactic Gargle Blaster Recipe",
-            slug: "pan-galactic-gargle-blaster",
+            name: "The Hitchhiker's Guide to the Galaxy",
+            slug: "hitchhikers-guide-to-the-galaxy",
         },
     },
 });
@@ -7774,8 +8159,10 @@ Required scope: `site_config:write`
 
 ```typescript
 await client.sites.wellKnown.put("580e63e98c9a982ac9b8b741", {
-    fileName: "fileName",
-    fileData: "fileData",
+    fileName: "apple-app-site-association.txt",
+    fileData:
+        '{\n  "applinks": {\n    "apps": [],\n    "details": [\n  {\n    "appID": "ABCDE12345.com.example.app",\n    "paths": [ "/*", "/some/path/*" ]\n      }\n    ]\n  }\n}\n',
+    contentType: "application/json",
 });
 ```
 
@@ -7928,7 +8315,10 @@ Required scope: `site_activity:read`
 <dd>
 
 ```typescript
-await client.sites.activityLogs.list("580e63e98c9a982ac9b8b741");
+await client.sites.activityLogs.list("580e63e98c9a982ac9b8b741", {
+    limit: 1.1,
+    offset: 1.1,
+});
 ```
 
 </dd>
@@ -8009,6 +8399,10 @@ Required scope | `comments:read`
 ```typescript
 await client.sites.comments.listCommentThreads("580e63e98c9a982ac9b8b741", {
     localeId: "65427cf400e02b306eaa04a0",
+    offset: 1.1,
+    limit: 1.1,
+    sortBy: "createdOn",
+    sortOrder: "asc",
 });
 ```
 
@@ -8088,6 +8482,10 @@ Required scope | `comments:read`
 ```typescript
 await client.sites.comments.getCommentThread("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741", {
     localeId: "65427cf400e02b306eaa04a0",
+    offset: 1.1,
+    limit: 1.1,
+    sortBy: "createdOn",
+    sortOrder: "asc",
 });
 ```
 
@@ -8175,6 +8573,10 @@ Required scope | `comments:read`
 ```typescript
 await client.sites.comments.listCommentReplies("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741", {
     localeId: "65427cf400e02b306eaa04a0",
+    offset: 1.1,
+    limit: 1.1,
+    sortBy: "createdOn",
+    sortOrder: "asc",
 });
 ```
 
@@ -8495,7 +8897,10 @@ Required scope | `custom_code:read`
 <dd>
 
 ```typescript
-await client.sites.scripts.listCustomCodeBlocks("580e63e98c9a982ac9b8b741");
+await client.sites.scripts.listCustomCodeBlocks("580e63e98c9a982ac9b8b741", {
+    offset: 1.1,
+    limit: 1.1,
+});
 ```
 
 </dd>
@@ -8573,8 +8978,12 @@ Required scope | `workspace_activity:read`
 
 ```typescript
 await client.workspaces.auditLogs.getWorkspaceAuditLogs("hitchhikers-workspace", {
-    from: new Date("2024-04-22T16:00:31.000Z"),
-    to: new Date("2024-04-22T16:00:31.000Z"),
+    limit: 1.1,
+    offset: 1.1,
+    sortOrder: "asc",
+    eventType: "user_access",
+    from: new Date("2025-06-22T16:00:31.000Z"),
+    to: new Date("2025-07-22T16:00:31.000Z"),
 });
 ```
 

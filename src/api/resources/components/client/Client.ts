@@ -15,7 +15,7 @@ export declare namespace Components {
         environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        accessToken: core.Supplier<core.BearerToken>;
+        accessToken?: core.Supplier<core.BearerToken | undefined>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
@@ -35,7 +35,7 @@ export declare namespace Components {
 export class Components {
     protected readonly _options: Components.Options;
 
-    constructor(_options: Components.Options) {
+    constructor(_options: Components.Options = {}) {
         this._options = _options;
     }
 
@@ -56,7 +56,9 @@ export class Components {
      *
      * @example
      *     await client.components.list("580e63e98c9a982ac9b8b741", {
-     *         branchId: "68026fa68ef6dc744c75b833"
+     *         branchId: "68026fa68ef6dc744c75b833",
+     *         limit: 1.1,
+     *         offset: 1.1
      *     })
      */
     public list(
@@ -213,7 +215,9 @@ export class Components {
      * @example
      *     await client.components.getContent("580e63e98c9a982ac9b8b741", "8505ba55-ef72-629e-f85c-33e4b703d48b", {
      *         localeId: "65427cf400e02b306eaa04a0",
-     *         branchId: "68026fa68ef6dc744c75b833"
+     *         branchId: "68026fa68ef6dc744c75b833",
+     *         limit: 1.1,
+     *         offset: 1.1
      *     })
      */
     public getContent(
@@ -360,8 +364,9 @@ export class Components {
      * This endpoint updates content within a component defintion for **secondary locales**. It supports updating up to 1000 nodes in a single request.
      *
      * Before making updates:
-     * 1. Use the [get component content](/data/reference/pages-and-components/components/get-content) endpoint to identify available content nodes and their types
-     * 2. If your component definition has a component instance nested within it, retrieve the nested component instance's properties that you'll override using the [get component properties](/data/reference/pages-and-components/components/get-properties) endpoint
+     * 1. Use the [get component content](/data/reference/pages-and-components/components/get-content) endpoint to identify available content nodes and their types.
+     * 2. If your component definition has a component instance nested within it, retrieve the nested component instance's properties that you'll override using the [get component properties](/data/reference/pages-and-components/components/get-properties) endpoint.
+     * 3. DOM elements may include a `data-w-id` attribute. This attribute is used by Webflow to maintain custom attributes and links across locales. Always include the original `data-w-id` value in your update requests to ensure consistent behavior across all locales.
      *
      * <Note>
      *   This endpoint is specifically for localizing component definitions. Ensure that the specified `localeId` is a valid **secondary locale** for the site otherwise the request will fail.
@@ -581,7 +586,9 @@ export class Components {
      * @example
      *     await client.components.getProperties("580e63e98c9a982ac9b8b741", "8505ba55-ef72-629e-f85c-33e4b703d48b", {
      *         localeId: "65427cf400e02b306eaa04a0",
-     *         branchId: "68026fa68ef6dc744c75b833"
+     *         branchId: "68026fa68ef6dc744c75b833",
+     *         limit: 1.1,
+     *         offset: 1.1
      *     })
      */
     public getProperties(
@@ -727,7 +734,9 @@ export class Components {
     /**
      * Update the default property values of a component definition in a specificed locale.
      *
-     * Before making updates, use the [get component properties](/data/reference/pages-and-components/components/get-properties) endpoint to identify properties that can be updated in a secondary locale.
+     * Before making updates:
+     * 1. Use the [get component properties](/data/reference/pages-and-components/components/get-properties) endpoint to identify properties that can be updated in a secondary locale.
+     * 2. Rich Text properties may include a `data-w-id` attribute. This attribute is used by Webflow to maintain links across locales. Always include the original `data-w-id` value in your update requests to ensure consistent behavior across all locales.
      *
      * <Note>The request requires a secondary locale ID. If a `localeId` is missing, the request will not be processed and will result in an error.</Note>
      *
@@ -898,7 +907,12 @@ export class Components {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
+    protected async _getAuthorizationHeader(): Promise<string | undefined> {
+        const bearer = await core.Supplier.get(this._options.accessToken);
+        if (bearer != null) {
+            return `Bearer ${bearer}`;
+        }
+
+        return undefined;
     }
 }

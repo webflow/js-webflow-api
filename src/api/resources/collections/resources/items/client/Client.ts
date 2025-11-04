@@ -15,7 +15,7 @@ export declare namespace Items {
         environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        accessToken: core.Supplier<core.BearerToken>;
+        accessToken?: core.Supplier<core.BearerToken | undefined>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
@@ -35,7 +35,7 @@ export declare namespace Items {
 export class Items {
     protected readonly _options: Items.Options;
 
-    constructor(_options: Items.Options) {
+    constructor(_options: Items.Options = {}) {
         this._options = _options;
     }
 
@@ -55,7 +55,15 @@ export class Items {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.collections.items.listItems("580e63fc8c9a982ac9b8b745")
+     *     await client.collections.items.listItems("580e63fc8c9a982ac9b8b745", {
+     *         cmsLocaleId: "cmsLocaleId",
+     *         offset: 1.1,
+     *         limit: 1.1,
+     *         name: "name",
+     *         slug: "slug",
+     *         sortBy: "lastPublished",
+     *         sortOrder: "asc"
+     *     })
      */
     public listItems(
         collectionId: string,
@@ -244,18 +252,20 @@ export class Items {
      *
      * @example
      *     await client.collections.items.createItem("580e63fc8c9a982ac9b8b745", {
+     *         skipInvalidFiles: true,
      *         body: {
      *             isArchived: false,
      *             isDraft: false,
      *             fieldData: {
-     *                 name: "Pan Galactic Gargle Blaster Recipe",
-     *                 slug: "pan-galactic-gargle-blaster"
+     *                 name: "The Hitchhiker's Guide to the Galaxy",
+     *                 slug: "hitchhikers-guide-to-the-galaxy"
      *             }
      *         }
      *     })
      *
      * @example
      *     await client.collections.items.createItem("580e63fc8c9a982ac9b8b745", {
+     *         skipInvalidFiles: true,
      *         body: {
      *             items: [{
      *                     isArchived: false,
@@ -573,6 +583,7 @@ export class Items {
      *
      * @example
      *     await client.collections.items.updateItems("580e63fc8c9a982ac9b8b745", {
+     *         skipInvalidFiles: true,
      *         items: [{
      *                 id: "66f6ed9576ddacf3149d5ea6",
      *                 cmsLocaleId: "66f6e966c9e1dc700a857ca5",
@@ -606,6 +617,7 @@ export class Items {
      *
      * @example
      *     await client.collections.items.updateItems("580e63fc8c9a982ac9b8b745", {
+     *         skipInvalidFiles: true,
      *         items: [{
      *                 id: "580e64008c9a982ac9b8b754",
      *                 isArchived: false,
@@ -779,7 +791,15 @@ export class Items {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.collections.items.listItemsLive("580e63fc8c9a982ac9b8b745")
+     *     await client.collections.items.listItemsLive("580e63fc8c9a982ac9b8b745", {
+     *         cmsLocaleId: "cmsLocaleId",
+     *         offset: 1.1,
+     *         limit: 1.1,
+     *         name: "name",
+     *         slug: "slug",
+     *         sortBy: "lastPublished",
+     *         sortOrder: "asc"
+     *     })
      */
     public listItemsLive(
         collectionId: string,
@@ -975,18 +995,20 @@ export class Items {
      *
      * @example
      *     await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
+     *         skipInvalidFiles: true,
      *         body: {
      *             isArchived: false,
      *             isDraft: false,
      *             fieldData: {
-     *                 name: "Pan Galactic Gargle Blaster Recipe",
-     *                 slug: "pan-galactic-gargle-blaster"
+     *                 name: "The Hitchhiker's Guide to the Galaxy",
+     *                 slug: "hitchhikers-guide-to-the-galaxy"
      *             }
      *         }
      *     })
      *
      * @example
      *     await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
+     *         skipInvalidFiles: true,
      *         body: {
      *             items: [{
      *                     isArchived: false,
@@ -1300,6 +1322,7 @@ export class Items {
      *
      * @example
      *     await client.collections.items.updateItemsLive("580e63fc8c9a982ac9b8b745", {
+     *         skipInvalidFiles: true,
      *         items: [{
      *                 id: "66f6ed9576ddacf3149d5ea6",
      *                 cmsLocaleId: "66f6e966c9e1dc700a857ca5",
@@ -1333,6 +1356,7 @@ export class Items {
      *
      * @example
      *     await client.collections.items.updateItemsLive("580e63fc8c9a982ac9b8b745", {
+     *         skipInvalidFiles: true,
      *         items: [{
      *                 id: "580e64008c9a982ac9b8b754",
      *                 isArchived: false,
@@ -1509,6 +1533,7 @@ export class Items {
      *
      * @example
      *     await client.collections.items.createItems("580e63fc8c9a982ac9b8b745", {
+     *         skipInvalidFiles: true,
      *         cmsLocaleIds: ["66f6e966c9e1dc700a857ca3", "66f6e966c9e1dc700a857ca4", "66f6e966c9e1dc700a857ca5"],
      *         isArchived: false,
      *         isDraft: false,
@@ -1520,6 +1545,7 @@ export class Items {
      *
      * @example
      *     await client.collections.items.createItems("580e63fc8c9a982ac9b8b745", {
+     *         skipInvalidFiles: true,
      *         cmsLocaleIds: ["66f6e966c9e1dc700a857ca3", "66f6e966c9e1dc700a857ca4"],
      *         isArchived: false,
      *         isDraft: false,
@@ -1682,7 +1708,9 @@ export class Items {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.collections.items.getItem("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754")
+     *     await client.collections.items.getItem("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754", {
+     *         cmsLocaleId: "cmsLocaleId"
+     *     })
      */
     public getItem(
         collectionId: string,
@@ -1709,7 +1737,7 @@ export class Items {
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
-                        .production,
+                        .base,
                 `collections/${encodeURIComponent(collectionId)}/items/${encodeURIComponent(itemId)}`,
             ),
             method: "GET",
@@ -1829,7 +1857,9 @@ export class Items {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.collections.items.deleteItem("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754")
+     *     await client.collections.items.deleteItem("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754", {
+     *         cmsLocaleId: "cmsLocaleId"
+     *     })
      */
     public deleteItem(
         collectionId: string,
@@ -1968,12 +1998,13 @@ export class Items {
      *
      * @example
      *     await client.collections.items.updateItem("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754", {
+     *         skipInvalidFiles: true,
      *         body: {
      *             isArchived: false,
      *             isDraft: false,
      *             fieldData: {
-     *                 name: "Pan Galactic Gargle Blaster Recipe",
-     *                 slug: "pan-galactic-gargle-blaster"
+     *                 name: "The Hitchhiker's Guide to the Galaxy",
+     *                 slug: "hitchhikers-guide-to-the-galaxy"
      *             }
      *         }
      *     })
@@ -2135,7 +2166,9 @@ export class Items {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.collections.items.getItemLive("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754")
+     *     await client.collections.items.getItemLive("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754", {
+     *         cmsLocaleId: "cmsLocaleId"
+     *     })
      */
     public getItemLive(
         collectionId: string,
@@ -2284,7 +2317,9 @@ export class Items {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.collections.items.deleteItemLive("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754")
+     *     await client.collections.items.deleteItemLive("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754", {
+     *         cmsLocaleId: "cmsLocaleId"
+     *     })
      */
     public deleteItemLive(
         collectionId: string,
@@ -2426,12 +2461,13 @@ export class Items {
      *
      * @example
      *     await client.collections.items.updateItemLive("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754", {
+     *         skipInvalidFiles: true,
      *         body: {
      *             isArchived: false,
      *             isDraft: false,
      *             fieldData: {
-     *                 name: "Pan Galactic Gargle Blaster Recipe",
-     *                 slug: "pan-galactic-gargle-blaster"
+     *                 name: "The Hitchhiker's Guide to the Galaxy",
+     *                 slug: "hitchhikers-guide-to-the-galaxy"
      *             }
      *         }
      *     })
@@ -2746,7 +2782,12 @@ export class Items {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
+    protected async _getAuthorizationHeader(): Promise<string | undefined> {
+        const bearer = await core.Supplier.get(this._options.accessToken);
+        if (bearer != null) {
+            return `Bearer ${bearer}`;
+        }
+
+        return undefined;
     }
 }

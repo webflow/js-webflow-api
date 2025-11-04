@@ -15,7 +15,7 @@ export declare namespace Token {
         environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        accessToken: core.Supplier<core.BearerToken>;
+        accessToken?: core.Supplier<core.BearerToken | undefined>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
@@ -35,7 +35,7 @@ export declare namespace Token {
 export class Token {
     protected readonly _options: Token.Options;
 
-    constructor(_options: Token.Options) {
+    constructor(_options: Token.Options = {}) {
         this._options = _options;
     }
 
@@ -218,7 +218,12 @@ export class Token {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
+    protected async _getAuthorizationHeader(): Promise<string | undefined> {
+        const bearer = await core.Supplier.get(this._options.accessToken);
+        if (bearer != null) {
+            return `Bearer ${bearer}`;
+        }
+
+        return undefined;
     }
 }

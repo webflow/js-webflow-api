@@ -7,11 +7,13 @@ export type WorkspaceInvitationAuditLogItemEventSubType =
     | "invite_accepted"
     | "invite_updated"
     | "invite_canceled"
-    | "invite_declined";
+    | "invite_declined"
+    | "access_request_accepted";
 export const WorkspaceInvitationAuditLogItemEventSubType = {
     InviteSent: "invite_sent",
     InviteAccepted: "invite_accepted",
     InviteUpdated: "invite_updated",
     InviteCanceled: "invite_canceled",
     InviteDeclined: "invite_declined",
+    AccessRequestAccepted: "access_request_accepted",
 } as const;

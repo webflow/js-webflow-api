@@ -10,13 +10,7 @@ describe("Token", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -46,13 +40,7 @@ describe("Token", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {

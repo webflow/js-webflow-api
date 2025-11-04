@@ -10,13 +10,7 @@ describe("Fields", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
         const rawRequestBody = {
             id: "562ac0395358780a1f5e6fbc",
@@ -65,13 +59,7 @@ describe("Fields", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         server
@@ -89,13 +77,7 @@ describe("Fields", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
         const rawRequestBody = {
             isRequired: false,

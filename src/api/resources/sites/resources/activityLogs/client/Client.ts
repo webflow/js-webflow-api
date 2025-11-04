@@ -15,7 +15,7 @@ export declare namespace ActivityLogs {
         environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        accessToken: core.Supplier<core.BearerToken>;
+        accessToken?: core.Supplier<core.BearerToken | undefined>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
@@ -35,7 +35,7 @@ export declare namespace ActivityLogs {
 export class ActivityLogs {
     protected readonly _options: ActivityLogs.Options;
 
-    constructor(_options: ActivityLogs.Options) {
+    constructor(_options: ActivityLogs.Options = {}) {
         this._options = _options;
     }
 
@@ -56,7 +56,10 @@ export class ActivityLogs {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.sites.activityLogs.list("580e63e98c9a982ac9b8b741")
+     *     await client.sites.activityLogs.list("580e63e98c9a982ac9b8b741", {
+     *         limit: 1.1,
+     *         offset: 1.1
+     *     })
      */
     public list(
         siteId: string,
@@ -177,7 +180,12 @@ export class ActivityLogs {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
+    protected async _getAuthorizationHeader(): Promise<string | undefined> {
+        const bearer = await core.Supplier.get(this._options.accessToken);
+        if (bearer != null) {
+            return `Bearer ${bearer}`;
+        }
+
+        return undefined;
     }
 }

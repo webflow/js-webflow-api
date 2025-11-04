@@ -10,13 +10,7 @@ describe("Users", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -85,7 +79,11 @@ describe("Users", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.users.list("580e63e98c9a982ac9b8b741");
+        const response = await client.users.list("580e63e98c9a982ac9b8b741", {
+            offset: 1.1,
+            limit: 1.1,
+            sort: "CreatedOn",
+        });
         expect(response).toEqual({
             count: 5,
             limit: 5,
@@ -175,13 +173,7 @@ describe("Users", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -242,13 +234,7 @@ describe("Users", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         server
@@ -266,13 +252,7 @@ describe("Users", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
         const rawRequestBody = {
             id: "6287ec36a841b25637c663df",
@@ -357,13 +337,7 @@ describe("Users", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
         const rawRequestBody = { email: "some.one@home.com", accessGroups: ["accessGroups"] };
         const rawResponseBody = {

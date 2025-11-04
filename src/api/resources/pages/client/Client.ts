@@ -16,7 +16,7 @@ export declare namespace Pages {
         environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        accessToken: core.Supplier<core.BearerToken>;
+        accessToken?: core.Supplier<core.BearerToken | undefined>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
@@ -40,7 +40,7 @@ export class Pages {
     protected readonly _options: Pages.Options;
     protected _scripts: Scripts | undefined;
 
-    constructor(_options: Pages.Options) {
+    constructor(_options: Pages.Options = {}) {
         this._options = _options;
     }
 
@@ -65,7 +65,9 @@ export class Pages {
      *
      * @example
      *     await client.pages.list("580e63e98c9a982ac9b8b741", {
-     *         localeId: "65427cf400e02b306eaa04a0"
+     *         localeId: "65427cf400e02b306eaa04a0",
+     *         limit: 1.1,
+     *         offset: 1.1
      *     })
      */
     public list(
@@ -347,10 +349,6 @@ export class Pages {
     /**
      * Update Page-level metadata, including SEO and Open Graph fields.
      *
-     * <Note>
-     *   Note: When updating Page Metadata in secondary locales, you may only add `slug` to the request if your Site has the [Advanced or Enterprise Localization](https://webflow.com/localization) add-on.
-     * </Note>
-     *
      * Required scope | `pages:write`
      *
      * @param {string} pageId - Unique identifier for a Page
@@ -512,11 +510,9 @@ export class Pages {
     }
 
     /**
-     * Get content from a static page. This includes text nodes, image nodes, select nodes, text input nodes, submit button nodes, and component instances with [property overrides](https://help.webflow.com/hc/en-us/articles/33961219350547-Component-properties#how-to-modify-property-values-on-component-instances).
+     * Get text and component instance content from a static page.
      *
-     * To retrieve the static content of a component instance, use the [Get Component Content](/data/reference/pages-and-components/components/get-content) endpoint.
-     *
-     * <Note>If you do not include a `localeId` in your request, the response will return any content that can be localized from the Primary locale.</Note>
+     * <Badge intent="info">Localization</Badge>
      *
      * Required scope | `pages:read`
      *
@@ -533,7 +529,9 @@ export class Pages {
      *
      * @example
      *     await client.pages.getContent("63c720f9347c2139b248e552", {
-     *         localeId: "65427cf400e02b306eaa04a0"
+     *         localeId: "65427cf400e02b306eaa04a0",
+     *         limit: 1.1,
+     *         offset: 1.1
      *     })
      */
     public getContent(
@@ -674,8 +672,9 @@ export class Pages {
      * This endpoint updates content on a static page in **secondary locales**. It supports updating up to 1000 nodes in a single request.
      *
      * Before making updates:
-     * 1. Use the [get page content](/data/reference/pages-and-components/pages/get-content) endpoint to identify available content nodes and their types
-     * 2. If the page has component instances, retrieve the component's properties that you'll override using the [get component properties](/data/reference/pages-and-components/components/get-properties) endpoint
+     * 1. Use the [get page content](/data/reference/pages-and-components/pages/get-content) endpoint to identify available content nodes and their types.
+     * 2. If the page has component instances, retrieve the component's properties that you'll override using the [get component properties](/data/reference/pages-and-components/components/get-properties) endpoint.
+     * 3. DOM elements may include a `data-w-id` attribute. This attribute is used by Webflow to maintain custom attributes and links across locales. Always include the original `data-w-id` value in your update requests to ensure consistent behavior across all locales.
      *
      * <Note>
      *   This endpoint is specifically for localized pages. Ensure that the specified `localeId` is a valid **secondary locale** for the site otherwise the request will fail.
@@ -861,7 +860,12 @@ export class Pages {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
+    protected async _getAuthorizationHeader(): Promise<string | undefined> {
+        const bearer = await core.Supplier.get(this._options.accessToken);
+        if (bearer != null) {
+            return `Bearer ${bearer}`;
+        }
+
+        return undefined;
     }
 }

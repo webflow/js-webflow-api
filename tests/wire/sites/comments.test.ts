@@ -10,13 +10,7 @@ describe("Comments", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -82,6 +76,10 @@ describe("Comments", () => {
 
         const response = await client.sites.comments.listCommentThreads("580e63e98c9a982ac9b8b741", {
             localeId: "65427cf400e02b306eaa04a0",
+            offset: 1.1,
+            limit: 1.1,
+            sortBy: "createdOn",
+            sortOrder: "asc",
         });
         expect(response).toEqual({
             comments: [
@@ -146,13 +144,7 @@ describe("Comments", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -185,6 +177,10 @@ describe("Comments", () => {
             "580e63e98c9a982ac9b8b741",
             {
                 localeId: "65427cf400e02b306eaa04a0",
+                offset: 1.1,
+                limit: 1.1,
+                sortBy: "createdOn",
+                sortOrder: "asc",
             },
         );
         expect(response).toEqual({
@@ -218,13 +214,7 @@ describe("Comments", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -259,6 +249,10 @@ describe("Comments", () => {
             "580e63e98c9a982ac9b8b741",
             {
                 localeId: "65427cf400e02b306eaa04a0",
+                offset: 1.1,
+                limit: 1.1,
+                sortBy: "createdOn",
+                sortOrder: "asc",
             },
         );
         expect(response).toEqual({

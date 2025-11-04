@@ -7,6 +7,7 @@ import * as Webflow from "../../../../../../index";
 /**
  * @example
  *     {
+ *         skipInvalidFiles: true,
  *         cmsLocaleIds: ["66f6e966c9e1dc700a857ca3", "66f6e966c9e1dc700a857ca4", "66f6e966c9e1dc700a857ca5"],
  *         isArchived: false,
  *         isDraft: false,
@@ -18,6 +19,7 @@ import * as Webflow from "../../../../../../index";
  *
  * @example
  *     {
+ *         skipInvalidFiles: true,
  *         cmsLocaleIds: ["66f6e966c9e1dc700a857ca3", "66f6e966c9e1dc700a857ca4"],
  *         isArchived: false,
  *         isDraft: false,
@@ -32,6 +34,7 @@ import * as Webflow from "../../../../../../index";
  *
  * @example
  *     {
+ *         skipInvalidFiles: true,
  *         cmsLocaleIds: ["66f6e966c9e1dc700a857ca3", "66f6e966c9e1dc700a857ca4", "66f6e966c9e1dc700a857ca5"],
  *         isArchived: false,
  *         isDraft: false,
@@ -43,6 +46,7 @@ import * as Webflow from "../../../../../../index";
  *
  * @example
  *     {
+ *         skipInvalidFiles: true,
  *         cmsLocaleIds: ["66f6e966c9e1dc700a857ca3", "66f6e966c9e1dc700a857ca4", "66f6e966c9e1dc700a857ca5"],
  *         isArchived: false,
  *         isDraft: false,

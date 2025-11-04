@@ -10,15 +10,14 @@ describe("WellKnown", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
-        const rawRequestBody = { fileName: "fileName", fileData: "fileData" };
+        const rawRequestBody = {
+            fileName: "apple-app-site-association.txt",
+            fileData:
+                '{\n  "applinks": {\n    "apps": [],\n    "details": [\n  {\n    "appID": "ABCDE12345.com.example.app",\n    "paths": [ "/*", "/some/path/*" ]\n      }\n    ]\n  }\n}\n',
+            contentType: "application/json",
+        };
 
         server
             .mockEndpoint()
@@ -29,8 +28,10 @@ describe("WellKnown", () => {
             .build();
 
         const response = await client.sites.wellKnown.put("580e63e98c9a982ac9b8b741", {
-            fileName: "fileName",
-            fileData: "fileData",
+            fileName: "apple-app-site-association.txt",
+            fileData:
+                '{\n  "applinks": {\n    "apps": [],\n    "details": [\n  {\n    "appID": "ABCDE12345.com.example.app",\n    "paths": [ "/*", "/some/path/*" ]\n      }\n    ]\n  }\n}\n',
+            contentType: "application/json",
         });
         expect(response).toEqual(undefined);
     });
@@ -39,13 +40,7 @@ describe("WellKnown", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
         const rawRequestBody = {};
 

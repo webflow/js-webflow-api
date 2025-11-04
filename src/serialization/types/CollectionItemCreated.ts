@@ -5,19 +5,19 @@
 import * as serializers from "../index";
 import * as Webflow from "../../api/index";
 import * as core from "../../core";
-import { CollectionItemCreatedPayload } from "./CollectionItemCreatedPayload";
+import { SingleLocaleCreatedPayload } from "./SingleLocaleCreatedPayload";
 
 export const CollectionItemCreated: core.serialization.ObjectSchema<
     serializers.CollectionItemCreated.Raw,
     Webflow.CollectionItemCreated
 > = core.serialization.object({
     triggerType: core.serialization.stringLiteral("collection_item_created"),
-    payload: CollectionItemCreatedPayload,
+    payload: SingleLocaleCreatedPayload,
 });
 
 export declare namespace CollectionItemCreated {
     export interface Raw {
         triggerType: "collection_item_created";
-        payload: CollectionItemCreatedPayload.Raw;
+        payload: SingleLocaleCreatedPayload.Raw;
     }
 }

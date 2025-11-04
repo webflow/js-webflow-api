@@ -4,7 +4,9 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         cmsLocaleId: "cmsLocaleId"
+ *     }
  */
 export interface ItemsDeleteItemRequest {
     /**

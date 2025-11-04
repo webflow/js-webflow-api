@@ -15,7 +15,7 @@ export declare namespace WellKnown {
         environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        accessToken: core.Supplier<core.BearerToken>;
+        accessToken?: core.Supplier<core.BearerToken | undefined>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
@@ -35,7 +35,7 @@ export declare namespace WellKnown {
 export class WellKnown {
     protected readonly _options: WellKnown.Options;
 
-    constructor(_options: WellKnown.Options) {
+    constructor(_options: WellKnown.Options = {}) {
         this._options = _options;
     }
 
@@ -67,8 +67,9 @@ export class WellKnown {
      *
      * @example
      *     await client.sites.wellKnown.put("580e63e98c9a982ac9b8b741", {
-     *         fileName: "fileName",
-     *         fileData: "fileData"
+     *         fileName: "apple-app-site-association.txt",
+     *         fileData: "{\n  \"applinks\": {\n    \"apps\": [],\n    \"details\": [\n  {\n    \"appID\": \"ABCDE12345.com.example.app\",\n    \"paths\": [ \"/*\", \"/some/path/*\" ]\n      }\n    ]\n  }\n}\n",
+     *         contentType: "application/json"
      *     })
      */
     public put(
@@ -323,7 +324,12 @@ export class WellKnown {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
+    protected async _getAuthorizationHeader(): Promise<string | undefined> {
+        const bearer = await core.Supplier.get(this._options.accessToken);
+        if (bearer != null) {
+            return `Bearer ${bearer}`;
+        }
+
+        return undefined;
     }
 }

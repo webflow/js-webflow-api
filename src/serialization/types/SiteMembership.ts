@@ -9,6 +9,7 @@ import { WorkspaceAuditLogItemPayloadSiteMembershipSite } from "./WorkspaceAudit
 import { WorkspaceAuditLogItemPayloadSiteMembershipTargetUser } from "./WorkspaceAuditLogItemPayloadSiteMembershipTargetUser";
 import { WorkspaceAuditLogItemPayloadSiteMembershipMethod } from "./WorkspaceAuditLogItemPayloadSiteMembershipMethod";
 import { WorkspaceAuditLogItemPayloadSiteMembershipUserType } from "./WorkspaceAuditLogItemPayloadSiteMembershipUserType";
+import { WorkspaceAuditLogItemPayloadSiteMembershipGranularAccess } from "./WorkspaceAuditLogItemPayloadSiteMembershipGranularAccess";
 
 export const SiteMembership: core.serialization.ObjectSchema<serializers.SiteMembership.Raw, Webflow.SiteMembership> =
     core.serialization.object({
@@ -18,6 +19,7 @@ export const SiteMembership: core.serialization.ObjectSchema<serializers.SiteMem
         userType: WorkspaceAuditLogItemPayloadSiteMembershipUserType.optional(),
         roleName: core.serialization.string().optional(),
         previousRoleName: core.serialization.string().optional(),
+        granularAccess: WorkspaceAuditLogItemPayloadSiteMembershipGranularAccess.optional(),
     });
 
 export declare namespace SiteMembership {
@@ -28,5 +30,6 @@ export declare namespace SiteMembership {
         userType?: WorkspaceAuditLogItemPayloadSiteMembershipUserType.Raw | null;
         roleName?: string | null;
         previousRoleName?: string | null;
+        granularAccess?: WorkspaceAuditLogItemPayloadSiteMembershipGranularAccess.Raw | null;
     }
 }

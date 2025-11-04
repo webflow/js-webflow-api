@@ -12,4 +12,5 @@ export interface WorkspaceInvitation {
     roleName?: string;
     /** The previous role that the user had */
     previousRoleName?: string;
+    targetUsers?: Webflow.WorkspaceAuditLogItemPayloadWorkspaceInvitationTargetUsersItem[];
 }
