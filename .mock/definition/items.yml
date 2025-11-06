@@ -83,6 +83,7 @@ webhooks:
             siteId: 65427cf400e02b306eaa049c
             workspaceId: 625860a7a6c16d624927122f
             collectionId: 664243617fcc8b464b23c4ee
+            cmsLocaleId: 681442a144bb80bd00480fda
     docs: Information about a collection item that was published
   collection_item_unpublished:
     audiences: []
