@@ -88,6 +88,11 @@ service:
                     Please gift wrap with a personal note saying "Happy
                     Birthday, Ford! 🎉
                   acceptedOn: '2024-04-10T13:16:21Z'
+                  fulfilledOn: '2018-12-03T22:06:15Z'
+                  refundedOn: '2018-12-03T22:06:15Z'
+                  disputedOn: '2018-12-03T22:06:15Z'
+                  disputeUpdatedOn: '2018-12-03T22:06:15Z'
+                  disputeLastStatus: warning_needs_response
                   customerPaid:
                     unit: USD
                     value: '5892'
@@ -187,15 +192,18 @@ service:
                         unit: USD
                         value: '5892'
                         string: \$ 83.09 USD
+                      weight: 5
                       width: 19
                       height: 72
                       length: 18
                   purchasedItemsCount: 3
                   stripeDetails:
+                    subscriptionId: sub_1J6xwG2eZvKYlo2CXu9Zt0Tn
                     paymentMethod: pm_1P410gJYFi4lcbXWbeKghqjK
                     paymentIntentId: pi_3P410iJYFi4lcbXW0EKKgcVg
                     customerId: cus_Ptod8KJBiiPgnH
                     chargeId: ch_3P410iJYFi4lcbXW0DxUkzCH
+                    refundReason: requested_by_customer
                   stripeCard:
                     last4: '4242'
                     brand: Visa
@@ -203,6 +211,13 @@ service:
                     expires:
                       year: 2025
                       month: 4
+                  paypalDetails:
+                    orderId: 1a2b3c4d5e6f7g8h9i0j
+                    payerId: 9k8j7i6h5g4f3e2d1c0b
+                    captureId: qwe123rty456uio789p
+                    refundId: abcde12345fghij67890
+                    refundReason: Customer requested refund
+                    disputeId: zxcvbnm987poiuytrewq
                   customData:
                     - key: value
                   metadata:
@@ -230,7 +245,11 @@ service:
                   comment: Example comment to myself
                   orderComment: ''
                   acceptedOn: '2024-03-29T21:29:21Z'
+                  fulfilledOn: '2018-12-03T22:06:15Z'
                   refundedOn: '2024-04-08T18:25:04Z'
+                  disputedOn: '2018-12-03T22:06:15Z'
+                  disputeUpdatedOn: '2018-12-03T22:06:15Z'
+                  disputeLastStatus: warning_needs_response
                   customerPaid:
                     unit: USD
                     value: '5892'
@@ -337,6 +356,7 @@ service:
                       length: 40
                   purchasedItemsCount: 2
                   stripeDetails:
+                    subscriptionId: sub_1J6xwG2eZvKYlo2CXu9Zt0Tn
                     paymentMethod: pm_1OzmzBJYFi4lcbXWHKNdXU7j
                     paymentIntentId: pi_3OzmzDJYFi4lcbXW1hTBW6ft
                     customerId: cus_PpRsNHwWdUoRKR
@@ -350,6 +370,13 @@ service:
                     expires:
                       year: 2024
                       month: 4
+                  paypalDetails:
+                    orderId: 1a2b3c4d5e6f7g8h9i0j
+                    payerId: 9k8j7i6h5g4f3e2d1c0b
+                    captureId: qwe123rty456uio789p
+                    refundId: abcde12345fghij67890
+                    refundReason: Customer requested refund
+                    disputeId: zxcvbnm987poiuytrewq
                   customData:
                     - key: value
                   metadata:
@@ -558,10 +585,12 @@ service:
                   length: 40
               purchasedItemsCount: 2
               stripeDetails:
+                subscriptionId: sub_1J6xwG2eZvKYlo2CXu9Zt0Tn
                 paymentMethod: pm_1OzmzBJYFi4lcbXWHKNdXU7j
                 paymentIntentId: pi_3OzmzDJYFi4lcbXW1hTBW6ft
                 customerId: cus_PpRsNHwWdUoRKR
                 chargeId: ch_3OzmzDJYFi4lcbXW1ndkkrH2
+                disputeId: disputeId
                 refundId: re_3OzmzDJYFi4lcbXW1kFAmlBk
                 refundReason: fraudulent
               stripeCard:
@@ -571,6 +600,13 @@ service:
                 expires:
                   year: 2024
                   month: 4
+              paypalDetails:
+                orderId: 1a2b3c4d5e6f7g8h9i0j
+                payerId: 9k8j7i6h5g4f3e2d1c0b
+                captureId: qwe123rty456uio789p
+                refundId: abcde12345fghij67890
+                refundReason: Customer requested refund
+                disputeId: zxcvbnm987poiuytrewq
               customData:
                 - key: value
               metadata:
@@ -794,10 +830,12 @@ service:
                   length: 40
               purchasedItemsCount: 2
               stripeDetails:
+                subscriptionId: sub_1J6xwG2eZvKYlo2CXu9Zt0Tn
                 paymentMethod: pm_1OzmzBJYFi4lcbXWHKNdXU7j
                 paymentIntentId: pi_3OzmzDJYFi4lcbXW1hTBW6ft
                 customerId: cus_PpRsNHwWdUoRKR
                 chargeId: ch_3OzmzDJYFi4lcbXW1ndkkrH2
+                disputeId: disputeId
                 refundId: re_3OzmzDJYFi4lcbXW1kFAmlBk
                 refundReason: fraudulent
               stripeCard:
@@ -807,6 +845,13 @@ service:
                 expires:
                   year: 2024
                   month: 4
+              paypalDetails:
+                orderId: 1a2b3c4d5e6f7g8h9i0j
+                payerId: 9k8j7i6h5g4f3e2d1c0b
+                captureId: qwe123rty456uio789p
+                refundId: abcde12345fghij67890
+                refundReason: Customer requested refund
+                disputeId: zxcvbnm987poiuytrewq
               customData:
                 - key: value
               metadata:
@@ -1020,10 +1065,12 @@ service:
                   length: 40
               purchasedItemsCount: 2
               stripeDetails:
+                subscriptionId: sub_1J6xwG2eZvKYlo2CXu9Zt0Tn
                 paymentMethod: pm_1OzmzBJYFi4lcbXWHKNdXU7j
                 paymentIntentId: pi_3OzmzDJYFi4lcbXW1hTBW6ft
                 customerId: cus_PpRsNHwWdUoRKR
                 chargeId: ch_3OzmzDJYFi4lcbXW1ndkkrH2
+                disputeId: disputeId
                 refundId: re_3OzmzDJYFi4lcbXW1kFAmlBk
                 refundReason: fraudulent
               stripeCard:
@@ -1033,6 +1080,13 @@ service:
                 expires:
                   year: 2024
                   month: 4
+              paypalDetails:
+                orderId: 1a2b3c4d5e6f7g8h9i0j
+                payerId: 9k8j7i6h5g4f3e2d1c0b
+                captureId: qwe123rty456uio789p
+                refundId: abcde12345fghij67890
+                refundReason: Customer requested refund
+                disputeId: zxcvbnm987poiuytrewq
               customData:
                 - key: value
               metadata:
@@ -1236,10 +1290,12 @@ service:
                   length: 40
               purchasedItemsCount: 2
               stripeDetails:
+                subscriptionId: sub_1J6xwG2eZvKYlo2CXu9Zt0Tn
                 paymentMethod: pm_1OzmzBJYFi4lcbXWHKNdXU7j
                 paymentIntentId: pi_3OzmzDJYFi4lcbXW1hTBW6ft
                 customerId: cus_PpRsNHwWdUoRKR
                 chargeId: ch_3OzmzDJYFi4lcbXW1ndkkrH2
+                disputeId: disputeId
                 refundId: re_3OzmzDJYFi4lcbXW1kFAmlBk
                 refundReason: fraudulent
               stripeCard:
@@ -1249,6 +1305,13 @@ service:
                 expires:
                   year: 2024
                   month: 4
+              paypalDetails:
+                orderId: 1a2b3c4d5e6f7g8h9i0j
+                payerId: 9k8j7i6h5g4f3e2d1c0b
+                captureId: qwe123rty456uio789p
+                refundId: abcde12345fghij67890
+                refundReason: Customer requested refund
+                disputeId: zxcvbnm987poiuytrewq
               customData:
                 - key: value
               metadata:
@@ -1462,10 +1525,12 @@ service:
                   length: 40
               purchasedItemsCount: 2
               stripeDetails:
+                subscriptionId: sub_1J6xwG2eZvKYlo2CXu9Zt0Tn
                 paymentMethod: pm_1OzmzBJYFi4lcbXWHKNdXU7j
                 paymentIntentId: pi_3OzmzDJYFi4lcbXW1hTBW6ft
                 customerId: cus_PpRsNHwWdUoRKR
                 chargeId: ch_3OzmzDJYFi4lcbXW1ndkkrH2
+                disputeId: disputeId
                 refundId: re_3OzmzDJYFi4lcbXW1kFAmlBk
                 refundReason: fraudulent
               stripeCard:
@@ -1475,6 +1540,13 @@ service:
                 expires:
                   year: 2024
                   month: 4
+              paypalDetails:
+                orderId: 1a2b3c4d5e6f7g8h9i0j
+                payerId: 9k8j7i6h5g4f3e2d1c0b
+                captureId: qwe123rty456uio789p
+                refundId: abcde12345fghij67890
+                refundReason: Customer requested refund
+                disputeId: zxcvbnm987poiuytrewq
               customData:
                 - key: value
               metadata:
@@ -1544,6 +1616,10 @@ webhooks:
               Please gift wrap with a personal note saying "Happy Birthday,
               Ford! 🎉
             acceptedOn: '2024-03-29T21:29:21Z'
+            fulfilledOn: '2018-12-03T22:06:15Z'
+            refundedOn: '2018-12-03T22:06:15Z'
+            disputedOn: '2018-12-03T22:06:15Z'
+            disputeUpdatedOn: '2018-12-03T22:06:15Z'
             customerPaid:
               unit: USD
               value: '5892'
@@ -1647,6 +1723,7 @@ webhooks:
                 length: 40
             purchasedItemsCount: 2
             stripeDetails:
+              subscriptionId: sub_1J6xwG2eZvKYlo2CXu9Zt0Tn
               paymentMethod: pm_1OzmzBJYFi4lcbXWHKNdXU7j
               paymentIntentId: pi_3OzmzDJYFi4lcbXW1hTBW6ft
               customerId: cus_PpRsNHwWdUoRKR
@@ -1833,6 +1910,7 @@ webhooks:
                 length: 40
             purchasedItemsCount: 2
             stripeDetails:
+              subscriptionId: sub_1J6xwG2eZvKYlo2CXu9Zt0Tn
               paymentMethod: pm_1OzmzBJYFi4lcbXWHKNdXU7j
               paymentIntentId: pi_3OzmzDJYFi4lcbXW1hTBW6ft
               customerId: cus_PpRsNHwWdUoRKR
