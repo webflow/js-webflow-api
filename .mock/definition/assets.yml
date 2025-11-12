@@ -242,6 +242,7 @@ service:
                   width: 500
                   height: 900
                   quality: 100
+                  error: error
               altText: A single candy wrapper
     delete:
       path: /assets/{asset_id}
@@ -335,6 +336,7 @@ service:
                   width: 500
                   height: 900
                   quality: 100
+                  error: error
               altText: A single candy wrapper
     list-folders:
       path: /sites/{site_id}/asset_folders
@@ -371,6 +373,7 @@ service:
               assetFolders:
                 - id: 6390c49774a71f0e3c1a08ee
                   displayName: emoji icons
+                  parentFolder: 6390c49774a71f99f21a08eb
                   assets:
                     - 63e5889e7fe4eafa7384cea4
                     - 659595234426a9fcbad57043
