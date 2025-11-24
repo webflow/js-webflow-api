@@ -70,8 +70,8 @@ export class WebflowClient {
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "webflow-api",
-                    "X-Fern-SDK-Version": "3.2.1",
-                    "User-Agent": "webflow-api/3.2.1",
+                    "X-Fern-SDK-Version": "3.2.2",
+                    "User-Agent": "webflow-api/3.2.2",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
