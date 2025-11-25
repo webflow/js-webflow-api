@@ -48,6 +48,7 @@ service:
                   canCopy: false
                   displayName: Alert
                   hostedLocation: https://cdn.webflow.io/.../alert-0.0.1.js
+                  integrityHash: integrityHash
                   createdOn: '2022-10-26T00:28:54.191Z'
                   lastUpdated: lastUpdated
                   version: 0.0.1
@@ -55,6 +56,7 @@ service:
                   canCopy: false
                   displayName: Alert
                   hostedLocation: https://cdn.webflow.io/.../alert-0.0.2.js
+                  integrityHash: integrityHash
                   createdOn: '2022-10-26T00:28:54.191Z'
                   lastUpdated: lastUpdated
                   version: 0.0.2
@@ -212,7 +214,8 @@ service:
         - root.TooManyRequestsError
         - root.InternalServerError
       examples:
-        - path-parameters:
+        - name: CustomCodeInlineResponse
+          path-parameters:
             site_id: 580e63e98c9a982ac9b8b741
           request:
             sourceCode: alert('hello world');
@@ -225,6 +228,7 @@ service:
               displayName: Alert
               hostedLocation: >-
                 https://uploads-ssl.webflow.com/6258612d1ee792848f805dcf%2F64b6c769ff52ba6c3d904a91%2F660d6e15b3d1696f2d2b1447%2Falert-0.0.1.js
+              integrityHash: integrityHash
               createdOn: '2022-10-26T00:28:54.191Z'
               lastUpdated: lastUpdated
               version: 0.0.1
