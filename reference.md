@@ -3438,6 +3438,317 @@ await client.forms.listSubmissionsBySite("580e63e98c9a982ac9b8b741", {
 </dl>
 </details>
 
+<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">listSubmissionsByFormAndSite</a>(siteId, formId, { ...params }) -> Webflow.FormSubmissionList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List form submissions for a given form within a specific site.
+
+Required scope | `forms:read`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.forms.listSubmissionsByFormAndSite("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741", {
+    offset: 1.1,
+    limit: 1.1,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**formId:** `string` — Unique identifier for a Form
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.FormsListSubmissionsByFormAndSiteRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Forms.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">getSubmissionBySite</a>(siteId, formSubmissionId) -> Webflow.FormSubmission</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get information about a form submission within a specific site.
+
+Required scope | `forms:read`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.forms.getSubmissionBySite("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**formSubmissionId:** `string` — Unique identifier for a Form Submission
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Forms.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">deleteSubmissionBySite</a>(siteId, formSubmissionId) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a form submission within a specific site.
+
+Required scope | `forms:write`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.forms.deleteSubmissionBySite("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**formSubmissionId:** `string` — Unique identifier for a Form Submission
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Forms.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">updateSubmissionBySite</a>(siteId, formSubmissionId, { ...params }) -> Webflow.FormSubmission</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update hidden fields on a form submission within a specific site.
+
+Required scope | `forms:write`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.forms.updateSubmissionBySite("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**formSubmissionId:** `string` — Unique identifier for a Form Submission
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.FormsUpdateSubmissionBySiteRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Forms.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Users
 
 <details><summary><code>client.users.<a href="/src/api/resources/users/client/Client.ts">list</a>(siteId, { ...params }) -> Webflow.UserList</code></summary>
@@ -5835,10 +6146,9 @@ await client.collections.items.updateItems("580e63fc8c9a982ac9b8b745", {
 
 List all published items in a collection.
 
-<Note title="Serve data with the Content Delivery API">
-  To serve content to your other frontends applications, enterprise sites have access to a dedicated [content delivery API](/data/docs/cms-content-delivery), available at api-cdn.webflow.com.
-
-</Note>
+<Tip title="Serve data with the Content Delivery API">
+  Serving data to applications in real-time? Use the Content Delivery API at `api-cdn.webflow.com` for better performance. The CDN-backed endpoint is optimized for high-volume reads, while the Data API is designed for writes and management operations.
+</Tip>
 
 Required scope | `CMS:read`
 
@@ -6542,10 +6852,9 @@ await client.collections.items.updateItem("580e63fc8c9a982ac9b8b745", "580e64008
 
 Get details of a selected Collection live Item.
 
-<Note title="Serve data with the Content Delivery API">
-  To serve content to your other frontends applications, enterprise sites have access to a dedicated [content delivery API](/data/docs/cms-content-delivery), available at api-cdn.webflow.com.
-
-</Note>
+<Tip title="Serve data with the Content Delivery API">
+  Serving data to applications in real-time? Use the Content Delivery API at `api-cdn.webflow.com` for better performance. The CDN-backed endpoint is optimized for high-volume reads, while the Data API is designed for writes and management operations.
+</Tip>
 
 Required scope | `CMS:read`
 
