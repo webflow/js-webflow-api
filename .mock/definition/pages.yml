@@ -64,6 +64,8 @@ service:
                   siteId: 6258612d1ee792848f805dcf
                   title: Guide to the Galaxy
                   slug: guide-to-the-galaxy
+                  parentId: 6419db964a9c435aa3af6251
+                  collectionId: 6390c49774a71f12831a08e3
                   createdOn: '2024-03-11T10:42:00Z'
                   lastUpdated: '2024-03-11T10:42:42Z'
                   archived: false
@@ -89,12 +91,15 @@ service:
                   siteId: 6258612d1ee792848f805dcf
                   title: Towel Day Celebrations
                   slug: towel-day
+                  parentId: 6419db964a9c435aa3af6251
+                  collectionId: 6390c49774a71f12831a08e3
                   createdOn: '2024-05-25T09:00:00Z'
                   lastUpdated: '2024-05-25T09:42:00Z'
                   archived: false
                   draft: false
                   canBranch: true
                   isBranch: false
+                  branchId: 68026fa68ef6dc744c75b833
                   seo:
                     title: Celebrate Towel Day - The Hitchhiker's Guide to the Galaxy
                     description: >-
@@ -164,6 +169,8 @@ service:
               siteId: 6258612d1ee792848f805dcf
               title: Guide to the Galaxy
               slug: guide-to-the-galaxy
+              parentId: 6419db964a9c435aa3af6251
+              collectionId: 6390c49774a71f12831a08e3
               createdOn: '2024-03-11T10:42:00Z'
               lastUpdated: '2024-03-11T10:42:42Z'
               archived: false
@@ -271,6 +278,8 @@ service:
               siteId: 6258612d1ee792848f805dcf
               title: Guide to the Galaxy
               slug: guide-to-the-galaxy
+              parentId: 6419db964a9c435aa3af6251
+              collectionId: 6390c49774a71f12831a08e3
               createdOn: '2024-03-11T10:42:00Z'
               lastUpdated: '2024-03-11T10:42:42Z'
               archived: false
