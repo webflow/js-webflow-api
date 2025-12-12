@@ -168,6 +168,7 @@ describe("Scripts", () => {
             blocks: [
                 {
                     siteId: "6258612d1ee792848f805dcf",
+                    pageId: "pageId",
                     type: "site",
                     scripts: [{ id: "chartjs", location: "header", version: "4.4.2", attributes: { key: "value" } }],
                     createdOn: "2024-04-03T16:49:15Z",
@@ -200,6 +201,7 @@ describe("Scripts", () => {
             blocks: [
                 {
                     siteId: "6258612d1ee792848f805dcf",
+                    pageId: "pageId",
                     type: "site",
                     scripts: [
                         {
