@@ -1,2 +1,2 @@
-export { PageMetadataWrite } from "./PageMetadataWrite";
 export { PageDomWrite } from "./PageDomWrite";
+export { PageMetadataWrite } from "./PageMetadataWrite";
