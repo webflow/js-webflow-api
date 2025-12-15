@@ -125,6 +125,7 @@ describe("Webhooks", () => {
             url: "https://webhook.site/7f7f7f7f-7f7f-7f7f-7f7f-7f7f7f7f7f7f",
             workspaceId: "4f4e46fd476ea8c507000001",
             siteId: "562ac0395358780a1f5e6fbd",
+            filter: { name: "My Form" },
             lastTriggered: "2023-02-08T23:59:28Z",
             createdOn: "2022-11-08T23:59:28Z",
         };
@@ -152,6 +153,9 @@ describe("Webhooks", () => {
             url: "https://webhook.site/7f7f7f7f-7f7f-7f7f-7f7f-7f7f7f7f7f7f",
             workspaceId: "4f4e46fd476ea8c507000001",
             siteId: "562ac0395358780a1f5e6fbd",
+            filter: {
+                name: "My Form",
+            },
             lastTriggered: new Date("2023-02-08T23:59:28.000Z"),
             createdOn: new Date("2022-11-08T23:59:28.000Z"),
         });
@@ -170,6 +174,7 @@ describe("Webhooks", () => {
             url: "https://webhook.site/7f7f7f7f-7f7f-7f7f-7f7f-7f7f7f7f7f7f",
             workspaceId: "4f4e46fd476ea8c507000001",
             siteId: "562ac0395358780a1f5e6fbd",
+            filter: { name: "My Form" },
             lastTriggered: "2023-02-08T23:59:28Z",
             createdOn: "2022-11-08T23:59:28Z",
         };
@@ -188,6 +193,9 @@ describe("Webhooks", () => {
             url: "https://webhook.site/7f7f7f7f-7f7f-7f7f-7f7f-7f7f7f7f7f7f",
             workspaceId: "4f4e46fd476ea8c507000001",
             siteId: "562ac0395358780a1f5e6fbd",
+            filter: {
+                name: "My Form",
+            },
             lastTriggered: new Date("2023-02-08T23:59:28.000Z"),
             createdOn: new Date("2022-11-08T23:59:28.000Z"),
         });

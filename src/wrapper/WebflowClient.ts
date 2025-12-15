@@ -8,6 +8,7 @@ import { Client as Webhooks } from "./WebhooksClient";
 import { Client as Assets } from "./AssetsClient";
 import { Client as Collections } from "./CollectionsClient";
 import { Client as Pages } from "./PagesClient";
+import { Client as Forms } from "./FormsClient";
 
 export class WebflowClient extends FernClient {
     constructor(protected readonly _options: FernClient.Options) {
@@ -21,6 +22,8 @@ export class WebflowClient extends FernClient {
     protected _collections: Collections | undefined;
 
     protected _pages: Pages | undefined;
+    
+    protected _forms: Forms | undefined;
 
     public get webhooks(): Webhooks {
         return (this._webhooks ??= new Webhooks(this._options));
@@ -36,6 +39,10 @@ export class WebflowClient extends FernClient {
 
     public get pages(): Pages {
         return (this._pages ??= new Pages(this._options));
+    }
+
+    public get forms(): Forms {
+        return (this._forms ??= new Forms(this._options));
     }
 
     /**

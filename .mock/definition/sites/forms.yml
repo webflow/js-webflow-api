@@ -1,0 +1,316 @@
+imports:
+  root: ../__package__.yml
+service:
+  auth: false
+  base-path: ''
+  endpoints:
+    list-submissions-by-site:
+      path: /sites/{site_id}/form_submissions
+      method: GET
+      auth:
+        - OAuth2:
+            - forms:read
+      docs: >
+        List all form submissions for a given site with the ability to filter
+        submissions by a centralized `elementId`.
+
+
+        Add `elementId` when you want to filter form submissions to a specific
+        form in a site. You can get the `elementId` from the [List forms
+        endpoint](/data/reference/forms/forms/list) (displayed as
+        `formElementId` in the response). 
+
+
+        <Note title="Forms in components">
+
+        When a form is used in a Webflow component definition, each instance of
+        the component will yield a unique form. Adding the `elementId` in this
+        request ensures this API response includes all submissions from that
+        core form, wherever that form is used in instantiated components.
+
+        </Note>
+
+
+        Use the [List Form Submissions
+        endpoint](/data/reference/forms/form-submissions/list-submissions) to
+        list form submissions for a given form ID.
+
+
+        Required scope | `forms:read`
+      source:
+        openapi: ../../../openapi/referenced-specs/v2.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+      display-name: List Form Submissions by Site
+      request:
+        name: FormsListSubmissionsBySiteRequest
+        query-parameters:
+          elementId:
+            type: optional<string>
+            docs: Identifier for an element
+          offset:
+            type: optional<double>
+            docs: >-
+              Offset used for pagination if the results have more than limit
+              records
+          limit:
+            type: optional<double>
+            docs: 'Maximum number of records to be returned (max limit: 100)'
+      response:
+        docs: Request was successful
+        type: root.FormSubmissionList
+        status-code: 200
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.ForbiddenError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+          query-parameters:
+            elementId: 18259716-3e5a-646a-5f41-5dc4b9405aa0
+            offset: 1.1
+            limit: 1.1
+          response:
+            body:
+              formSubmissions:
+                - id: 6321ca84df3949bfc6752327
+                  displayName: Sample Form
+                  siteId: 62749158efef318abc8d5a0f
+                  workspaceId: 62749158efef318abc8d5a0f
+                  dateSubmitted: '2022-09-14T12:35:16Z'
+                  formResponse:
+                    First Name: Arthur
+                    Last Name: Dent
+                - id: 660d64fabf6e0a0d4edab981
+                  displayName: Sample Form
+                  siteId: 62749158efef318abc8d5a0f
+                  workspaceId: 62749158efef318abc8d5a0f
+                  dateSubmitted: '2022-09-14T12:35:16Z'
+                  formResponse:
+                    First Name: Ford
+                    Last Name: Prefect
+              pagination:
+                limit: 25
+                offset: 0
+                total: 2
+    list-submissions:
+      path: /sites/{site_id}/forms/{form_id}/submissions
+      method: GET
+      auth:
+        - OAuth2:
+            - forms:read
+      docs: >
+        List form submissions for a given form ID within a specific site. 
+
+
+        Use the [List Form Submissions by Site
+        endpoint](/data/reference/forms/form-submissions/list-submissions-by-site)
+        to list form submissions for a given site with the ability to filter by
+        a `formElementId`.
+
+
+        Required scope | `forms:read`
+      source:
+        openapi: ../../../openapi/referenced-specs/v2.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+        form_id:
+          type: string
+          docs: Unique identifier for a Form
+      display-name: List Form Submissions
+      request:
+        name: FormsListSubmissionsRequest
+        query-parameters:
+          offset:
+            type: optional<double>
+            docs: >-
+              Offset used for pagination if the results have more than limit
+              records
+          limit:
+            type: optional<double>
+            docs: 'Maximum number of records to be returned (max limit: 100)'
+      response:
+        docs: Request was successful
+        type: root.FormSubmissionList
+        status-code: 200
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.ForbiddenError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+            form_id: 580e63e98c9a982ac9b8b741
+          query-parameters:
+            offset: 1.1
+            limit: 1.1
+          response:
+            body:
+              formSubmissions:
+                - id: 6321ca84df3949bfc6752327
+                  displayName: Sample Form
+                  siteId: 62749158efef318abc8d5a0f
+                  workspaceId: 62749158efef318abc8d5a0f
+                  dateSubmitted: '2022-09-14T12:35:16Z'
+                  formResponse:
+                    First Name: Arthur
+                    Last Name: Dent
+                - id: 660d64fabf6e0a0d4edab981
+                  displayName: Sample Form
+                  siteId: 62749158efef318abc8d5a0f
+                  workspaceId: 62749158efef318abc8d5a0f
+                  dateSubmitted: '2022-09-14T12:35:16Z'
+                  formResponse:
+                    First Name: Ford
+                    Last Name: Prefect
+              pagination:
+                limit: 25
+                offset: 0
+                total: 2
+    get-submission:
+      path: /sites/{site_id}/form_submissions/{form_submission_id}
+      method: GET
+      auth:
+        - OAuth2:
+            - forms:read
+      docs: |
+        Get information about a form submission within a specific site.
+
+        Required scope | `forms:read`
+      source:
+        openapi: ../../../openapi/referenced-specs/v2.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+        form_submission_id:
+          type: string
+          docs: Unique identifier for a Form Submission
+      display-name: Get Form Submission by Site
+      response:
+        docs: Request was successful
+        type: root.FormSubmission
+        status-code: 200
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.ForbiddenError
+        - root.NotFoundError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+            form_submission_id: 580e63e98c9a982ac9b8b741
+          response:
+            body:
+              id: 6321ca84df3949bfc6752327
+              displayName: Sample Form
+              siteId: 62749158efef318abc8d5a0f
+              workspaceId: 62749158efef318abc8d5a0f
+              dateSubmitted: '2022-09-14T12:35:16Z'
+              formResponse:
+                First Name: Arthur
+                Last Name: Dent
+    delete-submission:
+      path: /sites/{site_id}/form_submissions/{form_submission_id}
+      method: DELETE
+      auth:
+        - OAuth2:
+            - forms:write
+      docs: |
+        Delete a form submission within a specific site.
+
+        Required scope | `forms:write`
+      source:
+        openapi: ../../../openapi/referenced-specs/v2.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+        form_submission_id:
+          type: string
+          docs: Unique identifier for a Form Submission
+      display-name: Delete Form Submission by Site
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.ForbiddenError
+        - root.NotFoundError
+        - root.ConflictError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+            form_submission_id: 580e63e98c9a982ac9b8b741
+    update-submission:
+      path: /sites/{site_id}/form_submissions/{form_submission_id}
+      method: PATCH
+      auth:
+        - OAuth2:
+            - forms:write
+      docs: |
+        Update hidden fields on a form submission within a specific site.
+
+        Required scope | `forms:write`
+      source:
+        openapi: ../../../openapi/referenced-specs/v2.yml
+      path-parameters:
+        site_id:
+          type: string
+          docs: Unique identifier for a Site
+        form_submission_id:
+          type: string
+          docs: Unique identifier for a Form Submission
+      display-name: Modify Form Submission by Site
+      request:
+        name: FormsUpdateSubmissionRequest
+        body:
+          properties:
+            formSubmissionData:
+              type: optional<map<string, unknown>>
+              docs: >-
+                An existing **hidden field** defined on the form schema, and the
+                corresponding value to set
+        content-type: application/json
+      response:
+        docs: Request was successful
+        type: root.FormSubmission
+        status-code: 200
+      errors:
+        - root.BadRequestError
+        - root.UnauthorizedError
+        - root.ForbiddenError
+        - root.NotFoundError
+        - root.ConflictError
+        - root.TooManyRequestsError
+        - root.InternalServerError
+      examples:
+        - path-parameters:
+            site_id: 580e63e98c9a982ac9b8b741
+            form_submission_id: 580e63e98c9a982ac9b8b741
+          request: {}
+          response:
+            body:
+              id: 6321ca84df3949bfc6752327
+              displayName: Sample Form
+              siteId: 62749158efef318abc8d5a0f
+              workspaceId: 62749158efef318abc8d5a0f
+              dateSubmitted: '2022-09-14T12:35:16Z'
+              formResponse:
+                First Name: Arthur
+                Last Name: Dent
+  source:
+    openapi: ../../../openapi/referenced-specs/v2.yml

@@ -3361,83 +3361,6 @@ await client.forms.updateSubmission("580e63e98c9a982ac9b8b741");
 </dl>
 </details>
 
-<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">listSubmissionsBySite</a>(siteId, { ...params }) -> Webflow.FormSubmissionList</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-List form submissions for a given site. This endpoint differs from the existing [List Form Submissions endpoint](/data/reference/forms/form-submissions/list-submissions) by accepting `siteId` as a path parameter and `elementId` as a query parameter. You can get the `elementId` from the [List forms endpoint](/data/reference/forms/forms/list).
-
-Required scope | `forms:read`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.forms.listSubmissionsBySite("580e63e98c9a982ac9b8b741", {
-    elementId: "18259716-3e5a-646a-5f41-5dc4b9405aa0",
-    offset: 1.1,
-    limit: 1.1,
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**siteId:** `string` — Unique identifier for a Site
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Webflow.FormsListSubmissionsBySiteRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Forms.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 ## Users
 
 <details><summary><code>client.users.<a href="/src/api/resources/users/client/Client.ts">list</a>(siteId, { ...params }) -> Webflow.UserList</code></summary>
@@ -5835,10 +5758,9 @@ await client.collections.items.updateItems("580e63fc8c9a982ac9b8b745", {
 
 List all published items in a collection.
 
-<Note title="Serve data with the Content Delivery API">
-  To serve content to your other frontends applications, enterprise sites have access to a dedicated [content delivery API](/data/docs/cms-content-delivery), available at api-cdn.webflow.com.
-
-</Note>
+<Tip title="Serve data with the Content Delivery API">
+  Serving data to applications in real-time? Use the Content Delivery API at `api-cdn.webflow.com` for better performance. The CDN-backed endpoint is optimized for high-volume reads, while the Data API is designed for writes and management operations.
+</Tip>
 
 Required scope | `CMS:read`
 
@@ -6542,10 +6464,9 @@ await client.collections.items.updateItem("580e63fc8c9a982ac9b8b745", "580e64008
 
 Get details of a selected Collection live Item.
 
-<Note title="Serve data with the Content Delivery API">
-  To serve content to your other frontends applications, enterprise sites have access to a dedicated [content delivery API](/data/docs/cms-content-delivery), available at api-cdn.webflow.com.
-
-</Note>
+<Tip title="Serve data with the Content Delivery API">
+  Serving data to applications in real-time? Use the Content Delivery API at `api-cdn.webflow.com` for better performance. The CDN-backed endpoint is optimized for high-volume reads, while the Data API is designed for writes and management operations.
+</Tip>
 
 Required scope | `CMS:read`
 
@@ -8622,6 +8543,406 @@ await client.sites.scripts.listCustomCodeBlocks("580e63e98c9a982ac9b8b741", {
 <dd>
 
 **requestOptions:** `Scripts.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Sites Forms
+
+<details><summary><code>client.sites.forms.<a href="/src/api/resources/sites/resources/forms/client/Client.ts">listSubmissionsBySite</a>(siteId, { ...params }) -> Webflow.FormSubmissionList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all form submissions for a given site with the ability to filter submissions by a centralized `elementId`.
+
+Add `elementId` when you want to filter form submissions to a specific form in a site. You can get the `elementId` from the [List forms endpoint](/data/reference/forms/forms/list) (displayed as `formElementId` in the response).
+
+<Note title="Forms in components">
+When a form is used in a Webflow component definition, each instance of the component will yield a unique form. Adding the `elementId` in this request ensures this API response includes all submissions from that core form, wherever that form is used in instantiated components.
+</Note>
+
+Use the [List Form Submissions endpoint](/data/reference/forms/form-submissions/list-submissions) to list form submissions for a given form ID.
+
+Required scope | `forms:read`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.forms.listSubmissionsBySite("580e63e98c9a982ac9b8b741", {
+    elementId: "18259716-3e5a-646a-5f41-5dc4b9405aa0",
+    offset: 1.1,
+    limit: 1.1,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.sites.FormsListSubmissionsBySiteRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Forms.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sites.forms.<a href="/src/api/resources/sites/resources/forms/client/Client.ts">listSubmissions</a>(siteId, formId, { ...params }) -> Webflow.FormSubmissionList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List form submissions for a given form ID within a specific site.
+
+Use the [List Form Submissions by Site endpoint](/data/reference/forms/form-submissions/list-submissions-by-site) to list form submissions for a given site with the ability to filter by a `formElementId`.
+
+Required scope | `forms:read`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.forms.listSubmissions("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741", {
+    offset: 1.1,
+    limit: 1.1,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**formId:** `string` — Unique identifier for a Form
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.sites.FormsListSubmissionsRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Forms.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sites.forms.<a href="/src/api/resources/sites/resources/forms/client/Client.ts">getSubmission</a>(siteId, formSubmissionId) -> Webflow.FormSubmission</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get information about a form submission within a specific site.
+
+Required scope | `forms:read`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.forms.getSubmission("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**formSubmissionId:** `string` — Unique identifier for a Form Submission
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Forms.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sites.forms.<a href="/src/api/resources/sites/resources/forms/client/Client.ts">deleteSubmission</a>(siteId, formSubmissionId) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a form submission within a specific site.
+
+Required scope | `forms:write`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.forms.deleteSubmission("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**formSubmissionId:** `string` — Unique identifier for a Form Submission
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Forms.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sites.forms.<a href="/src/api/resources/sites/resources/forms/client/Client.ts">updateSubmission</a>(siteId, formSubmissionId, { ...params }) -> Webflow.FormSubmission</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update hidden fields on a form submission within a specific site.
+
+Required scope | `forms:write`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.forms.updateSubmission("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**siteId:** `string` — Unique identifier for a Site
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**formSubmissionId:** `string` — Unique identifier for a Form Submission
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.sites.FormsUpdateSubmissionRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Forms.RequestOptions`
 
 </dd>
 </dl>
