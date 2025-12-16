@@ -44,6 +44,9 @@ export class WebflowClient extends FernClient {
 
     public async createPageClient(siteId: string, pageId: string): Promise<PageClient> {
         const token = await core.Supplier.get(this._options.accessToken);
+        if(!token) {
+            throw new Error("No access token present");
+        }
         return new PageClient({siteId, pageId, token });
     }
 
