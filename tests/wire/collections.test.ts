@@ -10,13 +10,7 @@ describe("Collections", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -90,13 +84,7 @@ describe("Collections", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
         const rawRequestBody = {
             displayName: "Blog Posts",
@@ -236,13 +224,7 @@ describe("Collections", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -386,6 +368,7 @@ describe("Collections", () => {
                     type: "File",
                     slug: "guide-file",
                     displayName: "Guide File",
+                    helpText: "helpText",
                 },
                 {
                     id: "7f8e9d0c1b2a3f4e5d6c8b9e",
@@ -394,6 +377,7 @@ describe("Collections", () => {
                     type: "Email",
                     slug: "contributor-email",
                     displayName: "Contributor Email",
+                    helpText: "helpText",
                 },
                 {
                     id: "3a4f5e6d7c8b9a0e1d2c4b5f",
@@ -402,6 +386,7 @@ describe("Collections", () => {
                     type: "Phone",
                     slug: "emergency-contact",
                     displayName: "Emergency Contact",
+                    helpText: "helpText",
                 },
             ],
         };
@@ -555,6 +540,7 @@ describe("Collections", () => {
                     type: "File",
                     slug: "guide-file",
                     displayName: "Guide File",
+                    helpText: "helpText",
                 },
                 {
                     id: "7f8e9d0c1b2a3f4e5d6c8b9e",
@@ -563,6 +549,7 @@ describe("Collections", () => {
                     type: "Email",
                     slug: "contributor-email",
                     displayName: "Contributor Email",
+                    helpText: "helpText",
                 },
                 {
                     id: "3a4f5e6d7c8b9a0e1d2c4b5f",
@@ -571,6 +558,7 @@ describe("Collections", () => {
                     type: "Phone",
                     slug: "emergency-contact",
                     displayName: "Emergency Contact",
+                    helpText: "helpText",
                 },
             ],
         });
@@ -580,13 +568,7 @@ describe("Collections", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         server.mockEndpoint().delete("/collections/580e63fc8c9a982ac9b8b745").respondWith().statusCode(200).build();

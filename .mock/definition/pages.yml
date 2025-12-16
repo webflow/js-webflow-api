@@ -7,7 +7,9 @@ service:
     list:
       path: /sites/{site_id}/pages
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - page:read
       docs: |
         List of all pages for a site.
 
@@ -24,9 +26,12 @@ service:
         query-parameters:
           localeId:
             type: optional<string>
-            docs: >-
-              Unique identifier for a specific locale. Applicable, when using
-              localization.
+            docs: >
+              Unique identifier for a specific Locale.
+
+
+              [Lear more about
+              localization.](/data/v2.0.0/docs/working-with-localization)
           limit:
             type: optional<double>
             docs: 'Maximum number of records to be returned (max limit: 100)'
@@ -50,6 +55,8 @@ service:
             site_id: 580e63e98c9a982ac9b8b741
           query-parameters:
             localeId: 65427cf400e02b306eaa04a0
+            limit: 1.1
+            offset: 1.1
           response:
             body:
               pages:
@@ -57,6 +64,8 @@ service:
                   siteId: 6258612d1ee792848f805dcf
                   title: Guide to the Galaxy
                   slug: guide-to-the-galaxy
+                  parentId: 6419db964a9c435aa3af6251
+                  collectionId: 6390c49774a71f12831a08e3
                   createdOn: '2024-03-11T10:42:00Z'
                   lastUpdated: '2024-03-11T10:42:42Z'
                   archived: false
@@ -82,12 +91,15 @@ service:
                   siteId: 6258612d1ee792848f805dcf
                   title: Towel Day Celebrations
                   slug: towel-day
+                  parentId: 6419db964a9c435aa3af6251
+                  collectionId: 6390c49774a71f12831a08e3
                   createdOn: '2024-05-25T09:00:00Z'
                   lastUpdated: '2024-05-25T09:42:00Z'
                   archived: false
                   draft: false
                   canBranch: true
                   isBranch: false
+                  branchId: 68026fa68ef6dc744c75b833
                   seo:
                     title: Celebrate Towel Day - The Hitchhiker's Guide to the Galaxy
                     description: >-
@@ -111,7 +123,9 @@ service:
     get-metadata:
       path: /pages/{page_id}
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - page:read
       docs: |
         Get metadata information for a single page.
 
@@ -128,9 +142,12 @@ service:
         query-parameters:
           localeId:
             type: optional<string>
-            docs: >-
-              Unique identifier for a specific locale. Applicable, when using
-              localization.
+            docs: >
+              Unique identifier for a specific Locale.
+
+
+              [Lear more about
+              localization.](/data/v2.0.0/docs/working-with-localization)
       response:
         docs: Request was successful
         type: root.Page
@@ -152,6 +169,8 @@ service:
               siteId: 6258612d1ee792848f805dcf
               title: Guide to the Galaxy
               slug: guide-to-the-galaxy
+              parentId: 6419db964a9c435aa3af6251
+              collectionId: 6390c49774a71f12831a08e3
               createdOn: '2024-03-11T10:42:00Z'
               lastUpdated: '2024-03-11T10:42:42Z'
               archived: false
@@ -176,13 +195,11 @@ service:
     update-page-settings:
       path: /pages/{page_id}
       method: PUT
-      auth: true
+      auth:
+        - OAuth2:
+            - page:write
       docs: |
         Update Page-level metadata, including SEO and Open Graph fields.
-
-        <Note>
-          Note: When updating Page Metadata in secondary locales, you may only add `slug` to the request if your Site has the [Advanced or Enterprise Localization](https://webflow.com/localization) add-on.
-        </Note>
 
         Required scope | `pages:write`
       source:
@@ -197,9 +214,12 @@ service:
         query-parameters:
           localeId:
             type: optional<string>
-            docs: >-
-              Unique identifier for a specific locale. Applicable, when using
-              localization.
+            docs: >
+              Unique identifier for a specific Locale.
+
+
+              [Lear more about
+              localization.](/data/v2.0.0/docs/working-with-localization)
         body:
           properties:
             title:
@@ -207,7 +227,14 @@ service:
               docs: Title for the page
             slug:
               type: optional<string>
-              docs: Slug for the page
+              docs: >
+                Slug for the page. 
+
+
+
+                **Note:** Updating slugs in secondary locales is only supported
+                in <a href="https://webflow.com/localization">Advanced and
+                Enterprise localization add-on plans.</a>
             seo:
               type: optional<PageMetadataWriteSeo>
               docs: SEO-related fields for the Page
@@ -251,6 +278,8 @@ service:
               siteId: 6258612d1ee792848f805dcf
               title: Guide to the Galaxy
               slug: guide-to-the-galaxy
+              parentId: 6419db964a9c435aa3af6251
+              collectionId: 6390c49774a71f12831a08e3
               createdOn: '2024-03-11T10:42:00Z'
               lastUpdated: '2024-03-11T10:42:42Z'
               archived: false
@@ -275,24 +304,13 @@ service:
     get-content:
       path: /pages/{page_id}/dom
       method: GET
-      auth: true
-      docs: >
-        Get content from a static page. This includes text nodes, image nodes,
-        select nodes, text input nodes, submit button nodes, and component
-        instances with [property
-        overrides](https://help.webflow.com/hc/en-us/articles/33961219350547-Component-properties#how-to-modify-property-values-on-component-instances).
+      auth:
+        - OAuth2:
+            - page:read
+      docs: |
+        Get text and component instance content from a static page.
 
-
-        To retrieve the static content of a component instance, use the [Get
-        Component
-        Content](/data/reference/pages-and-components/components/get-content)
-        endpoint.
-
-
-        <Note>If you do not include a `localeId` in your request, the response
-        will return any content that can be localized from the Primary
-        locale.</Note>
-
+        <Badge intent="info">Localization</Badge> 
 
         Required scope | `pages:read`
       source:
@@ -307,9 +325,12 @@ service:
         query-parameters:
           localeId:
             type: optional<string>
-            docs: >-
-              Unique identifier for a specific locale. Applicable, when using
-              localization.
+            docs: >
+              Unique identifier for a specific Locale.
+
+
+              [Lear more about
+              localization.](/data/v2.0.0/docs/working-with-localization)
           limit:
             type: optional<double>
             docs: 'Maximum number of records to be returned (max limit: 100)'
@@ -334,6 +355,8 @@ service:
             page_id: 63c720f9347c2139b248e552
           query-parameters:
             localeId: 65427cf400e02b306eaa04a0
+            limit: 1.1
+            offset: 1.1
           response:
             body:
               pageId: 658205daa3e8206a523b5ad4
@@ -384,7 +407,9 @@ service:
     update-static-content:
       path: /pages/{page_id}/dom
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - page:write
       docs: >
         This endpoint updates content on a static page in **secondary locales**.
         It supports updating up to 1000 nodes in a single request.
@@ -394,12 +419,17 @@ service:
 
         1. Use the [get page
         content](/data/reference/pages-and-components/pages/get-content)
-        endpoint to identify available content nodes and their types
+        endpoint to identify available content nodes and their types.
 
         2. If the page has component instances, retrieve the component's
         properties that you'll override using the [get component
         properties](/data/reference/pages-and-components/components/get-properties)
-        endpoint
+        endpoint.
+
+        3. DOM elements may include a `data-w-id` attribute. This attribute is
+        used by Webflow to maintain custom attributes and links across locales.
+        Always include the original `data-w-id` value in your update requests to
+        ensure consistent behavior across all locales.
 
 
         <Note>
@@ -514,12 +544,12 @@ types:
   PageDomWriteNodesItem:
     discriminated: false
     union:
-      - type: root.Text Node
-      - type: root.Component Instance
+      - type: root.TextNodeWrite
+      - type: root.ComponentInstanceNodePropertyOverridesWrite
       - type: root.Select
-      - type: root.Text Input
-      - type: root.Submit Button
-      - type: root.Search Button
+      - type: root.TextInputNodeWrite
+      - type: root.SubmitButtonNodeWrite
+      - type: root.SearchButtonNodeWrite
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true

@@ -10,13 +10,7 @@ describe("Forms", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -26,12 +20,13 @@ describe("Forms", () => {
                     createdOn: "2016-10-24T19:41:29Z",
                     lastUpdated: "2016-10-24T19:43:17Z",
                     fields: {
-                        "0": { displayName: "Email", userVisible: true },
-                        "1": { displayName: "Email", userVisible: true },
+                        "0": { displayName: "Email", placeholder: "Enter your email", userVisible: true },
+                        "1": { displayName: "Email", placeholder: "Enter your email", userVisible: true },
                     },
                     responseSettings: {
                         redirectUrl: "https://example.com",
                         redirectMethod: "GET",
+                        redirectAction: "POST https://example.com",
                         sendEmailConfirmation: true,
                     },
                     id: "589a331aa51e760df7ccb89e",
@@ -46,10 +41,11 @@ describe("Forms", () => {
                     displayName: "Name Form",
                     createdOn: "2016-10-24T19:41:29Z",
                     lastUpdated: "2016-10-24T19:43:17Z",
-                    fields: { "0": { displayName: "Email", userVisible: true } },
+                    fields: { "0": { displayName: "Email", placeholder: "Enter your email", userVisible: true } },
                     responseSettings: {
                         redirectUrl: "https://example.com",
                         redirectMethod: "GET",
+                        redirectAction: "POST https://example.com",
                         sendEmailConfirmation: false,
                     },
                     id: "580ff8d7ba3e45ba9fe588e9",
@@ -71,7 +67,10 @@ describe("Forms", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.forms.list("580e63e98c9a982ac9b8b741");
+        const response = await client.forms.list("580e63e98c9a982ac9b8b741", {
+            limit: 1.1,
+            offset: 1.1,
+        });
         expect(response).toEqual({
             forms: [
                 {
@@ -81,16 +80,19 @@ describe("Forms", () => {
                     fields: {
                         "0": {
                             displayName: "Email",
+                            placeholder: "Enter your email",
                             userVisible: true,
                         },
                         "1": {
                             displayName: "Email",
+                            placeholder: "Enter your email",
                             userVisible: true,
                         },
                     },
                     responseSettings: {
                         redirectUrl: "https://example.com",
                         redirectMethod: "GET",
+                        redirectAction: "POST https://example.com",
                         sendEmailConfirmation: true,
                     },
                     id: "589a331aa51e760df7ccb89e",
@@ -108,12 +110,14 @@ describe("Forms", () => {
                     fields: {
                         "0": {
                             displayName: "Email",
+                            placeholder: "Enter your email",
                             userVisible: true,
                         },
                     },
                     responseSettings: {
                         redirectUrl: "https://example.com",
                         redirectMethod: "GET",
+                        redirectAction: "POST https://example.com",
                         sendEmailConfirmation: false,
                     },
                     id: "580ff8d7ba3e45ba9fe588e9",
@@ -137,13 +141,7 @@ describe("Forms", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -151,7 +149,12 @@ describe("Forms", () => {
             createdOn: "2016-10-24T19:41:29Z",
             lastUpdated: "2016-10-24T19:43:17Z",
             fields: {
-                "660d5bcc9c0772150459dfb1": { displayName: "Name", type: "Plain", userVisible: true },
+                "660d5bcc9c0772150459dfb1": {
+                    displayName: "Name",
+                    type: "Plain",
+                    placeholder: "Enter your email",
+                    userVisible: true,
+                },
                 "589a331aa51e760df7ccb89d": {
                     displayName: "Email",
                     type: "Email",
@@ -162,6 +165,7 @@ describe("Forms", () => {
             responseSettings: {
                 redirectUrl: "https://example.com",
                 redirectMethod: "GET",
+                redirectAction: "POST https://example.com",
                 sendEmailConfirmation: true,
             },
             id: "589a331aa51e760df7ccb89e",
@@ -189,6 +193,7 @@ describe("Forms", () => {
                 "660d5bcc9c0772150459dfb1": {
                     displayName: "Name",
                     type: "Plain",
+                    placeholder: "Enter your email",
                     userVisible: true,
                 },
                 "589a331aa51e760df7ccb89d": {
@@ -201,6 +206,7 @@ describe("Forms", () => {
             responseSettings: {
                 redirectUrl: "https://example.com",
                 redirectMethod: "GET",
+                redirectAction: "POST https://example.com",
                 sendEmailConfirmation: true,
             },
             id: "589a331aa51e760df7ccb89e",
@@ -217,13 +223,7 @@ describe("Forms", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -255,7 +255,10 @@ describe("Forms", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.forms.listSubmissions("580e63e98c9a982ac9b8b741");
+        const response = await client.forms.listSubmissions("580e63e98c9a982ac9b8b741", {
+            offset: 1.1,
+            limit: 1.1,
+        });
         expect(response).toEqual({
             formSubmissions: [
                 {
@@ -293,13 +296,7 @@ describe("Forms", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -336,13 +333,7 @@ describe("Forms", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         server
@@ -360,13 +351,7 @@ describe("Forms", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
         const rawRequestBody = {};
         const rawResponseBody = {
@@ -396,84 +381,6 @@ describe("Forms", () => {
             formResponse: {
                 "First Name": "Arthur",
                 "Last Name": "Dent",
-            },
-        });
-    });
-
-    test("list-submissions-by-site", async () => {
-        const server = mockServerPool.createServer();
-        const client = new WebflowClient({
-            accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
-        });
-
-        const rawResponseBody = {
-            formSubmissions: [
-                {
-                    id: "6321ca84df3949bfc6752327",
-                    displayName: "Sample Form",
-                    siteId: "62749158efef318abc8d5a0f",
-                    workspaceId: "62749158efef318abc8d5a0f",
-                    dateSubmitted: "2022-09-14T12:35:16Z",
-                    formResponse: { "First Name": "Arthur", "Last Name": "Dent" },
-                },
-                {
-                    id: "660d64fabf6e0a0d4edab981",
-                    displayName: "Sample Form",
-                    siteId: "62749158efef318abc8d5a0f",
-                    workspaceId: "62749158efef318abc8d5a0f",
-                    dateSubmitted: "2022-09-14T12:35:16Z",
-                    formResponse: { "First Name": "Ford", "Last Name": "Prefect" },
-                },
-            ],
-            pagination: { limit: 25, offset: 0, total: 2 },
-        };
-        server
-            .mockEndpoint()
-            .get("/sites/580e63e98c9a982ac9b8b741/form_submissions")
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        const response = await client.forms.listSubmissionsBySite("580e63e98c9a982ac9b8b741", {
-            elementId: "18259716-3e5a-646a-5f41-5dc4b9405aa0",
-        });
-        expect(response).toEqual({
-            formSubmissions: [
-                {
-                    id: "6321ca84df3949bfc6752327",
-                    displayName: "Sample Form",
-                    siteId: "62749158efef318abc8d5a0f",
-                    workspaceId: "62749158efef318abc8d5a0f",
-                    dateSubmitted: new Date("2022-09-14T12:35:16.000Z"),
-                    formResponse: {
-                        "First Name": "Arthur",
-                        "Last Name": "Dent",
-                    },
-                },
-                {
-                    id: "660d64fabf6e0a0d4edab981",
-                    displayName: "Sample Form",
-                    siteId: "62749158efef318abc8d5a0f",
-                    workspaceId: "62749158efef318abc8d5a0f",
-                    dateSubmitted: new Date("2022-09-14T12:35:16.000Z"),
-                    formResponse: {
-                        "First Name": "Ford",
-                        "Last Name": "Prefect",
-                    },
-                },
-            ],
-            pagination: {
-                limit: 25,
-                offset: 0,
-                total: 2,
             },
         });
     });

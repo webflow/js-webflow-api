@@ -10,13 +10,7 @@ describe("Scripts", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -69,13 +63,7 @@ describe("Scripts", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
         const rawRequestBody = {
             scripts: [
@@ -155,13 +143,7 @@ describe("Scripts", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         server
@@ -179,19 +161,14 @@ describe("Scripts", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
             blocks: [
                 {
                     siteId: "6258612d1ee792848f805dcf",
+                    pageId: "pageId",
                     type: "site",
                     scripts: [{ id: "chartjs", location: "header", version: "4.4.2", attributes: { key: "value" } }],
                     createdOn: "2024-04-03T16:49:15Z",
@@ -216,11 +193,15 @@ describe("Scripts", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.sites.scripts.listCustomCodeBlocks("580e63e98c9a982ac9b8b741");
+        const response = await client.sites.scripts.listCustomCodeBlocks("580e63e98c9a982ac9b8b741", {
+            offset: 1.1,
+            limit: 1.1,
+        });
         expect(response).toEqual({
             blocks: [
                 {
                     siteId: "6258612d1ee792848f805dcf",
+                    pageId: "pageId",
                     type: "site",
                     scripts: [
                         {

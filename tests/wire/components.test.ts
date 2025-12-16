@@ -10,13 +10,7 @@ describe("Components", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -35,8 +29,20 @@ describe("Components", () => {
                     description: "A secondary button component that can be used across the site",
                     readonly: true,
                 },
-                { id: "6258612d1ee792848f805dcf", name: "Card", readonly: true },
-                { id: "68a2b1d1ee792848f805dcf", name: "Nav", readonly: true },
+                {
+                    id: "6258612d1ee792848f805dcf",
+                    name: "Card",
+                    group: "Buttons",
+                    description: "A button component that can be used across the site",
+                    readonly: true,
+                },
+                {
+                    id: "68a2b1d1ee792848f805dcf",
+                    name: "Nav",
+                    group: "Buttons",
+                    description: "A button component that can be used across the site",
+                    readonly: true,
+                },
             ],
             pagination: { limit: 20, offset: 0, total: 4 },
         };
@@ -50,6 +56,8 @@ describe("Components", () => {
 
         const response = await client.components.list("580e63e98c9a982ac9b8b741", {
             branchId: "68026fa68ef6dc744c75b833",
+            limit: 1.1,
+            offset: 1.1,
         });
         expect(response).toEqual({
             components: [
@@ -70,11 +78,15 @@ describe("Components", () => {
                 {
                     id: "6258612d1ee792848f805dcf",
                     name: "Card",
+                    group: "Buttons",
+                    description: "A button component that can be used across the site",
                     readonly: true,
                 },
                 {
                     id: "68a2b1d1ee792848f805dcf",
                     name: "Nav",
+                    group: "Buttons",
+                    description: "A button component that can be used across the site",
                     readonly: true,
                 },
             ],
@@ -90,13 +102,7 @@ describe("Components", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -137,6 +143,8 @@ describe("Components", () => {
             {
                 localeId: "65427cf400e02b306eaa04a0",
                 branchId: "68026fa68ef6dc744c75b833",
+                limit: 1.1,
+                offset: 1.1,
             },
         );
         expect(response).toEqual({
@@ -219,13 +227,7 @@ describe("Components", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
         const rawRequestBody = {
             nodes: [
@@ -333,13 +335,7 @@ describe("Components", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -374,6 +370,8 @@ describe("Components", () => {
             {
                 localeId: "65427cf400e02b306eaa04a0",
                 branchId: "68026fa68ef6dc744c75b833",
+                limit: 1.1,
+                offset: 1.1,
             },
         );
         expect(response).toEqual({
@@ -408,13 +406,7 @@ describe("Components", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
         const rawRequestBody = {
             properties: [

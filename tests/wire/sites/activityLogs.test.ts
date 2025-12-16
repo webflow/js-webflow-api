@@ -10,13 +10,7 @@ describe("ActivityLogs", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -30,6 +24,9 @@ describe("ActivityLogs", () => {
                     user: { id: "6509cd56e90eec668b009712", displayName: "John Doe" },
                     resourceId: "654c16c7b229e56bcf26870c",
                     resourceName: "foo-bar",
+                    newValue: "newValue",
+                    previousValue: "previousValue",
+                    payload: { key: "value" },
                 },
             ],
             pagination: { limit: 25, offset: 0, total: 1 },
@@ -42,7 +39,10 @@ describe("ActivityLogs", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.sites.activityLogs.list("580e63e98c9a982ac9b8b741");
+        const response = await client.sites.activityLogs.list("580e63e98c9a982ac9b8b741", {
+            limit: 1.1,
+            offset: 1.1,
+        });
         expect(response).toEqual({
             items: [
                 {
@@ -57,6 +57,11 @@ describe("ActivityLogs", () => {
                     },
                     resourceId: "654c16c7b229e56bcf26870c",
                     resourceName: "foo-bar",
+                    newValue: "newValue",
+                    previousValue: "previousValue",
+                    payload: {
+                        key: "value",
+                    },
                 },
             ],
             pagination: {

@@ -10,13 +10,7 @@ describe("Comments", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -26,6 +20,7 @@ describe("Comments", () => {
                     siteId: "679826b3b20b045e176bc4b5",
                     pageId: "679826b3b20b045e176bc4bc",
                     localeId: "67993753d910db250db64b3e",
+                    itemId: "580e64008c9a982ac9b8b754",
                     breakpoint: "main",
                     url: "https://webflow.com/design/site-slug-4ec832?workflow=comment&commentId=679d2ddb5196117ad04d1ff8&pageId=679826b3b20b045e176bc4bc",
                     content: "Let's go to the pub! [[6287ec36a841b25637c663df]] ",
@@ -50,6 +45,7 @@ describe("Comments", () => {
                     siteId: "679826b3b20b045e176bc4b5",
                     pageId: "679826b3b20b045e176bc4bc",
                     localeId: "67993753d910db250db64b3e",
+                    itemId: "580e64008c9a982ac9b8b754",
                     breakpoint: "main",
                     url: "https://webflow.com/design/site-slug-4ec832?workflow=comment&commentId=679d2ddb5196117ad04d1ff8&pageId=679826b3b20b045e176bc4bc",
                     content: "You have five minutes left to drink it [[6287ec36a841b25637c663df]] ",
@@ -82,6 +78,10 @@ describe("Comments", () => {
 
         const response = await client.sites.comments.listCommentThreads("580e63e98c9a982ac9b8b741", {
             localeId: "65427cf400e02b306eaa04a0",
+            offset: 1.1,
+            limit: 1.1,
+            sortBy: "createdOn",
+            sortOrder: "asc",
         });
         expect(response).toEqual({
             comments: [
@@ -90,6 +90,7 @@ describe("Comments", () => {
                     siteId: "679826b3b20b045e176bc4b5",
                     pageId: "679826b3b20b045e176bc4bc",
                     localeId: "67993753d910db250db64b3e",
+                    itemId: "580e64008c9a982ac9b8b754",
                     breakpoint: "main",
                     url: "https://webflow.com/design/site-slug-4ec832?workflow=comment&commentId=679d2ddb5196117ad04d1ff8&pageId=679826b3b20b045e176bc4bc",
                     content: "Let's go to the pub! [[6287ec36a841b25637c663df]] ",
@@ -114,6 +115,7 @@ describe("Comments", () => {
                     siteId: "679826b3b20b045e176bc4b5",
                     pageId: "679826b3b20b045e176bc4bc",
                     localeId: "67993753d910db250db64b3e",
+                    itemId: "580e64008c9a982ac9b8b754",
                     breakpoint: "main",
                     url: "https://webflow.com/design/site-slug-4ec832?workflow=comment&commentId=679d2ddb5196117ad04d1ff8&pageId=679826b3b20b045e176bc4bc",
                     content: "You have five minutes left to drink it [[6287ec36a841b25637c663df]] ",
@@ -146,13 +148,7 @@ describe("Comments", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -185,6 +181,10 @@ describe("Comments", () => {
             "580e63e98c9a982ac9b8b741",
             {
                 localeId: "65427cf400e02b306eaa04a0",
+                offset: 1.1,
+                limit: 1.1,
+                sortBy: "createdOn",
+                sortOrder: "asc",
             },
         );
         expect(response).toEqual({
@@ -218,13 +218,7 @@ describe("Comments", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -259,6 +253,10 @@ describe("Comments", () => {
             "580e63e98c9a982ac9b8b741",
             {
                 localeId: "65427cf400e02b306eaa04a0",
+                offset: 1.1,
+                limit: 1.1,
+                sortBy: "createdOn",
+                sortOrder: "asc",
             },
         );
         expect(response).toEqual({

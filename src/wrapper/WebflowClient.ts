@@ -9,6 +9,7 @@ import { Client as Assets } from "./AssetsClient";
 import { Client as Collections } from "./CollectionsClient";
 import { Client as Pages } from "./PagesClient";
 import {PageClient} from "@webflow/page-client";
+import { Client as Forms } from "./FormsClient";
 
 export class WebflowClient extends FernClient {
     constructor(protected readonly _options: FernClient.Options) {
@@ -22,6 +23,8 @@ export class WebflowClient extends FernClient {
     protected _collections: Collections | undefined;
 
     protected _pages: Pages | undefined;
+
+    protected _forms: Forms | undefined;
 
     public get webhooks(): Webhooks {
         return (this._webhooks ??= new Webhooks(this._options));
@@ -42,6 +45,10 @@ export class WebflowClient extends FernClient {
     public async createPageClient(siteId: string, pageId: string): Promise<PageClient> {
         const token = await core.Supplier.get(this._options.accessToken);
         return new PageClient({siteId, pageId, token });
+    }
+
+    public get forms(): Forms {
+        return (this._forms ??= new Forms(this._options));
     }
 
     /**

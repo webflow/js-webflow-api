@@ -7,7 +7,9 @@ service:
     get-site-plan:
       path: /sites/{site_id}/plan
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - sites:read
       docs: >
         Get site plan details for the specified Site.
 

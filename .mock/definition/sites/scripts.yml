@@ -7,7 +7,9 @@ service:
     get-custom-code:
       path: /sites/{site_id}/custom_code
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - custom_code:read
       docs: |
         Get all scripts applied to a site by the App. 
 
@@ -54,7 +56,9 @@ service:
     upsert-custom-code:
       path: /sites/{site_id}/custom_code
       method: PUT
-      auth: true
+      auth:
+        - OAuth2:
+            - custom_code:write
       docs: >
         Apply registered scripts to a site. If you have multiple scripts your
         App needs to apply or maintain on a site, ensure they are always
@@ -120,7 +124,9 @@ service:
     delete-custom-code:
       path: /sites/{site_id}/custom_code
       method: DELETE
-      auth: true
+      auth:
+        - OAuth2:
+            - custom_code:write
       docs: >
         Remove all scripts from a site applied by the App. This endpoint will
         not remove scripts from the site's registered scripts.
@@ -156,7 +162,9 @@ service:
     list-custom-code-blocks:
       path: /sites/{site_id}/custom_code/blocks
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - custom_code:read
       docs: >
         Get a list of scripts that have been applied to a site and/or individual
         pages. 
@@ -201,10 +209,14 @@ service:
       examples:
         - path-parameters:
             site_id: 580e63e98c9a982ac9b8b741
+          query-parameters:
+            offset: 1.1
+            limit: 1.1
           response:
             body:
               blocks:
                 - siteId: 6258612d1ee792848f805dcf
+                  pageId: pageId
                   type: site
                   scripts:
                     - id: chartjs

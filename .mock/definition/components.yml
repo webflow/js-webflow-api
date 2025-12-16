@@ -7,7 +7,9 @@ service:
     list:
       path: /sites/{site_id}/components
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - components:read
       docs: |
         List of all components for a site.
 
@@ -48,6 +50,8 @@ service:
             site_id: 580e63e98c9a982ac9b8b741
           query-parameters:
             branchId: 68026fa68ef6dc744c75b833
+            limit: 1.1
+            offset: 1.1
           response:
             body:
               components:
@@ -65,9 +69,13 @@ service:
                   readonly: true
                 - id: 6258612d1ee792848f805dcf
                   name: Card
+                  group: Buttons
+                  description: A button component that can be used across the site
                   readonly: true
                 - id: 68a2b1d1ee792848f805dcf
                   name: Nav
+                  group: Buttons
+                  description: A button component that can be used across the site
                   readonly: true
               pagination:
                 limit: 20
@@ -76,7 +84,9 @@ service:
     get-content:
       path: /sites/{site_id}/components/{component_id}/dom
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - components:read
       docs: >
         Get static content from a component definition. This includes text
         nodes, image nodes, select nodes, text input nodes, submit button nodes,
@@ -109,9 +119,12 @@ service:
         query-parameters:
           localeId:
             type: optional<string>
-            docs: >-
-              Unique identifier for a specific locale. Applicable, when using
-              localization.
+            docs: >
+              Unique identifier for a specific Locale.
+
+
+              [Lear more about
+              localization.](/data/v2.0.0/docs/working-with-localization)
           branchId:
             type: optional<string>
             docs: Scope the operation to work on a specific branch.
@@ -140,6 +153,8 @@ service:
           query-parameters:
             localeId: 65427cf400e02b306eaa04a0
             branchId: 68026fa68ef6dc744c75b833
+            limit: 1.1
+            offset: 1.1
           response:
             body:
               componentId: 69118560-d0bc-15fc-bbf8-b8fe5f6535b5
@@ -189,7 +204,9 @@ service:
     update-content:
       path: /sites/{site_id}/components/{component_id}/dom
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - components:write
       docs: >
         This endpoint updates content within a component defintion for
         **secondary locales**. It supports updating up to 1000 nodes in a single
@@ -200,13 +217,18 @@ service:
 
         1. Use the [get component
         content](/data/reference/pages-and-components/components/get-content)
-        endpoint to identify available content nodes and their types
+        endpoint to identify available content nodes and their types.
 
         2. If your component definition has a component instance nested within
         it, retrieve the nested component instance's properties that you'll
         override using the [get component
         properties](/data/reference/pages-and-components/components/get-properties)
-        endpoint
+        endpoint.
+
+        3. DOM elements may include a `data-w-id` attribute. This attribute is
+        used by Webflow to maintain custom attributes and links across locales.
+        Always include the original `data-w-id` value in your update requests to
+        ensure consistent behavior across all locales.
 
 
         <Note>
@@ -230,9 +252,12 @@ service:
         query-parameters:
           localeId:
             type: optional<string>
-            docs: >-
-              Unique identifier for a specific locale. Applicable, when using
-              localization.
+            docs: >
+              Unique identifier for a specific Locale.
+
+
+              [Lear more about
+              localization.](/data/v2.0.0/docs/working-with-localization)
           branchId:
             type: optional<string>
             docs: Scope the operation to work on a specific branch.
@@ -294,7 +319,9 @@ service:
     get-properties:
       path: /sites/{site_id}/components/{component_id}/properties
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - components:read
       docs: >
         Get the default property values of a component definition.
 
@@ -320,9 +347,12 @@ service:
         query-parameters:
           localeId:
             type: optional<string>
-            docs: >-
-              Unique identifier for a specific locale. Applicable, when using
-              localization.
+            docs: >
+              Unique identifier for a specific Locale.
+
+
+              [Lear more about
+              localization.](/data/v2.0.0/docs/working-with-localization)
           branchId:
             type: optional<string>
             docs: Scope the operation to work on a specific branch.
@@ -351,6 +381,8 @@ service:
           query-parameters:
             localeId: 65427cf400e02b306eaa04a0
             branchId: 68026fa68ef6dc744c75b833
+            limit: 1.1
+            offset: 1.1
           response:
             body:
               componentId: 658205daa3e8206a523b5ad4
@@ -374,16 +406,25 @@ service:
     update-properties:
       path: /sites/{site_id}/components/{component_id}/properties
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - components:write
       docs: >
         Update the default property values of a component definition in a
         specificed locale.
 
 
-        Before making updates, use the [get component
+        Before making updates:
+
+        1. Use the [get component
         properties](/data/reference/pages-and-components/components/get-properties)
         endpoint to identify properties that can be updated in a secondary
         locale.
+
+        2. Rich Text properties may include a `data-w-id` attribute. This
+        attribute is used by Webflow to maintain links across locales. Always
+        include the original `data-w-id` value in your update requests to ensure
+        consistent behavior across all locales.
 
 
         <Note>The request requires a secondary locale ID. If a `localeId` is
@@ -407,9 +448,12 @@ service:
         query-parameters:
           localeId:
             type: optional<string>
-            docs: >-
-              Unique identifier for a specific locale. Applicable, when using
-              localization.
+            docs: >
+              Unique identifier for a specific Locale.
+
+
+              [Lear more about
+              localization.](/data/v2.0.0/docs/working-with-localization)
           branchId:
             type: optional<string>
             docs: Scope the operation to work on a specific branch.
@@ -456,12 +500,12 @@ types:
   ComponentDomWriteNodesItem:
     discriminated: false
     union:
-      - type: root.Text Node
-      - type: root.Component Instance
+      - type: root.TextNodeWrite
+      - type: root.ComponentInstanceNodePropertyOverridesWrite
       - type: root.Select
-      - type: root.Text Input
-      - type: root.Submit Button
-      - type: root.Search Button
+      - type: root.TextInputNodeWrite
+      - type: root.SubmitButtonNodeWrite
+      - type: root.SearchButtonNodeWrite
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true

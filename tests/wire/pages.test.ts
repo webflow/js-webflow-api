@@ -10,13 +10,7 @@ describe("Pages", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -26,6 +20,8 @@ describe("Pages", () => {
                     siteId: "6258612d1ee792848f805dcf",
                     title: "Guide to the Galaxy",
                     slug: "guide-to-the-galaxy",
+                    parentId: "6419db964a9c435aa3af6251",
+                    collectionId: "6390c49774a71f12831a08e3",
                     createdOn: "2024-03-11T10:42:00Z",
                     lastUpdated: "2024-03-11T10:42:42Z",
                     archived: false,
@@ -53,12 +49,15 @@ describe("Pages", () => {
                     siteId: "6258612d1ee792848f805dcf",
                     title: "Towel Day Celebrations",
                     slug: "towel-day",
+                    parentId: "6419db964a9c435aa3af6251",
+                    collectionId: "6390c49774a71f12831a08e3",
                     createdOn: "2024-05-25T09:00:00Z",
                     lastUpdated: "2024-05-25T09:42:00Z",
                     archived: false,
                     draft: false,
                     canBranch: true,
                     isBranch: false,
+                    branchId: "68026fa68ef6dc744c75b833",
                     seo: {
                         title: "Celebrate Towel Day - The Hitchhiker's Guide to the Galaxy",
                         description:
@@ -87,6 +86,8 @@ describe("Pages", () => {
 
         const response = await client.pages.list("580e63e98c9a982ac9b8b741", {
             localeId: "65427cf400e02b306eaa04a0",
+            limit: 1.1,
+            offset: 1.1,
         });
         expect(response).toEqual({
             pages: [
@@ -95,6 +96,8 @@ describe("Pages", () => {
                     siteId: "6258612d1ee792848f805dcf",
                     title: "Guide to the Galaxy",
                     slug: "guide-to-the-galaxy",
+                    parentId: "6419db964a9c435aa3af6251",
+                    collectionId: "6390c49774a71f12831a08e3",
                     createdOn: new Date("2024-03-11T10:42:00.000Z"),
                     lastUpdated: new Date("2024-03-11T10:42:42.000Z"),
                     archived: false,
@@ -122,12 +125,15 @@ describe("Pages", () => {
                     siteId: "6258612d1ee792848f805dcf",
                     title: "Towel Day Celebrations",
                     slug: "towel-day",
+                    parentId: "6419db964a9c435aa3af6251",
+                    collectionId: "6390c49774a71f12831a08e3",
                     createdOn: new Date("2024-05-25T09:00:00.000Z"),
                     lastUpdated: new Date("2024-05-25T09:42:00.000Z"),
                     archived: false,
                     draft: false,
                     canBranch: true,
                     isBranch: false,
+                    branchId: "68026fa68ef6dc744c75b833",
                     seo: {
                         title: "Celebrate Towel Day - The Hitchhiker's Guide to the Galaxy",
                         description:
@@ -156,13 +162,7 @@ describe("Pages", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -170,6 +170,8 @@ describe("Pages", () => {
             siteId: "6258612d1ee792848f805dcf",
             title: "Guide to the Galaxy",
             slug: "guide-to-the-galaxy",
+            parentId: "6419db964a9c435aa3af6251",
+            collectionId: "6390c49774a71f12831a08e3",
             createdOn: "2024-03-11T10:42:00Z",
             lastUpdated: "2024-03-11T10:42:42Z",
             archived: false,
@@ -207,6 +209,8 @@ describe("Pages", () => {
             siteId: "6258612d1ee792848f805dcf",
             title: "Guide to the Galaxy",
             slug: "guide-to-the-galaxy",
+            parentId: "6419db964a9c435aa3af6251",
+            collectionId: "6390c49774a71f12831a08e3",
             createdOn: new Date("2024-03-11T10:42:00.000Z"),
             lastUpdated: new Date("2024-03-11T10:42:42.000Z"),
             archived: false,
@@ -234,13 +238,7 @@ describe("Pages", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
         const rawRequestBody = {
             title: "Guide to the Galaxy",
@@ -262,6 +260,8 @@ describe("Pages", () => {
             siteId: "6258612d1ee792848f805dcf",
             title: "Guide to the Galaxy",
             slug: "guide-to-the-galaxy",
+            parentId: "6419db964a9c435aa3af6251",
+            collectionId: "6390c49774a71f12831a08e3",
             createdOn: "2024-03-11T10:42:00Z",
             lastUpdated: "2024-03-11T10:42:42Z",
             archived: false,
@@ -313,6 +313,8 @@ describe("Pages", () => {
             siteId: "6258612d1ee792848f805dcf",
             title: "Guide to the Galaxy",
             slug: "guide-to-the-galaxy",
+            parentId: "6419db964a9c435aa3af6251",
+            collectionId: "6390c49774a71f12831a08e3",
             createdOn: new Date("2024-03-11T10:42:00.000Z"),
             lastUpdated: new Date("2024-03-11T10:42:42.000Z"),
             archived: false,
@@ -340,13 +342,7 @@ describe("Pages", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -379,6 +375,8 @@ describe("Pages", () => {
 
         const response = await client.pages.getContent("63c720f9347c2139b248e552", {
             localeId: "65427cf400e02b306eaa04a0",
+            limit: 1.1,
+            offset: 1.1,
         });
         expect(response).toEqual({
             pageId: "658205daa3e8206a523b5ad4",
@@ -461,13 +459,7 @@ describe("Pages", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
         const rawRequestBody = {
             nodes: [

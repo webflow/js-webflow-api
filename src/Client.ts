@@ -27,7 +27,7 @@ export declare namespace WebflowClient {
         environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        accessToken: core.Supplier<core.BearerToken>;
+        accessToken?: core.Supplier<core.BearerToken | undefined>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
@@ -63,15 +63,15 @@ export class WebflowClient {
     protected _ecommerce: Ecommerce | undefined;
     protected _workspaces: Workspaces | undefined;
 
-    constructor(_options: WebflowClient.Options) {
+    constructor(_options: WebflowClient.Options = {}) {
         this._options = {
             ..._options,
             headers: mergeHeaders(
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "webflow-api",
-                    "X-Fern-SDK-Version": "3.2.1",
-                    "User-Agent": "webflow-api/3.2.1",
+                    "X-Fern-SDK-Version": "3.2.2",
+                    "User-Agent": "webflow-api/3.2.2",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },

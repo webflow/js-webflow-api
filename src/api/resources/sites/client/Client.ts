@@ -16,13 +16,14 @@ import { WellKnown } from "../resources/wellKnown/client/Client";
 import { ActivityLogs } from "../resources/activityLogs/client/Client";
 import { Comments } from "../resources/comments/client/Client";
 import { Scripts } from "../resources/scripts/client/Client";
+import { Forms } from "../resources/forms/client/Client";
 
 export declare namespace Sites {
     export interface Options {
         environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        accessToken: core.Supplier<core.BearerToken>;
+        accessToken?: core.Supplier<core.BearerToken | undefined>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
@@ -51,8 +52,9 @@ export class Sites {
     protected _activityLogs: ActivityLogs | undefined;
     protected _comments: Comments | undefined;
     protected _scripts: Scripts | undefined;
+    protected _forms: Forms | undefined;
 
-    constructor(_options: Sites.Options) {
+    constructor(_options: Sites.Options = {}) {
         this._options = _options;
     }
 
@@ -82,6 +84,10 @@ export class Sites {
 
     public get scripts(): Scripts {
         return (this._scripts ??= new Scripts(this._options));
+    }
+
+    public get forms(): Forms {
+        return (this._forms ??= new Forms(this._options));
     }
 
     /**
@@ -1017,7 +1023,12 @@ export class Sites {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
+    protected async _getAuthorizationHeader(): Promise<string | undefined> {
+        const bearer = await core.Supplier.get(this._options.accessToken);
+        if (bearer != null) {
+            return `Bearer ${bearer}`;
+        }
+
+        return undefined;
     }
 }

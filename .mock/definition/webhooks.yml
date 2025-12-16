@@ -7,7 +7,6 @@ service:
     list:
       path: /sites/{site_id}/webhooks
       method: GET
-      auth: true
       docs: |
         List all App-created Webhooks registered for a given site
 
@@ -69,7 +68,6 @@ service:
     create:
       path: /sites/{site_id}/webhooks
       method: POST
-      auth: true
       docs: >
         Create a new Webhook.
 
@@ -119,12 +117,13 @@ service:
               url: https://webhook.site/7f7f7f7f-7f7f-7f7f-7f7f-7f7f7f7f7f7f
               workspaceId: 4f4e46fd476ea8c507000001
               siteId: 562ac0395358780a1f5e6fbd
+              filter:
+                name: My Form
               lastTriggered: '2023-02-08T23:59:28Z'
               createdOn: '2022-11-08T23:59:28Z'
     get:
       path: /webhooks/{webhook_id}
       method: GET
-      auth: true
       docs: |
         Get a specific Webhook instance
 
@@ -156,12 +155,13 @@ service:
               url: https://webhook.site/7f7f7f7f-7f7f-7f7f-7f7f-7f7f7f7f7f7f
               workspaceId: 4f4e46fd476ea8c507000001
               siteId: 562ac0395358780a1f5e6fbd
+              filter:
+                name: My Form
               lastTriggered: '2023-02-08T23:59:28Z'
               createdOn: '2022-11-08T23:59:28Z'
     delete:
       path: /webhooks/{webhook_id}
       method: DELETE
-      auth: true
       docs: |
         Remove a Webhook
 

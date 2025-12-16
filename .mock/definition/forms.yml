@@ -7,7 +7,9 @@ service:
     list:
       path: /sites/{site_id}/forms
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - forms:read
       docs: |
         List forms for a given site.
 
@@ -45,6 +47,9 @@ service:
       examples:
         - path-parameters:
             site_id: 580e63e98c9a982ac9b8b741
+          query-parameters:
+            limit: 1.1
+            offset: 1.1
           response:
             body:
               forms:
@@ -54,13 +59,16 @@ service:
                   fields:
                     '0':
                       displayName: Email
+                      placeholder: Enter your email
                       userVisible: true
                     '1':
                       displayName: Email
+                      placeholder: Enter your email
                       userVisible: true
                   responseSettings:
                     redirectUrl: https://example.com
                     redirectMethod: GET
+                    redirectAction: POST https://example.com
                     sendEmailConfirmation: true
                   id: 589a331aa51e760df7ccb89e
                   siteId: 580e63e98c9a982ac9b8b741
@@ -75,10 +83,12 @@ service:
                   fields:
                     '0':
                       displayName: Email
+                      placeholder: Enter your email
                       userVisible: true
                   responseSettings:
                     redirectUrl: https://example.com
                     redirectMethod: GET
+                    redirectAction: POST https://example.com
                     sendEmailConfirmation: false
                   id: 580ff8d7ba3e45ba9fe588e9
                   siteId: 580e63e98c9a982ac9b8b741
@@ -94,7 +104,9 @@ service:
     get:
       path: /forms/{form_id}
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - forms:read
       docs: |
         Get information about a given form.
 
@@ -129,6 +141,7 @@ service:
                 660d5bcc9c0772150459dfb1:
                   displayName: Name
                   type: Plain
+                  placeholder: Enter your email
                   userVisible: true
                 589a331aa51e760df7ccb89d:
                   displayName: Email
@@ -138,6 +151,7 @@ service:
               responseSettings:
                 redirectUrl: https://example.com
                 redirectMethod: GET
+                redirectAction: POST https://example.com
                 sendEmailConfirmation: true
               id: 589a331aa51e760df7ccb89e
               siteId: 580e63e98c9a982ac9b8b741
@@ -149,7 +163,9 @@ service:
     list-submissions:
       path: /forms/{form_id}/submissions
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - forms:read
       docs: |
         List form submissions for a given form
 
@@ -192,6 +208,9 @@ service:
       examples:
         - path-parameters:
             form_id: 580e63e98c9a982ac9b8b741
+          query-parameters:
+            offset: 1.1
+            limit: 1.1
           response:
             body:
               formSubmissions:
@@ -218,7 +237,9 @@ service:
     get-submission:
       path: /form_submissions/{form_submission_id}
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - forms:read
       docs: |
         Get information about a given form submissio.
 
@@ -257,7 +278,9 @@ service:
     delete-submission:
       path: /form_submissions/{form_submission_id}
       method: DELETE
-      auth: true
+      auth:
+        - OAuth2:
+            - forms:write
       docs: |
         Delete a form submission
 
@@ -284,7 +307,9 @@ service:
     update-submission:
       path: /form_submissions/{form_submission_id}
       method: PATCH
-      auth: true
+      auth:
+        - OAuth2:
+            - forms:write
       docs: |
         Update hidden fields on a form submission
 
@@ -332,82 +357,6 @@ service:
               formResponse:
                 First Name: Arthur
                 Last Name: Dent
-    list-submissions-by-site:
-      path: /sites/{site_id}/form_submissions
-      method: GET
-      auth: true
-      docs: >
-        List form submissions for a given site. This endpoint differs from the
-        existing [List Form Submissions
-        endpoint](/data/reference/forms/form-submissions/list-submissions) by
-        accepting `siteId` as a path parameter and `elementId` as a query
-        parameter. You can get the `elementId` from the [List forms
-        endpoint](/data/reference/forms/forms/list).
-
-
-
-
-        Required scope | `forms:read`
-      source:
-        openapi: ../../../openapi/referenced-specs/v2.yml
-      path-parameters:
-        site_id:
-          type: string
-          docs: Unique identifier for a Site
-      display-name: List Form Submissions by Site
-      request:
-        name: FormsListSubmissionsBySiteRequest
-        query-parameters:
-          elementId:
-            type: optional<string>
-            docs: Identifier for an element
-          offset:
-            type: optional<double>
-            docs: >-
-              Offset used for pagination if the results have more than limit
-              records
-          limit:
-            type: optional<double>
-            docs: 'Maximum number of records to be returned (max limit: 100)'
-      response:
-        docs: Request was successful
-        type: root.FormSubmissionList
-        status-code: 200
-      errors:
-        - root.BadRequestError
-        - root.UnauthorizedError
-        - root.ForbiddenError
-        - root.NotFoundError
-        - root.TooManyRequestsError
-        - root.InternalServerError
-      examples:
-        - path-parameters:
-            site_id: 580e63e98c9a982ac9b8b741
-          query-parameters:
-            elementId: 18259716-3e5a-646a-5f41-5dc4b9405aa0
-          response:
-            body:
-              formSubmissions:
-                - id: 6321ca84df3949bfc6752327
-                  displayName: Sample Form
-                  siteId: 62749158efef318abc8d5a0f
-                  workspaceId: 62749158efef318abc8d5a0f
-                  dateSubmitted: '2022-09-14T12:35:16Z'
-                  formResponse:
-                    First Name: Arthur
-                    Last Name: Dent
-                - id: 660d64fabf6e0a0d4edab981
-                  displayName: Sample Form
-                  siteId: 62749158efef318abc8d5a0f
-                  workspaceId: 62749158efef318abc8d5a0f
-                  dateSubmitted: '2022-09-14T12:35:16Z'
-                  formResponse:
-                    First Name: Ford
-                    Last Name: Prefect
-              pagination:
-                limit: 25
-                offset: 0
-                total: 2
   source:
     openapi: ../../../openapi/referenced-specs/v2.yml
   display-name: Forms

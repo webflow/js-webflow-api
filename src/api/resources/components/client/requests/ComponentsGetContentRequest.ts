@@ -6,12 +6,16 @@
  * @example
  *     {
  *         localeId: "65427cf400e02b306eaa04a0",
- *         branchId: "68026fa68ef6dc744c75b833"
+ *         branchId: "68026fa68ef6dc744c75b833",
+ *         limit: 1.1,
+ *         offset: 1.1
  *     }
  */
 export interface ComponentsGetContentRequest {
     /**
-     * Unique identifier for a specific locale. Applicable, when using localization.
+     * Unique identifier for a specific Locale.
+     *
+     * [Lear more about localization.](/data/v2.0.0/docs/working-with-localization)
      */
     localeId?: string;
     /**

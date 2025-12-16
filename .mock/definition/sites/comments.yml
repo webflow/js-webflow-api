@@ -44,7 +44,9 @@ service:
     list-comment-threads:
       path: /sites/{site_id}/comments
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - comments:read
       docs: |
         List all comment threads for a site.
 
@@ -65,9 +67,12 @@ service:
         query-parameters:
           localeId:
             type: optional<string>
-            docs: >-
-              Unique identifier for a specific locale. Applicable, when using
-              localization.
+            docs: >
+              Unique identifier for a specific Locale.
+
+
+              [Lear more about
+              localization.](/data/v2.0.0/docs/working-with-localization)
           offset:
             type: optional<double>
             docs: >-
@@ -99,6 +104,10 @@ service:
             site_id: 580e63e98c9a982ac9b8b741
           query-parameters:
             localeId: 65427cf400e02b306eaa04a0
+            offset: 1.1
+            limit: 1.1
+            sortBy: createdOn
+            sortOrder: asc
           response:
             body:
               comments:
@@ -106,6 +115,7 @@ service:
                   siteId: 679826b3b20b045e176bc4b5
                   pageId: 679826b3b20b045e176bc4bc
                   localeId: 67993753d910db250db64b3e
+                  itemId: 580e64008c9a982ac9b8b754
                   breakpoint: main
                   url: >-
                     https://webflow.com/design/site-slug-4ec832?workflow=comment&commentId=679d2ddb5196117ad04d1ff8&pageId=679826b3b20b045e176bc4bc
@@ -125,6 +135,7 @@ service:
                   siteId: 679826b3b20b045e176bc4b5
                   pageId: 679826b3b20b045e176bc4bc
                   localeId: 67993753d910db250db64b3e
+                  itemId: 580e64008c9a982ac9b8b754
                   breakpoint: main
                   url: >-
                     https://webflow.com/design/site-slug-4ec832?workflow=comment&commentId=679d2ddb5196117ad04d1ff8&pageId=679826b3b20b045e176bc4bc
@@ -149,7 +160,9 @@ service:
     get-comment-thread:
       path: /sites/{site_id}/comments/{comment_thread_id}
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - comments:read
       docs: |
         Get details of a specific comment thread.
 
@@ -173,9 +186,12 @@ service:
         query-parameters:
           localeId:
             type: optional<string>
-            docs: >-
-              Unique identifier for a specific locale. Applicable, when using
-              localization.
+            docs: >
+              Unique identifier for a specific Locale.
+
+
+              [Lear more about
+              localization.](/data/v2.0.0/docs/working-with-localization)
           offset:
             type: optional<double>
             docs: >-
@@ -208,6 +224,10 @@ service:
             comment_thread_id: 580e63e98c9a982ac9b8b741
           query-parameters:
             localeId: 65427cf400e02b306eaa04a0
+            offset: 1.1
+            limit: 1.1
+            sortBy: createdOn
+            sortOrder: asc
           response:
             body:
               id: 580e64008c9a982ac9b8b754
@@ -233,7 +253,9 @@ service:
     list-comment-replies:
       path: /sites/{site_id}/comments/{comment_thread_id}/replies
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - comments:read
       docs: |
         List all replies to a specific comment thread.
 
@@ -257,9 +279,12 @@ service:
         query-parameters:
           localeId:
             type: optional<string>
-            docs: >-
-              Unique identifier for a specific locale. Applicable, when using
-              localization.
+            docs: >
+              Unique identifier for a specific Locale.
+
+
+              [Lear more about
+              localization.](/data/v2.0.0/docs/working-with-localization)
           offset:
             type: optional<double>
             docs: >-
@@ -292,6 +317,10 @@ service:
             comment_thread_id: 580e63e98c9a982ac9b8b741
           query-parameters:
             localeId: 65427cf400e02b306eaa04a0
+            offset: 1.1
+            limit: 1.1
+            sortBy: createdOn
+            sortOrder: asc
           response:
             body:
               comments:

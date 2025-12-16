@@ -10,7 +10,7 @@ import * as Webflow from "../index";
 export interface Dom {
     /** Page ID */
     pageId?: string;
-    /** If the page is a branch, this is the ID of the branch */
+    /** The unique identifier of a [specific page branch.](https://help.webflow.com/hc/en-us/articles/33961355506195-Page-branching) */
     branchId?: string;
     nodes?: Webflow.Node[];
     pagination?: Webflow.Pagination;

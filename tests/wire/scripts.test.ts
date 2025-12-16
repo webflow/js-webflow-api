@@ -10,13 +10,7 @@ describe("Scripts", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -26,6 +20,7 @@ describe("Scripts", () => {
                     canCopy: false,
                     displayName: "Alert",
                     hostedLocation: "https://cdn.webflow.io/.../alert-0.0.1.js",
+                    integrityHash: "integrityHash",
                     createdOn: "2022-10-26T00:28:54.191Z",
                     lastUpdated: "lastUpdated",
                     version: "0.0.1",
@@ -35,6 +30,7 @@ describe("Scripts", () => {
                     canCopy: false,
                     displayName: "Alert",
                     hostedLocation: "https://cdn.webflow.io/.../alert-0.0.2.js",
+                    integrityHash: "integrityHash",
                     createdOn: "2022-10-26T00:28:54.191Z",
                     lastUpdated: "lastUpdated",
                     version: "0.0.2",
@@ -68,6 +64,7 @@ describe("Scripts", () => {
                     canCopy: false,
                     displayName: "Alert",
                     hostedLocation: "https://cdn.webflow.io/.../alert-0.0.1.js",
+                    integrityHash: "integrityHash",
                     createdOn: "2022-10-26T00:28:54.191Z",
                     lastUpdated: "lastUpdated",
                     version: "0.0.1",
@@ -77,6 +74,7 @@ describe("Scripts", () => {
                     canCopy: false,
                     displayName: "Alert",
                     hostedLocation: "https://cdn.webflow.io/.../alert-0.0.2.js",
+                    integrityHash: "integrityHash",
                     createdOn: "2022-10-26T00:28:54.191Z",
                     lastUpdated: "lastUpdated",
                     version: "0.0.2",
@@ -104,13 +102,7 @@ describe("Scripts", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
         const rawRequestBody = {
             hostedLocation: "hostedLocation",
@@ -159,13 +151,7 @@ describe("Scripts", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
         const rawRequestBody = { sourceCode: "alert('hello world');", version: "0.0.1", displayName: "Alert" };
         const rawResponseBody = {
@@ -174,6 +160,7 @@ describe("Scripts", () => {
             displayName: "Alert",
             hostedLocation:
                 "https://uploads-ssl.webflow.com/6258612d1ee792848f805dcf%2F64b6c769ff52ba6c3d904a91%2F660d6e15b3d1696f2d2b1447%2Falert-0.0.1.js",
+            integrityHash: "integrityHash",
             createdOn: "2022-10-26T00:28:54.191Z",
             lastUpdated: "lastUpdated",
             version: "0.0.1",
@@ -198,6 +185,7 @@ describe("Scripts", () => {
             displayName: "Alert",
             hostedLocation:
                 "https://uploads-ssl.webflow.com/6258612d1ee792848f805dcf%2F64b6c769ff52ba6c3d904a91%2F660d6e15b3d1696f2d2b1447%2Falert-0.0.1.js",
+            integrityHash: "integrityHash",
             createdOn: "2022-10-26T00:28:54.191Z",
             lastUpdated: "lastUpdated",
             version: "0.0.1",

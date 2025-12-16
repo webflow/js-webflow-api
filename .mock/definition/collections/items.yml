@@ -131,8 +131,7 @@ types:
   Item IDs:
     docs: An array of Item IDs in a single locale
     properties:
-      itemIds:
-        type: optional<list<string>>
+      itemIds: optional<list<string>>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
@@ -150,8 +149,7 @@ types:
   Item IDs with Locales:
     docs: An array of Item IDs with included `cmsLocaleIds`
     properties:
-      items:
-        type: optional<list<ItemsPublishItemRequestItemsItemsItem>>
+      items: optional<list<ItemsPublishItemRequestItemsItemsItem>>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
     inline: true
@@ -177,7 +175,9 @@ service:
     list-items:
       path: /collections/{collection_id}/items
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:read
       docs: |
         List of all Items within a Collection.
 
@@ -235,6 +235,14 @@ service:
       examples:
         - path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
+          query-parameters:
+            cmsLocaleId: cmsLocaleId
+            offset: 1.1
+            limit: 1.1
+            name: name
+            slug: slug
+            sortBy: lastPublished
+            sortOrder: asc
           response:
             body:
               items:
@@ -269,7 +277,9 @@ service:
     create-item:
       path: /collections/{collection_id}/items
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: >
         Create Item(s) in a Collection.
 
@@ -312,15 +322,44 @@ service:
         - name: SingleItem
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
+          query-parameters:
+            skipInvalidFiles: true
           request:
             isArchived: false
             isDraft: false
             fieldData:
-              name: Pan Galactic Gargle Blaster Recipe
-              slug: pan-galactic-gargle-blaster
-              date: '2022-11-18T00:00:00.000Z'
-              featured: true
-              color: '#db4b68'
+              name: The Hitchhiker's Guide to the Galaxy
+              slug: hitchhikers-guide-to-the-galaxy
+              plain-text: Don't Panic.
+              rich-text: >-
+                <h3>A Guide to Interstellar Travel</h3><p>A towel is about the
+                most massively useful thing an interstellar hitchhiker can have.
+                <strong>Don't forget yours!</strong></p>
+              main-image:
+                fileId: 62b720ef280c7a7a3be8cabe
+                url: /files/62b720ef280c7a7a3be8cabe_image.png
+              image-gallery:
+                - fileId: 62b720ef280c7a7a3be8cabd
+                  url: /files/62b720ef280c7a7a3be8cabd_image.png
+                - fileId: 62b720ef280c7a7a3be8cabe
+                  url: /files/62b720ef280c7a7a3be8cabe_image.png
+              intro-video: https://www.youtube.com/watch?v=aJ83KAggd-4
+              official-site: >-
+                https://hitchhikers.fandom.com/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy
+              contact-email: zaphod.beeblebrox@heartofgold.gov
+              support-phone: 424-242-4242
+              answer-to-everything: 42
+              release-date: '1979-10-12T00:00:00.000Z'
+              is-featured: true
+              brand-color: '#000000'
+              category: 62b720ef280c7a7a3be8cabf
+              author: 62b720ef280c7a7a3be8cab0
+              tags:
+                - 62b720ef280c7a7a3be8cab1
+                - 62b720ef280c7a7a3be8cab2
+              downloadable-asset:
+                fileId: 62b720ef280c7a7a3be8cab3
+                url: /files/62b720ef280c7a7a3be8cab3_document.pdf
           response:
             body:
               id: 42b720ef280c7a7a3be8cabe
@@ -331,14 +370,43 @@ service:
               isArchived: false
               isDraft: false
               fieldData:
-                name: Pan Galactic Gargle Blaster Recipe
-                slug: pan-galactic-gargle-blaster
-                color: '#db4b68'
-                date: '2022-11-18T00:00:00.000Z'
-                featured: true
+                name: The Hitchhiker's Guide to the Galaxy
+                slug: hitchhikers-guide-to-the-galaxy
+                plain-text: Don't Panic.
+                rich-text: >-
+                  <h3>A Guide to Interstellar Travel</h3><p>A towel is about the
+                  most massively useful thing an interstellar hitchhiker can
+                  have. <strong>Don't forget yours!</strong></p>
+                main-image:
+                  fileId: 62b720ef280c7a7a3be8cabe
+                  url: /files/62b720ef280c7a7a3be8cabe_image.png
+                image-gallery:
+                  - fileId: 62b720ef280c7a7a3be8cabd
+                    url: /files/62b720ef280c7a7a3be8cabd_image.png
+                  - fileId: 62b720ef280c7a7a3be8cabe
+                    url: /files/62b720ef280c7a7a3be8cabe_image.png
+                intro-video: https://www.youtube.com/watch?v=aJ83KAggd-4
+                official-site: >-
+                  https://hitchhikers.fandom.com/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy
+                contact-email: zaphod.beeblebrox@heartofgold.gov
+                support-phone: 424-242-4242
+                answer-to-everything: 42
+                release-date: '1979-10-12T00:00:00.000Z'
+                is-featured: true
+                brand-color: '#000000'
+                category: 62b720ef280c7a7a3be8cabf
+                author: 62b720ef280c7a7a3be8cab0
+                tags:
+                  - 62b720ef280c7a7a3be8cab1
+                  - 62b720ef280c7a7a3be8cab2
+                downloadable-asset:
+                  fileId: 62b720ef280c7a7a3be8cab3
+                  url: /files/62b720ef280c7a7a3be8cab3_document.pdf
         - name: MultipleItems
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
+          query-parameters:
+            skipInvalidFiles: true
           request:
             items:
               - isArchived: false
@@ -373,7 +441,9 @@ service:
     delete-items:
       path: /collections/{collection_id}/items
       method: DELETE
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: >
         Delete Items from a Collection.
 
@@ -412,7 +482,9 @@ service:
     update-items:
       path: /collections/{collection_id}/items
       method: PATCH
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: >
         Update a single item or multiple items in a Collection.
 
@@ -459,6 +531,8 @@ service:
         - name: LocalizedItems
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
+          query-parameters:
+            skipInvalidFiles: true
           request:
             items:
               - id: 66f6ed9576ddacf3149d5ea6
@@ -539,6 +613,8 @@ service:
         - name: MultipleItems
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
+          query-parameters:
+            skipInvalidFiles: true
           request:
             items:
               - id: 580e64008c9a982ac9b8b754
@@ -591,14 +667,15 @@ service:
     list-items-live:
       path: /collections/{collection_id}/items/live
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:read
       docs: |
         List all published items in a collection.
 
-        <Note title="Serve data with the Content Delivery API">
-          To serve content to your other frontends applications, enterprise sites have access to a dedicated [content delivery API](/data/docs/cms-content-delivery), available at api-cdn.webflow.com.
-
-        </Note>
+        <Tip title="Serve data with the Content Delivery API">
+          Serving data to applications in real-time? Use the Content Delivery API at `api-cdn.webflow.com` for better performance. The CDN-backed endpoint is optimized for high-volume reads, while the Data API is designed for writes and management operations.
+        </Tip>
 
         Required scope | `CMS:read`
       source:
@@ -655,6 +732,14 @@ service:
       examples:
         - path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
+          query-parameters:
+            cmsLocaleId: cmsLocaleId
+            offset: 1.1
+            limit: 1.1
+            name: name
+            slug: slug
+            sortBy: lastPublished
+            sortOrder: asc
           response:
             body:
               items:
@@ -689,7 +774,9 @@ service:
     create-item-live:
       path: /collections/{collection_id}/items/live
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: >
         Create item(s) in a collection that will be immediately published to the
         live site.
@@ -734,15 +821,44 @@ service:
         - name: SingleItem
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
+          query-parameters:
+            skipInvalidFiles: true
           request:
             isArchived: false
             isDraft: false
             fieldData:
-              name: Pan Galactic Gargle Blaster Recipe
-              slug: pan-galactic-gargle-blaster
-              date: '2022-11-18T00:00:00.000Z'
-              featured: true
-              color: '#db4b68'
+              name: The Hitchhiker's Guide to the Galaxy
+              slug: hitchhikers-guide-to-the-galaxy
+              plain-text: Don't Panic.
+              rich-text: >-
+                <h3>A Guide to Interstellar Travel</h3><p>A towel is about the
+                most massively useful thing an interstellar hitchhiker can have.
+                <strong>Don't forget yours!</strong></p>
+              main-image:
+                fileId: 62b720ef280c7a7a3be8cabe
+                url: /files/62b720ef280c7a7a3be8cabe_image.png
+              image-gallery:
+                - fileId: 62b720ef280c7a7a3be8cabd
+                  url: /files/62b720ef280c7a7a3be8cabd_image.png
+                - fileId: 62b720ef280c7a7a3be8cabe
+                  url: /files/62b720ef280c7a7a3be8cabe_image.png
+              intro-video: https://www.youtube.com/watch?v=aJ83KAggd-4
+              official-site: >-
+                https://hitchhikers.fandom.com/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy
+              contact-email: zaphod.beeblebrox@heartofgold.gov
+              support-phone: 424-242-4242
+              answer-to-everything: 42
+              release-date: '1979-10-12T00:00:00.000Z'
+              is-featured: true
+              brand-color: '#000000'
+              category: 62b720ef280c7a7a3be8cabf
+              author: 62b720ef280c7a7a3be8cab0
+              tags:
+                - 62b720ef280c7a7a3be8cab1
+                - 62b720ef280c7a7a3be8cab2
+              downloadable-asset:
+                fileId: 62b720ef280c7a7a3be8cab3
+                url: /files/62b720ef280c7a7a3be8cab3_document.pdf
           response:
             body:
               id: 42b720ef280c7a7a3be8cabe
@@ -753,14 +869,43 @@ service:
               isArchived: false
               isDraft: false
               fieldData:
-                name: Pan Galactic Gargle Blaster Recipe
-                slug: pan-galactic-gargle-blaster
-                color: '#db4b68'
-                date: '2022-11-18T00:00:00.000Z'
-                featured: true
+                name: The Hitchhiker's Guide to the Galaxy
+                slug: hitchhikers-guide-to-the-galaxy
+                plain-text: Don't Panic.
+                rich-text: >-
+                  <h3>A Guide to Interstellar Travel</h3><p>A towel is about the
+                  most massively useful thing an interstellar hitchhiker can
+                  have. <strong>Don't forget yours!</strong></p>
+                main-image:
+                  fileId: 62b720ef280c7a7a3be8cabe
+                  url: /files/62b720ef280c7a7a3be8cabe_image.png
+                image-gallery:
+                  - fileId: 62b720ef280c7a7a3be8cabd
+                    url: /files/62b720ef280c7a7a3be8cabd_image.png
+                  - fileId: 62b720ef280c7a7a3be8cabe
+                    url: /files/62b720ef280c7a7a3be8cabe_image.png
+                intro-video: https://www.youtube.com/watch?v=aJ83KAggd-4
+                official-site: >-
+                  https://hitchhikers.fandom.com/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy
+                contact-email: zaphod.beeblebrox@heartofgold.gov
+                support-phone: 424-242-4242
+                answer-to-everything: 42
+                release-date: '1979-10-12T00:00:00.000Z'
+                is-featured: true
+                brand-color: '#000000'
+                category: 62b720ef280c7a7a3be8cabf
+                author: 62b720ef280c7a7a3be8cab0
+                tags:
+                  - 62b720ef280c7a7a3be8cab1
+                  - 62b720ef280c7a7a3be8cab2
+                downloadable-asset:
+                  fileId: 62b720ef280c7a7a3be8cab3
+                  url: /files/62b720ef280c7a7a3be8cab3_document.pdf
         - name: MultipleItems
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
+          query-parameters:
+            skipInvalidFiles: true
           request:
             items:
               - isArchived: false
@@ -787,15 +932,44 @@ service:
               isArchived: false
               isDraft: false
               fieldData:
-                name: Pan Galactic Gargle Blaster Recipe
-                slug: pan-galactic-gargle-blaster
-                color: '#db4b68'
-                date: '2022-11-18T00:00:00.000Z'
-                featured: true
+                name: The Hitchhiker's Guide to the Galaxy
+                slug: hitchhikers-guide-to-the-galaxy
+                plain-text: Don't Panic.
+                rich-text: >-
+                  <h3>A Guide to Interstellar Travel</h3><p>A towel is about the
+                  most massively useful thing an interstellar hitchhiker can
+                  have. <strong>Don't forget yours!</strong></p>
+                main-image:
+                  fileId: 62b720ef280c7a7a3be8cabe
+                  url: /files/62b720ef280c7a7a3be8cabe_image.png
+                image-gallery:
+                  - fileId: 62b720ef280c7a7a3be8cabd
+                    url: /files/62b720ef280c7a7a3be8cabd_image.png
+                  - fileId: 62b720ef280c7a7a3be8cabe
+                    url: /files/62b720ef280c7a7a3be8cabe_image.png
+                intro-video: https://www.youtube.com/watch?v=aJ83KAggd-4
+                official-site: >-
+                  https://hitchhikers.fandom.com/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy
+                contact-email: zaphod.beeblebrox@heartofgold.gov
+                support-phone: 424-242-4242
+                answer-to-everything: 42
+                release-date: '1979-10-12T00:00:00.000Z'
+                is-featured: true
+                brand-color: '#000000'
+                category: 62b720ef280c7a7a3be8cabf
+                author: 62b720ef280c7a7a3be8cab0
+                tags:
+                  - 62b720ef280c7a7a3be8cab1
+                  - 62b720ef280c7a7a3be8cab2
+                downloadable-asset:
+                  fileId: 62b720ef280c7a7a3be8cab3
+                  url: /files/62b720ef280c7a7a3be8cab3_document.pdf
     delete-items-live:
       path: /collections/{collection_id}/items/live
       method: DELETE
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: >
         Unpublish up to 100 items from the live site and set the `isDraft`
         property to `true`. 
@@ -834,7 +1008,9 @@ service:
     update-items-live:
       path: /collections/{collection_id}/items/live
       method: PATCH
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: >
         Update a single published item or multiple published items (up to 100)
         in a Collection
@@ -880,6 +1056,8 @@ service:
         - name: LocalizedItems
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
+          query-parameters:
+            skipInvalidFiles: true
           request:
             items:
               - id: 66f6ed9576ddacf3149d5ea6
@@ -956,6 +1134,8 @@ service:
         - name: MultipleItems
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
+          query-parameters:
+            skipInvalidFiles: true
           request:
             items:
               - id: 580e64008c9a982ac9b8b754
@@ -1024,6 +1204,8 @@ service:
         - name: Multiple items updated across multiple locales
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
+          query-parameters:
+            skipInvalidFiles: true
           request:
             items:
               - id: 66f6ed9576ddacf3149d5ea6
@@ -1100,6 +1282,8 @@ service:
         - name: Multiple items updated in a single locale
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
+          query-parameters:
+            skipInvalidFiles: true
           request:
             items:
               - id: 66f6ed9576ddacf3149d5ea6
@@ -1156,7 +1340,9 @@ service:
     create-items:
       path: /collections/{collection_id}/items/bulk
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: >
         Create an item or multiple items in a CMS Collection across multiple
         corresponding locales.
@@ -1216,6 +1402,8 @@ service:
         - name: Create a single item across multiple locales
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
+          query-parameters:
+            skipInvalidFiles: true
           request:
             cmsLocaleIds:
               - 66f6e966c9e1dc700a857ca3
@@ -1247,6 +1435,8 @@ service:
         - name: Create multiple items across multiple locales
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
+          query-parameters:
+            skipInvalidFiles: true
           request:
             cmsLocaleIds:
               - 66f6e966c9e1dc700a857ca3
@@ -1279,6 +1469,8 @@ service:
         - name: Single item created across multiple locales
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
+          query-parameters:
+            skipInvalidFiles: true
           request:
             cmsLocaleIds:
               - 66f6e966c9e1dc700a857ca3
@@ -1310,6 +1502,8 @@ service:
         - name: Multiple items created across multiple locales
           path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
+          query-parameters:
+            skipInvalidFiles: true
           request:
             cmsLocaleIds:
               - 66f6e966c9e1dc700a857ca3
@@ -1341,7 +1535,9 @@ service:
     get-item:
       path: /collections/{collection_id}/items/{item_id}
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:read
       docs: |
         Get details of a selected Collection Item.
 
@@ -1370,7 +1566,6 @@ service:
         docs: Request was successful
         type: root.CollectionItem
         status-code: 200
-      url: Production
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -1381,6 +1576,8 @@ service:
         - path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
             item_id: 580e64008c9a982ac9b8b754
+          query-parameters:
+            cmsLocaleId: cmsLocaleId
           response:
             body:
               id: 42b720ef280c7a7a3be8cabe
@@ -1391,15 +1588,44 @@ service:
               isArchived: false
               isDraft: false
               fieldData:
-                name: Pan Galactic Gargle Blaster Recipe
-                slug: pan-galactic-gargle-blaster
-                color: '#db4b68'
-                date: '2022-11-18T00:00:00.000Z'
-                featured: true
+                name: The Hitchhiker's Guide to the Galaxy
+                slug: hitchhikers-guide-to-the-galaxy
+                plain-text: Don't Panic.
+                rich-text: >-
+                  <h3>A Guide to Interstellar Travel</h3><p>A towel is about the
+                  most massively useful thing an interstellar hitchhiker can
+                  have. <strong>Don't forget yours!</strong></p>
+                main-image:
+                  fileId: 62b720ef280c7a7a3be8cabe
+                  url: /files/62b720ef280c7a7a3be8cabe_image.png
+                image-gallery:
+                  - fileId: 62b720ef280c7a7a3be8cabd
+                    url: /files/62b720ef280c7a7a3be8cabd_image.png
+                  - fileId: 62b720ef280c7a7a3be8cabe
+                    url: /files/62b720ef280c7a7a3be8cabe_image.png
+                intro-video: https://www.youtube.com/watch?v=aJ83KAggd-4
+                official-site: >-
+                  https://hitchhikers.fandom.com/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy
+                contact-email: zaphod.beeblebrox@heartofgold.gov
+                support-phone: 424-242-4242
+                answer-to-everything: 42
+                release-date: '1979-10-12T00:00:00.000Z'
+                is-featured: true
+                brand-color: '#000000'
+                category: 62b720ef280c7a7a3be8cabf
+                author: 62b720ef280c7a7a3be8cab0
+                tags:
+                  - 62b720ef280c7a7a3be8cab1
+                  - 62b720ef280c7a7a3be8cab2
+                downloadable-asset:
+                  fileId: 62b720ef280c7a7a3be8cab3
+                  url: /files/62b720ef280c7a7a3be8cab3_document.pdf
     delete-item:
       path: /collections/{collection_id}/items/{item_id}
       method: DELETE
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: |
         Delete an item from a collection. 
 
@@ -1434,10 +1660,14 @@ service:
         - path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
             item_id: 580e64008c9a982ac9b8b754
+          query-parameters:
+            cmsLocaleId: cmsLocaleId
     update-item:
       path: /collections/{collection_id}/items/{item_id}
       method: PATCH
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: |
         Update a selected Item in a Collection.
 
@@ -1477,15 +1707,44 @@ service:
         - path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
             item_id: 580e64008c9a982ac9b8b754
+          query-parameters:
+            skipInvalidFiles: true
           request:
             isArchived: false
             isDraft: false
             fieldData:
-              name: Pan Galactic Gargle Blaster Recipe
-              slug: pan-galactic-gargle-blaster
-              date: '2022-11-18T00:00:00.000Z'
-              featured: true
-              color: '#db4b68'
+              name: The Hitchhiker's Guide to the Galaxy
+              slug: hitchhikers-guide-to-the-galaxy
+              plain-text: Don't Panic.
+              rich-text: >-
+                <h3>A Guide to Interstellar Travel</h3><p>A towel is about the
+                most massively useful thing an interstellar hitchhiker can have.
+                <strong>Don't forget yours!</strong></p>
+              main-image:
+                fileId: 62b720ef280c7a7a3be8cabe
+                url: /files/62b720ef280c7a7a3be8cabe_image.png
+              image-gallery:
+                - fileId: 62b720ef280c7a7a3be8cabd
+                  url: /files/62b720ef280c7a7a3be8cabd_image.png
+                - fileId: 62b720ef280c7a7a3be8cabe
+                  url: /files/62b720ef280c7a7a3be8cabe_image.png
+              intro-video: https://www.youtube.com/watch?v=aJ83KAggd-4
+              official-site: >-
+                https://hitchhikers.fandom.com/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy
+              contact-email: zaphod.beeblebrox@heartofgold.gov
+              support-phone: 424-242-4242
+              answer-to-everything: 42
+              release-date: '1979-10-12T00:00:00.000Z'
+              is-featured: true
+              brand-color: '#000000'
+              category: 62b720ef280c7a7a3be8cabf
+              author: 62b720ef280c7a7a3be8cab0
+              tags:
+                - 62b720ef280c7a7a3be8cab1
+                - 62b720ef280c7a7a3be8cab2
+              downloadable-asset:
+                fileId: 62b720ef280c7a7a3be8cab3
+                url: /files/62b720ef280c7a7a3be8cab3_document.pdf
           response:
             body:
               id: 42b720ef280c7a7a3be8cabe
@@ -1496,22 +1755,50 @@ service:
               isArchived: false
               isDraft: false
               fieldData:
-                name: Pan Galactic Gargle Blaster Recipe
-                slug: pan-galactic-gargle-blaster
-                color: '#db4b68'
-                date: '2022-11-18T00:00:00.000Z'
-                featured: true
+                name: The Hitchhiker's Guide to the Galaxy
+                slug: hitchhikers-guide-to-the-galaxy
+                plain-text: Don't Panic.
+                rich-text: >-
+                  <h3>A Guide to Interstellar Travel</h3><p>A towel is about the
+                  most massively useful thing an interstellar hitchhiker can
+                  have. <strong>Don't forget yours!</strong></p>
+                main-image:
+                  fileId: 62b720ef280c7a7a3be8cabe
+                  url: /files/62b720ef280c7a7a3be8cabe_image.png
+                image-gallery:
+                  - fileId: 62b720ef280c7a7a3be8cabd
+                    url: /files/62b720ef280c7a7a3be8cabd_image.png
+                  - fileId: 62b720ef280c7a7a3be8cabe
+                    url: /files/62b720ef280c7a7a3be8cabe_image.png
+                intro-video: https://www.youtube.com/watch?v=aJ83KAggd-4
+                official-site: >-
+                  https://hitchhikers.fandom.com/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy
+                contact-email: zaphod.beeblebrox@heartofgold.gov
+                support-phone: 424-242-4242
+                answer-to-everything: 42
+                release-date: '1979-10-12T00:00:00.000Z'
+                is-featured: true
+                brand-color: '#000000'
+                category: 62b720ef280c7a7a3be8cabf
+                author: 62b720ef280c7a7a3be8cab0
+                tags:
+                  - 62b720ef280c7a7a3be8cab1
+                  - 62b720ef280c7a7a3be8cab2
+                downloadable-asset:
+                  fileId: 62b720ef280c7a7a3be8cab3
+                  url: /files/62b720ef280c7a7a3be8cab3_document.pdf
     get-item-live:
       path: /collections/{collection_id}/items/{item_id}/live
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:read
       docs: |
         Get details of a selected Collection live Item.
 
-        <Note title="Serve data with the Content Delivery API">
-          To serve content to your other frontends applications, enterprise sites have access to a dedicated [content delivery API](/data/docs/cms-content-delivery), available at api-cdn.webflow.com.
-
-        </Note>
+        <Tip title="Serve data with the Content Delivery API">
+          Serving data to applications in real-time? Use the Content Delivery API at `api-cdn.webflow.com` for better performance. The CDN-backed endpoint is optimized for high-volume reads, while the Data API is designed for writes and management operations.
+        </Tip>
 
         Required scope | `CMS:read`
       source:
@@ -1549,6 +1836,8 @@ service:
         - path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
             item_id: 580e64008c9a982ac9b8b754
+          query-parameters:
+            cmsLocaleId: cmsLocaleId
           response:
             body:
               id: 42b720ef280c7a7a3be8cabe
@@ -1559,15 +1848,44 @@ service:
               isArchived: false
               isDraft: false
               fieldData:
-                name: Pan Galactic Gargle Blaster Recipe
-                slug: pan-galactic-gargle-blaster
-                color: '#db4b68'
-                date: '2022-11-18T00:00:00.000Z'
-                featured: true
+                name: The Hitchhiker's Guide to the Galaxy
+                slug: hitchhikers-guide-to-the-galaxy
+                plain-text: Don't Panic.
+                rich-text: >-
+                  <h3>A Guide to Interstellar Travel</h3><p>A towel is about the
+                  most massively useful thing an interstellar hitchhiker can
+                  have. <strong>Don't forget yours!</strong></p>
+                main-image:
+                  fileId: 62b720ef280c7a7a3be8cabe
+                  url: /files/62b720ef280c7a7a3be8cabe_image.png
+                image-gallery:
+                  - fileId: 62b720ef280c7a7a3be8cabd
+                    url: /files/62b720ef280c7a7a3be8cabd_image.png
+                  - fileId: 62b720ef280c7a7a3be8cabe
+                    url: /files/62b720ef280c7a7a3be8cabe_image.png
+                intro-video: https://www.youtube.com/watch?v=aJ83KAggd-4
+                official-site: >-
+                  https://hitchhikers.fandom.com/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy
+                contact-email: zaphod.beeblebrox@heartofgold.gov
+                support-phone: 424-242-4242
+                answer-to-everything: 42
+                release-date: '1979-10-12T00:00:00.000Z'
+                is-featured: true
+                brand-color: '#000000'
+                category: 62b720ef280c7a7a3be8cabf
+                author: 62b720ef280c7a7a3be8cab0
+                tags:
+                  - 62b720ef280c7a7a3be8cab1
+                  - 62b720ef280c7a7a3be8cab2
+                downloadable-asset:
+                  fileId: 62b720ef280c7a7a3be8cab3
+                  url: /files/62b720ef280c7a7a3be8cab3_document.pdf
     delete-item-live:
       path: /collections/{collection_id}/items/{item_id}/live
       method: DELETE
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: >
         Unpublish a live item from the site and set the `isDraft` property to
         `true`. 
@@ -1608,10 +1926,14 @@ service:
         - path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
             item_id: 580e64008c9a982ac9b8b754
+          query-parameters:
+            cmsLocaleId: cmsLocaleId
     update-item-live:
       path: /collections/{collection_id}/items/{item_id}/live
       method: PATCH
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: >
         Update a selected live Item in a Collection. The updates for this Item
         will be published to the live site.
@@ -1654,15 +1976,44 @@ service:
         - path-parameters:
             collection_id: 580e63fc8c9a982ac9b8b745
             item_id: 580e64008c9a982ac9b8b754
+          query-parameters:
+            skipInvalidFiles: true
           request:
             isArchived: false
             isDraft: false
             fieldData:
-              name: Pan Galactic Gargle Blaster Recipe
-              slug: pan-galactic-gargle-blaster
-              date: '2022-11-18T00:00:00.000Z'
-              featured: true
-              color: '#db4b68'
+              name: The Hitchhiker's Guide to the Galaxy
+              slug: hitchhikers-guide-to-the-galaxy
+              plain-text: Don't Panic.
+              rich-text: >-
+                <h3>A Guide to Interstellar Travel</h3><p>A towel is about the
+                most massively useful thing an interstellar hitchhiker can have.
+                <strong>Don't forget yours!</strong></p>
+              main-image:
+                fileId: 62b720ef280c7a7a3be8cabe
+                url: /files/62b720ef280c7a7a3be8cabe_image.png
+              image-gallery:
+                - fileId: 62b720ef280c7a7a3be8cabd
+                  url: /files/62b720ef280c7a7a3be8cabd_image.png
+                - fileId: 62b720ef280c7a7a3be8cabe
+                  url: /files/62b720ef280c7a7a3be8cabe_image.png
+              intro-video: https://www.youtube.com/watch?v=aJ83KAggd-4
+              official-site: >-
+                https://hitchhikers.fandom.com/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy
+              contact-email: zaphod.beeblebrox@heartofgold.gov
+              support-phone: 424-242-4242
+              answer-to-everything: 42
+              release-date: '1979-10-12T00:00:00.000Z'
+              is-featured: true
+              brand-color: '#000000'
+              category: 62b720ef280c7a7a3be8cabf
+              author: 62b720ef280c7a7a3be8cab0
+              tags:
+                - 62b720ef280c7a7a3be8cab1
+                - 62b720ef280c7a7a3be8cab2
+              downloadable-asset:
+                fileId: 62b720ef280c7a7a3be8cab3
+                url: /files/62b720ef280c7a7a3be8cab3_document.pdf
           response:
             body:
               id: 42b720ef280c7a7a3be8cabe
@@ -1673,15 +2024,44 @@ service:
               isArchived: false
               isDraft: false
               fieldData:
-                name: Pan Galactic Gargle Blaster Recipe
-                slug: pan-galactic-gargle-blaster
-                color: '#db4b68'
-                date: '2022-11-18T00:00:00.000Z'
-                featured: true
+                name: The Hitchhiker's Guide to the Galaxy
+                slug: hitchhikers-guide-to-the-galaxy
+                plain-text: Don't Panic.
+                rich-text: >-
+                  <h3>A Guide to Interstellar Travel</h3><p>A towel is about the
+                  most massively useful thing an interstellar hitchhiker can
+                  have. <strong>Don't forget yours!</strong></p>
+                main-image:
+                  fileId: 62b720ef280c7a7a3be8cabe
+                  url: /files/62b720ef280c7a7a3be8cabe_image.png
+                image-gallery:
+                  - fileId: 62b720ef280c7a7a3be8cabd
+                    url: /files/62b720ef280c7a7a3be8cabd_image.png
+                  - fileId: 62b720ef280c7a7a3be8cabe
+                    url: /files/62b720ef280c7a7a3be8cabe_image.png
+                intro-video: https://www.youtube.com/watch?v=aJ83KAggd-4
+                official-site: >-
+                  https://hitchhikers.fandom.com/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy
+                contact-email: zaphod.beeblebrox@heartofgold.gov
+                support-phone: 424-242-4242
+                answer-to-everything: 42
+                release-date: '1979-10-12T00:00:00.000Z'
+                is-featured: true
+                brand-color: '#000000'
+                category: 62b720ef280c7a7a3be8cabf
+                author: 62b720ef280c7a7a3be8cab0
+                tags:
+                  - 62b720ef280c7a7a3be8cab1
+                  - 62b720ef280c7a7a3be8cab2
+                downloadable-asset:
+                  fileId: 62b720ef280c7a7a3be8cab3
+                  url: /files/62b720ef280c7a7a3be8cab3_document.pdf
     publish-item:
       path: /collections/{collection_id}/items/publish
       method: POST
-      auth: true
+      auth:
+        - OAuth2:
+            - cms:write
       docs: |
         Publish an item or multiple items.
 

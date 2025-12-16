@@ -7,7 +7,9 @@ service:
     list:
       path: /sites/{site_id}/activity_logs
       method: GET
-      auth: true
+      auth:
+        - OAuth2:
+            - site_activity:read
       docs: >
         Retrieve Activity Logs for a specific Site. 
 
@@ -47,6 +49,9 @@ service:
       examples:
         - path-parameters:
             site_id: 580e63e98c9a982ac9b8b741
+          query-parameters:
+            limit: 1.1
+            offset: 1.1
           response:
             body:
               items:
@@ -60,6 +65,10 @@ service:
                     displayName: John Doe
                   resourceId: 654c16c7b229e56bcf26870c
                   resourceName: foo-bar
+                  newValue: newValue
+                  previousValue: previousValue
+                  payload:
+                    key: value
               pagination:
                 limit: 25
                 offset: 0

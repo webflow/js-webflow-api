@@ -9,8 +9,8 @@ import * as core from "../../core";
 export const SiteMembershipAuditLogItemEventSubType: core.serialization.Schema<
     serializers.SiteMembershipAuditLogItemEventSubType.Raw,
     Webflow.SiteMembershipAuditLogItemEventSubType
-> = core.serialization.enum_(["user_added", "user_removed", "user_role_updated"]);
+> = core.serialization.enum_(["user_added", "user_removed", "user_role_updated", "user_granular_access_updated"]);
 
 export declare namespace SiteMembershipAuditLogItemEventSubType {
-    export type Raw = "user_added" | "user_removed" | "user_role_updated";
+    export type Raw = "user_added" | "user_removed" | "user_role_updated" | "user_granular_access_updated";
 }

@@ -10,13 +10,7 @@ describe("Webhooks", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -114,13 +108,7 @@ describe("Webhooks", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
         const rawRequestBody = {
             id: "582266e0cd48de0f0e3c6d8b",
@@ -137,6 +125,7 @@ describe("Webhooks", () => {
             url: "https://webhook.site/7f7f7f7f-7f7f-7f7f-7f7f-7f7f7f7f7f7f",
             workspaceId: "4f4e46fd476ea8c507000001",
             siteId: "562ac0395358780a1f5e6fbd",
+            filter: { name: "My Form" },
             lastTriggered: "2023-02-08T23:59:28Z",
             createdOn: "2022-11-08T23:59:28Z",
         };
@@ -164,6 +153,9 @@ describe("Webhooks", () => {
             url: "https://webhook.site/7f7f7f7f-7f7f-7f7f-7f7f-7f7f7f7f7f7f",
             workspaceId: "4f4e46fd476ea8c507000001",
             siteId: "562ac0395358780a1f5e6fbd",
+            filter: {
+                name: "My Form",
+            },
             lastTriggered: new Date("2023-02-08T23:59:28.000Z"),
             createdOn: new Date("2022-11-08T23:59:28.000Z"),
         });
@@ -173,13 +165,7 @@ describe("Webhooks", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -188,6 +174,7 @@ describe("Webhooks", () => {
             url: "https://webhook.site/7f7f7f7f-7f7f-7f7f-7f7f-7f7f7f7f7f7f",
             workspaceId: "4f4e46fd476ea8c507000001",
             siteId: "562ac0395358780a1f5e6fbd",
+            filter: { name: "My Form" },
             lastTriggered: "2023-02-08T23:59:28Z",
             createdOn: "2022-11-08T23:59:28Z",
         };
@@ -206,6 +193,9 @@ describe("Webhooks", () => {
             url: "https://webhook.site/7f7f7f7f-7f7f-7f7f-7f7f-7f7f7f7f7f7f",
             workspaceId: "4f4e46fd476ea8c507000001",
             siteId: "562ac0395358780a1f5e6fbd",
+            filter: {
+                name: "My Form",
+            },
             lastTriggered: new Date("2023-02-08T23:59:28.000Z"),
             createdOn: new Date("2022-11-08T23:59:28.000Z"),
         });
@@ -215,13 +205,7 @@ describe("Webhooks", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         server.mockEndpoint().delete("/webhooks/580e64008c9a982ac9b8b754").respondWith().statusCode(200).build();

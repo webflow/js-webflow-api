@@ -10,13 +10,7 @@ describe("Sites", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
         const rawRequestBody = { name: "The Hitchhiker's Guide to the Galaxy" };
         const rawResponseBody = {
@@ -25,11 +19,37 @@ describe("Sites", () => {
             createdOn: "2024-10-15T20:24:38Z",
             displayName: "The Hitchiker's Guide",
             shortName: "hitchikers-guide",
+            lastPublished: "2016-10-24T19:43:17Z",
             lastUpdated: "2024-10-15T20:24:38Z",
+            previewUrl: "https://dev-assets.website-files.com/580e63e98c9a982ac9b8b741/201610241243.png",
+            timeZone: "America/Los_Angeles",
             parentFolderId: "670ece123598db72d9648be1",
             customDomains: [
                 { id: "589a331aa51e760df7ccb89d", url: "test-api-domain.com", lastPublished: "2022-12-07T16:51:37Z" },
             ],
+            locales: {
+                primary: {
+                    id: "653fd9af6a07fc9cfd7a5e57",
+                    cmsLocaleId: "653ad57de882f528b32e810e",
+                    enabled: false,
+                    displayName: "English (United States)",
+                    displayImageId: "displayImageId",
+                    redirect: true,
+                    subdirectory: "",
+                    tag: "en-US",
+                },
+                secondary: [
+                    {
+                        id: "653fd9af6a07fc9cfd7a5e57",
+                        cmsLocaleId: "653ad57de882f528b32e810e",
+                        enabled: false,
+                        displayName: "English (United States)",
+                        redirect: true,
+                        subdirectory: "",
+                        tag: "en-US",
+                    },
+                ],
+            },
             dataCollectionEnabled: true,
             dataCollectionType: "always",
         };
@@ -51,7 +71,10 @@ describe("Sites", () => {
             createdOn: new Date("2024-10-15T20:24:38.000Z"),
             displayName: "The Hitchiker's Guide",
             shortName: "hitchikers-guide",
+            lastPublished: new Date("2016-10-24T19:43:17.000Z"),
             lastUpdated: new Date("2024-10-15T20:24:38.000Z"),
+            previewUrl: "https://dev-assets.website-files.com/580e63e98c9a982ac9b8b741/201610241243.png",
+            timeZone: "America/Los_Angeles",
             parentFolderId: "670ece123598db72d9648be1",
             customDomains: [
                 {
@@ -60,6 +83,29 @@ describe("Sites", () => {
                     lastPublished: new Date("2022-12-07T16:51:37.000Z"),
                 },
             ],
+            locales: {
+                primary: {
+                    id: "653fd9af6a07fc9cfd7a5e57",
+                    cmsLocaleId: "653ad57de882f528b32e810e",
+                    enabled: false,
+                    displayName: "English (United States)",
+                    displayImageId: "displayImageId",
+                    redirect: true,
+                    subdirectory: "",
+                    tag: "en-US",
+                },
+                secondary: [
+                    {
+                        id: "653fd9af6a07fc9cfd7a5e57",
+                        cmsLocaleId: "653ad57de882f528b32e810e",
+                        enabled: false,
+                        displayName: "English (United States)",
+                        redirect: true,
+                        subdirectory: "",
+                        tag: "en-US",
+                    },
+                ],
+            },
             dataCollectionEnabled: true,
             dataCollectionType: "always",
         });
@@ -69,13 +115,7 @@ describe("Sites", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -142,6 +182,7 @@ describe("Sites", () => {
                     lastUpdated: "2016-10-24T19:43:17Z",
                     previewUrl: "https://dev-assets.website-files.com/42e63e98c9a982ac9b8b742/198110121200.png",
                     timeZone: "DeepSpace/Depression",
+                    parentFolderId: "1as2d3f4g5h6j7k8l9z0x1c2v3b4n5m6",
                     customDomains: [
                         { id: "589a331aa51e760df7ccb89f", url: "marvin.blog", lastPublished: "2022-12-07T16:51:37Z" },
                     ],
@@ -180,6 +221,7 @@ describe("Sites", () => {
                     lastUpdated: "2016-10-24T19:43:17Z",
                     previewUrl: "https://dev-assets.website-files.com/42e63e98c9a982ac9b8b743/198210121200.png",
                     timeZone: "Vogsphere/PoetryHall",
+                    parentFolderId: "1as2d3f4g5h6j7k8l9z0x1c2v3b4n5m6",
                     customDomains: [
                         {
                             id: "589a331aa51e760df7ccb8a0",
@@ -281,6 +323,7 @@ describe("Sites", () => {
                     lastUpdated: new Date("2016-10-24T19:43:17.000Z"),
                     previewUrl: "https://dev-assets.website-files.com/42e63e98c9a982ac9b8b742/198110121200.png",
                     timeZone: "DeepSpace/Depression",
+                    parentFolderId: "1as2d3f4g5h6j7k8l9z0x1c2v3b4n5m6",
                     customDomains: [
                         {
                             id: "589a331aa51e760df7ccb89f",
@@ -323,6 +366,7 @@ describe("Sites", () => {
                     lastUpdated: new Date("2016-10-24T19:43:17.000Z"),
                     previewUrl: "https://dev-assets.website-files.com/42e63e98c9a982ac9b8b743/198210121200.png",
                     timeZone: "Vogsphere/PoetryHall",
+                    parentFolderId: "1as2d3f4g5h6j7k8l9z0x1c2v3b4n5m6",
                     customDomains: [
                         {
                             id: "589a331aa51e760df7ccb8a0",
@@ -363,13 +407,7 @@ describe("Sites", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -483,13 +521,7 @@ describe("Sites", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         server.mockEndpoint().delete("/sites/580e63e98c9a982ac9b8b741").respondWith().statusCode(200).build();
@@ -502,13 +534,7 @@ describe("Sites", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
         const rawRequestBody = {};
         const rawResponseBody = {
@@ -623,13 +649,7 @@ describe("Sites", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
         const rawResponseBody = {
@@ -671,13 +691,7 @@ describe("Sites", () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             accessToken: "test",
-            environment: {
-                base: server.baseUrl,
-                dataApi: server.baseUrl,
-                contentDeliveryApi: server.baseUrl,
-                production: server.baseUrl,
-                cdn: server.baseUrl,
-            },
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
         const rawRequestBody = {
             customDomains: ["660c6449dd97ebc7346ac629", "660c6449dd97ebc7346ac62f"],
