@@ -2,8 +2,29 @@
 export default {
     preset: "ts-jest",
     testEnvironment: "node",
-    moduleNameMapper: {
-        "^(\.{1,2}/.*)\.js$": "$1",
-    },
-    setupFilesAfterEnv: ["<rootDir>/tests/mock-server/setup.ts"],
+    projects: [
+        {
+            displayName: "unit",
+            preset: "ts-jest",
+            testEnvironment: "node",
+            moduleNameMapper: {
+                "^(\.{1,2}/.*)\.js$": "$1",
+            },
+            roots: ["<rootDir>/tests"],
+            testPathIgnorePatterns: ["/tests/wire/"],
+            setupFilesAfterEnv: [],
+        },
+        {
+            displayName: "wire",
+            preset: "ts-jest",
+            testEnvironment: "node",
+            moduleNameMapper: {
+                "^(\.{1,2}/.*)\.js$": "$1",
+            },
+            roots: ["<rootDir>/tests/wire"],
+            setupFilesAfterEnv: ["<rootDir>/tests/mock-server/setup.ts"],
+        },
+    ],
+    workerThreads: false,
+    passWithNoTests: true,
 };

@@ -1,1 +1,1 @@
-export { type AccessGroupsListRequest } from "./AccessGroupsListRequest";
+export type { AccessGroupsListRequest } from "./AccessGroupsListRequest";
