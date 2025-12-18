@@ -22,6 +22,16 @@ describe("test env compatibility", () => {
                             ".js": [".ts", ".js"],
                             ".jsx": [".tsx", ".jsx"],
                         },
+                        fallback: {
+                            "url": false,
+                            "path": false,
+                            "module": false,
+                        },
+                    },
+                    externals: {
+                        "node:url": "commonjs2 node:url",
+                        "node:path": "commonjs2 node:path",
+                        "node:module": "commonjs2 node:module",
                     },
                 },
                 (err, stats) => {
