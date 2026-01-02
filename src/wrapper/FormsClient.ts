@@ -1,11 +1,10 @@
-import urlJoin from "url-join";
 import { Forms } from "../api/resources/forms/client/Client";
 import * as core from "../core";
 import * as Webflow from "../api";
 import * as environments from "../environments";
 import * as errors from "../errors";
 import * as serializers from "../serialization";
-import { mergeHeaders, mergeOnlyDefinedHeaders } from "../core/headers.js";
+import { mergeHeaders, mergeOnlyDefinedHeaders } from "../core/headers";
 
 declare module "../api/resources/forms/client/Client" {
     export namespace Forms {}
@@ -60,33 +59,34 @@ export class Client extends Forms {
       const { elementId, offset, limit } = request;
       const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
       if (elementId != null) {
-          _queryParams["elementId"] = elementId;
+          _queryParams.elementId = elementId;
       }
 
       if (offset != null) {
-          _queryParams["offset"] = offset.toString();
+          _queryParams.offset = offset.toString();
       }
 
       if (limit != null) {
-          _queryParams["limit"] = limit.toString();
+          _queryParams.limit = limit.toString();
       }
 
+      const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+          this._options?.headers,
+          mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+          requestOptions?.headers,
+      );
       const _response = await core.fetcher({
-          url: urlJoin(
+          url: core.url.join(
               (await core.Supplier.get(this._options.baseUrl)) ??
                   ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
                       .base,
-              `sites/${encodeURIComponent(siteId)}/form_submissions`,
+              `sites/${core.url.encodePathParam(siteId)}/form_submissions`,
           ),
           method: "GET",
-          headers: mergeHeaders(
-              this._options?.headers,
-              mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
-              requestOptions?.headers,
-          ),
-          queryParameters: _queryParams,
-          timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-          maxRetries: requestOptions?.maxRetries,
+          headers: _headers,
+          queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+          timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+          maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
           abortSignal: requestOptions?.abortSignal,
       });
       if (_response.ok) {
