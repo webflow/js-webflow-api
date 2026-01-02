@@ -16,21 +16,21 @@ describe("AuditLogs", () => {
             items: [
                 {
                     eventType: "user_access",
-                    timestamp: "2025-04-29T20:30:06Z",
+                    timestamp: "2025-04-29T20:30:06.000Z",
                     actor: { id: "6661ccb359b561c69f29d554", email: "someone@email.com" },
                     workspace: { id: "6621ccb459b561c69f29d57c", slug: "hitchhikers-workspace" },
                     eventSubType: "login",
                 },
                 {
                     eventType: "workspace_membership",
-                    timestamp: "2025-04-30T20:30:06Z",
+                    timestamp: "2025-04-30T20:30:06.000Z",
                     actor: { id: "60492e55bbddce079561cd7a", email: "someone@webflow.com" },
                     workspace: { id: "6621ccb459b561c69f29d57c", slug: "hitchhikers-workspace" },
                     eventSubType: "user_added",
                 },
                 {
                     eventType: "site_membership",
-                    timestamp: "2025-04-30T00:33:31Z",
+                    timestamp: "2025-04-30T00:33:31.000Z",
                     actor: { id: "671fe00d185fc8c1ad409d37", email: "someone@webflow.com" },
                     workspace: { id: "6621ccb459b561c69f29d57c", slug: "hitchhikers-workspace" },
                     eventSubType: "user_added",
@@ -59,13 +59,22 @@ describe("AuditLogs", () => {
                 {
                     eventType: "user_access",
                     eventSubType: "login",
+                    timestamp: new Date("2025-04-29T20:30:06.000Z"),
+                    actor: { id: "6661ccb359b561c69f29d554", email: "someone@email.com" },
+                    workspace: { id: "6621ccb459b561c69f29d57c", slug: "hitchhikers-workspace" },
                 },
                 {
                     eventType: "workspace_membership",
                     eventSubType: "user_added",
+                    timestamp: new Date("2025-04-30T20:30:06.000Z"),
+                    actor: { id: "60492e55bbddce079561cd7a", email: "someone@webflow.com" },
+                    workspace: { id: "6621ccb459b561c69f29d57c", slug: "hitchhikers-workspace" },
                 },
                 {
                     eventType: "site_membership",
+                    timestamp: new Date("2025-04-30T00:33:31.000Z"),
+                    actor: { id: "671fe00d185fc8c1ad409d37", email: "someone@webflow.com" },
+                    workspace: { id: "6621ccb459b561c69f29d57c", slug: "hitchhikers-workspace" },
                     eventSubType: "user_added",
                 },
             ],
