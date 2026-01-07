@@ -1,2 +1,2 @@
-export { type WellKnownFile } from "./WellKnownFile";
-export { type WellKnownDeleteRequest } from "./WellKnownDeleteRequest";
+export type { WellKnownDeleteRequest } from "./WellKnownDeleteRequest";
+export type { WellKnownFile } from "./WellKnownFile";

@@ -1,4 +1,3 @@
-import qs from "qs";
 import { WebflowClient as FernClient } from "../Client";
 import { OauthScope } from "../api/types/OAuthScope";
 import * as core from "../core";
@@ -75,7 +74,7 @@ export class WebflowClient extends FernClient {
         } else {
             params["scope"] = scope.join(" ");
         }
-        return `https://webflow.com/oauth/authorize?${qs.stringify(params)}`;
+        return `https://webflow.com/oauth/authorize?${core.url.toQueryString(params)}`;
     }
 
     /**

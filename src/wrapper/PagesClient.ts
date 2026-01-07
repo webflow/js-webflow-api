@@ -1,11 +1,10 @@
-import urlJoin from "url-join";
 import { Pages } from "../api/resources/pages/client/Client";
 import * as core from "../core";
 import * as Webflow from "../api";
 import * as environments from "../environments";
 import * as errors from "../errors";
 import * as serializers from "../serialization";
-import { mergeHeaders, mergeOnlyDefinedHeaders } from "../core/headers.js";
+import { mergeHeaders, mergeOnlyDefinedHeaders } from "../core/headers";
 import * as SchemaOverrides from "./schemas";
 
 declare module "../api/resources/pages/client/Client" {
@@ -72,32 +71,33 @@ export class Client extends Pages {
         const { localeId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (localeId != null) {
-            _queryParams["localeId"] = localeId;
+            _queryParams.localeId = localeId;
         }
 
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
         const _response = await core.fetcher({
-            url: urlJoin(
+            url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
                         .base,
-                `pages/${encodeURIComponent(pageId)}`,
+                `pages/${core.url.encodePathParam(pageId)}`,
             ),
             method: "PUT",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
-                requestOptions?.headers,
-            ),
+            headers: _headers,
             contentType: "application/json",
-            queryParameters: _queryParams,
+            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
             requestType: "json",
             body: serializers.PageMetadataWrite.jsonOrThrow(_body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
             }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {

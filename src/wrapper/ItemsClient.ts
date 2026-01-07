@@ -1,11 +1,10 @@
-import urlJoin from "url-join";
 import * as Webflow from "../api";
 import { Items } from "../api/resources/collections/resources/items/client/Client";
 import * as core from "../core";
 import * as environments from "../environments";
 import * as errors from "../errors";
 import * as serializers from "../serialization";
-import { mergeHeaders, mergeOnlyDefinedHeaders } from "../core/headers.js";
+import { mergeHeaders, mergeOnlyDefinedHeaders } from "../core/headers";
 import * as SchemaOverrides from "./schemas";
 
 declare module "../api/resources/collections/resources/items/client/Client" {
@@ -82,32 +81,33 @@ export class Client extends Items {
         const { skipInvalidFiles, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (skipInvalidFiles != null) {
-            _queryParams["skipInvalidFiles"] = skipInvalidFiles.toString();
+            _queryParams.skipInvalidFiles = skipInvalidFiles.toString();
         }
 
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
         const _response = await core.fetcher({
-            url: urlJoin(
+            url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
                         .base,
-                `collections/${encodeURIComponent(collectionId)}/items`,
+                `collections/${core.url.encodePathParam(collectionId)}/items`,
             ),
             method: "POST",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
-                requestOptions?.headers,
-            ),
+            headers: _headers,
             contentType: "application/json",
-            queryParameters: _queryParams,
+            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
             requestType: "json",
             body: serializers.collections.ItemsCreateItemRequestBody.jsonOrThrow(_body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
             }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
@@ -245,32 +245,33 @@ export class Client extends Items {
         const { skipInvalidFiles, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (skipInvalidFiles != null) {
-            _queryParams["skipInvalidFiles"] = skipInvalidFiles.toString();
+            _queryParams.skipInvalidFiles = skipInvalidFiles.toString();
         }
 
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
         const _response = await core.fetcher({
-            url: urlJoin(
+            url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
                         .base,
-                `collections/${encodeURIComponent(collectionId)}/items/${encodeURIComponent(itemId)}`,
+                `collections/${core.url.encodePathParam(collectionId)}/items/${core.url.encodePathParam(itemId)}`,
             ),
             method: "PATCH",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
-                requestOptions?.headers,
-            ),
+            headers: _headers,
             contentType: "application/json",
-            queryParameters: _queryParams,
+            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
             requestType: "json",
             body: serializers.CollectionItemPatchSingle.jsonOrThrow(_body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
             }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
@@ -428,32 +429,33 @@ export class Client extends Items {
         const { skipInvalidFiles, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (skipInvalidFiles != null) {
-            _queryParams["skipInvalidFiles"] = skipInvalidFiles.toString();
+            _queryParams.skipInvalidFiles = skipInvalidFiles.toString();
         }
 
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
         const _response = await core.fetcher({
-            url: urlJoin(
+            url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
                         .base,
-                `collections/${encodeURIComponent(collectionId)}/items/live`,
+                `collections/${core.url.encodePathParam(collectionId)}/items/live`,
             ),
             method: "POST",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
-                requestOptions?.headers,
-            ),
+            headers: _headers,
             contentType: "application/json",
-            queryParameters: _queryParams,
+            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
             requestType: "json",
             body: serializers.collections.ItemsCreateItemLiveRequestBody.jsonOrThrow(_body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
             }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
@@ -592,32 +594,33 @@ export class Client extends Items {
         const { skipInvalidFiles, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (skipInvalidFiles != null) {
-            _queryParams["skipInvalidFiles"] = skipInvalidFiles.toString();
+            _queryParams.skipInvalidFiles = skipInvalidFiles.toString();
         }
 
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
         const _response = await core.fetcher({
-            url: urlJoin(
+            url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
                         .base,
-                `collections/${encodeURIComponent(collectionId)}/items/${encodeURIComponent(itemId)}/live`,
+                `collections/${core.url.encodePathParam(collectionId)}/items/${core.url.encodePathParam(itemId)}/live`,
             ),
             method: "PATCH",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
-                requestOptions?.headers,
-            ),
+            headers: _headers,
             contentType: "application/json",
-            queryParameters: _queryParams,
+            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
             requestType: "json",
             body: serializers.CollectionItemPatchSingle.jsonOrThrow(_body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
             }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
