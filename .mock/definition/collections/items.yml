@@ -200,12 +200,12 @@ service:
               response. To query multiple locales, input a comma separated
               string.
           offset:
-            type: optional<double>
+            type: optional<integer>
             docs: >-
               Offset used for pagination if the results have more than limit
               records
           limit:
-            type: optional<double>
+            type: optional<integer>
             docs: 'Maximum number of records to be returned (max limit: 100)'
           name:
             type: optional<string>
@@ -237,8 +237,8 @@ service:
             collection_id: 580e63fc8c9a982ac9b8b745
           query-parameters:
             cmsLocaleId: cmsLocaleId
-            offset: 1.1
-            limit: 1.1
+            offset: 1
+            limit: 1
             name: name
             slug: slug
             sortBy: lastPublished
@@ -696,12 +696,12 @@ service:
               response. To query multiple locales, input a comma separated
               string.
           offset:
-            type: optional<double>
+            type: optional<integer>
             docs: >-
               Offset used for pagination if the results have more than limit
               records
           limit:
-            type: optional<double>
+            type: optional<integer>
             docs: 'Maximum number of records to be returned (max limit: 100)'
           name:
             type: optional<string>
@@ -734,8 +734,8 @@ service:
             collection_id: 580e63fc8c9a982ac9b8b745
           query-parameters:
             cmsLocaleId: cmsLocaleId
-            offset: 1.1
-            limit: 1.1
+            offset: 1
+            limit: 1
             name: name
             slug: slug
             sortBy: lastPublished

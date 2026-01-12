@@ -1,5 +1,7 @@
 # Reference
+
 ## Token
+
 <details><summary><code>client.token.<a href="/src/api/resources/token/client/Client.ts">authorizedBy</a>() -> Webflow.AuthorizedUser</code></summary>
 <dl>
 <dd>
@@ -15,6 +17,7 @@
 Information about the Authorized User
 
 Required Scope | `authorized_user:read`
+
 </dd>
 </dl>
 </dd>
@@ -30,8 +33,8 @@ Required Scope | `authorized_user:read`
 
 ```typescript
 await client.token.authorizedBy();
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -45,13 +48,12 @@ await client.token.authorizedBy();
 <dl>
 <dd>
 
-**requestOptions:** `Token.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Token.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -72,6 +74,7 @@ await client.token.authorizedBy();
 Information about the authorization token
 
 <Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
+
 </dd>
 </dl>
 </dd>
@@ -87,8 +90,8 @@ Information about the authorization token
 
 ```typescript
 await client.token.introspect();
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -102,19 +105,19 @@ await client.token.introspect();
 <dl>
 <dd>
 
-**requestOptions:** `Token.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Token.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Sites
+
 <details><summary><code>client.sites.<a href="/src/api/resources/sites/client/Client.ts">create</a>(workspaceId, { ...params }) -> Webflow.Site</code></summary>
 <dl>
 <dd>
@@ -127,11 +130,12 @@ await client.token.introspect();
 <dl>
 <dd>
 
-Create a site. 
+Create a site.
 
 <Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
 
 Required scope | `workspace:write`
+
 </dd>
 </dl>
 </dd>
@@ -147,10 +151,10 @@ Required scope | `workspace:write`
 
 ```typescript
 await client.sites.create("580e63e98c9a982ac9b8b741", {
-    name: "The Hitchhiker's Guide to the Galaxy"
+    name: "The Hitchhiker's Guide to the Galaxy",
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -165,28 +169,27 @@ await client.sites.create("580e63e98c9a982ac9b8b741", {
 <dd>
 
 **workspaceId:** `string` — Unique identifier for a Workspace
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.SitesCreateRequest` 
-    
+**request:** `Webflow.SitesCreateRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Sites.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Sites.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -207,6 +210,7 @@ await client.sites.create("580e63e98c9a982ac9b8b741", {
 List of all sites the provided access token is able to access.
 
 Required scope | `sites:read`
+
 </dd>
 </dl>
 </dd>
@@ -222,8 +226,8 @@ Required scope | `sites:read`
 
 ```typescript
 await client.sites.list();
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -237,13 +241,12 @@ await client.sites.list();
 <dl>
 <dd>
 
-**requestOptions:** `Sites.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Sites.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -264,6 +267,7 @@ await client.sites.list();
 Get details of a site.
 
 Required scope | `sites:read`
+
 </dd>
 </dl>
 </dd>
@@ -279,8 +283,8 @@ Required scope | `sites:read`
 
 ```typescript
 await client.sites.get("580e63e98c9a982ac9b8b741");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -295,20 +299,19 @@ await client.sites.get("580e63e98c9a982ac9b8b741");
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Sites.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Sites.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -326,11 +329,12 @@ await client.sites.get("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-Delete a site. 
+Delete a site.
 
 <Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
 
 Required scope | `sites:write`
+
 </dd>
 </dl>
 </dd>
@@ -346,8 +350,8 @@ Required scope | `sites:write`
 
 ```typescript
 await client.sites.delete("580e63e98c9a982ac9b8b741");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -362,20 +366,19 @@ await client.sites.delete("580e63e98c9a982ac9b8b741");
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Sites.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Sites.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -393,11 +396,12 @@ await client.sites.delete("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-Update a site. 
+Update a site.
 
 <Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
 
 Required scope | `sites:write`
+
 </dd>
 </dl>
 </dd>
@@ -413,8 +417,8 @@ Required scope | `sites:write`
 
 ```typescript
 await client.sites.update("580e63e98c9a982ac9b8b741");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -429,28 +433,27 @@ await client.sites.update("580e63e98c9a982ac9b8b741");
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.SitesUpdateRequest` 
-    
+**request:** `Webflow.SitesUpdateRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Sites.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Sites.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -471,6 +474,7 @@ await client.sites.update("580e63e98c9a982ac9b8b741");
 Get a list of all custom domains related to site.
 
 Required scope | `sites:read`
+
 </dd>
 </dl>
 </dd>
@@ -486,8 +490,8 @@ Required scope | `sites:read`
 
 ```typescript
 await client.sites.getCustomDomain("580e63e98c9a982ac9b8b741");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -502,20 +506,19 @@ await client.sites.getCustomDomain("580e63e98c9a982ac9b8b741");
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Sites.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Sites.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -533,13 +536,14 @@ await client.sites.getCustomDomain("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-Publishes a site to one or more more domains. 
+Publishes a site to one or more more domains.
 
 To publish to a specific custom domain, use the domain IDs from the [Get Custom Domains](/data/reference/sites/get-custom-domain) endpoint.
 
 <Note title="Rate limit: 1 publish per minute">This endpoint has a specific rate limit of one successful publish queue per minute.</Note>
 
 Required scope | `sites:write`
+
 </dd>
 </dl>
 </dd>
@@ -556,10 +560,10 @@ Required scope | `sites:write`
 ```typescript
 await client.sites.publish("580e63e98c9a982ac9b8b741", {
     customDomains: ["660c6449dd97ebc7346ac629", "660c6449dd97ebc7346ac62f"],
-    publishToWebflowSubdomain: false
+    publishToWebflowSubdomain: false,
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -574,34 +578,34 @@ await client.sites.publish("580e63e98c9a982ac9b8b741", {
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.SitesPublishRequest` 
-    
+**request:** `Webflow.SitesPublishRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Sites.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Sites.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Collections
+
 <details><summary><code>client.collections.<a href="/src/api/resources/collections/client/Client.ts">list</a>(siteId) -> Webflow.CollectionList</code></summary>
 <dl>
 <dd>
@@ -617,6 +621,7 @@ await client.sites.publish("580e63e98c9a982ac9b8b741", {
 List of all Collections within a Site.
 
 Required scope | `cms:read`
+
 </dd>
 </dl>
 </dd>
@@ -632,8 +637,8 @@ Required scope | `cms:read`
 
 ```typescript
 await client.collections.list("580e63e98c9a982ac9b8b741");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -648,20 +653,19 @@ await client.collections.list("580e63e98c9a982ac9b8b741");
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Collections.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Collections.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -684,6 +688,7 @@ Create a Collection for a site with collection fields.
 Each collection includes the required _name_ and _slug_ fields, which are generated automatically. You can update the `displayName` of these fields, but the slug for them cannot be changed. Fields slugs are automatically converted to lowercase. Spaces in slugs are replaced with hyphens.
 
 Required scope | `cms:write`
+
 </dd>
 </dl>
 </dd>
@@ -702,28 +707,32 @@ await client.collections.create("580e63e98c9a982ac9b8b741", {
     displayName: "Blog Posts",
     singularName: "Blog Post",
     slug: "posts",
-    fields: [{
+    fields: [
+        {
             isRequired: true,
             type: "PlainText",
             displayName: "Title",
-            helpText: "The title of the blog post"
-        }, {
+            helpText: "The title of the blog post",
+        },
+        {
             isRequired: true,
             type: "RichText",
             displayName: "Content",
-            helpText: "The content of the blog post"
-        }, {
+            helpText: "The content of the blog post",
+        },
+        {
             isRequired: true,
             type: "Reference",
             displayName: "Author",
             helpText: "The author of the blog post",
             metadata: {
-                collectionId: "23cc2d952d4e4631ffd4345d2743db4e"
-            }
-        }]
+                collectionId: "23cc2d952d4e4631ffd4345d2743db4e",
+            },
+        },
+    ],
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -738,28 +747,27 @@ await client.collections.create("580e63e98c9a982ac9b8b741", {
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.CollectionsCreateRequest` 
-    
+**request:** `Webflow.CollectionsCreateRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Collections.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Collections.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -780,6 +788,7 @@ await client.collections.create("580e63e98c9a982ac9b8b741", {
 Get the full details of a collection from its ID.
 
 Required scope | `cms:read`
+
 </dd>
 </dl>
 </dd>
@@ -795,8 +804,8 @@ Required scope | `cms:read`
 
 ```typescript
 await client.collections.get("580e63fc8c9a982ac9b8b745");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -811,20 +820,19 @@ await client.collections.get("580e63fc8c9a982ac9b8b745");
 <dd>
 
 **collectionId:** `string` — Unique identifier for a Collection
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Collections.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Collections.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -845,6 +853,7 @@ await client.collections.get("580e63fc8c9a982ac9b8b745");
 Delete a collection using its ID.
 
 Required scope | `cms:write`
+
 </dd>
 </dl>
 </dd>
@@ -860,8 +869,8 @@ Required scope | `cms:write`
 
 ```typescript
 await client.collections.delete("580e63fc8c9a982ac9b8b745");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -876,26 +885,26 @@ await client.collections.delete("580e63fc8c9a982ac9b8b745");
 <dd>
 
 **collectionId:** `string` — Unique identifier for a Collection
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Collections.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Collections.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Pages
+
 <details><summary><code>client.pages.<a href="/src/api/resources/pages/client/Client.ts">list</a>(siteId, { ...params }) -> Webflow.PageList</code></summary>
 <dl>
 <dd>
@@ -911,6 +920,7 @@ await client.collections.delete("580e63fc8c9a982ac9b8b745");
 List of all pages for a site.
 
 Required scope | `pages:read`
+
 </dd>
 </dl>
 </dd>
@@ -927,11 +937,11 @@ Required scope | `pages:read`
 ```typescript
 await client.pages.list("580e63e98c9a982ac9b8b741", {
     localeId: "65427cf400e02b306eaa04a0",
-    limit: 1.1,
-    offset: 1.1
+    limit: 1,
+    offset: 1,
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -946,28 +956,27 @@ await client.pages.list("580e63e98c9a982ac9b8b741", {
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.PagesListRequest` 
-    
+**request:** `Webflow.PagesListRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Pages.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Pages.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -988,6 +997,7 @@ await client.pages.list("580e63e98c9a982ac9b8b741", {
 Get metadata information for a single page.
 
 Required scope | `pages:read`
+
 </dd>
 </dl>
 </dd>
@@ -1003,10 +1013,10 @@ Required scope | `pages:read`
 
 ```typescript
 await client.pages.getMetadata("63c720f9347c2139b248e552", {
-    localeId: "65427cf400e02b306eaa04a0"
+    localeId: "65427cf400e02b306eaa04a0",
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -1021,28 +1031,27 @@ await client.pages.getMetadata("63c720f9347c2139b248e552", {
 <dd>
 
 **pageId:** `string` — Unique identifier for a Page
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.PagesGetMetadataRequest` 
-    
+**request:** `Webflow.PagesGetMetadataRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Pages.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Pages.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -1063,6 +1072,7 @@ await client.pages.getMetadata("63c720f9347c2139b248e552", {
 Update Page-level metadata, including SEO and Open Graph fields.
 
 Required scope | `pages:write`
+
 </dd>
 </dl>
 </dd>
@@ -1083,17 +1093,18 @@ await client.pages.updatePageSettings("63c720f9347c2139b248e552", {
     slug: "guide-to-the-galaxy",
     seo: {
         title: "The Ultimate Hitchhiker's Guide to the Galaxy",
-        description: "Everything you need to know about the galaxy, from avoiding Vogon poetry to the importance of towels."
+        description:
+            "Everything you need to know about the galaxy, from avoiding Vogon poetry to the importance of towels.",
     },
     openGraph: {
         title: "Explore the Cosmos with The Ultimate Guide",
         titleCopied: false,
         description: "Dive deep into the mysteries of the universe with your guide to everything galactic.",
-        descriptionCopied: false
-    }
+        descriptionCopied: false,
+    },
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -1108,28 +1119,27 @@ await client.pages.updatePageSettings("63c720f9347c2139b248e552", {
 <dd>
 
 **pageId:** `string` — Unique identifier for a Page
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.PageMetadataWrite` 
-    
+**request:** `Webflow.PageMetadataWrite`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Pages.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Pages.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -1149,9 +1159,10 @@ await client.pages.updatePageSettings("63c720f9347c2139b248e552", {
 
 Get text and component instance content from a static page.
 
-<Badge intent="info">Localization</Badge> 
+<Badge intent="info">Localization</Badge>
 
 Required scope | `pages:read`
+
 </dd>
 </dl>
 </dd>
@@ -1168,11 +1179,11 @@ Required scope | `pages:read`
 ```typescript
 await client.pages.getContent("63c720f9347c2139b248e552", {
     localeId: "65427cf400e02b306eaa04a0",
-    limit: 1.1,
-    offset: 1.1
+    limit: 1,
+    offset: 1,
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -1187,28 +1198,27 @@ await client.pages.getContent("63c720f9347c2139b248e552", {
 <dd>
 
 **pageId:** `string` — Unique identifier for a Page
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.PagesGetContentRequest` 
-    
+**request:** `Webflow.PagesGetContentRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Pages.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Pages.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -1229,6 +1239,7 @@ await client.pages.getContent("63c720f9347c2139b248e552", {
 This endpoint updates content on a static page in **secondary locales**. It supports updating up to 1000 nodes in a single request.
 
 Before making updates:
+
 1. Use the [get page content](/data/reference/pages-and-components/pages/get-content) endpoint to identify available content nodes and their types.
 2. If the page has component instances, retrieve the component's properties that you'll override using the [get component properties](/data/reference/pages-and-components/components/get-properties) endpoint.
 3. DOM elements may include a `data-w-id` attribute. This attribute is used by Webflow to maintain custom attributes and links across locales. Always include the original `data-w-id` value in your update requests to ensure consistent behavior across all locales.
@@ -1238,6 +1249,7 @@ Before making updates:
 </Note>
 
 Required scope | `pages:write`
+
 </dd>
 </dl>
 </dd>
@@ -1254,41 +1266,54 @@ Required scope | `pages:write`
 ```typescript
 await client.pages.updateStaticContent("63c720f9347c2139b248e552", {
     localeId: "localeId",
-    nodes: [{
+    nodes: [
+        {
             nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad623",
-            text: "<h1>The Hitchhiker's Guide to the Galaxy</h1>"
-        }, {
+            text: "<h1>The Hitchhiker's Guide to the Galaxy</h1>",
+        },
+        {
             nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad627",
-            text: "<div><h3>Don't Panic!</h3><p>Always know where your towel is.</p></div>"
-        }, {
+            text: "<div><h3>Don't Panic!</h3><p>Always know where your towel is.</p></div>",
+        },
+        {
             nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad635",
-            choices: [{
+            choices: [
+                {
                     value: "choice-1",
-                    text: "First choice"
-                }, {
+                    text: "First choice",
+                },
+                {
                     value: "choice-2",
-                    text: "Second choice"
-                }]
-        }, {
+                    text: "Second choice",
+                },
+            ],
+        },
+        {
             nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad642",
-            placeholder: "Enter something here..."
-        }, {
+            placeholder: "Enter something here...",
+        },
+        {
             nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad671",
             value: "Submit",
-            waitingText: "Submitting..."
-        }, {
+            waitingText: "Submitting...",
+        },
+        {
             nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad629",
-            propertyOverrides: [{
+            propertyOverrides: [
+                {
                     propertyId: "7dd14c08-2e96-8d3d-2b19-b5c03642a0f0",
-                    text: "<div><h1>Time is an <em>illusion</em></h1></div>"
-                }, {
+                    text: "<div><h1>Time is an <em>illusion</em></h1></div>",
+                },
+                {
                     propertyId: "7dd14c08-2e96-8d3d-2b19-b5c03642a0f1",
-                    text: "Life, the Universe and Everything"
-                }]
-        }]
+                    text: "Life, the Universe and Everything",
+                },
+            ],
+        },
+    ],
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -1303,34 +1328,34 @@ await client.pages.updateStaticContent("63c720f9347c2139b248e552", {
 <dd>
 
 **pageId:** `string` — Unique identifier for a Page
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.PageDomWrite` 
-    
+**request:** `Webflow.PageDomWrite`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Pages.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Pages.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Components
+
 <details><summary><code>client.components.<a href="/src/api/resources/components/client/Client.ts">list</a>(siteId, { ...params }) -> Webflow.ComponentList</code></summary>
 <dl>
 <dd>
@@ -1346,6 +1371,7 @@ await client.pages.updateStaticContent("63c720f9347c2139b248e552", {
 List of all components for a site.
 
 Required scope | `components:read`
+
 </dd>
 </dl>
 </dd>
@@ -1362,11 +1388,11 @@ Required scope | `components:read`
 ```typescript
 await client.components.list("580e63e98c9a982ac9b8b741", {
     branchId: "68026fa68ef6dc744c75b833",
-    limit: 1.1,
-    offset: 1.1
+    limit: 1,
+    offset: 1,
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -1381,28 +1407,27 @@ await client.components.list("580e63e98c9a982ac9b8b741", {
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.ComponentsListRequest` 
-    
+**request:** `Webflow.ComponentsListRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Components.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Components.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -1426,6 +1451,7 @@ To retrieve dynamic content set by component properties, use the [get component 
 <Note>If you do not provide a Locale ID in your request, the response will return any content that can be localized from the Primary locale.</Note>
 
 Required scope | `components:read`
+
 </dd>
 </dl>
 </dd>
@@ -1443,11 +1469,11 @@ Required scope | `components:read`
 await client.components.getContent("580e63e98c9a982ac9b8b741", "8505ba55-ef72-629e-f85c-33e4b703d48b", {
     localeId: "65427cf400e02b306eaa04a0",
     branchId: "68026fa68ef6dc744c75b833",
-    limit: 1.1,
-    offset: 1.1
+    limit: 1,
+    offset: 1,
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -1462,7 +1488,7 @@ await client.components.getContent("580e63e98c9a982ac9b8b741", "8505ba55-ef72-62
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
@@ -1470,28 +1496,27 @@ await client.components.getContent("580e63e98c9a982ac9b8b741", "8505ba55-ef72-62
 <dd>
 
 **componentId:** `string` — Unique identifier for a Component
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.ComponentsGetContentRequest` 
-    
+**request:** `Webflow.ComponentsGetContentRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Components.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Components.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -1512,6 +1537,7 @@ await client.components.getContent("580e63e98c9a982ac9b8b741", "8505ba55-ef72-62
 This endpoint updates content within a component defintion for **secondary locales**. It supports updating up to 1000 nodes in a single request.
 
 Before making updates:
+
 1. Use the [get component content](/data/reference/pages-and-components/components/get-content) endpoint to identify available content nodes and their types.
 2. If your component definition has a component instance nested within it, retrieve the nested component instance's properties that you'll override using the [get component properties](/data/reference/pages-and-components/components/get-properties) endpoint.
 3. DOM elements may include a `data-w-id` attribute. This attribute is used by Webflow to maintain custom attributes and links across locales. Always include the original `data-w-id` value in your update requests to ensure consistent behavior across all locales.
@@ -1521,6 +1547,7 @@ Before making updates:
 </Note>
 
 Required scope | `components:write`
+
 </dd>
 </dl>
 </dd>
@@ -1538,41 +1565,54 @@ Required scope | `components:write`
 await client.components.updateContent("580e63e98c9a982ac9b8b741", "8505ba55-ef72-629e-f85c-33e4b703d48b", {
     localeId: "65427cf400e02b306eaa04a0",
     branchId: "68026fa68ef6dc744c75b833",
-    nodes: [{
+    nodes: [
+        {
             nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad623",
-            text: "<h1>The Hitchhiker's Guide to the Galaxy</h1>"
-        }, {
+            text: "<h1>The Hitchhiker's Guide to the Galaxy</h1>",
+        },
+        {
             nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad627",
-            text: "<div><h3>Don't Panic!</h3><p>Always know where your towel is.</p></div>"
-        }, {
+            text: "<div><h3>Don't Panic!</h3><p>Always know where your towel is.</p></div>",
+        },
+        {
             nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad635",
-            choices: [{
+            choices: [
+                {
                     value: "choice-1",
-                    text: "First choice"
-                }, {
+                    text: "First choice",
+                },
+                {
                     value: "choice-2",
-                    text: "Second choice"
-                }]
-        }, {
+                    text: "Second choice",
+                },
+            ],
+        },
+        {
             nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad642",
-            placeholder: "Enter something here..."
-        }, {
+            placeholder: "Enter something here...",
+        },
+        {
             nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad671",
             value: "Submit",
-            waitingText: "Submitting..."
-        }, {
+            waitingText: "Submitting...",
+        },
+        {
             nodeId: "a245c12d-995b-55ee-5ec7-aa36a6cad629",
-            propertyOverrides: [{
+            propertyOverrides: [
+                {
                     propertyId: "7dd14c08-2e96-8d3d-2b19-b5c03642a0f0",
-                    text: "<div><h1>Time is an <em>illusion</em></h1></div>"
-                }, {
+                    text: "<div><h1>Time is an <em>illusion</em></h1></div>",
+                },
+                {
                     propertyId: "7dd14c08-2e96-8d3d-2b19-b5c03642a0f1",
-                    text: "Life, the Universe and Everything"
-                }]
-        }]
+                    text: "Life, the Universe and Everything",
+                },
+            ],
+        },
+    ],
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -1587,7 +1627,7 @@ await client.components.updateContent("580e63e98c9a982ac9b8b741", "8505ba55-ef72
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
@@ -1595,28 +1635,27 @@ await client.components.updateContent("580e63e98c9a982ac9b8b741", "8505ba55-ef72
 <dd>
 
 **componentId:** `string` — Unique identifier for a Component
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.ComponentDomWrite` 
-    
+**request:** `Webflow.ComponentDomWrite`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Components.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Components.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -1639,6 +1678,7 @@ Get the default property values of a component definition.
 <Note>If you do not include a `localeId` in your request, the response will return any properties that can be localized from the Primary locale.</Note>
 
 Required scope | `components:read`
+
 </dd>
 </dl>
 </dd>
@@ -1656,11 +1696,11 @@ Required scope | `components:read`
 await client.components.getProperties("580e63e98c9a982ac9b8b741", "8505ba55-ef72-629e-f85c-33e4b703d48b", {
     localeId: "65427cf400e02b306eaa04a0",
     branchId: "68026fa68ef6dc744c75b833",
-    limit: 1.1,
-    offset: 1.1
+    limit: 1,
+    offset: 1,
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -1675,7 +1715,7 @@ await client.components.getProperties("580e63e98c9a982ac9b8b741", "8505ba55-ef72
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
@@ -1683,28 +1723,27 @@ await client.components.getProperties("580e63e98c9a982ac9b8b741", "8505ba55-ef72
 <dd>
 
 **componentId:** `string` — Unique identifier for a Component
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.ComponentsGetPropertiesRequest` 
-    
+**request:** `Webflow.ComponentsGetPropertiesRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Components.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Components.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -1725,12 +1764,14 @@ await client.components.getProperties("580e63e98c9a982ac9b8b741", "8505ba55-ef72
 Update the default property values of a component definition in a specificed locale.
 
 Before making updates:
+
 1. Use the [get component properties](/data/reference/pages-and-components/components/get-properties) endpoint to identify properties that can be updated in a secondary locale.
 2. Rich Text properties may include a `data-w-id` attribute. This attribute is used by Webflow to maintain links across locales. Always include the original `data-w-id` value in your update requests to ensure consistent behavior across all locales.
 
 <Note>The request requires a secondary locale ID. If a `localeId` is missing, the request will not be processed and will result in an error.</Note>
 
 Required scope | `components:write`
+
 </dd>
 </dl>
 </dd>
@@ -1748,16 +1789,19 @@ Required scope | `components:write`
 await client.components.updateProperties("580e63e98c9a982ac9b8b741", "8505ba55-ef72-629e-f85c-33e4b703d48b", {
     localeId: "65427cf400e02b306eaa04a0",
     branchId: "68026fa68ef6dc744c75b833",
-    properties: [{
+    properties: [
+        {
             propertyId: "a245c12d-995b-55ee-5ec7-aa36a6cad623",
-            text: "The Hitchhiker\u2019s Guide to the Galaxy"
-        }, {
+            text: "The Hitchhiker\u2019s Guide to the Galaxy",
+        },
+        {
             propertyId: "a245c12d-995b-55ee-5ec7-aa36a6cad627",
-            text: "<div><h3>Dont Panic!</h3><p>Always know where your towel is.</p></div>"
-        }]
+            text: "<div><h3>Dont Panic!</h3><p>Always know where your towel is.</p></div>",
+        },
+    ],
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -1772,7 +1816,7 @@ await client.components.updateProperties("580e63e98c9a982ac9b8b741", "8505ba55-e
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
@@ -1780,34 +1824,34 @@ await client.components.updateProperties("580e63e98c9a982ac9b8b741", "8505ba55-e
 <dd>
 
 **componentId:** `string` — Unique identifier for a Component
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.ComponentPropertiesWrite` 
-    
+**request:** `Webflow.ComponentPropertiesWrite`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Components.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Components.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Scripts
+
 <details><summary><code>client.scripts.<a href="/src/api/resources/scripts/client/Client.ts">list</a>(siteId) -> Webflow.RegisteredScriptList</code></summary>
 <dl>
 <dd>
@@ -1827,6 +1871,7 @@ Get a list of scripts that have been registered to a site. A site can have a max
 </Note>
 
 Required scope | `custom_code:read`
+
 </dd>
 </dl>
 </dd>
@@ -1842,8 +1887,8 @@ Required scope | `custom_code:read`
 
 ```typescript
 await client.scripts.list("580e63e98c9a982ac9b8b741");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -1858,20 +1903,19 @@ await client.scripts.list("580e63e98c9a982ac9b8b741");
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Scripts.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Scripts.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -1896,6 +1940,7 @@ Register a hosted script to a site.
 </Note>
 
 Required scope | `custom_code:write`
+
 </dd>
 </dl>
 </dd>
@@ -1914,10 +1959,10 @@ await client.scripts.registerHosted("580e63e98c9a982ac9b8b741", {
     hostedLocation: "hostedLocation",
     integrityHash: "integrityHash",
     version: "version",
-    displayName: "displayName"
+    displayName: "displayName",
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -1932,28 +1977,27 @@ await client.scripts.registerHosted("580e63e98c9a982ac9b8b741", {
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.CustomCodeHostedRequest` 
-    
+**request:** `Webflow.CustomCodeHostedRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Scripts.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Scripts.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -1978,6 +2022,7 @@ Register an inline script to a site. Inline scripts are limited to 2000 characte
 </Note>
 
 Required scope | `custom_code:write`
+
 </dd>
 </dl>
 </dd>
@@ -1995,10 +2040,10 @@ Required scope | `custom_code:write`
 await client.scripts.registerInline("580e63e98c9a982ac9b8b741", {
     sourceCode: "alert('hello world');",
     version: "0.0.1",
-    displayName: "Alert"
+    displayName: "Alert",
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -2013,34 +2058,34 @@ await client.scripts.registerInline("580e63e98c9a982ac9b8b741", {
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.CustomCodeInlineRequest` 
-    
+**request:** `Webflow.CustomCodeInlineRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Scripts.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Scripts.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Assets
+
 <details><summary><code>client.assets.<a href="/src/api/resources/assets/client/Client.ts">list</a>(siteId, { ...params }) -> Webflow.Assets</code></summary>
 <dl>
 <dd>
@@ -2056,6 +2101,7 @@ await client.scripts.registerInline("580e63e98c9a982ac9b8b741", {
 List of assets uploaded to a site
 
 Required scope | `assets:read`
+
 </dd>
 </dl>
 </dd>
@@ -2071,11 +2117,11 @@ Required scope | `assets:read`
 
 ```typescript
 await client.assets.list("580e63e98c9a982ac9b8b741", {
-    offset: 1.1,
-    limit: 1.1
+    offset: 1,
+    limit: 1,
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -2090,28 +2136,27 @@ await client.assets.list("580e63e98c9a982ac9b8b741", {
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.AssetsListRequest` 
-    
+**request:** `Webflow.AssetsListRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Assets.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Assets.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -2129,18 +2174,16 @@ await client.assets.list("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-The first step in uploading an asset to a site. 
-
+The first step in uploading an asset to a site.
 
 This endpoint generates a response with the following information: `uploadUrl` and `uploadDetails`.
 
-
 Use these properties in the header of a [POST request to Amazson s3](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectPOST.html) to complete the upload.
 
-
 To learn more about how to upload assets to Webflow, see our [assets guide](/data/docs/working-with-assets).
-  
- Required scope | `assets:write`
+
+Required scope | `assets:write`
+
 </dd>
 </dl>
 </dd>
@@ -2157,10 +2200,10 @@ To learn more about how to upload assets to Webflow, see our [assets guide](/dat
 ```typescript
 await client.assets.create("580e63e98c9a982ac9b8b741", {
     fileName: "file.png",
-    fileHash: "3c7d87c9575702bc3b1e991f4d3c638e"
+    fileHash: "3c7d87c9575702bc3b1e991f4d3c638e",
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -2175,28 +2218,27 @@ await client.assets.create("580e63e98c9a982ac9b8b741", {
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.AssetsCreateRequest` 
-    
+**request:** `Webflow.AssetsCreateRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Assets.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Assets.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -2217,6 +2259,7 @@ await client.assets.create("580e63e98c9a982ac9b8b741", {
 Get details about an asset
 
 Required scope | `assets:read`
+
 </dd>
 </dl>
 </dd>
@@ -2232,8 +2275,8 @@ Required scope | `assets:read`
 
 ```typescript
 await client.assets.get("580e63fc8c9a982ac9b8b745");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -2248,20 +2291,19 @@ await client.assets.get("580e63fc8c9a982ac9b8b745");
 <dd>
 
 **assetId:** `string` — Unique identifier for an Asset on a site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Assets.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Assets.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -2282,6 +2324,7 @@ await client.assets.get("580e63fc8c9a982ac9b8b745");
 Delete an Asset
 
 Required Scope: `assets: write`
+
 </dd>
 </dl>
 </dd>
@@ -2297,8 +2340,8 @@ Required Scope: `assets: write`
 
 ```typescript
 await client.assets.delete("580e63fc8c9a982ac9b8b745");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -2313,20 +2356,19 @@ await client.assets.delete("580e63fc8c9a982ac9b8b745");
 <dd>
 
 **assetId:** `string` — Unique identifier for an Asset on a site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Assets.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Assets.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -2347,6 +2389,7 @@ await client.assets.delete("580e63fc8c9a982ac9b8b745");
 Update details of an Asset.
 
 Required scope | `assets:write`
+
 </dd>
 </dl>
 </dd>
@@ -2362,8 +2405,8 @@ Required scope | `assets:write`
 
 ```typescript
 await client.assets.update("580e63fc8c9a982ac9b8b745");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -2378,28 +2421,27 @@ await client.assets.update("580e63fc8c9a982ac9b8b745");
 <dd>
 
 **assetId:** `string` — Unique identifier for an Asset on a site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.AssetsUpdateRequest` 
-    
+**request:** `Webflow.AssetsUpdateRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Assets.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Assets.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -2420,6 +2462,7 @@ await client.assets.update("580e63fc8c9a982ac9b8b745");
 List Asset Folders within a given site
 
 Required scope | `assets:read`
+
 </dd>
 </dl>
 </dd>
@@ -2435,8 +2478,8 @@ Required scope | `assets:read`
 
 ```typescript
 await client.assets.listFolders("580e63e98c9a982ac9b8b741");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -2451,20 +2494,19 @@ await client.assets.listFolders("580e63e98c9a982ac9b8b741");
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Assets.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Assets.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -2485,6 +2527,7 @@ await client.assets.listFolders("580e63e98c9a982ac9b8b741");
 Create an Asset Folder within a given site
 
 Required scope | `assets:write`
+
 </dd>
 </dl>
 </dd>
@@ -2500,10 +2543,10 @@ Required scope | `assets:write`
 
 ```typescript
 await client.assets.createFolder("580e63e98c9a982ac9b8b741", {
-    displayName: "my asset folder"
+    displayName: "my asset folder",
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -2518,28 +2561,27 @@ await client.assets.createFolder("580e63e98c9a982ac9b8b741", {
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.AssetsCreateFolderRequest` 
-    
+**request:** `Webflow.AssetsCreateFolderRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Assets.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Assets.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -2560,6 +2602,7 @@ await client.assets.createFolder("580e63e98c9a982ac9b8b741", {
 Get details about a specific Asset Folder
 
 Required scope | `assets:read`
+
 </dd>
 </dl>
 </dd>
@@ -2575,8 +2618,8 @@ Required scope | `assets:read`
 
 ```typescript
 await client.assets.getFolder("6390c49774a71f0e3c1a08ee");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -2591,26 +2634,26 @@ await client.assets.getFolder("6390c49774a71f0e3c1a08ee");
 <dd>
 
 **assetFolderId:** `string` — Unique identifier for an Asset Folder
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Assets.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Assets.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Webhooks
+
 <details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">list</a>(siteId) -> Webflow.WebhookList</code></summary>
 <dl>
 <dd>
@@ -2626,6 +2669,7 @@ await client.assets.getFolder("6390c49774a71f0e3c1a08ee");
 List all App-created Webhooks registered for a given site
 
 Required scope | `sites:read`
+
 </dd>
 </dl>
 </dd>
@@ -2641,8 +2685,8 @@ Required scope | `sites:read`
 
 ```typescript
 await client.webhooks.list("580e63e98c9a982ac9b8b741");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -2657,20 +2701,19 @@ await client.webhooks.list("580e63e98c9a982ac9b8b741");
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Webhooks.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Webhooks.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -2694,6 +2737,7 @@ Limit of 75 registrations per `triggerType`, per site.
 
 <Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
 Required scope | `sites:write`
+
 </dd>
 </dl>
 </dd>
@@ -2715,10 +2759,10 @@ await client.webhooks.create("580e63e98c9a982ac9b8b741", {
     workspaceId: "4f4e46fd476ea8c507000001",
     siteId: "562ac0395358780a1f5e6fbd",
     lastTriggered: new Date("2023-02-08T23:59:28.000Z"),
-    createdOn: new Date("2022-11-08T23:59:28.000Z")
+    createdOn: new Date("2022-11-08T23:59:28.000Z"),
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -2733,28 +2777,27 @@ await client.webhooks.create("580e63e98c9a982ac9b8b741", {
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.Webhook` 
-    
+**request:** `Webflow.Webhook`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Webhooks.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Webhooks.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -2775,6 +2818,7 @@ await client.webhooks.create("580e63e98c9a982ac9b8b741", {
 Get a specific Webhook instance
 
 Required scope: `sites:read`
+
 </dd>
 </dl>
 </dd>
@@ -2790,8 +2834,8 @@ Required scope: `sites:read`
 
 ```typescript
 await client.webhooks.get("580e64008c9a982ac9b8b754");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -2806,20 +2850,19 @@ await client.webhooks.get("580e64008c9a982ac9b8b754");
 <dd>
 
 **webhookId:** `string` — Unique identifier for a Webhook
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Webhooks.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Webhooks.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -2840,6 +2883,7 @@ await client.webhooks.get("580e64008c9a982ac9b8b754");
 Remove a Webhook
 
 Required scope: `sites:read`
+
 </dd>
 </dl>
 </dd>
@@ -2855,8 +2899,8 @@ Required scope: `sites:read`
 
 ```typescript
 await client.webhooks.delete("580e64008c9a982ac9b8b754");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -2871,26 +2915,26 @@ await client.webhooks.delete("580e64008c9a982ac9b8b754");
 <dd>
 
 **webhookId:** `string` — Unique identifier for a Webhook
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Webhooks.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Webhooks.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Forms
+
 <details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">list</a>(siteId, { ...params }) -> Webflow.FormList</code></summary>
 <dl>
 <dd>
@@ -2906,6 +2950,7 @@ await client.webhooks.delete("580e64008c9a982ac9b8b754");
 List forms for a given site.
 
 Required scope | `forms:read`
+
 </dd>
 </dl>
 </dd>
@@ -2921,11 +2966,11 @@ Required scope | `forms:read`
 
 ```typescript
 await client.forms.list("580e63e98c9a982ac9b8b741", {
-    limit: 1.1,
-    offset: 1.1
+    limit: 1,
+    offset: 1,
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -2940,28 +2985,27 @@ await client.forms.list("580e63e98c9a982ac9b8b741", {
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.FormsListRequest` 
-    
+**request:** `Webflow.FormsListRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Forms.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Forms.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -2982,6 +3026,7 @@ await client.forms.list("580e63e98c9a982ac9b8b741", {
 Get information about a given form.
 
 Required scope | `forms:read`
+
 </dd>
 </dl>
 </dd>
@@ -2997,8 +3042,8 @@ Required scope | `forms:read`
 
 ```typescript
 await client.forms.get("580e63e98c9a982ac9b8b741");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -3013,20 +3058,19 @@ await client.forms.get("580e63e98c9a982ac9b8b741");
 <dd>
 
 **formId:** `string` — Unique identifier for a Form
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Forms.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Forms.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -3053,6 +3097,7 @@ List form submissions for a given form
 </Note>
 
 Required scope | `forms:read`
+
 </dd>
 </dl>
 </dd>
@@ -3068,11 +3113,11 @@ Required scope | `forms:read`
 
 ```typescript
 await client.forms.listSubmissions("580e63e98c9a982ac9b8b741", {
-    offset: 1.1,
-    limit: 1.1
+    offset: 1,
+    limit: 1,
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -3087,28 +3132,27 @@ await client.forms.listSubmissions("580e63e98c9a982ac9b8b741", {
 <dd>
 
 **formId:** `string` — Unique identifier for a Form
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.FormsListSubmissionsRequest` 
-    
+**request:** `Webflow.FormsListSubmissionsRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Forms.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Forms.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -3129,6 +3173,7 @@ await client.forms.listSubmissions("580e63e98c9a982ac9b8b741", {
 Get information about a given form submissio.
 
 Required scope | `forms:read`
+
 </dd>
 </dl>
 </dd>
@@ -3144,8 +3189,8 @@ Required scope | `forms:read`
 
 ```typescript
 await client.forms.getSubmission("580e63e98c9a982ac9b8b741");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -3160,20 +3205,19 @@ await client.forms.getSubmission("580e63e98c9a982ac9b8b741");
 <dd>
 
 **formSubmissionId:** `string` — Unique identifier for a Form Submission
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Forms.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Forms.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -3193,8 +3237,8 @@ await client.forms.getSubmission("580e63e98c9a982ac9b8b741");
 
 Delete a form submission
 
-
 Required scope | `forms:write`
+
 </dd>
 </dl>
 </dd>
@@ -3210,8 +3254,8 @@ Required scope | `forms:write`
 
 ```typescript
 await client.forms.deleteSubmission("580e63e98c9a982ac9b8b741");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -3226,20 +3270,19 @@ await client.forms.deleteSubmission("580e63e98c9a982ac9b8b741");
 <dd>
 
 **formSubmissionId:** `string` — Unique identifier for a Form Submission
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Forms.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Forms.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -3260,6 +3303,7 @@ await client.forms.deleteSubmission("580e63e98c9a982ac9b8b741");
 Update hidden fields on a form submission
 
 Required scope | `forms:write`
+
 </dd>
 </dl>
 </dd>
@@ -3275,8 +3319,8 @@ Required scope | `forms:write`
 
 ```typescript
 await client.forms.updateSubmission("580e63e98c9a982ac9b8b741");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -3291,34 +3335,34 @@ await client.forms.updateSubmission("580e63e98c9a982ac9b8b741");
 <dd>
 
 **formSubmissionId:** `string` — Unique identifier for a Form Submission
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.FormsUpdateSubmissionRequest` 
-    
+**request:** `Webflow.FormsUpdateSubmissionRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Forms.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Forms.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Users
+
 <details><summary><code>client.users.<a href="/src/api/resources/users/client/Client.ts">list</a>(siteId, { ...params }) -> Webflow.UserList</code></summary>
 <dl>
 <dd>
@@ -3334,6 +3378,7 @@ await client.forms.updateSubmission("580e63e98c9a982ac9b8b741");
 Get a list of users for a site
 
 Required scope | `users:read`
+
 </dd>
 </dl>
 </dd>
@@ -3349,12 +3394,12 @@ Required scope | `users:read`
 
 ```typescript
 await client.users.list("580e63e98c9a982ac9b8b741", {
-    offset: 1.1,
-    limit: 1.1,
-    sort: "CreatedOn"
+    offset: 1,
+    limit: 1,
+    sort: "CreatedOn",
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -3369,28 +3414,27 @@ await client.users.list("580e63e98c9a982ac9b8b741", {
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.UsersListRequest` 
-    
+**request:** `Webflow.UsersListRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Users.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Users.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -3411,6 +3455,7 @@ await client.users.list("580e63e98c9a982ac9b8b741", {
 Get a User by ID
 
 Required scope | `users:read`
+
 </dd>
 </dl>
 </dd>
@@ -3426,8 +3471,8 @@ Required scope | `users:read`
 
 ```typescript
 await client.users.get("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -3442,7 +3487,7 @@ await client.users.get("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741");
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
@@ -3450,20 +3495,19 @@ await client.users.get("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741");
 <dd>
 
 **userId:** `string` — Unique identifier for a User
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Users.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Users.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -3484,6 +3528,7 @@ await client.users.get("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741");
 Delete a User by ID
 
 Required scope | `users:write`
+
 </dd>
 </dl>
 </dd>
@@ -3499,8 +3544,8 @@ Required scope | `users:write`
 
 ```typescript
 await client.users.delete("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -3515,7 +3560,7 @@ await client.users.delete("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741"
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
@@ -3523,20 +3568,19 @@ await client.users.delete("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741"
 <dd>
 
 **userId:** `string` — Unique identifier for a User
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Users.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Users.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -3554,12 +3598,13 @@ await client.users.delete("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741"
 <dl>
 <dd>
 
-Update a User by ID 
+Update a User by ID
 
-  Required scope | `users:write`
+Required scope | `users:write`
 
 <Note class="notice">The <code>email</code> and <code>password</code>
 fields cannot be updated using this endpoint</Note>
+
 </dd>
 </dl>
 </dd>
@@ -3582,13 +3627,15 @@ await client.users.update("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741"
     createdOn: new Date("2022-05-20T13:46:12.000Z"),
     lastLogin: new Date("2022-05-20T13:46:12.000Z"),
     status: "verified",
-    accessGroups: [{
+    accessGroups: [
+        {
             slug: "webflowers",
-            type: "admin"
-        }]
+            type: "admin",
+        },
+    ],
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -3603,7 +3650,7 @@ await client.users.update("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741"
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
@@ -3611,28 +3658,27 @@ await client.users.update("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741"
 <dd>
 
 **userId:** `string` — Unique identifier for a User
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.User` 
-    
+**request:** `Webflow.User`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Users.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Users.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -3650,11 +3696,12 @@ await client.users.update("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741"
 <dl>
 <dd>
 
-Create and invite a user with an email address. 
+Create and invite a user with an email address.
 
-The user will be sent and invite via email, which they will need to accept in order to join paid any paid access group. 
+The user will be sent and invite via email, which they will need to accept in order to join paid any paid access group.
 
 Required scope | `users:write`
+
 </dd>
 </dl>
 </dd>
@@ -3671,10 +3718,10 @@ Required scope | `users:write`
 ```typescript
 await client.users.invite("580e63e98c9a982ac9b8b741", {
     email: "some.one@home.com",
-    accessGroups: ["accessGroups"]
+    accessGroups: ["accessGroups"],
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -3689,34 +3736,34 @@ await client.users.invite("580e63e98c9a982ac9b8b741", {
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.UsersInviteRequest` 
-    
+**request:** `Webflow.UsersInviteRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Users.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Users.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## AccessGroups
+
 <details><summary><code>client.accessGroups.<a href="/src/api/resources/accessGroups/client/Client.ts">list</a>(siteId, { ...params }) -> Webflow.AccessGroupList</code></summary>
 <dl>
 <dd>
@@ -3732,6 +3779,7 @@ await client.users.invite("580e63e98c9a982ac9b8b741", {
 Get a list of access groups for a site
 
 Required scope | `users:read`
+
 </dd>
 </dl>
 </dd>
@@ -3747,12 +3795,12 @@ Required scope | `users:read`
 
 ```typescript
 await client.accessGroups.list("580e63e98c9a982ac9b8b741", {
-    offset: 1.1,
-    limit: 1.1,
-    sort: "CreatedOn"
+    offset: 1,
+    limit: 1,
+    sort: "CreatedOn",
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -3767,34 +3815,34 @@ await client.accessGroups.list("580e63e98c9a982ac9b8b741", {
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.AccessGroupsListRequest` 
-    
+**request:** `Webflow.AccessGroupsListRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `AccessGroups.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `AccessGroups.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Products
+
 <details><summary><code>client.products.<a href="/src/api/resources/products/client/Client.ts">list</a>(siteId, { ...params }) -> Webflow.ProductAndSkUsList</code></summary>
 <dl>
 <dd>
@@ -3807,12 +3855,13 @@ await client.accessGroups.list("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-Retrieve all products for a site. 
+Retrieve all products for a site.
 
 Use `limit` and `offset` to page through all products with subsequent requests. All SKUs for each product
 will also be fetched and returned. The `limit`, `offset` and `total` values represent Products only and do not include any SKUs.
 
 Required scope | `ecommerce:read`
+
 </dd>
 </dl>
 </dd>
@@ -3828,11 +3877,11 @@ Required scope | `ecommerce:read`
 
 ```typescript
 await client.products.list("580e63e98c9a982ac9b8b741", {
-    offset: 1.1,
-    limit: 1.1
+    offset: 1,
+    limit: 1,
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -3847,28 +3896,27 @@ await client.products.list("580e63e98c9a982ac9b8b741", {
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.ProductsListRequest` 
-    
+**request:** `Webflow.ProductsListRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Products.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Products.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -3889,13 +3937,15 @@ await client.products.list("580e63e98c9a982ac9b8b741", {
 Create a new ecommerce product and defaultSKU. A product, at minimum, must have a single SKU.
 
 To create a product with multiple SKUs:
-  - First, create a list of `sku-properties`, also known as [product options](https://help.webflow.com/hc/en-us/articles/33961334531347-Create-product-options-and-variants). For example, a T-shirt product may have a "color" `sku-property`, with a list of enum values: red, yellow, and blue, another `sku-property` may be "size", with a list of enum values: small, medium, and large.
-  - Once, a product is created with a list of `sku-properties`, Webflow will create a **default SKU**, which is always a combination of the first `enum` values of each `sku-property`. (e.g. Small - Red - T-Shirt)
-  - After creation, you can create additional SKUs for the product, using the [Create SKUs endpoint.](/data/reference/ecommerce/products/create-sku)
+
+- First, create a list of `sku-properties`, also known as [product options](https://help.webflow.com/hc/en-us/articles/33961334531347-Create-product-options-and-variants). For example, a T-shirt product may have a "color" `sku-property`, with a list of enum values: red, yellow, and blue, another `sku-property` may be "size", with a list of enum values: small, medium, and large.
+- Once, a product is created with a list of `sku-properties`, Webflow will create a **default SKU**, which is always a combination of the first `enum` values of each `sku-property`. (e.g. Small - Red - T-Shirt)
+- After creation, you can create additional SKUs for the product, using the [Create SKUs endpoint.](/data/reference/ecommerce/products/create-sku)
 
 Upon creation, the default product type will be `Advanced`, which ensures all Product and SKU fields will be shown to users in the Designer.
 
 Required scope | `ecommerce:write`
+
 </dd>
 </dl>
 </dd>
@@ -3917,40 +3967,51 @@ await client.products.create("580e63e98c9a982ac9b8b741", {
             name: "Colorful T-shirt",
             slug: "colorful-t-shirt",
             description: "Our best-selling t-shirt available in multiple colors and sizes",
-            skuProperties: [{
+            skuProperties: [
+                {
                     id: "color",
                     name: "Color",
-                    "enum": [{
+                    enum: [
+                        {
                             id: "red",
                             name: "Red",
-                            slug: "red"
-                        }, {
+                            slug: "red",
+                        },
+                        {
                             id: "yellow",
                             name: "Yellow",
-                            slug: "yellow"
-                        }, {
+                            slug: "yellow",
+                        },
+                        {
                             id: "blue",
                             name: "Blue",
-                            slug: "blue"
-                        }]
-                }, {
+                            slug: "blue",
+                        },
+                    ],
+                },
+                {
                     id: "size",
                     name: "Size",
-                    "enum": [{
+                    enum: [
+                        {
                             id: "small",
                             name: "Small",
-                            slug: "small"
-                        }, {
+                            slug: "small",
+                        },
+                        {
                             id: "medium",
                             name: "Medium",
-                            slug: "medium"
-                        }, {
+                            slug: "medium",
+                        },
+                        {
                             id: "large",
                             name: "Large",
-                            slug: "large"
-                        }]
-                }]
-        }
+                            slug: "large",
+                        },
+                    ],
+                },
+            ],
+        },
     },
     sku: {
         fieldData: {
@@ -3959,14 +4020,15 @@ await client.products.create("580e63e98c9a982ac9b8b741", {
             price: {
                 value: 2499,
                 unit: "USD",
-                currency: "USD"
+                currency: "USD",
             },
-            mainImage: "https://rocketamp-sample-store.myshopify.com/cdn/shop/products/Gildan_2000_Antique_Cherry_Red_Front_1024x1024.jpg?v=1527232987"
-        }
-    }
+            mainImage:
+                "https://rocketamp-sample-store.myshopify.com/cdn/shop/products/Gildan_2000_Antique_Cherry_Red_Front_1024x1024.jpg?v=1527232987",
+        },
+    },
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -3981,28 +4043,27 @@ await client.products.create("580e63e98c9a982ac9b8b741", {
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.ProductSkuCreate` 
-    
+**request:** `Webflow.ProductSkuCreate`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Products.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Products.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -4024,6 +4085,7 @@ Retrieve a single product by its ID. All of its SKUs will also be
 retrieved.
 
 Required scope | `ecommerce:read`
+
 </dd>
 </dl>
 </dd>
@@ -4039,8 +4101,8 @@ Required scope | `ecommerce:read`
 
 ```typescript
 await client.products.get("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b8b745");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -4055,7 +4117,7 @@ await client.products.get("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b8b745"
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
@@ -4063,20 +4125,19 @@ await client.products.get("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b8b745"
 <dd>
 
 **productId:** `string` — Unique identifier for a Product
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Products.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Products.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -4099,6 +4160,7 @@ Update an existing Product.
 Updating an existing Product will set the product type to `Advanced`, which ensures all Product and SKU fields will be shown to users in the Designer.
 
 Required scope | `ecommerce:write`
+
 </dd>
 </dl>
 </dd>
@@ -4114,8 +4176,8 @@ Required scope | `ecommerce:write`
 
 ```typescript
 await client.products.update("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b8b745");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -4130,7 +4192,7 @@ await client.products.update("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b8b7
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
@@ -4138,28 +4200,27 @@ await client.products.update("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b8b7
 <dd>
 
 **productId:** `string` — Unique identifier for a Product
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.ProductSkuUpdate` 
-    
+**request:** `Webflow.ProductSkuUpdate`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Products.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Products.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -4182,6 +4243,7 @@ Create additional SKUs to manage every [option and variant of your Product.](htt
 Creating SKUs through the API will set the product type to `Advanced`, which ensures all Product and SKU fields will be shown to users in the Designer.
 
 Required scope | `ecommerce:write`
+
 </dd>
 </dl>
 </dd>
@@ -4197,7 +4259,8 @@ Required scope | `ecommerce:write`
 
 ```typescript
 await client.products.createSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b8b745", {
-    skus: [{
+    skus: [
+        {
             id: "66072fb71b89448912e2681c",
             cmsLocaleId: "653ad57de882f528b32e810e",
             lastPublished: new Date("2023-03-17T18:47:35.000Z"),
@@ -4209,13 +4272,14 @@ await client.products.createSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b
                 price: {
                     value: 2499,
                     unit: "USD",
-                    currency: "USD"
-                }
-            }
-        }]
+                    currency: "USD",
+                },
+            },
+        },
+    ],
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -4230,7 +4294,7 @@ await client.products.createSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
@@ -4238,28 +4302,27 @@ await client.products.createSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b
 <dd>
 
 **productId:** `string` — Unique identifier for a Product
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.ProductsCreateSkuRequest` 
-    
+**request:** `Webflow.ProductsCreateSkuRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Products.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Products.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -4282,6 +4345,7 @@ Update a specified SKU.
 Updating an existing SKU will set the Product type to `Advanced`, which ensures all Product and SKU fields will be shown to users in the Designer.
 
 Required scope | `ecommerce:write`
+
 </dd>
 </dl>
 </dd>
@@ -4309,13 +4373,13 @@ await client.products.updateSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b
             price: {
                 value: 2499,
                 unit: "USD",
-                currency: "USD"
-            }
-        }
-    }
+                currency: "USD",
+            },
+        },
+    },
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -4330,7 +4394,7 @@ await client.products.updateSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
@@ -4338,7 +4402,7 @@ await client.products.updateSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b
 <dd>
 
 **productId:** `string` — Unique identifier for a Product
-    
+
 </dd>
 </dl>
 
@@ -4346,34 +4410,34 @@ await client.products.updateSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b
 <dd>
 
 **skuId:** `string` — Unique identifier for a SKU
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.ProductsUpdateSkuRequest` 
-    
+**request:** `Webflow.ProductsUpdateSkuRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Products.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Products.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Orders
+
 <details><summary><code>client.orders.<a href="/src/api/resources/orders/client/Client.ts">list</a>(siteId, { ...params }) -> Webflow.OrderList</code></summary>
 <dl>
 <dd>
@@ -4389,6 +4453,7 @@ await client.products.updateSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b
 List all orders created for a given site.
 
 Required scope | `ecommerce:read`
+
 </dd>
 </dl>
 </dd>
@@ -4405,11 +4470,11 @@ Required scope | `ecommerce:read`
 ```typescript
 await client.orders.list("580e63e98c9a982ac9b8b741", {
     status: "pending",
-    offset: 1.1,
-    limit: 1.1
+    offset: 1,
+    limit: 1,
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -4424,28 +4489,27 @@ await client.orders.list("580e63e98c9a982ac9b8b741", {
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.OrdersListRequest` 
-    
+**request:** `Webflow.OrdersListRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Orders.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Orders.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -4467,6 +4531,7 @@ Retrieve a single product by its ID. All of its SKUs will also be
 retrieved.
 
 Required scope | `ecommerce:read`
+
 </dd>
 </dl>
 </dd>
@@ -4482,8 +4547,8 @@ Required scope | `ecommerce:read`
 
 ```typescript
 await client.orders.get("580e63e98c9a982ac9b8b741", "5e8518516e147040726cc415");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -4498,7 +4563,7 @@ await client.orders.get("580e63e98c9a982ac9b8b741", "5e8518516e147040726cc415");
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
@@ -4506,20 +4571,19 @@ await client.orders.get("580e63e98c9a982ac9b8b741", "5e8518516e147040726cc415");
 <dd>
 
 **orderId:** `string` — Unique identifier for an Order
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Orders.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Orders.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -4542,6 +4606,7 @@ and/or `shippingTracking` for a given order. All three fields can be
 updated simultaneously or independently.
 
 Required scope | `ecommerce:write`
+
 </dd>
 </dl>
 </dd>
@@ -4557,8 +4622,8 @@ Required scope | `ecommerce:write`
 
 ```typescript
 await client.orders.update("580e63e98c9a982ac9b8b741", "5e8518516e147040726cc415");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -4573,7 +4638,7 @@ await client.orders.update("580e63e98c9a982ac9b8b741", "5e8518516e147040726cc415
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
@@ -4581,28 +4646,27 @@ await client.orders.update("580e63e98c9a982ac9b8b741", "5e8518516e147040726cc415
 <dd>
 
 **orderId:** `string` — Unique identifier for an Order
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.OrdersUpdateRequest` 
-    
+**request:** `Webflow.OrdersUpdateRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Orders.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Orders.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -4623,6 +4687,7 @@ await client.orders.update("580e63e98c9a982ac9b8b741", "5e8518516e147040726cc415
 Updates an order's status to fulfilled
 
 Required scope | `ecommerce:write`
+
 </dd>
 </dl>
 </dd>
@@ -4638,8 +4703,8 @@ Required scope | `ecommerce:write`
 
 ```typescript
 await client.orders.updateFulfill("580e63e98c9a982ac9b8b741", "5e8518516e147040726cc415");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -4654,7 +4719,7 @@ await client.orders.updateFulfill("580e63e98c9a982ac9b8b741", "5e8518516e1470407
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
@@ -4662,28 +4727,27 @@ await client.orders.updateFulfill("580e63e98c9a982ac9b8b741", "5e8518516e1470407
 <dd>
 
 **orderId:** `string` — Unique identifier for an Order
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.OrdersUpdateFulfillRequest` 
-    
+**request:** `Webflow.OrdersUpdateFulfillRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Orders.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Orders.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -4704,6 +4768,7 @@ await client.orders.updateFulfill("580e63e98c9a982ac9b8b741", "5e8518516e1470407
 Updates an order's status to unfulfilled
 
 Required scope | `ecommerce:write`
+
 </dd>
 </dl>
 </dd>
@@ -4719,8 +4784,8 @@ Required scope | `ecommerce:write`
 
 ```typescript
 await client.orders.updateUnfulfill("580e63e98c9a982ac9b8b741", "5e8518516e147040726cc415");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -4735,7 +4800,7 @@ await client.orders.updateUnfulfill("580e63e98c9a982ac9b8b741", "5e8518516e14704
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
@@ -4743,20 +4808,19 @@ await client.orders.updateUnfulfill("580e63e98c9a982ac9b8b741", "5e8518516e14704
 <dd>
 
 **orderId:** `string` — Unique identifier for an Order
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Orders.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Orders.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -4778,6 +4842,7 @@ This API will reverse a Stripe charge and refund an order back to a
 customer. It will also set the order's status to `refunded`.
 
 Required scope | `ecommerce:write`
+
 </dd>
 </dl>
 </dd>
@@ -4793,8 +4858,8 @@ Required scope | `ecommerce:write`
 
 ```typescript
 await client.orders.refund("580e63e98c9a982ac9b8b741", "5e8518516e147040726cc415");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -4809,7 +4874,7 @@ await client.orders.refund("580e63e98c9a982ac9b8b741", "5e8518516e147040726cc415
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
@@ -4817,34 +4882,34 @@ await client.orders.refund("580e63e98c9a982ac9b8b741", "5e8518516e147040726cc415
 <dd>
 
 **orderId:** `string` — Unique identifier for an Order
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.OrdersRefundRequest` 
-    
+**request:** `Webflow.OrdersRefundRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Orders.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Orders.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Inventory
+
 <details><summary><code>client.inventory.<a href="/src/api/resources/inventory/client/Client.ts">list</a>(skuCollectionId, skuId) -> Webflow.InventoryItem</code></summary>
 <dl>
 <dd>
@@ -4860,6 +4925,7 @@ await client.orders.refund("580e63e98c9a982ac9b8b741", "5e8518516e147040726cc415
 List the current inventory levels for a particular SKU item.
 
 Required scope | `ecommerce:read`
+
 </dd>
 </dl>
 </dd>
@@ -4875,8 +4941,8 @@ Required scope | `ecommerce:read`
 
 ```typescript
 await client.inventory.list("6377a7c4b7a79608c34a46f7", "5e8518516e147040726cc415");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -4891,7 +4957,7 @@ await client.inventory.list("6377a7c4b7a79608c34a46f7", "5e8518516e147040726cc41
 <dd>
 
 **skuCollectionId:** `string` — Unique identifier for a SKU collection. Use the List Collections API to find this ID.
-    
+
 </dd>
 </dl>
 
@@ -4899,20 +4965,19 @@ await client.inventory.list("6377a7c4b7a79608c34a46f7", "5e8518516e147040726cc41
 <dd>
 
 **skuId:** `string` — Unique identifier for a SKU
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Inventory.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Inventory.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -4930,13 +4995,15 @@ await client.inventory.list("6377a7c4b7a79608c34a46f7", "5e8518516e147040726cc41
 <dl>
 <dd>
 
-Updates the current inventory levels for a particular SKU item. 
+Updates the current inventory levels for a particular SKU item.
 
-Updates may be given in one or two methods, absolutely or incrementally. 
-- Absolute updates are done by setting `quantity` directly. 
+Updates may be given in one or two methods, absolutely or incrementally.
+
+- Absolute updates are done by setting `quantity` directly.
 - Incremental updates are by specifying the inventory delta in `updateQuantity` which is then added to the `quantity` stored on the server.
 
 Required scope | `ecommerce:write`
+
 </dd>
 </dl>
 </dd>
@@ -4952,10 +5019,10 @@ Required scope | `ecommerce:write`
 
 ```typescript
 await client.inventory.update("6377a7c4b7a79608c34a46f7", "5e8518516e147040726cc415", {
-    inventoryType: "infinite"
+    inventoryType: "infinite",
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -4970,7 +5037,7 @@ await client.inventory.update("6377a7c4b7a79608c34a46f7", "5e8518516e147040726cc
 <dd>
 
 **skuCollectionId:** `string` — Unique identifier for a SKU collection. Use the List Collections API to find this ID.
-    
+
 </dd>
 </dl>
 
@@ -4978,34 +5045,34 @@ await client.inventory.update("6377a7c4b7a79608c34a46f7", "5e8518516e147040726cc
 <dd>
 
 **skuId:** `string` — Unique identifier for a SKU
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.InventoryUpdateRequest` 
-    
+**request:** `Webflow.InventoryUpdateRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Inventory.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Inventory.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Ecommerce
+
 <details><summary><code>client.ecommerce.<a href="/src/api/resources/ecommerce/client/Client.ts">getSettings</a>(siteId) -> Webflow.EcommerceSettings</code></summary>
 <dl>
 <dd>
@@ -5021,6 +5088,7 @@ await client.inventory.update("6377a7c4b7a79608c34a46f7", "5e8518516e147040726cc
 Retrieve ecommerce settings for a site.
 
 Required scope | `ecommerce:read`
+
 </dd>
 </dl>
 </dd>
@@ -5036,8 +5104,8 @@ Required scope | `ecommerce:read`
 
 ```typescript
 await client.ecommerce.getSettings("580e63e98c9a982ac9b8b741");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -5052,26 +5120,26 @@ await client.ecommerce.getSettings("580e63e98c9a982ac9b8b741");
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Ecommerce.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Ecommerce.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Collections Fields
+
 <details><summary><code>client.collections.fields.<a href="/src/api/resources/collections/resources/fields/client/Client.ts">create</a>(collectionId, { ...params }) -> Webflow.FieldCreate</code></summary>
 <dl>
 <dd>
@@ -5091,6 +5159,7 @@ Field validation is currently not available through the API.
 Bulk creation of fields is not supported with this endpoint. To add multiple fields at once, include them when you [create the collection.](/data/v2.0.0/reference/cms/collections/create)
 
 Required scope | `cms:write`
+
 </dd>
 </dl>
 </dd>
@@ -5111,10 +5180,10 @@ await client.collections.fields.create("580e63fc8c9a982ac9b8b745", {
     isRequired: false,
     type: "RichText",
     displayName: "Post Body",
-    helpText: "Add the body of your post here"
+    helpText: "Add the body of your post here",
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -5129,28 +5198,27 @@ await client.collections.fields.create("580e63fc8c9a982ac9b8b745", {
 <dd>
 
 **collectionId:** `string` — Unique identifier for a Collection
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.FieldCreate` 
-    
+**request:** `Webflow.FieldCreate`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Fields.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Fields.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -5171,6 +5239,7 @@ await client.collections.fields.create("580e63fc8c9a982ac9b8b745", {
 Delete a custom field in a collection. This endpoint does not currently support bulk deletion.
 
 Required scope | `cms:write`
+
 </dd>
 </dl>
 </dd>
@@ -5186,8 +5255,8 @@ Required scope | `cms:write`
 
 ```typescript
 await client.collections.fields.delete("580e63fc8c9a982ac9b8b745", "580e63fc8c9a982ac9b8b745");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -5202,7 +5271,7 @@ await client.collections.fields.delete("580e63fc8c9a982ac9b8b745", "580e63fc8c9a
 <dd>
 
 **collectionId:** `string` — Unique identifier for a Collection
-    
+
 </dd>
 </dl>
 
@@ -5210,20 +5279,19 @@ await client.collections.fields.delete("580e63fc8c9a982ac9b8b745", "580e63fc8c9a
 <dd>
 
 **fieldId:** `string` — Unique identifier for a Field in a collection
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Fields.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Fields.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -5244,6 +5312,7 @@ await client.collections.fields.delete("580e63fc8c9a982ac9b8b745", "580e63fc8c9a
 Update a custom field in a collection.
 
 Required scope | `cms:write`
+
 </dd>
 </dl>
 </dd>
@@ -5261,10 +5330,10 @@ Required scope | `cms:write`
 await client.collections.fields.update("580e63fc8c9a982ac9b8b745", "580e63fc8c9a982ac9b8b745", {
     isRequired: false,
     displayName: "Post Body",
-    helpText: "Add the body of your post here"
+    helpText: "Add the body of your post here",
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -5279,7 +5348,7 @@ await client.collections.fields.update("580e63fc8c9a982ac9b8b745", "580e63fc8c9a
 <dd>
 
 **collectionId:** `string` — Unique identifier for a Collection
-    
+
 </dd>
 </dl>
 
@@ -5287,34 +5356,34 @@ await client.collections.fields.update("580e63fc8c9a982ac9b8b745", "580e63fc8c9a
 <dd>
 
 **fieldId:** `string` — Unique identifier for a Field in a collection
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.collections.FieldUpdate` 
-    
+**request:** `Webflow.collections.FieldUpdate`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Fields.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Fields.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Collections Items
+
 <details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">listItems</a>(collectionId, { ...params }) -> Webflow.CollectionItemList</code></summary>
 <dl>
 <dd>
@@ -5330,6 +5399,7 @@ await client.collections.fields.update("580e63fc8c9a982ac9b8b745", "580e63fc8c9a
 List of all Items within a Collection.
 
 Required scope | `CMS:read`
+
 </dd>
 </dl>
 </dd>
@@ -5346,15 +5416,15 @@ Required scope | `CMS:read`
 ```typescript
 await client.collections.items.listItems("580e63fc8c9a982ac9b8b745", {
     cmsLocaleId: "cmsLocaleId",
-    offset: 1.1,
-    limit: 1.1,
+    offset: 1,
+    limit: 1,
     name: "name",
     slug: "slug",
     sortBy: "lastPublished",
-    sortOrder: "asc"
+    sortOrder: "asc",
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -5369,28 +5439,27 @@ await client.collections.items.listItems("580e63fc8c9a982ac9b8b745", {
 <dd>
 
 **collectionId:** `string` — Unique identifier for a Collection
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.collections.ItemsListItemsRequest` 
-    
+**request:** `Webflow.collections.ItemsListItemsRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Items.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Items.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -5410,10 +5479,10 @@ await client.collections.items.listItems("580e63fc8c9a982ac9b8b745", {
 
 Create Item(s) in a Collection.
 
-
 To create items across multiple locales, please use [this endpoint.](/data/reference/cms/collection-items/staged-items/create-items)
 
 Required scope | `CMS:write`
+
 </dd>
 </dl>
 </dd>
@@ -5436,45 +5505,11 @@ await client.collections.items.createItem("580e63fc8c9a982ac9b8b745", {
         fieldData: {
             name: "The Hitchhiker's Guide to the Galaxy",
             slug: "hitchhikers-guide-to-the-galaxy",
-            "plain-text": "Don't Panic.",
-            "rich-text": "<h3>A Guide to Interstellar Travel</h3><p>A towel is about the most massively useful thing an interstellar hitchhiker can have. <strong>Don't forget yours!</strong></p>",
-            "main-image": {
-                "fileId": "62b720ef280c7a7a3be8cabe",
-                "url": "/files/62b720ef280c7a7a3be8cabe_image.png"
-            },
-            "image-gallery": [
-                {
-                    "fileId": "62b720ef280c7a7a3be8cabd",
-                    "url": "/files/62b720ef280c7a7a3be8cabd_image.png"
-                },
-                {
-                    "fileId": "62b720ef280c7a7a3be8cabe",
-                    "url": "/files/62b720ef280c7a7a3be8cabe_image.png"
-                }
-            ],
-            "intro-video": "https://www.youtube.com/watch?v=aJ83KAggd-4",
-            "official-site": "https://hitchhikers.fandom.com/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy",
-            "contact-email": "zaphod.beeblebrox@heartofgold.gov",
-            "support-phone": "424-242-4242",
-            "answer-to-everything": 42,
-            "release-date": "1979-10-12T00:00:00.000Z",
-            "is-featured": true,
-            "brand-color": "#000000",
-            category: "62b720ef280c7a7a3be8cabf",
-            author: "62b720ef280c7a7a3be8cab0",
-            tags: [
-                "62b720ef280c7a7a3be8cab1",
-                "62b720ef280c7a7a3be8cab2"
-            ],
-            "downloadable-asset": {
-                "fileId": "62b720ef280c7a7a3be8cab3",
-                "url": "/files/62b720ef280c7a7a3be8cab3_document.pdf"
-            }
-        }
-    }
+        },
+    },
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -5489,28 +5524,27 @@ await client.collections.items.createItem("580e63fc8c9a982ac9b8b745", {
 <dd>
 
 **collectionId:** `string` — Unique identifier for a Collection
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.collections.ItemsCreateItemRequest` 
-    
+**request:** `Webflow.collections.ItemsCreateItemRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Items.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Items.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -5533,6 +5567,7 @@ Delete Items from a Collection.
 <Tip title="Localization Tip">Items will only be deleted in the primary locale unless a `cmsLocaleId` is included in the request.</Tip>
 
 Required scope | `CMS:write`
+
 </dd>
 </dl>
 </dd>
@@ -5548,12 +5583,14 @@ Required scope | `CMS:write`
 
 ```typescript
 await client.collections.items.deleteItems("580e63fc8c9a982ac9b8b745", {
-    items: [{
-            id: "580e64008c9a982ac9b8b754"
-        }]
+    items: [
+        {
+            id: "580e64008c9a982ac9b8b754",
+        },
+    ],
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -5568,28 +5605,27 @@ await client.collections.items.deleteItems("580e63fc8c9a982ac9b8b745", {
 <dd>
 
 **collectionId:** `string` — Unique identifier for a Collection
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.collections.ItemsDeleteItemsRequest` 
-    
+**request:** `Webflow.collections.ItemsDeleteItemsRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Items.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Items.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -5614,6 +5650,7 @@ The limit for this endpoint is 100 items.
 <Tip title="Localization Tip">Items will only be updated in the primary locale, unless a `cmsLocaleId` is included in the request.</Tip>
 
 Required scope | `CMS:write`
+
 </dd>
 </dl>
 </dd>
@@ -5630,42 +5667,43 @@ Required scope | `CMS:write`
 ```typescript
 await client.collections.items.updateItems("580e63fc8c9a982ac9b8b745", {
     skipInvalidFiles: true,
-    items: [{
+    items: [
+        {
             id: "66f6ed9576ddacf3149d5ea6",
             cmsLocaleId: "66f6e966c9e1dc700a857ca5",
             fieldData: {
                 name: "Ne Paniquez Pas",
                 slug: "ne-paniquez-pas",
-                featured: false
-            }
-        }, {
+            },
+        },
+        {
             id: "66f6ed9576ddacf3149d5ea6",
             cmsLocaleId: "66f6e966c9e1dc700a857ca4",
             fieldData: {
                 name: "No Entrar en P\u00E1nico",
                 slug: "no-entrar-en-panico",
-                featured: false
-            }
-        }, {
+            },
+        },
+        {
             id: "66f6ed9576ddacf3149d5eaa",
             cmsLocaleId: "66f6e966c9e1dc700a857ca5",
             fieldData: {
                 name: "Au Revoir et Merci pour Tous les Poissons",
                 slug: "au-revoir-et-merci",
-                featured: false
-            }
-        }, {
+            },
+        },
+        {
             id: "66f6ed9576ddacf3149d5eaa",
             cmsLocaleId: "66f6e966c9e1dc700a857ca4",
             fieldData: {
                 name: "Hasta Luego y Gracias por Todo el Pescado",
                 slug: "hasta-luego-y-gracias",
-                featured: false
-            }
-        }]
+            },
+        },
+    ],
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -5680,28 +5718,27 @@ await client.collections.items.updateItems("580e63fc8c9a982ac9b8b745", {
 <dd>
 
 **collectionId:** `string` — Unique identifier for a Collection
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.collections.ItemsUpdateItemsRequest` 
-    
+**request:** `Webflow.collections.ItemsUpdateItemsRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Items.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Items.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -5726,6 +5763,7 @@ List all published items in a collection.
 </Tip>
 
 Required scope | `CMS:read`
+
 </dd>
 </dl>
 </dd>
@@ -5742,15 +5780,15 @@ Required scope | `CMS:read`
 ```typescript
 await client.collections.items.listItemsLive("580e63fc8c9a982ac9b8b745", {
     cmsLocaleId: "cmsLocaleId",
-    offset: 1.1,
-    limit: 1.1,
+    offset: 1,
+    limit: 1,
     name: "name",
     slug: "slug",
     sortBy: "lastPublished",
-    sortOrder: "asc"
+    sortOrder: "asc",
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -5765,28 +5803,27 @@ await client.collections.items.listItemsLive("580e63fc8c9a982ac9b8b745", {
 <dd>
 
 **collectionId:** `string` — Unique identifier for a Collection
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.collections.ItemsListItemsLiveRequest` 
-    
+**request:** `Webflow.collections.ItemsListItemsLiveRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Items.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Items.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -5806,11 +5843,10 @@ await client.collections.items.listItemsLive("580e63fc8c9a982ac9b8b745", {
 
 Create item(s) in a collection that will be immediately published to the live site.
 
-
 To create items across multiple locales, [please use this endpoint.](/data/reference/cms/collection-items/staged-items/create-items)
 
-
 Required scope | `CMS:write`
+
 </dd>
 </dl>
 </dd>
@@ -5833,45 +5869,11 @@ await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
         fieldData: {
             name: "The Hitchhiker's Guide to the Galaxy",
             slug: "hitchhikers-guide-to-the-galaxy",
-            "plain-text": "Don't Panic.",
-            "rich-text": "<h3>A Guide to Interstellar Travel</h3><p>A towel is about the most massively useful thing an interstellar hitchhiker can have. <strong>Don't forget yours!</strong></p>",
-            "main-image": {
-                "fileId": "62b720ef280c7a7a3be8cabe",
-                "url": "/files/62b720ef280c7a7a3be8cabe_image.png"
-            },
-            "image-gallery": [
-                {
-                    "fileId": "62b720ef280c7a7a3be8cabd",
-                    "url": "/files/62b720ef280c7a7a3be8cabd_image.png"
-                },
-                {
-                    "fileId": "62b720ef280c7a7a3be8cabe",
-                    "url": "/files/62b720ef280c7a7a3be8cabe_image.png"
-                }
-            ],
-            "intro-video": "https://www.youtube.com/watch?v=aJ83KAggd-4",
-            "official-site": "https://hitchhikers.fandom.com/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy",
-            "contact-email": "zaphod.beeblebrox@heartofgold.gov",
-            "support-phone": "424-242-4242",
-            "answer-to-everything": 42,
-            "release-date": "1979-10-12T00:00:00.000Z",
-            "is-featured": true,
-            "brand-color": "#000000",
-            category: "62b720ef280c7a7a3be8cabf",
-            author: "62b720ef280c7a7a3be8cab0",
-            tags: [
-                "62b720ef280c7a7a3be8cab1",
-                "62b720ef280c7a7a3be8cab2"
-            ],
-            "downloadable-asset": {
-                "fileId": "62b720ef280c7a7a3be8cab3",
-                "url": "/files/62b720ef280c7a7a3be8cab3_document.pdf"
-            }
-        }
-    }
+        },
+    },
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -5886,28 +5888,27 @@ await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
 <dd>
 
 **collectionId:** `string` — Unique identifier for a Collection
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.collections.ItemsCreateItemLiveRequest` 
-    
+**request:** `Webflow.collections.ItemsCreateItemLiveRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Items.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Items.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -5925,11 +5926,12 @@ await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
-Unpublish up to 100 items from the live site and set the `isDraft` property to `true`. 
+Unpublish up to 100 items from the live site and set the `isDraft` property to `true`.
 
 <Tip title="Localization Tip">Items will only be unpublished in the primary locale unless a `cmsLocaleId` is included in the request.</Tip>
 
 Required scope | `CMS:write`
+
 </dd>
 </dl>
 </dd>
@@ -5945,12 +5947,14 @@ Required scope | `CMS:write`
 
 ```typescript
 await client.collections.items.deleteItemsLive("580e63fc8c9a982ac9b8b745", {
-    items: [{
-            id: "580e64008c9a982ac9b8b754"
-        }]
+    items: [
+        {
+            id: "580e64008c9a982ac9b8b754",
+        },
+    ],
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -5965,28 +5969,27 @@ await client.collections.items.deleteItemsLive("580e63fc8c9a982ac9b8b745", {
 <dd>
 
 **collectionId:** `string` — Unique identifier for a Collection
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.collections.ItemsDeleteItemsLiveRequest` 
-    
+**request:** `Webflow.collections.ItemsDeleteItemsLiveRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Items.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Items.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -6009,6 +6012,7 @@ Update a single published item or multiple published items (up to 100) in a Coll
 <Tip title="Localization Tip">Items will only be updated in the primary locale, unless a `cmsLocaleId` is included in the request.</Tip>
 
 Required scope | `CMS:write`
+
 </dd>
 </dl>
 </dd>
@@ -6025,42 +6029,43 @@ Required scope | `CMS:write`
 ```typescript
 await client.collections.items.updateItemsLive("580e63fc8c9a982ac9b8b745", {
     skipInvalidFiles: true,
-    items: [{
+    items: [
+        {
             id: "66f6ed9576ddacf3149d5ea6",
             cmsLocaleId: "66f6e966c9e1dc700a857ca5",
             fieldData: {
                 name: "Ne Paniquez Pas",
                 slug: "ne-paniquez-pas",
-                featured: false
-            }
-        }, {
+            },
+        },
+        {
             id: "66f6ed9576ddacf3149d5ea6",
             cmsLocaleId: "66f6e966c9e1dc700a857ca4",
             fieldData: {
                 name: "No Entrar en P\u00E1nico",
                 slug: "no-entrar-en-panico",
-                featured: false
-            }
-        }, {
+            },
+        },
+        {
             id: "66f6ed9576ddacf3149d5eaa",
             cmsLocaleId: "66f6e966c9e1dc700a857ca5",
             fieldData: {
                 name: "Au Revoir et Merci pour Tous les Poissons",
                 slug: "au-revoir-et-merci",
-                featured: false
-            }
-        }, {
+            },
+        },
+        {
             id: "66f6ed9576ddacf3149d5eaa",
             cmsLocaleId: "66f6e966c9e1dc700a857ca4",
             fieldData: {
                 name: "Hasta Luego y Gracias por Todo el Pescado",
                 slug: "hasta-luego-y-gracias",
-                featured: false
-            }
-        }]
+            },
+        },
+    ],
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -6075,28 +6080,27 @@ await client.collections.items.updateItemsLive("580e63fc8c9a982ac9b8b745", {
 <dd>
 
 **collectionId:** `string` — Unique identifier for a Collection
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.collections.ItemsUpdateItemsLiveRequest` 
-    
+**request:** `Webflow.collections.ItemsUpdateItemsLiveRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Items.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Items.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -6122,6 +6126,7 @@ Create an item or multiple items in a CMS Collection across multiple correspondi
 </Note>
 
 Required scope | `CMS:write`
+
 </dd>
 </dl>
 </dd>
@@ -6143,11 +6148,11 @@ await client.collections.items.createItems("580e63fc8c9a982ac9b8b745", {
     isDraft: false,
     fieldData: {
         name: "Don\u2019t Panic",
-        slug: "dont-panic"
-    }
+        slug: "dont-panic",
+    },
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -6162,28 +6167,27 @@ await client.collections.items.createItems("580e63fc8c9a982ac9b8b745", {
 <dd>
 
 **collectionId:** `string` — Unique identifier for a Collection
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.collections.CreateBulkCollectionItemRequestBody` 
-    
+**request:** `Webflow.collections.CreateBulkCollectionItemRequestBody`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Items.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Items.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -6204,6 +6208,7 @@ await client.collections.items.createItems("580e63fc8c9a982ac9b8b745", {
 Get details of a selected Collection Item.
 
 Required scope | `CMS:read`
+
 </dd>
 </dl>
 </dd>
@@ -6219,10 +6224,10 @@ Required scope | `CMS:read`
 
 ```typescript
 await client.collections.items.getItem("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754", {
-    cmsLocaleId: "cmsLocaleId"
+    cmsLocaleId: "cmsLocaleId",
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -6237,7 +6242,7 @@ await client.collections.items.getItem("580e63fc8c9a982ac9b8b745", "580e64008c9a
 <dd>
 
 **collectionId:** `string` — Unique identifier for a Collection
-    
+
 </dd>
 </dl>
 
@@ -6245,28 +6250,27 @@ await client.collections.items.getItem("580e63fc8c9a982ac9b8b745", "580e64008c9a
 <dd>
 
 **itemId:** `string` — Unique identifier for an Item
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.collections.ItemsGetItemRequest` 
-    
+**request:** `Webflow.collections.ItemsGetItemRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Items.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Items.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -6284,9 +6288,10 @@ await client.collections.items.getItem("580e63fc8c9a982ac9b8b745", "580e64008c9a
 <dl>
 <dd>
 
-Delete an item from a collection. 
+Delete an item from a collection.
 
 Required scope | `CMS:write`
+
 </dd>
 </dl>
 </dd>
@@ -6302,10 +6307,10 @@ Required scope | `CMS:write`
 
 ```typescript
 await client.collections.items.deleteItem("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754", {
-    cmsLocaleId: "cmsLocaleId"
+    cmsLocaleId: "cmsLocaleId",
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -6320,7 +6325,7 @@ await client.collections.items.deleteItem("580e63fc8c9a982ac9b8b745", "580e64008
 <dd>
 
 **collectionId:** `string` — Unique identifier for a Collection
-    
+
 </dd>
 </dl>
 
@@ -6328,28 +6333,27 @@ await client.collections.items.deleteItem("580e63fc8c9a982ac9b8b745", "580e64008
 <dd>
 
 **itemId:** `string` — Unique identifier for an Item
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.collections.ItemsDeleteItemRequest` 
-    
+**request:** `Webflow.collections.ItemsDeleteItemRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Items.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Items.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -6370,6 +6374,7 @@ await client.collections.items.deleteItem("580e63fc8c9a982ac9b8b745", "580e64008
 Update a selected Item in a Collection.
 
 Required scope | `CMS:write`
+
 </dd>
 </dl>
 </dd>
@@ -6392,45 +6397,11 @@ await client.collections.items.updateItem("580e63fc8c9a982ac9b8b745", "580e64008
         fieldData: {
             name: "The Hitchhiker's Guide to the Galaxy",
             slug: "hitchhikers-guide-to-the-galaxy",
-            "plain-text": "Don't Panic.",
-            "rich-text": "<h3>A Guide to Interstellar Travel</h3><p>A towel is about the most massively useful thing an interstellar hitchhiker can have. <strong>Don't forget yours!</strong></p>",
-            "main-image": {
-                "fileId": "62b720ef280c7a7a3be8cabe",
-                "url": "/files/62b720ef280c7a7a3be8cabe_image.png"
-            },
-            "image-gallery": [
-                {
-                    "fileId": "62b720ef280c7a7a3be8cabd",
-                    "url": "/files/62b720ef280c7a7a3be8cabd_image.png"
-                },
-                {
-                    "fileId": "62b720ef280c7a7a3be8cabe",
-                    "url": "/files/62b720ef280c7a7a3be8cabe_image.png"
-                }
-            ],
-            "intro-video": "https://www.youtube.com/watch?v=aJ83KAggd-4",
-            "official-site": "https://hitchhikers.fandom.com/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy",
-            "contact-email": "zaphod.beeblebrox@heartofgold.gov",
-            "support-phone": "424-242-4242",
-            "answer-to-everything": 42,
-            "release-date": "1979-10-12T00:00:00.000Z",
-            "is-featured": true,
-            "brand-color": "#000000",
-            category: "62b720ef280c7a7a3be8cabf",
-            author: "62b720ef280c7a7a3be8cab0",
-            tags: [
-                "62b720ef280c7a7a3be8cab1",
-                "62b720ef280c7a7a3be8cab2"
-            ],
-            "downloadable-asset": {
-                "fileId": "62b720ef280c7a7a3be8cab3",
-                "url": "/files/62b720ef280c7a7a3be8cab3_document.pdf"
-            }
-        }
-    }
+        },
+    },
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -6445,7 +6416,7 @@ await client.collections.items.updateItem("580e63fc8c9a982ac9b8b745", "580e64008
 <dd>
 
 **collectionId:** `string` — Unique identifier for a Collection
-    
+
 </dd>
 </dl>
 
@@ -6453,28 +6424,27 @@ await client.collections.items.updateItem("580e63fc8c9a982ac9b8b745", "580e64008
 <dd>
 
 **itemId:** `string` — Unique identifier for an Item
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.collections.ItemsUpdateItemRequest` 
-    
+**request:** `Webflow.collections.ItemsUpdateItemRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Items.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Items.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -6499,6 +6469,7 @@ Get details of a selected Collection live Item.
 </Tip>
 
 Required scope | `CMS:read`
+
 </dd>
 </dl>
 </dd>
@@ -6514,10 +6485,10 @@ Required scope | `CMS:read`
 
 ```typescript
 await client.collections.items.getItemLive("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754", {
-    cmsLocaleId: "cmsLocaleId"
+    cmsLocaleId: "cmsLocaleId",
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -6532,7 +6503,7 @@ await client.collections.items.getItemLive("580e63fc8c9a982ac9b8b745", "580e6400
 <dd>
 
 **collectionId:** `string` — Unique identifier for a Collection
-    
+
 </dd>
 </dl>
 
@@ -6540,28 +6511,27 @@ await client.collections.items.getItemLive("580e63fc8c9a982ac9b8b745", "580e6400
 <dd>
 
 **itemId:** `string` — Unique identifier for an Item
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.collections.ItemsGetItemLiveRequest` 
-    
+**request:** `Webflow.collections.ItemsGetItemLiveRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Items.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Items.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -6579,11 +6549,12 @@ await client.collections.items.getItemLive("580e63fc8c9a982ac9b8b745", "580e6400
 <dl>
 <dd>
 
-Unpublish a live item from the site and set the `isDraft` property to `true`. 
+Unpublish a live item from the site and set the `isDraft` property to `true`.
 
 For bulk unpublishing, please use [this endpoint.](/data/v2.0.0/reference/cms/collection-items/live-items/delete-items-live)
 
 Required scope | `CMS:write`
+
 </dd>
 </dl>
 </dd>
@@ -6599,10 +6570,10 @@ Required scope | `CMS:write`
 
 ```typescript
 await client.collections.items.deleteItemLive("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754", {
-    cmsLocaleId: "cmsLocaleId"
+    cmsLocaleId: "cmsLocaleId",
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -6617,7 +6588,7 @@ await client.collections.items.deleteItemLive("580e63fc8c9a982ac9b8b745", "580e6
 <dd>
 
 **collectionId:** `string` — Unique identifier for a Collection
-    
+
 </dd>
 </dl>
 
@@ -6625,28 +6596,27 @@ await client.collections.items.deleteItemLive("580e63fc8c9a982ac9b8b745", "580e6
 <dd>
 
 **itemId:** `string` — Unique identifier for an Item
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.collections.ItemsDeleteItemLiveRequest` 
-    
+**request:** `Webflow.collections.ItemsDeleteItemLiveRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Items.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Items.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -6667,6 +6637,7 @@ await client.collections.items.deleteItemLive("580e63fc8c9a982ac9b8b745", "580e6
 Update a selected live Item in a Collection. The updates for this Item will be published to the live site.
 
 Required scope | `CMS:write`
+
 </dd>
 </dl>
 </dd>
@@ -6689,45 +6660,11 @@ await client.collections.items.updateItemLive("580e63fc8c9a982ac9b8b745", "580e6
         fieldData: {
             name: "The Hitchhiker's Guide to the Galaxy",
             slug: "hitchhikers-guide-to-the-galaxy",
-            "plain-text": "Don't Panic.",
-            "rich-text": "<h3>A Guide to Interstellar Travel</h3><p>A towel is about the most massively useful thing an interstellar hitchhiker can have. <strong>Don't forget yours!</strong></p>",
-            "main-image": {
-                "fileId": "62b720ef280c7a7a3be8cabe",
-                "url": "/files/62b720ef280c7a7a3be8cabe_image.png"
-            },
-            "image-gallery": [
-                {
-                    "fileId": "62b720ef280c7a7a3be8cabd",
-                    "url": "/files/62b720ef280c7a7a3be8cabd_image.png"
-                },
-                {
-                    "fileId": "62b720ef280c7a7a3be8cabe",
-                    "url": "/files/62b720ef280c7a7a3be8cabe_image.png"
-                }
-            ],
-            "intro-video": "https://www.youtube.com/watch?v=aJ83KAggd-4",
-            "official-site": "https://hitchhikers.fandom.com/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy",
-            "contact-email": "zaphod.beeblebrox@heartofgold.gov",
-            "support-phone": "424-242-4242",
-            "answer-to-everything": 42,
-            "release-date": "1979-10-12T00:00:00.000Z",
-            "is-featured": true,
-            "brand-color": "#000000",
-            category: "62b720ef280c7a7a3be8cabf",
-            author: "62b720ef280c7a7a3be8cab0",
-            tags: [
-                "62b720ef280c7a7a3be8cab1",
-                "62b720ef280c7a7a3be8cab2"
-            ],
-            "downloadable-asset": {
-                "fileId": "62b720ef280c7a7a3be8cab3",
-                "url": "/files/62b720ef280c7a7a3be8cab3_document.pdf"
-            }
-        }
-    }
+        },
+    },
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -6742,7 +6679,7 @@ await client.collections.items.updateItemLive("580e63fc8c9a982ac9b8b745", "580e6
 <dd>
 
 **collectionId:** `string` — Unique identifier for a Collection
-    
+
 </dd>
 </dl>
 
@@ -6750,28 +6687,27 @@ await client.collections.items.updateItemLive("580e63fc8c9a982ac9b8b745", "580e6
 <dd>
 
 **itemId:** `string` — Unique identifier for an Item
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.collections.ItemsUpdateItemLiveRequest` 
-    
+**request:** `Webflow.collections.ItemsUpdateItemLiveRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Items.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Items.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -6792,6 +6728,7 @@ await client.collections.items.updateItemLive("580e63fc8c9a982ac9b8b745", "580e6
 Publish an item or multiple items.
 
 Required scope | `cms:write`
+
 </dd>
 </dl>
 </dd>
@@ -6807,10 +6744,10 @@ Required scope | `cms:write`
 
 ```typescript
 await client.collections.items.publishItem("580e63fc8c9a982ac9b8b745", {
-    itemIds: ["643fd856d66b6528195ee2ca", "643fd856d66b6528195ee2cb", "643fd856d66b6528195ee2cc"]
+    itemIds: ["643fd856d66b6528195ee2ca", "643fd856d66b6528195ee2cb", "643fd856d66b6528195ee2cc"],
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -6825,34 +6762,34 @@ await client.collections.items.publishItem("580e63fc8c9a982ac9b8b745", {
 <dd>
 
 **collectionId:** `string` — Unique identifier for a Collection
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.ItemsPublishItemRequest` 
-    
+**request:** `Webflow.ItemsPublishItemRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Items.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Items.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Pages Scripts
+
 <details><summary><code>client.pages.scripts.<a href="/src/api/resources/pages/resources/scripts/client/Client.ts">getCustomCode</a>(pageId) -> Webflow.ScriptApplyList</code></summary>
 <dl>
 <dd>
@@ -6865,9 +6802,10 @@ await client.collections.items.publishItem("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
-Get all scripts applied to a page. 
+Get all scripts applied to a page.
 
 Required scope | `custom_code:read`
+
 </dd>
 </dl>
 </dd>
@@ -6883,8 +6821,8 @@ Required scope | `custom_code:read`
 
 ```typescript
 await client.pages.scripts.getCustomCode("63c720f9347c2139b248e552");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -6899,20 +6837,19 @@ await client.pages.scripts.getCustomCode("63c720f9347c2139b248e552");
 <dd>
 
 **pageId:** `string` — Unique identifier for a Page
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Scripts.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Scripts.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -6937,6 +6874,7 @@ Apply registered scripts to a page. If you have multiple scripts your App needs 
 </Note>
 
 Required scope | `custom_code:write`
+
 </dd>
 </dl>
 </dd>
@@ -6952,21 +6890,24 @@ Required scope | `custom_code:write`
 
 ```typescript
 await client.pages.scripts.upsertCustomCode("63c720f9347c2139b248e552", {
-    scripts: [{
+    scripts: [
+        {
             id: "cms_slider",
             location: "header",
             version: "1.0.0",
             attributes: {
-                "my-attribute": "some-value"
-            }
-        }, {
+                "my-attribute": "some-value",
+            },
+        },
+        {
             id: "alert",
             location: "header",
-            version: "0.0.1"
-        }]
+            version: "0.0.1",
+        },
+    ],
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -6981,28 +6922,27 @@ await client.pages.scripts.upsertCustomCode("63c720f9347c2139b248e552", {
 <dd>
 
 **pageId:** `string` — Unique identifier for a Page
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.ScriptApplyList` 
-    
+**request:** `Webflow.ScriptApplyList`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Scripts.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Scripts.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -7027,6 +6967,7 @@ To remove individual scripts applied by the App, use the [Add/Update Custom Code
 <Note>Access to this endpoint requires a bearer token obtained from an [OAuth Code Grant Flow](/data/reference/oauth-app).</Note>
 
 Required scope | `custom_code:write`
+
 </dd>
 </dl>
 </dd>
@@ -7042,8 +6983,8 @@ Required scope | `custom_code:write`
 
 ```typescript
 await client.pages.scripts.deleteCustomCode("63c720f9347c2139b248e552");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -7058,26 +6999,26 @@ await client.pages.scripts.deleteCustomCode("63c720f9347c2139b248e552");
 <dd>
 
 **pageId:** `string` — Unique identifier for a Page
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Scripts.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Scripts.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Sites Redirects
+
 <details><summary><code>client.sites.redirects.<a href="/src/api/resources/sites/resources/redirects/client/Client.ts">list</a>(siteId) -> Webflow.Redirects</code></summary>
 <dl>
 <dd>
@@ -7097,6 +7038,7 @@ Use this endpoint to review, audit, or manage the redirection rules that control
 <Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
 
 Required scope: `sites:read`
+
 </dd>
 </dl>
 </dd>
@@ -7112,8 +7054,8 @@ Required scope: `sites:read`
 
 ```typescript
 await client.sites.redirects.list("580e63e98c9a982ac9b8b741");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -7128,20 +7070,19 @@ await client.sites.redirects.list("580e63e98c9a982ac9b8b741");
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Redirects.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Redirects.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -7166,6 +7107,7 @@ This endpoint allows you to define a source path (`fromUrl`) and its correspondi
 <Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
 
 Required scope: `sites:write`
+
 </dd>
 </dl>
 </dd>
@@ -7183,10 +7125,10 @@ Required scope: `sites:write`
 await client.sites.redirects.create("580e63e98c9a982ac9b8b741", {
     id: "42e1a2b7aa1a13f768a0042a",
     fromUrl: "/mostly-harmless",
-    toUrl: "/earth"
+    toUrl: "/earth",
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -7201,28 +7143,27 @@ await client.sites.redirects.create("580e63e98c9a982ac9b8b741", {
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.Redirect` 
-    
+**request:** `Webflow.Redirect`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Redirects.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Redirects.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -7247,6 +7188,7 @@ This is useful for cleaning up outdated or unnecessary redirects, ensuring that 
 <Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
 
 Required scope: `sites:write`
+
 </dd>
 </dl>
 </dd>
@@ -7262,8 +7204,8 @@ Required scope: `sites:write`
 
 ```typescript
 await client.sites.redirects.delete("580e63e98c9a982ac9b8b741", "66c4cb9a20cac35ed19500e6");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -7278,7 +7220,7 @@ await client.sites.redirects.delete("580e63e98c9a982ac9b8b741", "66c4cb9a20cac35
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
@@ -7286,20 +7228,19 @@ await client.sites.redirects.delete("580e63e98c9a982ac9b8b741", "66c4cb9a20cac35
 <dd>
 
 **redirectId:** `string` — Unique identifier site rediect
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Redirects.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Redirects.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -7322,6 +7263,7 @@ Update a 301 redirection rule from a site.
 <Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
 
 Required scope: `sites:write`
+
 </dd>
 </dl>
 </dd>
@@ -7339,10 +7281,10 @@ Required scope: `sites:write`
 await client.sites.redirects.update("580e63e98c9a982ac9b8b741", "66c4cb9a20cac35ed19500e6", {
     id: "42e1a2b7aa1a13f768a0042a",
     fromUrl: "/mostly-harmless",
-    toUrl: "/earth"
+    toUrl: "/earth",
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -7357,7 +7299,7 @@ await client.sites.redirects.update("580e63e98c9a982ac9b8b741", "66c4cb9a20cac35
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
@@ -7365,34 +7307,34 @@ await client.sites.redirects.update("580e63e98c9a982ac9b8b741", "66c4cb9a20cac35
 <dd>
 
 **redirectId:** `string` — Unique identifier site rediect
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.Redirect` 
-    
+**request:** `Webflow.Redirect`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Redirects.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Redirects.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Sites Plans
+
 <details><summary><code>client.sites.plans.<a href="/src/api/resources/sites/resources/plans/client/Client.ts">getSitePlan</a>(siteId) -> Webflow.SitePlan</code></summary>
 <dl>
 <dd>
@@ -7410,6 +7352,7 @@ Get site plan details for the specified Site.
 <Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
 
 Required scope | `sites:read`
+
 </dd>
 </dl>
 </dd>
@@ -7425,8 +7368,8 @@ Required scope | `sites:read`
 
 ```typescript
 await client.sites.plans.getSitePlan("580e63e98c9a982ac9b8b741");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -7441,26 +7384,26 @@ await client.sites.plans.getSitePlan("580e63e98c9a982ac9b8b741");
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Plans.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Plans.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Sites RobotsTxt
+
 <details><summary><code>client.sites.robotsTxt.<a href="/src/api/resources/sites/resources/robotsTxt/client/Client.ts">get</a>(siteId) -> Webflow.Robots</code></summary>
 <dl>
 <dd>
@@ -7478,6 +7421,7 @@ Retrieve the robots.txt configuration for various user agents.
 <Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
 
 Required scope: `site_config:read`
+
 </dd>
 </dl>
 </dd>
@@ -7493,8 +7437,8 @@ Required scope: `site_config:read`
 
 ```typescript
 await client.sites.robotsTxt.get("580e63e98c9a982ac9b8b741");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -7509,20 +7453,19 @@ await client.sites.robotsTxt.get("580e63e98c9a982ac9b8b741");
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `RobotsTxt.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `RobotsTxt.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -7545,6 +7488,7 @@ Replace the `robots.txt` configuration for various user agents.
 <Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
 
 Required scope | `site_config:write`
+
 </dd>
 </dl>
 </dd>
@@ -7560,15 +7504,17 @@ Required scope | `site_config:write`
 
 ```typescript
 await client.sites.robotsTxt.put("580e63e98c9a982ac9b8b741", {
-    rules: [{
+    rules: [
+        {
             userAgent: "googlebot",
             allows: ["/public"],
-            disallows: ["/vogon-poetry", "/total-perspective-vortex"]
-        }],
-    sitemap: "https://heartofgold.ship/sitemap.xml"
+            disallows: ["/vogon-poetry", "/total-perspective-vortex"],
+        },
+    ],
+    sitemap: "https://heartofgold.ship/sitemap.xml",
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -7583,28 +7529,27 @@ await client.sites.robotsTxt.put("580e63e98c9a982ac9b8b741", {
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.Robots` 
-    
+**request:** `Webflow.Robots`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `RobotsTxt.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `RobotsTxt.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -7629,6 +7574,7 @@ Remove specific rules for a user-agent in your `robots.txt` file. To delete all 
 <Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
 
 Required scope: `site_config:write`
+
 </dd>
 </dl>
 </dd>
@@ -7644,14 +7590,16 @@ Required scope: `site_config:write`
 
 ```typescript
 await client.sites.robotsTxt.delete("580e63e98c9a982ac9b8b741", {
-    rules: [{
+    rules: [
+        {
             userAgent: "*",
             allows: ["/public"],
-            disallows: ["/bubbles"]
-        }]
+            disallows: ["/bubbles"],
+        },
+    ],
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -7666,28 +7614,27 @@ await client.sites.robotsTxt.delete("580e63e98c9a982ac9b8b741", {
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.Robots` 
-    
+**request:** `Webflow.Robots`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `RobotsTxt.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `RobotsTxt.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -7710,6 +7657,7 @@ Update the `robots.txt` configuration for various user agents.
 <Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
 
 Required scope | `site_config:write`
+
 </dd>
 </dl>
 </dd>
@@ -7725,15 +7673,17 @@ Required scope | `site_config:write`
 
 ```typescript
 await client.sites.robotsTxt.patch("580e63e98c9a982ac9b8b741", {
-    rules: [{
+    rules: [
+        {
             userAgent: "googlebot",
             allows: ["/public"],
-            disallows: ["/vogon-poetry", "/total-perspective-vortex"]
-        }],
-    sitemap: "https://heartofgold.ship/sitemap.xml"
+            disallows: ["/vogon-poetry", "/total-perspective-vortex"],
+        },
+    ],
+    sitemap: "https://heartofgold.ship/sitemap.xml",
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -7748,34 +7698,34 @@ await client.sites.robotsTxt.patch("580e63e98c9a982ac9b8b741", {
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.Robots` 
-    
+**request:** `Webflow.Robots`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `RobotsTxt.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `RobotsTxt.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Sites WellKnown
+
 <details><summary><code>client.sites.wellKnown.<a href="/src/api/resources/sites/resources/wellKnown/client/Client.ts">put</a>(siteId, { ...params }) -> void</code></summary>
 <dl>
 <dd>
@@ -7791,10 +7741,11 @@ await client.sites.robotsTxt.patch("580e63e98c9a982ac9b8b741", {
 Upload a supported well-known file to a site.
 
 The current restrictions on well-known files are as follows:
-  - Each file must be smaller than 100kb
-  - Less than 30 total files
-  - Have one of the following file extensions (or no extension): `.txt`, `.json`, `.noext` 
-  
+
+- Each file must be smaller than 100kb
+- Less than 30 total files
+- Have one of the following file extensions (or no extension): `.txt`, `.json`, `.noext`
+
   <Note title=".noext">
     `.noext` is a special file extension that removes other extensions. For example, `apple-app-site-association.noext.txt` will be uploaded as `apple-app-site-association`. Use this extension for tools that have trouble uploading extensionless files.
   </Note>
@@ -7802,6 +7753,7 @@ The current restrictions on well-known files are as follows:
 <Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
 
 Required scope: `site_config:write`
+
 </dd>
 </dl>
 </dd>
@@ -7818,11 +7770,12 @@ Required scope: `site_config:write`
 ```typescript
 await client.sites.wellKnown.put("580e63e98c9a982ac9b8b741", {
     fileName: "apple-app-site-association.txt",
-    fileData: "{\n  \"applinks\": {\n    \"apps\": [],\n    \"details\": [\n  {\n    \"appID\": \"ABCDE12345.com.example.app\",\n    \"paths\": [ \"/*\", \"/some/path/*\" ]\n      }\n    ]\n  }\n}\n",
-    contentType: "application/json"
+    fileData:
+        '{\n  "applinks": {\n    "apps": [],\n    "details": [\n  {\n    "appID": "ABCDE12345.com.example.app",\n    "paths": [ "/*", "/some/path/*" ]\n      }\n    ]\n  }\n}\n',
+    contentType: "application/json",
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -7837,28 +7790,27 @@ await client.sites.wellKnown.put("580e63e98c9a982ac9b8b741", {
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.sites.WellKnownFile` 
-    
+**request:** `Webflow.sites.WellKnownFile`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `WellKnown.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `WellKnown.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -7881,6 +7833,7 @@ Delete existing well-known files from a site.
 <Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
 
 Required scope: `site_config:write`
+
 </dd>
 </dl>
 </dd>
@@ -7896,8 +7849,8 @@ Required scope: `site_config:write`
 
 ```typescript
 await client.sites.wellKnown.delete("580e63e98c9a982ac9b8b741");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -7912,34 +7865,34 @@ await client.sites.wellKnown.delete("580e63e98c9a982ac9b8b741");
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.sites.WellKnownDeleteRequest` 
-    
+**request:** `Webflow.sites.WellKnownDeleteRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `WellKnown.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `WellKnown.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Sites ActivityLogs
+
 <details><summary><code>client.sites.activityLogs.<a href="/src/api/resources/sites/resources/activityLogs/client/Client.ts">list</a>(siteId, { ...params }) -> Webflow.SiteActivityLogResponse</code></summary>
 <dl>
 <dd>
@@ -7952,11 +7905,12 @@ await client.sites.wellKnown.delete("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-Retrieve Activity Logs for a specific Site. 
+Retrieve Activity Logs for a specific Site.
 
 <Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
 
 Required scope: `site_activity:read`
+
 </dd>
 </dl>
 </dd>
@@ -7972,11 +7926,11 @@ Required scope: `site_activity:read`
 
 ```typescript
 await client.sites.activityLogs.list("580e63e98c9a982ac9b8b741", {
-    limit: 1.1,
-    offset: 1.1
+    limit: 1,
+    offset: 1,
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -7991,34 +7945,34 @@ await client.sites.activityLogs.list("580e63e98c9a982ac9b8b741", {
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.sites.ActivityLogsListRequest` 
-    
+**request:** `Webflow.sites.ActivityLogsListRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ActivityLogs.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `ActivityLogs.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Sites Comments
+
 <details><summary><code>client.sites.comments.<a href="/src/api/resources/sites/resources/comments/client/Client.ts">listCommentThreads</a>(siteId, { ...params }) -> Webflow.CommentThreadList</code></summary>
 <dl>
 <dd>
@@ -8038,6 +7992,7 @@ List all comment threads for a site.
 </Note>
 
 Required scope | `comments:read`
+
 </dd>
 </dl>
 </dd>
@@ -8054,13 +8009,13 @@ Required scope | `comments:read`
 ```typescript
 await client.sites.comments.listCommentThreads("580e63e98c9a982ac9b8b741", {
     localeId: "65427cf400e02b306eaa04a0",
-    offset: 1.1,
-    limit: 1.1,
+    offset: 1,
+    limit: 1,
     sortBy: "createdOn",
-    sortOrder: "asc"
+    sortOrder: "asc",
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -8075,28 +8030,27 @@ await client.sites.comments.listCommentThreads("580e63e98c9a982ac9b8b741", {
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.sites.CommentsListCommentThreadsRequest` 
-    
+**request:** `Webflow.sites.CommentsListCommentThreadsRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Comments.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Comments.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -8121,6 +8075,7 @@ Get details of a specific comment thread.
   </Note>
 
 Required scope | `comments:read`
+
 </dd>
 </dl>
 </dd>
@@ -8137,13 +8092,13 @@ Required scope | `comments:read`
 ```typescript
 await client.sites.comments.getCommentThread("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741", {
     localeId: "65427cf400e02b306eaa04a0",
-    offset: 1.1,
-    limit: 1.1,
+    offset: 1,
+    limit: 1,
     sortBy: "createdOn",
-    sortOrder: "asc"
+    sortOrder: "asc",
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -8158,7 +8113,7 @@ await client.sites.comments.getCommentThread("580e63e98c9a982ac9b8b741", "580e63
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
@@ -8166,28 +8121,27 @@ await client.sites.comments.getCommentThread("580e63e98c9a982ac9b8b741", "580e63
 <dd>
 
 **commentThreadId:** `string` — Unique identifier for a Comment Thread
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.sites.CommentsGetCommentThreadRequest` 
-    
+**request:** `Webflow.sites.CommentsGetCommentThreadRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Comments.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Comments.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -8212,6 +8166,7 @@ List all replies to a specific comment thread.
 </Note>
 
 Required scope | `comments:read`
+
 </dd>
 </dl>
 </dd>
@@ -8228,13 +8183,13 @@ Required scope | `comments:read`
 ```typescript
 await client.sites.comments.listCommentReplies("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741", {
     localeId: "65427cf400e02b306eaa04a0",
-    offset: 1.1,
-    limit: 1.1,
+    offset: 1,
+    limit: 1,
     sortBy: "createdOn",
-    sortOrder: "asc"
+    sortOrder: "asc",
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -8249,7 +8204,7 @@ await client.sites.comments.listCommentReplies("580e63e98c9a982ac9b8b741", "580e
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
@@ -8257,34 +8212,34 @@ await client.sites.comments.listCommentReplies("580e63e98c9a982ac9b8b741", "580e
 <dd>
 
 **commentThreadId:** `string` — Unique identifier for a Comment Thread
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.sites.CommentsListCommentRepliesRequest` 
-    
+**request:** `Webflow.sites.CommentsListCommentRepliesRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Comments.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Comments.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Sites Scripts
+
 <details><summary><code>client.sites.scripts.<a href="/src/api/resources/sites/resources/scripts/client/Client.ts">getCustomCode</a>(siteId) -> Webflow.ScriptApplyList</code></summary>
 <dl>
 <dd>
@@ -8297,13 +8252,14 @@ await client.sites.comments.listCommentReplies("580e63e98c9a982ac9b8b741", "580e
 <dl>
 <dd>
 
-Get all scripts applied to a site by the App. 
+Get all scripts applied to a site by the App.
 
 <Note title="Script Registration">
   To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
-</Note> 
+</Note>
 
 Required scope | `custom_code:read`
+
 </dd>
 </dl>
 </dd>
@@ -8319,8 +8275,8 @@ Required scope | `custom_code:read`
 
 ```typescript
 await client.sites.scripts.getCustomCode("580e63e98c9a982ac9b8b741");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -8335,20 +8291,19 @@ await client.sites.scripts.getCustomCode("580e63e98c9a982ac9b8b741");
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Scripts.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Scripts.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -8373,6 +8328,7 @@ Apply registered scripts to a site. If you have multiple scripts your App needs 
 </Note>
 
 Required scope | `custom_code:write`
+
 </dd>
 </dl>
 </dd>
@@ -8388,21 +8344,24 @@ Required scope | `custom_code:write`
 
 ```typescript
 await client.sites.scripts.upsertCustomCode("580e63e98c9a982ac9b8b741", {
-    scripts: [{
+    scripts: [
+        {
             id: "cms_slider",
             location: "header",
             version: "1.0.0",
             attributes: {
-                "my-attribute": "some-value"
-            }
-        }, {
+                "my-attribute": "some-value",
+            },
+        },
+        {
             id: "alert",
             location: "header",
-            version: "0.0.1"
-        }]
+            version: "0.0.1",
+        },
+    ],
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -8417,28 +8376,27 @@ await client.sites.scripts.upsertCustomCode("580e63e98c9a982ac9b8b741", {
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.ScriptApplyList` 
-    
+**request:** `Webflow.ScriptApplyList`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Scripts.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Scripts.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -8463,6 +8421,7 @@ To remove individual scripts applied by the App, use the [Add/Update Custom Code
 <Note>Access to this endpoint requires a bearer token obtained from an [OAuth Code Grant Flow](/data/reference/oauth-app).</Note>
 
 Required scope | `custom_code:write`
+
 </dd>
 </dl>
 </dd>
@@ -8478,8 +8437,8 @@ Required scope | `custom_code:write`
 
 ```typescript
 await client.sites.scripts.deleteCustomCode("580e63e98c9a982ac9b8b741");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -8494,20 +8453,19 @@ await client.sites.scripts.deleteCustomCode("580e63e98c9a982ac9b8b741");
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Scripts.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Scripts.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -8525,7 +8483,7 @@ await client.sites.scripts.deleteCustomCode("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-Get a list of scripts that have been applied to a site and/or individual pages. 
+Get a list of scripts that have been applied to a site and/or individual pages.
 
 <Note title="Script Registration">
   To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. 
@@ -8534,6 +8492,7 @@ Get a list of scripts that have been applied to a site and/or individual pages.
 </Note>
 
 Required scope | `custom_code:read`
+
 </dd>
 </dl>
 </dd>
@@ -8549,11 +8508,11 @@ Required scope | `custom_code:read`
 
 ```typescript
 await client.sites.scripts.listCustomCodeBlocks("580e63e98c9a982ac9b8b741", {
-    offset: 1.1,
-    limit: 1.1
+    offset: 1,
+    limit: 1,
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -8568,34 +8527,34 @@ await client.sites.scripts.listCustomCodeBlocks("580e63e98c9a982ac9b8b741", {
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.sites.ScriptsListCustomCodeBlocksRequest` 
-    
+**request:** `Webflow.sites.ScriptsListCustomCodeBlocksRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Scripts.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Scripts.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Sites Forms
+
 <details><summary><code>client.sites.forms.<a href="/src/api/resources/sites/resources/forms/client/Client.ts">listSubmissionsBySite</a>(siteId, { ...params }) -> Webflow.FormSubmissionList</code></summary>
 <dl>
 <dd>
@@ -8610,7 +8569,7 @@ await client.sites.scripts.listCustomCodeBlocks("580e63e98c9a982ac9b8b741", {
 
 List all form submissions for a given site with the ability to filter submissions by a centralized `elementId`.
 
-Add `elementId` when you want to filter form submissions to a specific form in a site. You can get the `elementId` from the [List forms endpoint](/data/reference/forms/forms/list) (displayed as `formElementId` in the response). 
+Add `elementId` when you want to filter form submissions to a specific form in a site. You can get the `elementId` from the [List forms endpoint](/data/reference/forms/forms/list) (displayed as `formElementId` in the response).
 
 <Note title="Forms in components">
 When a form is used in a Webflow component definition, each instance of the component will yield a unique form. Adding the `elementId` in this request ensures this API response includes all submissions from that core form, wherever that form is used in instantiated components.
@@ -8619,6 +8578,7 @@ When a form is used in a Webflow component definition, each instance of the comp
 Use the [List Form Submissions endpoint](/data/reference/forms/form-submissions/list-submissions) to list form submissions for a given form ID.
 
 Required scope | `forms:read`
+
 </dd>
 </dl>
 </dd>
@@ -8635,11 +8595,11 @@ Required scope | `forms:read`
 ```typescript
 await client.sites.forms.listSubmissionsBySite("580e63e98c9a982ac9b8b741", {
     elementId: "18259716-3e5a-646a-5f41-5dc4b9405aa0",
-    offset: 1.1,
-    limit: 1.1
+    offset: 1,
+    limit: 1,
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -8654,28 +8614,27 @@ await client.sites.forms.listSubmissionsBySite("580e63e98c9a982ac9b8b741", {
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.sites.FormsListSubmissionsBySiteRequest` 
-    
+**request:** `Webflow.sites.FormsListSubmissionsBySiteRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Forms.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Forms.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -8693,11 +8652,12 @@ await client.sites.forms.listSubmissionsBySite("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-List form submissions for a given form ID within a specific site. 
+List form submissions for a given form ID within a specific site.
 
 Use the [List Form Submissions by Site endpoint](/data/reference/forms/form-submissions/list-submissions-by-site) to list form submissions for a given site with the ability to filter by a `formElementId`.
 
 Required scope | `forms:read`
+
 </dd>
 </dl>
 </dd>
@@ -8713,11 +8673,11 @@ Required scope | `forms:read`
 
 ```typescript
 await client.sites.forms.listSubmissions("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741", {
-    offset: 1.1,
-    limit: 1.1
+    offset: 1,
+    limit: 1,
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -8732,7 +8692,7 @@ await client.sites.forms.listSubmissions("580e63e98c9a982ac9b8b741", "580e63e98c
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
@@ -8740,28 +8700,27 @@ await client.sites.forms.listSubmissions("580e63e98c9a982ac9b8b741", "580e63e98c
 <dd>
 
 **formId:** `string` — Unique identifier for a Form
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.sites.FormsListSubmissionsRequest` 
-    
+**request:** `Webflow.sites.FormsListSubmissionsRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Forms.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Forms.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -8782,6 +8741,7 @@ await client.sites.forms.listSubmissions("580e63e98c9a982ac9b8b741", "580e63e98c
 Get information about a form submission within a specific site.
 
 Required scope | `forms:read`
+
 </dd>
 </dl>
 </dd>
@@ -8797,8 +8757,8 @@ Required scope | `forms:read`
 
 ```typescript
 await client.sites.forms.getSubmission("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -8813,7 +8773,7 @@ await client.sites.forms.getSubmission("580e63e98c9a982ac9b8b741", "580e63e98c9a
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
@@ -8821,20 +8781,19 @@ await client.sites.forms.getSubmission("580e63e98c9a982ac9b8b741", "580e63e98c9a
 <dd>
 
 **formSubmissionId:** `string` — Unique identifier for a Form Submission
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Forms.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Forms.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -8855,6 +8814,7 @@ await client.sites.forms.getSubmission("580e63e98c9a982ac9b8b741", "580e63e98c9a
 Delete a form submission within a specific site.
 
 Required scope | `forms:write`
+
 </dd>
 </dl>
 </dd>
@@ -8870,8 +8830,8 @@ Required scope | `forms:write`
 
 ```typescript
 await client.sites.forms.deleteSubmission("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -8886,7 +8846,7 @@ await client.sites.forms.deleteSubmission("580e63e98c9a982ac9b8b741", "580e63e98
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
@@ -8894,20 +8854,19 @@ await client.sites.forms.deleteSubmission("580e63e98c9a982ac9b8b741", "580e63e98
 <dd>
 
 **formSubmissionId:** `string` — Unique identifier for a Form Submission
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Forms.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Forms.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -8928,6 +8887,7 @@ await client.sites.forms.deleteSubmission("580e63e98c9a982ac9b8b741", "580e63e98
 Update hidden fields on a form submission within a specific site.
 
 Required scope | `forms:write`
+
 </dd>
 </dl>
 </dd>
@@ -8943,8 +8903,8 @@ Required scope | `forms:write`
 
 ```typescript
 await client.sites.forms.updateSubmission("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741");
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -8959,7 +8919,7 @@ await client.sites.forms.updateSubmission("580e63e98c9a982ac9b8b741", "580e63e98
 <dd>
 
 **siteId:** `string` — Unique identifier for a Site
-    
+
 </dd>
 </dl>
 
@@ -8967,34 +8927,34 @@ await client.sites.forms.updateSubmission("580e63e98c9a982ac9b8b741", "580e63e98
 <dd>
 
 **formSubmissionId:** `string` — Unique identifier for a Form Submission
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.sites.FormsUpdateSubmissionRequest` 
-    
+**request:** `Webflow.sites.FormsUpdateSubmissionRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Forms.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Forms.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Workspaces AuditLogs
+
 <details><summary><code>client.workspaces.auditLogs.<a href="/src/api/resources/workspaces/resources/auditLogs/client/Client.ts">getWorkspaceAuditLogs</a>(workspaceIdOrSlug, { ...params }) -> Webflow.WorkspaceAuditLogResponse</code></summary>
 <dl>
 <dd>
@@ -9012,6 +8972,7 @@ Get audit logs for a workspace.
 <Warning title="Enterprise & workspace API token only">This endpoint requires an Enterprise workspace and a workspace token with the `workspace_activity:read` scope. Create a workspace token from your workspace dashboard integrations page to use this endpoint.</Warning>
 
 Required scope | `workspace_activity:read`
+
 </dd>
 </dl>
 </dd>
@@ -9027,15 +8988,15 @@ Required scope | `workspace_activity:read`
 
 ```typescript
 await client.workspaces.auditLogs.getWorkspaceAuditLogs("hitchhikers-workspace", {
-    limit: 1.1,
-    offset: 1.1,
+    limit: 1,
+    offset: 1,
     sortOrder: "asc",
     eventType: "user_access",
     from: new Date("2025-06-22T16:00:31.000Z"),
-    to: new Date("2025-07-22T16:00:31.000Z")
+    to: new Date("2025-07-22T16:00:31.000Z"),
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -9050,28 +9011,27 @@ await client.workspaces.auditLogs.getWorkspaceAuditLogs("hitchhikers-workspace",
 <dd>
 
 **workspaceIdOrSlug:** `string` — Unique identifier or slug for a Workspace
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Webflow.workspaces.AuditLogsGetWorkspaceAuditLogsRequest` 
-    
+**request:** `Webflow.workspaces.AuditLogsGetWorkspaceAuditLogsRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `AuditLogs.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `AuditLogs.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>

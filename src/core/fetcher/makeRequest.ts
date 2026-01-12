@@ -14,7 +14,7 @@ export const makeRequest = async (
     const signals: AbortSignal[] = [];
 
     // Add timeout signal
-    let timeoutAbortId: NodeJS.Timeout | undefined;
+    let timeoutAbortId: NodeJS.Timeout | undefined = undefined;
     if (timeoutMs != null) {
         const { signal, abortId } = getTimeoutSignal(timeoutMs);
         timeoutAbortId = abortId;
@@ -25,7 +25,7 @@ export const makeRequest = async (
     if (abortSignal != null) {
         signals.push(abortSignal);
     }
-    const newSignals = anySignal(signals);
+    let newSignals = anySignal(signals);
     const response = await fetchFn(url, {
         method: method,
         headers,

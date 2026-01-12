@@ -1,1 +1,1 @@
-export type { FieldUpdate } from "./FieldUpdate";
+export { type FieldUpdate } from "./FieldUpdate";
