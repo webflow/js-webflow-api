@@ -1,5 +1,5 @@
-import type { BaseSchema, Schema } from "../../Schema";
-import { getSchemaUtils } from "../schema-utils/index";
+import { BaseSchema, Schema } from "../../Schema";
+import { getSchemaUtils } from "../schema-utils";
 
 export type SchemaGetter<SchemaType extends Schema<any, any>> = () => SchemaType;
 

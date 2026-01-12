@@ -1,4 +1,4 @@
-import { type BaseSchema, type Schema, type SchemaOptions, SchemaType } from "../../Schema";
+import { BaseSchema, Schema, SchemaOptions, SchemaType } from "../../Schema";
 import { JsonError } from "./JsonError";
 import { ParseError } from "./ParseError";
 

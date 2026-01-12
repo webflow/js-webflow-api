@@ -28,10 +28,10 @@ service:
             type: optional<string>
             docs: Scope the operation to work on a specific branch.
           limit:
-            type: optional<double>
+            type: optional<integer>
             docs: 'Maximum number of records to be returned (max limit: 100)'
           offset:
-            type: optional<double>
+            type: optional<integer>
             docs: >-
               Offset used for pagination if the results have more than limit
               records
@@ -50,8 +50,8 @@ service:
             site_id: 580e63e98c9a982ac9b8b741
           query-parameters:
             branchId: 68026fa68ef6dc744c75b833
-            limit: 1.1
-            offset: 1.1
+            limit: 1
+            offset: 1
           response:
             body:
               components:
@@ -129,10 +129,10 @@ service:
             type: optional<string>
             docs: Scope the operation to work on a specific branch.
           limit:
-            type: optional<double>
+            type: optional<integer>
             docs: 'Maximum number of records to be returned (max limit: 100)'
           offset:
-            type: optional<double>
+            type: optional<integer>
             docs: >-
               Offset used for pagination if the results have more than limit
               records
@@ -153,8 +153,8 @@ service:
           query-parameters:
             localeId: 65427cf400e02b306eaa04a0
             branchId: 68026fa68ef6dc744c75b833
-            limit: 1.1
-            offset: 1.1
+            limit: 1
+            offset: 1
           response:
             body:
               componentId: 69118560-d0bc-15fc-bbf8-b8fe5f6535b5
@@ -357,10 +357,10 @@ service:
             type: optional<string>
             docs: Scope the operation to work on a specific branch.
           limit:
-            type: optional<double>
+            type: optional<integer>
             docs: 'Maximum number of records to be returned (max limit: 100)'
           offset:
-            type: optional<double>
+            type: optional<integer>
             docs: >-
               Offset used for pagination if the results have more than limit
               records
@@ -381,8 +381,8 @@ service:
           query-parameters:
             localeId: 65427cf400e02b306eaa04a0
             branchId: 68026fa68ef6dc744c75b833
-            limit: 1.1
-            offset: 1.1
+            limit: 1
+            offset: 1
           response:
             body:
               componentId: 658205daa3e8206a523b5ad4

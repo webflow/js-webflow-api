@@ -1,7 +1,7 @@
-import { type BaseSchema, type Schema, SchemaType } from "../../Schema";
+import { BaseSchema, Schema, SchemaType } from "../../Schema";
 import { getErrorMessageForIncorrectType } from "../../utils/getErrorMessageForIncorrectType";
 import { maybeSkipValidation } from "../../utils/maybeSkipValidation";
-import { getSchemaUtils } from "../schema-utils/index";
+import { getSchemaUtils } from "../schema-utils";
 
 export function bigint(): Schema<bigint | number, bigint> {
     const baseSchema: BaseSchema<bigint | number, bigint> = {

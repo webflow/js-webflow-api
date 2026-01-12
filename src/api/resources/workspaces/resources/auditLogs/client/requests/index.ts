@@ -1,1 +1,1 @@
-export type { AuditLogsGetWorkspaceAuditLogsRequest } from "./AuditLogsGetWorkspaceAuditLogsRequest";
+export { type AuditLogsGetWorkspaceAuditLogsRequest } from "./AuditLogsGetWorkspaceAuditLogsRequest";

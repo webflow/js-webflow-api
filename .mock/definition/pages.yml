@@ -33,10 +33,10 @@ service:
               [Lear more about
               localization.](/data/v2.0.0/docs/working-with-localization)
           limit:
-            type: optional<double>
+            type: optional<integer>
             docs: 'Maximum number of records to be returned (max limit: 100)'
           offset:
-            type: optional<double>
+            type: optional<integer>
             docs: >-
               Offset used for pagination if the results have more than limit
               records
@@ -55,8 +55,8 @@ service:
             site_id: 580e63e98c9a982ac9b8b741
           query-parameters:
             localeId: 65427cf400e02b306eaa04a0
-            limit: 1.1
-            offset: 1.1
+            limit: 1
+            offset: 1
           response:
             body:
               pages:
@@ -332,10 +332,10 @@ service:
               [Lear more about
               localization.](/data/v2.0.0/docs/working-with-localization)
           limit:
-            type: optional<double>
+            type: optional<integer>
             docs: 'Maximum number of records to be returned (max limit: 100)'
           offset:
-            type: optional<double>
+            type: optional<integer>
             docs: >-
               Offset used for pagination if the results have more than limit
               records
@@ -355,8 +355,8 @@ service:
             page_id: 63c720f9347c2139b248e552
           query-parameters:
             localeId: 65427cf400e02b306eaa04a0
-            limit: 1.1
-            offset: 1.1
+            limit: 1
+            offset: 1
           response:
             body:
               pageId: 658205daa3e8206a523b5ad4
