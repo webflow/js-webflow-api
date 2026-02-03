@@ -1,10 +1,11 @@
-import type { StreamWrapper } from "./chooseStreamWrapper";
+import { StreamWrapper } from "./chooseStreamWrapper";
 
 type EventCallback = (data?: any) => void;
 
-export class UndiciStreamWrapper<ReadFormat extends Uint8Array | Uint16Array | Uint32Array>
-    implements StreamWrapper<UndiciStreamWrapper<ReadFormat> | WritableStream<ReadFormat>, ReadFormat>
-{
+export class UndiciStreamWrapper<ReadFormat extends Uint8Array | Uint16Array | Uint32Array> implements StreamWrapper<
+    UndiciStreamWrapper<ReadFormat> | WritableStream<ReadFormat>,
+    ReadFormat
+> {
     private readableStream: ReadableStream<ReadFormat>;
     private reader: ReadableStreamDefaultReader<ReadFormat>;
     private events: Record<string, EventCallback[] | undefined>;

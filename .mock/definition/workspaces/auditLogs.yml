@@ -48,10 +48,10 @@ service:
         name: AuditLogsGetWorkspaceAuditLogsRequest
         query-parameters:
           limit:
-            type: optional<double>
+            type: optional<integer>
             docs: 'Maximum number of records to be returned (max limit: 100)'
           offset:
-            type: optional<double>
+            type: optional<integer>
             docs: >-
               Offset used for pagination if the results have more than limit
               records
@@ -81,8 +81,8 @@ service:
         - path-parameters:
             workspace_id_or_slug: hitchhikers-workspace
           query-parameters:
-            limit: 1.1
-            offset: 1.1
+            limit: 1
+            offset: 1
             sortOrder: asc
             eventType: user_access
             from: '2025-06-22T16:00:31Z'

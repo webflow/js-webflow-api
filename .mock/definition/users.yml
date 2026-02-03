@@ -183,8 +183,14 @@ service:
       auth:
         - OAuth2:
             - users:read
-      docs: |
+      docs: >
+        <Warning>As of **January 29, 2026**, User Accounts functionality has
+        been disabled on all Webflow sites. This endpoint is no longer
+        available.</Warning>
+
+
         Get a list of users for a site
+
 
         Required scope | `users:read`
       source:
@@ -198,12 +204,12 @@ service:
         name: UsersListRequest
         query-parameters:
           offset:
-            type: optional<double>
+            type: optional<integer>
             docs: >-
               Offset used for pagination if the results have more than limit
               records
           limit:
-            type: optional<double>
+            type: optional<integer>
             docs: 'Maximum number of records to be returned (max limit: 100)'
           sort:
             type: optional<UsersListRequestSort>
@@ -217,6 +223,7 @@ service:
         docs: Request was successful
         type: root.UserList
         status-code: 200
+      availability: deprecated
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -228,8 +235,8 @@ service:
         - path-parameters:
             site_id: 580e63e98c9a982ac9b8b741
           query-parameters:
-            offset: 1.1
-            limit: 1.1
+            offset: 1
+            limit: 1
             sort: CreatedOn
           response:
             body:
@@ -294,8 +301,14 @@ service:
       auth:
         - OAuth2:
             - users:read
-      docs: |
+      docs: >
+        <Warning>As of **January 29, 2026**, User Accounts functionality has
+        been disabled on all Webflow sites. This endpoint is no longer
+        available.</Warning>
+
+
         Get a User by ID
+
 
         Required scope | `users:read`
       source:
@@ -312,6 +325,7 @@ service:
         docs: Request was successful
         type: root.User
         status-code: 200
+      availability: deprecated
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -348,8 +362,14 @@ service:
       auth:
         - OAuth2:
             - users:write
-      docs: |
+      docs: >
+        <Warning>As of **January 29, 2026**, User Accounts functionality has
+        been disabled on all Webflow sites. This endpoint is no longer
+        available.</Warning>
+
+
         Delete a User by ID
+
 
         Required scope | `users:write`
       source:
@@ -362,6 +382,7 @@ service:
           type: string
           docs: Unique identifier for a User
       display-name: Delete User
+      availability: deprecated
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -379,12 +400,18 @@ service:
       auth:
         - OAuth2:
             - users:write
-      docs: |
-        Update a User by ID 
+      docs: >
+        <Warning>As of **January 29, 2026**, User Accounts functionality has
+        been disabled on all Webflow sites. This endpoint is no longer
+        available.</Warning>
+
+
+        Update a User by ID
 
           Required scope | `users:write`
 
         <Note class="notice">The <code>email</code> and <code>password</code>
+
         fields cannot be updated using this endpoint</Note>
       source:
         openapi: ../../../openapi/referenced-specs/v2.yml
@@ -403,6 +430,7 @@ service:
         docs: Request was successful
         type: root.User
         status-code: 200
+      availability: deprecated
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -451,11 +479,16 @@ service:
         - OAuth2:
             - users:write
       docs: >
-        Create and invite a user with an email address. 
+        <Warning>As of **January 29, 2026**, User Accounts functionality has
+        been disabled on all Webflow sites. This endpoint is no longer
+        available.</Warning>
+
+
+        Create and invite a user with an email address.
 
 
         The user will be sent and invite via email, which they will need to
-        accept in order to join paid any paid access group. 
+        accept in order to join paid any paid access group.
 
 
         Required scope | `users:write`
@@ -486,6 +519,7 @@ service:
         docs: Request was successful
         type: root.User
         status-code: 200
+      availability: deprecated
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -545,7 +579,13 @@ webhooks:
             accessGroups:
               - slug: webflowers
                 type: admin
-    docs: Information about a new user account
+    docs: >
+      <Warning>As of **January 29, 2026**, User Accounts functionality has been
+      disabled on all Webflow sites. This webhook is no longer
+      available.</Warning>
+
+
+      Information about a new user account
   user_account_updated:
     audiences: []
     method: POST
@@ -568,7 +608,13 @@ webhooks:
             accessGroups:
               - slug: webflowers
                 type: admin
-    docs: Information about an updated user account
+    docs: >
+      <Warning>As of **January 29, 2026**, User Accounts functionality has been
+      disabled on all Webflow sites. This webhook is no longer
+      available.</Warning>
+
+
+      Information about an updated user account
   user_account_deleted:
     audiences: []
     method: POST
@@ -591,4 +637,10 @@ webhooks:
             accessGroups:
               - slug: webflowers
                 type: admin
-    docs: Information about a deleted user account
+    docs: >
+      <Warning>As of **January 29, 2026**, User Accounts functionality has been
+      disabled on all Webflow sites. This webhook is no longer
+      available.</Warning>
+
+
+      Information about a deleted user account

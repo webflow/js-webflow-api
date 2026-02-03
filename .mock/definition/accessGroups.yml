@@ -21,8 +21,14 @@ service:
       auth:
         - OAuth2:
             - users:read
-      docs: |
+      docs: >
+        <Warning>As of **January 29, 2026**, User Accounts functionality has
+        been disabled on all Webflow sites. This endpoint is no longer
+        available.</Warning>
+
+
         Get a list of access groups for a site
+
 
         Required scope | `users:read`
       source:
@@ -36,12 +42,12 @@ service:
         name: AccessGroupsListRequest
         query-parameters:
           offset:
-            type: optional<double>
+            type: optional<integer>
             docs: >-
               Offset used for pagination if the results have more than limit
               records
           limit:
-            type: optional<double>
+            type: optional<integer>
             docs: 'Maximum number of records to be returned (max limit: 100)'
           sort:
             type: optional<AccessGroupsListRequestSort>
@@ -52,6 +58,7 @@ service:
         docs: Request was successful
         type: root.AccessGroupList
         status-code: 200
+      availability: deprecated
       errors:
         - root.BadRequestError
         - root.UnauthorizedError
@@ -63,8 +70,8 @@ service:
         - path-parameters:
             site_id: 580e63e98c9a982ac9b8b741
           query-parameters:
-            offset: 1.1
-            limit: 1.1
+            offset: 1
+            limit: 1
             sort: CreatedOn
           response:
             body:

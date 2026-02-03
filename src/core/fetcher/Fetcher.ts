@@ -1,14 +1,12 @@
 import { toJson } from "../json";
-import type { APIResponse } from "./APIResponse";
+import { APIResponse } from "./APIResponse";
+import { abortRawResponse, toRawResponse, unknownRawResponse } from "./RawResponse";
+import { Supplier } from "./Supplier";
 import { createRequestUrl } from "./createRequestUrl";
-import type { EndpointMetadata } from "./EndpointMetadata";
-import { EndpointSupplier } from "./EndpointSupplier";
-import { getErrorResponseBody } from "./getErrorResponseBody";
 import { getFetchFn } from "./getFetchFn";
 import { getRequestBody } from "./getRequestBody";
 import { getResponseBody } from "./getResponseBody";
 import { makeRequest } from "./makeRequest";
-import { abortRawResponse, toRawResponse, unknownRawResponse } from "./RawResponse";
 import { requestWithRetries } from "./requestWithRetries";
 
 export type FetchFunction = <R = unknown>(args: Fetcher.Args) => Promise<APIResponse<R, Fetcher.Error>>;
@@ -18,17 +16,16 @@ export declare namespace Fetcher {
         url: string;
         method: string;
         contentType?: string;
-        headers?: Record<string, string | EndpointSupplier<string | null | undefined> | null | undefined>;
-        queryParameters?: Record<string, unknown>;
+        headers?: Record<string, string | Supplier<string | undefined> | undefined>;
+        queryParameters?: Record<string, string | string[] | object | object[] | null>;
         body?: unknown;
         timeoutMs?: number;
         maxRetries?: number;
         withCredentials?: boolean;
         abortSignal?: AbortSignal;
         requestType?: "json" | "file" | "bytes";
-        responseType?: "json" | "blob" | "sse" | "streaming" | "text" | "arrayBuffer" | "binary-response";
+        responseType?: "json" | "blob" | "sse" | "streaming" | "text" | "arrayBuffer";
         duplex?: "half";
-        endpointMetadata?: EndpointMetadata;
     }
 
     export type Error = FailedStatusCodeError | NonJsonError | TimeoutError | UnknownError;
@@ -66,7 +63,7 @@ async function getHeaders(args: Fetcher.Args): Promise<Record<string, string>> {
     }
 
     for (const [key, value] of Object.entries(args.headers)) {
-        const result = await EndpointSupplier.get(value, { endpointMetadata: args.endpointMetadata ?? {} });
+        const result = await Supplier.get(value);
         if (typeof result === "string") {
             newHeaders[key] = result;
             continue;
@@ -103,11 +100,12 @@ export async function fetcherImpl<R = unknown>(args: Fetcher.Args): Promise<APIR
                 ),
             args.maxRetries,
         );
+        const responseBody = await getResponseBody(response, args.responseType);
 
         if (response.status >= 200 && response.status < 400) {
             return {
                 ok: true,
-                body: (await getResponseBody(response, args.responseType)) as R,
+                body: responseBody as R,
                 headers: response.headers,
                 rawResponse: toRawResponse(response),
             };
@@ -117,13 +115,13 @@ export async function fetcherImpl<R = unknown>(args: Fetcher.Args): Promise<APIR
                 error: {
                     reason: "status-code",
                     statusCode: response.status,
-                    body: await getErrorResponseBody(response),
+                    body: responseBody,
                 },
                 rawResponse: toRawResponse(response),
             };
         }
     } catch (error) {
-        if (args.abortSignal?.aborted) {
+        if (args.abortSignal != null && args.abortSignal.aborted) {
             return {
                 ok: false,
                 error: {

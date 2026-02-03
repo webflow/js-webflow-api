@@ -49,12 +49,12 @@ service:
             type: optional<OrdersListRequestStatus>
             docs: Filter the orders by status
           offset:
-            type: optional<double>
+            type: optional<integer>
             docs: >-
               Offset used for pagination if the results have more than limit
               records
           limit:
-            type: optional<double>
+            type: optional<integer>
             docs: 'Maximum number of records to be returned (max limit: 100)'
       response:
         docs: Request was successful
@@ -73,8 +73,8 @@ service:
             site_id: 580e63e98c9a982ac9b8b741
           query-parameters:
             status: pending
-            offset: 1.1
-            limit: 1.1
+            offset: 1
+            limit: 1
           response:
             body:
               orders:
