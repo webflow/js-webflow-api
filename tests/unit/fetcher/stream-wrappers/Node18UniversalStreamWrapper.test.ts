@@ -61,7 +61,7 @@ describe("Node18UniversalStreamWrapper", () => {
         });
         const stream = new Node18UniversalStreamWrapper(rawStream);
         const dest = new (await import("readable-stream")).Writable({
-            write(chunk, _encoding, callback) {
+            write(chunk, encoding, callback) {
                 expect(chunk.toString()).toEqual("test");
                 callback();
             },

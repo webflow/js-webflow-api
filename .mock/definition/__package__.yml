@@ -657,15 +657,15 @@ types:
     docs: Pagination object
     properties:
       limit:
-        type: optional<double>
+        type: optional<integer>
         docs: The limit used for pagination
         access: read-only
       offset:
-        type: optional<double>
+        type: optional<integer>
         docs: The offset used for pagination
         access: read-only
       total:
-        type: optional<double>
+        type: optional<integer>
         docs: The total number of records
         access: read-only
     source:
@@ -1243,15 +1243,15 @@ types:
   CollectionItemListPagination:
     properties:
       limit:
-        type: optional<double>
+        type: optional<integer>
         docs: The limit specified in the request
         default: 100
       offset:
-        type: optional<double>
+        type: optional<integer>
         docs: The offset specified for pagination
         default: 0
       total:
-        type: optional<double>
+        type: optional<integer>
         docs: Total number of items in the collection
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
@@ -1563,15 +1563,15 @@ types:
   CommentThreadListPagination:
     properties:
       limit:
-        type: double
+        type: integer
         docs: The limit specified in the request (default 100)
         default: 100
       offset:
-        type: double
+        type: integer
         docs: The offset specified for pagination
         default: 0
       total:
-        type: double
+        type: integer
         docs: Total number of comment threads
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
@@ -1664,15 +1664,15 @@ types:
   CommentReplyListPagination:
     properties:
       limit:
-        type: double
+        type: integer
         docs: The limit specified in the request (default 100)
         default: 100
       offset:
-        type: double
+        type: integer
         docs: The offset specified for pagination
         default: 0
       total:
-        type: double
+        type: integer
         docs: Total number of comment replies
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
@@ -2881,18 +2881,18 @@ types:
     docs: The list users results
     properties:
       count:
-        type: optional<double>
+        type: optional<integer>
         docs: Number of users returned
       limit:
-        type: optional<double>
+        type: optional<integer>
         docs: The limit specified in the request
         default: 10
       offset:
-        type: optional<double>
+        type: optional<integer>
         docs: The offset specified for pagination
         default: 0
       total:
-        type: optional<double>
+        type: optional<integer>
         docs: Total number of users in the collection
       users:
         type: optional<list<User>>
@@ -2929,18 +2929,18 @@ types:
     docs: The list access groups results
     properties:
       count:
-        type: optional<double>
+        type: optional<integer>
         docs: Number of access groups returned
       limit:
-        type: optional<double>
+        type: optional<integer>
         docs: The limit specified in the request
         default: 10
       offset:
-        type: optional<double>
+        type: optional<integer>
         docs: The offset specified for pagination
         default: 0
       total:
-        type: optional<double>
+        type: optional<integer>
         docs: Total number of access groups in the collection
       accessGroups:
         type: optional<list<AccessGroup>>
