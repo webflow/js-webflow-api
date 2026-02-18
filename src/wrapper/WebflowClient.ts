@@ -74,7 +74,7 @@ export class WebflowClient extends FernClient {
         } else {
             params["scope"] = scope.join(" ");
         }
-        return `https://webflow.com/oauth/authorize?${core.url.toQueryString(params)}`;
+        return `https://webflow.com/oauth/authorize?${new URLSearchParams(params).toString()}`;
     }
 
     /**

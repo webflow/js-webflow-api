@@ -6,6 +6,7 @@ import * as errors from "../errors";
 import * as serializers from "../serialization";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../core/headers";
 import * as SchemaOverrides from "./schemas";
+import urlJoin from "url-join";
 
 declare module "../api/resources/collections/resources/items/client/Client" {
     export namespace Items {}
@@ -90,24 +91,24 @@ export class Client extends Items {
             requestOptions?.headers,
         );
         const _response = await core.fetcher({
-            url: core.url.join(
+            url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
                         .base,
-                `collections/${core.url.encodePathParam(collectionId)}/items`,
+                `collections/${encodeURIComponent(collectionId)}/items`,
             ),
             method: "POST",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            queryParameters: _queryParams,
             requestType: "json",
             body: serializers.collections.ItemsCreateItemRequestBody.jsonOrThrow(_body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
             }),
-            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
-            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
@@ -254,24 +255,24 @@ export class Client extends Items {
             requestOptions?.headers,
         );
         const _response = await core.fetcher({
-            url: core.url.join(
+            url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
                         .base,
-                `collections/${core.url.encodePathParam(collectionId)}/items/${core.url.encodePathParam(itemId)}`,
+                `collections/${encodeURIComponent(collectionId)}/items/${encodeURIComponent(itemId)}`,
             ),
             method: "PATCH",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            queryParameters: _queryParams,
             requestType: "json",
             body: serializers.CollectionItemPatchSingle.jsonOrThrow(_body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
             }),
-            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
-            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
@@ -438,24 +439,24 @@ export class Client extends Items {
             requestOptions?.headers,
         );
         const _response = await core.fetcher({
-            url: core.url.join(
+            url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
                         .base,
-                `collections/${core.url.encodePathParam(collectionId)}/items/live`,
+                `collections/${encodeURIComponent(collectionId)}/items/live`,
             ),
             method: "POST",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            queryParameters: _queryParams,
             requestType: "json",
             body: serializers.collections.ItemsCreateItemLiveRequestBody.jsonOrThrow(_body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
             }),
-            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
-            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
@@ -603,24 +604,24 @@ export class Client extends Items {
             requestOptions?.headers,
         );
         const _response = await core.fetcher({
-            url: core.url.join(
+            url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
                         .base,
-                `collections/${core.url.encodePathParam(collectionId)}/items/${core.url.encodePathParam(itemId)}/live`,
+                `collections/${encodeURIComponent(collectionId)}/items/${encodeURIComponent(itemId)}/live`,
             ),
             method: "PATCH",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            queryParameters: _queryParams,
             requestType: "json",
             body: serializers.CollectionItemPatchSingle.jsonOrThrow(_body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
             }),
-            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
-            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
