@@ -9,3 +9,4 @@ src/index.ts
 src/oauth.ts
 src/wrapper
 tests/wrapper
+jest.config.mjs
