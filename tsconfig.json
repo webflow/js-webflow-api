@@ -10,8 +10,6 @@
         "outDir": "dist",
         "rootDir": "src",
         "baseUrl": "src",
-        "isolatedModules": true,
-        "isolatedDeclarations": true,
         "module": "CommonJS"
     },
     "include": ["src"],

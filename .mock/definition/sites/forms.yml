@@ -51,12 +51,12 @@ service:
             type: optional<string>
             docs: Identifier for an element
           offset:
-            type: optional<double>
+            type: optional<integer>
             docs: >-
               Offset used for pagination if the results have more than limit
               records
           limit:
-            type: optional<double>
+            type: optional<integer>
             docs: 'Maximum number of records to be returned (max limit: 100)'
       response:
         docs: Request was successful
@@ -74,8 +74,8 @@ service:
             site_id: 580e63e98c9a982ac9b8b741
           query-parameters:
             elementId: 18259716-3e5a-646a-5f41-5dc4b9405aa0
-            offset: 1.1
-            limit: 1.1
+            offset: 1
+            limit: 1
           response:
             body:
               formSubmissions:
@@ -130,12 +130,12 @@ service:
         name: FormsListSubmissionsRequest
         query-parameters:
           offset:
-            type: optional<double>
+            type: optional<integer>
             docs: >-
               Offset used for pagination if the results have more than limit
               records
           limit:
-            type: optional<double>
+            type: optional<integer>
             docs: 'Maximum number of records to be returned (max limit: 100)'
       response:
         docs: Request was successful
@@ -153,8 +153,8 @@ service:
             site_id: 580e63e98c9a982ac9b8b741
             form_id: 580e63e98c9a982ac9b8b741
           query-parameters:
-            offset: 1.1
-            limit: 1.1
+            offset: 1
+            limit: 1
           response:
             body:
               formSubmissions:

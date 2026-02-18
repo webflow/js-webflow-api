@@ -18,7 +18,7 @@ describe("getSchemaUtils", () => {
         itSchema(
             "transform and untransform run correctly",
             string().transform({
-                transform: (x) => `${x}X`,
+                transform: (x) => x + "X",
                 untransform: (x) => (x as string).slice(0, -1),
             }),
             {
@@ -36,7 +36,7 @@ describe("getSchemaUtils", () => {
 
         it("throws on invalid value", async () => {
             const value = () => object({ a: string(), b: string() }).parseOrThrow({ a: 24 });
-            expect(value).toThrowError('a: Expected string. Received 24.; Missing required key "b"');
+            expect(value).toThrowError(new Error('a: Expected string. Received 24.; Missing required key "b"'));
         });
     });
 
@@ -48,7 +48,7 @@ describe("getSchemaUtils", () => {
 
         it("throws on invalid value", async () => {
             const value = () => object({ a: string(), b: string() }).jsonOrThrow({ a: 24 });
-            expect(value).toThrowError('a: Expected string. Received 24.; Missing required key "b"');
+            expect(value).toThrowError(new Error('a: Expected string. Received 24.; Missing required key "b"'));
         });
     });
 
