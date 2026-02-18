@@ -1,6 +1,14 @@
 {
     "name": "webflow-api",
     "version": "3.3.0-beta",
+    "license": "MIT",
+    "author": "Webflow",
+    "description": "Webflow JavaScript SDK",
+    "keywords": [
+        "webflow",
+        "sdk",
+        "javascript"
+    ],
     "private": false,
     "repository": "github:webflow/js-webflow-api",
     "main": "./index.js",
