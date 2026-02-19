@@ -5,6 +5,7 @@ import * as environments from "../environments";
 import * as errors from "../errors";
 import * as serializers from "../serialization";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../core/headers";
+import urlJoin from "url-join";
 
 declare module "../api/resources/forms/client/Client" {
     export namespace Forms {}
@@ -76,17 +77,17 @@ export class Client extends Forms {
           requestOptions?.headers,
       );
       const _response = await core.fetcher({
-          url: core.url.join(
+          url: urlJoin(
               (await core.Supplier.get(this._options.baseUrl)) ??
                   ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
                       .base,
-              `sites/${core.url.encodePathParam(siteId)}/form_submissions`,
+              `sites/${encodeURIComponent(siteId)}/form_submissions`,
           ),
           method: "GET",
           headers: _headers,
-          queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
-          timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
-          maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+          queryParameters: _queryParams,
+          timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+          maxRetries: requestOptions?.maxRetries,
           abortSignal: requestOptions?.abortSignal,
       });
       if (_response.ok) {

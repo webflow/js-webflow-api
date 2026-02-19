@@ -6,6 +6,7 @@ import * as errors from "../errors";
 import * as serializers from "../serialization";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../core/headers";
 import * as SchemaOverrides from "./schemas";
+import urlJoin from "url-join";
 
 declare module "../api/resources/pages/client/Client" {
     export namespace Pages {}
@@ -80,24 +81,24 @@ export class Client extends Pages {
             requestOptions?.headers,
         );
         const _response = await core.fetcher({
-            url: core.url.join(
+            url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
                         .base,
-                `pages/${core.url.encodePathParam(pageId)}`,
+                `pages/${encodeURIComponent(pageId)}`,
             ),
             method: "PUT",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            queryParameters: _queryParams,
             requestType: "json",
             body: serializers.PageMetadataWrite.jsonOrThrow(_body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
             }),
-            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
-            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {

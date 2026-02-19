@@ -1,14 +1,7 @@
-import {
-    type BaseSchema,
-    type MaybeValid,
-    type Schema,
-    type SchemaOptions,
-    SchemaType,
-    type ValidationError,
-} from "../../Schema";
+import { BaseSchema, MaybeValid, Schema, SchemaOptions, SchemaType, ValidationError } from "../../Schema";
 import { maybeSkipValidation } from "../../utils/maybeSkipValidation";
-import { getSchemaUtils } from "../schema-utils/index";
-import type { inferParsedUnidiscriminatedUnionSchema, inferRawUnidiscriminatedUnionSchema } from "./types";
+import { getSchemaUtils } from "../schema-utils";
+import { inferParsedUnidiscriminatedUnionSchema, inferRawUnidiscriminatedUnionSchema } from "./types";
 
 export function undiscriminatedUnion<Schemas extends [Schema<any, any>, ...Schema<any, any>[]]>(
     schemas: Schemas,
