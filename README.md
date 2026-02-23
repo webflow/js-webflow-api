@@ -76,14 +76,19 @@ const publishRequest = await webflow.sites.publish(site_id, {
 
 ## OAuth
 
-To implement OAuth, you must register a Webflow App in your Workspace.
+To implement OAuth, you must register a Webflow App in your Workspace with the "Data CLient" building block and get its client ID and secret.
 See https://developers.webflow.com/apps/data/docs/register-an-app.
 
-### Step 1: Authorize URL
+To get the client ID, edit the App in your workspace, go to the Building Blocks tab, and copy the ID from the **Client ID** field.
 
-The first step in OAuth is to generate an Authorization URL. Use this URL
-to fetch your Authorization Code. See the [docs](https://docs.developers.webflow.com/v1.0.0/docs/oauth#user-authorization)
-for more details.
+For full instructions, see https://developers.webflow.com/data/reference/oauth-app.
+
+### Step 1: Generate an authorization URL
+
+The first step in OAuth is to generate an authorization URL.
+You direct your users to go to this URL, which prompts them to approve the App's access to specific sites or Workspaces.
+
+This example code generates the authorization URL:
 
 ```javascript
 import { WebflowClient } from "webflow-api";
@@ -98,10 +103,12 @@ const authorizeUrl = WebflowClient.authorizeURL({
 console.log(authorizeUrl);
 ```
 
-### Step 2: Retrieve your access token
+### Step 2: Retrieve an access token
 
-Use the `getAccessToken` function and pass in your `client_id`,
-`client_secret`, and `authorization_code`.
+The callback from the authorization URL includes the state that you set in the request and an authorization code.
+You can use this authorization code to generate an access token for the App.
+
+This example passes the App's client ID and secret and the authorization code to the `getAccessToken` function:
 
 ```javascript
 import { WebflowClient } from "webflow-api";
@@ -115,13 +122,19 @@ const accessToken = WebflowClient.getAccessToken({
 
 ### Step 3: Instantiate the client
 
-Instantiate the client using your `access_token`.
+Instantiate the client using the access token:
 
 ```javascript
 import { WebflowClient } from "webflow-api";
 
-const webflow = WebflowClient({ accessToken });
+const webflow = new WebflowClient({ accessToken });
+
+const {sites} = await webflow.sites.list();
+
+console.log(sites);
 ```
+
+Now the App has access to the sites or Workspaces that the user allowed access to.
 
 ## Webflow Types
 
