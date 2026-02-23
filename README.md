@@ -30,7 +30,7 @@ $ yarn add webflow-api
 
 ## Usage
 
-Simply import `Webflow` and start making calls to our API.
+Simply import `webflow-api` and start making calls to our API.
 
 ```javascript
 import { WebflowClient } from "webflow-api";
