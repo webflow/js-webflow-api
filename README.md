@@ -1,4 +1,4 @@
-# Webflow JS SDK
+# Webflow JavaScript/TypeScript SDK
 
 [![npm shield](https://img.shields.io/npm/v/webflow-api)](https://www.npmjs.com/package/webflow-api)
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-SDK%20generated%20by%20Fern-brightgreen)](https://github.com/fern-api/fern)
@@ -19,13 +19,13 @@ Add this dependency to your project's package.json file:
 Using npm:
 
 ```shell
-$ npm install webflow-api
+npm install webflow-api
 ```
 
-Using yarn
+Using yarn:
 
 ```shell
-$ yarn add webflow-api
+yarn add webflow-api
 ```
 
 ## Authentication
@@ -52,25 +52,23 @@ const webflow = new WebflowClient({
   accessToken: process.env.WEBFLOW_API_TOKEN,
 });
 
-// Env. variables
-// in format of string, e.g.: "639656400769508adc12fe42"
+// Environment variables
+// in string format, such as "639656400769508adc12fe42"
 const site_id = process.env.SITE_ID;
 const custom_domain_id_1 = process.env.CUSTOM_DOMAIN_ID_1;
 const custom_domain_id_2 = process.env.CUSTOM_DOMAIN_ID_2;
 
-// Sites
-
-// List Sites
+// List sites
 const sites = await webflow.sites.list();
 
-// Get Site
+// Get site
 const site = await webflow.sites.get(site_id);
 
-// Get Custom Domains
+// Get custom domains
 const customDomains = await webflow.sites.getCustomDomain(site_id);
 
-// Publish Site
-const site = await webflow.sites.publish(site_id, {
+// Publish site
+const publishRequest = await webflow.sites.publish(site_id, {
   customDomains: [custom_domain_id_1, custom_domain_id_2],
   publishToWebflowSubdomain: true,
 });
@@ -78,7 +76,8 @@ const site = await webflow.sites.publish(site_id, {
 
 ## OAuth
 
-To implement OAuth, you'll need to [register a Webflow App in your Workspace](https://developers.webflow.com/reference/authorization)
+To implement OAuth, you must register a Webflow App in your Workspace.
+See https://developers.webflow.com/reference/authorization.
 
 ### Step 1: Authorize URL
 
