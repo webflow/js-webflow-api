@@ -28,14 +28,29 @@ Using yarn
 $ yarn add webflow-api
 ```
 
+## Authentication
+
+You can use a workspace token to access all of the sites in your Webflow Workspace or a site token to access a single site.
+
+- To get a workspace token, open the [Webflow Dashboard](https://webflow.com/dashboard?utm_source=dashboard), click **Apps & Integrations > Manage**, and under **Workspace API access**, click **Generate API token**.
+
+- To get a site token, find the site in the [Webflow Dashboard](https://webflow.com/dashboard?utm_source=dashboard), open its settings, and under **API access**, click **Generate API token**.
+
+For more information about tokens, see [Authentication](https://developers.webflow.com/data/reference/authentication) in the Webflow documentation.
+
+For more complex authentication with OAuth, see [OAuth](#oauth) below.
+
 ## Usage
 
-Simply import `webflow-api` and start making calls to our API.
+To use the SDK, import the `webflow-api` package, provide your access token, and make calls to the Webflow API, as in this example:
 
 ```javascript
 import { WebflowClient } from "webflow-api";
 
-const webflow = new WebflowClient({ accessToken });
+// Workspace or site token
+const webflow = new WebflowClient({
+  accessToken: process.env.WEBFLOW_API_TOKEN,
+});
 
 // Env. variables
 // in format of string, e.g.: "639656400769508adc12fe42"
@@ -93,7 +108,7 @@ Use the `getAccessToken` function and pass in your `client_id`,
 import { WebflowClient } from "webflow-api";
 
 const accessToken = WebflowClient.getAccessToken({
-  clientId: "your_client_id", 
+  clientId: "your_client_id",
   clientSecret: "your_client_secret",
   code: "your_authorization_code"
 });
@@ -150,7 +165,7 @@ const sites = await webflow.sites.get(..., {
 ```
 
 ### Retries
-The SDK will automatically retry failures with exponential backoff. 
+The SDK will automatically retry failures with exponential backoff.
 You can configure the retries by setting maxRetries.
 
 ```javascript
