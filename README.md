@@ -30,7 +30,7 @@ $ yarn add webflow-api
 
 ## Usage
 
-Simply import `Webflow` and start making calls to our API.
+Simply import `webflow-api` and start making calls to our API.
 
 ```javascript
 import { WebflowClient } from "webflow-api";
@@ -49,7 +49,7 @@ const custom_domain_id_2 = process.env.CUSTOM_DOMAIN_ID_2;
 const sites = await webflow.sites.list();
 
 // Get Site
-const site = await webflow.sites.get("site_id");
+const site = await webflow.sites.get(site_id);
 
 // Get Custom Domains
 const customDomains = await webflow.sites.getCustomDomain(site_id);
