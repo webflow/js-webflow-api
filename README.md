@@ -10,7 +10,8 @@ The SDK contains typings and request builders for the Webflow Data API.
 
 ## Documentation
 
-Explore the [API reference documentation](https://developers.webflow.com/reference/rest-introduction).
+Explore the [API reference documentation](https://developers.webflow.com/reference/rest-introduction). Be sure to select `TypeScript` to see SDK examples.
+You can also view our [reference](./reference.md).
 
 ## Installation
 
