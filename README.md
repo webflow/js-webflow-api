@@ -77,7 +77,7 @@ const publishRequest = await webflow.sites.publish(site_id, {
 ## OAuth
 
 To implement OAuth, you must register a Webflow App in your Workspace.
-See https://developers.webflow.com/reference/authorization.
+See https://developers.webflow.com/apps/data/docs/register-an-app.
 
 ### Step 1: Authorize URL
 
