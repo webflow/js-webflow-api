@@ -1,6 +1,6 @@
 {
     "name": "webflow-api",
-    "version": "3.2.2",
+    "version": "0.0.283",
     "private": false,
     "repository": "https://github.com/webflow/js-webflow-api",
     "license": "MIT",
