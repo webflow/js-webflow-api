@@ -14,8 +14,6 @@ import { Scripts } from "./api/resources/scripts/client/Client";
 import { Assets } from "./api/resources/assets/client/Client";
 import { Webhooks } from "./api/resources/webhooks/client/Client";
 import { Forms } from "./api/resources/forms/client/Client";
-import { Users } from "./api/resources/users/client/Client";
-import { AccessGroups } from "./api/resources/accessGroups/client/Client";
 import { Products } from "./api/resources/products/client/Client";
 import { Orders } from "./api/resources/orders/client/Client";
 import { Inventory } from "./api/resources/inventory/client/Client";
@@ -55,8 +53,6 @@ export class WebflowClient {
     protected _assets: Assets | undefined;
     protected _webhooks: Webhooks | undefined;
     protected _forms: Forms | undefined;
-    protected _users: Users | undefined;
-    protected _accessGroups: AccessGroups | undefined;
     protected _products: Products | undefined;
     protected _orders: Orders | undefined;
     protected _inventory: Inventory | undefined;
@@ -70,8 +66,7 @@ export class WebflowClient {
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "webflow-api",
-                    "X-Fern-SDK-Version": "3.2.2",
-                    "User-Agent": "webflow-api/3.2.2",
+                    "X-Fern-SDK-Version": "0.0.2",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
@@ -114,14 +109,6 @@ export class WebflowClient {
 
     public get forms(): Forms {
         return (this._forms ??= new Forms(this._options));
-    }
-
-    public get users(): Users {
-        return (this._users ??= new Users(this._options));
-    }
-
-    public get accessGroups(): AccessGroups {
-        return (this._accessGroups ??= new AccessGroups(this._options));
     }
 
     public get products(): Products {

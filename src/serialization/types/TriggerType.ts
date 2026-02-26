@@ -16,9 +16,6 @@ export const TriggerType: core.serialization.Schema<serializers.TriggerType.Raw,
         "ecomm_new_order",
         "ecomm_order_changed",
         "ecomm_inventory_changed",
-        "user_account_added",
-        "user_account_updated",
-        "user_account_deleted",
         "collection_item_created",
         "collection_item_changed",
         "collection_item_deleted",
@@ -37,9 +34,6 @@ export declare namespace TriggerType {
         | "ecomm_new_order"
         | "ecomm_order_changed"
         | "ecomm_inventory_changed"
-        | "user_account_added"
-        | "user_account_updated"
-        | "user_account_deleted"
         | "collection_item_created"
         | "collection_item_changed"
         | "collection_item_deleted"

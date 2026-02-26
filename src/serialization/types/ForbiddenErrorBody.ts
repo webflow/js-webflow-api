@@ -6,13 +6,13 @@ import * as serializers from "../index";
 import * as Webflow from "../../api/index";
 import * as core from "../../core";
 import { InvalidScopes } from "./InvalidScopes";
-import { UsersNotEnabled } from "./UsersNotEnabled";
+import { NotEnterprisePlanSite } from "./NotEnterprisePlanSite";
 
 export const ForbiddenErrorBody: core.serialization.Schema<
     serializers.ForbiddenErrorBody.Raw,
     Webflow.ForbiddenErrorBody
-> = core.serialization.undiscriminatedUnion([InvalidScopes, UsersNotEnabled]);
+> = core.serialization.undiscriminatedUnion([InvalidScopes, NotEnterprisePlanSite]);
 
 export declare namespace ForbiddenErrorBody {
-    export type Raw = (InvalidScopes.Raw | undefined) | (UsersNotEnabled.Raw | undefined);
+    export type Raw = (InvalidScopes.Raw | undefined) | (NotEnterprisePlanSite.Raw | undefined);
 }
