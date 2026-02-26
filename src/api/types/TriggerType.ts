@@ -14,9 +14,6 @@ export type TriggerType =
     | "ecomm_new_order"
     | "ecomm_order_changed"
     | "ecomm_inventory_changed"
-    | "user_account_added"
-    | "user_account_updated"
-    | "user_account_deleted"
     | "collection_item_created"
     | "collection_item_changed"
     | "collection_item_deleted"
@@ -32,9 +29,6 @@ export const TriggerType = {
     EcommNewOrder: "ecomm_new_order",
     EcommOrderChanged: "ecomm_order_changed",
     EcommInventoryChanged: "ecomm_inventory_changed",
-    UserAccountAdded: "user_account_added",
-    UserAccountUpdated: "user_account_updated",
-    UserAccountDeleted: "user_account_deleted",
     CollectionItemCreated: "collection_item_created",
     CollectionItemChanged: "collection_item_changed",
     CollectionItemDeleted: "collection_item_deleted",

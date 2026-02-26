@@ -4,4 +4,4 @@
 
 import * as Webflow from "../index";
 
-export type ForbiddenErrorBody = Webflow.InvalidScopes | undefined | Webflow.UsersNotEnabled | undefined;
+export type ForbiddenErrorBody = Webflow.InvalidScopes | undefined | Webflow.NotEnterprisePlanSite | undefined;
