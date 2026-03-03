@@ -1,2 +1,2 @@
-export * from "./InventoryUpdateRequestInventoryType";
 export * from "./EcommInventoryChangedPayload";
+export * from "./InventoryUpdateRequestInventoryType";
