@@ -1,2 +1,2 @@
-export * from "./AuditLogsGetWorkspaceAuditLogsRequestSortOrder";
 export * from "./AuditLogsGetWorkspaceAuditLogsRequestEventType";
+export * from "./AuditLogsGetWorkspaceAuditLogsRequestSortOrder";

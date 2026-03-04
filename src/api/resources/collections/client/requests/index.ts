@@ -1,1 +1,1 @@
-export { type CollectionsCreateRequest } from "./CollectionsCreateRequest";
+export type { CollectionsCreateRequest } from "./CollectionsCreateRequest";
