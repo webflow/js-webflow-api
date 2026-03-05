@@ -11,7 +11,7 @@ service:
         - OAuth2:
             - custom_code:read
       docs: |
-        Get all scripts applied to a page. 
+        Get all scripts applied to a page.
 
         Required scope | `custom_code:read`
       source:

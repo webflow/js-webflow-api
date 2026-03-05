@@ -12,6 +12,7 @@ types:
       - workspace_membership
       - site_membership
       - workspace_invitation
+      - workspace_setting
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
 imports:
