@@ -11,7 +11,7 @@ service:
         - OAuth2:
             - sites:write
       docs: >
-        Create a site. 
+        Create a site.
 
 
         <Warning title="Enterprise Only">This endpoint requires an Enterprise
@@ -306,7 +306,7 @@ service:
         - OAuth2:
             - sites:write
       docs: >
-        Delete a site. 
+        Delete a site.
 
 
         <Warning title="Enterprise Only">This endpoint requires an Enterprise
@@ -338,7 +338,7 @@ service:
         - OAuth2:
             - sites:write
       docs: >
-        Update a site. 
+        Update a site.
 
 
         <Warning title="Enterprise Only">This endpoint requires an Enterprise
@@ -465,7 +465,7 @@ service:
         - OAuth2:
             - sites:write
       docs: >
-        Publishes a site to one or more more domains. 
+        Publishes a site to one or more more domains.
 
 
         To publish to a specific custom domain, use the domain IDs from the [Get

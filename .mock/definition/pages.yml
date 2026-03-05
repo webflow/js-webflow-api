@@ -228,7 +228,7 @@ service:
             slug:
               type: optional<string>
               docs: >
-                Slug for the page. 
+                Slug for the page.
 
 
 
@@ -310,7 +310,7 @@ service:
       docs: |
         Get text and component instance content from a static page.
 
-        <Badge intent="info">Localization</Badge> 
+        <Badge intent="info">Localization</Badge>
 
         Required scope | `pages:read`
       source:

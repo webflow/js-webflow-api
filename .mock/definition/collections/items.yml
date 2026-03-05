@@ -94,7 +94,7 @@ types:
       slug:
         type: string
         docs: >-
-          URL slug for the item in your site. 
+          URL slug for the item in your site.
 
           Note: Updating the item slug will break all links referencing the old
           slug.
@@ -111,7 +111,7 @@ types:
       slug:
         type: string
         docs: >-
-          URL slug for the item in your site. 
+          URL slug for the item in your site.
 
           Note: Updating the item slug will break all links referencing the old
           slug.
@@ -972,7 +972,7 @@ service:
             - cms:write
       docs: >
         Unpublish up to 100 items from the live site and set the `isDraft`
-        property to `true`. 
+        property to `true`.
 
 
         <Tip title="Localization Tip">Items will only be unpublished in the
@@ -1627,7 +1627,7 @@ service:
         - OAuth2:
             - cms:write
       docs: |
-        Delete an item from a collection. 
+        Delete an item from a collection.
 
         Required scope | `CMS:write`
       source:
@@ -1888,7 +1888,7 @@ service:
             - cms:write
       docs: >
         Unpublish a live item from the site and set the `isDraft` property to
-        `true`. 
+        `true`.
 
 
         For bulk unpublishing, please use [this
