@@ -6,7 +6,7 @@ import * as errors from "../errors";
 import * as serializers from "../serialization";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../core/headers";
 import * as SchemaOverrides from "./schemas";
-import urlJoin from "url-join";
+
 
 declare module "../api/resources/collections/resources/items/client/Client" {
     export namespace Items {}
@@ -91,7 +91,7 @@ export class Client extends Items {
             requestOptions?.headers,
         );
         const _response = await core.fetcher({
-            url: urlJoin(
+            url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
                         .base,
@@ -255,7 +255,7 @@ export class Client extends Items {
             requestOptions?.headers,
         );
         const _response = await core.fetcher({
-            url: urlJoin(
+            url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
                         .base,
@@ -439,7 +439,7 @@ export class Client extends Items {
             requestOptions?.headers,
         );
         const _response = await core.fetcher({
-            url: urlJoin(
+            url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
                         .base,
@@ -604,7 +604,7 @@ export class Client extends Items {
             requestOptions?.headers,
         );
         const _response = await core.fetcher({
-            url: urlJoin(
+            url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
                         .base,
