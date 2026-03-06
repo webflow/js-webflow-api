@@ -1,6 +1,6 @@
 {
     "name": "webflow-api",
-    "version": "3.3.0",
+    "version": "3.2.4",
     "private": false,
     "repository": "github:webflow/js-webflow-api",
     "license": "MIT",
@@ -20,7 +20,7 @@
         "test:wire": "jest --selectProjects wire"
     },
     "dependencies": {
-        "@webflow/page-client": "^0.0.4",
+        "@webflow/page-client": "*",
         "url-join": "4.0.1",
         "form-data": "^4.0.4",
         "formdata-node": "^6.0.3",
