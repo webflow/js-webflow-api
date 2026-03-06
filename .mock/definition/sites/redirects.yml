@@ -137,7 +137,7 @@ service:
           docs: Unique identifier for a Site
         redirect_id:
           type: string
-          docs: Unique identifier site rediect
+          docs: Unique identifier site redirect
       display-name: Delete 301 redirects
       response:
         docs: Request was successful
@@ -189,7 +189,7 @@ service:
           docs: Unique identifier for a Site
         redirect_id:
           type: string
-          docs: Unique identifier site rediect
+          docs: Unique identifier site redirect
       display-name: Update 301 redirect
       request:
         body: root.Redirect

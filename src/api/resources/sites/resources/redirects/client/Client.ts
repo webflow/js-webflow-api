@@ -321,7 +321,7 @@ export class Redirects {
      * Required scope: `sites:write`
      *
      * @param {string} siteId - Unique identifier for a Site
-     * @param {string} redirectId - Unique identifier site rediect
+     * @param {string} redirectId - Unique identifier site redirect
      * @param {Redirects.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Webflow.BadRequestError}
@@ -462,7 +462,7 @@ export class Redirects {
      * Required scope: `sites:write`
      *
      * @param {string} siteId - Unique identifier for a Site
-     * @param {string} redirectId - Unique identifier site rediect
+     * @param {string} redirectId - Unique identifier site redirect
      * @param {Webflow.Redirect} request
      * @param {Redirects.RequestOptions} requestOptions - Request-specific configuration.
      *
