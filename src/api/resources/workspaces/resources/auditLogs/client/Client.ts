@@ -80,6 +80,7 @@ export class AuditLogs {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
+                    omitUndefined: true,
                 },
             );
         }
@@ -91,6 +92,7 @@ export class AuditLogs {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
+                    omitUndefined: true,
                 },
             );
         }

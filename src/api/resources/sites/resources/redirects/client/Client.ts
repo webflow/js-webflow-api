@@ -219,6 +219,7 @@ export class Redirects {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                omitUndefined: true,
             }),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
@@ -321,7 +322,7 @@ export class Redirects {
      * Required scope: `sites:write`
      *
      * @param {string} siteId - Unique identifier for a Site
-     * @param {string} redirectId - Unique identifier site rediect
+     * @param {string} redirectId - Unique identifier site redirect
      * @param {Redirects.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Webflow.BadRequestError}
@@ -462,7 +463,7 @@ export class Redirects {
      * Required scope: `sites:write`
      *
      * @param {string} siteId - Unique identifier for a Site
-     * @param {string} redirectId - Unique identifier site rediect
+     * @param {string} redirectId - Unique identifier site redirect
      * @param {Webflow.Redirect} request
      * @param {Redirects.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -515,6 +516,7 @@ export class Redirects {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                omitUndefined: true,
             }),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,

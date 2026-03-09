@@ -106,7 +106,7 @@ service:
         - OAuth2:
             - assets:write
       docs: >
-        The first step in uploading an asset to a site. 
+        The first step in uploading an asset to a site.
 
 
 
@@ -123,7 +123,7 @@ service:
 
         To learn more about how to upload assets to Webflow, see our [assets
         guide](/data/docs/working-with-assets).
-          
+
          Required scope | `assets:write`
       source:
         openapi: ../../../openapi/referenced-specs/v2.yml

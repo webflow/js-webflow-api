@@ -11,7 +11,7 @@ service:
         - OAuth2:
             - ecommerce:read
       docs: >
-        Retrieve all products for a site. 
+        Retrieve all products for a site.
 
 
         Use `limit` and `offset` to page through all products with subsequent

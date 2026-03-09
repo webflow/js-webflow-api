@@ -171,7 +171,7 @@ service:
 
         <Note title="Forms in components">
           When a form is used in a component definition, each instance of the form is considered a unique form.
-          
+
           To get a combined list of submissions for a form that appears across multiple component instances, use the [List Form Submissions by Site](/data/reference/forms/form-submissions/list-submissions-by-site) endpoint.
         </Note>
 

@@ -13,6 +13,7 @@ export const AuditLogsGetWorkspaceAuditLogsRequestEventType: core.serialization.
     "workspace_membership",
     "site_membership",
     "workspace_invitation",
+    "workspace_setting",
 ]);
 
 export declare namespace AuditLogsGetWorkspaceAuditLogsRequestEventType {
@@ -21,5 +22,6 @@ export declare namespace AuditLogsGetWorkspaceAuditLogsRequestEventType {
         | "custom_role"
         | "workspace_membership"
         | "site_membership"
-        | "workspace_invitation";
+        | "workspace_invitation"
+        | "workspace_setting";
 }

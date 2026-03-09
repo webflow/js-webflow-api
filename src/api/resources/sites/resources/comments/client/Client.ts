@@ -81,6 +81,7 @@ export class Comments {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                omitUndefined: true,
             });
         }
 
@@ -91,6 +92,7 @@ export class Comments {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
+                    omitUndefined: true,
                 },
             );
         }
@@ -266,6 +268,7 @@ export class Comments {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                omitUndefined: true,
             });
         }
 
@@ -274,6 +277,7 @@ export class Comments {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                omitUndefined: true,
             });
         }
 
@@ -450,6 +454,7 @@ export class Comments {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                omitUndefined: true,
             });
         }
 
@@ -460,6 +465,7 @@ export class Comments {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
+                    omitUndefined: true,
                 },
             );
         }

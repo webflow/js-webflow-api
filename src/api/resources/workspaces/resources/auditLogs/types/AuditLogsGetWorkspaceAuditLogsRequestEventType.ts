@@ -6,6 +6,7 @@ export const AuditLogsGetWorkspaceAuditLogsRequestEventType = {
     WorkspaceMembership: "workspace_membership",
     SiteMembership: "site_membership",
     WorkspaceInvitation: "workspace_invitation",
+    WorkspaceSetting: "workspace_setting",
 } as const;
 export type AuditLogsGetWorkspaceAuditLogsRequestEventType =
     (typeof AuditLogsGetWorkspaceAuditLogsRequestEventType)[keyof typeof AuditLogsGetWorkspaceAuditLogsRequestEventType];
