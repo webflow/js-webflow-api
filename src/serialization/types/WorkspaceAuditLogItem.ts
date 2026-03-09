@@ -4,6 +4,7 @@ import type * as Webflow from "../../api/index";
 import * as core from "../../core";
 import type * as serializers from "../index";
 import { CustomRoleAuditLogItem } from "./CustomRoleAuditLogItem";
+import { SettingChangeAuditLogItem } from "./SettingChangeAuditLogItem";
 import { SiteMembershipAuditLogItem } from "./SiteMembershipAuditLogItem";
 import { UserAccessAuditLogItem } from "./UserAccessAuditLogItem";
 import { WorkspaceAuditLogItemActor } from "./WorkspaceAuditLogItemActor";
@@ -26,6 +27,7 @@ export const WorkspaceAuditLogItem: core.serialization.Schema<
         workspace_membership: WorkspaceMembershipAuditLogItem.extend(_Base),
         site_membership: SiteMembershipAuditLogItem.extend(_Base),
         workspace_invitation: WorkspaceInvitationAuditLogItem.extend(_Base),
+        workspace_setting: SettingChangeAuditLogItem.extend(_Base),
     })
     .transform<Webflow.WorkspaceAuditLogItem>({
         transform: (value) => value,
@@ -38,7 +40,8 @@ export declare namespace WorkspaceAuditLogItem {
         | WorkspaceAuditLogItem.CustomRole
         | WorkspaceAuditLogItem.WorkspaceMembership
         | WorkspaceAuditLogItem.SiteMembership
-        | WorkspaceAuditLogItem.WorkspaceInvitation;
+        | WorkspaceAuditLogItem.WorkspaceInvitation
+        | WorkspaceAuditLogItem.WorkspaceSetting;
 
     export interface UserAccess extends _Base, UserAccessAuditLogItem.Raw {
         eventType: "user_access";
@@ -58,6 +61,10 @@ export declare namespace WorkspaceAuditLogItem {
 
     export interface WorkspaceInvitation extends _Base, WorkspaceInvitationAuditLogItem.Raw {
         eventType: "workspace_invitation";
+    }
+
+    export interface WorkspaceSetting extends _Base, SettingChangeAuditLogItem.Raw {
+        eventType: "workspace_setting";
     }
 
     export interface _Base {

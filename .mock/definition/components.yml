@@ -533,7 +533,7 @@ types:
 
 
           For example, attempting to update a single-line plain-text property
-          with a multi-line 
+          with a multi-line
 
           value will result in an error.
     source:

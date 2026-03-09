@@ -11,7 +11,7 @@ service:
         - OAuth2:
             - site_activity:read
       docs: >
-        Retrieve Activity Logs for a specific Site. 
+        Retrieve Activity Logs for a specific Site.
 
 
         <Warning title="Enterprise Only">This endpoint requires an Enterprise
