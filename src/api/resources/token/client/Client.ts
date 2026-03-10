@@ -17,7 +17,7 @@ export declare namespace Token {
 export class Token {
     protected readonly _options: Token.Options;
 
-    constructor(_options: Token.Options = {}) {
+    constructor(_options: Token.Options) {
         this._options = _options;
     }
 
@@ -204,12 +204,7 @@ export class Token {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string | undefined> {
-        const bearer = await core.Supplier.get(this._options.accessToken);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+    protected async _getAuthorizationHeader(): Promise<string> {
+        return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
     }
 }

@@ -3,7 +3,7 @@
 /**
  * A single CMS item to create
  */
-export interface CreateBulkCollectionItemRequestBodyFieldDataItem {
+export interface CreateBulkCollectionItemRequestBodyFieldDataOneItem {
     /** The name of the item. */
     name: string;
     /**

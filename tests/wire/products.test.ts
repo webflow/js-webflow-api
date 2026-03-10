@@ -49,6 +49,8 @@ describe("Products", () => {
                                 name: "Colorful T-shirt - Default",
                                 slug: "colorful-t-shirt-default",
                                 price: { value: 2499, unit: "USD", currency: "USD" },
+                                "compare-at-price": { value: 100, unit: "USD" },
+                                "ec-sku-subscription-plan": { frequency: 1, trial: 7 },
                                 "main-image": "https://www.example.com/image.jpg",
                                 sku: "1234567890",
                                 "sku-properties": [
@@ -126,6 +128,14 @@ describe("Products", () => {
                                     value: 2499,
                                     unit: "USD",
                                     currency: "USD",
+                                },
+                                compareAtPrice: {
+                                    value: 100,
+                                    unit: "USD",
+                                },
+                                ecSkuSubscriptionPlan: {
+                                    frequency: 1,
+                                    trial: 7,
                                 },
                                 mainImage: "https://www.example.com/image.jpg",
                                 sku: "1234567890",
@@ -386,6 +396,8 @@ describe("Products", () => {
                         name: "Colorful T-shirt - Default",
                         slug: "colorful-t-shirt-default",
                         price: { value: 2499, unit: "USD", currency: "USD" },
+                        "compare-at-price": { value: 100, unit: "USD" },
+                        "ec-sku-subscription-plan": { frequency: 1, trial: 7 },
                         "main-image": "https://www.example.com/image.jpg",
                         sku: "1234567890",
                         "sku-properties": [
@@ -526,6 +538,14 @@ describe("Products", () => {
                             value: 2499,
                             unit: "USD",
                             currency: "USD",
+                        },
+                        compareAtPrice: {
+                            value: 100,
+                            unit: "USD",
+                        },
+                        ecSkuSubscriptionPlan: {
+                            frequency: 1,
+                            trial: 7,
                         },
                         mainImage: "https://www.example.com/image.jpg",
                         sku: "1234567890",
@@ -769,6 +789,8 @@ describe("Products", () => {
                         name: "Colorful T-shirt - Default",
                         slug: "colorful-t-shirt-default",
                         price: { value: 2499, unit: "USD", currency: "USD" },
+                        "compare-at-price": { value: 100, unit: "USD" },
+                        "ec-sku-subscription-plan": { frequency: 1, trial: 7 },
                         "main-image": "https://www.example.com/image.jpg",
                         sku: "1234567890",
                         "sku-properties": [
@@ -842,6 +864,14 @@ describe("Products", () => {
                             value: 2499,
                             unit: "USD",
                             currency: "USD",
+                        },
+                        compareAtPrice: {
+                            value: 100,
+                            unit: "USD",
+                        },
+                        ecSkuSubscriptionPlan: {
+                            frequency: 1,
+                            trial: 7,
                         },
                         mainImage: "https://www.example.com/image.jpg",
                         sku: "1234567890",
@@ -1277,6 +1307,8 @@ describe("Products", () => {
                         name: "Colorful T-shirt - Default",
                         slug: "colorful-t-shirt-default",
                         price: { value: 2499, unit: "USD", currency: "USD" },
+                        "compare-at-price": { value: 100, unit: "USD" },
+                        "ec-sku-subscription-plan": { frequency: 1, trial: 7 },
                         "main-image": "https://www.example.com/image.jpg",
                         sku: "1234567890",
                         "sku-properties": [
@@ -1338,6 +1370,14 @@ describe("Products", () => {
                             value: 2499,
                             unit: "USD",
                             currency: "USD",
+                        },
+                        compareAtPrice: {
+                            value: 100,
+                            unit: "USD",
+                        },
+                        ecSkuSubscriptionPlan: {
+                            frequency: 1,
+                            trial: 7,
                         },
                         mainImage: "https://www.example.com/image.jpg",
                         sku: "1234567890",

@@ -6,4 +6,4 @@ export type CreateBulkCollectionItemRequestBodyFieldData =
     | Webflow.collections.SingleCmsItem
     /**
      * A list of CMS items to create */
-    | Webflow.collections.CreateBulkCollectionItemRequestBodyFieldDataItem[];
+    | Webflow.collections.CreateBulkCollectionItemRequestBodyFieldDataOneItem[];

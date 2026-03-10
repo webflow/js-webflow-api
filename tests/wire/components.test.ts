@@ -28,20 +28,8 @@ describe("Components", () => {
                     description: "A secondary button component that can be used across the site",
                     readonly: true,
                 },
-                {
-                    id: "6258612d1ee792848f805dcf",
-                    name: "Card",
-                    group: "Buttons",
-                    description: "A button component that can be used across the site",
-                    readonly: true,
-                },
-                {
-                    id: "68a2b1d1ee792848f805dcf",
-                    name: "Nav",
-                    group: "Buttons",
-                    description: "A button component that can be used across the site",
-                    readonly: true,
-                },
+                { id: "6258612d1ee792848f805dcf", name: "Card", readonly: true },
+                { id: "68a2b1d1ee792848f805dcf", name: "Nav", readonly: true },
             ],
             pagination: { limit: 20, offset: 0, total: 4 },
         };
@@ -77,15 +65,11 @@ describe("Components", () => {
                 {
                     id: "6258612d1ee792848f805dcf",
                     name: "Card",
-                    group: "Buttons",
-                    description: "A button component that can be used across the site",
                     readonly: true,
                 },
                 {
                     id: "68a2b1d1ee792848f805dcf",
                     name: "Nav",
-                    group: "Buttons",
-                    description: "A button component that can be used across the site",
                     readonly: true,
                 },
             ],
