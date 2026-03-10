@@ -20,7 +20,7 @@ export declare namespace Inventory {
 export class Inventory {
     protected readonly _options: Inventory.Options;
 
-    constructor(_options: Inventory.Options = {}) {
+    constructor(_options: Inventory.Options) {
         this._options = _options;
     }
 
@@ -330,12 +330,7 @@ export class Inventory {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string | undefined> {
-        const bearer = await core.Supplier.get(this._options.accessToken);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+    protected async _getAuthorizationHeader(): Promise<string> {
+        return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
     }
 }

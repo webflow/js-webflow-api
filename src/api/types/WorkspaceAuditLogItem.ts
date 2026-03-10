@@ -7,7 +7,8 @@ export type WorkspaceAuditLogItem =
     | Webflow.WorkspaceAuditLogItem.CustomRole
     | Webflow.WorkspaceAuditLogItem.WorkspaceMembership
     | Webflow.WorkspaceAuditLogItem.SiteMembership
-    | Webflow.WorkspaceAuditLogItem.WorkspaceInvitation;
+    | Webflow.WorkspaceAuditLogItem.WorkspaceInvitation
+    | Webflow.WorkspaceAuditLogItem.WorkspaceSetting;
 
 export namespace WorkspaceAuditLogItem {
     export interface UserAccess extends Webflow.UserAccessAuditLogItem, _Base {
@@ -28,6 +29,10 @@ export namespace WorkspaceAuditLogItem {
 
     export interface WorkspaceInvitation extends Webflow.WorkspaceInvitationAuditLogItem, _Base {
         eventType: "workspace_invitation";
+    }
+
+    export interface WorkspaceSetting extends Webflow.SettingChangeAuditLogItem, _Base {
+        eventType: "workspace_setting";
     }
 
     export interface _Base {

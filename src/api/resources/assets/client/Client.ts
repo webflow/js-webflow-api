@@ -20,7 +20,7 @@ export declare namespace Assets {
 export class Assets {
     protected readonly _options: Assets.Options;
 
-    constructor(_options: Assets.Options = {}) {
+    constructor(_options: Assets.Options) {
         this._options = _options;
     }
 
@@ -1147,12 +1147,7 @@ export class Assets {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string | undefined> {
-        const bearer = await core.Supplier.get(this._options.accessToken);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+    protected async _getAuthorizationHeader(): Promise<string> {
+        return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
     }
 }

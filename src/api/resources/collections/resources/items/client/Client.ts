@@ -17,7 +17,7 @@ export declare namespace Items {
 export class Items {
     protected readonly _options: Items.Options;
 
-    constructor(_options: Items.Options = {}) {
+    constructor(_options: Items.Options) {
         this._options = _options;
     }
 
@@ -902,7 +902,7 @@ export class Items {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
-                        .dataApi,
+                        .base,
                 `collections/${core.url.encodePathParam(collectionId)}/items/live`,
             ),
             method: "GET",
@@ -2314,7 +2314,7 @@ export class Items {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
-                        .dataApi,
+                        .base,
                 `collections/${core.url.encodePathParam(collectionId)}/items/${core.url.encodePathParam(itemId)}/live`,
             ),
             method: "GET",
@@ -2935,12 +2935,7 @@ export class Items {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string | undefined> {
-        const bearer = await core.Supplier.get(this._options.accessToken);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+    protected async _getAuthorizationHeader(): Promise<string> {
+        return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
     }
 }

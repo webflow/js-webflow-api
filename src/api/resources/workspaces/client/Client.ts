@@ -11,7 +11,7 @@ export class Workspaces {
     protected readonly _options: Workspaces.Options;
     protected _auditLogs: AuditLogs | undefined;
 
-    constructor(_options: Workspaces.Options = {}) {
+    constructor(_options: Workspaces.Options) {
         this._options = _options;
     }
 
