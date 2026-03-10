@@ -25,7 +25,6 @@ describe("Forms", () => {
                     responseSettings: {
                         redirectUrl: "https://example.com",
                         redirectMethod: "GET",
-                        redirectAction: "POST https://example.com",
                         sendEmailConfirmation: true,
                     },
                     id: "589a331aa51e760df7ccb89e",
@@ -44,7 +43,6 @@ describe("Forms", () => {
                     responseSettings: {
                         redirectUrl: "https://example.com",
                         redirectMethod: "GET",
-                        redirectAction: "POST https://example.com",
                         sendEmailConfirmation: false,
                     },
                     id: "580ff8d7ba3e45ba9fe588e9",
@@ -91,7 +89,6 @@ describe("Forms", () => {
                     responseSettings: {
                         redirectUrl: "https://example.com",
                         redirectMethod: "GET",
-                        redirectAction: "POST https://example.com",
                         sendEmailConfirmation: true,
                     },
                     id: "589a331aa51e760df7ccb89e",
@@ -116,7 +113,6 @@ describe("Forms", () => {
                     responseSettings: {
                         redirectUrl: "https://example.com",
                         redirectMethod: "GET",
-                        redirectAction: "POST https://example.com",
                         sendEmailConfirmation: false,
                     },
                     id: "580ff8d7ba3e45ba9fe588e9",
@@ -295,12 +291,7 @@ describe("Forms", () => {
             createdOn: "2016-10-24T19:41:29Z",
             lastUpdated: "2016-10-24T19:43:17Z",
             fields: {
-                "660d5bcc9c0772150459dfb1": {
-                    displayName: "Name",
-                    type: "Plain",
-                    placeholder: "Enter your email",
-                    userVisible: true,
-                },
+                "660d5bcc9c0772150459dfb1": { displayName: "Name", type: "Plain", userVisible: true },
                 "589a331aa51e760df7ccb89d": {
                     displayName: "Email",
                     type: "Email",
@@ -311,7 +302,6 @@ describe("Forms", () => {
             responseSettings: {
                 redirectUrl: "https://example.com",
                 redirectMethod: "GET",
-                redirectAction: "POST https://example.com",
                 sendEmailConfirmation: true,
             },
             id: "589a331aa51e760df7ccb89e",
@@ -339,7 +329,6 @@ describe("Forms", () => {
                 "660d5bcc9c0772150459dfb1": {
                     displayName: "Name",
                     type: "Plain",
-                    placeholder: "Enter your email",
                     userVisible: true,
                 },
                 "589a331aa51e760df7ccb89d": {
@@ -352,7 +341,6 @@ describe("Forms", () => {
             responseSettings: {
                 redirectUrl: "https://example.com",
                 redirectMethod: "GET",
-                redirectAction: "POST https://example.com",
                 sendEmailConfirmation: true,
             },
             id: "589a331aa51e760df7ccb89e",

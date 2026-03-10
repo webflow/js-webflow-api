@@ -20,7 +20,7 @@ export declare namespace Webhooks {
 export class Webhooks {
     protected readonly _options: Webhooks.Options;
 
-    constructor(_options: Webhooks.Options = {}) {
+    constructor(_options: Webhooks.Options) {
         this._options = _options;
     }
 
@@ -566,12 +566,7 @@ export class Webhooks {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string | undefined> {
-        const bearer = await core.Supplier.get(this._options.accessToken);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+    protected async _getAuthorizationHeader(): Promise<string> {
+        return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
     }
 }

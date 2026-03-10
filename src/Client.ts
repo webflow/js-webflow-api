@@ -41,7 +41,7 @@ export class WebflowClient {
     protected _ecommerce: Ecommerce | undefined;
     protected _workspaces: Workspaces | undefined;
 
-    constructor(_options: WebflowClient.Options = {}) {
+    constructor(_options: WebflowClient.Options) {
         this._options = {
             ..._options,
             headers: mergeHeaders(

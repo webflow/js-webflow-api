@@ -17,7 +17,7 @@ export declare namespace Scripts {
 export class Scripts {
     protected readonly _options: Scripts.Options;
 
-    constructor(_options: Scripts.Options = {}) {
+    constructor(_options: Scripts.Options) {
         this._options = _options;
     }
 
@@ -606,12 +606,7 @@ export class Scripts {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string | undefined> {
-        const bearer = await core.Supplier.get(this._options.accessToken);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+    protected async _getAuthorizationHeader(): Promise<string> {
+        return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
     }
 }

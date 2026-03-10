@@ -17,7 +17,7 @@ export declare namespace Components {
 export class Components {
     protected readonly _options: Components.Options;
 
-    constructor(_options: Components.Options = {}) {
+    constructor(_options: Components.Options) {
         this._options = _options;
     }
 
@@ -894,12 +894,7 @@ export class Components {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string | undefined> {
-        const bearer = await core.Supplier.get(this._options.accessToken);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+    protected async _getAuthorizationHeader(): Promise<string> {
+        return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
     }
 }

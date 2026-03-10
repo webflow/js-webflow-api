@@ -24,7 +24,7 @@ export class Collections {
     protected _fields: Fields | undefined;
     protected _items: Items | undefined;
 
-    constructor(_options: Collections.Options = {}) {
+    constructor(_options: Collections.Options) {
         this._options = _options;
     }
 
@@ -602,12 +602,7 @@ export class Collections {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string | undefined> {
-        const bearer = await core.Supplier.get(this._options.accessToken);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+    protected async _getAuthorizationHeader(): Promise<string> {
+        return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
     }
 }

@@ -3,7 +3,7 @@
 import type * as Webflow from "../index";
 
 /**
- * The Component DOM schema represents the content structure of a component. Similar to Page DOM, it captures various content nodes and their associated attributes, but specifically for a component's structure. Each node has a unique identifier and  can contain text, images, select or text inputs, submit buttons, or nested component instances.
+ * The Component DOM schema represents the content structure of a component. Similar to Page DOM, it captures various content nodes and their associated attributes, but specifically for a component's structure. Each node has a unique identifier and can contain text, images, select or text inputs, submit buttons, or nested component instances.
  */
 export interface ComponentDom {
     /** Component ID */

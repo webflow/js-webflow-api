@@ -17,7 +17,7 @@ export declare namespace WellKnown {
 export class WellKnown {
     protected readonly _options: WellKnown.Options;
 
-    constructor(_options: WellKnown.Options = {}) {
+    constructor(_options: WellKnown.Options) {
         this._options = _options;
     }
 
@@ -310,12 +310,7 @@ export class WellKnown {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string | undefined> {
-        const bearer = await core.Supplier.get(this._options.accessToken);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+    protected async _getAuthorizationHeader(): Promise<string> {
+        return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
     }
 }

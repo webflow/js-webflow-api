@@ -1,5 +1,5 @@
 export * from "./CreateBulkCollectionItemRequestBodyFieldData";
-export * from "./CreateBulkCollectionItemRequestBodyFieldDataItem";
+export * from "./CreateBulkCollectionItemRequestBodyFieldDataOneItem";
 export * from "./ItemIDs";
 export * from "./ItemIDsWithLocales";
 export * from "./ItemsCreateItemLiveRequestBody";
