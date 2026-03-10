@@ -11,11 +11,11 @@ service:
         - OAuth2:
             - custom_code:read
       docs: |
-        Get all scripts applied to a site by the App. 
+        Get all scripts applied to a site by the App.
 
         <Note title="Script Registration">
           To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
-        </Note> 
+        </Note>
 
         Required scope | `custom_code:read`
       source:
@@ -167,12 +167,12 @@ service:
             - custom_code:read
       docs: >
         Get a list of scripts that have been applied to a site and/or individual
-        pages. 
+        pages.
 
 
         <Note title="Script Registration">
-          To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. 
-          
+          To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints.
+
           See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
         </Note>
 

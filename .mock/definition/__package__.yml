@@ -611,6 +611,27 @@ types:
       payload: optional<Workspace invitation>
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
+  WorkspaceAuditLogItemPayloadSettingChangeMethod:
+    enum:
+      - dashboard
+      - admin
+    inline: true
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  Setting change:
+    properties:
+      setting: optional<literal<"ai_toggle">>
+      previousValue: optional<string>
+      value: optional<string>
+      method: optional<WorkspaceAuditLogItemPayloadSettingChangeMethod>
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
+  SettingChangeAuditLogItem:
+    properties:
+      eventSubType: optional<literal<"setting_updated">>
+      payload: optional<Setting change>
+    source:
+      openapi: ../../../openapi/referenced-specs/v2.yml
   WorkspaceAuditLogItemActor:
     properties:
       id: optional<string>
@@ -642,6 +663,8 @@ types:
         type: SiteMembershipAuditLogItem
       workspace_invitation:
         type: WorkspaceInvitationAuditLogItem
+      workspace_setting:
+        type: SettingChangeAuditLogItem
     source:
       openapi: ../../../openapi/referenced-specs/v2.yml
   Pagination:
@@ -1195,7 +1218,7 @@ types:
       timestamp <br/>
 
       - **Status flags** - Controls for managing content state: `isDraft`,
-      `isArchived `<br/> 
+      `isArchived `<br/>
 
       - **Content fields** - Stored in `fieldData`. Each item needs a `name` and
       `slug`, and may include additional fields matching your collection's
@@ -1280,7 +1303,7 @@ types:
       timestamp <br/>
 
       - **Status flags** - Controls for managing content state: `isDraft`,
-      `isArchived `<br/> 
+      `isArchived `<br/>
 
       - **Content fields** - Stored in `fieldData`. Each item needs a `name` and
       `slug`, and may include additional fields matching your collection's
@@ -2067,13 +2090,13 @@ types:
         type: string
         docs: >
           The new string or HTML value used to override the component instance
-          property value. 
+          property value.
 
           The provided value must be compatible with the type of the component
-          instance property. 
+          instance property.
 
           For example, attempting to override a single-line plain-text property
-          with a multi-line 
+          with a multi-line
 
           value will result in an error.
     source:
@@ -2189,7 +2212,7 @@ types:
       The Component DOM schema represents the content structure of a component.
       Similar to Page DOM, it captures various content nodes and their
       associated attributes, but specifically for a component's structure. Each
-      node has a unique identifier and  can contain text, images, select or text
+      node has a unique identifier and can contain text, images, select or text
       inputs, submit buttons, or nested component instances.
     properties:
       componentId:
@@ -2875,7 +2898,7 @@ types:
   ProductFieldData:
     docs: >-
       Contains content-specific details for a product, covering both standard
-      (e.g., title, description)  and custom fields tailored to the product
+      (e.g., title, description) and custom fields tailored to the product
       setup.
     properties:
       name:
