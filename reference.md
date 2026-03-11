@@ -45,7 +45,7 @@ await client.token.authorizedBy();
 <dl>
 <dd>
 
-**requestOptions:** `Token.RequestOptions` 
+**requestOptions:** `TokenClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -102,7 +102,7 @@ await client.token.introspect();
 <dl>
 <dd>
 
-**requestOptions:** `Token.RequestOptions` 
+**requestOptions:** `TokenClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -115,7 +115,7 @@ await client.token.introspect();
 </details>
 
 ## Sites
-<details><summary><code>client.sites.<a href="/src/api/resources/sites/client/Client.ts">create</a>(workspaceId, { ...params }) -> Webflow.Site</code></summary>
+<details><summary><code>client.sites.<a href="/src/api/resources/sites/client/Client.ts">create</a>(workspace_id, { ...params }) -> Webflow.Site</code></summary>
 <dl>
 <dd>
 
@@ -164,7 +164,7 @@ await client.sites.create("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**workspaceId:** `string` — Unique identifier for a Workspace
+**workspace_id:** `string` — Unique identifier for a Workspace
     
 </dd>
 </dl>
@@ -180,7 +180,7 @@ await client.sites.create("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**requestOptions:** `Sites.RequestOptions` 
+**requestOptions:** `SitesClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -237,7 +237,7 @@ await client.sites.list();
 <dl>
 <dd>
 
-**requestOptions:** `Sites.RequestOptions` 
+**requestOptions:** `SitesClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -249,7 +249,7 @@ await client.sites.list();
 </dl>
 </details>
 
-<details><summary><code>client.sites.<a href="/src/api/resources/sites/client/Client.ts">get</a>(siteId) -> Webflow.Site</code></summary>
+<details><summary><code>client.sites.<a href="/src/api/resources/sites/client/Client.ts">get</a>(site_id) -> Webflow.Site</code></summary>
 <dl>
 <dd>
 
@@ -294,7 +294,7 @@ await client.sites.get("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -302,7 +302,7 @@ await client.sites.get("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**requestOptions:** `Sites.RequestOptions` 
+**requestOptions:** `SitesClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -314,7 +314,7 @@ await client.sites.get("580e63e98c9a982ac9b8b741");
 </dl>
 </details>
 
-<details><summary><code>client.sites.<a href="/src/api/resources/sites/client/Client.ts">delete</a>(siteId) -> void</code></summary>
+<details><summary><code>client.sites.<a href="/src/api/resources/sites/client/Client.ts">delete</a>(site_id) -> void</code></summary>
 <dl>
 <dd>
 
@@ -361,7 +361,7 @@ await client.sites.delete("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -369,7 +369,7 @@ await client.sites.delete("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**requestOptions:** `Sites.RequestOptions` 
+**requestOptions:** `SitesClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -381,7 +381,7 @@ await client.sites.delete("580e63e98c9a982ac9b8b741");
 </dl>
 </details>
 
-<details><summary><code>client.sites.<a href="/src/api/resources/sites/client/Client.ts">update</a>(siteId, { ...params }) -> Webflow.Site</code></summary>
+<details><summary><code>client.sites.<a href="/src/api/resources/sites/client/Client.ts">update</a>(site_id, { ...params }) -> Webflow.Site</code></summary>
 <dl>
 <dd>
 
@@ -428,7 +428,7 @@ await client.sites.update("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -444,7 +444,7 @@ await client.sites.update("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**requestOptions:** `Sites.RequestOptions` 
+**requestOptions:** `SitesClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -456,7 +456,7 @@ await client.sites.update("580e63e98c9a982ac9b8b741");
 </dl>
 </details>
 
-<details><summary><code>client.sites.<a href="/src/api/resources/sites/client/Client.ts">getCustomDomain</a>(siteId) -> Webflow.Domains</code></summary>
+<details><summary><code>client.sites.<a href="/src/api/resources/sites/client/Client.ts">getCustomDomain</a>(site_id) -> Webflow.Domains</code></summary>
 <dl>
 <dd>
 
@@ -501,7 +501,7 @@ await client.sites.getCustomDomain("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -509,7 +509,7 @@ await client.sites.getCustomDomain("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**requestOptions:** `Sites.RequestOptions` 
+**requestOptions:** `SitesClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -521,7 +521,7 @@ await client.sites.getCustomDomain("580e63e98c9a982ac9b8b741");
 </dl>
 </details>
 
-<details><summary><code>client.sites.<a href="/src/api/resources/sites/client/Client.ts">publish</a>(siteId, { ...params }) -> Webflow.SitesPublishResponse</code></summary>
+<details><summary><code>client.sites.<a href="/src/api/resources/sites/client/Client.ts">publish</a>(site_id, { ...params }) -> Webflow.SitesPublishResponse</code></summary>
 <dl>
 <dd>
 
@@ -573,7 +573,7 @@ await client.sites.publish("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -589,7 +589,7 @@ await client.sites.publish("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**requestOptions:** `Sites.RequestOptions` 
+**requestOptions:** `SitesClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -602,7 +602,7 @@ await client.sites.publish("580e63e98c9a982ac9b8b741", {
 </details>
 
 ## Collections
-<details><summary><code>client.collections.<a href="/src/api/resources/collections/client/Client.ts">list</a>(siteId) -> Webflow.CollectionList</code></summary>
+<details><summary><code>client.collections.<a href="/src/api/resources/collections/client/Client.ts">list</a>(site_id) -> Webflow.CollectionList</code></summary>
 <dl>
 <dd>
 
@@ -647,7 +647,7 @@ await client.collections.list("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -655,7 +655,7 @@ await client.collections.list("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**requestOptions:** `Collections.RequestOptions` 
+**requestOptions:** `CollectionsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -667,7 +667,7 @@ await client.collections.list("580e63e98c9a982ac9b8b741");
 </dl>
 </details>
 
-<details><summary><code>client.collections.<a href="/src/api/resources/collections/client/Client.ts">create</a>(siteId, { ...params }) -> Webflow.Collection</code></summary>
+<details><summary><code>client.collections.<a href="/src/api/resources/collections/client/Client.ts">create</a>(site_id, { ...params }) -> Webflow.Collection</code></summary>
 <dl>
 <dd>
 
@@ -737,7 +737,7 @@ await client.collections.create("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -753,7 +753,7 @@ await client.collections.create("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**requestOptions:** `Collections.RequestOptions` 
+**requestOptions:** `CollectionsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -765,7 +765,7 @@ await client.collections.create("580e63e98c9a982ac9b8b741", {
 </dl>
 </details>
 
-<details><summary><code>client.collections.<a href="/src/api/resources/collections/client/Client.ts">get</a>(collectionId) -> Webflow.Collection</code></summary>
+<details><summary><code>client.collections.<a href="/src/api/resources/collections/client/Client.ts">get</a>(collection_id) -> Webflow.Collection</code></summary>
 <dl>
 <dd>
 
@@ -810,7 +810,7 @@ await client.collections.get("580e63fc8c9a982ac9b8b745");
 <dl>
 <dd>
 
-**collectionId:** `string` — Unique identifier for a Collection
+**collection_id:** `string` — Unique identifier for a Collection
     
 </dd>
 </dl>
@@ -818,7 +818,7 @@ await client.collections.get("580e63fc8c9a982ac9b8b745");
 <dl>
 <dd>
 
-**requestOptions:** `Collections.RequestOptions` 
+**requestOptions:** `CollectionsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -830,7 +830,7 @@ await client.collections.get("580e63fc8c9a982ac9b8b745");
 </dl>
 </details>
 
-<details><summary><code>client.collections.<a href="/src/api/resources/collections/client/Client.ts">delete</a>(collectionId) -> void</code></summary>
+<details><summary><code>client.collections.<a href="/src/api/resources/collections/client/Client.ts">delete</a>(collection_id) -> void</code></summary>
 <dl>
 <dd>
 
@@ -875,7 +875,7 @@ await client.collections.delete("580e63fc8c9a982ac9b8b745");
 <dl>
 <dd>
 
-**collectionId:** `string` — Unique identifier for a Collection
+**collection_id:** `string` — Unique identifier for a Collection
     
 </dd>
 </dl>
@@ -883,7 +883,7 @@ await client.collections.delete("580e63fc8c9a982ac9b8b745");
 <dl>
 <dd>
 
-**requestOptions:** `Collections.RequestOptions` 
+**requestOptions:** `CollectionsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -896,7 +896,7 @@ await client.collections.delete("580e63fc8c9a982ac9b8b745");
 </details>
 
 ## Pages
-<details><summary><code>client.pages.<a href="/src/api/resources/pages/client/Client.ts">list</a>(siteId, { ...params }) -> Webflow.PageList</code></summary>
+<details><summary><code>client.pages.<a href="/src/api/resources/pages/client/Client.ts">list</a>(site_id, { ...params }) -> Webflow.PageList</code></summary>
 <dl>
 <dd>
 
@@ -945,7 +945,7 @@ await client.pages.list("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -961,7 +961,7 @@ await client.pages.list("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**requestOptions:** `Pages.RequestOptions` 
+**requestOptions:** `PagesClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -973,7 +973,7 @@ await client.pages.list("580e63e98c9a982ac9b8b741", {
 </dl>
 </details>
 
-<details><summary><code>client.pages.<a href="/src/api/resources/pages/client/Client.ts">getMetadata</a>(pageId, { ...params }) -> Webflow.Page</code></summary>
+<details><summary><code>client.pages.<a href="/src/api/resources/pages/client/Client.ts">getMetadata</a>(page_id, { ...params }) -> Webflow.Page</code></summary>
 <dl>
 <dd>
 
@@ -1020,7 +1020,7 @@ await client.pages.getMetadata("63c720f9347c2139b248e552", {
 <dl>
 <dd>
 
-**pageId:** `string` — Unique identifier for a Page
+**page_id:** `string` — Unique identifier for a Page
     
 </dd>
 </dl>
@@ -1036,7 +1036,7 @@ await client.pages.getMetadata("63c720f9347c2139b248e552", {
 <dl>
 <dd>
 
-**requestOptions:** `Pages.RequestOptions` 
+**requestOptions:** `PagesClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1048,7 +1048,7 @@ await client.pages.getMetadata("63c720f9347c2139b248e552", {
 </dl>
 </details>
 
-<details><summary><code>client.pages.<a href="/src/api/resources/pages/client/Client.ts">updatePageSettings</a>(pageId, { ...params }) -> Webflow.Page</code></summary>
+<details><summary><code>client.pages.<a href="/src/api/resources/pages/client/Client.ts">updatePageSettings</a>(page_id, { ...params }) -> Webflow.Page</code></summary>
 <dl>
 <dd>
 
@@ -1107,7 +1107,7 @@ await client.pages.updatePageSettings("63c720f9347c2139b248e552", {
 <dl>
 <dd>
 
-**pageId:** `string` — Unique identifier for a Page
+**page_id:** `string` — Unique identifier for a Page
     
 </dd>
 </dl>
@@ -1123,7 +1123,7 @@ await client.pages.updatePageSettings("63c720f9347c2139b248e552", {
 <dl>
 <dd>
 
-**requestOptions:** `Pages.RequestOptions` 
+**requestOptions:** `PagesClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1135,7 +1135,7 @@ await client.pages.updatePageSettings("63c720f9347c2139b248e552", {
 </dl>
 </details>
 
-<details><summary><code>client.pages.<a href="/src/api/resources/pages/client/Client.ts">getContent</a>(pageId, { ...params }) -> Webflow.Dom</code></summary>
+<details><summary><code>client.pages.<a href="/src/api/resources/pages/client/Client.ts">getContent</a>(page_id, { ...params }) -> Webflow.Dom</code></summary>
 <dl>
 <dd>
 
@@ -1186,7 +1186,7 @@ await client.pages.getContent("63c720f9347c2139b248e552", {
 <dl>
 <dd>
 
-**pageId:** `string` — Unique identifier for a Page
+**page_id:** `string` — Unique identifier for a Page
     
 </dd>
 </dl>
@@ -1202,7 +1202,7 @@ await client.pages.getContent("63c720f9347c2139b248e552", {
 <dl>
 <dd>
 
-**requestOptions:** `Pages.RequestOptions` 
+**requestOptions:** `PagesClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1214,7 +1214,7 @@ await client.pages.getContent("63c720f9347c2139b248e552", {
 </dl>
 </details>
 
-<details><summary><code>client.pages.<a href="/src/api/resources/pages/client/Client.ts">updateStaticContent</a>(pageId, { ...params }) -> Webflow.UpdateStaticContentResponse</code></summary>
+<details><summary><code>client.pages.<a href="/src/api/resources/pages/client/Client.ts">updateStaticContent</a>(page_id, { ...params }) -> Webflow.UpdateStaticContentResponse</code></summary>
 <dl>
 <dd>
 
@@ -1302,7 +1302,7 @@ await client.pages.updateStaticContent("63c720f9347c2139b248e552", {
 <dl>
 <dd>
 
-**pageId:** `string` — Unique identifier for a Page
+**page_id:** `string` — Unique identifier for a Page
     
 </dd>
 </dl>
@@ -1318,7 +1318,7 @@ await client.pages.updateStaticContent("63c720f9347c2139b248e552", {
 <dl>
 <dd>
 
-**requestOptions:** `Pages.RequestOptions` 
+**requestOptions:** `PagesClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1331,7 +1331,7 @@ await client.pages.updateStaticContent("63c720f9347c2139b248e552", {
 </details>
 
 ## Components
-<details><summary><code>client.components.<a href="/src/api/resources/components/client/Client.ts">list</a>(siteId, { ...params }) -> Webflow.ComponentList</code></summary>
+<details><summary><code>client.components.<a href="/src/api/resources/components/client/Client.ts">list</a>(site_id, { ...params }) -> Webflow.ComponentList</code></summary>
 <dl>
 <dd>
 
@@ -1380,7 +1380,7 @@ await client.components.list("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -1396,7 +1396,7 @@ await client.components.list("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**requestOptions:** `Components.RequestOptions` 
+**requestOptions:** `ComponentsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1408,7 +1408,7 @@ await client.components.list("580e63e98c9a982ac9b8b741", {
 </dl>
 </details>
 
-<details><summary><code>client.components.<a href="/src/api/resources/components/client/Client.ts">getContent</a>(siteId, componentId, { ...params }) -> Webflow.ComponentDom</code></summary>
+<details><summary><code>client.components.<a href="/src/api/resources/components/client/Client.ts">getContent</a>(site_id, component_id, { ...params }) -> Webflow.ComponentDom</code></summary>
 <dl>
 <dd>
 
@@ -1461,7 +1461,7 @@ await client.components.getContent("580e63e98c9a982ac9b8b741", "8505ba55-ef72-62
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -1469,7 +1469,7 @@ await client.components.getContent("580e63e98c9a982ac9b8b741", "8505ba55-ef72-62
 <dl>
 <dd>
 
-**componentId:** `string` — Unique identifier for a Component
+**component_id:** `string` — Unique identifier for a Component
     
 </dd>
 </dl>
@@ -1485,7 +1485,7 @@ await client.components.getContent("580e63e98c9a982ac9b8b741", "8505ba55-ef72-62
 <dl>
 <dd>
 
-**requestOptions:** `Components.RequestOptions` 
+**requestOptions:** `ComponentsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1497,7 +1497,7 @@ await client.components.getContent("580e63e98c9a982ac9b8b741", "8505ba55-ef72-62
 </dl>
 </details>
 
-<details><summary><code>client.components.<a href="/src/api/resources/components/client/Client.ts">updateContent</a>(siteId, componentId, { ...params }) -> Webflow.ComponentsUpdateContentResponse</code></summary>
+<details><summary><code>client.components.<a href="/src/api/resources/components/client/Client.ts">updateContent</a>(site_id, component_id, { ...params }) -> Webflow.ComponentsUpdateContentResponse</code></summary>
 <dl>
 <dd>
 
@@ -1586,7 +1586,7 @@ await client.components.updateContent("580e63e98c9a982ac9b8b741", "8505ba55-ef72
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -1594,7 +1594,7 @@ await client.components.updateContent("580e63e98c9a982ac9b8b741", "8505ba55-ef72
 <dl>
 <dd>
 
-**componentId:** `string` — Unique identifier for a Component
+**component_id:** `string` — Unique identifier for a Component
     
 </dd>
 </dl>
@@ -1610,7 +1610,7 @@ await client.components.updateContent("580e63e98c9a982ac9b8b741", "8505ba55-ef72
 <dl>
 <dd>
 
-**requestOptions:** `Components.RequestOptions` 
+**requestOptions:** `ComponentsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1622,7 +1622,7 @@ await client.components.updateContent("580e63e98c9a982ac9b8b741", "8505ba55-ef72
 </dl>
 </details>
 
-<details><summary><code>client.components.<a href="/src/api/resources/components/client/Client.ts">getProperties</a>(siteId, componentId, { ...params }) -> Webflow.ComponentProperties</code></summary>
+<details><summary><code>client.components.<a href="/src/api/resources/components/client/Client.ts">getProperties</a>(site_id, component_id, { ...params }) -> Webflow.ComponentProperties</code></summary>
 <dl>
 <dd>
 
@@ -1674,7 +1674,7 @@ await client.components.getProperties("580e63e98c9a982ac9b8b741", "8505ba55-ef72
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -1682,7 +1682,7 @@ await client.components.getProperties("580e63e98c9a982ac9b8b741", "8505ba55-ef72
 <dl>
 <dd>
 
-**componentId:** `string` — Unique identifier for a Component
+**component_id:** `string` — Unique identifier for a Component
     
 </dd>
 </dl>
@@ -1698,7 +1698,7 @@ await client.components.getProperties("580e63e98c9a982ac9b8b741", "8505ba55-ef72
 <dl>
 <dd>
 
-**requestOptions:** `Components.RequestOptions` 
+**requestOptions:** `ComponentsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1710,7 +1710,7 @@ await client.components.getProperties("580e63e98c9a982ac9b8b741", "8505ba55-ef72
 </dl>
 </details>
 
-<details><summary><code>client.components.<a href="/src/api/resources/components/client/Client.ts">updateProperties</a>(siteId, componentId, { ...params }) -> Webflow.ComponentsUpdatePropertiesResponse</code></summary>
+<details><summary><code>client.components.<a href="/src/api/resources/components/client/Client.ts">updateProperties</a>(site_id, component_id, { ...params }) -> Webflow.ComponentsUpdatePropertiesResponse</code></summary>
 <dl>
 <dd>
 
@@ -1771,7 +1771,7 @@ await client.components.updateProperties("580e63e98c9a982ac9b8b741", "8505ba55-e
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -1779,7 +1779,7 @@ await client.components.updateProperties("580e63e98c9a982ac9b8b741", "8505ba55-e
 <dl>
 <dd>
 
-**componentId:** `string` — Unique identifier for a Component
+**component_id:** `string` — Unique identifier for a Component
     
 </dd>
 </dl>
@@ -1795,7 +1795,7 @@ await client.components.updateProperties("580e63e98c9a982ac9b8b741", "8505ba55-e
 <dl>
 <dd>
 
-**requestOptions:** `Components.RequestOptions` 
+**requestOptions:** `ComponentsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1808,7 +1808,7 @@ await client.components.updateProperties("580e63e98c9a982ac9b8b741", "8505ba55-e
 </details>
 
 ## Scripts
-<details><summary><code>client.scripts.<a href="/src/api/resources/scripts/client/Client.ts">list</a>(siteId) -> Webflow.RegisteredScriptList</code></summary>
+<details><summary><code>client.scripts.<a href="/src/api/resources/scripts/client/Client.ts">list</a>(site_id) -> Webflow.RegisteredScriptList</code></summary>
 <dl>
 <dd>
 
@@ -1857,7 +1857,7 @@ await client.scripts.list("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -1865,7 +1865,7 @@ await client.scripts.list("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**requestOptions:** `Scripts.RequestOptions` 
+**requestOptions:** `ScriptsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1877,7 +1877,7 @@ await client.scripts.list("580e63e98c9a982ac9b8b741");
 </dl>
 </details>
 
-<details><summary><code>client.scripts.<a href="/src/api/resources/scripts/client/Client.ts">registerHosted</a>(siteId, { ...params }) -> Webflow.CustomCodeHostedResponse</code></summary>
+<details><summary><code>client.scripts.<a href="/src/api/resources/scripts/client/Client.ts">registerHosted</a>(site_id, { ...params }) -> Webflow.CustomCodeHostedResponse</code></summary>
 <dl>
 <dd>
 
@@ -1931,7 +1931,7 @@ await client.scripts.registerHosted("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -1947,7 +1947,7 @@ await client.scripts.registerHosted("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**requestOptions:** `Scripts.RequestOptions` 
+**requestOptions:** `ScriptsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1959,7 +1959,7 @@ await client.scripts.registerHosted("580e63e98c9a982ac9b8b741", {
 </dl>
 </details>
 
-<details><summary><code>client.scripts.<a href="/src/api/resources/scripts/client/Client.ts">registerInline</a>(siteId, { ...params }) -> Webflow.CustomCodeInlineResponse</code></summary>
+<details><summary><code>client.scripts.<a href="/src/api/resources/scripts/client/Client.ts">registerInline</a>(site_id, { ...params }) -> Webflow.CustomCodeInlineResponse</code></summary>
 <dl>
 <dd>
 
@@ -2012,7 +2012,7 @@ await client.scripts.registerInline("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -2028,7 +2028,7 @@ await client.scripts.registerInline("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**requestOptions:** `Scripts.RequestOptions` 
+**requestOptions:** `ScriptsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2041,7 +2041,7 @@ await client.scripts.registerInline("580e63e98c9a982ac9b8b741", {
 </details>
 
 ## Assets
-<details><summary><code>client.assets.<a href="/src/api/resources/assets/client/Client.ts">list</a>(siteId, { ...params }) -> Webflow.Assets</code></summary>
+<details><summary><code>client.assets.<a href="/src/api/resources/assets/client/Client.ts">list</a>(site_id, { ...params }) -> Webflow.Assets</code></summary>
 <dl>
 <dd>
 
@@ -2089,7 +2089,7 @@ await client.assets.list("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -2105,7 +2105,7 @@ await client.assets.list("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**requestOptions:** `Assets.RequestOptions` 
+**requestOptions:** `AssetsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2117,7 +2117,7 @@ await client.assets.list("580e63e98c9a982ac9b8b741", {
 </dl>
 </details>
 
-<details><summary><code>client.assets.<a href="/src/api/resources/assets/client/Client.ts">create</a>(siteId, { ...params }) -> Webflow.AssetUpload</code></summary>
+<details><summary><code>client.assets.<a href="/src/api/resources/assets/client/Client.ts">create</a>(site_id, { ...params }) -> Webflow.AssetUpload</code></summary>
 <dl>
 <dd>
 
@@ -2174,7 +2174,7 @@ await client.assets.create("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -2190,7 +2190,7 @@ await client.assets.create("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**requestOptions:** `Assets.RequestOptions` 
+**requestOptions:** `AssetsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2202,7 +2202,7 @@ await client.assets.create("580e63e98c9a982ac9b8b741", {
 </dl>
 </details>
 
-<details><summary><code>client.assets.<a href="/src/api/resources/assets/client/Client.ts">get</a>(assetId) -> Webflow.Asset</code></summary>
+<details><summary><code>client.assets.<a href="/src/api/resources/assets/client/Client.ts">get</a>(asset_id) -> Webflow.Asset</code></summary>
 <dl>
 <dd>
 
@@ -2247,7 +2247,7 @@ await client.assets.get("580e63fc8c9a982ac9b8b745");
 <dl>
 <dd>
 
-**assetId:** `string` — Unique identifier for an Asset on a site
+**asset_id:** `string` — Unique identifier for an Asset on a site
     
 </dd>
 </dl>
@@ -2255,7 +2255,7 @@ await client.assets.get("580e63fc8c9a982ac9b8b745");
 <dl>
 <dd>
 
-**requestOptions:** `Assets.RequestOptions` 
+**requestOptions:** `AssetsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2267,7 +2267,7 @@ await client.assets.get("580e63fc8c9a982ac9b8b745");
 </dl>
 </details>
 
-<details><summary><code>client.assets.<a href="/src/api/resources/assets/client/Client.ts">delete</a>(assetId) -> void</code></summary>
+<details><summary><code>client.assets.<a href="/src/api/resources/assets/client/Client.ts">delete</a>(asset_id) -> void</code></summary>
 <dl>
 <dd>
 
@@ -2312,7 +2312,7 @@ await client.assets.delete("580e63fc8c9a982ac9b8b745");
 <dl>
 <dd>
 
-**assetId:** `string` — Unique identifier for an Asset on a site
+**asset_id:** `string` — Unique identifier for an Asset on a site
     
 </dd>
 </dl>
@@ -2320,7 +2320,7 @@ await client.assets.delete("580e63fc8c9a982ac9b8b745");
 <dl>
 <dd>
 
-**requestOptions:** `Assets.RequestOptions` 
+**requestOptions:** `AssetsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2332,7 +2332,7 @@ await client.assets.delete("580e63fc8c9a982ac9b8b745");
 </dl>
 </details>
 
-<details><summary><code>client.assets.<a href="/src/api/resources/assets/client/Client.ts">update</a>(assetId, { ...params }) -> Webflow.Asset</code></summary>
+<details><summary><code>client.assets.<a href="/src/api/resources/assets/client/Client.ts">update</a>(asset_id, { ...params }) -> Webflow.Asset</code></summary>
 <dl>
 <dd>
 
@@ -2377,7 +2377,7 @@ await client.assets.update("580e63fc8c9a982ac9b8b745");
 <dl>
 <dd>
 
-**assetId:** `string` — Unique identifier for an Asset on a site
+**asset_id:** `string` — Unique identifier for an Asset on a site
     
 </dd>
 </dl>
@@ -2393,7 +2393,7 @@ await client.assets.update("580e63fc8c9a982ac9b8b745");
 <dl>
 <dd>
 
-**requestOptions:** `Assets.RequestOptions` 
+**requestOptions:** `AssetsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2405,7 +2405,7 @@ await client.assets.update("580e63fc8c9a982ac9b8b745");
 </dl>
 </details>
 
-<details><summary><code>client.assets.<a href="/src/api/resources/assets/client/Client.ts">listFolders</a>(siteId) -> Webflow.AssetFolderList</code></summary>
+<details><summary><code>client.assets.<a href="/src/api/resources/assets/client/Client.ts">listFolders</a>(site_id) -> Webflow.AssetFolderList</code></summary>
 <dl>
 <dd>
 
@@ -2450,7 +2450,7 @@ await client.assets.listFolders("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -2458,7 +2458,7 @@ await client.assets.listFolders("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**requestOptions:** `Assets.RequestOptions` 
+**requestOptions:** `AssetsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2470,7 +2470,7 @@ await client.assets.listFolders("580e63e98c9a982ac9b8b741");
 </dl>
 </details>
 
-<details><summary><code>client.assets.<a href="/src/api/resources/assets/client/Client.ts">createFolder</a>(siteId, { ...params }) -> Webflow.AssetFolder</code></summary>
+<details><summary><code>client.assets.<a href="/src/api/resources/assets/client/Client.ts">createFolder</a>(site_id, { ...params }) -> Webflow.AssetFolder</code></summary>
 <dl>
 <dd>
 
@@ -2517,7 +2517,7 @@ await client.assets.createFolder("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -2533,7 +2533,7 @@ await client.assets.createFolder("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**requestOptions:** `Assets.RequestOptions` 
+**requestOptions:** `AssetsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2545,7 +2545,7 @@ await client.assets.createFolder("580e63e98c9a982ac9b8b741", {
 </dl>
 </details>
 
-<details><summary><code>client.assets.<a href="/src/api/resources/assets/client/Client.ts">getFolder</a>(assetFolderId) -> Webflow.AssetFolder</code></summary>
+<details><summary><code>client.assets.<a href="/src/api/resources/assets/client/Client.ts">getFolder</a>(asset_folder_id) -> Webflow.AssetFolder</code></summary>
 <dl>
 <dd>
 
@@ -2590,7 +2590,7 @@ await client.assets.getFolder("6390c49774a71f0e3c1a08ee");
 <dl>
 <dd>
 
-**assetFolderId:** `string` — Unique identifier for an Asset Folder
+**asset_folder_id:** `string` — Unique identifier for an Asset Folder
     
 </dd>
 </dl>
@@ -2598,7 +2598,7 @@ await client.assets.getFolder("6390c49774a71f0e3c1a08ee");
 <dl>
 <dd>
 
-**requestOptions:** `Assets.RequestOptions` 
+**requestOptions:** `AssetsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2611,7 +2611,7 @@ await client.assets.getFolder("6390c49774a71f0e3c1a08ee");
 </details>
 
 ## Webhooks
-<details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">list</a>(siteId) -> Webflow.WebhookList</code></summary>
+<details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">list</a>(site_id) -> Webflow.WebhookList</code></summary>
 <dl>
 <dd>
 
@@ -2656,7 +2656,7 @@ await client.webhooks.list("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -2664,7 +2664,7 @@ await client.webhooks.list("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**requestOptions:** `Webhooks.RequestOptions` 
+**requestOptions:** `WebhooksClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2676,7 +2676,7 @@ await client.webhooks.list("580e63e98c9a982ac9b8b741");
 </dl>
 </details>
 
-<details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">create</a>(siteId, { ...params }) -> Webflow.Webhook</code></summary>
+<details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">create</a>(site_id, { ...params }) -> Webflow.Webhook</code></summary>
 <dl>
 <dd>
 
@@ -2732,7 +2732,7 @@ await client.webhooks.create("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -2748,7 +2748,7 @@ await client.webhooks.create("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**requestOptions:** `Webhooks.RequestOptions` 
+**requestOptions:** `WebhooksClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2760,7 +2760,7 @@ await client.webhooks.create("580e63e98c9a982ac9b8b741", {
 </dl>
 </details>
 
-<details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">get</a>(webhookId) -> Webflow.Webhook</code></summary>
+<details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">get</a>(webhook_id) -> Webflow.Webhook</code></summary>
 <dl>
 <dd>
 
@@ -2805,7 +2805,7 @@ await client.webhooks.get("580e64008c9a982ac9b8b754");
 <dl>
 <dd>
 
-**webhookId:** `string` — Unique identifier for a Webhook
+**webhook_id:** `string` — Unique identifier for a Webhook
     
 </dd>
 </dl>
@@ -2813,7 +2813,7 @@ await client.webhooks.get("580e64008c9a982ac9b8b754");
 <dl>
 <dd>
 
-**requestOptions:** `Webhooks.RequestOptions` 
+**requestOptions:** `WebhooksClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2825,7 +2825,7 @@ await client.webhooks.get("580e64008c9a982ac9b8b754");
 </dl>
 </details>
 
-<details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">delete</a>(webhookId) -> void</code></summary>
+<details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">delete</a>(webhook_id) -> void</code></summary>
 <dl>
 <dd>
 
@@ -2870,7 +2870,7 @@ await client.webhooks.delete("580e64008c9a982ac9b8b754");
 <dl>
 <dd>
 
-**webhookId:** `string` — Unique identifier for a Webhook
+**webhook_id:** `string` — Unique identifier for a Webhook
     
 </dd>
 </dl>
@@ -2878,7 +2878,7 @@ await client.webhooks.delete("580e64008c9a982ac9b8b754");
 <dl>
 <dd>
 
-**requestOptions:** `Webhooks.RequestOptions` 
+**requestOptions:** `WebhooksClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2891,7 +2891,7 @@ await client.webhooks.delete("580e64008c9a982ac9b8b754");
 </details>
 
 ## Forms
-<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">list</a>(siteId, { ...params }) -> Webflow.FormList</code></summary>
+<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">list</a>(site_id, { ...params }) -> Webflow.FormList</code></summary>
 <dl>
 <dd>
 
@@ -2939,7 +2939,7 @@ await client.forms.list("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -2955,7 +2955,7 @@ await client.forms.list("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**requestOptions:** `Forms.RequestOptions` 
+**requestOptions:** `FormsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2967,7 +2967,7 @@ await client.forms.list("580e63e98c9a982ac9b8b741", {
 </dl>
 </details>
 
-<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">get</a>(formId) -> Webflow.Form</code></summary>
+<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">get</a>(form_id) -> Webflow.Form</code></summary>
 <dl>
 <dd>
 
@@ -3012,7 +3012,7 @@ await client.forms.get("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**formId:** `string` — Unique identifier for a Form
+**form_id:** `string` — Unique identifier for a Form
     
 </dd>
 </dl>
@@ -3020,7 +3020,7 @@ await client.forms.get("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**requestOptions:** `Forms.RequestOptions` 
+**requestOptions:** `FormsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3032,7 +3032,7 @@ await client.forms.get("580e63e98c9a982ac9b8b741");
 </dl>
 </details>
 
-<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">listSubmissions</a>(formId, { ...params }) -> Webflow.FormSubmissionList</code></summary>
+<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">listSubmissions</a>(form_id, { ...params }) -> Webflow.FormSubmissionList</code></summary>
 <dl>
 <dd>
 
@@ -3086,7 +3086,7 @@ await client.forms.listSubmissions("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**formId:** `string` — Unique identifier for a Form
+**form_id:** `string` — Unique identifier for a Form
     
 </dd>
 </dl>
@@ -3102,7 +3102,7 @@ await client.forms.listSubmissions("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**requestOptions:** `Forms.RequestOptions` 
+**requestOptions:** `FormsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3114,7 +3114,7 @@ await client.forms.listSubmissions("580e63e98c9a982ac9b8b741", {
 </dl>
 </details>
 
-<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">getSubmission</a>(formSubmissionId) -> Webflow.FormSubmission</code></summary>
+<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">getSubmission</a>(form_submission_id) -> Webflow.FormSubmission</code></summary>
 <dl>
 <dd>
 
@@ -3159,7 +3159,7 @@ await client.forms.getSubmission("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**formSubmissionId:** `string` — Unique identifier for a Form Submission
+**form_submission_id:** `string` — Unique identifier for a Form Submission
     
 </dd>
 </dl>
@@ -3167,7 +3167,7 @@ await client.forms.getSubmission("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**requestOptions:** `Forms.RequestOptions` 
+**requestOptions:** `FormsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3179,7 +3179,7 @@ await client.forms.getSubmission("580e63e98c9a982ac9b8b741");
 </dl>
 </details>
 
-<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">deleteSubmission</a>(formSubmissionId) -> void</code></summary>
+<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">deleteSubmission</a>(form_submission_id) -> void</code></summary>
 <dl>
 <dd>
 
@@ -3225,7 +3225,7 @@ await client.forms.deleteSubmission("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**formSubmissionId:** `string` — Unique identifier for a Form Submission
+**form_submission_id:** `string` — Unique identifier for a Form Submission
     
 </dd>
 </dl>
@@ -3233,7 +3233,7 @@ await client.forms.deleteSubmission("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**requestOptions:** `Forms.RequestOptions` 
+**requestOptions:** `FormsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3245,7 +3245,7 @@ await client.forms.deleteSubmission("580e63e98c9a982ac9b8b741");
 </dl>
 </details>
 
-<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">updateSubmission</a>(formSubmissionId, { ...params }) -> Webflow.FormSubmission</code></summary>
+<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">updateSubmission</a>(form_submission_id, { ...params }) -> Webflow.FormSubmission</code></summary>
 <dl>
 <dd>
 
@@ -3290,7 +3290,7 @@ await client.forms.updateSubmission("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**formSubmissionId:** `string` — Unique identifier for a Form Submission
+**form_submission_id:** `string` — Unique identifier for a Form Submission
     
 </dd>
 </dl>
@@ -3306,7 +3306,7 @@ await client.forms.updateSubmission("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**requestOptions:** `Forms.RequestOptions` 
+**requestOptions:** `FormsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3319,7 +3319,7 @@ await client.forms.updateSubmission("580e63e98c9a982ac9b8b741");
 </details>
 
 ## Products
-<details><summary><code>client.products.<a href="/src/api/resources/products/client/Client.ts">list</a>(siteId, { ...params }) -> Webflow.ProductAndSkUsList</code></summary>
+<details><summary><code>client.products.<a href="/src/api/resources/products/client/Client.ts">list</a>(site_id, { ...params }) -> Webflow.ProductAndSkUsList</code></summary>
 <dl>
 <dd>
 
@@ -3370,7 +3370,7 @@ await client.products.list("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -3386,7 +3386,7 @@ await client.products.list("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**requestOptions:** `Products.RequestOptions` 
+**requestOptions:** `ProductsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3398,7 +3398,7 @@ await client.products.list("580e63e98c9a982ac9b8b741", {
 </dl>
 </details>
 
-<details><summary><code>client.products.<a href="/src/api/resources/products/client/Client.ts">create</a>(siteId, { ...params }) -> Webflow.ProductAndSkUs</code></summary>
+<details><summary><code>client.products.<a href="/src/api/resources/products/client/Client.ts">create</a>(site_id, { ...params }) -> Webflow.ProductAndSkUs</code></summary>
 <dl>
 <dd>
 
@@ -3504,7 +3504,7 @@ await client.products.create("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -3520,7 +3520,7 @@ await client.products.create("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**requestOptions:** `Products.RequestOptions` 
+**requestOptions:** `ProductsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3532,7 +3532,7 @@ await client.products.create("580e63e98c9a982ac9b8b741", {
 </dl>
 </details>
 
-<details><summary><code>client.products.<a href="/src/api/resources/products/client/Client.ts">get</a>(siteId, productId) -> Webflow.ProductAndSkUs</code></summary>
+<details><summary><code>client.products.<a href="/src/api/resources/products/client/Client.ts">get</a>(site_id, product_id) -> Webflow.ProductAndSkUs</code></summary>
 <dl>
 <dd>
 
@@ -3578,7 +3578,7 @@ await client.products.get("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b8b745"
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -3586,7 +3586,7 @@ await client.products.get("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b8b745"
 <dl>
 <dd>
 
-**productId:** `string` — Unique identifier for a Product
+**product_id:** `string` — Unique identifier for a Product
     
 </dd>
 </dl>
@@ -3594,7 +3594,7 @@ await client.products.get("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b8b745"
 <dl>
 <dd>
 
-**requestOptions:** `Products.RequestOptions` 
+**requestOptions:** `ProductsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3606,7 +3606,7 @@ await client.products.get("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b8b745"
 </dl>
 </details>
 
-<details><summary><code>client.products.<a href="/src/api/resources/products/client/Client.ts">update</a>(siteId, productId, { ...params }) -> Webflow.Product</code></summary>
+<details><summary><code>client.products.<a href="/src/api/resources/products/client/Client.ts">update</a>(site_id, product_id, { ...params }) -> Webflow.Product</code></summary>
 <dl>
 <dd>
 
@@ -3653,7 +3653,7 @@ await client.products.update("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b8b7
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -3661,7 +3661,7 @@ await client.products.update("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b8b7
 <dl>
 <dd>
 
-**productId:** `string` — Unique identifier for a Product
+**product_id:** `string` — Unique identifier for a Product
     
 </dd>
 </dl>
@@ -3677,7 +3677,7 @@ await client.products.update("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b8b7
 <dl>
 <dd>
 
-**requestOptions:** `Products.RequestOptions` 
+**requestOptions:** `ProductsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3689,7 +3689,7 @@ await client.products.update("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b8b7
 </dl>
 </details>
 
-<details><summary><code>client.products.<a href="/src/api/resources/products/client/Client.ts">createSku</a>(siteId, productId, { ...params }) -> Webflow.ProductsCreateSkuResponse</code></summary>
+<details><summary><code>client.products.<a href="/src/api/resources/products/client/Client.ts">createSku</a>(site_id, product_id, { ...params }) -> Webflow.ProductsCreateSkuResponse</code></summary>
 <dl>
 <dd>
 
@@ -3753,7 +3753,7 @@ await client.products.createSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -3761,7 +3761,7 @@ await client.products.createSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b
 <dl>
 <dd>
 
-**productId:** `string` — Unique identifier for a Product
+**product_id:** `string` — Unique identifier for a Product
     
 </dd>
 </dl>
@@ -3777,7 +3777,7 @@ await client.products.createSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b
 <dl>
 <dd>
 
-**requestOptions:** `Products.RequestOptions` 
+**requestOptions:** `ProductsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3789,7 +3789,7 @@ await client.products.createSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b
 </dl>
 </details>
 
-<details><summary><code>client.products.<a href="/src/api/resources/products/client/Client.ts">updateSku</a>(siteId, productId, skuId, { ...params }) -> Webflow.Sku</code></summary>
+<details><summary><code>client.products.<a href="/src/api/resources/products/client/Client.ts">updateSku</a>(site_id, product_id, sku_id, { ...params }) -> Webflow.Sku</code></summary>
 <dl>
 <dd>
 
@@ -3853,7 +3853,7 @@ await client.products.updateSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -3861,7 +3861,7 @@ await client.products.updateSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b
 <dl>
 <dd>
 
-**productId:** `string` — Unique identifier for a Product
+**product_id:** `string` — Unique identifier for a Product
     
 </dd>
 </dl>
@@ -3869,7 +3869,7 @@ await client.products.updateSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b
 <dl>
 <dd>
 
-**skuId:** `string` — Unique identifier for a SKU
+**sku_id:** `string` — Unique identifier for a SKU
     
 </dd>
 </dl>
@@ -3885,7 +3885,7 @@ await client.products.updateSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b
 <dl>
 <dd>
 
-**requestOptions:** `Products.RequestOptions` 
+**requestOptions:** `ProductsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3898,7 +3898,7 @@ await client.products.updateSku("580e63e98c9a982ac9b8b741", "580e63fc8c9a982ac9b
 </details>
 
 ## Orders
-<details><summary><code>client.orders.<a href="/src/api/resources/orders/client/Client.ts">list</a>(siteId, { ...params }) -> Webflow.OrderList</code></summary>
+<details><summary><code>client.orders.<a href="/src/api/resources/orders/client/Client.ts">list</a>(site_id, { ...params }) -> Webflow.OrderList</code></summary>
 <dl>
 <dd>
 
@@ -3947,7 +3947,7 @@ await client.orders.list("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -3963,7 +3963,7 @@ await client.orders.list("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**requestOptions:** `Orders.RequestOptions` 
+**requestOptions:** `OrdersClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3975,7 +3975,7 @@ await client.orders.list("580e63e98c9a982ac9b8b741", {
 </dl>
 </details>
 
-<details><summary><code>client.orders.<a href="/src/api/resources/orders/client/Client.ts">get</a>(siteId, orderId) -> Webflow.Order</code></summary>
+<details><summary><code>client.orders.<a href="/src/api/resources/orders/client/Client.ts">get</a>(site_id, order_id) -> Webflow.Order</code></summary>
 <dl>
 <dd>
 
@@ -4021,7 +4021,7 @@ await client.orders.get("580e63e98c9a982ac9b8b741", "5e8518516e147040726cc415");
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -4029,7 +4029,7 @@ await client.orders.get("580e63e98c9a982ac9b8b741", "5e8518516e147040726cc415");
 <dl>
 <dd>
 
-**orderId:** `string` — Unique identifier for an Order
+**order_id:** `string` — Unique identifier for an Order
     
 </dd>
 </dl>
@@ -4037,7 +4037,7 @@ await client.orders.get("580e63e98c9a982ac9b8b741", "5e8518516e147040726cc415");
 <dl>
 <dd>
 
-**requestOptions:** `Orders.RequestOptions` 
+**requestOptions:** `OrdersClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4049,7 +4049,7 @@ await client.orders.get("580e63e98c9a982ac9b8b741", "5e8518516e147040726cc415");
 </dl>
 </details>
 
-<details><summary><code>client.orders.<a href="/src/api/resources/orders/client/Client.ts">update</a>(siteId, orderId, { ...params }) -> Webflow.Order</code></summary>
+<details><summary><code>client.orders.<a href="/src/api/resources/orders/client/Client.ts">update</a>(site_id, order_id, { ...params }) -> Webflow.Order</code></summary>
 <dl>
 <dd>
 
@@ -4096,7 +4096,7 @@ await client.orders.update("580e63e98c9a982ac9b8b741", "5e8518516e147040726cc415
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -4104,7 +4104,7 @@ await client.orders.update("580e63e98c9a982ac9b8b741", "5e8518516e147040726cc415
 <dl>
 <dd>
 
-**orderId:** `string` — Unique identifier for an Order
+**order_id:** `string` — Unique identifier for an Order
     
 </dd>
 </dl>
@@ -4120,7 +4120,7 @@ await client.orders.update("580e63e98c9a982ac9b8b741", "5e8518516e147040726cc415
 <dl>
 <dd>
 
-**requestOptions:** `Orders.RequestOptions` 
+**requestOptions:** `OrdersClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4132,7 +4132,7 @@ await client.orders.update("580e63e98c9a982ac9b8b741", "5e8518516e147040726cc415
 </dl>
 </details>
 
-<details><summary><code>client.orders.<a href="/src/api/resources/orders/client/Client.ts">updateFulfill</a>(siteId, orderId, { ...params }) -> Webflow.Order</code></summary>
+<details><summary><code>client.orders.<a href="/src/api/resources/orders/client/Client.ts">updateFulfill</a>(site_id, order_id, { ...params }) -> Webflow.Order</code></summary>
 <dl>
 <dd>
 
@@ -4177,7 +4177,7 @@ await client.orders.updateFulfill("580e63e98c9a982ac9b8b741", "5e8518516e1470407
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -4185,7 +4185,7 @@ await client.orders.updateFulfill("580e63e98c9a982ac9b8b741", "5e8518516e1470407
 <dl>
 <dd>
 
-**orderId:** `string` — Unique identifier for an Order
+**order_id:** `string` — Unique identifier for an Order
     
 </dd>
 </dl>
@@ -4201,7 +4201,7 @@ await client.orders.updateFulfill("580e63e98c9a982ac9b8b741", "5e8518516e1470407
 <dl>
 <dd>
 
-**requestOptions:** `Orders.RequestOptions` 
+**requestOptions:** `OrdersClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4213,7 +4213,7 @@ await client.orders.updateFulfill("580e63e98c9a982ac9b8b741", "5e8518516e1470407
 </dl>
 </details>
 
-<details><summary><code>client.orders.<a href="/src/api/resources/orders/client/Client.ts">updateUnfulfill</a>(siteId, orderId) -> Webflow.Order</code></summary>
+<details><summary><code>client.orders.<a href="/src/api/resources/orders/client/Client.ts">updateUnfulfill</a>(site_id, order_id) -> Webflow.Order</code></summary>
 <dl>
 <dd>
 
@@ -4258,7 +4258,7 @@ await client.orders.updateUnfulfill("580e63e98c9a982ac9b8b741", "5e8518516e14704
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -4266,7 +4266,7 @@ await client.orders.updateUnfulfill("580e63e98c9a982ac9b8b741", "5e8518516e14704
 <dl>
 <dd>
 
-**orderId:** `string` — Unique identifier for an Order
+**order_id:** `string` — Unique identifier for an Order
     
 </dd>
 </dl>
@@ -4274,7 +4274,7 @@ await client.orders.updateUnfulfill("580e63e98c9a982ac9b8b741", "5e8518516e14704
 <dl>
 <dd>
 
-**requestOptions:** `Orders.RequestOptions` 
+**requestOptions:** `OrdersClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4286,7 +4286,7 @@ await client.orders.updateUnfulfill("580e63e98c9a982ac9b8b741", "5e8518516e14704
 </dl>
 </details>
 
-<details><summary><code>client.orders.<a href="/src/api/resources/orders/client/Client.ts">refund</a>(siteId, orderId, { ...params }) -> Webflow.Order</code></summary>
+<details><summary><code>client.orders.<a href="/src/api/resources/orders/client/Client.ts">refund</a>(site_id, order_id, { ...params }) -> Webflow.Order</code></summary>
 <dl>
 <dd>
 
@@ -4332,7 +4332,7 @@ await client.orders.refund("580e63e98c9a982ac9b8b741", "5e8518516e147040726cc415
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -4340,7 +4340,7 @@ await client.orders.refund("580e63e98c9a982ac9b8b741", "5e8518516e147040726cc415
 <dl>
 <dd>
 
-**orderId:** `string` — Unique identifier for an Order
+**order_id:** `string` — Unique identifier for an Order
     
 </dd>
 </dl>
@@ -4356,7 +4356,7 @@ await client.orders.refund("580e63e98c9a982ac9b8b741", "5e8518516e147040726cc415
 <dl>
 <dd>
 
-**requestOptions:** `Orders.RequestOptions` 
+**requestOptions:** `OrdersClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4369,7 +4369,7 @@ await client.orders.refund("580e63e98c9a982ac9b8b741", "5e8518516e147040726cc415
 </details>
 
 ## Inventory
-<details><summary><code>client.inventory.<a href="/src/api/resources/inventory/client/Client.ts">list</a>(skuCollectionId, skuId) -> Webflow.InventoryItem</code></summary>
+<details><summary><code>client.inventory.<a href="/src/api/resources/inventory/client/Client.ts">list</a>(sku_collection_id, sku_id) -> Webflow.InventoryItem</code></summary>
 <dl>
 <dd>
 
@@ -4414,7 +4414,7 @@ await client.inventory.list("6377a7c4b7a79608c34a46f7", "5e8518516e147040726cc41
 <dl>
 <dd>
 
-**skuCollectionId:** `string` — Unique identifier for a SKU collection. Use the List Collections API to find this ID.
+**sku_collection_id:** `string` — Unique identifier for a SKU collection. Use the List Collections API to find this ID.
     
 </dd>
 </dl>
@@ -4422,7 +4422,7 @@ await client.inventory.list("6377a7c4b7a79608c34a46f7", "5e8518516e147040726cc41
 <dl>
 <dd>
 
-**skuId:** `string` — Unique identifier for a SKU
+**sku_id:** `string` — Unique identifier for a SKU
     
 </dd>
 </dl>
@@ -4430,7 +4430,7 @@ await client.inventory.list("6377a7c4b7a79608c34a46f7", "5e8518516e147040726cc41
 <dl>
 <dd>
 
-**requestOptions:** `Inventory.RequestOptions` 
+**requestOptions:** `InventoryClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4442,7 +4442,7 @@ await client.inventory.list("6377a7c4b7a79608c34a46f7", "5e8518516e147040726cc41
 </dl>
 </details>
 
-<details><summary><code>client.inventory.<a href="/src/api/resources/inventory/client/Client.ts">update</a>(skuCollectionId, skuId, { ...params }) -> Webflow.InventoryItem</code></summary>
+<details><summary><code>client.inventory.<a href="/src/api/resources/inventory/client/Client.ts">update</a>(sku_collection_id, sku_id, { ...params }) -> Webflow.InventoryItem</code></summary>
 <dl>
 <dd>
 
@@ -4493,7 +4493,7 @@ await client.inventory.update("6377a7c4b7a79608c34a46f7", "5e8518516e147040726cc
 <dl>
 <dd>
 
-**skuCollectionId:** `string` — Unique identifier for a SKU collection. Use the List Collections API to find this ID.
+**sku_collection_id:** `string` — Unique identifier for a SKU collection. Use the List Collections API to find this ID.
     
 </dd>
 </dl>
@@ -4501,7 +4501,7 @@ await client.inventory.update("6377a7c4b7a79608c34a46f7", "5e8518516e147040726cc
 <dl>
 <dd>
 
-**skuId:** `string` — Unique identifier for a SKU
+**sku_id:** `string` — Unique identifier for a SKU
     
 </dd>
 </dl>
@@ -4517,7 +4517,7 @@ await client.inventory.update("6377a7c4b7a79608c34a46f7", "5e8518516e147040726cc
 <dl>
 <dd>
 
-**requestOptions:** `Inventory.RequestOptions` 
+**requestOptions:** `InventoryClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4530,7 +4530,7 @@ await client.inventory.update("6377a7c4b7a79608c34a46f7", "5e8518516e147040726cc
 </details>
 
 ## Ecommerce
-<details><summary><code>client.ecommerce.<a href="/src/api/resources/ecommerce/client/Client.ts">getSettings</a>(siteId) -> Webflow.EcommerceSettings</code></summary>
+<details><summary><code>client.ecommerce.<a href="/src/api/resources/ecommerce/client/Client.ts">getSettings</a>(site_id) -> Webflow.EcommerceSettings</code></summary>
 <dl>
 <dd>
 
@@ -4575,7 +4575,7 @@ await client.ecommerce.getSettings("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -4583,7 +4583,7 @@ await client.ecommerce.getSettings("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**requestOptions:** `Ecommerce.RequestOptions` 
+**requestOptions:** `EcommerceClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4596,7 +4596,7 @@ await client.ecommerce.getSettings("580e63e98c9a982ac9b8b741");
 </details>
 
 ## Collections Fields
-<details><summary><code>client.collections.fields.<a href="/src/api/resources/collections/resources/fields/client/Client.ts">create</a>(collectionId, { ...params }) -> Webflow.FieldCreate</code></summary>
+<details><summary><code>client.collections.fields.<a href="/src/api/resources/collections/resources/fields/client/Client.ts">create</a>(collection_id, { ...params }) -> Webflow.FieldCreate</code></summary>
 <dl>
 <dd>
 
@@ -4652,7 +4652,7 @@ await client.collections.fields.create("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
-**collectionId:** `string` — Unique identifier for a Collection
+**collection_id:** `string` — Unique identifier for a Collection
     
 </dd>
 </dl>
@@ -4668,7 +4668,7 @@ await client.collections.fields.create("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
-**requestOptions:** `Fields.RequestOptions` 
+**requestOptions:** `FieldsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4680,7 +4680,7 @@ await client.collections.fields.create("580e63fc8c9a982ac9b8b745", {
 </dl>
 </details>
 
-<details><summary><code>client.collections.fields.<a href="/src/api/resources/collections/resources/fields/client/Client.ts">delete</a>(collectionId, fieldId) -> void</code></summary>
+<details><summary><code>client.collections.fields.<a href="/src/api/resources/collections/resources/fields/client/Client.ts">delete</a>(collection_id, field_id) -> void</code></summary>
 <dl>
 <dd>
 
@@ -4725,7 +4725,7 @@ await client.collections.fields.delete("580e63fc8c9a982ac9b8b745", "580e63fc8c9a
 <dl>
 <dd>
 
-**collectionId:** `string` — Unique identifier for a Collection
+**collection_id:** `string` — Unique identifier for a Collection
     
 </dd>
 </dl>
@@ -4733,7 +4733,7 @@ await client.collections.fields.delete("580e63fc8c9a982ac9b8b745", "580e63fc8c9a
 <dl>
 <dd>
 
-**fieldId:** `string` — Unique identifier for a Field in a collection
+**field_id:** `string` — Unique identifier for a Field in a collection
     
 </dd>
 </dl>
@@ -4741,7 +4741,7 @@ await client.collections.fields.delete("580e63fc8c9a982ac9b8b745", "580e63fc8c9a
 <dl>
 <dd>
 
-**requestOptions:** `Fields.RequestOptions` 
+**requestOptions:** `FieldsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4753,7 +4753,7 @@ await client.collections.fields.delete("580e63fc8c9a982ac9b8b745", "580e63fc8c9a
 </dl>
 </details>
 
-<details><summary><code>client.collections.fields.<a href="/src/api/resources/collections/resources/fields/client/Client.ts">update</a>(collectionId, fieldId, { ...params }) -> Webflow.Field</code></summary>
+<details><summary><code>client.collections.fields.<a href="/src/api/resources/collections/resources/fields/client/Client.ts">update</a>(collection_id, field_id, { ...params }) -> Webflow.Field</code></summary>
 <dl>
 <dd>
 
@@ -4802,7 +4802,7 @@ await client.collections.fields.update("580e63fc8c9a982ac9b8b745", "580e63fc8c9a
 <dl>
 <dd>
 
-**collectionId:** `string` — Unique identifier for a Collection
+**collection_id:** `string` — Unique identifier for a Collection
     
 </dd>
 </dl>
@@ -4810,7 +4810,7 @@ await client.collections.fields.update("580e63fc8c9a982ac9b8b745", "580e63fc8c9a
 <dl>
 <dd>
 
-**fieldId:** `string` — Unique identifier for a Field in a collection
+**field_id:** `string` — Unique identifier for a Field in a collection
     
 </dd>
 </dl>
@@ -4826,7 +4826,7 @@ await client.collections.fields.update("580e63fc8c9a982ac9b8b745", "580e63fc8c9a
 <dl>
 <dd>
 
-**requestOptions:** `Fields.RequestOptions` 
+**requestOptions:** `FieldsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4839,7 +4839,7 @@ await client.collections.fields.update("580e63fc8c9a982ac9b8b745", "580e63fc8c9a
 </details>
 
 ## Collections Items
-<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">listItems</a>(collectionId, { ...params }) -> Webflow.CollectionItemList</code></summary>
+<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">listItems</a>(collection_id, { ...params }) -> Webflow.CollectionItemList</code></summary>
 <dl>
 <dd>
 
@@ -4892,7 +4892,7 @@ await client.collections.items.listItems("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
-**collectionId:** `string` — Unique identifier for a Collection
+**collection_id:** `string` — Unique identifier for a Collection
     
 </dd>
 </dl>
@@ -4908,7 +4908,7 @@ await client.collections.items.listItems("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
-**requestOptions:** `Items.RequestOptions` 
+**requestOptions:** `ItemsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4920,7 +4920,7 @@ await client.collections.items.listItems("580e63fc8c9a982ac9b8b745", {
 </dl>
 </details>
 
-<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">createItem</a>(collectionId, { ...params }) -> Webflow.CollectionItem</code></summary>
+<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">createItem</a>(collection_id, { ...params }) -> Webflow.CollectionItem</code></summary>
 <dl>
 <dd>
 
@@ -5012,7 +5012,7 @@ await client.collections.items.createItem("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
-**collectionId:** `string` — Unique identifier for a Collection
+**collection_id:** `string` — Unique identifier for a Collection
     
 </dd>
 </dl>
@@ -5028,7 +5028,7 @@ await client.collections.items.createItem("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
-**requestOptions:** `Items.RequestOptions` 
+**requestOptions:** `ItemsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -5040,7 +5040,7 @@ await client.collections.items.createItem("580e63fc8c9a982ac9b8b745", {
 </dl>
 </details>
 
-<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">deleteItems</a>(collectionId, { ...params }) -> void</code></summary>
+<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">deleteItems</a>(collection_id, { ...params }) -> void</code></summary>
 <dl>
 <dd>
 
@@ -5091,7 +5091,7 @@ await client.collections.items.deleteItems("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
-**collectionId:** `string` — Unique identifier for a Collection
+**collection_id:** `string` — Unique identifier for a Collection
     
 </dd>
 </dl>
@@ -5107,7 +5107,7 @@ await client.collections.items.deleteItems("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
-**requestOptions:** `Items.RequestOptions` 
+**requestOptions:** `ItemsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -5119,7 +5119,7 @@ await client.collections.items.deleteItems("580e63fc8c9a982ac9b8b745", {
 </dl>
 </details>
 
-<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">updateItems</a>(collectionId, { ...params }) -> Webflow.ItemsUpdateItemsResponse</code></summary>
+<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">updateItems</a>(collection_id, { ...params }) -> Webflow.ItemsUpdateItemsResponse</code></summary>
 <dl>
 <dd>
 
@@ -5203,7 +5203,7 @@ await client.collections.items.updateItems("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
-**collectionId:** `string` — Unique identifier for a Collection
+**collection_id:** `string` — Unique identifier for a Collection
     
 </dd>
 </dl>
@@ -5219,7 +5219,7 @@ await client.collections.items.updateItems("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
-**requestOptions:** `Items.RequestOptions` 
+**requestOptions:** `ItemsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -5231,7 +5231,7 @@ await client.collections.items.updateItems("580e63fc8c9a982ac9b8b745", {
 </dl>
 </details>
 
-<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">listItemsLive</a>(collectionId, { ...params }) -> Webflow.CollectionItemList</code></summary>
+<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">listItemsLive</a>(collection_id, { ...params }) -> Webflow.CollectionItemList</code></summary>
 <dl>
 <dd>
 
@@ -5288,7 +5288,7 @@ await client.collections.items.listItemsLive("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
-**collectionId:** `string` — Unique identifier for a Collection
+**collection_id:** `string` — Unique identifier for a Collection
     
 </dd>
 </dl>
@@ -5304,7 +5304,7 @@ await client.collections.items.listItemsLive("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
-**requestOptions:** `Items.RequestOptions` 
+**requestOptions:** `ItemsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -5316,7 +5316,7 @@ await client.collections.items.listItemsLive("580e63fc8c9a982ac9b8b745", {
 </dl>
 </details>
 
-<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">createItemLive</a>(collectionId, { ...params }) -> Webflow.CollectionItem</code></summary>
+<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">createItemLive</a>(collection_id, { ...params }) -> Webflow.CollectionItem</code></summary>
 <dl>
 <dd>
 
@@ -5409,7 +5409,7 @@ await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
-**collectionId:** `string` — Unique identifier for a Collection
+**collection_id:** `string` — Unique identifier for a Collection
     
 </dd>
 </dl>
@@ -5425,7 +5425,7 @@ await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
-**requestOptions:** `Items.RequestOptions` 
+**requestOptions:** `ItemsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -5437,7 +5437,7 @@ await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
 </dl>
 </details>
 
-<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">deleteItemsLive</a>(collectionId, { ...params }) -> void</code></summary>
+<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">deleteItemsLive</a>(collection_id, { ...params }) -> void</code></summary>
 <dl>
 <dd>
 
@@ -5488,7 +5488,7 @@ await client.collections.items.deleteItemsLive("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
-**collectionId:** `string` — Unique identifier for a Collection
+**collection_id:** `string` — Unique identifier for a Collection
     
 </dd>
 </dl>
@@ -5504,7 +5504,7 @@ await client.collections.items.deleteItemsLive("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
-**requestOptions:** `Items.RequestOptions` 
+**requestOptions:** `ItemsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -5516,7 +5516,7 @@ await client.collections.items.deleteItemsLive("580e63fc8c9a982ac9b8b745", {
 </dl>
 </details>
 
-<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">updateItemsLive</a>(collectionId, { ...params }) -> Webflow.CollectionItemListNoPagination</code></summary>
+<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">updateItemsLive</a>(collection_id, { ...params }) -> Webflow.CollectionItemListNoPagination</code></summary>
 <dl>
 <dd>
 
@@ -5598,7 +5598,7 @@ await client.collections.items.updateItemsLive("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
-**collectionId:** `string` — Unique identifier for a Collection
+**collection_id:** `string` — Unique identifier for a Collection
     
 </dd>
 </dl>
@@ -5614,7 +5614,7 @@ await client.collections.items.updateItemsLive("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
-**requestOptions:** `Items.RequestOptions` 
+**requestOptions:** `ItemsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -5626,7 +5626,7 @@ await client.collections.items.updateItemsLive("580e63fc8c9a982ac9b8b745", {
 </dl>
 </details>
 
-<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">createItems</a>(collectionId, { ...params }) -> Webflow.BulkCollectionItem</code></summary>
+<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">createItems</a>(collection_id, { ...params }) -> Webflow.BulkCollectionItem</code></summary>
 <dl>
 <dd>
 
@@ -5685,7 +5685,7 @@ await client.collections.items.createItems("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
-**collectionId:** `string` — Unique identifier for a Collection
+**collection_id:** `string` — Unique identifier for a Collection
     
 </dd>
 </dl>
@@ -5701,7 +5701,7 @@ await client.collections.items.createItems("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
-**requestOptions:** `Items.RequestOptions` 
+**requestOptions:** `ItemsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -5713,7 +5713,7 @@ await client.collections.items.createItems("580e63fc8c9a982ac9b8b745", {
 </dl>
 </details>
 
-<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">getItem</a>(collectionId, itemId, { ...params }) -> Webflow.CollectionItem</code></summary>
+<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">getItem</a>(collection_id, item_id, { ...params }) -> Webflow.CollectionItem</code></summary>
 <dl>
 <dd>
 
@@ -5760,7 +5760,7 @@ await client.collections.items.getItem("580e63fc8c9a982ac9b8b745", "580e64008c9a
 <dl>
 <dd>
 
-**collectionId:** `string` — Unique identifier for a Collection
+**collection_id:** `string` — Unique identifier for a Collection
     
 </dd>
 </dl>
@@ -5768,7 +5768,7 @@ await client.collections.items.getItem("580e63fc8c9a982ac9b8b745", "580e64008c9a
 <dl>
 <dd>
 
-**itemId:** `string` — Unique identifier for an Item
+**item_id:** `string` — Unique identifier for an Item
     
 </dd>
 </dl>
@@ -5784,7 +5784,7 @@ await client.collections.items.getItem("580e63fc8c9a982ac9b8b745", "580e64008c9a
 <dl>
 <dd>
 
-**requestOptions:** `Items.RequestOptions` 
+**requestOptions:** `ItemsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -5796,7 +5796,7 @@ await client.collections.items.getItem("580e63fc8c9a982ac9b8b745", "580e64008c9a
 </dl>
 </details>
 
-<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">deleteItem</a>(collectionId, itemId, { ...params }) -> void</code></summary>
+<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">deleteItem</a>(collection_id, item_id, { ...params }) -> void</code></summary>
 <dl>
 <dd>
 
@@ -5843,7 +5843,7 @@ await client.collections.items.deleteItem("580e63fc8c9a982ac9b8b745", "580e64008
 <dl>
 <dd>
 
-**collectionId:** `string` — Unique identifier for a Collection
+**collection_id:** `string` — Unique identifier for a Collection
     
 </dd>
 </dl>
@@ -5851,7 +5851,7 @@ await client.collections.items.deleteItem("580e63fc8c9a982ac9b8b745", "580e64008
 <dl>
 <dd>
 
-**itemId:** `string` — Unique identifier for an Item
+**item_id:** `string` — Unique identifier for an Item
     
 </dd>
 </dl>
@@ -5867,7 +5867,7 @@ await client.collections.items.deleteItem("580e63fc8c9a982ac9b8b745", "580e64008
 <dl>
 <dd>
 
-**requestOptions:** `Items.RequestOptions` 
+**requestOptions:** `ItemsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -5879,7 +5879,7 @@ await client.collections.items.deleteItem("580e63fc8c9a982ac9b8b745", "580e64008
 </dl>
 </details>
 
-<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">updateItem</a>(collectionId, itemId, { ...params }) -> Webflow.CollectionItem</code></summary>
+<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">updateItem</a>(collection_id, item_id, { ...params }) -> Webflow.CollectionItem</code></summary>
 <dl>
 <dd>
 
@@ -5968,7 +5968,7 @@ await client.collections.items.updateItem("580e63fc8c9a982ac9b8b745", "580e64008
 <dl>
 <dd>
 
-**collectionId:** `string` — Unique identifier for a Collection
+**collection_id:** `string` — Unique identifier for a Collection
     
 </dd>
 </dl>
@@ -5976,7 +5976,7 @@ await client.collections.items.updateItem("580e63fc8c9a982ac9b8b745", "580e64008
 <dl>
 <dd>
 
-**itemId:** `string` — Unique identifier for an Item
+**item_id:** `string` — Unique identifier for an Item
     
 </dd>
 </dl>
@@ -5992,7 +5992,7 @@ await client.collections.items.updateItem("580e63fc8c9a982ac9b8b745", "580e64008
 <dl>
 <dd>
 
-**requestOptions:** `Items.RequestOptions` 
+**requestOptions:** `ItemsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -6004,7 +6004,7 @@ await client.collections.items.updateItem("580e63fc8c9a982ac9b8b745", "580e64008
 </dl>
 </details>
 
-<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">getItemLive</a>(collectionId, itemId, { ...params }) -> Webflow.CollectionItem</code></summary>
+<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">getItemLive</a>(collection_id, item_id, { ...params }) -> Webflow.CollectionItem</code></summary>
 <dl>
 <dd>
 
@@ -6055,7 +6055,7 @@ await client.collections.items.getItemLive("580e63fc8c9a982ac9b8b745", "580e6400
 <dl>
 <dd>
 
-**collectionId:** `string` — Unique identifier for a Collection
+**collection_id:** `string` — Unique identifier for a Collection
     
 </dd>
 </dl>
@@ -6063,7 +6063,7 @@ await client.collections.items.getItemLive("580e63fc8c9a982ac9b8b745", "580e6400
 <dl>
 <dd>
 
-**itemId:** `string` — Unique identifier for an Item
+**item_id:** `string` — Unique identifier for an Item
     
 </dd>
 </dl>
@@ -6079,7 +6079,7 @@ await client.collections.items.getItemLive("580e63fc8c9a982ac9b8b745", "580e6400
 <dl>
 <dd>
 
-**requestOptions:** `Items.RequestOptions` 
+**requestOptions:** `ItemsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -6091,7 +6091,7 @@ await client.collections.items.getItemLive("580e63fc8c9a982ac9b8b745", "580e6400
 </dl>
 </details>
 
-<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">deleteItemLive</a>(collectionId, itemId, { ...params }) -> void</code></summary>
+<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">deleteItemLive</a>(collection_id, item_id, { ...params }) -> void</code></summary>
 <dl>
 <dd>
 
@@ -6140,7 +6140,7 @@ await client.collections.items.deleteItemLive("580e63fc8c9a982ac9b8b745", "580e6
 <dl>
 <dd>
 
-**collectionId:** `string` — Unique identifier for a Collection
+**collection_id:** `string` — Unique identifier for a Collection
     
 </dd>
 </dl>
@@ -6148,7 +6148,7 @@ await client.collections.items.deleteItemLive("580e63fc8c9a982ac9b8b745", "580e6
 <dl>
 <dd>
 
-**itemId:** `string` — Unique identifier for an Item
+**item_id:** `string` — Unique identifier for an Item
     
 </dd>
 </dl>
@@ -6164,7 +6164,7 @@ await client.collections.items.deleteItemLive("580e63fc8c9a982ac9b8b745", "580e6
 <dl>
 <dd>
 
-**requestOptions:** `Items.RequestOptions` 
+**requestOptions:** `ItemsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -6176,7 +6176,7 @@ await client.collections.items.deleteItemLive("580e63fc8c9a982ac9b8b745", "580e6
 </dl>
 </details>
 
-<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">updateItemLive</a>(collectionId, itemId, { ...params }) -> Webflow.CollectionItem</code></summary>
+<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">updateItemLive</a>(collection_id, item_id, { ...params }) -> Webflow.CollectionItem</code></summary>
 <dl>
 <dd>
 
@@ -6265,7 +6265,7 @@ await client.collections.items.updateItemLive("580e63fc8c9a982ac9b8b745", "580e6
 <dl>
 <dd>
 
-**collectionId:** `string` — Unique identifier for a Collection
+**collection_id:** `string` — Unique identifier for a Collection
     
 </dd>
 </dl>
@@ -6273,7 +6273,7 @@ await client.collections.items.updateItemLive("580e63fc8c9a982ac9b8b745", "580e6
 <dl>
 <dd>
 
-**itemId:** `string` — Unique identifier for an Item
+**item_id:** `string` — Unique identifier for an Item
     
 </dd>
 </dl>
@@ -6289,7 +6289,7 @@ await client.collections.items.updateItemLive("580e63fc8c9a982ac9b8b745", "580e6
 <dl>
 <dd>
 
-**requestOptions:** `Items.RequestOptions` 
+**requestOptions:** `ItemsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -6301,7 +6301,7 @@ await client.collections.items.updateItemLive("580e63fc8c9a982ac9b8b745", "580e6
 </dl>
 </details>
 
-<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">publishItem</a>(collectionId, { ...params }) -> Webflow.ItemsPublishItemResponse</code></summary>
+<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">publishItem</a>(collection_id, { ...params }) -> Webflow.ItemsPublishItemResponse</code></summary>
 <dl>
 <dd>
 
@@ -6348,7 +6348,7 @@ await client.collections.items.publishItem("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
-**collectionId:** `string` — Unique identifier for a Collection
+**collection_id:** `string` — Unique identifier for a Collection
     
 </dd>
 </dl>
@@ -6364,7 +6364,7 @@ await client.collections.items.publishItem("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
-**requestOptions:** `Items.RequestOptions` 
+**requestOptions:** `ItemsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -6377,7 +6377,7 @@ await client.collections.items.publishItem("580e63fc8c9a982ac9b8b745", {
 </details>
 
 ## Pages Scripts
-<details><summary><code>client.pages.scripts.<a href="/src/api/resources/pages/resources/scripts/client/Client.ts">getCustomCode</a>(pageId) -> Webflow.ScriptApplyList</code></summary>
+<details><summary><code>client.pages.scripts.<a href="/src/api/resources/pages/resources/scripts/client/Client.ts">getCustomCode</a>(page_id) -> Webflow.ScriptApplyList</code></summary>
 <dl>
 <dd>
 
@@ -6422,7 +6422,7 @@ await client.pages.scripts.getCustomCode("63c720f9347c2139b248e552");
 <dl>
 <dd>
 
-**pageId:** `string` — Unique identifier for a Page
+**page_id:** `string` — Unique identifier for a Page
     
 </dd>
 </dl>
@@ -6430,7 +6430,7 @@ await client.pages.scripts.getCustomCode("63c720f9347c2139b248e552");
 <dl>
 <dd>
 
-**requestOptions:** `Scripts.RequestOptions` 
+**requestOptions:** `ScriptsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -6442,7 +6442,7 @@ await client.pages.scripts.getCustomCode("63c720f9347c2139b248e552");
 </dl>
 </details>
 
-<details><summary><code>client.pages.scripts.<a href="/src/api/resources/pages/resources/scripts/client/Client.ts">upsertCustomCode</a>(pageId, { ...params }) -> Webflow.ScriptApplyList</code></summary>
+<details><summary><code>client.pages.scripts.<a href="/src/api/resources/pages/resources/scripts/client/Client.ts">upsertCustomCode</a>(page_id, { ...params }) -> Webflow.ScriptApplyList</code></summary>
 <dl>
 <dd>
 
@@ -6504,7 +6504,7 @@ await client.pages.scripts.upsertCustomCode("63c720f9347c2139b248e552", {
 <dl>
 <dd>
 
-**pageId:** `string` — Unique identifier for a Page
+**page_id:** `string` — Unique identifier for a Page
     
 </dd>
 </dl>
@@ -6520,7 +6520,7 @@ await client.pages.scripts.upsertCustomCode("63c720f9347c2139b248e552", {
 <dl>
 <dd>
 
-**requestOptions:** `Scripts.RequestOptions` 
+**requestOptions:** `ScriptsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -6532,7 +6532,7 @@ await client.pages.scripts.upsertCustomCode("63c720f9347c2139b248e552", {
 </dl>
 </details>
 
-<details><summary><code>client.pages.scripts.<a href="/src/api/resources/pages/resources/scripts/client/Client.ts">deleteCustomCode</a>(pageId) -> void</code></summary>
+<details><summary><code>client.pages.scripts.<a href="/src/api/resources/pages/resources/scripts/client/Client.ts">deleteCustomCode</a>(page_id) -> void</code></summary>
 <dl>
 <dd>
 
@@ -6581,7 +6581,7 @@ await client.pages.scripts.deleteCustomCode("63c720f9347c2139b248e552");
 <dl>
 <dd>
 
-**pageId:** `string` — Unique identifier for a Page
+**page_id:** `string` — Unique identifier for a Page
     
 </dd>
 </dl>
@@ -6589,7 +6589,7 @@ await client.pages.scripts.deleteCustomCode("63c720f9347c2139b248e552");
 <dl>
 <dd>
 
-**requestOptions:** `Scripts.RequestOptions` 
+**requestOptions:** `ScriptsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -6602,7 +6602,7 @@ await client.pages.scripts.deleteCustomCode("63c720f9347c2139b248e552");
 </details>
 
 ## Sites Redirects
-<details><summary><code>client.sites.redirects.<a href="/src/api/resources/sites/resources/redirects/client/Client.ts">list</a>(siteId) -> Webflow.Redirects</code></summary>
+<details><summary><code>client.sites.redirects.<a href="/src/api/resources/sites/resources/redirects/client/Client.ts">list</a>(site_id) -> Webflow.Redirects</code></summary>
 <dl>
 <dd>
 
@@ -6651,7 +6651,7 @@ await client.sites.redirects.list("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -6659,7 +6659,7 @@ await client.sites.redirects.list("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**requestOptions:** `Redirects.RequestOptions` 
+**requestOptions:** `RedirectsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -6671,7 +6671,7 @@ await client.sites.redirects.list("580e63e98c9a982ac9b8b741");
 </dl>
 </details>
 
-<details><summary><code>client.sites.redirects.<a href="/src/api/resources/sites/resources/redirects/client/Client.ts">create</a>(siteId, { ...params }) -> Webflow.Redirect</code></summary>
+<details><summary><code>client.sites.redirects.<a href="/src/api/resources/sites/resources/redirects/client/Client.ts">create</a>(site_id, { ...params }) -> Webflow.Redirect</code></summary>
 <dl>
 <dd>
 
@@ -6724,7 +6724,7 @@ await client.sites.redirects.create("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -6740,7 +6740,7 @@ await client.sites.redirects.create("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**requestOptions:** `Redirects.RequestOptions` 
+**requestOptions:** `RedirectsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -6752,7 +6752,7 @@ await client.sites.redirects.create("580e63e98c9a982ac9b8b741", {
 </dl>
 </details>
 
-<details><summary><code>client.sites.redirects.<a href="/src/api/resources/sites/resources/redirects/client/Client.ts">delete</a>(siteId, redirectId) -> Webflow.Redirects</code></summary>
+<details><summary><code>client.sites.redirects.<a href="/src/api/resources/sites/resources/redirects/client/Client.ts">delete</a>(site_id, redirect_id) -> Webflow.Redirects</code></summary>
 <dl>
 <dd>
 
@@ -6801,7 +6801,7 @@ await client.sites.redirects.delete("580e63e98c9a982ac9b8b741", "66c4cb9a20cac35
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -6809,7 +6809,7 @@ await client.sites.redirects.delete("580e63e98c9a982ac9b8b741", "66c4cb9a20cac35
 <dl>
 <dd>
 
-**redirectId:** `string` — Unique identifier site redirect
+**redirect_id:** `string` — Unique identifier site redirect
     
 </dd>
 </dl>
@@ -6817,7 +6817,7 @@ await client.sites.redirects.delete("580e63e98c9a982ac9b8b741", "66c4cb9a20cac35
 <dl>
 <dd>
 
-**requestOptions:** `Redirects.RequestOptions` 
+**requestOptions:** `RedirectsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -6829,7 +6829,7 @@ await client.sites.redirects.delete("580e63e98c9a982ac9b8b741", "66c4cb9a20cac35
 </dl>
 </details>
 
-<details><summary><code>client.sites.redirects.<a href="/src/api/resources/sites/resources/redirects/client/Client.ts">update</a>(siteId, redirectId, { ...params }) -> Webflow.Redirect</code></summary>
+<details><summary><code>client.sites.redirects.<a href="/src/api/resources/sites/resources/redirects/client/Client.ts">update</a>(site_id, redirect_id, { ...params }) -> Webflow.Redirect</code></summary>
 <dl>
 <dd>
 
@@ -6880,7 +6880,7 @@ await client.sites.redirects.update("580e63e98c9a982ac9b8b741", "66c4cb9a20cac35
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -6888,7 +6888,7 @@ await client.sites.redirects.update("580e63e98c9a982ac9b8b741", "66c4cb9a20cac35
 <dl>
 <dd>
 
-**redirectId:** `string` — Unique identifier site redirect
+**redirect_id:** `string` — Unique identifier site redirect
     
 </dd>
 </dl>
@@ -6904,7 +6904,7 @@ await client.sites.redirects.update("580e63e98c9a982ac9b8b741", "66c4cb9a20cac35
 <dl>
 <dd>
 
-**requestOptions:** `Redirects.RequestOptions` 
+**requestOptions:** `RedirectsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -6917,7 +6917,7 @@ await client.sites.redirects.update("580e63e98c9a982ac9b8b741", "66c4cb9a20cac35
 </details>
 
 ## Sites Plans
-<details><summary><code>client.sites.plans.<a href="/src/api/resources/sites/resources/plans/client/Client.ts">getSitePlan</a>(siteId) -> Webflow.SitePlan</code></summary>
+<details><summary><code>client.sites.plans.<a href="/src/api/resources/sites/resources/plans/client/Client.ts">getSitePlan</a>(site_id) -> Webflow.SitePlan</code></summary>
 <dl>
 <dd>
 
@@ -6964,7 +6964,7 @@ await client.sites.plans.getSitePlan("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -6972,7 +6972,7 @@ await client.sites.plans.getSitePlan("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**requestOptions:** `Plans.RequestOptions` 
+**requestOptions:** `PlansClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -6985,7 +6985,7 @@ await client.sites.plans.getSitePlan("580e63e98c9a982ac9b8b741");
 </details>
 
 ## Sites RobotsTxt
-<details><summary><code>client.sites.robotsTxt.<a href="/src/api/resources/sites/resources/robotsTxt/client/Client.ts">get</a>(siteId) -> Webflow.Robots</code></summary>
+<details><summary><code>client.sites.robotsTxt.<a href="/src/api/resources/sites/resources/robotsTxt/client/Client.ts">get</a>(site_id) -> Webflow.Robots</code></summary>
 <dl>
 <dd>
 
@@ -7032,7 +7032,7 @@ await client.sites.robotsTxt.get("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -7040,7 +7040,7 @@ await client.sites.robotsTxt.get("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**requestOptions:** `RobotsTxt.RequestOptions` 
+**requestOptions:** `RobotsTxtClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -7052,7 +7052,7 @@ await client.sites.robotsTxt.get("580e63e98c9a982ac9b8b741");
 </dl>
 </details>
 
-<details><summary><code>client.sites.robotsTxt.<a href="/src/api/resources/sites/resources/robotsTxt/client/Client.ts">put</a>(siteId, { ...params }) -> Webflow.Robots</code></summary>
+<details><summary><code>client.sites.robotsTxt.<a href="/src/api/resources/sites/resources/robotsTxt/client/Client.ts">put</a>(site_id, { ...params }) -> Webflow.Robots</code></summary>
 <dl>
 <dd>
 
@@ -7106,7 +7106,7 @@ await client.sites.robotsTxt.put("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -7122,7 +7122,7 @@ await client.sites.robotsTxt.put("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**requestOptions:** `RobotsTxt.RequestOptions` 
+**requestOptions:** `RobotsTxtClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -7134,7 +7134,7 @@ await client.sites.robotsTxt.put("580e63e98c9a982ac9b8b741", {
 </dl>
 </details>
 
-<details><summary><code>client.sites.robotsTxt.<a href="/src/api/resources/sites/resources/robotsTxt/client/Client.ts">delete</a>(siteId, { ...params }) -> Webflow.Robots</code></summary>
+<details><summary><code>client.sites.robotsTxt.<a href="/src/api/resources/sites/resources/robotsTxt/client/Client.ts">delete</a>(site_id, { ...params }) -> Webflow.Robots</code></summary>
 <dl>
 <dd>
 
@@ -7189,7 +7189,7 @@ await client.sites.robotsTxt.delete("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -7205,7 +7205,7 @@ await client.sites.robotsTxt.delete("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**requestOptions:** `RobotsTxt.RequestOptions` 
+**requestOptions:** `RobotsTxtClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -7217,7 +7217,7 @@ await client.sites.robotsTxt.delete("580e63e98c9a982ac9b8b741", {
 </dl>
 </details>
 
-<details><summary><code>client.sites.robotsTxt.<a href="/src/api/resources/sites/resources/robotsTxt/client/Client.ts">patch</a>(siteId, { ...params }) -> Webflow.Robots</code></summary>
+<details><summary><code>client.sites.robotsTxt.<a href="/src/api/resources/sites/resources/robotsTxt/client/Client.ts">patch</a>(site_id, { ...params }) -> Webflow.Robots</code></summary>
 <dl>
 <dd>
 
@@ -7271,7 +7271,7 @@ await client.sites.robotsTxt.patch("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -7287,7 +7287,7 @@ await client.sites.robotsTxt.patch("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**requestOptions:** `RobotsTxt.RequestOptions` 
+**requestOptions:** `RobotsTxtClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -7300,7 +7300,7 @@ await client.sites.robotsTxt.patch("580e63e98c9a982ac9b8b741", {
 </details>
 
 ## Sites WellKnown
-<details><summary><code>client.sites.wellKnown.<a href="/src/api/resources/sites/resources/wellKnown/client/Client.ts">put</a>(siteId, { ...params }) -> void</code></summary>
+<details><summary><code>client.sites.wellKnown.<a href="/src/api/resources/sites/resources/wellKnown/client/Client.ts">put</a>(site_id, { ...params }) -> void</code></summary>
 <dl>
 <dd>
 
@@ -7360,7 +7360,7 @@ await client.sites.wellKnown.put("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -7376,7 +7376,7 @@ await client.sites.wellKnown.put("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**requestOptions:** `WellKnown.RequestOptions` 
+**requestOptions:** `WellKnownClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -7388,7 +7388,7 @@ await client.sites.wellKnown.put("580e63e98c9a982ac9b8b741", {
 </dl>
 </details>
 
-<details><summary><code>client.sites.wellKnown.<a href="/src/api/resources/sites/resources/wellKnown/client/Client.ts">delete</a>(siteId, { ...params }) -> void</code></summary>
+<details><summary><code>client.sites.wellKnown.<a href="/src/api/resources/sites/resources/wellKnown/client/Client.ts">delete</a>(site_id, { ...params }) -> void</code></summary>
 <dl>
 <dd>
 
@@ -7435,7 +7435,7 @@ await client.sites.wellKnown.delete("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -7451,7 +7451,7 @@ await client.sites.wellKnown.delete("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**requestOptions:** `WellKnown.RequestOptions` 
+**requestOptions:** `WellKnownClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -7464,7 +7464,7 @@ await client.sites.wellKnown.delete("580e63e98c9a982ac9b8b741");
 </details>
 
 ## Sites ActivityLogs
-<details><summary><code>client.sites.activityLogs.<a href="/src/api/resources/sites/resources/activityLogs/client/Client.ts">list</a>(siteId, { ...params }) -> Webflow.SiteActivityLogResponse</code></summary>
+<details><summary><code>client.sites.activityLogs.<a href="/src/api/resources/sites/resources/activityLogs/client/Client.ts">list</a>(site_id, { ...params }) -> Webflow.SiteActivityLogResponse</code></summary>
 <dl>
 <dd>
 
@@ -7514,7 +7514,7 @@ await client.sites.activityLogs.list("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -7530,7 +7530,7 @@ await client.sites.activityLogs.list("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**requestOptions:** `ActivityLogs.RequestOptions` 
+**requestOptions:** `ActivityLogsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -7543,7 +7543,7 @@ await client.sites.activityLogs.list("580e63e98c9a982ac9b8b741", {
 </details>
 
 ## Sites Comments
-<details><summary><code>client.sites.comments.<a href="/src/api/resources/sites/resources/comments/client/Client.ts">listCommentThreads</a>(siteId, { ...params }) -> Webflow.CommentThreadList</code></summary>
+<details><summary><code>client.sites.comments.<a href="/src/api/resources/sites/resources/comments/client/Client.ts">listCommentThreads</a>(site_id, { ...params }) -> Webflow.CommentThreadList</code></summary>
 <dl>
 <dd>
 
@@ -7598,7 +7598,7 @@ await client.sites.comments.listCommentThreads("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -7614,7 +7614,7 @@ await client.sites.comments.listCommentThreads("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**requestOptions:** `Comments.RequestOptions` 
+**requestOptions:** `CommentsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -7626,7 +7626,7 @@ await client.sites.comments.listCommentThreads("580e63e98c9a982ac9b8b741", {
 </dl>
 </details>
 
-<details><summary><code>client.sites.comments.<a href="/src/api/resources/sites/resources/comments/client/Client.ts">getCommentThread</a>(siteId, commentThreadId, { ...params }) -> Webflow.CommentThread</code></summary>
+<details><summary><code>client.sites.comments.<a href="/src/api/resources/sites/resources/comments/client/Client.ts">getCommentThread</a>(site_id, comment_thread_id, { ...params }) -> Webflow.CommentThread</code></summary>
 <dl>
 <dd>
 
@@ -7681,7 +7681,7 @@ await client.sites.comments.getCommentThread("580e63e98c9a982ac9b8b741", "580e63
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -7689,7 +7689,7 @@ await client.sites.comments.getCommentThread("580e63e98c9a982ac9b8b741", "580e63
 <dl>
 <dd>
 
-**commentThreadId:** `string` — Unique identifier for a Comment Thread
+**comment_thread_id:** `string` — Unique identifier for a Comment Thread
     
 </dd>
 </dl>
@@ -7705,7 +7705,7 @@ await client.sites.comments.getCommentThread("580e63e98c9a982ac9b8b741", "580e63
 <dl>
 <dd>
 
-**requestOptions:** `Comments.RequestOptions` 
+**requestOptions:** `CommentsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -7717,7 +7717,7 @@ await client.sites.comments.getCommentThread("580e63e98c9a982ac9b8b741", "580e63
 </dl>
 </details>
 
-<details><summary><code>client.sites.comments.<a href="/src/api/resources/sites/resources/comments/client/Client.ts">listCommentReplies</a>(siteId, commentThreadId, { ...params }) -> Webflow.CommentReplyList</code></summary>
+<details><summary><code>client.sites.comments.<a href="/src/api/resources/sites/resources/comments/client/Client.ts">listCommentReplies</a>(site_id, comment_thread_id, { ...params }) -> Webflow.CommentReplyList</code></summary>
 <dl>
 <dd>
 
@@ -7772,7 +7772,7 @@ await client.sites.comments.listCommentReplies("580e63e98c9a982ac9b8b741", "580e
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -7780,7 +7780,7 @@ await client.sites.comments.listCommentReplies("580e63e98c9a982ac9b8b741", "580e
 <dl>
 <dd>
 
-**commentThreadId:** `string` — Unique identifier for a Comment Thread
+**comment_thread_id:** `string` — Unique identifier for a Comment Thread
     
 </dd>
 </dl>
@@ -7796,7 +7796,7 @@ await client.sites.comments.listCommentReplies("580e63e98c9a982ac9b8b741", "580e
 <dl>
 <dd>
 
-**requestOptions:** `Comments.RequestOptions` 
+**requestOptions:** `CommentsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -7809,7 +7809,7 @@ await client.sites.comments.listCommentReplies("580e63e98c9a982ac9b8b741", "580e
 </details>
 
 ## Sites Scripts
-<details><summary><code>client.sites.scripts.<a href="/src/api/resources/sites/resources/scripts/client/Client.ts">getCustomCode</a>(siteId) -> Webflow.ScriptApplyList</code></summary>
+<details><summary><code>client.sites.scripts.<a href="/src/api/resources/sites/resources/scripts/client/Client.ts">getCustomCode</a>(site_id) -> Webflow.ScriptApplyList</code></summary>
 <dl>
 <dd>
 
@@ -7858,7 +7858,7 @@ await client.sites.scripts.getCustomCode("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -7866,7 +7866,7 @@ await client.sites.scripts.getCustomCode("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**requestOptions:** `Scripts.RequestOptions` 
+**requestOptions:** `ScriptsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -7878,7 +7878,7 @@ await client.sites.scripts.getCustomCode("580e63e98c9a982ac9b8b741");
 </dl>
 </details>
 
-<details><summary><code>client.sites.scripts.<a href="/src/api/resources/sites/resources/scripts/client/Client.ts">upsertCustomCode</a>(siteId, { ...params }) -> Webflow.ScriptApplyList</code></summary>
+<details><summary><code>client.sites.scripts.<a href="/src/api/resources/sites/resources/scripts/client/Client.ts">upsertCustomCode</a>(site_id, { ...params }) -> Webflow.ScriptApplyList</code></summary>
 <dl>
 <dd>
 
@@ -7940,7 +7940,7 @@ await client.sites.scripts.upsertCustomCode("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -7956,7 +7956,7 @@ await client.sites.scripts.upsertCustomCode("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**requestOptions:** `Scripts.RequestOptions` 
+**requestOptions:** `ScriptsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -7968,7 +7968,7 @@ await client.sites.scripts.upsertCustomCode("580e63e98c9a982ac9b8b741", {
 </dl>
 </details>
 
-<details><summary><code>client.sites.scripts.<a href="/src/api/resources/sites/resources/scripts/client/Client.ts">deleteCustomCode</a>(siteId) -> void</code></summary>
+<details><summary><code>client.sites.scripts.<a href="/src/api/resources/sites/resources/scripts/client/Client.ts">deleteCustomCode</a>(site_id) -> void</code></summary>
 <dl>
 <dd>
 
@@ -8017,7 +8017,7 @@ await client.sites.scripts.deleteCustomCode("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -8025,7 +8025,7 @@ await client.sites.scripts.deleteCustomCode("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-**requestOptions:** `Scripts.RequestOptions` 
+**requestOptions:** `ScriptsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -8037,7 +8037,7 @@ await client.sites.scripts.deleteCustomCode("580e63e98c9a982ac9b8b741");
 </dl>
 </details>
 
-<details><summary><code>client.sites.scripts.<a href="/src/api/resources/sites/resources/scripts/client/Client.ts">listCustomCodeBlocks</a>(siteId, { ...params }) -> Webflow.ListCustomCodeBlocks</code></summary>
+<details><summary><code>client.sites.scripts.<a href="/src/api/resources/sites/resources/scripts/client/Client.ts">listCustomCodeBlocks</a>(site_id, { ...params }) -> Webflow.ListCustomCodeBlocks</code></summary>
 <dl>
 <dd>
 
@@ -8091,7 +8091,7 @@ await client.sites.scripts.listCustomCodeBlocks("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -8107,7 +8107,7 @@ await client.sites.scripts.listCustomCodeBlocks("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**requestOptions:** `Scripts.RequestOptions` 
+**requestOptions:** `ScriptsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -8120,7 +8120,7 @@ await client.sites.scripts.listCustomCodeBlocks("580e63e98c9a982ac9b8b741", {
 </details>
 
 ## Sites Forms
-<details><summary><code>client.sites.forms.<a href="/src/api/resources/sites/resources/forms/client/Client.ts">listSubmissionsBySite</a>(siteId, { ...params }) -> Webflow.FormSubmissionList</code></summary>
+<details><summary><code>client.sites.forms.<a href="/src/api/resources/sites/resources/forms/client/Client.ts">listSubmissionsBySite</a>(site_id, { ...params }) -> Webflow.FormSubmissionList</code></summary>
 <dl>
 <dd>
 
@@ -8177,7 +8177,7 @@ await client.sites.forms.listSubmissionsBySite("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -8193,7 +8193,7 @@ await client.sites.forms.listSubmissionsBySite("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**requestOptions:** `Forms.RequestOptions` 
+**requestOptions:** `FormsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -8205,7 +8205,7 @@ await client.sites.forms.listSubmissionsBySite("580e63e98c9a982ac9b8b741", {
 </dl>
 </details>
 
-<details><summary><code>client.sites.forms.<a href="/src/api/resources/sites/resources/forms/client/Client.ts">listSubmissions</a>(siteId, formId, { ...params }) -> Webflow.FormSubmissionList</code></summary>
+<details><summary><code>client.sites.forms.<a href="/src/api/resources/sites/resources/forms/client/Client.ts">listSubmissions</a>(site_id, form_id, { ...params }) -> Webflow.FormSubmissionList</code></summary>
 <dl>
 <dd>
 
@@ -8255,7 +8255,7 @@ await client.sites.forms.listSubmissions("580e63e98c9a982ac9b8b741", "580e63e98c
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -8263,7 +8263,7 @@ await client.sites.forms.listSubmissions("580e63e98c9a982ac9b8b741", "580e63e98c
 <dl>
 <dd>
 
-**formId:** `string` — Unique identifier for a Form
+**form_id:** `string` — Unique identifier for a Form
     
 </dd>
 </dl>
@@ -8279,7 +8279,7 @@ await client.sites.forms.listSubmissions("580e63e98c9a982ac9b8b741", "580e63e98c
 <dl>
 <dd>
 
-**requestOptions:** `Forms.RequestOptions` 
+**requestOptions:** `FormsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -8291,7 +8291,7 @@ await client.sites.forms.listSubmissions("580e63e98c9a982ac9b8b741", "580e63e98c
 </dl>
 </details>
 
-<details><summary><code>client.sites.forms.<a href="/src/api/resources/sites/resources/forms/client/Client.ts">getSubmission</a>(siteId, formSubmissionId) -> Webflow.FormSubmission</code></summary>
+<details><summary><code>client.sites.forms.<a href="/src/api/resources/sites/resources/forms/client/Client.ts">getSubmission</a>(site_id, form_submission_id) -> Webflow.FormSubmission</code></summary>
 <dl>
 <dd>
 
@@ -8336,7 +8336,7 @@ await client.sites.forms.getSubmission("580e63e98c9a982ac9b8b741", "580e63e98c9a
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -8344,7 +8344,7 @@ await client.sites.forms.getSubmission("580e63e98c9a982ac9b8b741", "580e63e98c9a
 <dl>
 <dd>
 
-**formSubmissionId:** `string` — Unique identifier for a Form Submission
+**form_submission_id:** `string` — Unique identifier for a Form Submission
     
 </dd>
 </dl>
@@ -8352,7 +8352,7 @@ await client.sites.forms.getSubmission("580e63e98c9a982ac9b8b741", "580e63e98c9a
 <dl>
 <dd>
 
-**requestOptions:** `Forms.RequestOptions` 
+**requestOptions:** `FormsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -8364,7 +8364,7 @@ await client.sites.forms.getSubmission("580e63e98c9a982ac9b8b741", "580e63e98c9a
 </dl>
 </details>
 
-<details><summary><code>client.sites.forms.<a href="/src/api/resources/sites/resources/forms/client/Client.ts">deleteSubmission</a>(siteId, formSubmissionId) -> void</code></summary>
+<details><summary><code>client.sites.forms.<a href="/src/api/resources/sites/resources/forms/client/Client.ts">deleteSubmission</a>(site_id, form_submission_id) -> void</code></summary>
 <dl>
 <dd>
 
@@ -8409,7 +8409,7 @@ await client.sites.forms.deleteSubmission("580e63e98c9a982ac9b8b741", "580e63e98
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -8417,7 +8417,7 @@ await client.sites.forms.deleteSubmission("580e63e98c9a982ac9b8b741", "580e63e98
 <dl>
 <dd>
 
-**formSubmissionId:** `string` — Unique identifier for a Form Submission
+**form_submission_id:** `string` — Unique identifier for a Form Submission
     
 </dd>
 </dl>
@@ -8425,7 +8425,7 @@ await client.sites.forms.deleteSubmission("580e63e98c9a982ac9b8b741", "580e63e98
 <dl>
 <dd>
 
-**requestOptions:** `Forms.RequestOptions` 
+**requestOptions:** `FormsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -8437,7 +8437,7 @@ await client.sites.forms.deleteSubmission("580e63e98c9a982ac9b8b741", "580e63e98
 </dl>
 </details>
 
-<details><summary><code>client.sites.forms.<a href="/src/api/resources/sites/resources/forms/client/Client.ts">updateSubmission</a>(siteId, formSubmissionId, { ...params }) -> Webflow.FormSubmission</code></summary>
+<details><summary><code>client.sites.forms.<a href="/src/api/resources/sites/resources/forms/client/Client.ts">updateSubmission</a>(site_id, form_submission_id, { ...params }) -> Webflow.FormSubmission</code></summary>
 <dl>
 <dd>
 
@@ -8482,7 +8482,7 @@ await client.sites.forms.updateSubmission("580e63e98c9a982ac9b8b741", "580e63e98
 <dl>
 <dd>
 
-**siteId:** `string` — Unique identifier for a Site
+**site_id:** `string` — Unique identifier for a Site
     
 </dd>
 </dl>
@@ -8490,7 +8490,7 @@ await client.sites.forms.updateSubmission("580e63e98c9a982ac9b8b741", "580e63e98
 <dl>
 <dd>
 
-**formSubmissionId:** `string` — Unique identifier for a Form Submission
+**form_submission_id:** `string` — Unique identifier for a Form Submission
     
 </dd>
 </dl>
@@ -8506,7 +8506,7 @@ await client.sites.forms.updateSubmission("580e63e98c9a982ac9b8b741", "580e63e98
 <dl>
 <dd>
 
-**requestOptions:** `Forms.RequestOptions` 
+**requestOptions:** `FormsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -8519,7 +8519,7 @@ await client.sites.forms.updateSubmission("580e63e98c9a982ac9b8b741", "580e63e98
 </details>
 
 ## Workspaces AuditLogs
-<details><summary><code>client.workspaces.auditLogs.<a href="/src/api/resources/workspaces/resources/auditLogs/client/Client.ts">getWorkspaceAuditLogs</a>(workspaceIdOrSlug, { ...params }) -> Webflow.WorkspaceAuditLogResponse</code></summary>
+<details><summary><code>client.workspaces.auditLogs.<a href="/src/api/resources/workspaces/resources/auditLogs/client/Client.ts">getWorkspaceAuditLogs</a>(workspace_id_or_slug, { ...params }) -> Webflow.WorkspaceAuditLogResponse</code></summary>
 <dl>
 <dd>
 
@@ -8573,7 +8573,7 @@ await client.workspaces.auditLogs.getWorkspaceAuditLogs("hitchhikers-workspace",
 <dl>
 <dd>
 
-**workspaceIdOrSlug:** `string` — Unique identifier or slug for a Workspace
+**workspace_id_or_slug:** `string` — Unique identifier or slug for a Workspace
     
 </dd>
 </dl>
@@ -8589,7 +8589,7 @@ await client.workspaces.auditLogs.getWorkspaceAuditLogs("hitchhikers-workspace",
 <dl>
 <dd>
 
-**requestOptions:** `AuditLogs.RequestOptions` 
+**requestOptions:** `AuditLogsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -8600,3 +8600,4 @@ await client.workspaces.auditLogs.getWorkspaceAuditLogs("hitchhikers-workspace",
 </dd>
 </dl>
 </details>
+

@@ -100,30 +100,31 @@ function evaluateRuntime(): Runtime {
     }
 
     /**
-     * A constant that indicates whether the environment the code is running is Node.JS.
-     */
-    const isNode =
-        typeof process !== "undefined" &&
-        "version" in process &&
-        !!process.version &&
-        "versions" in process &&
-        !!process.versions?.node;
-    if (isNode) {
-        return {
-            type: "node",
-            version: process.versions.node,
-            parsedVersion: Number(process.versions.node.split(".")[0]),
-        };
-    }
-
-    /**
      * A constant that indicates whether the environment the code is running is in React-Native.
+     * This check should come before Node.js detection since React Native may have a process polyfill.
      * https://github.com/facebook/react-native/blob/main/packages/react-native/Libraries/Core/setUpNavigator.js
      */
     const isReactNative = typeof navigator !== "undefined" && navigator?.product === "ReactNative";
     if (isReactNative) {
         return {
             type: "react-native",
+        };
+    }
+
+    /**
+     * A constant that indicates whether the environment the code is running is Node.JS.
+     *
+     * We assign `process` to a local variable first to avoid being flagged by
+     * bundlers that perform static analysis on `process.versions` (e.g. Next.js
+     * Edge Runtime warns about Node.js APIs even when they are guarded).
+     */
+    const _process = typeof process !== "undefined" ? process : undefined;
+    const isNode = typeof _process !== "undefined" && typeof _process.versions?.node === "string";
+    if (isNode) {
+        return {
+            type: "node",
+            version: _process.versions.node,
+            parsedVersion: Number(_process.versions.node.split(".")[0]),
         };
     }
 
