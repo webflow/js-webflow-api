@@ -29,30 +29,6 @@ import type * as Webflow from "../../../../../../index";
  *                 slug: "so-long-and-thanks"
  *             }]
  *     }
- *
- * @example
- *     {
- *         skipInvalidFiles: true,
- *         cmsLocaleIds: ["66f6e966c9e1dc700a857ca3", "66f6e966c9e1dc700a857ca4", "66f6e966c9e1dc700a857ca5"],
- *         isArchived: false,
- *         isDraft: false,
- *         fieldData: {
- *             name: "Don\u2019t Panic",
- *             slug: "dont-panic"
- *         }
- *     }
- *
- * @example
- *     {
- *         skipInvalidFiles: true,
- *         cmsLocaleIds: ["66f6e966c9e1dc700a857ca3", "66f6e966c9e1dc700a857ca4", "66f6e966c9e1dc700a857ca5"],
- *         isArchived: false,
- *         isDraft: false,
- *         fieldData: {
- *             name: "Don\u2019t Panic",
- *             slug: "dont-panic"
- *         }
- *     }
  */
 export interface CreateBulkCollectionItemRequestBody {
     /** When true, invalid files are skipped and processing continues. When false, the entire request fails if any file is invalid. */
