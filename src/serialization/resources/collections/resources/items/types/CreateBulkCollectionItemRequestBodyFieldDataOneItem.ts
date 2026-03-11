@@ -4,9 +4,9 @@ import type * as Webflow from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 import type * as serializers from "../../../../../index";
 
-export const CreateBulkCollectionItemRequestBodyFieldDataItem: core.serialization.ObjectSchema<
-    serializers.collections.CreateBulkCollectionItemRequestBodyFieldDataItem.Raw,
-    Webflow.collections.CreateBulkCollectionItemRequestBodyFieldDataItem
+export const CreateBulkCollectionItemRequestBodyFieldDataOneItem: core.serialization.ObjectSchema<
+    serializers.collections.CreateBulkCollectionItemRequestBodyFieldDataOneItem.Raw,
+    Webflow.collections.CreateBulkCollectionItemRequestBodyFieldDataOneItem
 > = core.serialization
     .object({
         name: core.serialization.string(),
@@ -14,7 +14,7 @@ export const CreateBulkCollectionItemRequestBodyFieldDataItem: core.serializatio
     })
     .passthrough();
 
-export declare namespace CreateBulkCollectionItemRequestBodyFieldDataItem {
+export declare namespace CreateBulkCollectionItemRequestBodyFieldDataOneItem {
     export interface Raw {
         name: string;
         slug: string;

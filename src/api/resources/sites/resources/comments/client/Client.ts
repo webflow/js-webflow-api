@@ -17,7 +17,7 @@ export declare namespace Comments {
 export class Comments {
     protected readonly _options: Comments.Options;
 
-    constructor(_options: Comments.Options = {}) {
+    constructor(_options: Comments.Options) {
         this._options = _options;
     }
 
@@ -81,6 +81,7 @@ export class Comments {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                omitUndefined: true,
             });
         }
 
@@ -91,6 +92,7 @@ export class Comments {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
+                    omitUndefined: true,
                 },
             );
         }
@@ -266,6 +268,7 @@ export class Comments {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                omitUndefined: true,
             });
         }
 
@@ -274,6 +277,7 @@ export class Comments {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                omitUndefined: true,
             });
         }
 
@@ -450,6 +454,7 @@ export class Comments {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
+                omitUndefined: true,
             });
         }
 
@@ -460,6 +465,7 @@ export class Comments {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
+                    omitUndefined: true,
                 },
             );
         }
@@ -572,12 +578,7 @@ export class Comments {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string | undefined> {
-        const bearer = await core.Supplier.get(this._options.accessToken);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+    protected async _getAuthorizationHeader(): Promise<string> {
+        return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
     }
 }

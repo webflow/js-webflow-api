@@ -622,7 +622,6 @@ describe("Collections", () => {
                     type: "File",
                     slug: "guide-file",
                     displayName: "Guide File",
-                    helpText: "helpText",
                 },
                 {
                     id: "7f8e9d0c1b2a3f4e5d6c8b9e",
@@ -631,7 +630,6 @@ describe("Collections", () => {
                     type: "Email",
                     slug: "contributor-email",
                     displayName: "Contributor Email",
-                    helpText: "helpText",
                 },
                 {
                     id: "3a4f5e6d7c8b9a0e1d2c4b5f",
@@ -640,7 +638,6 @@ describe("Collections", () => {
                     type: "Phone",
                     slug: "emergency-contact",
                     displayName: "Emergency Contact",
-                    helpText: "helpText",
                 },
             ],
         };
@@ -794,7 +791,6 @@ describe("Collections", () => {
                     type: "File",
                     slug: "guide-file",
                     displayName: "Guide File",
-                    helpText: "helpText",
                 },
                 {
                     id: "7f8e9d0c1b2a3f4e5d6c8b9e",
@@ -803,7 +799,6 @@ describe("Collections", () => {
                     type: "Email",
                     slug: "contributor-email",
                     displayName: "Contributor Email",
-                    helpText: "helpText",
                 },
                 {
                     id: "3a4f5e6d7c8b9a0e1d2c4b5f",
@@ -812,7 +807,6 @@ describe("Collections", () => {
                     type: "Phone",
                     slug: "emergency-contact",
                     displayName: "Emergency Contact",
-                    helpText: "helpText",
                 },
             ],
         });
