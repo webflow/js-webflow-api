@@ -4,10 +4,11 @@ import * as Webflow from "../../src/api/index";
 import { WebflowClient } from "../../src/Client";
 import { mockServerPool } from "../mock-server/MockServerPool";
 
-describe("Inventory", () => {
+describe("InventoryClient", () => {
     test("list (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
@@ -32,6 +33,7 @@ describe("Inventory", () => {
     test("list (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
@@ -53,6 +55,7 @@ describe("Inventory", () => {
     test("list (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
@@ -74,6 +77,7 @@ describe("Inventory", () => {
     test("list (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
@@ -95,6 +99,7 @@ describe("Inventory", () => {
     test("list (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
@@ -116,6 +121,7 @@ describe("Inventory", () => {
     test("list (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
@@ -137,6 +143,7 @@ describe("Inventory", () => {
     test("list (7)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
@@ -158,6 +165,7 @@ describe("Inventory", () => {
     test("list (8)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
@@ -179,6 +187,7 @@ describe("Inventory", () => {
     test("update (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
@@ -206,6 +215,7 @@ describe("Inventory", () => {
     test("update (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
@@ -230,6 +240,7 @@ describe("Inventory", () => {
     test("update (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
@@ -254,6 +265,7 @@ describe("Inventory", () => {
     test("update (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
@@ -278,6 +290,7 @@ describe("Inventory", () => {
     test("update (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
@@ -302,6 +315,7 @@ describe("Inventory", () => {
     test("update (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
@@ -326,6 +340,7 @@ describe("Inventory", () => {
     test("update (7)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
@@ -350,6 +365,7 @@ describe("Inventory", () => {
     test("update (8)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });

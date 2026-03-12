@@ -4,10 +4,11 @@ import * as Webflow from "../../src/api/index";
 import { WebflowClient } from "../../src/Client";
 import { mockServerPool } from "../mock-server/MockServerPool";
 
-describe("Scripts", () => {
+describe("ScriptsClient", () => {
     test("list (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
@@ -96,6 +97,7 @@ describe("Scripts", () => {
     test("list (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
@@ -117,6 +119,7 @@ describe("Scripts", () => {
     test("list (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
@@ -138,6 +141,7 @@ describe("Scripts", () => {
     test("list (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
@@ -159,6 +163,7 @@ describe("Scripts", () => {
     test("list (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
@@ -180,6 +185,7 @@ describe("Scripts", () => {
     test("list (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
@@ -201,6 +207,7 @@ describe("Scripts", () => {
     test("register-hosted (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
@@ -250,6 +257,7 @@ describe("Scripts", () => {
     test("register-hosted (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
@@ -282,6 +290,7 @@ describe("Scripts", () => {
     test("register-hosted (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
@@ -314,6 +323,7 @@ describe("Scripts", () => {
     test("register-hosted (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
@@ -346,6 +356,7 @@ describe("Scripts", () => {
     test("register-hosted (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
@@ -378,6 +389,7 @@ describe("Scripts", () => {
     test("register-hosted (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
@@ -410,6 +422,7 @@ describe("Scripts", () => {
     test("register-inline (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
@@ -453,6 +466,7 @@ describe("Scripts", () => {
     test("register-inline (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
@@ -479,6 +493,7 @@ describe("Scripts", () => {
     test("register-inline (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
@@ -505,6 +520,7 @@ describe("Scripts", () => {
     test("register-inline (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
@@ -531,6 +547,7 @@ describe("Scripts", () => {
     test("register-inline (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
@@ -557,6 +574,7 @@ describe("Scripts", () => {
     test("register-inline (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
+            maxRetries: 0,
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
