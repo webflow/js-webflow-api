@@ -9,7 +9,7 @@ import FormDataConstructor from 'form-data';
 export declare namespace AssetsUtilities {
     interface Options {
         environment?: core.Supplier<environments.WebflowEnvironment | environments.WebflowEnvironmentUrls>;
-        accessToken?: core.Supplier<core.BearerToken | undefined>;
+        accessToken: core.Supplier<core.BearerToken>;
     }
 
     interface RequestOptions {

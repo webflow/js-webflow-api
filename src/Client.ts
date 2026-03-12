@@ -41,15 +41,15 @@ export class WebflowClient {
     protected _ecommerce: Ecommerce | undefined;
     protected _workspaces: Workspaces | undefined;
 
-    constructor(_options: WebflowClient.Options = {}) {
+    constructor(_options: WebflowClient.Options) {
         this._options = {
             ..._options,
             headers: mergeHeaders(
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "webflow-api",
-                    "X-Fern-SDK-Version": "3.2.3",
-                    "User-Agent": "webflow-api/3.2.3",
+                    "X-Fern-SDK-Version": "3.3.1",
+                    "User-Agent": "webflow-api/3.3.1",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },

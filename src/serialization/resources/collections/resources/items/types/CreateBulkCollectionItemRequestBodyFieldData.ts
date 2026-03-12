@@ -3,7 +3,7 @@
 import type * as Webflow from "../../../../../../api/index";
 import * as core from "../../../../../../core";
 import type * as serializers from "../../../../../index";
-import { CreateBulkCollectionItemRequestBodyFieldDataItem } from "./CreateBulkCollectionItemRequestBodyFieldDataItem";
+import { CreateBulkCollectionItemRequestBodyFieldDataOneItem } from "./CreateBulkCollectionItemRequestBodyFieldDataOneItem";
 import { SingleCmsItem } from "./SingleCmsItem";
 
 export const CreateBulkCollectionItemRequestBodyFieldData: core.serialization.Schema<
@@ -11,9 +11,9 @@ export const CreateBulkCollectionItemRequestBodyFieldData: core.serialization.Sc
     Webflow.collections.CreateBulkCollectionItemRequestBodyFieldData
 > = core.serialization.undiscriminatedUnion([
     SingleCmsItem,
-    core.serialization.list(CreateBulkCollectionItemRequestBodyFieldDataItem),
+    core.serialization.list(CreateBulkCollectionItemRequestBodyFieldDataOneItem),
 ]);
 
 export declare namespace CreateBulkCollectionItemRequestBodyFieldData {
-    export type Raw = SingleCmsItem.Raw | CreateBulkCollectionItemRequestBodyFieldDataItem.Raw[];
+    export type Raw = SingleCmsItem.Raw | CreateBulkCollectionItemRequestBodyFieldDataOneItem.Raw[];
 }

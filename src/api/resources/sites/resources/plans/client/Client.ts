@@ -17,7 +17,7 @@ export declare namespace Plans {
 export class Plans {
     protected readonly _options: Plans.Options;
 
-    constructor(_options: Plans.Options = {}) {
+    constructor(_options: Plans.Options) {
         this._options = _options;
     }
 
@@ -157,12 +157,7 @@ export class Plans {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string | undefined> {
-        const bearer = await core.Supplier.get(this._options.accessToken);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+    protected async _getAuthorizationHeader(): Promise<string> {
+        return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
     }
 }

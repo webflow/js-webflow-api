@@ -17,7 +17,7 @@ export declare namespace AuditLogs {
 export class AuditLogs {
     protected readonly _options: AuditLogs.Options;
 
-    constructor(_options: AuditLogs.Options = {}) {
+    constructor(_options: AuditLogs.Options) {
         this._options = _options;
     }
 
@@ -80,6 +80,7 @@ export class AuditLogs {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
+                    omitUndefined: true,
                 },
             );
         }
@@ -91,6 +92,7 @@ export class AuditLogs {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
+                    omitUndefined: true,
                 },
             );
         }
@@ -211,12 +213,7 @@ export class AuditLogs {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string | undefined> {
-        const bearer = await core.Supplier.get(this._options.accessToken);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+    protected async _getAuthorizationHeader(): Promise<string> {
+        return `Bearer ${await core.Supplier.get(this._options.accessToken)}`;
     }
 }
