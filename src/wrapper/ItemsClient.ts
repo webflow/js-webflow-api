@@ -1,5 +1,5 @@
 import * as Webflow from "../api";
-import { Items } from "../api/resources/collections/resources/items/client/Client";
+import { ItemsClient } from "../api/resources/collections/resources/items/client/Client";
 import * as core from "../core";
 import * as environments from "../environments";
 import * as errors from "../errors";
@@ -9,13 +9,13 @@ import * as SchemaOverrides from "./schemas";
 
 
 declare module "../api/resources/collections/resources/items/client/Client" {
-    export namespace Items {}
+    export namespace ItemsClient {}
 }
 
 // Temporary wrapper for backwards compatibility keeping the createItemForMultipleLocales method
 // a mirror of the createItems API
-export class Client extends Items {
-    constructor(protected readonly _options: Items.Options) {
+export class Client extends ItemsClient {
+    constructor(_options: ItemsClient.Options) {
         super(_options);
     }
 
@@ -69,7 +69,7 @@ export class Client extends Items {
     public createItem(
         collectionId: string,
         request: SchemaOverrides.ItemsCreateItemRequest,
-        requestOptions?: Items.RequestOptions,
+        requestOptions?: ItemsClient.RequestOptions,
     ): core.HttpResponsePromise<Webflow.CollectionItem> {
         return core.HttpResponsePromise.fromPromise(this.__createItemOverride(collectionId, request, requestOptions));
     }
@@ -77,7 +77,7 @@ export class Client extends Items {
     private async __createItemOverride(
         collectionId: string,
         request: SchemaOverrides.ItemsCreateItemRequest,
-        requestOptions?: Items.RequestOptions,
+        requestOptions?: ItemsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Webflow.CollectionItem>> {
         const { skipInvalidFiles, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
@@ -85,9 +85,10 @@ export class Client extends Items {
             _queryParams.skipInvalidFiles = skipInvalidFiles.toString();
         }
 
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
             requestOptions?.headers,
         );
         const _response = await core.fetcher({
@@ -198,6 +199,10 @@ export class Client extends Items {
                     rawResponse: _response.rawResponse,
                 });
         }
+        throw new errors.WebflowError({
+            message: "Unknown error",
+            rawResponse: _response.rawResponse,
+        });
     }
 
     /**
@@ -230,7 +235,7 @@ export class Client extends Items {
         collectionId: string,
         itemId: string,
         request: SchemaOverrides.ItemsUpdateItemRequest,
-        requestOptions?: Items.RequestOptions,
+        requestOptions?: ItemsClient.RequestOptions,
     ): core.HttpResponsePromise<Webflow.CollectionItem> {
         return core.HttpResponsePromise.fromPromise(
             this.__updateItemOverride(collectionId, itemId, request, requestOptions),
@@ -241,7 +246,7 @@ export class Client extends Items {
         collectionId: string,
         itemId: string,
         request: SchemaOverrides.ItemsUpdateItemRequest,
-        requestOptions?: Items.RequestOptions,
+        requestOptions?: ItemsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Webflow.CollectionItem>> {
         const { skipInvalidFiles, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
@@ -249,9 +254,10 @@ export class Client extends Items {
             _queryParams.skipInvalidFiles = skipInvalidFiles.toString();
         }
 
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
             requestOptions?.headers,
         );
         const _response = await core.fetcher({
@@ -362,6 +368,10 @@ export class Client extends Items {
                     rawResponse: _response.rawResponse,
                 });
         }
+        throw new errors.WebflowError({
+            message: "Unknown error",
+            rawResponse: _response.rawResponse,
+        });
     }
 
     /**
@@ -415,7 +425,7 @@ export class Client extends Items {
     public createItemLive(
         collectionId: string,
         request: SchemaOverrides.ItemsCreateItemLiveRequest,
-        requestOptions?: Items.RequestOptions,
+        requestOptions?: ItemsClient.RequestOptions,
     ): core.HttpResponsePromise<Webflow.CollectionItem> {
         return core.HttpResponsePromise.fromPromise(
             this.__createItemLiveOverride(collectionId, request, requestOptions),
@@ -425,17 +435,17 @@ export class Client extends Items {
     private async __createItemLiveOverride(
         collectionId: string,
         request: SchemaOverrides.ItemsCreateItemLiveRequest,
-        requestOptions?: Items.RequestOptions,
+        requestOptions?: ItemsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Webflow.CollectionItem>> {
         const { skipInvalidFiles, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (skipInvalidFiles != null) {
             _queryParams.skipInvalidFiles = skipInvalidFiles.toString();
         }
-
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
             requestOptions?.headers,
         );
         const _response = await core.fetcher({
@@ -546,6 +556,10 @@ export class Client extends Items {
                     rawResponse: _response.rawResponse,
                 });
         }
+        throw new errors.WebflowError({
+            message: "Unknown error",
+            rawResponse: _response.rawResponse,
+        });
     }
 
     /**
@@ -579,7 +593,7 @@ export class Client extends Items {
         collectionId: string,
         itemId: string,
         request: SchemaOverrides.ItemsUpdateItemLiveRequest,
-        requestOptions?: Items.RequestOptions,
+        requestOptions?: ItemsClient.RequestOptions,
     ): core.HttpResponsePromise<Webflow.CollectionItem> {
         return core.HttpResponsePromise.fromPromise(
             this.__updateItemLiveOverride(collectionId, itemId, request, requestOptions),
@@ -590,7 +604,7 @@ export class Client extends Items {
         collectionId: string,
         itemId: string,
         request: SchemaOverrides.ItemsUpdateItemLiveRequest,
-        requestOptions?: Items.RequestOptions,
+        requestOptions?: ItemsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Webflow.CollectionItem>> {
         const { skipInvalidFiles, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
@@ -598,9 +612,10 @@ export class Client extends Items {
             _queryParams.skipInvalidFiles = skipInvalidFiles.toString();
         }
 
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
             requestOptions?.headers,
         );
         const _response = await core.fetcher({
@@ -713,5 +728,9 @@ export class Client extends Items {
                     rawResponse: _response.rawResponse,
                 });
         }
+        throw new errors.WebflowError({
+            message: "Unknown error",
+            rawResponse: _response.rawResponse,
+        });
     }
 }

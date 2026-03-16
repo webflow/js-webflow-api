@@ -1,4 +1,4 @@
-import { Assets } from "../api/resources/assets/client/Client";
+import { AssetsClient } from "../api/resources/assets/client/Client";
 import { Client as Utilities } from "./AssetsUtilitiesClient";
 import * as Webflow from "../api/index";
 import * as core from "../core";
@@ -17,8 +17,8 @@ declare module "../api/resources/assets/client/Client" {
     }
 }
 
-export class Client extends Assets {
-    constructor(protected readonly _options: Assets.Options) {
+export class Client extends AssetsClient {
+    constructor(_options: AssetsClient.Options) {
         super(_options);
     }
     // IMPORTANT: Need to keep function overload signatures for the list() API for backwards compatibility.
@@ -33,9 +33,9 @@ export class Client extends Assets {
      * Required scope | `assets:read`
      *
      * @param {string} siteId - Unique identifier for a Site
-     * @param {Assets.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {AssetsClient.RequestOptions} requestOptions - Request-specific configuration.
      */
-    public list(siteId: string, requestOptions?: Assets.RequestOptions): core.HttpResponsePromise<Webflow.Assets>;
+    public list(siteId: string, requestOptions?: AssetsClient.RequestOptions): core.HttpResponsePromise<Webflow.Assets>;
    
     /**
      * List of assets uploaded to a site
@@ -44,18 +44,18 @@ export class Client extends Assets {
      *
      * @param {string} siteId - Unique identifier for a Site
      * @param {Webflow.AssetsListRequest} request
-     * @param {Assets.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {AssetsClient.RequestOptions} requestOptions - Request-specific configuration.
      */
     public list(
         siteId: string,
         request: Webflow.AssetsListRequest,
-        requestOptions?: Assets.RequestOptions,
+        requestOptions?: AssetsClient.RequestOptions,
     ): core.HttpResponsePromise<Webflow.Assets>;
 
     public list(
         siteId: string,
-        requestOrOptions?: Webflow.AssetsListRequest | Assets.RequestOptions,
-        requestOptions?: Assets.RequestOptions,
+        requestOrOptions?: Webflow.AssetsListRequest | AssetsClient.RequestOptions,
+        requestOptions?: AssetsClient.RequestOptions,
     ): core.HttpResponsePromise<Webflow.Assets> {
         // Check if the second parameter is RequestOptions (old API) or AssetsListRequest (new API)
         // RequestOptions has properties like timeoutInSeconds, maxRetries, abortSignal, headers
@@ -64,14 +64,14 @@ export class Client extends Assets {
 
         if (isOldApi) {
             // Old 2-parameter API: list(siteId, requestOptions)
-            return super.list(siteId, {}, requestOrOptions as Assets.RequestOptions);
+            return super.list(siteId, {}, requestOrOptions as AssetsClient.RequestOptions);
         } else {
             // New 3-parameter API: list(siteId, request, requestOptions)
             return super.list(siteId, requestOrOptions as Webflow.AssetsListRequest, requestOptions);
         }
     }
 
-    private _isRequestOptions(param?: Webflow.AssetsListRequest | Assets.RequestOptions): param is Assets.RequestOptions {
+    private _isRequestOptions(param?: Webflow.AssetsListRequest | AssetsClient.RequestOptions): param is AssetsClient.RequestOptions {
         if (!param) {
             return false;
         }

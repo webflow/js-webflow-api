@@ -10,7 +10,7 @@ import { Client as Pages } from "./PagesClient";
 import { Client as Forms } from "./FormsClient";
 
 export class WebflowClient extends FernClient {
-    constructor(protected readonly _options: FernClient.Options) {
+    constructor(_options: FernClient.Options) {
         super(_options);
     }
 
@@ -141,5 +141,9 @@ export class WebflowClient extends FernClient {
                     message: response.error.errorMessage,
                 });
         }
+        throw new errors.WebflowError({
+            message: "Unknown error",
+            rawResponse: response.rawResponse,
+        });
     }
 }
