@@ -8,7 +8,6 @@ import { Client as Assets } from "./AssetsClient";
 import { Client as Collections } from "./CollectionsClient";
 import { Client as Pages } from "./PagesClient";
 import { Client as Forms } from "./FormsClient";
-import {PageClient} from "@webflow/page-client";
 
 export class WebflowClient extends FernClient {
     constructor(protected readonly _options: FernClient.Options) {
@@ -43,14 +42,6 @@ export class WebflowClient extends FernClient {
 
     public get forms(): Forms {
         return (this._forms ??= new Forms(this._options));
-    }
-
-    public async createPageClient(siteId: string, pageId: string): Promise<PageClient> {
-        const token = await core.Supplier.get(this._options.accessToken);
-        if(!token) {
-            throw new Error("No access token present");
-        }
-        return new PageClient({siteId, pageId, token });
     }
 
     /**
