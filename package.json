@@ -1,8 +1,11 @@
 {
     "name": "webflow-api",
-    "version": "3.3.4",
+    "version": "3.3.5",
     "private": false,
-    "repository": "github:webflow/js-webflow-api",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/webflow/js-webflow-api.git"
+    },
     "license": "MIT",
     "main": "./index.js",
     "types": "./index.d.ts",
@@ -39,7 +42,7 @@
         "msw": "2.11.2",
         "@types/node": "^18.19.70",
         "typescript": "~5.7.2",
-        "@biomejs/biome": "2.3.1",
+        "@biomejs/biome": "2.4.3",
         "jest-fetch-mock": "^3.0.3"
     },
     "browser": {
