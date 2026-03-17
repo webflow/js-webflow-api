@@ -1,9 +1,9 @@
-import { Webhooks } from "../api/resources/webhooks/client/Client";
+import { WebhooksClient } from "../api/resources/webhooks/client/Client";
 import crypto from "crypto";
 
 // Extends the namespace declared in the Fern generated client
 declare module "../api/resources/webhooks/client/Client" {
-    export namespace Webhooks {
+    export namespace WebhooksClient {
         interface RequestSignatureDetails {
             /** The headers of the incoming webhook request as a record-like object */
             headers: Record<string, string>;
@@ -15,8 +15,8 @@ declare module "../api/resources/webhooks/client/Client" {
     }
 }
 
-export class Client extends Webhooks {
-    constructor(_options: Webhooks.Options) {
+export class Client extends WebhooksClient {
+    constructor(_options: WebhooksClient.Options) {
         super(_options);
     }
 
@@ -24,7 +24,7 @@ export class Client extends Webhooks {
      * Verify that the signature on the webhook message is from Webflow
      * @link https://developers.webflow.com/data/docs/working-with-webhooks#validating-request-signatures
      *
-     * @param {Webhooks.RequestSignatureDetails.headers} requestSignatureDetails - details of the incoming webhook request
+     * @param {WebhooksClient.RequestSignatureDetails.headers} requestSignatureDetails - details of the incoming webhook request
      * @example
      *     function incomingWebhookRouteHandler(req, res) {
      *       const headers = req.headers;
@@ -41,7 +41,7 @@ export class Client extends Webhooks {
      *     }
      *
      */
-    public async verifySignature({ headers, body, secret }: Webhooks.RequestSignatureDetails): Promise<boolean> {
+    public async verifySignature({ headers, body, secret }: WebhooksClient.RequestSignatureDetails): Promise<boolean> {
         // Creates a HMAC signature following directions from https://developers.webflow.com/data/docs/working-with-webhooks#steps-to-validate-the-request-signature
         const createHmac = async (signingSecret: string, message: string) => {
             const encoder = new TextEncoder();

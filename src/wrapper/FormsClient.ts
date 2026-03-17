@@ -1,4 +1,4 @@
-import { Forms } from "../api/resources/forms/client/Client";
+import { FormsClient } from "../api/resources/forms/client/Client";
 import * as core from "../core";
 import * as Webflow from "../api";
 import * as environments from "../environments";
@@ -8,13 +8,13 @@ import { mergeHeaders, mergeOnlyDefinedHeaders } from "../core/headers";
 
 
 declare module "../api/resources/forms/client/Client" {
-    export namespace Forms {}
+    export namespace FormsClient {}
 }
 
 // Client adapts the base client to persist a deprecated `listSubmissionsBySite` method.
 // Overriding to preserve function and prevent breaking changes.
-export class Client extends Forms {
-    constructor(protected readonly _options: Forms.Options) {
+export class Client extends FormsClient {
+    constructor(_options: FormsClient.Options) {
         super(_options);
     }
 
@@ -28,7 +28,7 @@ export class Client extends Forms {
      *
      * @param {string} siteId - Unique identifier for a Site
      * @param {Webflow.FormsListSubmissionsBySiteRequest} request
-     * @param {Forms.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {FormsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
@@ -47,7 +47,7 @@ export class Client extends Forms {
     public listSubmissionsBySite(
         siteId: string,
         request: Webflow.sites.FormsListSubmissionsBySiteRequest = {},
-        requestOptions?: Forms.RequestOptions,
+        requestOptions?: FormsClient.RequestOptions,
     ): core.HttpResponsePromise<Webflow.FormSubmissionList> {
         return core.HttpResponsePromise.fromPromise(this.__listSubmissionsBySite(siteId, request, requestOptions));
     }
@@ -55,7 +55,7 @@ export class Client extends Forms {
     private async __listSubmissionsBySite(
       siteId: string,
       request: Webflow.sites.FormsListSubmissionsBySiteRequest = {},
-      requestOptions?: Forms.RequestOptions,
+      requestOptions?: FormsClient.RequestOptions,
   ): Promise<core.WithRawResponse<Webflow.FormSubmissionList>> {
       const { elementId, offset, limit } = request;
       const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
@@ -71,11 +71,13 @@ export class Client extends Forms {
           _queryParams.limit = limit.toString();
       }
 
+      const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
       const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+          _authRequest.headers,
           this._options?.headers,
-          mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
           requestOptions?.headers,
       );
+
       const _response = await core.fetcher({
           url: core.url.join(
               (await core.Supplier.get(this._options.baseUrl)) ??
@@ -179,5 +181,9 @@ export class Client extends Forms {
                   rawResponse: _response.rawResponse,
               });
       }
+      throw new errors.WebflowError({
+        message: "Unknown error",
+        rawResponse: _response.rawResponse,
+      });
   }
 }

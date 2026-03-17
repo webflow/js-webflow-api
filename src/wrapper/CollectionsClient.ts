@@ -1,14 +1,14 @@
-import { Collections } from "../api/resources/collections/client/Client";
+import { CollectionsClient } from "../api/resources/collections/client/Client";
 import { Client as Items } from "./ItemsClient";
 
 declare module "../api/resources/collections/client/Client" {
-    export namespace Collections {}
+    export namespace CollectionsClient {}
 }
 
 // Client adapts the base client to permit extra properties in
 // the client.Collections.Items.createItem request.
-export class Client extends Collections {
-    constructor(protected readonly _options: Collections.Options) {
+export class Client extends CollectionsClient {
+    constructor(_options: CollectionsClient.Options) {
         super(_options);
     }
 

@@ -1,5 +1,5 @@
 import * as Webflow from "../api";
-import { Assets } from "../api/resources/assets/client/Client";
+import { AssetsClient } from "../api/resources/assets/client/Client";
 import * as core from "../core";
 import * as environments from "../environments";
 import crypto from "crypto";
@@ -42,8 +42,8 @@ interface TestAssetUploadRequest {
 }
 
 // Utilities class for Assets to add custom helper methods to assist in managing Webflow Assets
-export class Client extends Assets {
-    constructor(protected readonly _options: AssetsUtilities.Options) {
+export class Client extends AssetsClient {
+    constructor(_options: AssetsUtilities.Options) {
         super(_options);
     }
 
@@ -70,7 +70,7 @@ export class Client extends Assets {
     public async createAndUpload(
         siteId: string,
         request: TestAssetUploadRequest,
-        requestOptions?: Assets.RequestOptions
+        requestOptions?: AssetsClient.RequestOptions
     ): Promise<Webflow.AssetUpload> {
         /** 1. Generate the hash */
         const {file, fileName, parentFolder} = request;
