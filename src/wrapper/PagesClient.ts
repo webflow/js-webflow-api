@@ -1,4 +1,4 @@
-import { Pages } from "../api/resources/pages/client/Client";
+import { PagesClient } from "../api/resources/pages/client/Client";
 import * as core from "../core";
 import * as Webflow from "../api";
 import * as environments from "../environments";
@@ -9,14 +9,14 @@ import * as SchemaOverrides from "./schemas";
 
 
 declare module "../api/resources/pages/client/Client" {
-    export namespace Pages {}
+    export namespace PagesClient {}
 }
 
 // Client adapts the base client to override extra properties in
 // the client.pages.updatePageSettings request.
 // Overriding to preserve ability to use `body` in request to prevent breaking change
-export class Client extends Pages {
-    constructor(protected readonly _options: Pages.Options) {
+export class Client extends PagesClient {
+    constructor(_options: PagesClient.Options) {
         super(_options);
     }
 
@@ -59,7 +59,7 @@ export class Client extends Pages {
     public updatePageSettings(
         pageId: string,
         request: (Webflow.PageMetadataWrite | SchemaOverrides.PageMetadataWriteBody) = {},
-        requestOptions?: Pages.RequestOptions,
+        requestOptions?: PagesClient.RequestOptions,
     ): core.HttpResponsePromise<Webflow.Page> {
         return core.HttpResponsePromise.fromPromise(this.__updatePageSettingsOverride(pageId, request, requestOptions));
     }
@@ -67,17 +67,17 @@ export class Client extends Pages {
     private async __updatePageSettingsOverride(
         pageId: string,
         request: (Webflow.PageMetadataWrite | SchemaOverrides.PageMetadataWriteBody) = {},
-        requestOptions?: Pages.RequestOptions,
+        requestOptions?: PagesClient.RequestOptions,
     ): Promise<core.WithRawResponse<Webflow.Page>> {
         const { localeId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (localeId != null) {
             _queryParams.localeId = localeId;
         }
-
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
             requestOptions?.headers,
         );
         const _response = await core.fetcher({
@@ -186,5 +186,9 @@ export class Client extends Pages {
                     rawResponse: _response.rawResponse,
                 });
         }
+        throw new errors.WebflowError({
+            message: "Unknown error",
+            rawResponse: _response.rawResponse,
+        });
     }
 }

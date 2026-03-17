@@ -158,7 +158,7 @@ describe("AuditLogs", () => {
 
         const rawResponseBody = {};
         server
-            .mockEndpoint()
+            .mockEndpoint({ once: false })
             .get("/workspaces/workspace_id_or_slug/audit_logs")
             .respondWith()
             .statusCode(429)
@@ -179,7 +179,7 @@ describe("AuditLogs", () => {
 
         const rawResponseBody = {};
         server
-            .mockEndpoint()
+            .mockEndpoint({ once: false })
             .get("/workspaces/workspace_id_or_slug/audit_logs")
             .respondWith()
             .statusCode(500)
