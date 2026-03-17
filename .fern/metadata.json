@@ -1,0 +1,39 @@
+{
+    "cliVersion": "4.22.0",
+    "generatorName": "fernapi/fern-typescript-node-sdk",
+    "generatorVersion": "3.53.13",
+    "generatorConfig": {
+        "namespaceExport": "Webflow",
+        "skipResponseValidation": true,
+        "allowExtraFields": true,
+        "inlineFileProperties": true,
+        "inlinePathParameters": false,
+        "enableInlineTypes": false,
+        "noSerdeLayer": false,
+        "omitUndefined": true,
+        "useLegacyExports": true,
+        "streamType": "wrapper",
+        "fileResponseType": "stream",
+        "formDataSupport": "Node16",
+        "fetchSupport": "node-fetch",
+        "packageManager": "yarn",
+        "testFramework": "jest",
+        "packageJson": {
+            "dependencies": {
+                "crypto-browserify": "^3.12.1"
+            },
+            "devDependencies": {
+                "jest-fetch-mock": "^3.0.3"
+            },
+            "browser": {
+                "crypto": false
+            },
+            "resolutions": {
+                "pbkdf2": "^3.1.3",
+                "@types/babel__traverse": "7.20.6"
+            }
+        }
+    },
+    "originGitCommit": "a018a314955d627c5f32e15072183559f5a4c18a",
+    "sdkVersion": "3.3.5"
+}
