@@ -649,7 +649,14 @@ describe("PagesClient", () => {
                     type: "component-instance",
                     id: "id",
                     componentId: "componentId",
-                    propertyOverrides: [{ propertyId: "7dd14c08-2e96-8d3d-2b19-b5c03642a0f0" }],
+                    propertyOverrides: [
+                        {
+                            propertyId: "7dd14c08-2e96-8d3d-2b19-b5c03642a0f0",
+                            type: "Plain Text",
+                            label: "label",
+                            text: {},
+                        },
+                    ],
                 },
             ],
             pagination: { limit: 4, offset: 0, total: 4 },
@@ -732,6 +739,9 @@ describe("PagesClient", () => {
                     propertyOverrides: [
                         {
                             propertyId: "7dd14c08-2e96-8d3d-2b19-b5c03642a0f0",
+                            type: "Plain Text",
+                            label: "label",
+                            text: {},
                         },
                     ],
                 },

@@ -10,7 +10,7 @@ import type * as Webflow from "../../../../../../index";
  *         limit: 1,
  *         name: "name",
  *         slug: "slug",
- *         sortBy: "lastPublished",
+ *         sortBy: "createdOn",
  *         sortOrder: "asc"
  *     }
  */
@@ -25,8 +25,12 @@ export interface ItemsListItemsLiveRequest {
     name?: string;
     /** Filter by the exact slug of the item */
     slug?: string;
+    /** Filter by the creation date of the item(s) */
+    createdOn?: Webflow.ItemsListItemsLiveRequestCreatedOn;
     /** Filter by the last published date of the item(s) */
     lastPublished?: Webflow.ItemsListItemsLiveRequestLastPublished;
+    /** Filter by the last updated date of the item(s) */
+    lastUpdated?: Webflow.ItemsListItemsLiveRequestLastUpdated;
     /** Sort results by the provided value */
     sortBy?: Webflow.collections.ItemsListItemsLiveRequestSortBy;
     /** Sorts the results by asc or desc */
