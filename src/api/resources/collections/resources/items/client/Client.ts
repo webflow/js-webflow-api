@@ -45,7 +45,7 @@ export class ItemsClient {
      *         limit: 1,
      *         name: "name",
      *         slug: "slug",
-     *         sortBy: "lastPublished",
+     *         sortBy: "createdOn",
      *         sortOrder: "asc"
      *     })
      */
@@ -62,13 +62,24 @@ export class ItemsClient {
         request: Webflow.collections.ItemsListItemsRequest = {},
         requestOptions?: ItemsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Webflow.CollectionItemList>> {
-        const { cmsLocaleId, offset, limit, name, slug, lastPublished, sortBy, sortOrder } = request;
+        const { cmsLocaleId, offset, limit, name, slug, createdOn, lastPublished, lastUpdated, sortBy, sortOrder } =
+            request;
         const _queryParams: Record<string, unknown> = {
             cmsLocaleId,
             offset,
             limit,
             name,
             slug,
+            createdOn:
+                createdOn != null
+                    ? serializers.ItemsListItemsRequestCreatedOn.jsonOrThrow(createdOn, {
+                          unrecognizedObjectKeys: "passthrough",
+                          allowUnrecognizedUnionMembers: true,
+                          allowUnrecognizedEnumValues: true,
+                          omitUndefined: true,
+                          breadcrumbsPrefix: ["request", "createdOn"],
+                      })
+                    : createdOn,
             lastPublished:
                 lastPublished != null
                     ? serializers.ItemsListItemsRequestLastPublished.jsonOrThrow(lastPublished, {
@@ -79,6 +90,16 @@ export class ItemsClient {
                           breadcrumbsPrefix: ["request", "lastPublished"],
                       })
                     : lastPublished,
+            lastUpdated:
+                lastUpdated != null
+                    ? serializers.ItemsListItemsRequestLastUpdated.jsonOrThrow(lastUpdated, {
+                          unrecognizedObjectKeys: "passthrough",
+                          allowUnrecognizedUnionMembers: true,
+                          allowUnrecognizedEnumValues: true,
+                          omitUndefined: true,
+                          breadcrumbsPrefix: ["request", "lastUpdated"],
+                      })
+                    : lastUpdated,
             sortBy:
                 sortBy != null
                     ? serializers.collections.ItemsListItemsRequestSortBy.jsonOrThrow(sortBy, {
@@ -787,7 +808,7 @@ export class ItemsClient {
      *         limit: 1,
      *         name: "name",
      *         slug: "slug",
-     *         sortBy: "lastPublished",
+     *         sortBy: "createdOn",
      *         sortOrder: "asc"
      *     })
      */
@@ -804,13 +825,24 @@ export class ItemsClient {
         request: Webflow.collections.ItemsListItemsLiveRequest = {},
         requestOptions?: ItemsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Webflow.CollectionItemList>> {
-        const { cmsLocaleId, offset, limit, name, slug, lastPublished, sortBy, sortOrder } = request;
+        const { cmsLocaleId, offset, limit, name, slug, createdOn, lastPublished, lastUpdated, sortBy, sortOrder } =
+            request;
         const _queryParams: Record<string, unknown> = {
             cmsLocaleId,
             offset,
             limit,
             name,
             slug,
+            createdOn:
+                createdOn != null
+                    ? serializers.ItemsListItemsLiveRequestCreatedOn.jsonOrThrow(createdOn, {
+                          unrecognizedObjectKeys: "passthrough",
+                          allowUnrecognizedUnionMembers: true,
+                          allowUnrecognizedEnumValues: true,
+                          omitUndefined: true,
+                          breadcrumbsPrefix: ["request", "createdOn"],
+                      })
+                    : createdOn,
             lastPublished:
                 lastPublished != null
                     ? serializers.ItemsListItemsLiveRequestLastPublished.jsonOrThrow(lastPublished, {
@@ -821,6 +853,16 @@ export class ItemsClient {
                           breadcrumbsPrefix: ["request", "lastPublished"],
                       })
                     : lastPublished,
+            lastUpdated:
+                lastUpdated != null
+                    ? serializers.ItemsListItemsLiveRequestLastUpdated.jsonOrThrow(lastUpdated, {
+                          unrecognizedObjectKeys: "passthrough",
+                          allowUnrecognizedUnionMembers: true,
+                          allowUnrecognizedEnumValues: true,
+                          omitUndefined: true,
+                          breadcrumbsPrefix: ["request", "lastUpdated"],
+                      })
+                    : lastUpdated,
             sortBy:
                 sortBy != null
                     ? serializers.collections.ItemsListItemsLiveRequestSortBy.jsonOrThrow(sortBy, {
