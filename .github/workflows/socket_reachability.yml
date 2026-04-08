@@ -58,7 +58,6 @@ jobs:
 
       - name: Run Socket Security Scan
         env:
-          SOCKET_SECURITY_API_KEY: ${{ secrets.SOCKET_SECURITY_API_KEY }}
           SOCKET_SECURITY_API_TOKEN: ${{ secrets.SOCKET_SECURITY_API_KEY }}
           PYTHONUNBUFFERED: "1"
           ENABLE_REACH: ${{ github.event.inputs.enable_reachability }}
