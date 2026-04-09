@@ -537,6 +537,8 @@ Publishes a site to one or more more domains.
 
 To publish to a specific custom domain, use the domain IDs from the [Get Custom Domains](/data/reference/sites/get-custom-domain) endpoint.
 
+You must include at least one of the `customDomains` or `publishToWebflowSubdomain` properties in the request body.
+
 <Note title="Rate limit: 1 publish per minute">This endpoint has a specific rate limit of one successful publish queue per minute.</Note>
 
 Required scope | `sites:write`
@@ -4874,7 +4876,7 @@ await client.collections.items.listItems("580e63fc8c9a982ac9b8b745", {
     limit: 1,
     name: "name",
     slug: "slug",
-    sortBy: "lastPublished",
+    sortBy: "createdOn",
     sortOrder: "asc"
 });
 
@@ -5270,7 +5272,7 @@ await client.collections.items.listItemsLive("580e63fc8c9a982ac9b8b745", {
     limit: 1,
     name: "name",
     slug: "slug",
-    sortBy: "lastPublished",
+    sortBy: "createdOn",
     sortOrder: "asc"
 });
 
