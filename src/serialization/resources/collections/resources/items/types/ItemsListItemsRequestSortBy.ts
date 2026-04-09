@@ -7,8 +7,8 @@ import type * as serializers from "../../../../../index";
 export const ItemsListItemsRequestSortBy: core.serialization.Schema<
     serializers.collections.ItemsListItemsRequestSortBy.Raw,
     Webflow.collections.ItemsListItemsRequestSortBy
-> = core.serialization.enum_(["lastPublished", "name", "slug"]);
+> = core.serialization.enum_(["createdOn", "lastPublished", "lastUpdated", "name", "slug"]);
 
 export declare namespace ItemsListItemsRequestSortBy {
-    export type Raw = "lastPublished" | "name" | "slug";
+    export type Raw = "createdOn" | "lastPublished" | "lastUpdated" | "name" | "slug";
 }

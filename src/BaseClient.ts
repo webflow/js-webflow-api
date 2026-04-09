@@ -51,8 +51,8 @@ export function normalizeClientOptions<T extends BaseClientOptions = BaseClientO
         {
             "X-Fern-Language": "JavaScript",
             "X-Fern-SDK-Name": "webflow-api",
-            "X-Fern-SDK-Version": "3.3.2",
-            "User-Agent": "webflow-api/3.3.2",
+            "X-Fern-SDK-Version": "3.3.5",
+            "User-Agent": "webflow-api/3.3.5",
             "X-Fern-Runtime": core.RUNTIME.type,
             "X-Fern-Runtime-Version": core.RUNTIME.version,
         },
