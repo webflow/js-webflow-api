@@ -77,6 +77,7 @@ describe("AssetsClient", () => {
             .build();
 
         const response = await client.assets.list("580e63e98c9a982ac9b8b741", {
+            localeId: "65427cf400e02b306eaa04a0",
             offset: 1,
             limit: 1,
         });
@@ -498,7 +499,9 @@ describe("AssetsClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.assets.get("580e63fc8c9a982ac9b8b745");
+        const response = await client.assets.get("580e63fc8c9a982ac9b8b745", {
+            localeId: "65427cf400e02b306eaa04a0",
+        });
         expect(response).toEqual({
             id: "63e5889e7fe4eafa7384cea4",
             contentType: "image/png",
@@ -770,7 +773,9 @@ describe("AssetsClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.assets.update("580e63fc8c9a982ac9b8b745");
+        const response = await client.assets.update("580e63fc8c9a982ac9b8b745", {
+            localeId: "65427cf400e02b306eaa04a0",
+        });
         expect(response).toEqual({
             id: "63e5889e7fe4eafa7384cea4",
             contentType: "image/png",

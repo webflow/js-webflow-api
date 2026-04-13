@@ -3,11 +3,18 @@
 /**
  * @example
  *     {
+ *         localeId: "65427cf400e02b306eaa04a0",
  *         offset: 1,
  *         limit: 1
  *     }
  */
 export interface AssetsListRequest {
+    /**
+     * Unique identifier for a specific Locale.
+     *
+     * [Learn more about localization.](/data/v2.0.0/docs/working-with-localization)
+     */
+    localeId?: string;
     /** Offset used for pagination if the results have more than limit records */
     offset?: number;
     /** Maximum number of records to be returned (max limit: 100) */
