@@ -2,11 +2,19 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         localeId: "65427cf400e02b306eaa04a0"
+ *     }
  */
 export interface AssetsUpdateRequest {
-    /** Unique identifier for a specific locale. Applicable, when using localization. */
+    /**
+     * Unique identifier for a specific Locale.
+     *
+     * [Learn more about localization.](/data/v2.0.0/docs/working-with-localization)
+     */
     localeId?: string;
-    /** A human readable name for the asset */
+    /** A human readable name for the asset. This value is not localizable. */
     displayName?: string;
+    /** Alternate text describing the image */
+    altText?: string;
 }

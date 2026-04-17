@@ -16,7 +16,7 @@ export interface CommentsListCommentThreadsRequest {
     /**
      * Unique identifier for a specific Locale.
      *
-     * [Lear more about localization.](/data/v2.0.0/docs/working-with-localization)
+     * [Learn more about localization.](/data/v2.0.0/docs/working-with-localization)
      */
     localeId?: string;
     /** Offset used for pagination if the results have more than limit records */

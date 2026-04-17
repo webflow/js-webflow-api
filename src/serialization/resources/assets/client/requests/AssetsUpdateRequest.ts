@@ -6,15 +6,15 @@ import type * as serializers from "../../../../index";
 
 export const AssetsUpdateRequest: core.serialization.Schema<
     serializers.AssetsUpdateRequest.Raw,
-    Webflow.AssetsUpdateRequest
+    Omit<Webflow.AssetsUpdateRequest, "localeId">
 > = core.serialization.object({
-    localeId: core.serialization.string().optional(),
     displayName: core.serialization.string().optional(),
+    altText: core.serialization.string().optional(),
 });
 
 export declare namespace AssetsUpdateRequest {
     export interface Raw {
-        localeId?: string | null;
         displayName?: string | null;
+        altText?: string | null;
     }
 }

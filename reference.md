@@ -537,6 +537,8 @@ Publishes a site to one or more more domains.
 
 To publish to a specific custom domain, use the domain IDs from the [Get Custom Domains](/data/reference/sites/get-custom-domain) endpoint.
 
+You must include at least one of the `customDomains` or `publishToWebflowSubdomain` properties in the request body.
+
 <Note title="Rate limit: 1 publish per minute">This endpoint has a specific rate limit of one successful publish queue per minute.</Note>
 
 Required scope | `sites:write`
@@ -2071,6 +2073,7 @@ Required scope | `assets:read`
 
 ```typescript
 await client.assets.list("580e63e98c9a982ac9b8b741", {
+    localeId: "65427cf400e02b306eaa04a0",
     offset: 1,
     limit: 1
 });
@@ -2202,7 +2205,7 @@ await client.assets.create("580e63e98c9a982ac9b8b741", {
 </dl>
 </details>
 
-<details><summary><code>client.assets.<a href="/src/api/resources/assets/client/Client.ts">get</a>(asset_id) -> Webflow.Asset</code></summary>
+<details><summary><code>client.assets.<a href="/src/api/resources/assets/client/Client.ts">get</a>(asset_id, { ...params }) -> Webflow.Asset</code></summary>
 <dl>
 <dd>
 
@@ -2231,7 +2234,9 @@ Required scope | `assets:read`
 <dd>
 
 ```typescript
-await client.assets.get("580e63fc8c9a982ac9b8b745");
+await client.assets.get("580e63fc8c9a982ac9b8b745", {
+    localeId: "65427cf400e02b306eaa04a0"
+});
 
 ```
 </dd>
@@ -2248,6 +2253,14 @@ await client.assets.get("580e63fc8c9a982ac9b8b745");
 <dd>
 
 **asset_id:** `string` — Unique identifier for an Asset on a site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.AssetsGetRequest` 
     
 </dd>
 </dl>
@@ -2361,7 +2374,9 @@ Required scope | `assets:write`
 <dd>
 
 ```typescript
-await client.assets.update("580e63fc8c9a982ac9b8b745");
+await client.assets.update("580e63fc8c9a982ac9b8b745", {
+    localeId: "65427cf400e02b306eaa04a0"
+});
 
 ```
 </dd>
@@ -4874,7 +4889,7 @@ await client.collections.items.listItems("580e63fc8c9a982ac9b8b745", {
     limit: 1,
     name: "name",
     slug: "slug",
-    sortBy: "lastPublished",
+    sortBy: "createdOn",
     sortOrder: "asc"
 });
 
@@ -5270,7 +5285,7 @@ await client.collections.items.listItemsLive("580e63fc8c9a982ac9b8b745", {
     limit: 1,
     name: "name",
     slug: "slug",
-    sortBy: "lastPublished",
+    sortBy: "createdOn",
     sortOrder: "asc"
 });
 

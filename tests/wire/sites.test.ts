@@ -19,7 +19,10 @@ describe("SitesClient", () => {
             createdOn: "2024-10-15T20:24:38Z",
             displayName: "The Hitchiker's Guide",
             shortName: "hitchikers-guide",
+            lastPublished: "2024-11-15T20:24:38Z",
             lastUpdated: "2024-10-15T20:24:38Z",
+            previewUrl: "https://preview.mysite.com",
+            timeZone: "America/Los_Angeles",
             parentFolderId: "670ece123598db72d9648be1",
             customDomains: [
                 { id: "589a331aa51e760df7ccb89d", url: "test-api-domain.com", lastPublished: "2022-12-07T16:51:37Z" },
@@ -45,7 +48,10 @@ describe("SitesClient", () => {
             createdOn: new Date("2024-10-15T20:24:38.000Z"),
             displayName: "The Hitchiker's Guide",
             shortName: "hitchikers-guide",
+            lastPublished: new Date("2024-11-15T20:24:38.000Z"),
             lastUpdated: new Date("2024-10-15T20:24:38.000Z"),
+            previewUrl: "https://preview.mysite.com",
+            timeZone: "America/Los_Angeles",
             parentFolderId: "670ece123598db72d9648be1",
             customDomains: [
                 {
@@ -228,7 +234,7 @@ describe("SitesClient", () => {
                     lastPublished: "2023-04-02T12:42:00Z",
                     lastUpdated: "2016-10-24T19:43:17Z",
                     previewUrl: "https://dev-assets.website-files.com/42e63e98c9a982ac9b8b741/197910121200.png",
-                    timeZone: "DeepSpace/InfiniteImprobability",
+                    timeZone: "America/Los_Angeles",
                     parentFolderId: "1as2d3f4g5h6j7k8l9z0x1c2v3b4n5m6",
                     customDomains: [
                         {
@@ -280,7 +286,7 @@ describe("SitesClient", () => {
                     lastPublished: "2023-04-02T12:45:00Z",
                     lastUpdated: "2016-10-24T19:43:17Z",
                     previewUrl: "https://dev-assets.website-files.com/42e63e98c9a982ac9b8b742/198110121200.png",
-                    timeZone: "DeepSpace/Depression",
+                    timeZone: "America/Los_Angeles",
                     customDomains: [
                         { id: "589a331aa51e760df7ccb89f", url: "marvin.blog", lastPublished: "2022-12-07T16:51:37Z" },
                     ],
@@ -318,7 +324,7 @@ describe("SitesClient", () => {
                     lastPublished: "2023-04-02T12:50:00Z",
                     lastUpdated: "2016-10-24T19:43:17Z",
                     previewUrl: "https://dev-assets.website-files.com/42e63e98c9a982ac9b8b743/198210121200.png",
-                    timeZone: "Vogsphere/PoetryHall",
+                    timeZone: "America/Los_Angeles",
                     customDomains: [
                         {
                             id: "589a331aa51e760df7ccb8a0",
@@ -367,7 +373,7 @@ describe("SitesClient", () => {
                     lastPublished: new Date("2023-04-02T12:42:00.000Z"),
                     lastUpdated: new Date("2016-10-24T19:43:17.000Z"),
                     previewUrl: "https://dev-assets.website-files.com/42e63e98c9a982ac9b8b741/197910121200.png",
-                    timeZone: "DeepSpace/InfiniteImprobability",
+                    timeZone: "America/Los_Angeles",
                     parentFolderId: "1as2d3f4g5h6j7k8l9z0x1c2v3b4n5m6",
                     customDomains: [
                         {
@@ -419,7 +425,7 @@ describe("SitesClient", () => {
                     lastPublished: new Date("2023-04-02T12:45:00.000Z"),
                     lastUpdated: new Date("2016-10-24T19:43:17.000Z"),
                     previewUrl: "https://dev-assets.website-files.com/42e63e98c9a982ac9b8b742/198110121200.png",
-                    timeZone: "DeepSpace/Depression",
+                    timeZone: "America/Los_Angeles",
                     customDomains: [
                         {
                             id: "589a331aa51e760df7ccb89f",
@@ -461,7 +467,7 @@ describe("SitesClient", () => {
                     lastPublished: new Date("2023-04-02T12:50:00.000Z"),
                     lastUpdated: new Date("2016-10-24T19:43:17.000Z"),
                     previewUrl: "https://dev-assets.website-files.com/42e63e98c9a982ac9b8b743/198210121200.png",
-                    timeZone: "Vogsphere/PoetryHall",
+                    timeZone: "America/Los_Angeles",
                     customDomains: [
                         {
                             id: "589a331aa51e760df7ccb8a0",
@@ -564,7 +570,7 @@ describe("SitesClient", () => {
             lastUpdated: "2023-04-02T12:42:00Z",
             previewUrl:
                 "https://screenshots.webflow.com/sites/6258612d1ee792848f805dcf/20231219211811_d5990556c743f33b7071300a03bf67e6.png",
-            timeZone: "Magrathea/FactoryFloor",
+            timeZone: "America/Los_Angeles",
             parentFolderId: "1as2d3f4g5h6j7k8l9z0x1c2v3b4n5m6",
             customDomains: [
                 {
@@ -619,7 +625,7 @@ describe("SitesClient", () => {
             lastUpdated: new Date("2023-04-02T12:42:00.000Z"),
             previewUrl:
                 "https://screenshots.webflow.com/sites/6258612d1ee792848f805dcf/20231219211811_d5990556c743f33b7071300a03bf67e6.png",
-            timeZone: "Magrathea/FactoryFloor",
+            timeZone: "America/Los_Angeles",
             parentFolderId: "1as2d3f4g5h6j7k8l9z0x1c2v3b4n5m6",
             customDomains: [
                 {
@@ -869,7 +875,7 @@ describe("SitesClient", () => {
             lastUpdated: "2023-04-02T12:42:00Z",
             previewUrl:
                 "https://screenshots.webflow.com/sites/6258612d1ee792848f805dcf/20231219211811_d5990556c743f33b7071300a03bf67e6.png",
-            timeZone: "Magrathea/FactoryFloor",
+            timeZone: "America/Los_Angeles",
             parentFolderId: "1as2d3f4g5h6j7k8l9z0x1c2v3b4n5m6",
             customDomains: [
                 {
@@ -925,7 +931,7 @@ describe("SitesClient", () => {
             lastUpdated: new Date("2023-04-02T12:42:00.000Z"),
             previewUrl:
                 "https://screenshots.webflow.com/sites/6258612d1ee792848f805dcf/20231219211811_d5990556c743f33b7071300a03bf67e6.png",
-            timeZone: "Magrathea/FactoryFloor",
+            timeZone: "America/Los_Angeles",
             parentFolderId: "1as2d3f4g5h6j7k8l9z0x1c2v3b4n5m6",
             customDomains: [
                 {
