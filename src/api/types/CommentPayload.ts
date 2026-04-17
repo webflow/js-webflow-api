@@ -14,12 +14,10 @@ export interface CommentPayload {
     type?: string;
     /** The site unique identifier */
     siteId?: string;
-    /** The page unique identifier */
+    /** The page unique identifier, or for CMS item comments, the template page ID */
     pageId?: string;
     /** The locale unique identifier */
     localeId?: string;
-    /** The item unique identifier */
-    itemId?: string;
     /** The breakpoint the comment was left on */
     breakpoint?: string;
     /** The URL of the page the comment was left on */

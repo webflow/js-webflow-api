@@ -6,7 +6,7 @@
  *         localeId: "65427cf400e02b306eaa04a0"
  *     }
  */
-export interface PagesGetMetadataRequest {
+export interface AssetsGetRequest {
     /**
      * Unique identifier for a specific Locale.
      *

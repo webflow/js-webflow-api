@@ -1,4 +1,5 @@
 export type { AssetsCreateFolderRequest } from "./AssetsCreateFolderRequest";
 export type { AssetsCreateRequest } from "./AssetsCreateRequest";
+export type { AssetsGetRequest } from "./AssetsGetRequest";
 export type { AssetsListRequest } from "./AssetsListRequest";
 export type { AssetsUpdateRequest } from "./AssetsUpdateRequest";

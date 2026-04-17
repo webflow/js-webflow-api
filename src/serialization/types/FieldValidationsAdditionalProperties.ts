@@ -3,7 +3,6 @@
 import type * as Webflow from "../../api/index";
 import * as core from "../../core";
 import type * as serializers from "../index";
-import { FieldValidationsAdditionalPropertiesAdditionalProperties } from "./FieldValidationsAdditionalPropertiesAdditionalProperties";
 
 export const FieldValidationsAdditionalProperties: core.serialization.Schema<
     serializers.FieldValidationsAdditionalProperties.Raw,
@@ -13,9 +12,9 @@ export const FieldValidationsAdditionalProperties: core.serialization.Schema<
     core.serialization.number(),
     core.serialization.boolean(),
     core.serialization.number(),
-    FieldValidationsAdditionalPropertiesAdditionalProperties,
+    core.serialization.unknown(),
 ]);
 
 export declare namespace FieldValidationsAdditionalProperties {
-    export type Raw = string | number | boolean | number | FieldValidationsAdditionalPropertiesAdditionalProperties.Raw;
+    export type Raw = string | number | boolean | number | unknown;
 }

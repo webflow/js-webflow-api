@@ -14,7 +14,6 @@ export const CommentPayload: core.serialization.ObjectSchema<serializers.Comment
         siteId: core.serialization.string().optional(),
         pageId: core.serialization.string().optional(),
         localeId: core.serialization.string().optional(),
-        itemId: core.serialization.string().optional(),
         breakpoint: core.serialization.string().optional(),
         url: core.serialization.string().optional(),
         content: core.serialization.string(),
@@ -33,7 +32,6 @@ export declare namespace CommentPayload {
         siteId?: string | null;
         pageId?: string | null;
         localeId?: string | null;
-        itemId?: string | null;
         breakpoint?: string | null;
         url?: string | null;
         content: string;

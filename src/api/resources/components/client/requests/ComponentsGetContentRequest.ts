@@ -13,7 +13,7 @@ export interface ComponentsGetContentRequest {
     /**
      * Unique identifier for a specific Locale.
      *
-     * [Lear more about localization.](/data/v2.0.0/docs/working-with-localization)
+     * [Learn more about localization.](/data/v2.0.0/docs/working-with-localization)
      */
     localeId?: string;
     /** Scope the operation to work on a specific branch. */
