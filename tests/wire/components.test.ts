@@ -201,7 +201,7 @@ describe("ComponentsClient", () => {
         });
 
         const rawResponseBody = {
-            componentId: "69118560-d0bc-15fc-bbf8-b8fe5f6535b5",
+            componentId: "69118560-d0bc-4fbb-8bfe-5f6535b50001",
             nodes: [
                 { type: "text", id: "id", text: {}, attributes: { key: "value" } },
                 { type: "text", id: "id", text: {}, attributes: { key: "value" } },
@@ -219,7 +219,14 @@ describe("ComponentsClient", () => {
                     type: "component-instance",
                     id: "id",
                     componentId: "componentId",
-                    propertyOverrides: [{ propertyId: "7dd14c08-2e96-8d3d-2b19-b5c03642a0f0" }],
+                    propertyOverrides: [
+                        {
+                            propertyId: "7dd14c08-2e96-8d3d-2b19-b5c03642a0f0",
+                            type: "Plain Text",
+                            label: "label",
+                            text: {},
+                        },
+                    ],
                 },
             ],
             pagination: { limit: 7, offset: 0, total: 7 },
@@ -243,7 +250,7 @@ describe("ComponentsClient", () => {
             },
         );
         expect(response).toEqual({
-            componentId: "69118560-d0bc-15fc-bbf8-b8fe5f6535b5",
+            componentId: "69118560-d0bc-4fbb-8bfe-5f6535b50001",
             nodes: [
                 {
                     type: "text",
@@ -306,6 +313,9 @@ describe("ComponentsClient", () => {
                     propertyOverrides: [
                         {
                             propertyId: "7dd14c08-2e96-8d3d-2b19-b5c03642a0f0",
+                            type: "Plain Text",
+                            label: "label",
+                            text: {},
                         },
                     ],
                 },
@@ -780,7 +790,7 @@ describe("ComponentsClient", () => {
         });
 
         const rawResponseBody = {
-            componentId: "658205daa3e8206a523b5ad4",
+            componentId: "658205da-a3e8-4206-a523-b5ad4fabcdef",
             properties: [
                 {
                     propertyId: "a245c12d-995b-55ee-5ec7-aa36a6cad623",
@@ -816,7 +826,7 @@ describe("ComponentsClient", () => {
             },
         );
         expect(response).toEqual({
-            componentId: "658205daa3e8206a523b5ad4",
+            componentId: "658205da-a3e8-4206-a523-b5ad4fabcdef",
             properties: [
                 {
                     propertyId: "a245c12d-995b-55ee-5ec7-aa36a6cad623",

@@ -4,11 +4,11 @@ import type * as Webflow from "../../api/index";
 import * as core from "../../core";
 import type * as serializers from "../index";
 
-export const ComponentPropertyType: core.serialization.Schema<
-    serializers.ComponentPropertyType.Raw,
-    Webflow.ComponentPropertyType
+export const ComponentPropertyTextType: core.serialization.Schema<
+    serializers.ComponentPropertyTextType.Raw,
+    Webflow.ComponentPropertyTextType
 > = core.serialization.enum_(["Plain Text", "Rich Text", "Alt Text"]);
 
-export declare namespace ComponentPropertyType {
+export declare namespace ComponentPropertyTextType {
     export type Raw = "Plain Text" | "Rich Text" | "Alt Text";
 }

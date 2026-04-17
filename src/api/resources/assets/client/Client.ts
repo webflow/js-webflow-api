@@ -43,6 +43,7 @@ export class AssetsClient {
      *
      * @example
      *     await client.assets.list("580e63e98c9a982ac9b8b741", {
+     *         localeId: "65427cf400e02b306eaa04a0",
      *         offset: 1,
      *         limit: 1
      *     })
@@ -60,8 +61,9 @@ export class AssetsClient {
         request: Webflow.AssetsListRequest = {},
         requestOptions?: AssetsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Webflow.Assets>> {
-        const { offset, limit } = request;
+        const { localeId, offset, limit } = request;
         const _queryParams: Record<string, unknown> = {
+            localeId,
             offset,
             limit,
         };
@@ -312,6 +314,7 @@ export class AssetsClient {
      * Required scope | `assets:read`
      *
      * @param {string} asset_id - Unique identifier for an Asset on a site
+     * @param {Webflow.AssetsGetRequest} request
      * @param {AssetsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Webflow.BadRequestError}
@@ -321,19 +324,27 @@ export class AssetsClient {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.assets.get("580e63fc8c9a982ac9b8b745")
+     *     await client.assets.get("580e63fc8c9a982ac9b8b745", {
+     *         localeId: "65427cf400e02b306eaa04a0"
+     *     })
      */
     public get(
         asset_id: string,
+        request: Webflow.AssetsGetRequest = {},
         requestOptions?: AssetsClient.RequestOptions,
     ): core.HttpResponsePromise<Webflow.Asset> {
-        return core.HttpResponsePromise.fromPromise(this.__get(asset_id, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__get(asset_id, request, requestOptions));
     }
 
     private async __get(
         asset_id: string,
+        request: Webflow.AssetsGetRequest = {},
         requestOptions?: AssetsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Webflow.Asset>> {
+        const { localeId } = request;
+        const _queryParams: Record<string, unknown> = {
+            localeId,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -349,7 +360,7 @@ export class AssetsClient {
             ),
             method: "GET",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -556,7 +567,9 @@ export class AssetsClient {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.assets.update("580e63fc8c9a982ac9b8b745")
+     *     await client.assets.update("580e63fc8c9a982ac9b8b745", {
+     *         localeId: "65427cf400e02b306eaa04a0"
+     *     })
      */
     public update(
         asset_id: string,
@@ -571,6 +584,10 @@ export class AssetsClient {
         request: Webflow.AssetsUpdateRequest = {},
         requestOptions?: AssetsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Webflow.Asset>> {
+        const { localeId, ..._body } = request;
+        const _queryParams: Record<string, unknown> = {
+            localeId,
+        };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -587,9 +604,9 @@ export class AssetsClient {
             method: "PATCH",
             headers: _headers,
             contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
+            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
             requestType: "json",
-            body: serializers.AssetsUpdateRequest.jsonOrThrow(request, {
+            body: serializers.AssetsUpdateRequest.jsonOrThrow(_body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,

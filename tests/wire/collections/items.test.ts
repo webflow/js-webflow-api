@@ -62,7 +62,7 @@ describe("ItemsClient", () => {
             limit: 1,
             name: "name",
             slug: "slug",
-            sortBy: "lastPublished",
+            sortBy: "createdOn",
             sortOrder: "asc",
         });
         expect(response).toEqual({
@@ -1385,7 +1385,7 @@ describe("ItemsClient", () => {
             limit: 1,
             name: "name",
             slug: "slug",
-            sortBy: "lastPublished",
+            sortBy: "createdOn",
             sortOrder: "asc",
         });
         expect(response).toEqual({

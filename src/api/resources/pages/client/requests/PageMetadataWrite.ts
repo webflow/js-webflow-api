@@ -24,7 +24,7 @@ export interface PageMetadataWrite {
     /**
      * Unique identifier for a specific Locale.
      *
-     * [Lear more about localization.](/data/v2.0.0/docs/working-with-localization)
+     * [Learn more about localization.](/data/v2.0.0/docs/working-with-localization)
      */
     localeId?: string;
     /** Title for the page */

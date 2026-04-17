@@ -22,9 +22,9 @@ describe("OrdersClient", () => {
                         "Customer requested gift wrapping and a personalized note saying: Happy Birthday, Ford! 🎉 Please ensure the item is packed with extra bubble wrap for safe transit.",
                     orderComment: 'Please gift wrap with a personal note saying "Happy Birthday, Ford! 🎉',
                     acceptedOn: "2024-04-10T13:16:21Z",
-                    customerPaid: { unit: "USD", value: "5892", string: "$ 211.55 USD" },
-                    netAmount: { unit: "USD", value: "5892", string: "$ 200.89 USD" },
-                    applicationFee: { unit: "USD", value: "5892", string: "$ 4.23 USD" },
+                    customerPaid: { unit: "USD", value: "21155", string: "$ 211.55 USD" },
+                    netAmount: { unit: "USD", value: "20089", string: "$ 200.89 USD" },
+                    applicationFee: { unit: "USD", value: "423", string: "$ 4.23 USD" },
                     allAddresses: [
                         {
                             type: "billing",
@@ -75,7 +75,7 @@ describe("OrdersClient", () => {
                     purchasedItems: [
                         {
                             count: 2,
-                            rowTotal: { unit: "USD", value: "5892", string: "$ 111.22 USD" },
+                            rowTotal: { unit: "USD", value: "11122", string: "$ 111.22 USD" },
                             productId: "66072fb61b89448912e26791",
                             productName: "Luxurious Fresh Ball",
                             productSlug: "luxurious-fresh-ball",
@@ -86,7 +86,7 @@ describe("OrdersClient", () => {
                             variantImage: {
                                 url: "https://dev-assets.website-files.com/66072f39417a2a35b2589cc7/66072fb51b89448912e2672c_image14.jpeg",
                             },
-                            variantPrice: { unit: "USD", value: "5892", string: "$ 55.61 USD" },
+                            variantPrice: { unit: "USD", value: "5561", string: "$ 55.61 USD" },
                             weight: 11,
                             width: 82,
                             height: 70,
@@ -94,7 +94,7 @@ describe("OrdersClient", () => {
                         },
                         {
                             count: 1,
-                            rowTotal: { unit: "USD", value: "5892", string: "$ 83.09 USD" },
+                            rowTotal: { unit: "USD", value: "8309", string: "$ 83.09 USD" },
                             productId: "66072fb61b89448912e2678b",
                             productName: "Incredible Bronze Towels",
                             productSlug: "incredible-bronze-towels",
@@ -105,7 +105,7 @@ describe("OrdersClient", () => {
                             variantImage: {
                                 url: "https://dev-assets.website-files.com/66072f39417a2a35b2589cc7/66072fb51b89448912e26729_image16.jpeg",
                             },
-                            variantPrice: { unit: "USD", value: "5892", string: "$ 83.09 USD" },
+                            variantPrice: { unit: "USD", value: "8309", string: "$ 83.09 USD" },
                             width: 19,
                             height: 72,
                             length: 18,
@@ -137,7 +137,7 @@ describe("OrdersClient", () => {
                                 type: "tax",
                                 name: "State Taxes",
                                 description: "CA Taxes (6.25%)",
-                                price: { unit: "USD", value: "5892", string: "$3.44" },
+                                price: { unit: "USD", value: "344", string: "$3.44" },
                             },
                         ],
                         total: { unit: "USD", value: "5892", string: "$58.92" },
@@ -157,9 +157,9 @@ describe("OrdersClient", () => {
                     orderComment: "",
                     acceptedOn: "2024-03-29T21:29:21Z",
                     refundedOn: "2024-04-08T18:25:04Z",
-                    customerPaid: { unit: "USD", value: "5892", string: "$ 118.73 USD" },
-                    netAmount: { unit: "USD", value: "5892", string: "$ 112.62 USD" },
-                    applicationFee: { unit: "USD", value: "5892", string: "$ 2.37 USD" },
+                    customerPaid: { unit: "USD", value: "11873", string: "$ 118.73 USD" },
+                    netAmount: { unit: "USD", value: "11262", string: "$ 112.62 USD" },
+                    applicationFee: { unit: "USD", value: "237", string: "$ 2.37 USD" },
                     allAddresses: [
                         {
                             type: "billing",
@@ -209,7 +209,7 @@ describe("OrdersClient", () => {
                     purchasedItems: [
                         {
                             count: 1,
-                            rowTotal: { unit: "USD", value: "5892", string: "$ 55.61 USD" },
+                            rowTotal: { unit: "USD", value: "5561", string: "$ 55.61 USD" },
                             productId: "66072fb61b89448912e26791",
                             productName: "Luxurious Fresh Ball",
                             productSlug: "luxurious-fresh-ball",
@@ -220,7 +220,7 @@ describe("OrdersClient", () => {
                             variantImage: {
                                 url: "https://dev-assets.website-files.com/66072f39417a2a35b2589cc7/66072fb51b89448912e2672c_image14.jpeg",
                             },
-                            variantPrice: { unit: "USD", value: "5892", string: "$ 55.61 USD" },
+                            variantPrice: { unit: "USD", value: "5561", string: "$ 55.61 USD" },
                             weight: 11,
                             width: 82,
                             height: 70,
@@ -228,7 +228,7 @@ describe("OrdersClient", () => {
                         },
                         {
                             count: 1,
-                            rowTotal: { unit: "USD", value: "5892", string: "$ 53.44 USD" },
+                            rowTotal: { unit: "USD", value: "5344", string: "$ 53.44 USD" },
                             productId: "66072fb61b89448912e26799",
                             productName: "Recycled Steel Gloves",
                             productSlug: "recycled-steel-gloves",
@@ -239,7 +239,7 @@ describe("OrdersClient", () => {
                             variantImage: {
                                 url: "https://dev-assets.website-files.com/66072f39417a2a35b2589cc7/66072fb51b89448912e2671e_image2.jpeg",
                             },
-                            variantPrice: { unit: "USD", value: "5892", string: "$ 53.44 USD" },
+                            variantPrice: { unit: "USD", value: "5344", string: "$ 53.44 USD" },
                             weight: 38,
                             width: 76,
                             height: 85,
@@ -268,28 +268,28 @@ describe("OrdersClient", () => {
                     hasDownloads: false,
                     paymentProcessor: "stripe",
                     totals: {
-                        subtotal: { unit: "USD", value: "5892", string: "$ 109.05 USD" },
+                        subtotal: { unit: "USD", value: "10905", string: "$ 109.05 USD" },
                         extras: [
                             {
                                 type: "tax",
                                 name: "State Taxes",
                                 description: "NY Taxes (4.00%)",
-                                price: { unit: "USD", value: "5892", string: "$ 4.36 USD" },
+                                price: { unit: "USD", value: "436", string: "$ 4.36 USD" },
                             },
                             {
                                 type: "tax",
                                 name: "City Taxes",
                                 description: "NEW YORK Taxes (4.88%)",
-                                price: { unit: "USD", value: "5892", string: "$ 5.32 USD" },
+                                price: { unit: "USD", value: "532", string: "$ 5.32 USD" },
                             },
                             {
                                 type: "shipping",
                                 name: "Flat",
                                 description: "",
-                                price: { unit: "USD", value: "5892", string: "$ 0.00 USD" },
+                                price: { unit: "USD", value: "0", string: "$ 0.00 USD" },
                             },
                         ],
-                        total: { unit: "USD", value: "5892", string: "$ 118.73 USD" },
+                        total: { unit: "USD", value: "11873", string: "$ 118.73 USD" },
                     },
                     downloadFiles: [
                         {
@@ -326,17 +326,17 @@ describe("OrdersClient", () => {
                     acceptedOn: new Date("2024-04-10T13:16:21.000Z"),
                     customerPaid: {
                         unit: "USD",
-                        value: "5892",
+                        value: "21155",
                         string: "$ 211.55 USD",
                     },
                     netAmount: {
                         unit: "USD",
-                        value: "5892",
+                        value: "20089",
                         string: "$ 200.89 USD",
                     },
                     applicationFee: {
                         unit: "USD",
-                        value: "5892",
+                        value: "423",
                         string: "$ 4.23 USD",
                     },
                     allAddresses: [
@@ -394,7 +394,7 @@ describe("OrdersClient", () => {
                             count: 2,
                             rowTotal: {
                                 unit: "USD",
-                                value: "5892",
+                                value: "11122",
                                 string: "$ 111.22 USD",
                             },
                             productId: "66072fb61b89448912e26791",
@@ -409,7 +409,7 @@ describe("OrdersClient", () => {
                             },
                             variantPrice: {
                                 unit: "USD",
-                                value: "5892",
+                                value: "5561",
                                 string: "$ 55.61 USD",
                             },
                             weight: 11,
@@ -421,7 +421,7 @@ describe("OrdersClient", () => {
                             count: 1,
                             rowTotal: {
                                 unit: "USD",
-                                value: "5892",
+                                value: "8309",
                                 string: "$ 83.09 USD",
                             },
                             productId: "66072fb61b89448912e2678b",
@@ -436,7 +436,7 @@ describe("OrdersClient", () => {
                             },
                             variantPrice: {
                                 unit: "USD",
-                                value: "5892",
+                                value: "8309",
                                 string: "$ 83.09 USD",
                             },
                             width: 19,
@@ -485,7 +485,7 @@ describe("OrdersClient", () => {
                                 description: "CA Taxes (6.25%)",
                                 price: {
                                     unit: "USD",
-                                    value: "5892",
+                                    value: "344",
                                     string: "$3.44",
                                 },
                             },
@@ -513,17 +513,17 @@ describe("OrdersClient", () => {
                     refundedOn: new Date("2024-04-08T18:25:04.000Z"),
                     customerPaid: {
                         unit: "USD",
-                        value: "5892",
+                        value: "11873",
                         string: "$ 118.73 USD",
                     },
                     netAmount: {
                         unit: "USD",
-                        value: "5892",
+                        value: "11262",
                         string: "$ 112.62 USD",
                     },
                     applicationFee: {
                         unit: "USD",
-                        value: "5892",
+                        value: "237",
                         string: "$ 2.37 USD",
                     },
                     allAddresses: [
@@ -580,7 +580,7 @@ describe("OrdersClient", () => {
                             count: 1,
                             rowTotal: {
                                 unit: "USD",
-                                value: "5892",
+                                value: "5561",
                                 string: "$ 55.61 USD",
                             },
                             productId: "66072fb61b89448912e26791",
@@ -595,7 +595,7 @@ describe("OrdersClient", () => {
                             },
                             variantPrice: {
                                 unit: "USD",
-                                value: "5892",
+                                value: "5561",
                                 string: "$ 55.61 USD",
                             },
                             weight: 11,
@@ -607,7 +607,7 @@ describe("OrdersClient", () => {
                             count: 1,
                             rowTotal: {
                                 unit: "USD",
-                                value: "5892",
+                                value: "5344",
                                 string: "$ 53.44 USD",
                             },
                             productId: "66072fb61b89448912e26799",
@@ -622,7 +622,7 @@ describe("OrdersClient", () => {
                             },
                             variantPrice: {
                                 unit: "USD",
-                                value: "5892",
+                                value: "5344",
                                 string: "$ 53.44 USD",
                             },
                             weight: 38,
@@ -664,7 +664,7 @@ describe("OrdersClient", () => {
                     totals: {
                         subtotal: {
                             unit: "USD",
-                            value: "5892",
+                            value: "10905",
                             string: "$ 109.05 USD",
                         },
                         extras: [
@@ -674,7 +674,7 @@ describe("OrdersClient", () => {
                                 description: "NY Taxes (4.00%)",
                                 price: {
                                     unit: "USD",
-                                    value: "5892",
+                                    value: "436",
                                     string: "$ 4.36 USD",
                                 },
                             },
@@ -684,7 +684,7 @@ describe("OrdersClient", () => {
                                 description: "NEW YORK Taxes (4.88%)",
                                 price: {
                                     unit: "USD",
-                                    value: "5892",
+                                    value: "532",
                                     string: "$ 5.32 USD",
                                 },
                             },
@@ -694,14 +694,14 @@ describe("OrdersClient", () => {
                                 description: "",
                                 price: {
                                     unit: "USD",
-                                    value: "5892",
+                                    value: "0",
                                     string: "$ 0.00 USD",
                                 },
                             },
                         ],
                         total: {
                             unit: "USD",
-                            value: "5892",
+                            value: "11873",
                             string: "$ 118.73 USD",
                         },
                     },
@@ -896,9 +896,9 @@ describe("OrdersClient", () => {
             disputedOn: "2024-03-29T21:29:21Z",
             disputeUpdatedOn: "2024-03-29T21:29:21Z",
             disputeLastStatus: "charge_refunded",
-            customerPaid: { unit: "USD", value: "5892", string: "$ 118.73 USD" },
-            netAmount: { unit: "USD", value: "5892", string: "$ 112.62 USD" },
-            applicationFee: { unit: "USD", value: "5892", string: "$ 2.37 USD" },
+            customerPaid: { unit: "USD", value: "11873", string: "$ 118.73 USD" },
+            netAmount: { unit: "USD", value: "11262", string: "$ 112.62 USD" },
+            applicationFee: { unit: "USD", value: "237", string: "$ 2.37 USD" },
             allAddresses: [
                 {
                     type: "billing",
@@ -952,7 +952,7 @@ describe("OrdersClient", () => {
             purchasedItems: [
                 {
                     count: 1,
-                    rowTotal: { unit: "USD", value: "5892", string: "$ 55.61 USD" },
+                    rowTotal: { unit: "USD", value: "5561", string: "$ 55.61 USD" },
                     productId: "66072fb61b89448912e26791",
                     productName: "Luxurious Fresh Ball",
                     productSlug: "luxurious-fresh-ball",
@@ -963,7 +963,7 @@ describe("OrdersClient", () => {
                     variantImage: {
                         url: "https://dev-assets.website-files.com/66072f39417a2a35b2589cc7/66072fb51b89448912e2672c_image14.jpeg",
                     },
-                    variantPrice: { unit: "USD", value: "5892", string: "$ 55.61 USD" },
+                    variantPrice: { unit: "USD", value: "5561", string: "$ 55.61 USD" },
                     weight: 11,
                     width: 82,
                     height: 70,
@@ -971,7 +971,7 @@ describe("OrdersClient", () => {
                 },
                 {
                     count: 1,
-                    rowTotal: { unit: "USD", value: "5892", string: "$ 53.44 USD" },
+                    rowTotal: { unit: "USD", value: "5344", string: "$ 53.44 USD" },
                     productId: "66072fb61b89448912e26799",
                     productName: "Recycled Steel Gloves",
                     productSlug: "recycled-steel-gloves",
@@ -982,7 +982,7 @@ describe("OrdersClient", () => {
                     variantImage: {
                         url: "https://dev-assets.website-files.com/66072f39417a2a35b2589cc7/66072fb51b89448912e2671e_image2.jpeg",
                     },
-                    variantPrice: { unit: "USD", value: "5892", string: "$ 53.44 USD" },
+                    variantPrice: { unit: "USD", value: "5344", string: "$ 53.44 USD" },
                     weight: 38,
                     width: 76,
                     height: 85,
@@ -1006,28 +1006,28 @@ describe("OrdersClient", () => {
             hasDownloads: false,
             paymentProcessor: "stripe",
             totals: {
-                subtotal: { unit: "USD", value: "5892", string: "$ 109.05 USD" },
+                subtotal: { unit: "USD", value: "10905", string: "$ 109.05 USD" },
                 extras: [
                     {
                         type: "tax",
                         name: "State Taxes",
                         description: "NY Taxes (4.00%)",
-                        price: { unit: "USD", value: "5892", string: "$ 4.36 USD" },
+                        price: { unit: "USD", value: "436", string: "$ 4.36 USD" },
                     },
                     {
                         type: "tax",
                         name: "City Taxes",
                         description: "NEW YORK Taxes (4.88%)",
-                        price: { unit: "USD", value: "5892", string: "$ 5.32 USD" },
+                        price: { unit: "USD", value: "532", string: "$ 5.32 USD" },
                     },
                     {
                         type: "shipping",
                         name: "Flat",
                         description: "",
-                        price: { unit: "USD", value: "5892", string: "$ 0.00 USD" },
+                        price: { unit: "USD", value: "0", string: "$ 0.00 USD" },
                     },
                 ],
-                total: { unit: "USD", value: "5892", string: "$ 118.73 USD" },
+                total: { unit: "USD", value: "11873", string: "$ 118.73 USD" },
             },
             downloadFiles: [
                 {
@@ -1060,17 +1060,17 @@ describe("OrdersClient", () => {
             disputeLastStatus: "charge_refunded",
             customerPaid: {
                 unit: "USD",
-                value: "5892",
+                value: "11873",
                 string: "$ 118.73 USD",
             },
             netAmount: {
                 unit: "USD",
-                value: "5892",
+                value: "11262",
                 string: "$ 112.62 USD",
             },
             applicationFee: {
                 unit: "USD",
-                value: "5892",
+                value: "237",
                 string: "$ 2.37 USD",
             },
             allAddresses: [
@@ -1131,7 +1131,7 @@ describe("OrdersClient", () => {
                     count: 1,
                     rowTotal: {
                         unit: "USD",
-                        value: "5892",
+                        value: "5561",
                         string: "$ 55.61 USD",
                     },
                     productId: "66072fb61b89448912e26791",
@@ -1146,7 +1146,7 @@ describe("OrdersClient", () => {
                     },
                     variantPrice: {
                         unit: "USD",
-                        value: "5892",
+                        value: "5561",
                         string: "$ 55.61 USD",
                     },
                     weight: 11,
@@ -1158,7 +1158,7 @@ describe("OrdersClient", () => {
                     count: 1,
                     rowTotal: {
                         unit: "USD",
-                        value: "5892",
+                        value: "5344",
                         string: "$ 53.44 USD",
                     },
                     productId: "66072fb61b89448912e26799",
@@ -1173,7 +1173,7 @@ describe("OrdersClient", () => {
                     },
                     variantPrice: {
                         unit: "USD",
-                        value: "5892",
+                        value: "5344",
                         string: "$ 53.44 USD",
                     },
                     weight: 38,
@@ -1215,7 +1215,7 @@ describe("OrdersClient", () => {
             totals: {
                 subtotal: {
                     unit: "USD",
-                    value: "5892",
+                    value: "10905",
                     string: "$ 109.05 USD",
                 },
                 extras: [
@@ -1225,7 +1225,7 @@ describe("OrdersClient", () => {
                         description: "NY Taxes (4.00%)",
                         price: {
                             unit: "USD",
-                            value: "5892",
+                            value: "436",
                             string: "$ 4.36 USD",
                         },
                     },
@@ -1235,7 +1235,7 @@ describe("OrdersClient", () => {
                         description: "NEW YORK Taxes (4.88%)",
                         price: {
                             unit: "USD",
-                            value: "5892",
+                            value: "532",
                             string: "$ 5.32 USD",
                         },
                     },
@@ -1245,14 +1245,14 @@ describe("OrdersClient", () => {
                         description: "",
                         price: {
                             unit: "USD",
-                            value: "5892",
+                            value: "0",
                             string: "$ 0.00 USD",
                         },
                     },
                 ],
                 total: {
                     unit: "USD",
-                    value: "5892",
+                    value: "11873",
                     string: "$ 118.73 USD",
                 },
             },
@@ -1440,9 +1440,9 @@ describe("OrdersClient", () => {
             disputedOn: "2024-03-29T21:29:21Z",
             disputeUpdatedOn: "2024-03-29T21:29:21Z",
             disputeLastStatus: "charge_refunded",
-            customerPaid: { unit: "USD", value: "5892", string: "$ 118.73 USD" },
-            netAmount: { unit: "USD", value: "5892", string: "$ 112.62 USD" },
-            applicationFee: { unit: "USD", value: "5892", string: "$ 2.37 USD" },
+            customerPaid: { unit: "USD", value: "11873", string: "$ 118.73 USD" },
+            netAmount: { unit: "USD", value: "11262", string: "$ 112.62 USD" },
+            applicationFee: { unit: "USD", value: "237", string: "$ 2.37 USD" },
             allAddresses: [
                 {
                     type: "billing",
@@ -1496,7 +1496,7 @@ describe("OrdersClient", () => {
             purchasedItems: [
                 {
                     count: 1,
-                    rowTotal: { unit: "USD", value: "5892", string: "$ 55.61 USD" },
+                    rowTotal: { unit: "USD", value: "5561", string: "$ 55.61 USD" },
                     productId: "66072fb61b89448912e26791",
                     productName: "Luxurious Fresh Ball",
                     productSlug: "luxurious-fresh-ball",
@@ -1507,7 +1507,7 @@ describe("OrdersClient", () => {
                     variantImage: {
                         url: "https://dev-assets.website-files.com/66072f39417a2a35b2589cc7/66072fb51b89448912e2672c_image14.jpeg",
                     },
-                    variantPrice: { unit: "USD", value: "5892", string: "$ 55.61 USD" },
+                    variantPrice: { unit: "USD", value: "5561", string: "$ 55.61 USD" },
                     weight: 11,
                     width: 82,
                     height: 70,
@@ -1515,7 +1515,7 @@ describe("OrdersClient", () => {
                 },
                 {
                     count: 1,
-                    rowTotal: { unit: "USD", value: "5892", string: "$ 53.44 USD" },
+                    rowTotal: { unit: "USD", value: "5344", string: "$ 53.44 USD" },
                     productId: "66072fb61b89448912e26799",
                     productName: "Recycled Steel Gloves",
                     productSlug: "recycled-steel-gloves",
@@ -1526,7 +1526,7 @@ describe("OrdersClient", () => {
                     variantImage: {
                         url: "https://dev-assets.website-files.com/66072f39417a2a35b2589cc7/66072fb51b89448912e2671e_image2.jpeg",
                     },
-                    variantPrice: { unit: "USD", value: "5892", string: "$ 53.44 USD" },
+                    variantPrice: { unit: "USD", value: "5344", string: "$ 53.44 USD" },
                     weight: 38,
                     width: 76,
                     height: 85,
@@ -1550,28 +1550,28 @@ describe("OrdersClient", () => {
             hasDownloads: false,
             paymentProcessor: "stripe",
             totals: {
-                subtotal: { unit: "USD", value: "5892", string: "$ 109.05 USD" },
+                subtotal: { unit: "USD", value: "10905", string: "$ 109.05 USD" },
                 extras: [
                     {
                         type: "tax",
                         name: "State Taxes",
                         description: "NY Taxes (4.00%)",
-                        price: { unit: "USD", value: "5892", string: "$ 4.36 USD" },
+                        price: { unit: "USD", value: "436", string: "$ 4.36 USD" },
                     },
                     {
                         type: "tax",
                         name: "City Taxes",
                         description: "NEW YORK Taxes (4.88%)",
-                        price: { unit: "USD", value: "5892", string: "$ 5.32 USD" },
+                        price: { unit: "USD", value: "532", string: "$ 5.32 USD" },
                     },
                     {
                         type: "shipping",
                         name: "Flat",
                         description: "",
-                        price: { unit: "USD", value: "5892", string: "$ 0.00 USD" },
+                        price: { unit: "USD", value: "0", string: "$ 0.00 USD" },
                     },
                 ],
-                total: { unit: "USD", value: "5892", string: "$ 118.73 USD" },
+                total: { unit: "USD", value: "11873", string: "$ 118.73 USD" },
             },
             downloadFiles: [
                 {
@@ -1605,17 +1605,17 @@ describe("OrdersClient", () => {
             disputeLastStatus: "charge_refunded",
             customerPaid: {
                 unit: "USD",
-                value: "5892",
+                value: "11873",
                 string: "$ 118.73 USD",
             },
             netAmount: {
                 unit: "USD",
-                value: "5892",
+                value: "11262",
                 string: "$ 112.62 USD",
             },
             applicationFee: {
                 unit: "USD",
-                value: "5892",
+                value: "237",
                 string: "$ 2.37 USD",
             },
             allAddresses: [
@@ -1676,7 +1676,7 @@ describe("OrdersClient", () => {
                     count: 1,
                     rowTotal: {
                         unit: "USD",
-                        value: "5892",
+                        value: "5561",
                         string: "$ 55.61 USD",
                     },
                     productId: "66072fb61b89448912e26791",
@@ -1691,7 +1691,7 @@ describe("OrdersClient", () => {
                     },
                     variantPrice: {
                         unit: "USD",
-                        value: "5892",
+                        value: "5561",
                         string: "$ 55.61 USD",
                     },
                     weight: 11,
@@ -1703,7 +1703,7 @@ describe("OrdersClient", () => {
                     count: 1,
                     rowTotal: {
                         unit: "USD",
-                        value: "5892",
+                        value: "5344",
                         string: "$ 53.44 USD",
                     },
                     productId: "66072fb61b89448912e26799",
@@ -1718,7 +1718,7 @@ describe("OrdersClient", () => {
                     },
                     variantPrice: {
                         unit: "USD",
-                        value: "5892",
+                        value: "5344",
                         string: "$ 53.44 USD",
                     },
                     weight: 38,
@@ -1760,7 +1760,7 @@ describe("OrdersClient", () => {
             totals: {
                 subtotal: {
                     unit: "USD",
-                    value: "5892",
+                    value: "10905",
                     string: "$ 109.05 USD",
                 },
                 extras: [
@@ -1770,7 +1770,7 @@ describe("OrdersClient", () => {
                         description: "NY Taxes (4.00%)",
                         price: {
                             unit: "USD",
-                            value: "5892",
+                            value: "436",
                             string: "$ 4.36 USD",
                         },
                     },
@@ -1780,7 +1780,7 @@ describe("OrdersClient", () => {
                         description: "NEW YORK Taxes (4.88%)",
                         price: {
                             unit: "USD",
-                            value: "5892",
+                            value: "532",
                             string: "$ 5.32 USD",
                         },
                     },
@@ -1790,14 +1790,14 @@ describe("OrdersClient", () => {
                         description: "",
                         price: {
                             unit: "USD",
-                            value: "5892",
+                            value: "0",
                             string: "$ 0.00 USD",
                         },
                     },
                 ],
                 total: {
                     unit: "USD",
-                    value: "5892",
+                    value: "11873",
                     string: "$ 118.73 USD",
                 },
             },
@@ -1992,9 +1992,9 @@ describe("OrdersClient", () => {
             disputedOn: "2024-03-29T21:29:21Z",
             disputeUpdatedOn: "2024-03-29T21:29:21Z",
             disputeLastStatus: "charge_refunded",
-            customerPaid: { unit: "USD", value: "5892", string: "$ 118.73 USD" },
-            netAmount: { unit: "USD", value: "5892", string: "$ 112.62 USD" },
-            applicationFee: { unit: "USD", value: "5892", string: "$ 2.37 USD" },
+            customerPaid: { unit: "USD", value: "11873", string: "$ 118.73 USD" },
+            netAmount: { unit: "USD", value: "11262", string: "$ 112.62 USD" },
+            applicationFee: { unit: "USD", value: "237", string: "$ 2.37 USD" },
             allAddresses: [
                 {
                     type: "billing",
@@ -2048,7 +2048,7 @@ describe("OrdersClient", () => {
             purchasedItems: [
                 {
                     count: 1,
-                    rowTotal: { unit: "USD", value: "5892", string: "$ 55.61 USD" },
+                    rowTotal: { unit: "USD", value: "5561", string: "$ 55.61 USD" },
                     productId: "66072fb61b89448912e26791",
                     productName: "Luxurious Fresh Ball",
                     productSlug: "luxurious-fresh-ball",
@@ -2059,7 +2059,7 @@ describe("OrdersClient", () => {
                     variantImage: {
                         url: "https://dev-assets.website-files.com/66072f39417a2a35b2589cc7/66072fb51b89448912e2672c_image14.jpeg",
                     },
-                    variantPrice: { unit: "USD", value: "5892", string: "$ 55.61 USD" },
+                    variantPrice: { unit: "USD", value: "5561", string: "$ 55.61 USD" },
                     weight: 11,
                     width: 82,
                     height: 70,
@@ -2067,7 +2067,7 @@ describe("OrdersClient", () => {
                 },
                 {
                     count: 1,
-                    rowTotal: { unit: "USD", value: "5892", string: "$ 53.44 USD" },
+                    rowTotal: { unit: "USD", value: "5344", string: "$ 53.44 USD" },
                     productId: "66072fb61b89448912e26799",
                     productName: "Recycled Steel Gloves",
                     productSlug: "recycled-steel-gloves",
@@ -2078,7 +2078,7 @@ describe("OrdersClient", () => {
                     variantImage: {
                         url: "https://dev-assets.website-files.com/66072f39417a2a35b2589cc7/66072fb51b89448912e2671e_image2.jpeg",
                     },
-                    variantPrice: { unit: "USD", value: "5892", string: "$ 53.44 USD" },
+                    variantPrice: { unit: "USD", value: "5344", string: "$ 53.44 USD" },
                     weight: 38,
                     width: 76,
                     height: 85,
@@ -2102,28 +2102,28 @@ describe("OrdersClient", () => {
             hasDownloads: false,
             paymentProcessor: "stripe",
             totals: {
-                subtotal: { unit: "USD", value: "5892", string: "$ 109.05 USD" },
+                subtotal: { unit: "USD", value: "10905", string: "$ 109.05 USD" },
                 extras: [
                     {
                         type: "tax",
                         name: "State Taxes",
                         description: "NY Taxes (4.00%)",
-                        price: { unit: "USD", value: "5892", string: "$ 4.36 USD" },
+                        price: { unit: "USD", value: "436", string: "$ 4.36 USD" },
                     },
                     {
                         type: "tax",
                         name: "City Taxes",
                         description: "NEW YORK Taxes (4.88%)",
-                        price: { unit: "USD", value: "5892", string: "$ 5.32 USD" },
+                        price: { unit: "USD", value: "532", string: "$ 5.32 USD" },
                     },
                     {
                         type: "shipping",
                         name: "Flat",
                         description: "",
-                        price: { unit: "USD", value: "5892", string: "$ 0.00 USD" },
+                        price: { unit: "USD", value: "0", string: "$ 0.00 USD" },
                     },
                 ],
-                total: { unit: "USD", value: "5892", string: "$ 118.73 USD" },
+                total: { unit: "USD", value: "11873", string: "$ 118.73 USD" },
             },
             downloadFiles: [
                 {
@@ -2157,17 +2157,17 @@ describe("OrdersClient", () => {
             disputeLastStatus: "charge_refunded",
             customerPaid: {
                 unit: "USD",
-                value: "5892",
+                value: "11873",
                 string: "$ 118.73 USD",
             },
             netAmount: {
                 unit: "USD",
-                value: "5892",
+                value: "11262",
                 string: "$ 112.62 USD",
             },
             applicationFee: {
                 unit: "USD",
-                value: "5892",
+                value: "237",
                 string: "$ 2.37 USD",
             },
             allAddresses: [
@@ -2228,7 +2228,7 @@ describe("OrdersClient", () => {
                     count: 1,
                     rowTotal: {
                         unit: "USD",
-                        value: "5892",
+                        value: "5561",
                         string: "$ 55.61 USD",
                     },
                     productId: "66072fb61b89448912e26791",
@@ -2243,7 +2243,7 @@ describe("OrdersClient", () => {
                     },
                     variantPrice: {
                         unit: "USD",
-                        value: "5892",
+                        value: "5561",
                         string: "$ 55.61 USD",
                     },
                     weight: 11,
@@ -2255,7 +2255,7 @@ describe("OrdersClient", () => {
                     count: 1,
                     rowTotal: {
                         unit: "USD",
-                        value: "5892",
+                        value: "5344",
                         string: "$ 53.44 USD",
                     },
                     productId: "66072fb61b89448912e26799",
@@ -2270,7 +2270,7 @@ describe("OrdersClient", () => {
                     },
                     variantPrice: {
                         unit: "USD",
-                        value: "5892",
+                        value: "5344",
                         string: "$ 53.44 USD",
                     },
                     weight: 38,
@@ -2312,7 +2312,7 @@ describe("OrdersClient", () => {
             totals: {
                 subtotal: {
                     unit: "USD",
-                    value: "5892",
+                    value: "10905",
                     string: "$ 109.05 USD",
                 },
                 extras: [
@@ -2322,7 +2322,7 @@ describe("OrdersClient", () => {
                         description: "NY Taxes (4.00%)",
                         price: {
                             unit: "USD",
-                            value: "5892",
+                            value: "436",
                             string: "$ 4.36 USD",
                         },
                     },
@@ -2332,7 +2332,7 @@ describe("OrdersClient", () => {
                         description: "NEW YORK Taxes (4.88%)",
                         price: {
                             unit: "USD",
-                            value: "5892",
+                            value: "532",
                             string: "$ 5.32 USD",
                         },
                     },
@@ -2342,14 +2342,14 @@ describe("OrdersClient", () => {
                         description: "",
                         price: {
                             unit: "USD",
-                            value: "5892",
+                            value: "0",
                             string: "$ 0.00 USD",
                         },
                     },
                 ],
                 total: {
                     unit: "USD",
-                    value: "5892",
+                    value: "11873",
                     string: "$ 118.73 USD",
                 },
             },
@@ -2544,9 +2544,9 @@ describe("OrdersClient", () => {
             disputedOn: "2024-03-29T21:29:21Z",
             disputeUpdatedOn: "2024-03-29T21:29:21Z",
             disputeLastStatus: "charge_refunded",
-            customerPaid: { unit: "USD", value: "5892", string: "$ 118.73 USD" },
-            netAmount: { unit: "USD", value: "5892", string: "$ 112.62 USD" },
-            applicationFee: { unit: "USD", value: "5892", string: "$ 2.37 USD" },
+            customerPaid: { unit: "USD", value: "11873", string: "$ 118.73 USD" },
+            netAmount: { unit: "USD", value: "11262", string: "$ 112.62 USD" },
+            applicationFee: { unit: "USD", value: "237", string: "$ 2.37 USD" },
             allAddresses: [
                 {
                     type: "billing",
@@ -2600,7 +2600,7 @@ describe("OrdersClient", () => {
             purchasedItems: [
                 {
                     count: 1,
-                    rowTotal: { unit: "USD", value: "5892", string: "$ 55.61 USD" },
+                    rowTotal: { unit: "USD", value: "5561", string: "$ 55.61 USD" },
                     productId: "66072fb61b89448912e26791",
                     productName: "Luxurious Fresh Ball",
                     productSlug: "luxurious-fresh-ball",
@@ -2611,7 +2611,7 @@ describe("OrdersClient", () => {
                     variantImage: {
                         url: "https://dev-assets.website-files.com/66072f39417a2a35b2589cc7/66072fb51b89448912e2672c_image14.jpeg",
                     },
-                    variantPrice: { unit: "USD", value: "5892", string: "$ 55.61 USD" },
+                    variantPrice: { unit: "USD", value: "5561", string: "$ 55.61 USD" },
                     weight: 11,
                     width: 82,
                     height: 70,
@@ -2619,7 +2619,7 @@ describe("OrdersClient", () => {
                 },
                 {
                     count: 1,
-                    rowTotal: { unit: "USD", value: "5892", string: "$ 53.44 USD" },
+                    rowTotal: { unit: "USD", value: "5344", string: "$ 53.44 USD" },
                     productId: "66072fb61b89448912e26799",
                     productName: "Recycled Steel Gloves",
                     productSlug: "recycled-steel-gloves",
@@ -2630,7 +2630,7 @@ describe("OrdersClient", () => {
                     variantImage: {
                         url: "https://dev-assets.website-files.com/66072f39417a2a35b2589cc7/66072fb51b89448912e2671e_image2.jpeg",
                     },
-                    variantPrice: { unit: "USD", value: "5892", string: "$ 53.44 USD" },
+                    variantPrice: { unit: "USD", value: "5344", string: "$ 53.44 USD" },
                     weight: 38,
                     width: 76,
                     height: 85,
@@ -2654,28 +2654,28 @@ describe("OrdersClient", () => {
             hasDownloads: false,
             paymentProcessor: "stripe",
             totals: {
-                subtotal: { unit: "USD", value: "5892", string: "$ 109.05 USD" },
+                subtotal: { unit: "USD", value: "10905", string: "$ 109.05 USD" },
                 extras: [
                     {
                         type: "tax",
                         name: "State Taxes",
                         description: "NY Taxes (4.00%)",
-                        price: { unit: "USD", value: "5892", string: "$ 4.36 USD" },
+                        price: { unit: "USD", value: "436", string: "$ 4.36 USD" },
                     },
                     {
                         type: "tax",
                         name: "City Taxes",
                         description: "NEW YORK Taxes (4.88%)",
-                        price: { unit: "USD", value: "5892", string: "$ 5.32 USD" },
+                        price: { unit: "USD", value: "532", string: "$ 5.32 USD" },
                     },
                     {
                         type: "shipping",
                         name: "Flat",
                         description: "",
-                        price: { unit: "USD", value: "5892", string: "$ 0.00 USD" },
+                        price: { unit: "USD", value: "0", string: "$ 0.00 USD" },
                     },
                 ],
-                total: { unit: "USD", value: "5892", string: "$ 118.73 USD" },
+                total: { unit: "USD", value: "11873", string: "$ 118.73 USD" },
             },
             downloadFiles: [
                 {
@@ -2708,17 +2708,17 @@ describe("OrdersClient", () => {
             disputeLastStatus: "charge_refunded",
             customerPaid: {
                 unit: "USD",
-                value: "5892",
+                value: "11873",
                 string: "$ 118.73 USD",
             },
             netAmount: {
                 unit: "USD",
-                value: "5892",
+                value: "11262",
                 string: "$ 112.62 USD",
             },
             applicationFee: {
                 unit: "USD",
-                value: "5892",
+                value: "237",
                 string: "$ 2.37 USD",
             },
             allAddresses: [
@@ -2779,7 +2779,7 @@ describe("OrdersClient", () => {
                     count: 1,
                     rowTotal: {
                         unit: "USD",
-                        value: "5892",
+                        value: "5561",
                         string: "$ 55.61 USD",
                     },
                     productId: "66072fb61b89448912e26791",
@@ -2794,7 +2794,7 @@ describe("OrdersClient", () => {
                     },
                     variantPrice: {
                         unit: "USD",
-                        value: "5892",
+                        value: "5561",
                         string: "$ 55.61 USD",
                     },
                     weight: 11,
@@ -2806,7 +2806,7 @@ describe("OrdersClient", () => {
                     count: 1,
                     rowTotal: {
                         unit: "USD",
-                        value: "5892",
+                        value: "5344",
                         string: "$ 53.44 USD",
                     },
                     productId: "66072fb61b89448912e26799",
@@ -2821,7 +2821,7 @@ describe("OrdersClient", () => {
                     },
                     variantPrice: {
                         unit: "USD",
-                        value: "5892",
+                        value: "5344",
                         string: "$ 53.44 USD",
                     },
                     weight: 38,
@@ -2863,7 +2863,7 @@ describe("OrdersClient", () => {
             totals: {
                 subtotal: {
                     unit: "USD",
-                    value: "5892",
+                    value: "10905",
                     string: "$ 109.05 USD",
                 },
                 extras: [
@@ -2873,7 +2873,7 @@ describe("OrdersClient", () => {
                         description: "NY Taxes (4.00%)",
                         price: {
                             unit: "USD",
-                            value: "5892",
+                            value: "436",
                             string: "$ 4.36 USD",
                         },
                     },
@@ -2883,7 +2883,7 @@ describe("OrdersClient", () => {
                         description: "NEW YORK Taxes (4.88%)",
                         price: {
                             unit: "USD",
-                            value: "5892",
+                            value: "532",
                             string: "$ 5.32 USD",
                         },
                     },
@@ -2893,14 +2893,14 @@ describe("OrdersClient", () => {
                         description: "",
                         price: {
                             unit: "USD",
-                            value: "5892",
+                            value: "0",
                             string: "$ 0.00 USD",
                         },
                     },
                 ],
                 total: {
                     unit: "USD",
-                    value: "5892",
+                    value: "11873",
                     string: "$ 118.73 USD",
                 },
             },
@@ -3088,9 +3088,9 @@ describe("OrdersClient", () => {
             disputedOn: "2024-03-29T21:29:21Z",
             disputeUpdatedOn: "2024-03-29T21:29:21Z",
             disputeLastStatus: "charge_refunded",
-            customerPaid: { unit: "USD", value: "5892", string: "$ 118.73 USD" },
-            netAmount: { unit: "USD", value: "5892", string: "$ 112.62 USD" },
-            applicationFee: { unit: "USD", value: "5892", string: "$ 2.37 USD" },
+            customerPaid: { unit: "USD", value: "11873", string: "$ 118.73 USD" },
+            netAmount: { unit: "USD", value: "11262", string: "$ 112.62 USD" },
+            applicationFee: { unit: "USD", value: "237", string: "$ 2.37 USD" },
             allAddresses: [
                 {
                     type: "billing",
@@ -3144,7 +3144,7 @@ describe("OrdersClient", () => {
             purchasedItems: [
                 {
                     count: 1,
-                    rowTotal: { unit: "USD", value: "5892", string: "$ 55.61 USD" },
+                    rowTotal: { unit: "USD", value: "5561", string: "$ 55.61 USD" },
                     productId: "66072fb61b89448912e26791",
                     productName: "Luxurious Fresh Ball",
                     productSlug: "luxurious-fresh-ball",
@@ -3155,7 +3155,7 @@ describe("OrdersClient", () => {
                     variantImage: {
                         url: "https://dev-assets.website-files.com/66072f39417a2a35b2589cc7/66072fb51b89448912e2672c_image14.jpeg",
                     },
-                    variantPrice: { unit: "USD", value: "5892", string: "$ 55.61 USD" },
+                    variantPrice: { unit: "USD", value: "5561", string: "$ 55.61 USD" },
                     weight: 11,
                     width: 82,
                     height: 70,
@@ -3163,7 +3163,7 @@ describe("OrdersClient", () => {
                 },
                 {
                     count: 1,
-                    rowTotal: { unit: "USD", value: "5892", string: "$ 53.44 USD" },
+                    rowTotal: { unit: "USD", value: "5344", string: "$ 53.44 USD" },
                     productId: "66072fb61b89448912e26799",
                     productName: "Recycled Steel Gloves",
                     productSlug: "recycled-steel-gloves",
@@ -3174,7 +3174,7 @@ describe("OrdersClient", () => {
                     variantImage: {
                         url: "https://dev-assets.website-files.com/66072f39417a2a35b2589cc7/66072fb51b89448912e2671e_image2.jpeg",
                     },
-                    variantPrice: { unit: "USD", value: "5892", string: "$ 53.44 USD" },
+                    variantPrice: { unit: "USD", value: "5344", string: "$ 53.44 USD" },
                     weight: 38,
                     width: 76,
                     height: 85,
@@ -3198,28 +3198,28 @@ describe("OrdersClient", () => {
             hasDownloads: false,
             paymentProcessor: "stripe",
             totals: {
-                subtotal: { unit: "USD", value: "5892", string: "$ 109.05 USD" },
+                subtotal: { unit: "USD", value: "10905", string: "$ 109.05 USD" },
                 extras: [
                     {
                         type: "tax",
                         name: "State Taxes",
                         description: "NY Taxes (4.00%)",
-                        price: { unit: "USD", value: "5892", string: "$ 4.36 USD" },
+                        price: { unit: "USD", value: "436", string: "$ 4.36 USD" },
                     },
                     {
                         type: "tax",
                         name: "City Taxes",
                         description: "NEW YORK Taxes (4.88%)",
-                        price: { unit: "USD", value: "5892", string: "$ 5.32 USD" },
+                        price: { unit: "USD", value: "532", string: "$ 5.32 USD" },
                     },
                     {
                         type: "shipping",
                         name: "Flat",
                         description: "",
-                        price: { unit: "USD", value: "5892", string: "$ 0.00 USD" },
+                        price: { unit: "USD", value: "0", string: "$ 0.00 USD" },
                     },
                 ],
-                total: { unit: "USD", value: "5892", string: "$ 118.73 USD" },
+                total: { unit: "USD", value: "11873", string: "$ 118.73 USD" },
             },
             downloadFiles: [
                 {
@@ -3253,17 +3253,17 @@ describe("OrdersClient", () => {
             disputeLastStatus: "charge_refunded",
             customerPaid: {
                 unit: "USD",
-                value: "5892",
+                value: "11873",
                 string: "$ 118.73 USD",
             },
             netAmount: {
                 unit: "USD",
-                value: "5892",
+                value: "11262",
                 string: "$ 112.62 USD",
             },
             applicationFee: {
                 unit: "USD",
-                value: "5892",
+                value: "237",
                 string: "$ 2.37 USD",
             },
             allAddresses: [
@@ -3324,7 +3324,7 @@ describe("OrdersClient", () => {
                     count: 1,
                     rowTotal: {
                         unit: "USD",
-                        value: "5892",
+                        value: "5561",
                         string: "$ 55.61 USD",
                     },
                     productId: "66072fb61b89448912e26791",
@@ -3339,7 +3339,7 @@ describe("OrdersClient", () => {
                     },
                     variantPrice: {
                         unit: "USD",
-                        value: "5892",
+                        value: "5561",
                         string: "$ 55.61 USD",
                     },
                     weight: 11,
@@ -3351,7 +3351,7 @@ describe("OrdersClient", () => {
                     count: 1,
                     rowTotal: {
                         unit: "USD",
-                        value: "5892",
+                        value: "5344",
                         string: "$ 53.44 USD",
                     },
                     productId: "66072fb61b89448912e26799",
@@ -3366,7 +3366,7 @@ describe("OrdersClient", () => {
                     },
                     variantPrice: {
                         unit: "USD",
-                        value: "5892",
+                        value: "5344",
                         string: "$ 53.44 USD",
                     },
                     weight: 38,
@@ -3408,7 +3408,7 @@ describe("OrdersClient", () => {
             totals: {
                 subtotal: {
                     unit: "USD",
-                    value: "5892",
+                    value: "10905",
                     string: "$ 109.05 USD",
                 },
                 extras: [
@@ -3418,7 +3418,7 @@ describe("OrdersClient", () => {
                         description: "NY Taxes (4.00%)",
                         price: {
                             unit: "USD",
-                            value: "5892",
+                            value: "436",
                             string: "$ 4.36 USD",
                         },
                     },
@@ -3428,7 +3428,7 @@ describe("OrdersClient", () => {
                         description: "NEW YORK Taxes (4.88%)",
                         price: {
                             unit: "USD",
-                            value: "5892",
+                            value: "532",
                             string: "$ 5.32 USD",
                         },
                     },
@@ -3438,14 +3438,14 @@ describe("OrdersClient", () => {
                         description: "",
                         price: {
                             unit: "USD",
-                            value: "5892",
+                            value: "0",
                             string: "$ 0.00 USD",
                         },
                     },
                 ],
                 total: {
                     unit: "USD",
-                    value: "5892",
+                    value: "11873",
                     string: "$ 118.73 USD",
                 },
             },

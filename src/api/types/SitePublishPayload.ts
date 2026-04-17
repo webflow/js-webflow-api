@@ -10,6 +10,6 @@ export interface SitePublishPayload {
     publishedOn?: Date;
     /** The domains that were published */
     domains?: string[];
-    /** The name andID of the user who published the site */
+    /** The name and ID of the user who published the site */
     publishedBy?: Record<string, unknown>;
 }
