@@ -11,3 +11,6 @@ src/wrapper
 tests/wrapper
 tests/wire/workspaces/auditLogs.test.ts
 jest.config.mjs
+
+# Security scanning
+.github/workflows/socket_reachability.yml
