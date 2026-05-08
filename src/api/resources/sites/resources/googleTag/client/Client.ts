@@ -10,32 +10,26 @@ import * as errors from "../../../../../../errors/index";
 import * as serializers from "../../../../../../serialization/index";
 import * as Webflow from "../../../../../index";
 
-export declare namespace ScriptsClient {
+export declare namespace GoogleTagClient {
     export type Options = BaseClientOptions;
 
     export interface RequestOptions extends BaseRequestOptions {}
 }
 
-export class ScriptsClient {
-    protected readonly _options: NormalizedClientOptionsWithAuth<ScriptsClient.Options>;
+export class GoogleTagClient {
+    protected readonly _options: NormalizedClientOptionsWithAuth<GoogleTagClient.Options>;
 
-    constructor(options: ScriptsClient.Options) {
+    constructor(options: GoogleTagClient.Options) {
         this._options = normalizeClientOptionsWithAuth(options);
     }
 
     /**
-     * Get all scripts applied to a site by the App.
+     * List all Google Tag IDs configured for a site, sorted by order.
      *
-     * <Note title="Script Registration">
-     *   To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
-     * </Note>
-     *
-     * <Note>Access to this endpoint requires a bearer token obtained from an [OAuth Code Grant Flow](/data/reference/oauth-app).</Note>
-     *
-     * Required scope | `custom_code:read`
+     * Required scope: `sites:read`
      *
      * @param {string} site_id - Unique identifier for a Site
-     * @param {ScriptsClient.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {GoogleTagClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
@@ -44,19 +38,19 @@ export class ScriptsClient {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.sites.scripts.getCustomCode("580e63e98c9a982ac9b8b741")
+     *     await client.sites.googleTag.list("580e63e98c9a982ac9b8b741")
      */
-    public getCustomCode(
+    public list(
         site_id: string,
-        requestOptions?: ScriptsClient.RequestOptions,
-    ): core.HttpResponsePromise<Webflow.ScriptApplyList> {
-        return core.HttpResponsePromise.fromPromise(this.__getCustomCode(site_id, requestOptions));
+        requestOptions?: GoogleTagClient.RequestOptions,
+    ): core.HttpResponsePromise<Webflow.GoogleTagIds> {
+        return core.HttpResponsePromise.fromPromise(this.__list(site_id, requestOptions));
     }
 
-    private async __getCustomCode(
+    private async __list(
         site_id: string,
-        requestOptions?: ScriptsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Webflow.ScriptApplyList>> {
+        requestOptions?: GoogleTagClient.RequestOptions,
+    ): Promise<core.WithRawResponse<Webflow.GoogleTagIds>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -68,7 +62,7 @@ export class ScriptsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
                         .base,
-                `sites/${core.url.encodePathParam(site_id)}/custom_code`,
+                `sites/${core.url.encodePathParam(site_id)}/integrations/google_tags`,
             ),
             method: "GET",
             headers: _headers,
@@ -81,7 +75,7 @@ export class ScriptsClient {
         });
         if (_response.ok) {
             return {
-                data: serializers.ScriptApplyList.parseOrThrow(_response.body, {
+                data: serializers.GoogleTagIds.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -149,173 +143,21 @@ export class ScriptsClient {
             }
         }
 
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "GET", "/sites/{site_id}/custom_code");
-    }
-
-    /**
-     * Apply registered scripts to a site. If you have multiple scripts your App needs to apply or maintain on a site, ensure they are always included in the request body for this endpoint. To remove individual scripts, simply call this endpoint without the script in the request body.
-     *
-     * <Note title="Script Registration">
-     *   To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
-     * </Note>
-     *
-     * <Note>Access to this endpoint requires a bearer token obtained from an [OAuth Code Grant Flow](/data/reference/oauth-app).</Note>
-     *
-     * Required scope | `custom_code:write`
-     *
-     * @param {string} site_id - Unique identifier for a Site
-     * @param {Webflow.ScriptApplyList} request
-     * @param {ScriptsClient.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Webflow.BadRequestError}
-     * @throws {@link Webflow.UnauthorizedError}
-     * @throws {@link Webflow.NotFoundError}
-     * @throws {@link Webflow.TooManyRequestsError}
-     * @throws {@link Webflow.InternalServerError}
-     *
-     * @example
-     *     await client.sites.scripts.upsertCustomCode("580e63e98c9a982ac9b8b741", {
-     *         scripts: [{
-     *                 id: "cms_slider",
-     *                 location: "header",
-     *                 version: "1.0.0",
-     *                 attributes: {
-     *                     "my-attribute": "some-value"
-     *                 }
-     *             }, {
-     *                 id: "alert",
-     *                 location: "header",
-     *                 version: "0.0.1"
-     *             }]
-     *     })
-     */
-    public upsertCustomCode(
-        site_id: string,
-        request: Webflow.ScriptApplyList,
-        requestOptions?: ScriptsClient.RequestOptions,
-    ): core.HttpResponsePromise<Webflow.ScriptApplyList> {
-        return core.HttpResponsePromise.fromPromise(this.__upsertCustomCode(site_id, request, requestOptions));
-    }
-
-    private async __upsertCustomCode(
-        site_id: string,
-        request: Webflow.ScriptApplyList,
-        requestOptions?: ScriptsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Webflow.ScriptApplyList>> {
-        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
-        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
-            _authRequest.headers,
-            this._options?.headers,
-            requestOptions?.headers,
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "GET",
+            "/sites/{site_id}/integrations/google_tags",
         );
-        const _response = await core.fetcher({
-            url: core.url.join(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
-                        .base,
-                `sites/${core.url.encodePathParam(site_id)}/custom_code`,
-            ),
-            method: "PUT",
-            headers: _headers,
-            contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
-            requestType: "json",
-            body: serializers.ScriptApplyList.jsonOrThrow(request, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                omitUndefined: true,
-            }),
-            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
-            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-            fetchFn: this._options?.fetch,
-            logging: this._options.logging,
-        });
-        if (_response.ok) {
-            return {
-                data: serializers.ScriptApplyList.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
-                    breadcrumbsPrefix: ["response"],
-                }),
-                rawResponse: _response.rawResponse,
-            };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new Webflow.BadRequestError(_response.error.body, _response.rawResponse);
-                case 401:
-                    throw new Webflow.UnauthorizedError(
-                        serializers.Error_.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        _response.rawResponse,
-                    );
-                case 404:
-                    throw new Webflow.NotFoundError(
-                        serializers.Error_.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        _response.rawResponse,
-                    );
-                case 429:
-                    throw new Webflow.TooManyRequestsError(
-                        serializers.Error_.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        _response.rawResponse,
-                    );
-                case 500:
-                    throw new Webflow.InternalServerError(
-                        serializers.Error_.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.WebflowError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "PUT", "/sites/{site_id}/custom_code");
     }
 
     /**
-     * Remove all scripts from a site applied by the App. This endpoint will not remove scripts from the site's registered scripts.
+     * Delete all Google Tag IDs from a site.
      *
-     * To remove individual scripts applied by the App, use the [Add/Update Custom Code](/data/reference/custom-code/custom-code-sites/upsert-custom-code) endpoint.
-     *
-     * <Note>Access to this endpoint requires a bearer token obtained from an [OAuth Code Grant Flow](/data/reference/oauth-app).</Note>
-     *
-     * Required scope | `custom_code:write`
+     * Required scope: `sites:write`
      *
      * @param {string} site_id - Unique identifier for a Site
-     * @param {ScriptsClient.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {GoogleTagClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
@@ -324,18 +166,15 @@ export class ScriptsClient {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.sites.scripts.deleteCustomCode("580e63e98c9a982ac9b8b741")
+     *     await client.sites.googleTag.deleteAll("580e63e98c9a982ac9b8b741")
      */
-    public deleteCustomCode(
-        site_id: string,
-        requestOptions?: ScriptsClient.RequestOptions,
-    ): core.HttpResponsePromise<void> {
-        return core.HttpResponsePromise.fromPromise(this.__deleteCustomCode(site_id, requestOptions));
+    public deleteAll(site_id: string, requestOptions?: GoogleTagClient.RequestOptions): core.HttpResponsePromise<void> {
+        return core.HttpResponsePromise.fromPromise(this.__deleteAll(site_id, requestOptions));
     }
 
-    private async __deleteCustomCode(
+    private async __deleteAll(
         site_id: string,
-        requestOptions?: ScriptsClient.RequestOptions,
+        requestOptions?: GoogleTagClient.RequestOptions,
     ): Promise<core.WithRawResponse<void>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -348,7 +187,7 @@ export class ScriptsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
                         .base,
-                `sites/${core.url.encodePathParam(site_id)}/custom_code`,
+                `sites/${core.url.encodePathParam(site_id)}/integrations/google_tags`,
             ),
             method: "DELETE",
             headers: _headers,
@@ -424,26 +263,20 @@ export class ScriptsClient {
             _response.error,
             _response.rawResponse,
             "DELETE",
-            "/sites/{site_id}/custom_code",
+            "/sites/{site_id}/integrations/google_tags",
         );
     }
 
     /**
-     * Get a list of scripts that have been applied to a site and/or individual pages.
+     * Add or update Google Tag IDs for a site. Existing tags not referenced in the request are preserved. A site may have a maximum of 25 tags total.
      *
-     * <Note title="Script Registration">
-     *   To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints.
+     * `order` is optional on input — it is auto-assigned for new tags and returned on all tags in the response.
      *
-     *   See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
-     * </Note>
-     *
-     * <Note>Access to this endpoint requires a bearer token obtained from an [OAuth Code Grant Flow](/data/reference/oauth-app).</Note>
-     *
-     * Required scope | `custom_code:read`
+     * Required scope: `sites:write`
      *
      * @param {string} site_id - Unique identifier for a Site
-     * @param {Webflow.sites.ScriptsListCustomCodeBlocksRequest} request
-     * @param {ScriptsClient.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Webflow.GoogleTagIds} request
+     * @param {GoogleTagClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Webflow.BadRequestError}
      * @throws {@link Webflow.UnauthorizedError}
@@ -452,29 +285,27 @@ export class ScriptsClient {
      * @throws {@link Webflow.InternalServerError}
      *
      * @example
-     *     await client.sites.scripts.listCustomCodeBlocks("580e63e98c9a982ac9b8b741", {
-     *         offset: 1,
-     *         limit: 1
+     *     await client.sites.googleTag.upsert("580e63e98c9a982ac9b8b741", {
+     *         googleTagIds: [{
+     *                 order: 0,
+     *                 displayName: "Main Analytics Tag",
+     *                 tagId: "G-1234567890"
+     *             }]
      *     })
      */
-    public listCustomCodeBlocks(
+    public upsert(
         site_id: string,
-        request: Webflow.sites.ScriptsListCustomCodeBlocksRequest = {},
-        requestOptions?: ScriptsClient.RequestOptions,
-    ): core.HttpResponsePromise<Webflow.ListCustomCodeBlocks> {
-        return core.HttpResponsePromise.fromPromise(this.__listCustomCodeBlocks(site_id, request, requestOptions));
+        request: Webflow.GoogleTagIds,
+        requestOptions?: GoogleTagClient.RequestOptions,
+    ): core.HttpResponsePromise<Webflow.GoogleTagIds> {
+        return core.HttpResponsePromise.fromPromise(this.__upsert(site_id, request, requestOptions));
     }
 
-    private async __listCustomCodeBlocks(
+    private async __upsert(
         site_id: string,
-        request: Webflow.sites.ScriptsListCustomCodeBlocksRequest = {},
-        requestOptions?: ScriptsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Webflow.ListCustomCodeBlocks>> {
-        const { offset, limit } = request;
-        const _queryParams: Record<string, unknown> = {
-            offset,
-            limit,
-        };
+        request: Webflow.GoogleTagIds,
+        requestOptions?: GoogleTagClient.RequestOptions,
+    ): Promise<core.WithRawResponse<Webflow.GoogleTagIds>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -486,11 +317,19 @@ export class ScriptsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
                         .base,
-                `sites/${core.url.encodePathParam(site_id)}/custom_code/blocks`,
+                `sites/${core.url.encodePathParam(site_id)}/integrations/google_tags`,
             ),
-            method: "GET",
+            method: "PATCH",
             headers: _headers,
-            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            contentType: "application/json",
+            queryParameters: requestOptions?.queryParams,
+            requestType: "json",
+            body: serializers.GoogleTagIds.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                omitUndefined: true,
+            }),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -499,7 +338,7 @@ export class ScriptsClient {
         });
         if (_response.ok) {
             return {
-                data: serializers.ListCustomCodeBlocks.parseOrThrow(_response.body, {
+                data: serializers.GoogleTagIds.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -570,8 +409,139 @@ export class ScriptsClient {
         return handleNonStatusCodeError(
             _response.error,
             _response.rawResponse,
-            "GET",
-            "/sites/{site_id}/custom_code/blocks",
+            "PATCH",
+            "/sites/{site_id}/integrations/google_tags",
+        );
+    }
+
+    /**
+     * Delete a single Google Tag ID from a site. The `order` values of the remaining tags are renormalized after deletion.
+     *
+     * Required scope: `sites:write`
+     *
+     * @param {string} site_id - Unique identifier for a Site
+     * @param {string} tag_id - The Google Tag ID (e.g. G-XXXXXXXXXX)
+     * @param {GoogleTagClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Webflow.BadRequestError}
+     * @throws {@link Webflow.UnauthorizedError}
+     * @throws {@link Webflow.NotFoundError}
+     * @throws {@link Webflow.TooManyRequestsError}
+     * @throws {@link Webflow.InternalServerError}
+     *
+     * @example
+     *     await client.sites.googleTag.delete("580e63e98c9a982ac9b8b741", "G-XXXXXXXXXX")
+     */
+    public delete(
+        site_id: string,
+        tag_id: string,
+        requestOptions?: GoogleTagClient.RequestOptions,
+    ): core.HttpResponsePromise<Webflow.GoogleTagIds> {
+        return core.HttpResponsePromise.fromPromise(this.__delete(site_id, tag_id, requestOptions));
+    }
+
+    private async __delete(
+        site_id: string,
+        tag_id: string,
+        requestOptions?: GoogleTagClient.RequestOptions,
+    ): Promise<core.WithRawResponse<Webflow.GoogleTagIds>> {
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
+        const _response = await core.fetcher({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
+                        .base,
+                `sites/${core.url.encodePathParam(site_id)}/integrations/google_tags/${core.url.encodePathParam(tag_id)}`,
+            ),
+            method: "DELETE",
+            headers: _headers,
+            queryParameters: requestOptions?.queryParams,
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.GoogleTagIds.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Webflow.BadRequestError(_response.error.body, _response.rawResponse);
+                case 401:
+                    throw new Webflow.UnauthorizedError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new Webflow.NotFoundError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 429:
+                    throw new Webflow.TooManyRequestsError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 500:
+                    throw new Webflow.InternalServerError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.WebflowError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "DELETE",
+            "/sites/{site_id}/integrations/google_tags/{tag_id}",
         );
     }
 }
