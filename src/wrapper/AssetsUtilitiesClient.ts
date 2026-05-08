@@ -3,8 +3,6 @@ import { AssetsClient } from "../api/resources/assets/client/Client";
 import * as core from "../core";
 import * as environments from "../environments";
 import crypto from "crypto";
-import fetch from "node-fetch";
-import FormDataConstructor from 'form-data';
 
 export declare namespace AssetsUtilities {
     interface Options {
@@ -122,22 +120,21 @@ export class Client extends AssetsClient {
             acc[mappedKey] = wfUploadDetails[key as keyof typeof headerMappings ];
             return acc;
         }, {});
-        const formDataToUpload = new FormDataConstructor();
+        const formDataToUpload = new FormData();
         Object.keys(transformedUploadHeaders).forEach((key) => {
             formDataToUpload.append(key, transformedUploadHeaders[key]);
         });
 
-        formDataToUpload.append("file", tempBuffer, {
-            filename: fileName,
-            contentType: wfUploadedAsset.contentType || "application/octet-stream",
+        const fileBlob = new Blob([tempBuffer], {
+            type: wfUploadedAsset.contentType || "application/octet-stream",
         });
+        formDataToUpload.append("file", fileBlob, fileName);
 
         /** 4. Upload to S3  */
         try {
             const response = await fetch(uploadUrl, {
                 method: 'POST',
                 body: formDataToUpload,
-                headers: { ...formDataToUpload.getHeaders() },
             });
 
             if (!response.ok) {

@@ -3,7 +3,6 @@ import { Client as AssetsUtilitiesClient } from "../../src/wrapper/AssetsUtiliti
 import * as Webflow from "../../src/api";
 import fetchMock from "jest-fetch-mock";
 import crypto from "crypto";
-import FormDataConstructor from 'form-data';
 
 fetchMock.enableMocks();
 
@@ -96,7 +95,7 @@ describe("AssetsUtilitiesClient", () => {
         // Ensure the S3 upload was attempted
         expect(fetchMock).toHaveBeenCalledWith(mockUploadUrl, expect.objectContaining({
             method: "POST",
-            body: expect.any(FormDataConstructor),
+            body: expect.any(FormData),
         }));
     });
 
@@ -131,7 +130,7 @@ describe("AssetsUtilitiesClient", () => {
 
         expect(fetchMock).toHaveBeenCalledWith(mockUploadUrl, expect.objectContaining({
             method: "POST",
-            body: expect.any(FormDataConstructor),
+            body: expect.any(FormData),
         }));
 
         expect(result).toEqual(mockCreateResponse);
@@ -175,7 +174,7 @@ describe("AssetsUtilitiesClient", () => {
         // Assertions for the S3 upload
         expect(fetchMock).toHaveBeenNthCalledWith(2, mockUploadUrl, expect.objectContaining({
             method: "POST",
-            body: expect.any(FormDataConstructor),
+            body: expect.any(FormData),
         }));
 
         expect(result).toEqual(mockCreateResponse);

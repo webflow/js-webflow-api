@@ -1,6 +1,6 @@
 {
     "name": "webflow-api",
-    "version": "3.3.5",
+    "version": "3.3.6",
     "private": false,
     "repository": {
         "type": "git",
@@ -23,7 +23,6 @@
         "test:wire": "jest --selectProjects wire"
     },
     "dependencies": {
-        "form-data": "^4.0.4",
         "formdata-node": "^6.0.3",
         "node-fetch": "^2.7.0",
         "readable-stream": "^4.5.2",
