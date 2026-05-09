@@ -197,6 +197,7 @@ export * from "./SitePlanId";
 export * from "./SitePlanName";
 export * from "./SitePublish";
 export * from "./SitePublishPayload";
+export * from "./SitePublishPayloadPublishScope";
 export * from "./Sites";
 export * from "./Sku";
 export * from "./SkuFieldData";
