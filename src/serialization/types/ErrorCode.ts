@@ -6,7 +6,11 @@ import type * as serializers from "../index";
 
 export const ErrorCode: core.serialization.Schema<serializers.ErrorCode.Raw, Webflow.ErrorCode> =
     core.serialization.enum_([
+        "analyze_filter_conflict",
+        "analyze_input_validation",
+        "analyze_unsupported_filter",
         "bad_request",
+        "before_historical_floor",
         "collection_not_found",
         "conflict",
         "duplicate_collection",
@@ -19,6 +23,7 @@ export const ErrorCode: core.serialization.Schema<serializers.ErrorCode.Raw, Web
         "invalid_auth_version",
         "invalid_credentials",
         "invalid_domain",
+        "invalid_time_range",
         "invalid_user_email",
         "item_not_found",
         "missing_scopes",
@@ -28,6 +33,7 @@ export const ErrorCode: core.serialization.Schema<serializers.ErrorCode.Raw, Web
         "not_enterprise_plan_workspace",
         "order_not_found",
         "resource_not_found",
+        "time_range_too_wide",
         "too_many_requests",
         "unsupported_version",
         "unsupported_webhook_trigger_type",
@@ -39,7 +45,11 @@ export const ErrorCode: core.serialization.Schema<serializers.ErrorCode.Raw, Web
 
 export declare namespace ErrorCode {
     export type Raw =
+        | "analyze_filter_conflict"
+        | "analyze_input_validation"
+        | "analyze_unsupported_filter"
         | "bad_request"
+        | "before_historical_floor"
         | "collection_not_found"
         | "conflict"
         | "duplicate_collection"
@@ -52,6 +62,7 @@ export declare namespace ErrorCode {
         | "invalid_auth_version"
         | "invalid_credentials"
         | "invalid_domain"
+        | "invalid_time_range"
         | "invalid_user_email"
         | "item_not_found"
         | "missing_scopes"
@@ -61,6 +72,7 @@ export declare namespace ErrorCode {
         | "not_enterprise_plan_workspace"
         | "order_not_found"
         | "resource_not_found"
+        | "time_range_too_wide"
         | "too_many_requests"
         | "unsupported_version"
         | "unsupported_webhook_trigger_type"

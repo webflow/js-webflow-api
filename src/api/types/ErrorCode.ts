@@ -2,7 +2,11 @@
 
 /** Error code */
 export const ErrorCode = {
+    AnalyzeFilterConflict: "analyze_filter_conflict",
+    AnalyzeInputValidation: "analyze_input_validation",
+    AnalyzeUnsupportedFilter: "analyze_unsupported_filter",
     BadRequest: "bad_request",
+    BeforeHistoricalFloor: "before_historical_floor",
     CollectionNotFound: "collection_not_found",
     Conflict: "conflict",
     DuplicateCollection: "duplicate_collection",
@@ -15,6 +19,7 @@ export const ErrorCode = {
     InvalidAuthVersion: "invalid_auth_version",
     InvalidCredentials: "invalid_credentials",
     InvalidDomain: "invalid_domain",
+    InvalidTimeRange: "invalid_time_range",
     InvalidUserEmail: "invalid_user_email",
     ItemNotFound: "item_not_found",
     MissingScopes: "missing_scopes",
@@ -24,6 +29,7 @@ export const ErrorCode = {
     NotEnterprisePlanWorkspace: "not_enterprise_plan_workspace",
     OrderNotFound: "order_not_found",
     ResourceNotFound: "resource_not_found",
+    TimeRangeTooWide: "time_range_too_wide",
     TooManyRequests: "too_many_requests",
     UnsupportedVersion: "unsupported_version",
     UnsupportedWebhookTriggerType: "unsupported_webhook_trigger_type",
