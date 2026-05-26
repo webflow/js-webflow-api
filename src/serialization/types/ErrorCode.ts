@@ -28,6 +28,7 @@ export const ErrorCode: core.serialization.Schema<serializers.ErrorCode.Raw, Web
         "not_enterprise_plan_workspace",
         "order_not_found",
         "resource_not_found",
+        "service_unavailable",
         "too_many_requests",
         "unsupported_version",
         "unsupported_webhook_trigger_type",
@@ -61,6 +62,7 @@ export declare namespace ErrorCode {
         | "not_enterprise_plan_workspace"
         | "order_not_found"
         | "resource_not_found"
+        | "service_unavailable"
         | "too_many_requests"
         | "unsupported_version"
         | "unsupported_webhook_trigger_type"

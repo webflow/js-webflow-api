@@ -11,6 +11,10 @@ export const PageCreatedWebhookPayload: core.serialization.ObjectSchema<
     siteId: core.serialization.string().optional(),
     pageId: core.serialization.string().optional(),
     pageTitle: core.serialization.string().optional(),
+    pageName: core.serialization.string().optional(),
+    archived: core.serialization.boolean().optional(),
+    draft: core.serialization.boolean().optional(),
+    isBranch: core.serialization.boolean().optional(),
     createdOn: core.serialization.date().optional(),
     publishedPath: core.serialization.string().optional(),
 });
@@ -20,6 +24,10 @@ export declare namespace PageCreatedWebhookPayload {
         siteId?: string | null;
         pageId?: string | null;
         pageTitle?: string | null;
+        pageName?: string | null;
+        archived?: boolean | null;
+        draft?: boolean | null;
+        isBranch?: boolean | null;
         createdOn?: string | null;
         publishedPath?: string | null;
     }

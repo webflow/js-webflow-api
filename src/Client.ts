@@ -3,6 +3,7 @@
 import { AssetsClient } from "./api/resources/assets/client/Client";
 import { CollectionsClient } from "./api/resources/collections/client/Client";
 import { ComponentsClient } from "./api/resources/components/client/Client";
+import { CustomFontsClient } from "./api/resources/customFonts/client/Client";
 import { EcommerceClient } from "./api/resources/ecommerce/client/Client";
 import { FormsClient } from "./api/resources/forms/client/Client";
 import { InventoryClient } from "./api/resources/inventory/client/Client";
@@ -32,6 +33,7 @@ export class WebflowClient {
     protected _components: ComponentsClient | undefined;
     protected _scripts: ScriptsClient | undefined;
     protected _assets: AssetsClient | undefined;
+    protected _customFonts: CustomFontsClient | undefined;
     protected _webhooks: WebhooksClient | undefined;
     protected _forms: FormsClient | undefined;
     protected _products: ProductsClient | undefined;
@@ -70,6 +72,10 @@ export class WebflowClient {
 
     public get assets(): AssetsClient {
         return (this._assets ??= new AssetsClient(this._options));
+    }
+
+    public get customFonts(): CustomFontsClient {
+        return (this._customFonts ??= new CustomFontsClient(this._options));
     }
 
     public get webhooks(): WebhooksClient {

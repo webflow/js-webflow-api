@@ -71,7 +71,7 @@ await client.token.authorizedBy();
 
 Information about the authorization token
 
-<Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
+<Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/data-clients/getting-started).</Note>
 </dd>
 </dl>
 </dd>
@@ -533,11 +533,14 @@ await client.sites.getCustomDomain("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-Publishes a site to one or more more domains.
+Publishes a site or an individual page to one or more domains.
+If multiple individual pages are published to staging, publishing from staging to production publishes all staged changes.
 
 To publish to a specific custom domain, use the domain IDs from the [Get Custom Domains](/data/reference/sites/get-custom-domain) endpoint.
 
 You must include at least one of the `customDomains` or `publishToWebflowSubdomain` properties in the request body.
+
+To publish an individual page instead of the entire site, provide the ID of the page in the `pageId` parameter.
 
 <Note title="Rate limit: 1 publish per minute">This endpoint has a specific rate limit of one successful publish queue per minute.</Note>
 
@@ -1828,6 +1831,8 @@ Get a list of scripts that have been registered to a site. A site can have a max
   To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
 </Note>
 
+<Note>Access to this endpoint requires a bearer token obtained from an [OAuth Code Grant Flow](/data/reference/oauth-app).</Note>
+
 Required scope | `custom_code:read`
 </dd>
 </dl>
@@ -1896,6 +1901,8 @@ Register a hosted script to a site.
 <Note title="Script Registration">
   To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
 </Note>
+
+<Note>Access to this endpoint requires a bearer token obtained from an [OAuth Code Grant Flow](/data/reference/oauth-app).</Note>
 
 Required scope | `custom_code:write`
 </dd>
@@ -1978,6 +1985,8 @@ Register an inline script to a site. Inline scripts are limited to 2000 characte
 <Note title="Script Registration">
   To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
 </Note>
+
+<Note>Access to this endpoint requires a bearer token obtained from an [OAuth Code Grant Flow](/data/reference/oauth-app).</Note>
 
 Required scope | `custom_code:write`
 </dd>
@@ -2075,7 +2084,8 @@ Required scope | `assets:read`
 await client.assets.list("580e63e98c9a982ac9b8b741", {
     localeId: "65427cf400e02b306eaa04a0",
     offset: 1,
-    limit: 1
+    limit: 1,
+    folderId: "folderId"
 });
 
 ```
@@ -2625,6 +2635,570 @@ await client.assets.getFolder("6390c49774a71f0e3c1a08ee");
 </dl>
 </details>
 
+## Custom Fonts
+<details><summary><code>client.customFonts.<a href="/src/api/resources/customFonts/client/Client.ts">list</a>(site_id, { ...params }) -> Webflow.CustomFonts</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List the custom fonts uploaded to a site.
+
+Required scope | `sites:read`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.customFonts.list("580e63e98c9a982ac9b8b741", {
+    offset: 1,
+    limit: 1
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.CustomFontsListRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomFontsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customFonts.<a href="/src/api/resources/customFonts/client/Client.ts">create</a>(site_id, { ...params }) -> Webflow.CustomFontCreateResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Register a custom font on a site and get a presigned S3 URL to upload the font binary.
+
+The response includes a `customFont` object and an `upload` object. Use the `upload.url` and `upload.fields`
+to POST the font binary directly to S3 as `multipart/form-data`. The binary must go in a field named `file`
+and must be the last field in the form (an AWS S3 requirement). S3 returns `201 Created` on a successful upload.
+
+To learn more, see [Custom fonts](/data/docs/custom-fonts).
+
+Required scope | `sites:write`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.customFonts.create("580e63e98c9a982ac9b8b741", {
+    fileName: "AcmeSans-Regular.woff2",
+    fileHash: "3c7d87c9575702bc3b1e991f4d3c638e",
+    fontFamily: "Acme Sans",
+    weight: 400,
+    italic: false,
+    fontDisplay: "auto"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.CustomFontsCreateRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomFontsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customFonts.<a href="/src/api/resources/customFonts/client/Client.ts">get</a>(site_id, font_id) -> Webflow.CustomFontsGetResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get details about a custom font on a site.
+
+Required scope | `sites:read`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.customFonts.get("580e63e98c9a982ac9b8b741", "66f3a1b2c4d5e6f7a8b9c0d1");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**font_id:** `string` — Unique identifier for a custom font on a site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomFontsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customFonts.<a href="/src/api/resources/customFonts/client/Client.ts">delete</a>(site_id, font_id) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a custom font from a site.
+
+Required scope | `sites:write`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.customFonts.delete("580e63e98c9a982ac9b8b741", "66f3a1b2c4d5e6f7a8b9c0d1");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**font_id:** `string` — Unique identifier for a custom font on a site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomFontsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customFonts.<a href="/src/api/resources/customFonts/client/Client.ts">update</a>(site_id, font_id, { ...params }) -> Webflow.CustomFontsUpdateResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update the metadata of a custom font. The font binary is not changed by this endpoint.
+To replace the binary, use [Replace custom font file](#operation/replace-custom-font-file).
+
+The request body must include at least one of `fontFamily`, `weight`, `italic`, or `fontDisplay`.
+
+Required scope | `sites:write`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.customFonts.update("580e63e98c9a982ac9b8b741", "66f3a1b2c4d5e6f7a8b9c0d1");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**font_id:** `string` — Unique identifier for a custom font on a site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.CustomFontsUpdateRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomFontsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customFonts.<a href="/src/api/resources/customFonts/client/Client.ts">replaceFile</a>(site_id, font_id, { ...params }) -> Webflow.CustomFontCreateResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Replace the binary of an existing custom font while preserving its ID and any references to it.
+The upload handshake is identical to [Create custom font](#operation/create-custom-font).
+
+If the existing font has a non-empty `axes` array (a variable font), you must include an `axes` field
+in the request. Send `axes: []` to declare that the new binary is a static font, or send the new variable
+axes to declare it is still variable. Omitting `axes` when the existing font is variable returns `400`.
+
+Required scope | `sites:write`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.customFonts.replaceFile("580e63e98c9a982ac9b8b741", "66f3a1b2c4d5e6f7a8b9c0d1", {
+    fileName: "AcmeSans-Regular-v2.woff2",
+    fileHash: "3c7d87c9575702bc3b1e991f4d3c638e"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**font_id:** `string` — Unique identifier for a custom font on a site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.CustomFontsReplaceFileRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomFontsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customFonts.<a href="/src/api/resources/customFonts/client/Client.ts">batchDelete</a>(site_id, { ...params }) -> Webflow.CustomFontBatchDeleteResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete 1-100 custom fonts in a single request. The response is always `200 OK` for a valid request body.
+Per-font results are reported in the `deleted` and `failed` arrays.
+
+The endpoint is idempotent: fonts that do not exist appear in `failed` with `name: "NotFound"` rather than
+failing the entire request. You can safely retry a partial failure by re-sending only the IDs that did not
+appear in `deleted`.
+
+Required scope | `sites:write`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.customFonts.batchDelete("580e63e98c9a982ac9b8b741", {
+    items: [{
+            id: "66f3a1b2c4d5e6f7a8b9c0d1"
+        }]
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.CustomFontBatchDeleteRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomFontsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Webhooks
 <details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">list</a>(site_id) -> Webflow.WebhookList</code></summary>
 <dl>
@@ -2707,7 +3281,7 @@ Create a new Webhook.
 
 Limit of 75 registrations per `triggerType`, per site.
 
-<Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
+<Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/data-clients/getting-started).</Note>
 Required scope | `sites:write`
 </dd>
 </dl>
@@ -6406,6 +6980,8 @@ await client.collections.items.publishItem("580e63fc8c9a982ac9b8b745", {
 
 Get all scripts applied to a page.
 
+<Note>Access to this endpoint requires a bearer token obtained from an [OAuth Code Grant Flow](/data/reference/oauth-app).</Note>
+
 Required scope | `custom_code:read`
 </dd>
 </dl>
@@ -6474,6 +7050,8 @@ Apply registered scripts to a page. If you have multiple scripts your App needs 
 <Note title="Script Registration">
   To apply a script to a page, the script must first be registered to a Site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
 </Note>
+
+<Note>Access to this endpoint requires a bearer token obtained from an [OAuth Code Grant Flow](/data/reference/oauth-app).</Note>
 
 Required scope | `custom_code:write`
 </dd>
@@ -7478,6 +8056,291 @@ await client.sites.wellKnown.delete("580e63e98c9a982ac9b8b741");
 </dl>
 </details>
 
+## Sites GoogleTag
+<details><summary><code>client.sites.googleTag.<a href="/src/api/resources/sites/resources/googleTag/client/Client.ts">list</a>(site_id) -> Webflow.GoogleTagIds</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all Google Tag IDs configured for a site, sorted by order.
+
+Required scope: `sites:read`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.googleTag.list("580e63e98c9a982ac9b8b741");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `GoogleTagClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sites.googleTag.<a href="/src/api/resources/sites/resources/googleTag/client/Client.ts">deleteAll</a>(site_id) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete all Google Tag IDs from a site.
+
+Required scope: `sites:write`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.googleTag.deleteAll("580e63e98c9a982ac9b8b741");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `GoogleTagClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sites.googleTag.<a href="/src/api/resources/sites/resources/googleTag/client/Client.ts">upsert</a>(site_id, { ...params }) -> Webflow.GoogleTagIds</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Add or update Google Tag IDs for a site. Existing tags not referenced in the request are preserved. A site may have a maximum of 25 tags total.
+
+`order` is optional on input — it is auto-assigned for new tags and returned on all tags in the response.
+
+Required scope: `sites:write`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.googleTag.upsert("580e63e98c9a982ac9b8b741", {
+    googleTagIds: [{
+            order: 0,
+            displayName: "Main Analytics Tag",
+            tagId: "G-1234567890"
+        }]
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.GoogleTagIds` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `GoogleTagClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sites.googleTag.<a href="/src/api/resources/sites/resources/googleTag/client/Client.ts">delete</a>(site_id, tag_id) -> Webflow.GoogleTagIds</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a single Google Tag ID from a site. The `order` values of the remaining tags are renormalized after deletion.
+
+Required scope: `sites:write`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.googleTag.delete("580e63e98c9a982ac9b8b741", "G-XXXXXXXXXX");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tag_id:** `string` — The Google Tag ID (e.g. G-XXXXXXXXXX)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `GoogleTagClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Sites ActivityLogs
 <details><summary><code>client.sites.activityLogs.<a href="/src/api/resources/sites/resources/activityLogs/client/Client.ts">list</a>(site_id, { ...params }) -> Webflow.SiteActivityLogResponse</code></summary>
 <dl>
@@ -7842,6 +8705,8 @@ Get all scripts applied to a site by the App.
   To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
 </Note>
 
+<Note>Access to this endpoint requires a bearer token obtained from an [OAuth Code Grant Flow](/data/reference/oauth-app).</Note>
+
 Required scope | `custom_code:read`
 </dd>
 </dl>
@@ -7910,6 +8775,8 @@ Apply registered scripts to a site. If you have multiple scripts your App needs 
 <Note title="Script Registration">
   To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
 </Note>
+
+<Note>Access to this endpoint requires a bearer token obtained from an [OAuth Code Grant Flow](/data/reference/oauth-app).</Note>
 
 Required scope | `custom_code:write`
 </dd>
@@ -8071,6 +8938,8 @@ Get a list of scripts that have been applied to a site and/or individual pages.
 
   See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
 </Note>
+
+<Note>Access to this endpoint requires a bearer token obtained from an [OAuth Code Grant Flow](/data/reference/oauth-app).</Note>
 
 Required scope | `custom_code:read`
 </dd>
