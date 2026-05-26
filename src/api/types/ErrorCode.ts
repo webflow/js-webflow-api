@@ -24,6 +24,7 @@ export const ErrorCode = {
     NotEnterprisePlanWorkspace: "not_enterprise_plan_workspace",
     OrderNotFound: "order_not_found",
     ResourceNotFound: "resource_not_found",
+    ServiceUnavailable: "service_unavailable",
     TooManyRequests: "too_many_requests",
     UnsupportedVersion: "unsupported_version",
     UnsupportedWebhookTriggerType: "unsupported_webhook_trigger_type",
