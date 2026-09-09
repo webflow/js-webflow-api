@@ -64,6 +64,7 @@ describe("ItemsClient", () => {
             slug: "slug",
             sortBy: "createdOn",
             sortOrder: "asc",
+            translatable: "65427cf400e02b306eaa04a0",
         });
         expect(response).toEqual({
             items: [
@@ -396,107 +397,6 @@ describe("ItemsClient", () => {
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
-        const rawRequestBody = {
-            items: [
-                {
-                    isArchived: false,
-                    isDraft: false,
-                    fieldData: {
-                        url: "https://boards.greenhouse.io/webflow/jobs/26567701",
-                        department: "Data",
-                        name: "Senior Data Analyst",
-                        slug: "senior-data-analyst",
-                    },
-                },
-                {
-                    isArchived: false,
-                    isDraft: false,
-                    fieldData: {
-                        url: "https://boards.greenhouse.io/webflow/jobs/31234567",
-                        department: "Product",
-                        name: "Product Manager",
-                        slug: "product-manager",
-                    },
-                },
-            ],
-        };
-        const rawResponseBody = {
-            id: "id",
-            cmsLocaleId: "653ad57de882f528b32e810e",
-            lastPublished: "2023-03-17T18:47:35.560Z",
-            lastUpdated: "2023-03-17T18:47:35.560Z",
-            createdOn: "2023-03-17T18:47:35.560Z",
-            isArchived: true,
-            isDraft: true,
-            fieldData: {
-                date: "2022-11-18T00:00:00.000Z",
-                featured: false,
-                color: "#db4b68",
-                name: "My new item",
-                slug: "my-new-item",
-            },
-        };
-        server
-            .mockEndpoint()
-            .post("/collections/580e63fc8c9a982ac9b8b745/items")
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        const response = await client.collections.items.createItem("580e63fc8c9a982ac9b8b745", {
-            skipInvalidFiles: true,
-            body: {
-                items: [
-                    {
-                        isArchived: false,
-                        isDraft: false,
-                        fieldData: {
-                            name: "Senior Data Analyst",
-                            slug: "senior-data-analyst",
-                            url: "https://boards.greenhouse.io/webflow/jobs/26567701",
-                            department: "Data",
-                        },
-                    },
-                    {
-                        isArchived: false,
-                        isDraft: false,
-                        fieldData: {
-                            name: "Product Manager",
-                            slug: "product-manager",
-                            url: "https://boards.greenhouse.io/webflow/jobs/31234567",
-                            department: "Product",
-                        },
-                    },
-                ],
-            },
-        });
-        expect(response).toEqual({
-            id: "id",
-            cmsLocaleId: "653ad57de882f528b32e810e",
-            lastPublished: "2023-03-17T18:47:35.560Z",
-            lastUpdated: "2023-03-17T18:47:35.560Z",
-            createdOn: "2023-03-17T18:47:35.560Z",
-            isArchived: true,
-            isDraft: true,
-            fieldData: {
-                name: "My new item",
-                slug: "my-new-item",
-                date: "2022-11-18T00:00:00.000Z",
-                featured: false,
-                color: "#db4b68",
-            },
-        });
-    });
-
-    test("create-item (3)", async () => {
-        const server = mockServerPool.createServer();
-        const client = new WebflowClient({
-            maxRetries: 0,
-            accessToken: "test",
-            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
-        });
         const rawRequestBody = { fieldData: { name: "name", slug: "slug" } };
         const rawResponseBody = { key: "value" };
         server
@@ -520,7 +420,7 @@ describe("ItemsClient", () => {
         }).rejects.toThrow(Webflow.BadRequestError);
     });
 
-    test("create-item (4)", async () => {
+    test("create-item (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             maxRetries: 0,
@@ -550,7 +450,7 @@ describe("ItemsClient", () => {
         }).rejects.toThrow(Webflow.UnauthorizedError);
     });
 
-    test("create-item (5)", async () => {
+    test("create-item (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             maxRetries: 0,
@@ -580,7 +480,7 @@ describe("ItemsClient", () => {
         }).rejects.toThrow(Webflow.NotFoundError);
     });
 
-    test("create-item (6)", async () => {
+    test("create-item (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             maxRetries: 0,
@@ -610,7 +510,7 @@ describe("ItemsClient", () => {
         }).rejects.toThrow(Webflow.TooManyRequestsError);
     });
 
-    test("create-item (7)", async () => {
+    test("create-item (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             maxRetries: 0,
@@ -1387,6 +1287,7 @@ describe("ItemsClient", () => {
             slug: "slug",
             sortBy: "createdOn",
             sortOrder: "asc",
+            translatable: "65427cf400e02b306eaa04a0",
         });
         expect(response).toEqual({
             items: [
@@ -1719,156 +1620,6 @@ describe("ItemsClient", () => {
             accessToken: "test",
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
-        const rawRequestBody = {
-            items: [
-                {
-                    isArchived: false,
-                    isDraft: false,
-                    fieldData: {
-                        url: "https://boards.greenhouse.io/webflow/jobs/26567701",
-                        department: "Data",
-                        name: "Senior Data Analyst",
-                        slug: "senior-data-analyst",
-                    },
-                },
-                {
-                    isArchived: false,
-                    isDraft: false,
-                    fieldData: {
-                        url: "https://boards.greenhouse.io/webflow/jobs/31234567",
-                        department: "Product",
-                        name: "Product Manager",
-                        slug: "product-manager",
-                    },
-                },
-            ],
-        };
-        const rawResponseBody = {
-            id: "42b720ef280c7a7a3be8cabe",
-            cmsLocaleId: "653ad57de882f528b32e810e",
-            lastPublished: "2022-11-29T16:22:43.159Z",
-            lastUpdated: "2022-11-17T17:19:43.282Z",
-            createdOn: "2022-11-17T17:11:57.148Z",
-            isArchived: false,
-            isDraft: false,
-            fieldData: {
-                "plain-text": "Don't Panic.",
-                "rich-text":
-                    "<h3>A Guide to Interstellar Travel</h3><p>A towel is about the most massively useful thing an interstellar hitchhiker can have. <strong>Don't forget yours!</strong></p>",
-                "main-image": { fileId: "62b720ef280c7a7a3be8cabe", url: "/files/62b720ef280c7a7a3be8cabe_image.png" },
-                "image-gallery": [
-                    { fileId: "62b720ef280c7a7a3be8cabd", url: "/files/62b720ef280c7a7a3be8cabd_image.png" },
-                    { fileId: "62b720ef280c7a7a3be8cabe", url: "/files/62b720ef280c7a7a3be8cabe_image.png" },
-                ],
-                "intro-video": "https://www.youtube.com/watch?v=aJ83KAggd-4",
-                "official-site": "https://hitchhikers.fandom.com/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy",
-                "contact-email": "zaphod.beeblebrox@heartofgold.gov",
-                "support-phone": "424-242-4242",
-                "answer-to-everything": 42,
-                "release-date": "1979-10-12T00:00:00.000Z",
-                "is-featured": true,
-                "brand-color": "#000000",
-                category: "62b720ef280c7a7a3be8cabf",
-                author: "62b720ef280c7a7a3be8cab0",
-                tags: ["62b720ef280c7a7a3be8cab1", "62b720ef280c7a7a3be8cab2"],
-                "downloadable-asset": {
-                    fileId: "62b720ef280c7a7a3be8cab3",
-                    url: "/files/62b720ef280c7a7a3be8cab3_document.pdf",
-                },
-                name: "The Hitchhiker's Guide to the Galaxy",
-                slug: "hitchhikers-guide-to-the-galaxy",
-            },
-        };
-        server
-            .mockEndpoint()
-            .post("/collections/580e63fc8c9a982ac9b8b745/items/live")
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        const response = await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
-            skipInvalidFiles: true,
-            body: {
-                items: [
-                    {
-                        isArchived: false,
-                        isDraft: false,
-                        fieldData: {
-                            name: "Senior Data Analyst",
-                            slug: "senior-data-analyst",
-                            url: "https://boards.greenhouse.io/webflow/jobs/26567701",
-                            department: "Data",
-                        },
-                    },
-                    {
-                        isArchived: false,
-                        isDraft: false,
-                        fieldData: {
-                            name: "Product Manager",
-                            slug: "product-manager",
-                            url: "https://boards.greenhouse.io/webflow/jobs/31234567",
-                            department: "Product",
-                        },
-                    },
-                ],
-            },
-        });
-        expect(response).toEqual({
-            id: "42b720ef280c7a7a3be8cabe",
-            cmsLocaleId: "653ad57de882f528b32e810e",
-            lastPublished: "2022-11-29T16:22:43.159Z",
-            lastUpdated: "2022-11-17T17:19:43.282Z",
-            createdOn: "2022-11-17T17:11:57.148Z",
-            isArchived: false,
-            isDraft: false,
-            fieldData: {
-                name: "The Hitchhiker's Guide to the Galaxy",
-                slug: "hitchhikers-guide-to-the-galaxy",
-                "plain-text": "Don't Panic.",
-                "rich-text":
-                    "<h3>A Guide to Interstellar Travel</h3><p>A towel is about the most massively useful thing an interstellar hitchhiker can have. <strong>Don't forget yours!</strong></p>",
-                "main-image": {
-                    fileId: "62b720ef280c7a7a3be8cabe",
-                    url: "/files/62b720ef280c7a7a3be8cabe_image.png",
-                },
-                "image-gallery": [
-                    {
-                        fileId: "62b720ef280c7a7a3be8cabd",
-                        url: "/files/62b720ef280c7a7a3be8cabd_image.png",
-                    },
-                    {
-                        fileId: "62b720ef280c7a7a3be8cabe",
-                        url: "/files/62b720ef280c7a7a3be8cabe_image.png",
-                    },
-                ],
-                "intro-video": "https://www.youtube.com/watch?v=aJ83KAggd-4",
-                "official-site": "https://hitchhikers.fandom.com/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy",
-                "contact-email": "zaphod.beeblebrox@heartofgold.gov",
-                "support-phone": "424-242-4242",
-                "answer-to-everything": 42,
-                "release-date": "1979-10-12T00:00:00.000Z",
-                "is-featured": true,
-                "brand-color": "#000000",
-                category: "62b720ef280c7a7a3be8cabf",
-                author: "62b720ef280c7a7a3be8cab0",
-                tags: ["62b720ef280c7a7a3be8cab1", "62b720ef280c7a7a3be8cab2"],
-                "downloadable-asset": {
-                    fileId: "62b720ef280c7a7a3be8cab3",
-                    url: "/files/62b720ef280c7a7a3be8cab3_document.pdf",
-                },
-            },
-        });
-    });
-
-    test("create-item-live (3)", async () => {
-        const server = mockServerPool.createServer();
-        const client = new WebflowClient({
-            maxRetries: 0,
-            accessToken: "test",
-            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
-        });
         const rawRequestBody = { fieldData: { name: "name", slug: "slug" } };
         const rawResponseBody = { key: "value" };
         server
@@ -1892,7 +1643,7 @@ describe("ItemsClient", () => {
         }).rejects.toThrow(Webflow.BadRequestError);
     });
 
-    test("create-item-live (4)", async () => {
+    test("create-item-live (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             maxRetries: 0,
@@ -1922,7 +1673,7 @@ describe("ItemsClient", () => {
         }).rejects.toThrow(Webflow.UnauthorizedError);
     });
 
-    test("create-item-live (5)", async () => {
+    test("create-item-live (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             maxRetries: 0,
@@ -1952,7 +1703,7 @@ describe("ItemsClient", () => {
         }).rejects.toThrow(Webflow.NotFoundError);
     });
 
-    test("create-item-live (6)", async () => {
+    test("create-item-live (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             maxRetries: 0,
@@ -1982,7 +1733,7 @@ describe("ItemsClient", () => {
         }).rejects.toThrow(Webflow.TooManyRequestsError);
     });
 
-    test("create-item-live (7)", async () => {
+    test("create-item-live (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new WebflowClient({
             maxRetries: 0,
@@ -3555,6 +3306,7 @@ describe("ItemsClient", () => {
             "580e64008c9a982ac9b8b754",
             {
                 cmsLocaleId: "cmsLocaleId",
+                translatable: "65427cf400e02b306eaa04a0",
             },
         );
         expect(response).toEqual({
@@ -4208,6 +3960,7 @@ describe("ItemsClient", () => {
             "580e64008c9a982ac9b8b754",
             {
                 cmsLocaleId: "cmsLocaleId",
+                translatable: "65427cf400e02b306eaa04a0",
             },
         );
         expect(response).toEqual({

@@ -11,7 +11,8 @@ import type * as Webflow from "../../../../../../index";
  *         name: "name",
  *         slug: "slug",
  *         sortBy: "createdOn",
- *         sortOrder: "asc"
+ *         sortOrder: "asc",
+ *         translatable: "65427cf400e02b306eaa04a0"
  *     }
  */
 export interface ItemsListItemsRequest {
@@ -31,8 +32,74 @@ export interface ItemsListItemsRequest {
     lastPublished?: Webflow.ItemsListItemsRequestLastPublished;
     /** Filter by the last updated date of the item(s) */
     lastUpdated?: Webflow.ItemsListItemsRequestLastUpdated;
+    /**
+     * Filter collection items by custom field values. Use bracket notation:
+     * `filter[<fieldSlug>][<operator>]=<value>`.
+     *
+     * Example: `filter[price][gte]=10&filter[price][lte]=100&filter[name][contains]=shirt`.
+     *
+     * Filters are combined with AND. You can combine custom field filters with top-level filters such as `name`, `slug`, `createdOn`, `lastPublished`, and `lastUpdated`. OR logic and nested filter groups are not supported on GET requests.
+     *
+     * More filter terms can increase request latency.
+     *
+     * Supported operators by field type:
+     *
+     * | Field type | Supported operators |
+     * | --- | --- |
+     * | `id` | `eq`, `ne`, `in`, `nin` |
+     * | `PlainText` | `eq`, `ne`, `in`, `nin`, `contains`, `ncontains`, `exists` |
+     * | `Number` | `eq`, `ne`, `gt`, `gte`, `lt`, `lte`, `in`, `nin`, `exists` |
+     * | `Switch` | `eq`, `ne`, `in`, `nin`, `exists` |
+     * | `DateTime` | `eq`, `ne`, `gt`, `gte`, `lt`, `lte`, `in`, `nin`, `exists` |
+     * | `Email`, `Phone`, `Link` | `eq`, `ne`, `in`, `nin`, `contains`, `ncontains`, `exists` |
+     * | `Color` | `eq`, `ne`, `in`, `nin`, `exists` |
+     * | `Reference` | `eq`, `ne`, `in`, `nin`, `exists` |
+     * | `Option` | `eq`, `ne`, `in`, `nin` |
+     * | `RichText`, `Image`, `MultiImage`, `VideoLink`, `MultiReference` | `exists` |
+     *
+     * `contains` and `ncontains` are case-insensitive. `ncontains` also matches items where the field is empty or not set.
+     *
+     * `exists=true` matches items where the field has a value. `exists=false` matches items where the field is missing or null. For `Switch` fields, `false` is still a set value.
+     *
+     * Value formats:
+     *
+     * | Field type | Value format |
+     * | --- | --- |
+     * | `Number` | A valid number, such as `10` or `12.5` |
+     * | `Switch` | `true` or `false` |
+     * | `DateTime` | ISO 8601 date-time string |
+     * | `id`, `Reference` | 24-character item ID |
+     * | `Option` | Option ID |
+     * | `in`, `nin` | Comma-separated list, up to 100 values |
+     *
+     * Invalid fields, invalid values, and operators that do not apply to a field type return a `400 BadArgument` response.
+     */
+    filter?: Record<string, Webflow.collections.ItemsListItemsRequestFilterValue | undefined>;
     /** Sort results by the provided value */
     sortBy?: Webflow.collections.ItemsListItemsRequestSortBy;
     /** Sorts the results by asc or desc */
     sortOrder?: Webflow.collections.ItemsListItemsRequestSortOrder;
+    /**
+     * Sort collection items by custom fields using bracket notation: `sort[<fieldSlug>]=<asc|desc>`.
+     *
+     * - Example: `sort[price]=desc`
+     * - Multiple sort fields are applied in query-string order. When `sort[...]` is provided, it takes precedence over `sortBy` and `sortOrder`.
+     * - Sortable field types: `PlainText`, `Email`, `Phone`, `Number`, `DateTime`, and `Switch`.
+     * - Unknown fields, invalid sort directions, and non-sortable field types return a `400 BadArgument` response.
+     */
+    sort?: Record<string, Webflow.collections.ItemsListItemsRequestSortValue | undefined>;
+    /**
+     * Unique identifier for the secondary Locale you're translating **into**. Returns only content that hasn't been excluded from translation for that locale.
+     *
+     * This is independent of `localeId`, which selects which version of the content is returned. To fetch the source text to translate, request the primary locale's content and set `translatable` to the locale you're translating into:
+     *
+     * `?localeId={primary locale id}&translatable={target locale id}`
+     *
+     * Only exclusion rules scoped to manual translation are respected — rules scoped only to automatic translation don't affect this parameter's response.
+     *
+     * Omitting `translatable` returns the same response as if this parameter didn't exist. The value must be the id of one of the site's secondary locales — the primary locale id, or any other value, returns a `400` error. Requires translation exclusions to be enabled for the site; if they aren't, the request returns a `403` error.
+     *
+     * [Learn more about localization.](/data/v2.0.0/docs/working-with-localization)
+     */
+    translatable?: string;
 }
