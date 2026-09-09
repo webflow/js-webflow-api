@@ -3,6 +3,6 @@
 export interface ItemsDeleteItemsLiveRequestItemsItem {
     /** Unique identifier for the Item */
     id: string;
-    /** Array of identifiers for the locales where the item will be created */
+    /** Array of identifiers for the locales where the item will be unpublished */
     cmsLocaleIds?: string[];
 }

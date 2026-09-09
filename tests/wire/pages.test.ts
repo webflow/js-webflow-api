@@ -302,6 +302,7 @@ describe("PagesClient", () => {
 
         const response = await client.pages.getMetadata("63c720f9347c2139b248e552", {
             localeId: "65427cf400e02b306eaa04a0",
+            translatable: "65427cf400e02b306eaa04a0",
         });
         expect(response).toEqual({
             id: "6596da6045e56dee495bcbba",
@@ -674,6 +675,7 @@ describe("PagesClient", () => {
             localeId: "65427cf400e02b306eaa04a0",
             limit: 1,
             offset: 1,
+            translatable: "65427cf400e02b306eaa04a0",
         });
         expect(response).toEqual({
             pageId: "658205daa3e8206a523b5ad4",

@@ -22,7 +22,7 @@ export interface CollectionItemPostSingle {
     createdOn?: string;
     /** Boolean determining if the Item is in an archived state. */
     isArchived?: boolean;
-    /** Boolean determining if the Item is in a draft state. */
+    /** Whether the item is created in a draft state. A new item has never been published, so `isDraft: true` gives it a `Draft` status. Set `isDraft: false` to queue the item to publish on the next site publish. */
     isDraft?: boolean;
     fieldData: Webflow.CollectionItemPostSingleFieldData;
 }
