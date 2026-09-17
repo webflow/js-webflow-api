@@ -183,7 +183,8 @@ export class ComponentsClient {
      *         localeId: "65427cf400e02b306eaa04a0",
      *         branchId: "68026fa68ef6dc744c75b833",
      *         limit: 1,
-     *         offset: 1
+     *         offset: 1,
+     *         translatable: "65427cf400e02b306eaa04a0"
      *     })
      */
     public getContent(
@@ -201,12 +202,13 @@ export class ComponentsClient {
         request: Webflow.ComponentsGetContentRequest = {},
         requestOptions?: ComponentsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Webflow.ComponentDom>> {
-        const { localeId, branchId, limit, offset } = request;
+        const { localeId, branchId, limit, offset, translatable } = request;
         const _queryParams: Record<string, unknown> = {
             localeId,
             branchId,
             limit,
             offset,
+            translatable,
         };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -527,7 +529,8 @@ export class ComponentsClient {
      *         localeId: "65427cf400e02b306eaa04a0",
      *         branchId: "68026fa68ef6dc744c75b833",
      *         limit: 1,
-     *         offset: 1
+     *         offset: 1,
+     *         translatable: "65427cf400e02b306eaa04a0"
      *     })
      */
     public getProperties(
@@ -547,12 +550,13 @@ export class ComponentsClient {
         request: Webflow.ComponentsGetPropertiesRequest = {},
         requestOptions?: ComponentsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Webflow.ComponentProperties>> {
-        const { localeId, branchId, limit, offset } = request;
+        const { localeId, branchId, limit, offset, translatable } = request;
         const _queryParams: Record<string, unknown> = {
             localeId,
             branchId,
             limit,
             offset,
+            translatable,
         };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(

@@ -1,4 +1,5 @@
 export * as comments from "./comments";
+export * from "./comments/client/requests";
 export * from "./comments/types";
 export * as forms from "./forms";
 export * from "./forms/client/requests";

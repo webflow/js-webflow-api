@@ -18,7 +18,7 @@ export interface BulkCollectionItem {
     createdOn?: string;
     /** Boolean determining if the Item is set to archived */
     isArchived?: boolean;
-    /** Boolean determining if the Item is set to draft */
+    /** Whether the item is in a draft state. `true` unless the request set `isDraft: false`. */
     isDraft?: boolean;
     fieldData?: Webflow.BulkCollectionItemFieldData;
 }

@@ -20,6 +20,9 @@ export const TriggerType: core.serialization.Schema<serializers.TriggerType.Raw,
         "collection_item_published",
         "collection_item_unpublished",
         "comment_created",
+        "branch_created",
+        "branch_merged",
+        "branch_deleted",
     ]);
 
 export declare namespace TriggerType {
@@ -37,5 +40,8 @@ export declare namespace TriggerType {
         | "collection_item_deleted"
         | "collection_item_published"
         | "collection_item_unpublished"
-        | "comment_created";
+        | "comment_created"
+        | "branch_created"
+        | "branch_merged"
+        | "branch_deleted";
 }
