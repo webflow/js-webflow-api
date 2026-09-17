@@ -5,6 +5,7 @@ export * from "./comments/client/requests";
 export * from "./comments/types";
 export * as forms from "./forms";
 export * from "./forms/client/requests";
+export * as googleTag from "./googleTag";
 export * as plans from "./plans";
 export * as redirects from "./redirects";
 export * as robotsTxt from "./robotsTxt";

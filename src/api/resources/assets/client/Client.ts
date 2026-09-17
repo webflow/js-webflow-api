@@ -45,7 +45,8 @@ export class AssetsClient {
      *     await client.assets.list("580e63e98c9a982ac9b8b741", {
      *         localeId: "65427cf400e02b306eaa04a0",
      *         offset: 1,
-     *         limit: 1
+     *         limit: 1,
+     *         folderId: "folderId"
      *     })
      */
     public list(
@@ -61,11 +62,12 @@ export class AssetsClient {
         request: Webflow.AssetsListRequest = {},
         requestOptions?: AssetsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Webflow.Assets>> {
-        const { localeId, offset, limit } = request;
+        const { localeId, offset, limit, folderId } = request;
         const _queryParams: Record<string, unknown> = {
             localeId,
             offset,
             limit,
+            folderId,
         };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(

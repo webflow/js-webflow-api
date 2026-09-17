@@ -4,6 +4,7 @@ import type * as Webflow from "../../api/index";
 import * as core from "../../core";
 import type * as serializers from "../index";
 import { Field } from "./Field";
+import { FieldGroup } from "./FieldGroup";
 
 export const Collection: core.serialization.ObjectSchema<serializers.Collection.Raw, Webflow.Collection> =
     core.serialization.object({
@@ -14,6 +15,7 @@ export const Collection: core.serialization.ObjectSchema<serializers.Collection.
         createdOn: core.serialization.date().optional(),
         lastUpdated: core.serialization.date().optional(),
         fields: core.serialization.list(Field),
+        fieldGroups: core.serialization.list(FieldGroup).optional(),
     });
 
 export declare namespace Collection {
@@ -25,5 +27,6 @@ export declare namespace Collection {
         createdOn?: string | null;
         lastUpdated?: string | null;
         fields: Field.Raw[];
+        fieldGroups?: FieldGroup.Raw[] | null;
     }
 }

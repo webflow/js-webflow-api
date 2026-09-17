@@ -6,7 +6,8 @@
  *         localeId: "65427cf400e02b306eaa04a0",
  *         branchId: "68026fa68ef6dc744c75b833",
  *         limit: 1,
- *         offset: 1
+ *         offset: 1,
+ *         translatable: "65427cf400e02b306eaa04a0"
  *     }
  */
 export interface ComponentsGetPropertiesRequest {
@@ -22,4 +23,18 @@ export interface ComponentsGetPropertiesRequest {
     limit?: number;
     /** Offset used for pagination if the results have more than limit records */
     offset?: number;
+    /**
+     * Unique identifier for the secondary Locale you're translating **into**. Returns only content that hasn't been excluded from translation for that locale.
+     *
+     * This is independent of `localeId`, which selects which version of the content is returned. To fetch the source text to translate, request the primary locale's content and set `translatable` to the locale you're translating into:
+     *
+     * `?localeId={primary locale id}&translatable={target locale id}`
+     *
+     * Only exclusion rules scoped to manual translation are respected — rules scoped only to automatic translation don't affect this parameter's response.
+     *
+     * Omitting `translatable` returns the same response as if this parameter didn't exist. The value must be the id of one of the site's secondary locales — the primary locale id, or any other value, returns a `400` error. Requires translation exclusions to be enabled for the site; if they aren't, the request returns a `403` error.
+     *
+     * [Learn more about localization.](/data/v2.0.0/docs/working-with-localization)
+     */
+    translatable?: string;
 }
