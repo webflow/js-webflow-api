@@ -1,7 +1,11 @@
 export * as comments from "./comments";
+export * from "./comments/client/requests";
 export * from "./comments/types";
 export * as forms from "./forms";
 export * from "./forms/client/requests";
+export * as members from "./members";
+export * from "./members/client/requests";
+export * from "./members/types";
 export * as wellKnown from "./wellKnown";
 export * from "./wellKnown/client/requests";
 export * from "./wellKnown/types";

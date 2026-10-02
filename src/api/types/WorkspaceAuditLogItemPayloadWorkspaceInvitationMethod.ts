@@ -4,6 +4,10 @@ export const WorkspaceAuditLogItemPayloadWorkspaceInvitationMethod = {
     Sso: "sso",
     Dashboard: "dashboard",
     Admin: "admin",
+    Api: "api",
+    Designer: "designer",
+    Scim: "scim",
+    AccessRequest: "access_request",
 } as const;
 export type WorkspaceAuditLogItemPayloadWorkspaceInvitationMethod =
     (typeof WorkspaceAuditLogItemPayloadWorkspaceInvitationMethod)[keyof typeof WorkspaceAuditLogItemPayloadWorkspaceInvitationMethod];

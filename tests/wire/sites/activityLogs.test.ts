@@ -24,9 +24,23 @@ describe("ActivityLogsClient", () => {
                     user: { id: "6509cd56e90eec668b009712", displayName: "John Doe" },
                     resourceId: "654c16c7b229e56bcf26870c",
                     resourceName: "foo-bar",
+                    source: "DESIGNER",
+                    actorType: "user",
+                },
+                {
+                    id: "6a2b59c5e2f5e75d3b7e6588",
+                    createdOn: "2026-06-12T00:58:45Z",
+                    lastUpdated: "2026-06-12T00:58:56Z",
+                    event: "page_dom_modified",
+                    resourceOperation: "MODIFIED",
+                    user: { id: "6509cd56e90eec668b009712", displayName: "John Doe" },
+                    resourceName: "Home",
+                    payload: { pageTitle: "Home", pageId: "6785866e9dc60263a82cd380", count: 2 },
+                    source: "WEBFLOW_AI",
+                    actorType: "user",
                 },
             ],
-            pagination: { limit: 25, offset: 0, total: 1 },
+            pagination: { limit: 25, offset: 0, total: 2 },
         };
         server
             .mockEndpoint()
@@ -54,12 +68,33 @@ describe("ActivityLogsClient", () => {
                     },
                     resourceId: "654c16c7b229e56bcf26870c",
                     resourceName: "foo-bar",
+                    source: "DESIGNER",
+                    actorType: "user",
+                },
+                {
+                    id: "6a2b59c5e2f5e75d3b7e6588",
+                    createdOn: new Date("2026-06-12T00:58:45.000Z"),
+                    lastUpdated: new Date("2026-06-12T00:58:56.000Z"),
+                    event: "page_dom_modified",
+                    resourceOperation: "MODIFIED",
+                    user: {
+                        id: "6509cd56e90eec668b009712",
+                        displayName: "John Doe",
+                    },
+                    resourceName: "Home",
+                    payload: {
+                        pageTitle: "Home",
+                        pageId: "6785866e9dc60263a82cd380",
+                        count: 2,
+                    },
+                    source: "WEBFLOW_AI",
+                    actorType: "user",
                 },
             ],
             pagination: {
                 limit: 25,
                 offset: 0,
-                total: 1,
+                total: 2,
             },
         });
     });

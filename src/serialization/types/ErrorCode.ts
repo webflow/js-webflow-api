@@ -6,66 +6,194 @@ import type * as serializers from "../index";
 
 export const ErrorCode: core.serialization.Schema<serializers.ErrorCode.Raw, Webflow.ErrorCode> =
     core.serialization.enum_([
+        "aeo_input_validation",
+        "analyze_filter_conflict",
+        "analyze_input_validation",
+        "analyze_unsupported_filter",
         "bad_request",
+        "batch_too_large",
+        "before_historical_floor",
+        "branch_merge_conflict",
+        "branch_merge_in_progress",
+        "branch_not_found",
+        "branch_publish_failed",
+        "branch_sync_pending",
+        "branch_task_not_found",
+        "branch_update_in_progress",
+        "brand_not_configured",
+        "cannot_invite_self",
+        "cannot_remove_self",
+        "cannot_update_user_role",
         "collection_not_found",
+        "competitors_not_configured",
         "conflict",
+        "conflicting_scope_filters",
+        "default_site_role_required",
         "duplicate_collection",
+        "duplicate_member_in_request",
+        "duplicate_site_in_request",
         "duplicate_user_email",
         "ecommerce_not_enabled",
+        "end_time_too_recent",
         "forbidden",
         "forms_require_republish",
         "incompatible_webhook_filter",
+        "insufficient_permissions",
+        "insufficient_seats",
         "internal_error",
         "invalid_auth_version",
         "invalid_credentials",
         "invalid_domain",
+        "invalid_resolution",
+        "invalid_site_role",
+        "invalid_time_range",
         "invalid_user_email",
+        "invalid_workspace_role",
+        "invite_expired",
+        "invite_role_conflict",
         "item_not_found",
+        "managed_by_scim",
+        "member_already_has_access",
+        "member_has_no_site_access",
+        "member_is_paying_client",
+        "member_not_found",
+        "member_not_removable",
+        "member_role_conflict",
         "missing_scopes",
         "no_domains",
+        "no_members_or_invites",
         "not_authorized",
         "not_enterprise_plan_site",
         "not_enterprise_plan_workspace",
+        "optimize_before_historical_floor",
+        "optimize_input_validation",
+        "optimize_invalid_interval",
+        "optimize_unknown_dimension",
+        "optimize_unknown_goal",
+        "optimize_unknown_optimization",
+        "optimize_unsupported_group_by",
         "order_not_found",
+        "page_cannot_branch",
         "resource_not_found",
+        "service_unavailable",
+        "site_access_not_applicable_to_member",
+        "site_access_not_scopable_for_role",
+        "site_access_roles_must_match",
+        "site_not_in_workspace",
+        "site_role_id_invalid",
+        "site_role_id_not_allowed",
+        "site_role_id_required",
+        "site_specific_access_disabled",
+        "site_specific_access_not_entitled",
+        "time_range_too_wide",
         "too_many_requests",
+        "unsupported_bot_provider",
         "unsupported_version",
         "unsupported_webhook_trigger_type",
         "user_limit_reached",
         "user_not_found",
         "users_not_enabled",
         "validation_error",
+        "workspace_invite_not_found",
+        "workspace_member_managed_by_scim",
+        "workspace_member_not_found",
+        "workspace_member_not_removable",
+        "workspace_role_not_grantable",
     ]);
 
 export declare namespace ErrorCode {
     export type Raw =
+        | "aeo_input_validation"
+        | "analyze_filter_conflict"
+        | "analyze_input_validation"
+        | "analyze_unsupported_filter"
         | "bad_request"
+        | "batch_too_large"
+        | "before_historical_floor"
+        | "branch_merge_conflict"
+        | "branch_merge_in_progress"
+        | "branch_not_found"
+        | "branch_publish_failed"
+        | "branch_sync_pending"
+        | "branch_task_not_found"
+        | "branch_update_in_progress"
+        | "brand_not_configured"
+        | "cannot_invite_self"
+        | "cannot_remove_self"
+        | "cannot_update_user_role"
         | "collection_not_found"
+        | "competitors_not_configured"
         | "conflict"
+        | "conflicting_scope_filters"
+        | "default_site_role_required"
         | "duplicate_collection"
+        | "duplicate_member_in_request"
+        | "duplicate_site_in_request"
         | "duplicate_user_email"
         | "ecommerce_not_enabled"
+        | "end_time_too_recent"
         | "forbidden"
         | "forms_require_republish"
         | "incompatible_webhook_filter"
+        | "insufficient_permissions"
+        | "insufficient_seats"
         | "internal_error"
         | "invalid_auth_version"
         | "invalid_credentials"
         | "invalid_domain"
+        | "invalid_resolution"
+        | "invalid_site_role"
+        | "invalid_time_range"
         | "invalid_user_email"
+        | "invalid_workspace_role"
+        | "invite_expired"
+        | "invite_role_conflict"
         | "item_not_found"
+        | "managed_by_scim"
+        | "member_already_has_access"
+        | "member_has_no_site_access"
+        | "member_is_paying_client"
+        | "member_not_found"
+        | "member_not_removable"
+        | "member_role_conflict"
         | "missing_scopes"
         | "no_domains"
+        | "no_members_or_invites"
         | "not_authorized"
         | "not_enterprise_plan_site"
         | "not_enterprise_plan_workspace"
+        | "optimize_before_historical_floor"
+        | "optimize_input_validation"
+        | "optimize_invalid_interval"
+        | "optimize_unknown_dimension"
+        | "optimize_unknown_goal"
+        | "optimize_unknown_optimization"
+        | "optimize_unsupported_group_by"
         | "order_not_found"
+        | "page_cannot_branch"
         | "resource_not_found"
+        | "service_unavailable"
+        | "site_access_not_applicable_to_member"
+        | "site_access_not_scopable_for_role"
+        | "site_access_roles_must_match"
+        | "site_not_in_workspace"
+        | "site_role_id_invalid"
+        | "site_role_id_not_allowed"
+        | "site_role_id_required"
+        | "site_specific_access_disabled"
+        | "site_specific_access_not_entitled"
+        | "time_range_too_wide"
         | "too_many_requests"
+        | "unsupported_bot_provider"
         | "unsupported_version"
         | "unsupported_webhook_trigger_type"
         | "user_limit_reached"
         | "user_not_found"
         | "users_not_enabled"
-        | "validation_error";
+        | "validation_error"
+        | "workspace_invite_not_found"
+        | "workspace_member_managed_by_scim"
+        | "workspace_member_not_found"
+        | "workspace_member_not_removable"
+        | "workspace_role_not_grantable";
 }
