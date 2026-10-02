@@ -3,6 +3,7 @@
 import type { BaseClientOptions } from "../../../../BaseClient";
 import { type NormalizedClientOptionsWithAuth, normalizeClientOptionsWithAuth } from "../../../../BaseClient";
 import { AuditLogsClient } from "../resources/auditLogs/client/Client";
+import { MembersClient } from "../resources/members/client/Client";
 
 export declare namespace WorkspacesClient {
     export type Options = BaseClientOptions;
@@ -11,6 +12,7 @@ export declare namespace WorkspacesClient {
 export class WorkspacesClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<WorkspacesClient.Options>;
     protected _auditLogs: AuditLogsClient | undefined;
+    protected _members: MembersClient | undefined;
 
     constructor(options: WorkspacesClient.Options) {
         this._options = normalizeClientOptionsWithAuth(options);
@@ -18,5 +20,9 @@ export class WorkspacesClient {
 
     public get auditLogs(): AuditLogsClient {
         return (this._auditLogs ??= new AuditLogsClient(this._options));
+    }
+
+    public get members(): MembersClient {
+        return (this._members ??= new MembersClient(this._options));
     }
 }

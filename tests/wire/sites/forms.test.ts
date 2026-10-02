@@ -22,6 +22,7 @@ describe("FormsClient", () => {
                     workspaceId: "62749158efef318abc8d5a0f",
                     dateSubmitted: "2022-09-14T12:35:16Z",
                     formResponse: { "First Name": "Arthur", "Last Name": "Dent" },
+                    localeId: "6a0cb90f3ecc9d3d47ca8b5b",
                 },
                 {
                     id: "660d64fabf6e0a0d4edab981",
@@ -59,6 +60,7 @@ describe("FormsClient", () => {
                         "First Name": "Arthur",
                         "Last Name": "Dent",
                     },
+                    localeId: "6a0cb90f3ecc9d3d47ca8b5b",
                 },
                 {
                     id: "660d64fabf6e0a0d4edab981",
@@ -229,6 +231,7 @@ describe("FormsClient", () => {
                     workspaceId: "62749158efef318abc8d5a0f",
                     dateSubmitted: "2022-09-14T12:35:16Z",
                     formResponse: { "First Name": "Arthur", "Last Name": "Dent" },
+                    localeId: "6a0cb90f3ecc9d3d47ca8b5b",
                 },
                 {
                     id: "660d64fabf6e0a0d4edab981",
@@ -269,6 +272,7 @@ describe("FormsClient", () => {
                         "First Name": "Arthur",
                         "Last Name": "Dent",
                     },
+                    localeId: "6a0cb90f3ecc9d3d47ca8b5b",
                 },
                 {
                     id: "660d64fabf6e0a0d4edab981",
@@ -437,6 +441,7 @@ describe("FormsClient", () => {
             workspaceId: "62749158efef318abc8d5a0f",
             dateSubmitted: "2022-09-14T12:35:16Z",
             formResponse: { "First Name": "Arthur", "Last Name": "Dent" },
+            localeId: "6a0cb90f3ecc9d3d47ca8b5b",
         };
         server
             .mockEndpoint()
@@ -457,6 +462,7 @@ describe("FormsClient", () => {
                 "First Name": "Arthur",
                 "Last Name": "Dent",
             },
+            localeId: "6a0cb90f3ecc9d3d47ca8b5b",
         });
     });
 
@@ -783,6 +789,7 @@ describe("FormsClient", () => {
             workspaceId: "62749158efef318abc8d5a0f",
             dateSubmitted: "2022-09-14T12:35:16Z",
             formResponse: { "First Name": "Arthur", "Last Name": "Dent" },
+            localeId: "6a0cb90f3ecc9d3d47ca8b5b",
         };
         server
             .mockEndpoint()
@@ -807,6 +814,7 @@ describe("FormsClient", () => {
                 "First Name": "Arthur",
                 "Last Name": "Dent",
             },
+            localeId: "6a0cb90f3ecc9d3d47ca8b5b",
         });
     });
 
