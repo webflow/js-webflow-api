@@ -49,32 +49,6 @@ import type * as Webflow from "../../../../../../index";
  *             }
  *         }
  *     }
- *
- * @example
- *     {
- *         skipInvalidFiles: true,
- *         body: {
- *             items: [{
- *                     isArchived: false,
- *                     isDraft: false,
- *                     fieldData: {
- *                         name: "Senior Data Analyst",
- *                         slug: "senior-data-analyst",
- *                         url: "https://boards.greenhouse.io/webflow/jobs/26567701",
- *                         department: "Data"
- *                     }
- *                 }, {
- *                     isArchived: false,
- *                     isDraft: false,
- *                     fieldData: {
- *                         name: "Product Manager",
- *                         slug: "product-manager",
- *                         url: "https://boards.greenhouse.io/webflow/jobs/31234567",
- *                         department: "Product"
- *                     }
- *                 }]
- *         }
- *     }
  */
 export interface ItemsCreateItemLiveRequest {
     /** When true, invalid files are skipped and processing continues. When false, the entire request fails if any file is invalid. */

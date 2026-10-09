@@ -71,7 +71,9 @@ await client.token.authorizedBy();
 
 Information about the authorization token
 
-<Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
+<Note>Access to this endpoint requires a bearer token from either a [Data Client App](/data/docs/data-clients/getting-started), a [Workspace token](/data/reference/authentication/workspace-token), or a [Site token](/data/reference/authentication/site-token).</Note>
+
+<Note>The `application` object is only returned for tokens issued to an OAuth app. For tokens without an OAuth app, such as Site and Workspace API tokens (`grantType: client_credentials`), the response omits `application`.</Note>
 </dd>
 </dl>
 </dd>
@@ -103,6 +105,68 @@ await client.token.introspect();
 <dd>
 
 **requestOptions:** `TokenClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Workspaces
+<details><summary><code>client.workspaces.<a href="/src/api/resources/workspaces/client/Client.ts">list</a>() -> Webflow.Workspaces</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List the workspaces the token can access, including each workspace's ID. Use this endpoint to find the `workspace_id` that other workspace endpoints require.
+
+The response includes the workspaces granted to the token, plus the workspace that owns each site granted to the token. It returns only active workspaces (not archived, deleted, or draft) and isn't paginated.
+
+<Note>This endpoint supports workspace API tokens and Data Client apps.</Note>
+
+Required scope | `workspace:read`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.workspaces.list();
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `WorkspacesClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -164,7 +228,7 @@ await client.sites.create("580e63e98c9a982ac9b8b741", {
 <dl>
 <dd>
 
-**workspace_id:** `string` — Unique identifier for a Workspace
+**workspace_id:** `string` — Unique identifier for a Workspace. Find it with [List Workspaces](/data/reference/enterprise/workspace-management/list) (workspace API tokens and Data Client apps), or with `authorization.authorizedTo.workspaceIds` from [Get Authorization Info](/data/reference/token/introspect). With a site token, read `workspaceId` from [Get Site](/data/reference/sites/get).
     
 </dd>
 </dl>
@@ -533,11 +597,14 @@ await client.sites.getCustomDomain("580e63e98c9a982ac9b8b741");
 <dl>
 <dd>
 
-Publishes a site to one or more more domains.
+Publishes a site or an individual page to one or more domains.
+If multiple individual pages are published to staging, publishing from staging to production publishes all staged changes.
 
 To publish to a specific custom domain, use the domain IDs from the [Get Custom Domains](/data/reference/sites/get-custom-domain) endpoint.
 
 You must include at least one of the `customDomains` or `publishToWebflowSubdomain` properties in the request body.
+
+To publish an individual page instead of the entire site, provide the ID of the page in the `pageId` parameter.
 
 <Note title="Rate limit: 1 publish per minute">This endpoint has a specific rate limit of one successful publish queue per minute.</Note>
 
@@ -897,6 +964,85 @@ await client.collections.delete("580e63fc8c9a982ac9b8b745");
 </dl>
 </details>
 
+<details><summary><code>client.collections.<a href="/src/api/resources/collections/client/Client.ts">patch</a>(collection_id, { ...params }) -> Webflow.Collection</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update a collection's display name, singular name, slug, or field groups.
+
+**Field group rules:**
+- A collection can have a maximum of 50 field groups
+- Each `displayName` must be unique across all field groups in the collection
+- Each `fieldId` must be unique across all field groups in the collection
+- Ecommerce collections do not support field groups
+
+Required scope | `cms:write`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.collections.patch("580e63fc8c9a982ac9b8b745");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**collection_id:** `string` — Unique identifier for a Collection
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.PatchCollectionRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CollectionsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Pages
 <details><summary><code>client.pages.<a href="/src/api/resources/pages/client/Client.ts">list</a>(site_id, { ...params }) -> Webflow.PageList</code></summary>
 <dl>
@@ -1005,7 +1151,8 @@ Required scope | `pages:read`
 
 ```typescript
 await client.pages.getMetadata("63c720f9347c2139b248e552", {
-    localeId: "65427cf400e02b306eaa04a0"
+    localeId: "65427cf400e02b306eaa04a0",
+    translatable: "65427cf400e02b306eaa04a0"
 });
 
 ```
@@ -1171,7 +1318,8 @@ Required scope | `pages:read`
 await client.pages.getContent("63c720f9347c2139b248e552", {
     localeId: "65427cf400e02b306eaa04a0",
     limit: 1,
-    offset: 1
+    offset: 1,
+    translatable: "65427cf400e02b306eaa04a0"
 });
 
 ```
@@ -1446,7 +1594,8 @@ await client.components.getContent("580e63e98c9a982ac9b8b741", "8505ba55-ef72-62
     localeId: "65427cf400e02b306eaa04a0",
     branchId: "68026fa68ef6dc744c75b833",
     limit: 1,
-    offset: 1
+    offset: 1,
+    translatable: "65427cf400e02b306eaa04a0"
 });
 
 ```
@@ -1659,7 +1808,8 @@ await client.components.getProperties("580e63e98c9a982ac9b8b741", "8505ba55-ef72
     localeId: "65427cf400e02b306eaa04a0",
     branchId: "68026fa68ef6dc744c75b833",
     limit: 1,
-    offset: 1
+    offset: 1,
+    translatable: "65427cf400e02b306eaa04a0"
 });
 
 ```
@@ -1828,6 +1978,8 @@ Get a list of scripts that have been registered to a site. A site can have a max
   To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
 </Note>
 
+<Note>Access to this endpoint requires a bearer token obtained from an [OAuth Code Grant Flow](/data/reference/oauth-app).</Note>
+
 Required scope | `custom_code:read`
 </dd>
 </dl>
@@ -1896,6 +2048,8 @@ Register a hosted script to a site.
 <Note title="Script Registration">
   To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
 </Note>
+
+<Note>Access to this endpoint requires a bearer token obtained from an [OAuth Code Grant Flow](/data/reference/oauth-app).</Note>
 
 Required scope | `custom_code:write`
 </dd>
@@ -1978,6 +2132,8 @@ Register an inline script to a site. Inline scripts are limited to 2000 characte
 <Note title="Script Registration">
   To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
 </Note>
+
+<Note>Access to this endpoint requires a bearer token obtained from an [OAuth Code Grant Flow](/data/reference/oauth-app).</Note>
 
 Required scope | `custom_code:write`
 </dd>
@@ -2075,7 +2231,8 @@ Required scope | `assets:read`
 await client.assets.list("580e63e98c9a982ac9b8b741", {
     localeId: "65427cf400e02b306eaa04a0",
     offset: 1,
-    limit: 1
+    limit: 1,
+    folderId: "folderId"
 });
 
 ```
@@ -2625,6 +2782,666 @@ await client.assets.getFolder("6390c49774a71f0e3c1a08ee");
 </dl>
 </details>
 
+## Custom Fonts
+<details><summary><code>client.customFonts.<a href="/src/api/resources/customFonts/client/Client.ts">list</a>(site_id, { ...params }) -> Webflow.CustomFonts</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List the custom fonts uploaded to a site.
+
+Required scope | `sites:read`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.customFonts.list("580e63e98c9a982ac9b8b741", {
+    offset: 1,
+    limit: 1
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.CustomFontsListRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomFontsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customFonts.<a href="/src/api/resources/customFonts/client/Client.ts">create</a>(site_id, { ...params }) -> Webflow.CustomFontCreateResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Register a custom font on a site and get a presigned S3 URL to upload the font binary.
+
+The response includes a `customFont` object and an `upload` object. Use the `upload.url` and `upload.fields`
+to POST the font binary directly to S3 as `multipart/form-data`. The binary must go in a field named `file`
+and must be the last field in the form (an AWS S3 requirement). S3 returns `201 Created` on a successful upload.
+
+To learn more, see [Custom fonts](/data/docs/custom-fonts).
+
+Required scope | `sites:write`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.customFonts.create("580e63e98c9a982ac9b8b741", {
+    fileName: "AcmeSans-Regular.woff2",
+    fileHash: "3c7d87c9575702bc3b1e991f4d3c638e",
+    fontFamily: "Acme Sans",
+    weight: 400,
+    italic: false,
+    fontDisplay: "auto"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.CustomFontsCreateRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomFontsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customFonts.<a href="/src/api/resources/customFonts/client/Client.ts">get</a>(site_id, font_id) -> Webflow.CustomFontsGetResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get details about a custom font on a site.
+
+Required scope | `sites:read`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.customFonts.get("580e63e98c9a982ac9b8b741", "66f3a1b2c4d5e6f7a8b9c0d1");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**font_id:** `string` — Unique identifier for a custom font on a site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomFontsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customFonts.<a href="/src/api/resources/customFonts/client/Client.ts">delete</a>(site_id, font_id) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a custom font from a site.
+
+Required scope | `sites:write`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.customFonts.delete("580e63e98c9a982ac9b8b741", "66f3a1b2c4d5e6f7a8b9c0d1");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**font_id:** `string` — Unique identifier for a custom font on a site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomFontsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customFonts.<a href="/src/api/resources/customFonts/client/Client.ts">update</a>(site_id, font_id, { ...params }) -> Webflow.CustomFontsUpdateResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update the metadata of a custom font. The font binary is not changed by this endpoint.
+To replace the binary, use [Replace custom font file](#operation/replace-custom-font-file).
+
+The request body must include at least one of `fontFamily`, `weight`, `italic`, or `fontDisplay`.
+
+Required scope | `sites:write`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.customFonts.update("580e63e98c9a982ac9b8b741", "66f3a1b2c4d5e6f7a8b9c0d1");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**font_id:** `string` — Unique identifier for a custom font on a site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.CustomFontsUpdateRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomFontsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customFonts.<a href="/src/api/resources/customFonts/client/Client.ts">replaceFile</a>(site_id, font_id, { ...params }) -> Webflow.CustomFontCreateResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Replace the binary of an existing custom font while preserving its ID and any references to it.
+The upload handshake is identical to [Create custom font](#operation/create-custom-font).
+
+If the existing font has a non-empty `axes` array (a variable font), you must include an `axes` field
+in the request. Send `axes: []` to declare that the new binary is a static font, or send the new variable
+axes to declare it is still variable. Omitting `axes` when the existing font is variable returns `400`.
+
+Required scope | `sites:write`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.customFonts.replaceFile("580e63e98c9a982ac9b8b741", "66f3a1b2c4d5e6f7a8b9c0d1", {
+    fileName: "AcmeSans-Regular-v2.woff2",
+    fileHash: "3c7d87c9575702bc3b1e991f4d3c638e"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**font_id:** `string` — Unique identifier for a custom font on a site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.CustomFontsReplaceFileRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomFontsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customFonts.<a href="/src/api/resources/customFonts/client/Client.ts">batchCreate</a>(site_id, { ...params }) -> Webflow.CustomFontBatchCreateResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Register 1–25 custom fonts in a single request and get a presigned S3 URL for each one.
+This collapses the registration step for a whole font family (for example, Regular, Bold,
+Italic, and Bold Italic) into one rate-limited request.
+
+Registration is batched, but the binary uploads are not: the response contains one `upload`
+object per registered font, and you must POST each font binary to its own presigned S3 URL
+exactly as you would for [Create custom font](#operation/create-custom-font). The Webflow API
+server never receives the raw font bytes.
+
+The response is `200 OK` for a valid request body. Per-font results are reported in the
+`created` and `failed` arrays. If the site's font limit is reached partway through the batch,
+the fonts that still fit are registered and returned in `created`, while the rest appear in
+`failed` with `name: "FontLimitReached"` — valid fonts are never discarded because a later
+font in the same batch could not be registered. Each presigned URL expires approximately
+15 minutes after issuance, so upload the binaries promptly.
+
+Required scope | `sites:write`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.customFonts.batchCreate("580e63e98c9a982ac9b8b741", {
+    items: [{
+            fileName: "AcmeSans-Regular.woff2",
+            fileHash: "3c7d87c9575702bc3b1e991f4d3c638e",
+            fontFamily: "Acme Sans",
+            weight: 400,
+            italic: false,
+            fontDisplay: "auto"
+        }]
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.CustomFontBatchCreateRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomFontsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customFonts.<a href="/src/api/resources/customFonts/client/Client.ts">batchDelete</a>(site_id, { ...params }) -> Webflow.CustomFontBatchDeleteResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete 1-100 custom fonts in a single request. The response is always `200 OK` for a valid request body.
+Per-font results are reported in the `deleted` and `failed` arrays.
+
+The endpoint is idempotent: fonts that do not exist appear in `failed` with `name: "NotFound"` rather than
+failing the entire request. You can safely retry a partial failure by re-sending only the IDs that did not
+appear in `deleted`.
+
+Required scope | `sites:write`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.customFonts.batchDelete("580e63e98c9a982ac9b8b741", {
+    items: [{
+            id: "66f3a1b2c4d5e6f7a8b9c0d1"
+        }]
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.CustomFontBatchDeleteRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CustomFontsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Webhooks
 <details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">list</a>(site_id) -> Webflow.WebhookList</code></summary>
 <dl>
@@ -2707,7 +3524,7 @@ Create a new Webhook.
 
 Limit of 75 registrations per `triggerType`, per site.
 
-<Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
+<Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/data-clients/getting-started).</Note>
 Required scope | `sites:write`
 </dd>
 </dl>
@@ -4610,6 +5427,474 @@ await client.ecommerce.getSettings("580e63e98c9a982ac9b8b741");
 </dl>
 </details>
 
+## Analyze Reports
+<details><summary><code>client.analyze.reports.<a href="/src/api/resources/analyze/resources/reports/client/Client.ts">traffic</a>(site_id, { ...params }) -> Webflow.TrafficResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a daily time series of a single metric — sessions, users, or page views — over a time window.
+
+Filter the report with top-level query parameters (`country`, `deviceType`, `pagePath`, etc.) or via the `filter` parameter for multi-value and negation matching.
+
+<Warning title="Analyze add-on required">This endpoint requires a workspace with the Analyze add-on.</Warning>
+
+<Note title="Concurrency limit: 1 request at a time">Each access token can have one Analyze request in flight at a time, across all Analyze endpoints. Additional concurrent requests return `429 Too Many Requests`. Wait for your in-flight request to finish, or for the `Retry-After` interval, then retry.</Note>
+
+Required scope | `sites:read`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.analyze.reports.traffic("580e63e98c9a982ac9b8b741", {
+    startTime: new Date("2026-04-01T00:00:00.000Z"),
+    endTime: new Date("2026-04-08T00:00:00.000Z"),
+    metricScope: "session",
+    bucketTimeZone: "America/New_York",
+    deviceType: "desktop",
+    country: "US",
+    pagePath: "/towels",
+    trafficSource: "SO",
+    referrer: "google.com",
+    browser: "Chrome",
+    utmCampaign: "dont-panic-2026",
+    utmMedium: "email",
+    utmSource: "hitchhikers-guide"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.analyze.ReportsTrafficRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ReportsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.analyze.reports.<a href="/src/api/resources/analyze/resources/reports/client/Client.ts">topPages</a>(site_id, { ...params }) -> Webflow.TopPagesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the most-visited pages over a time window, ranked by `sortBy` (sessions, users, or page views).
+
+Each row carries all three scope counts; `sortBy` only governs ordering. Filter the report with top-level query parameters (`country`, `deviceType`, `pagePath`, etc.) or via the `filter` parameter for multi-value and negation matching.
+
+Set `timeseries[bucketTimeZone]` to attach a daily page view `timeseries` to each row. Bucket counts are always page views regardless of `sortBy`. Row-level counts honor the requested sort, but the timeseries does not.
+
+<Warning title="Analyze add-on required">This endpoint requires a workspace with the Analyze add-on.</Warning>
+
+<Note title="Concurrency limit: 1 request at a time">Each access token can have one Analyze request in flight at a time, across all Analyze endpoints. Additional concurrent requests return `429 Too Many Requests`. Wait for your in-flight request to finish, or for the `Retry-After` interval, then retry.</Note>
+
+Required scope | `sites:read`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.analyze.reports.topPages("580e63e98c9a982ac9b8b741", {
+    startTime: new Date("2026-04-01T00:00:00.000Z"),
+    endTime: new Date("2026-04-08T00:00:00.000Z"),
+    sortBy: "session",
+    limit: 1,
+    deviceType: "desktop",
+    country: "US",
+    pagePath: "/towels",
+    trafficSource: "SO",
+    referrer: "google.com",
+    browser: "Chrome",
+    utmCampaign: "dont-panic-2026",
+    utmMedium: "email",
+    utmSource: "hitchhikers-guide"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.analyze.ReportsTopPagesRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ReportsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.analyze.reports.<a href="/src/api/resources/analyze/resources/reports/client/Client.ts">topDimensions</a>(site_id, { ...params }) -> Webflow.TopDimensionsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the top values within a chosen `dimension` — top countries, top traffic sources, top campaigns, top audiences, and so on — over a time window, ranked by sessions or users.
+
+Filter the report with top-level query parameters (`country`, `deviceType`, `pagePath`, etc.) or via the `filter` parameter for multi-value and negation matching.
+
+<Warning title="Analyze add-on required">This endpoint requires a workspace with the Analyze add-on.</Warning>
+
+<Note title="Concurrency limit: 1 request at a time">Each access token can have one Analyze request in flight at a time, across all Analyze endpoints. Additional concurrent requests return `429 Too Many Requests`. Wait for your in-flight request to finish, or for the `Retry-After` interval, then retry.</Note>
+
+Required scope | `sites:read`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.analyze.reports.topDimensions("580e63e98c9a982ac9b8b741", {
+    startTime: new Date("2026-04-01T00:00:00.000Z"),
+    endTime: new Date("2026-04-08T00:00:00.000Z"),
+    dimension: "country",
+    metricScope: "session",
+    limit: 1,
+    deviceType: "desktop",
+    country: "US",
+    pagePath: "/towels",
+    trafficSource: "SO",
+    referrer: "google.com",
+    browser: "Chrome",
+    utmCampaign: "dont-panic-2026",
+    utmMedium: "email",
+    utmSource: "hitchhikers-guide"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.analyze.ReportsTopDimensionsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ReportsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.analyze.reports.<a href="/src/api/resources/analyze/resources/reports/client/Client.ts">topEvents</a>(site_id, { ...params }) -> Webflow.TopEventsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the top events over a time window, ranked by how often they occurred.
+
+Events are counted individually, not rolled up into sessions, users, or page views — so this report has no `metricScope`. Each row's `count` is how many times the event occurred. Filter the report with top-level query parameters (`country`, `deviceType`, `pagePath`, etc.) or via the `filter` parameter for multi-value and negation matching.
+
+Set `timeseries[bucketTimeZone]` to attach a daily event count `timeseries` to each row.
+
+<Warning title="Analyze add-on required">This endpoint requires a workspace with the Analyze add-on.</Warning>
+
+<Note title="Concurrency limit: 1 request at a time">Each access token can have one Analyze request in flight at a time, across all Analyze endpoints. Additional concurrent requests return `429 Too Many Requests`. Wait for your in-flight request to finish, or for the `Retry-After` interval, then retry.</Note>
+
+Required scope | `sites:read`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.analyze.reports.topEvents("580e63e98c9a982ac9b8b741", {
+    startTime: new Date("2026-04-01T00:00:00.000Z"),
+    endTime: new Date("2026-04-08T00:00:00.000Z"),
+    limit: 1,
+    deviceType: "desktop",
+    country: "US",
+    pagePath: "/towels",
+    trafficSource: "SO",
+    browser: "Chrome",
+    utmCampaign: "dont-panic-2026",
+    utmMedium: "email",
+    utmSource: "hitchhikers-guide"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.analyze.ReportsTopEventsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ReportsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.analyze.reports.<a href="/src/api/resources/analyze/resources/reports/client/Client.ts">timeOnPage</a>(site_id, { ...params }) -> Webflow.TimeOnPageResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the average time on page over a time window — as a single aggregate value, or bucketed by day or week when `timeseries` is supplied.
+
+Choose how the average is computed with `metricScope` (per session, user, or page view). Filter the report with top-level query parameters (`country`, `deviceType`, `pagePath`, etc.) or via the `filter` parameter for multi-value and negation matching.
+
+<Warning title="Analyze add-on required">This endpoint requires a workspace with the Analyze add-on.</Warning>
+
+<Note title="Concurrency limit: 1 request at a time">Each access token can have one Analyze request in flight at a time, across all Analyze endpoints. Additional concurrent requests return `429 Too Many Requests`. Wait for your in-flight request to finish, or for the `Retry-After` interval, then retry.</Note>
+
+Required scope | `sites:read`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.analyze.reports.timeOnPage("580e63e98c9a982ac9b8b741", {
+    startTime: new Date("2026-04-01T00:00:00.000Z"),
+    endTime: new Date("2026-04-08T00:00:00.000Z"),
+    metricScope: "session",
+    deviceType: "desktop",
+    country: "US",
+    pagePath: "/towels",
+    trafficSource: "SO",
+    referrer: "google.com",
+    browser: "Chrome",
+    utmCampaign: "dont-panic-2026",
+    utmMedium: "email",
+    utmSource: "hitchhikers-guide"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.analyze.ReportsTimeOnPageRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ReportsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Collections Fields
 <details><summary><code>client.collections.fields.<a href="/src/api/resources/collections/resources/fields/client/Client.ts">create</a>(collection_id, { ...params }) -> Webflow.FieldCreate</code></summary>
 <dl>
@@ -4866,7 +6151,18 @@ await client.collections.fields.update("580e63fc8c9a982ac9b8b745", "580e63fc8c9a
 <dl>
 <dd>
 
+<Tip title="Components in Rich Text">
+  Rich Text field values can contain Webflow component instances as `<wf-component>` markup — see [Components in Rich Text](/data/docs/working-with-the-cms/components-in-rich-text) for the markup grammar, how to find component and property IDs, and the write constraints.
+</Tip>
+
 List of all Items within a Collection.
+
+<Note>
+  This endpoint supports:
+
+  - Custom `filter[...]` queries support up to 10 filter terms and 2 text-search terms per request.
+  - Custom `sort[...]` queries support up to 3 sort fields per request.
+</Note>
 
 Required scope | `CMS:read`
 </dd>
@@ -4890,7 +6186,8 @@ await client.collections.items.listItems("580e63fc8c9a982ac9b8b745", {
     name: "name",
     slug: "slug",
     sortBy: "createdOn",
-    sortOrder: "asc"
+    sortOrder: "asc",
+    translatable: "65427cf400e02b306eaa04a0"
 });
 
 ```
@@ -4947,10 +6244,47 @@ await client.collections.items.listItems("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
+<Tip title="Components in Rich Text">
+  Rich Text field values can contain Webflow component instances as `<wf-component>` markup — see [Components in Rich Text](/data/docs/working-with-the-cms/components-in-rich-text) for the markup grammar, how to find component and property IDs, and the write constraints.
+</Tip>
+
 Create Item(s) in a Collection.
 
+<Note title="Use Create Items for new integrations">
+  This endpoint remains supported. New integrations should use [Create Items](/data/reference/cms/collection-items/staged-items/create-items), which accepts both request shapes below and can create an item in several locales under one ID. [This guide to creating items](/data/docs/working-with-the-cms/create-items) shows how each shape maps.
+</Note>
 
-To create items across multiple locales, please use [this endpoint.](/data/reference/cms/collection-items/staged-items/create-items)
+This endpoint accepts two request shapes, and a request must use one or the other:
+
+- **Single item** — send `fieldData` at the top level. Set `cmsLocaleId` to create the item in a specific locale.
+- **Multiple items** — send an `items` array with at least one entry. Each entry needs its own `fieldData`, and can set its own `cmsLocaleId`, `isDraft`, and `isArchived`. The API ignores any other property on an entry.
+
+```json
+{
+  "items": [
+    {
+      "isArchived": false,
+      "isDraft": false,
+      "fieldData": {
+        "name": "Senior Data Analyst",
+        "slug": "senior-data-analyst"
+      }
+    },
+    {
+      "isArchived": false,
+      "isDraft": false,
+      "fieldData": {
+        "name": "Product Manager",
+        "slug": "product-manager"
+      }
+    }
+  ]
+}
+```
+
+A request that carries both `fieldData` and `items` returns a `400`.
+
+To create an item in several locales under one ID, use [Create Items](/data/reference/cms/collection-items/staged-items/create-items).
 
 Required scope | `CMS:write`
 </dd>
@@ -5146,11 +6480,24 @@ await client.collections.items.deleteItems("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
+<Tip title="Components in Rich Text">
+  Rich Text field values can contain Webflow component instances as `<wf-component>` markup — see [Components in Rich Text](/data/docs/working-with-the-cms/components-in-rich-text) for the markup grammar, how to find component and property IDs, and the write constraints.
+</Tip>
+
 Update a single item or multiple items in a Collection.
 
 The limit for this endpoint is 100 items.
 
 <Tip title="Localization Tip">Items will only be updated in the primary locale, unless a `cmsLocaleId` is included in the request.</Tip>
+
+<Note title="Draft status behavior">
+  `isDraft: true` doesn't unpublish an item. The resulting status depends on whether the item has been published before:
+
+  - **Item that has never been published:** the item gets a `Draft` status.
+  - **Already-published item:** the item gets a `Changes in draft` status. The live item stays published, and your changes are held back until you publish them.
+
+  Setting `isDraft: false` queues the item to publish on the next site publish. To remove an item from the live site, use [Unpublish Live Collection Items](/data/reference/cms/collection-items/live-items/delete-items-live). For the full status mapping, see [Publishing with the CMS API](/data/docs/working-with-the-cms/publishing).
+</Note>
 
 Required scope | `CMS:write`
 </dd>
@@ -5258,11 +6605,22 @@ await client.collections.items.updateItems("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
+<Tip title="Components in Rich Text">
+  Rich Text field values can contain Webflow component instances as `<wf-component>` markup — see [Components in Rich Text](/data/docs/working-with-the-cms/components-in-rich-text) for the markup grammar, how to find component and property IDs, and the write constraints.
+</Tip>
+
 List all published items in a collection.
 
 <Tip title="Serve data with the Content Delivery API">
   Serving data to applications in real-time? Use the Content Delivery API at `api-cdn.webflow.com` for better performance. The CDN-backed endpoint is optimized for high-volume reads, while the Data API is designed for writes and management operations.
 </Tip>
+
+<Note>
+  This endpoint supports:
+
+  - Custom `filter[...]` queries support up to 10 filter terms and 2 text-search terms per request.
+  - Custom `sort[...]` queries support up to 3 sort fields per request.
+</Note>
 
 Required scope | `CMS:read`
 </dd>
@@ -5286,7 +6644,8 @@ await client.collections.items.listItemsLive("580e63fc8c9a982ac9b8b745", {
     name: "name",
     slug: "slug",
     sortBy: "createdOn",
-    sortOrder: "asc"
+    sortOrder: "asc",
+    translatable: "65427cf400e02b306eaa04a0"
 });
 
 ```
@@ -5343,11 +6702,43 @@ await client.collections.items.listItemsLive("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
+<Tip title="Components in Rich Text">
+  Rich Text field values can contain Webflow component instances as `<wf-component>` markup — see [Components in Rich Text](/data/docs/working-with-the-cms/components-in-rich-text) for the markup grammar, how to find component and property IDs, and the write constraints.
+</Tip>
+
 Create item(s) in a collection that will be immediately published to the live site.
 
+This endpoint accepts two request shapes, and a request must use one or the other:
 
-To create items across multiple locales, [please use this endpoint.](/data/reference/cms/collection-items/staged-items/create-items)
+- **Single item** — send `fieldData` at the top level. Set `cmsLocaleId` to create the item in a specific locale.
+- **Multiple items** — send an `items` array with at least one entry. Each entry needs its own `fieldData`, and can set its own `cmsLocaleId`, `isDraft`, and `isArchived`. The API ignores any other property on an entry.
 
+```json
+{
+  "items": [
+    {
+      "isArchived": false,
+      "isDraft": false,
+      "fieldData": {
+        "name": "Senior Data Analyst",
+        "slug": "senior-data-analyst"
+      }
+    },
+    {
+      "isArchived": false,
+      "isDraft": false,
+      "fieldData": {
+        "name": "Product Manager",
+        "slug": "product-manager"
+      }
+    }
+  ]
+}
+```
+
+A request that carries both `fieldData` and `items` returns a `400`.
+
+To create items in several locales, use [Create Items](/data/reference/cms/collection-items/staged-items/create-items) and then [Publish Collection Item(s)](/data/reference/cms/collection-items/staged-items/publish-item). Create Items writes staged content only.
 
 Required scope | `CMS:write`
 </dd>
@@ -5543,6 +6934,10 @@ await client.collections.items.deleteItemsLive("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
+<Tip title="Components in Rich Text">
+  Rich Text field values can contain Webflow component instances as `<wf-component>` markup — see [Components in Rich Text](/data/docs/working-with-the-cms/components-in-rich-text) for the markup grammar, how to find component and property IDs, and the write constraints.
+</Tip>
+
 Update a single published item or multiple published items (up to 100) in a Collection
 
 <Tip title="Localization Tip">Items will only be updated in the primary locale, unless a `cmsLocaleId` is included in the request.</Tip>
@@ -5653,7 +7048,15 @@ await client.collections.items.updateItemsLive("580e63fc8c9a982ac9b8b745", {
 <dl>
 <dd>
 
+<Tip title="Components in Rich Text">
+  Rich Text field values can contain Webflow component instances as `<wf-component>` markup — see [Components in Rich Text](/data/docs/working-with-the-cms/components-in-rich-text) for the markup grammar, how to find component and property IDs, and the write constraints.
+</Tip>
+
 Create an item or multiple items in a CMS Collection across multiple corresponding locales.
+
+<Note title="Use Create Items for new integrations">
+  This endpoint remains supported. New integrations should use [Create Items](/data/reference/cms/collection-items/staged-items/create-items), which does everything this endpoint does and can also add locale variants to an existing item. [This guide to creating items](/data/docs/working-with-the-cms/create-items) shows how the request shape maps.
+</Note>
 
 <Note>
   - This endpoint can create up to 100 items in a request.
@@ -5728,6 +7131,125 @@ await client.collections.items.createItems("580e63fc8c9a982ac9b8b745", {
 </dl>
 </details>
 
+<details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">insertItems</a>(collection_id, { ...params }) -> Webflow.ItemsInsertItemsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create one or more staged items in a CMS Collection.
+
+Send an `items` array with `fieldData` for each item. By default, new items are created in the primary locale. To choose other locales or add variants to an existing item, expand the options below.
+
+- **Publishing:** Set `isDraft: false` to queue an item for the next site publish. Items are created as drafts (`isDraft: true`) by default. To publish individual items, use [Publish Collection Item(s)](/data/reference/cms/collection-items/staged-items/publish-item).
+- **Request limit:** Up to 100 items, counting every locale variant across all entries. One item in three locales counts as three; an item in the primary locale only counts as one.
+
+Required scope | `cms:write`
+
+<div className="create-items-options">
+  <Accordion title="Create items in multiple locales">
+    Each new item gets one ID. Its locale variants share that ID and the same `fieldData`.
+
+    - **Selected locales:** Set `cmsLocaleIds` to the locale IDs you want to create the item in.
+    - **All site locales:** Set `allCmsLocales: true` to include every current site locale, including the primary locale, without listing IDs.
+    - **Primary locale only:** Omit both `cmsLocaleIds` and `allCmsLocales`.
+
+    Use only one locale selector per entry. `allCmsLocales` is available only for new items and accepts only `true`; omit it instead of sending `false`.
+  </Accordion>
+
+  <Accordion title="Add locale variants to an existing item">
+    Set `id` to an existing item's ID and provide the new locales in `cmsLocaleIds`. The variants reuse that ID. The item must exist and must not already have a variant in any requested locale.
+
+    Send the source content in `fieldData` as a starting point for translators. To provide different content per locale, send multiple entries with the same `id`, each with one locale in `cmsLocaleIds` and its own `fieldData`.
+  </Accordion>
+
+  <Accordion title="Validation and errors">
+    These requests return a `400`:
+
+    - Combining `allCmsLocales` with `cmsLocaleIds` (even an empty array) or `id`.
+    - Setting `allCmsLocales` to `false`, a string, or `null`.
+    - Sending unrecognized properties, including singular `cmsLocaleId`. Use `cmsLocaleIds` (plural).
+    - Repeating a locale within one entry, or the same `id`/locale pair across entries.
+
+    Check the response's `message` and `details` for validation errors. Some errors identify an entry, such as `items[2].cmsLocaleIds`. Invalid locale selector combinations return a message with an empty `details` array.
+  </Accordion>
+</div>
+
+Moving from `POST /items` or `POST /items/bulk`? See [Creating collection items](/data/docs/working-with-the-cms/create-items) for request mappings.
+
+Rich Text fields can include Webflow components. See [Components in Rich Text](/data/docs/working-with-the-cms/components-in-rich-text) for markup and constraints.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.collections.items.insertItems("580e63fc8c9a982ac9b8b745", {
+    skipInvalidFiles: true,
+    items: [{
+            fieldData: {
+                name: "Mostly Harmless",
+                slug: "mostly-harmless"
+            }
+        }]
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**collection_id:** `string` — Unique identifier for a Collection
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.collections.InsertCollectionItemsRequestBody` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ItemsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.collections.items.<a href="/src/api/resources/collections/resources/items/client/Client.ts">getItem</a>(collection_id, item_id, { ...params }) -> Webflow.CollectionItem</code></summary>
 <dl>
 <dd>
@@ -5739,6 +7261,10 @@ await client.collections.items.createItems("580e63fc8c9a982ac9b8b745", {
 
 <dl>
 <dd>
+
+<Tip title="Components in Rich Text">
+  Rich Text field values can contain Webflow component instances as `<wf-component>` markup — see [Components in Rich Text](/data/docs/working-with-the-cms/components-in-rich-text) for the markup grammar, how to find component and property IDs, and the write constraints.
+</Tip>
 
 Get details of a selected Collection Item.
 
@@ -5758,7 +7284,8 @@ Required scope | `CMS:read`
 
 ```typescript
 await client.collections.items.getItem("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754", {
-    cmsLocaleId: "cmsLocaleId"
+    cmsLocaleId: "cmsLocaleId",
+    translatable: "65427cf400e02b306eaa04a0"
 });
 
 ```
@@ -5906,7 +7433,20 @@ await client.collections.items.deleteItem("580e63fc8c9a982ac9b8b745", "580e64008
 <dl>
 <dd>
 
+<Tip title="Components in Rich Text">
+  Rich Text field values can contain Webflow component instances as `<wf-component>` markup — see [Components in Rich Text](/data/docs/working-with-the-cms/components-in-rich-text) for the markup grammar, how to find component and property IDs, and the write constraints.
+</Tip>
+
 Update a selected Item in a Collection.
+
+<Note title="Draft status behavior">
+  `isDraft: true` doesn't unpublish an item. The resulting status depends on whether the item has been published before:
+
+  - **Item that has never been published:** the item gets a `Draft` status.
+  - **Already-published item:** the item gets a `Changes in draft` status. The live item stays published, and your changes are held back until you publish them.
+
+  Setting `isDraft: false` queues the item to publish on the next site publish. To remove an item from the live site, use [Unpublish Live Collection Items](/data/reference/cms/collection-items/live-items/delete-items-live). For the full status mapping, see [Publishing with the CMS API](/data/docs/working-with-the-cms/publishing).
+</Note>
 
 Required scope | `CMS:write`
 </dd>
@@ -6031,6 +7571,10 @@ await client.collections.items.updateItem("580e63fc8c9a982ac9b8b745", "580e64008
 <dl>
 <dd>
 
+<Tip title="Components in Rich Text">
+  Rich Text field values can contain Webflow component instances as `<wf-component>` markup — see [Components in Rich Text](/data/docs/working-with-the-cms/components-in-rich-text) for the markup grammar, how to find component and property IDs, and the write constraints.
+</Tip>
+
 Get details of a selected Collection live Item.
 
 <Tip title="Serve data with the Content Delivery API">
@@ -6053,7 +7597,8 @@ Required scope | `CMS:read`
 
 ```typescript
 await client.collections.items.getItemLive("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754", {
-    cmsLocaleId: "cmsLocaleId"
+    cmsLocaleId: "cmsLocaleId",
+    translatable: "65427cf400e02b306eaa04a0"
 });
 
 ```
@@ -6203,6 +7748,10 @@ await client.collections.items.deleteItemLive("580e63fc8c9a982ac9b8b745", "580e6
 <dl>
 <dd>
 
+<Tip title="Components in Rich Text">
+  Rich Text field values can contain Webflow component instances as `<wf-component>` markup — see [Components in Rich Text](/data/docs/working-with-the-cms/components-in-rich-text) for the markup grammar, how to find component and property IDs, and the write constraints.
+</Tip>
+
 Update a selected live Item in a Collection. The updates for this Item will be published to the live site.
 
 Required scope | `CMS:write`
@@ -6330,6 +7879,9 @@ await client.collections.items.updateItemLive("580e63fc8c9a982ac9b8b745", "580e6
 
 Publish an item or multiple items.
 
+Publishing a draft item automatically sets `isDraft` to `false`.
+You don't need to update the item's draft status before calling this endpoint.
+
 Required scope | `cms:write`
 </dd>
 </dl>
@@ -6406,6 +7958,8 @@ await client.collections.items.publishItem("580e63fc8c9a982ac9b8b745", {
 
 Get all scripts applied to a page.
 
+<Note>Access to this endpoint requires a bearer token obtained from an [OAuth Code Grant Flow](/data/reference/oauth-app).</Note>
+
 Required scope | `custom_code:read`
 </dd>
 </dl>
@@ -6474,6 +8028,8 @@ Apply registered scripts to a page. If you have multiple scripts your App needs 
 <Note title="Script Registration">
   To apply a script to a page, the script must first be registered to a Site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
 </Note>
+
+<Note>Access to this endpoint requires a bearer token obtained from an [OAuth Code Grant Flow](/data/reference/oauth-app).</Note>
 
 Required scope | `custom_code:write`
 </dd>
@@ -7478,6 +9034,784 @@ await client.sites.wellKnown.delete("580e63e98c9a982ac9b8b741");
 </dl>
 </details>
 
+## Sites GoogleTag
+<details><summary><code>client.sites.googleTag.<a href="/src/api/resources/sites/resources/googleTag/client/Client.ts">list</a>(site_id) -> Webflow.GoogleTagIds</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all Google Tag IDs configured for a site, sorted by order.
+
+Required scope: `sites:read`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.googleTag.list("580e63e98c9a982ac9b8b741");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `GoogleTagClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sites.googleTag.<a href="/src/api/resources/sites/resources/googleTag/client/Client.ts">deleteAll</a>(site_id) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete all Google Tag IDs from a site.
+
+Required scope: `sites:write`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.googleTag.deleteAll("580e63e98c9a982ac9b8b741");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `GoogleTagClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sites.googleTag.<a href="/src/api/resources/sites/resources/googleTag/client/Client.ts">upsert</a>(site_id, { ...params }) -> Webflow.GoogleTagIds</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Add or update Google Tag IDs for a site. Existing tags not referenced in the request are preserved. A site may have a maximum of 25 tags total.
+
+`order` is optional on input — it is auto-assigned for new tags and returned on all tags in the response.
+
+Required scope: `sites:write`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.googleTag.upsert("580e63e98c9a982ac9b8b741", {
+    googleTagIds: [{
+            order: 0,
+            displayName: "Main Analytics Tag",
+            tagId: "G-1234567890"
+        }]
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.GoogleTagIds` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `GoogleTagClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sites.googleTag.<a href="/src/api/resources/sites/resources/googleTag/client/Client.ts">delete</a>(site_id, tag_id) -> Webflow.GoogleTagIds</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a single Google Tag ID from a site. The `order` values of the remaining tags are renormalized after deletion.
+
+Required scope: `sites:write`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.googleTag.delete("580e63e98c9a982ac9b8b741", "G-XXXXXXXXXX");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tag_id:** `string` — The Google Tag ID (e.g. G-XXXXXXXXXX)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `GoogleTagClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Sites Members
+<details><summary><code>client.sites.members.<a href="/src/api/resources/sites/resources/members/client/Client.ts">listMembers</a>(site_id, { ...params }) -> Webflow.SiteMembersResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List the members of a site and the role each holds.
+
+<Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
+
+Required scope | `site_access:read`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.members.listMembers("580e63e98c9a982ac9b8b741", {
+    limit: 1,
+    email: "email",
+    cursor: "cursor"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.sites.MembersListMembersRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `MembersClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sites.members.<a href="/src/api/resources/sites/resources/members/client/Client.ts">addMember</a>(site_id, { ...params }) -> Webflow.SiteMember</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Grant a workspace member access to a site, named by `email` or `memberId`.
+
+This creates access — it does not change an existing grant. A member who already has access to this site is refused with `member_already_has_access`; use `PATCH` to change their Site Role instead.
+
+<Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
+
+Required scope | `site_access:write`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.members.addMember("580e63e98c9a982ac9b8b741", {
+    email: "waylon.dalton@example.com",
+    siteRole: "designer"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.sites.GrantSiteMemberRequestBody` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `MembersClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sites.members.<a href="/src/api/resources/sites/resources/members/client/Client.ts">removeMemberByEmail</a>(site_id, { ...params }) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Remove a member's access to a site, identifying them by email address.
+
+Idempotent on a member who already holds no access to this site — nothing is revoked and this reports success. Not idempotent on someone who isn't a workspace member at all, which returns a `404`.
+
+Equivalent to [Revoke Site Access](/data/reference/enterprise/site-access/remove-member), which identifies the member by ID instead.
+
+<Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
+
+Required scope | `site_access:write`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.members.removeMemberByEmail("580e63e98c9a982ac9b8b741", {
+    email: "email"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.sites.MembersRemoveMemberByEmailRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `MembersClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sites.members.<a href="/src/api/resources/sites/resources/members/client/Client.ts">updateMemberRoleByEmail</a>(site_id, { ...params }) -> Webflow.SiteMember</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update a site member's role, identifying them by email address.
+
+On a site with Site-specific access enabled, the member must already hold access to this site — grant it first with `POST`. On a site open to the whole workspace, this call sets a per-site role for the first time.
+
+Equivalent to [Update Site Member Role](/data/reference/enterprise/site-access/update-member-role), which identifies the member by ID instead.
+
+<Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
+
+Required scope | `site_access:write`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.members.updateMemberRoleByEmail("580e63e98c9a982ac9b8b741", {
+    email: "email",
+    body: {
+        siteRole: "content_editor"
+    }
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.sites.MembersUpdateMemberRoleByEmailRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `MembersClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sites.members.<a href="/src/api/resources/sites/resources/members/client/Client.ts">removeMember</a>(site_id, member_id) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Remove a member's access to a site.
+
+Idempotent on a member who already holds no access to this site — nothing is revoked and this reports success. Not idempotent on someone who isn't a workspace member at all, which returns a `404`.
+
+To revoke by email address instead of by ID, see [Revoke Site Access (by email)](/data/reference/enterprise/site-access/remove-member-by-email).
+
+<Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
+
+Required scope | `site_access:write`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.members.removeMember("580e63e98c9a982ac9b8b741", "62fa5e47f6b8256f4641c5bd");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**member_id:** `string` — Unique identifier for a Member
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `MembersClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sites.members.<a href="/src/api/resources/sites/resources/members/client/Client.ts">updateMemberRole</a>(site_id, member_id, { ...params }) -> Webflow.SiteMember</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update a site member's role.
+
+On a site with Site-specific access enabled, the member must already hold access to this site — grant it first with `POST`. On a site open to the whole workspace, this call sets a per-site role for the first time.
+
+To update by email address instead of by ID, see [Update Site Member Role (by email)](/data/reference/enterprise/site-access/update-member-role-by-email).
+
+<Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
+
+Required scope | `site_access:write`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.members.updateMemberRole("580e63e98c9a982ac9b8b741", "62fa5e47f6b8256f4641c5bd", {
+    siteRole: "content_editor"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**member_id:** `string` — Unique identifier for a Member
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.UpdateSiteMemberRoleRequestBody` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `MembersClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Sites ActivityLogs
 <details><summary><code>client.sites.activityLogs.<a href="/src/api/resources/sites/resources/activityLogs/client/Client.ts">list</a>(site_id, { ...params }) -> Webflow.SiteActivityLogResponse</code></summary>
 <dl>
@@ -7732,6 +10066,93 @@ await client.sites.comments.getCommentThread("580e63e98c9a982ac9b8b741", "580e63
 </dl>
 </details>
 
+<details><summary><code>client.sites.comments.<a href="/src/api/resources/sites/resources/comments/client/Client.ts">resolveCommentThread</a>(site_id, comment_thread_id, { ...params }) -> Webflow.CommentThread</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Resolve or unresolve a comment thread.
+
+<Note>
+  This endpoint is rate limited to 60 requests per minute per site.
+</Note>
+
+Required scope | `comments:write`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.comments.resolveCommentThread("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741", {
+    resolved: true
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**comment_thread_id:** `string` — Unique identifier for a Comment Thread
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.sites.ResolveCommentThreadRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CommentsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.sites.comments.<a href="/src/api/resources/sites/resources/comments/client/Client.ts">listCommentReplies</a>(site_id, comment_thread_id, { ...params }) -> Webflow.CommentReplyList</code></summary>
 <dl>
 <dd>
@@ -7823,6 +10244,96 @@ await client.sites.comments.listCommentReplies("580e63e98c9a982ac9b8b741", "580e
 </dl>
 </details>
 
+<details><summary><code>client.sites.comments.<a href="/src/api/resources/sites/resources/comments/client/Client.ts">createCommentReply</a>(site_id, comment_thread_id, { ...params }) -> Webflow.CommentReply</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a reply to an existing comment thread.
+
+The reply author is always the user who authorized the OAuth token.
+To @mention a user in the reply, include their user ID in double square brackets in the `content` field, as in `[[userId]]`.
+
+<Note>
+  The `comment_created` webhook fires automatically when a reply is created.
+</Note>
+
+Required scope | `comments:write`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sites.comments.createCommentReply("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741", {
+    content: "Thanks for the feedback [[6287ec36a841b25637c663df]]!"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**site_id:** `string` — Unique identifier for a Site
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**comment_thread_id:** `string` — Unique identifier for a Comment Thread
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.sites.CreateCommentReplyRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CommentsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Sites Scripts
 <details><summary><code>client.sites.scripts.<a href="/src/api/resources/sites/resources/scripts/client/Client.ts">getCustomCode</a>(site_id) -> Webflow.ScriptApplyList</code></summary>
 <dl>
@@ -7841,6 +10352,8 @@ Get all scripts applied to a site by the App.
 <Note title="Script Registration">
   To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
 </Note>
+
+<Note>Access to this endpoint requires a bearer token obtained from an [OAuth Code Grant Flow](/data/reference/oauth-app).</Note>
 
 Required scope | `custom_code:read`
 </dd>
@@ -7910,6 +10423,8 @@ Apply registered scripts to a site. If you have multiple scripts your App needs 
 <Note title="Script Registration">
   To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
 </Note>
+
+<Note>Access to this endpoint requires a bearer token obtained from an [OAuth Code Grant Flow](/data/reference/oauth-app).</Note>
 
 Required scope | `custom_code:write`
 </dd>
@@ -8071,6 +10586,8 @@ Get a list of scripts that have been applied to a site and/or individual pages.
 
   See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
 </Note>
+
+<Note>Access to this endpoint requires a bearer token obtained from an [OAuth Code Grant Flow](/data/reference/oauth-app).</Note>
 
 Required scope | `custom_code:read`
 </dd>
@@ -8605,6 +11122,451 @@ await client.workspaces.auditLogs.getWorkspaceAuditLogs("hitchhikers-workspace",
 <dd>
 
 **requestOptions:** `AuditLogsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Workspaces Members
+<details><summary><code>client.workspaces.members.<a href="/src/api/resources/workspaces/resources/members/client/Client.ts">listMembers</a>(workspace_id, { ...params }) -> Webflow.WorkspaceMembersResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List the members and invites of a workspace. `invites` includes pending, declined, and expired invites.
+
+<Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
+
+Required scope | `workspace_members:read`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.workspaces.members.listMembers("580e63e98c9a982ac9b8b741", {
+    limit: 1,
+    email: "email",
+    roles: ["owner"],
+    cursor: "cursor"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**workspace_id:** `string` — Unique identifier for a Workspace. Find it with [List Workspaces](/data/reference/enterprise/workspace-management/list) (workspace API tokens and Data Client apps), or with `authorization.authorizedTo.workspaceIds` from [Get Authorization Info](/data/reference/token/introspect). With a site token, read `workspaceId` from [Get Site](/data/reference/sites/get).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.workspaces.MembersListMembersRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `MembersClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.workspaces.members.<a href="/src/api/resources/workspaces/resources/members/client/Client.ts">inviteMember</a>(workspace_id, { ...params }) -> Webflow.InviteWorkspaceMemberResponseBody</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Invite a user to a workspace.
+
+Set `workspaceRole` to `client` to invite a collaborator client to one Site. Client invites require exactly one `siteAccess` entry. Repeat the request with another Site to extend a compatible pending client invite.
+
+Client invites create collaborator relationships only. This endpoint does not accept `sitePlan` or `canPublish`.
+
+<Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
+
+Required scope | `workspace_members:write`
+
+`workspaceRole` and `defaultSiteRole` together decide what the invitee can do and what role the dashboard shows for them once they accept. Submit only one of the combinations below — the dashboard's own role picker never produces any other pairing.
+
+| `workspaceRole` | `defaultSiteRole` | Shown in the dashboard as |
+|---|---|---|
+| `admin` | `site_manager` | Admin |
+| `member` | `site_manager` | Site manager |
+| `member` | `designer` | Designer |
+| `member` | `marketer` | Marketer |
+| `member` | `content_editor` | Content editor |
+| `member` | `custom` | The custom Site Role's own name. Requires `defaultSiteRoleId`. |
+| `reviewer` | `reviewer` | Reviewer |
+
+Admins always have access to every site in the workspace, so an Admin invite can't include a list of specific sites. For Member and Reviewer invites, you can either give the same role on all sites, or list specific sites. In both cases, use the pairings in the table above.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.workspaces.members.inviteMember("580e63e98c9a982ac9b8b741", {
+    email: "sam.okafor@example.com",
+    workspaceRole: "member",
+    defaultSiteRole: "designer"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**workspace_id:** `string` — Unique identifier for a Workspace. Find it with [List Workspaces](/data/reference/enterprise/workspace-management/list) (workspace API tokens and Data Client apps), or with `authorization.authorizedTo.workspaceIds` from [Get Authorization Info](/data/reference/token/introspect). With a site token, read `workspaceId` from [Get Site](/data/reference/sites/get).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.InviteWorkspaceMemberRequestBody` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `MembersClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.workspaces.members.<a href="/src/api/resources/workspaces/resources/members/client/Client.ts">removeMember</a>(workspace_id, member_id) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Remove a member from a workspace.
+
+<Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
+
+Required scope | `workspace_members:write`
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.workspaces.members.removeMember("580e63e98c9a982ac9b8b741", "62fa5e47f6b8256f4641c5bd");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**workspace_id:** `string` — Unique identifier for a Workspace. Find it with [List Workspaces](/data/reference/enterprise/workspace-management/list) (workspace API tokens and Data Client apps), or with `authorization.authorizedTo.workspaceIds` from [Get Authorization Info](/data/reference/token/introspect). With a site token, read `workspaceId` from [Get Site](/data/reference/sites/get).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**member_id:** `string` — Unique identifier for a Member
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `MembersClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.workspaces.members.<a href="/src/api/resources/workspaces/resources/members/client/Client.ts">updateMemberRole</a>(workspace_id, member_id, { ...params }) -> Webflow.WorkspaceMember</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update a workspace member's role.
+
+<Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
+
+Required scope | `workspace_members:write`
+
+`role` and `defaultSiteRole` together decide what the member can do and what role the dashboard shows for them. Submit only one of the combinations below — the dashboard's own role picker never produces any other pairing.
+
+| `role` | `defaultSiteRole` | Shown in the dashboard as |
+|---|---|---|
+| `admin` | `site_manager` | Admin |
+| `member` | `site_manager` | Site manager |
+| `member` | `designer` | Designer |
+| `member` | `marketer` | Marketer |
+| `member` | `content_editor` | Content editor |
+| `member` | `custom` | The custom Site Role's own name. Requires `defaultSiteRoleId`. |
+| `reviewer` | `reviewer` | Reviewer |
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.workspaces.members.updateMemberRole("580e63e98c9a982ac9b8b741", "62fa5e47f6b8256f4641c5bd", {
+    role: "admin",
+    defaultSiteRole: "site_manager"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**workspace_id:** `string` — Unique identifier for a Workspace. Find it with [List Workspaces](/data/reference/enterprise/workspace-management/list) (workspace API tokens and Data Client apps), or with `authorization.authorizedTo.workspaceIds` from [Get Authorization Info](/data/reference/token/introspect). With a site token, read `workspaceId` from [Get Site](/data/reference/sites/get).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**member_id:** `string` — Unique identifier for a Member
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.workspaces.UpdateWorkspaceMemberRoleRequestBody` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `MembersClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.workspaces.members.<a href="/src/api/resources/workspaces/resources/members/client/Client.ts">bulkUpdateMemberRoles</a>(workspace_id, { ...params }) -> Webflow.WorkspaceBulkRoleChangeResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update the role of multiple workspace members and invites in one request. An invite can be updated regardless of status — pending, declined, or expired.
+
+This answers `200` once the batch is applied, even when every item failed — a per-item problem is reported in `results` rather than failing the whole request. IDs are deduplicated before processing, so `results` can be shorter than the request; match a result back to your input by `id`, not by position.
+
+<Warning title="Enterprise Only">This endpoint requires an Enterprise workspace.</Warning>
+
+Required scope | `workspace_members:write`
+
+`role` and `defaultSiteRole` together decide what every id in the batch can do and what role the dashboard shows for them. Submit only one of the combinations below — the dashboard's own role picker never produces any other pairing.
+
+| `role` | `defaultSiteRole` | Shown in the dashboard as |
+|---|---|---|
+| `admin` | `site_manager` | Admin |
+| `member` | `site_manager` | Site manager |
+| `member` | `designer` | Designer |
+| `member` | `marketer` | Marketer |
+| `member` | `content_editor` | Content editor |
+| `member` | `custom` | The custom Site Role's own name. Requires `defaultSiteRoleId`. |
+| `reviewer` | `reviewer` | Reviewer |
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.workspaces.members.bulkUpdateMemberRoles("580e63e98c9a982ac9b8b741", {
+    memberIds: ["62fa5e47f6b8256f4641c5bd", "62fa5e47f6b8256f4641c5be"],
+    inviteIds: ["63fa5e47f6b8256f4641c5bf"],
+    role: "member",
+    defaultSiteRole: "designer"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**workspace_id:** `string` — Unique identifier for a Workspace. Find it with [List Workspaces](/data/reference/enterprise/workspace-management/list) (workspace API tokens and Data Client apps), or with `authorization.authorizedTo.workspaceIds` from [Get Authorization Info](/data/reference/token/introspect). With a site token, read `workspaceId` from [Get Site](/data/reference/sites/get).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Webflow.workspaces.BulkUpdateWorkspaceMemberRolesRequestBody` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `MembersClient.RequestOptions` 
     
 </dd>
 </dl>

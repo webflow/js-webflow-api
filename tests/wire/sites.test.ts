@@ -1280,6 +1280,7 @@ describe("SitesClient", () => {
                 { id: "589a331aa51e760df7ccb89d", url: "test-api-domain.com", lastPublished: "2022-12-07T16:51:37Z" },
             ],
             publishToWebflowSubdomain: true,
+            publishScope: "site",
         };
         server
             .mockEndpoint()
@@ -1303,6 +1304,7 @@ describe("SitesClient", () => {
                 },
             ],
             publishToWebflowSubdomain: true,
+            publishScope: "site",
         });
     });
 

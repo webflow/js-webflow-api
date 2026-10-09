@@ -4,6 +4,7 @@ import type * as Webflow from "../../../../api/index";
 import * as core from "../../../../core";
 import type * as serializers from "../../../index";
 import { Domain } from "../../../types/Domain";
+import { SitesPublishResponsePublishScope } from "./SitesPublishResponsePublishScope";
 
 export const SitesPublishResponse: core.serialization.ObjectSchema<
     serializers.SitesPublishResponse.Raw,
@@ -11,11 +12,13 @@ export const SitesPublishResponse: core.serialization.ObjectSchema<
 > = core.serialization.object({
     customDomains: core.serialization.list(Domain).optional(),
     publishToWebflowSubdomain: core.serialization.boolean().optional(),
+    publishScope: SitesPublishResponsePublishScope.optional(),
 });
 
 export declare namespace SitesPublishResponse {
     export interface Raw {
         customDomains?: Domain.Raw[] | null;
         publishToWebflowSubdomain?: boolean | null;
+        publishScope?: SitesPublishResponsePublishScope.Raw | null;
     }
 }

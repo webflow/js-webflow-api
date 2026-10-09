@@ -5,12 +5,13 @@ import * as core from "../../core";
 import type * as serializers from "../index";
 import { CommentPayloadAuthor } from "./CommentPayloadAuthor";
 import { CommentPayloadMentionedUsersItem } from "./CommentPayloadMentionedUsersItem";
+import { CommentPayloadType } from "./CommentPayloadType";
 
 export const CommentPayload: core.serialization.ObjectSchema<serializers.CommentPayload.Raw, Webflow.CommentPayload> =
     core.serialization.object({
         threadId: core.serialization.string().optional(),
         commentId: core.serialization.string().optional(),
-        type: core.serialization.string().optional(),
+        type: CommentPayloadType.optional(),
         siteId: core.serialization.string().optional(),
         pageId: core.serialization.string().optional(),
         localeId: core.serialization.string().optional(),
@@ -28,7 +29,7 @@ export declare namespace CommentPayload {
     export interface Raw {
         threadId?: string | null;
         commentId?: string | null;
-        type?: string | null;
+        type?: CommentPayloadType.Raw | null;
         siteId?: string | null;
         pageId?: string | null;
         localeId?: string | null;

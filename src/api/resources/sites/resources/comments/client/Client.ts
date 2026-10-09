@@ -354,6 +354,156 @@ export class CommentsClient {
     }
 
     /**
+     * Resolve or unresolve a comment thread.
+     *
+     * <Note>
+     *   This endpoint is rate limited to 60 requests per minute per site.
+     * </Note>
+     *
+     * Required scope | `comments:write`
+     *
+     * @param {string} site_id - Unique identifier for a Site
+     * @param {string} comment_thread_id - Unique identifier for a Comment Thread
+     * @param {Webflow.sites.ResolveCommentThreadRequest} request
+     * @param {CommentsClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Webflow.BadRequestError}
+     * @throws {@link Webflow.UnauthorizedError}
+     * @throws {@link Webflow.NotFoundError}
+     * @throws {@link Webflow.TooManyRequestsError}
+     * @throws {@link Webflow.InternalServerError}
+     *
+     * @example
+     *     await client.sites.comments.resolveCommentThread("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741", {
+     *         resolved: true
+     *     })
+     */
+    public resolveCommentThread(
+        site_id: string,
+        comment_thread_id: string,
+        request: Webflow.sites.ResolveCommentThreadRequest,
+        requestOptions?: CommentsClient.RequestOptions,
+    ): core.HttpResponsePromise<Webflow.CommentThread> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__resolveCommentThread(site_id, comment_thread_id, request, requestOptions),
+        );
+    }
+
+    private async __resolveCommentThread(
+        site_id: string,
+        comment_thread_id: string,
+        request: Webflow.sites.ResolveCommentThreadRequest,
+        requestOptions?: CommentsClient.RequestOptions,
+    ): Promise<core.WithRawResponse<Webflow.CommentThread>> {
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
+        const _response = await core.fetcher({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
+                        .base,
+                `sites/${core.url.encodePathParam(site_id)}/comments/${core.url.encodePathParam(comment_thread_id)}`,
+            ),
+            method: "PATCH",
+            headers: _headers,
+            contentType: "application/json",
+            queryParameters: requestOptions?.queryParams,
+            requestType: "json",
+            body: serializers.sites.ResolveCommentThreadRequest.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                omitUndefined: true,
+            }),
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.CommentThread.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Webflow.BadRequestError(_response.error.body, _response.rawResponse);
+                case 401:
+                    throw new Webflow.UnauthorizedError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new Webflow.NotFoundError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 429:
+                    throw new Webflow.TooManyRequestsError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 500:
+                    throw new Webflow.InternalServerError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.WebflowError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "PATCH",
+            "/sites/{site_id}/comments/{comment_thread_id}",
+        );
+    }
+
+    /**
      * List all replies to a specific comment thread.
      *
      * <Note title="Timing of comment threads">
@@ -519,6 +669,159 @@ export class CommentsClient {
             _response.error,
             _response.rawResponse,
             "GET",
+            "/sites/{site_id}/comments/{comment_thread_id}/replies",
+        );
+    }
+
+    /**
+     * Create a reply to an existing comment thread.
+     *
+     * The reply author is always the user who authorized the OAuth token.
+     * To @mention a user in the reply, include their user ID in double square brackets in the `content` field, as in `[[userId]]`.
+     *
+     * <Note>
+     *   The `comment_created` webhook fires automatically when a reply is created.
+     * </Note>
+     *
+     * Required scope | `comments:write`
+     *
+     * @param {string} site_id - Unique identifier for a Site
+     * @param {string} comment_thread_id - Unique identifier for a Comment Thread
+     * @param {Webflow.sites.CreateCommentReplyRequest} request
+     * @param {CommentsClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Webflow.BadRequestError}
+     * @throws {@link Webflow.UnauthorizedError}
+     * @throws {@link Webflow.NotFoundError}
+     * @throws {@link Webflow.TooManyRequestsError}
+     * @throws {@link Webflow.InternalServerError}
+     *
+     * @example
+     *     await client.sites.comments.createCommentReply("580e63e98c9a982ac9b8b741", "580e63e98c9a982ac9b8b741", {
+     *         content: "Thanks for the feedback [[6287ec36a841b25637c663df]]!"
+     *     })
+     */
+    public createCommentReply(
+        site_id: string,
+        comment_thread_id: string,
+        request: Webflow.sites.CreateCommentReplyRequest,
+        requestOptions?: CommentsClient.RequestOptions,
+    ): core.HttpResponsePromise<Webflow.CommentReply> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__createCommentReply(site_id, comment_thread_id, request, requestOptions),
+        );
+    }
+
+    private async __createCommentReply(
+        site_id: string,
+        comment_thread_id: string,
+        request: Webflow.sites.CreateCommentReplyRequest,
+        requestOptions?: CommentsClient.RequestOptions,
+    ): Promise<core.WithRawResponse<Webflow.CommentReply>> {
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
+        const _response = await core.fetcher({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
+                        .base,
+                `sites/${core.url.encodePathParam(site_id)}/comments/${core.url.encodePathParam(comment_thread_id)}/replies`,
+            ),
+            method: "POST",
+            headers: _headers,
+            contentType: "application/json",
+            queryParameters: requestOptions?.queryParams,
+            requestType: "json",
+            body: serializers.sites.CreateCommentReplyRequest.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                omitUndefined: true,
+            }),
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.CommentReply.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Webflow.BadRequestError(_response.error.body, _response.rawResponse);
+                case 401:
+                    throw new Webflow.UnauthorizedError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new Webflow.NotFoundError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 429:
+                    throw new Webflow.TooManyRequestsError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 500:
+                    throw new Webflow.InternalServerError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.WebflowError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "POST",
             "/sites/{site_id}/comments/{comment_thread_id}/replies",
         );
     }

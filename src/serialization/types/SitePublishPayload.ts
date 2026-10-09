@@ -3,6 +3,7 @@
 import type * as Webflow from "../../api/index";
 import * as core from "../../core";
 import type * as serializers from "../index";
+import { SitePublishPayloadPublishScope } from "./SitePublishPayloadPublishScope";
 
 export const SitePublishPayload: core.serialization.ObjectSchema<
     serializers.SitePublishPayload.Raw,
@@ -12,6 +13,8 @@ export const SitePublishPayload: core.serialization.ObjectSchema<
     publishedOn: core.serialization.date().optional(),
     domains: core.serialization.list(core.serialization.string()).optional(),
     publishedBy: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+    publishScope: SitePublishPayloadPublishScope.optional(),
+    pageId: core.serialization.string().optional(),
 });
 
 export declare namespace SitePublishPayload {
@@ -20,5 +23,7 @@ export declare namespace SitePublishPayload {
         publishedOn?: string | null;
         domains?: string[] | null;
         publishedBy?: Record<string, unknown> | null;
+        publishScope?: SitePublishPayloadPublishScope.Raw | null;
+        pageId?: string | null;
     }
 }
