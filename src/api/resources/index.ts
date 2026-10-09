@@ -1,11 +1,16 @@
+export * as analyze from "./analyze";
 export * as assets from "./assets";
 export * from "./assets/client/requests";
+export * as branches from "./branches";
 export * as collections from "./collections";
 export * from "./collections/client/requests";
 export * as comments from "./comments";
 export * as components from "./components";
 export * from "./components/client/requests";
 export * from "./components/types";
+export * as customFonts from "./customFonts";
+export * from "./customFonts/client/requests";
+export * from "./customFonts/types";
 export * as ecommerce from "./ecommerce";
 export * as forms from "./forms";
 export * from "./forms/client/requests";

@@ -12,4 +12,6 @@ export interface SitesPublishRequest {
     customDomains?: string[];
     /** Choice of whether to publish to the default Webflow Subdomain */
     publishToWebflowSubdomain?: boolean;
+    /** The ID of the page to publish */
+    pageId?: string;
 }

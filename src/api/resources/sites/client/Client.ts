@@ -12,6 +12,8 @@ import * as Webflow from "../../../index";
 import { ActivityLogsClient } from "../resources/activityLogs/client/Client";
 import { CommentsClient } from "../resources/comments/client/Client";
 import { FormsClient } from "../resources/forms/client/Client";
+import { GoogleTagClient } from "../resources/googleTag/client/Client";
+import { MembersClient } from "../resources/members/client/Client";
 import { PlansClient } from "../resources/plans/client/Client";
 import { RedirectsClient } from "../resources/redirects/client/Client";
 import { RobotsTxtClient } from "../resources/robotsTxt/client/Client";
@@ -33,6 +35,8 @@ export class SitesClient {
     protected _plans: PlansClient | undefined;
     protected _robotsTxt: RobotsTxtClient | undefined;
     protected _wellKnown: WellKnownClient | undefined;
+    protected _googleTag: GoogleTagClient | undefined;
+    protected _members: MembersClient | undefined;
     protected _activityLogs: ActivityLogsClient | undefined;
     protected _comments: CommentsClient | undefined;
     protected _scripts: ScriptsClient | undefined;
@@ -58,6 +62,14 @@ export class SitesClient {
         return (this._wellKnown ??= new WellKnownClient(this._options));
     }
 
+    public get googleTag(): GoogleTagClient {
+        return (this._googleTag ??= new GoogleTagClient(this._options));
+    }
+
+    public get members(): MembersClient {
+        return (this._members ??= new MembersClient(this._options));
+    }
+
     public get activityLogs(): ActivityLogsClient {
         return (this._activityLogs ??= new ActivityLogsClient(this._options));
     }
@@ -81,7 +93,7 @@ export class SitesClient {
      *
      * Required scope | `workspace:write`
      *
-     * @param {string} workspace_id - Unique identifier for a Workspace
+     * @param {string} workspace_id - Unique identifier for a Workspace. Find it with [List Workspaces](/data/reference/enterprise/workspace-management/list) (workspace API tokens and Data Client apps), or with `authorization.authorizedTo.workspaceIds` from [Get Authorization Info](/data/reference/token/introspect). With a site token, read `workspaceId` from [Get Site](/data/reference/sites/get).
      * @param {Webflow.SitesCreateRequest} request
      * @param {SitesClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -825,11 +837,14 @@ export class SitesClient {
     }
 
     /**
-     * Publishes a site to one or more more domains.
+     * Publishes a site or an individual page to one or more domains.
+     * If multiple individual pages are published to staging, publishing from staging to production publishes all staged changes.
      *
      * To publish to a specific custom domain, use the domain IDs from the [Get Custom Domains](/data/reference/sites/get-custom-domain) endpoint.
      *
      * You must include at least one of the `customDomains` or `publishToWebflowSubdomain` properties in the request body.
+     *
+     * To publish an individual page instead of the entire site, provide the ID of the page in the `pageId` parameter.
      *
      * <Note title="Rate limit: 1 publish per minute">This endpoint has a specific rate limit of one successful publish queue per minute.</Note>
      *

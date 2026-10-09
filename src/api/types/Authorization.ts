@@ -5,5 +5,6 @@ import type * as Webflow from "../index";
 export interface Authorization {
     /** The Authorization object */
     authorization?: Webflow.AuthorizationAuthorization;
+    /** Details of the OAuth app the token belongs to. Present only for tokens issued to an OAuth app. Omitted for `client_credentials` tokens without an OAuth app, such as Site and Workspace API tokens. */
     application?: Webflow.Application;
 }

@@ -108,7 +108,9 @@ export class TokenClient {
     /**
      * Information about the authorization token
      *
-     * <Note>Access to this endpoint requires a bearer token from a [Data Client App](/data/docs/getting-started-data-clients).</Note>
+     * <Note>Access to this endpoint requires a bearer token from either a [Data Client App](/data/docs/data-clients/getting-started), a [Workspace token](/data/reference/authentication/workspace-token), or a [Site token](/data/reference/authentication/site-token).</Note>
+     *
+     * <Note>The `application` object is only returned for tokens issued to an OAuth app. For tokens without an OAuth app, such as Site and Workspace API tokens (`grantType: client_credentials`), the response omits `application`.</Note>
      *
      * @param {TokenClient.RequestOptions} requestOptions - Request-specific configuration.
      *
