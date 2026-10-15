@@ -3,14 +3,13 @@
 import type * as Webflow from "../../api/index";
 import * as core from "../../core";
 import type * as serializers from "../index";
-import { WorkspaceAuditLogItemPayloadSettingChangeMethod } from "./WorkspaceAuditLogItemPayloadSettingChangeMethod";
 
 export const SettingChange: core.serialization.ObjectSchema<serializers.SettingChange.Raw, Webflow.SettingChange> =
     core.serialization.object({
         setting: core.serialization.stringLiteral("ai_toggle").optional(),
         previousValue: core.serialization.string().optional(),
         value: core.serialization.string().optional(),
-        method: WorkspaceAuditLogItemPayloadSettingChangeMethod.optional(),
+        method: core.serialization.stringLiteral("dashboard").optional(),
     });
 
 export declare namespace SettingChange {
@@ -18,6 +17,6 @@ export declare namespace SettingChange {
         setting?: "ai_toggle" | null;
         previousValue?: string | null;
         value?: string | null;
-        method?: WorkspaceAuditLogItemPayloadSettingChangeMethod.Raw | null;
+        method?: "dashboard" | null;
     }
 }
