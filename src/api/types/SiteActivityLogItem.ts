@@ -14,4 +14,12 @@ export interface SiteActivityLogItem {
     newValue?: string;
     previousValue?: string;
     payload?: Record<string, unknown>;
+    /** The system that originated the event. `WEBFLOW_AI` for Webflow AI features, `WEBFLOW_MCP` for an external MCP server or Bridge App, `DESIGNER` for human writes from the Designer, and `SYSTEM` for automated Webflow processes such as backups or migrations. `null` for legacy events recorded before attribution was available. */
+    source?: Webflow.SiteActivityLogItemSource;
+    /** The type of actor responsible for the event. `user` for a human who directly triggered or accepted the action, `agent` for a fully autonomous AI agent, `workflow` for a user-created workflow that ran autonomously, and `rule` for an autonomous rule that fired on a trigger. `null` for legacy events. */
+    actorType?: Webflow.SiteActivityLogItemActorType;
+    /** Unique identifier of the actor that originated the event. `null` when not available. */
+    actorId?: string;
+    /** Display name of the actor that originated the event. `null` when not available. */
+    actorName?: string;
 }

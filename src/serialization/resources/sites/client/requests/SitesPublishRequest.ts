@@ -10,11 +10,13 @@ export const SitesPublishRequest: core.serialization.Schema<
 > = core.serialization.object({
     customDomains: core.serialization.list(core.serialization.string()).optional(),
     publishToWebflowSubdomain: core.serialization.boolean().optional(),
+    pageId: core.serialization.string().optional(),
 });
 
 export declare namespace SitesPublishRequest {
     export interface Raw {
         customDomains?: string[] | null;
         publishToWebflowSubdomain?: boolean | null;
+        pageId?: string | null;
     }
 }

@@ -22,4 +22,6 @@ export interface FormSubmissionTriggerPayload {
     formId?: string;
     /** The uniqueID of the Form element */
     formElementId?: string;
+    /** The ID of the locale the form was submitted from. `null` for primary-locale submissions or sites without localization. */
+    localeId?: string;
 }

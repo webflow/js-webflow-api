@@ -5,7 +5,8 @@
  *     {
  *         localeId: "65427cf400e02b306eaa04a0",
  *         offset: 1,
- *         limit: 1
+ *         limit: 1,
+ *         folderId: "folderId"
  *     }
  */
 export interface AssetsListRequest {
@@ -19,4 +20,9 @@ export interface AssetsListRequest {
     offset?: number;
     /** Maximum number of records to be returned (max limit: 100) */
     limit?: number;
+    /**
+     * Filter assets to those in the specified folder and all descendant folders.
+     * Must be a 24-character hex ObjectId.
+     */
+    folderId?: string;
 }
