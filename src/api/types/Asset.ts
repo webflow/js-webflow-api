@@ -28,4 +28,9 @@ export interface Asset {
     variants: Webflow.AssetVariant[];
     /** The visual description of the asset */
     altText?: string;
+    /**
+     * The ID of the folder the asset belongs to, or `null` if the asset is at the site root.
+     * This field is present only in list responses (`GET /sites/{site_id}/assets`).
+     */
+    folderId?: string;
 }

@@ -143,6 +143,61 @@ describe("TokenClient", () => {
             environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
         });
 
+        const rawResponseBody = {
+            authorization: {
+                id: "65a1b2c3d4e5f60718293a4b",
+                createdOn: "2026-10-01T15:04:05Z",
+                lastUsed: "2026-10-06T09:30:41Z",
+                grantType: "client_credentials",
+                rateLimit: 60,
+                scope: "assets:read,assets:write",
+                authorizedTo: {
+                    siteIds: ["62f3b1f7eafac55d0c64ef91"],
+                    workspaceIds: ["72f3b1f7eafac55d0c64ef91"],
+                    userIds: ["545bbecb7bdd6769632504a7"],
+                },
+            },
+            application: {
+                id: "55131cd036c09f7d07883dfc",
+                description: "OAuth Testing Application",
+                homepage: "https://webflow.com",
+                displayName: "Test App",
+            },
+        };
+        server.mockEndpoint().get("/token/introspect").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+
+        const response = await client.token.introspect();
+        expect(response).toEqual({
+            authorization: {
+                id: "65a1b2c3d4e5f60718293a4b",
+                createdOn: new Date("2026-10-01T15:04:05.000Z"),
+                lastUsed: new Date("2026-10-06T09:30:41.000Z"),
+                grantType: "client_credentials",
+                rateLimit: 60,
+                scope: "assets:read,assets:write",
+                authorizedTo: {
+                    siteIds: ["62f3b1f7eafac55d0c64ef91"],
+                    workspaceIds: ["72f3b1f7eafac55d0c64ef91"],
+                    userIds: ["545bbecb7bdd6769632504a7"],
+                },
+            },
+            application: {
+                id: "55131cd036c09f7d07883dfc",
+                description: "OAuth Testing Application",
+                homepage: "https://webflow.com",
+                displayName: "Test App",
+            },
+        });
+    });
+
+    test("introspect (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new WebflowClient({
+            maxRetries: 0,
+            accessToken: "test",
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
+        });
+
         const rawResponseBody = {};
         server.mockEndpoint().get("/token/introspect").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 

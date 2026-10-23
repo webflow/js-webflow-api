@@ -1,4 +1,5 @@
 export type { CreateBulkCollectionItemRequestBody } from "./CreateBulkCollectionItemRequestBody";
+export type { InsertCollectionItemsRequestBody } from "./InsertCollectionItemsRequestBody";
 export type { ItemsCreateItemLiveRequest } from "./ItemsCreateItemLiveRequest";
 export type { ItemsCreateItemRequest } from "./ItemsCreateItemRequest";
 export type { ItemsDeleteItemLiveRequest } from "./ItemsDeleteItemLiveRequest";

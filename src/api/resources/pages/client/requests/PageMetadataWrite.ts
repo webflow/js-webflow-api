@@ -32,8 +32,9 @@ export interface PageMetadataWrite {
     /**
      * Slug for the page.
      *
-     *
-     * **Note:** Updating slugs in secondary locales is only supported in <a href="https://webflow.com/localization">Advanced and Enterprise localization add-on plans.</a>
+     * **Note:** The slug field is ignored in the following cases — all other fields in the same request still apply:
+     * - The site's home page, collection template pages, and utility pages (e.g. 404, password, search).
+     * - For secondary locales, updating the slug requires an <a href="https://webflow.com/feature/localization">Advanced or Enterprise localization add-on plan</a>.
      */
     slug?: string;
     /** SEO-related fields for the Page */
