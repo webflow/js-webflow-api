@@ -7,8 +7,8 @@ import type * as serializers from "../index";
 export const WorkspaceAuditLogItemPayloadWorkspaceMembershipMethod: core.serialization.Schema<
     serializers.WorkspaceAuditLogItemPayloadWorkspaceMembershipMethod.Raw,
     Webflow.WorkspaceAuditLogItemPayloadWorkspaceMembershipMethod
-> = core.serialization.enum_(["sso", "dashboard", "admin", "access_request"]);
+> = core.serialization.enum_(["sso", "dashboard", "admin", "access_request", "api", "invite", "scim"]);
 
 export declare namespace WorkspaceAuditLogItemPayloadWorkspaceMembershipMethod {
-    export type Raw = "sso" | "dashboard" | "admin" | "access_request";
+    export type Raw = "sso" | "dashboard" | "admin" | "access_request" | "api" | "invite" | "scim";
 }
