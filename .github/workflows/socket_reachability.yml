@@ -48,14 +48,14 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
-
+          # Bump together with the socketsecurity pin below. Check the changelog for Node requirement changes
+          # (https://github.com/SocketDev/socket-python-cli/blob/main/CHANGELOG.md) and run this workflow by hand first.
+          node-version: "24"
       - name: Install uv (Python package manager)
         uses: astral-sh/setup-uv@v4
 
       - name: Install Socket CLI
-        run: uv pip install socketsecurity --upgrade --system
-
+        run: uv pip install socketsecurity==2.11.3 --system
       - name: Run Socket Security Scan
         env:
           SOCKET_SECURITY_API_TOKEN: ${{ secrets.SOCKET_SECURITY_API_KEY }}
