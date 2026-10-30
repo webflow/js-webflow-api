@@ -20,4 +20,6 @@ export interface Collection {
     lastUpdated?: Date;
     /** The list of fields in the Collection */
     fields: Webflow.Field[];
+    /** The list of field groups in the Collection */
+    fieldGroups?: Webflow.FieldGroup[];
 }

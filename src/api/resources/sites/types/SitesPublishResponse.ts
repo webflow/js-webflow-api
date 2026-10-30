@@ -7,4 +7,6 @@ export interface SitesPublishResponse {
     customDomains?: Webflow.Domain[];
     /** Flag for publishing to webflow.io subdomain */
     publishToWebflowSubdomain?: boolean;
+    /** Whether the site or an individual page was published */
+    publishScope?: Webflow.SitesPublishResponsePublishScope;
 }

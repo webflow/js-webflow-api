@@ -30,6 +30,8 @@ export class ScriptsClient {
      *   To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
      * </Note>
      *
+     * <Note>Access to this endpoint requires a bearer token obtained from an [OAuth Code Grant Flow](/data/reference/oauth-app).</Note>
+     *
      * Required scope | `custom_code:read`
      *
      * @param {string} site_id - Unique identifier for a Site
@@ -156,6 +158,8 @@ export class ScriptsClient {
      * <Note title="Script Registration">
      *   To apply a script to a site or page, the script must first be registered to a site via the [Register Script](/data/reference/custom-code/custom-code/register-hosted) endpoints. Once registered, the script can be applied to a Site or Page using the appropriate endpoints. See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
      * </Note>
+     *
+     * <Note>Access to this endpoint requires a bearer token obtained from an [OAuth Code Grant Flow](/data/reference/oauth-app).</Note>
      *
      * Required scope | `custom_code:write`
      *
@@ -432,6 +436,8 @@ export class ScriptsClient {
      *
      *   See the documentation on [working with Custom Code](/data/docs/custom-code) for more information.
      * </Note>
+     *
+     * <Note>Access to this endpoint requires a bearer token obtained from an [OAuth Code Grant Flow](/data/reference/oauth-app).</Note>
      *
      * Required scope | `custom_code:read`
      *

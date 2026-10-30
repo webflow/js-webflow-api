@@ -1,10 +1,15 @@
 export * as activityLogs from "./activityLogs";
 export * from "./activityLogs/client/requests";
+export * as aeo from "./aeo";
 export * as comments from "./comments";
 export * from "./comments/client/requests";
 export * from "./comments/types";
 export * as forms from "./forms";
 export * from "./forms/client/requests";
+export * as googleTag from "./googleTag";
+export * as members from "./members";
+export * from "./members/client/requests";
+export * from "./members/types";
 export * as plans from "./plans";
 export * as redirects from "./redirects";
 export * as robotsTxt from "./robotsTxt";

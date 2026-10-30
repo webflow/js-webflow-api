@@ -10,8 +10,8 @@ export interface CommentPayload {
     threadId?: string;
     /** Unique identifier for the comment reply */
     commentId?: string;
-    /** The type of comment payload */
-    type?: string;
+    /** The type of comment payload. `new_comment` indicates a new thread; `reply` indicates a reply to an existing thread. */
+    type?: Webflow.CommentPayloadType;
     /** The site unique identifier */
     siteId?: string;
     /** The page unique identifier, or for CMS item comments, the template page ID */
