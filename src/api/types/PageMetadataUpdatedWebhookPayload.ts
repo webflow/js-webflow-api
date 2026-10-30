@@ -7,6 +7,14 @@ export interface PageMetadataUpdatedWebhookPayload {
     siteId?: string;
     pageId?: string;
     pageTitle?: string;
+    /** The display name of the page, or null if not set */
+    pageName?: string;
+    /** Whether the page is archived */
+    archived?: boolean;
+    /** Whether the page is a draft */
+    draft?: boolean;
+    /** Whether the page belongs to a branch */
+    isBranch?: boolean;
     lastUpdated?: Date;
     publishedPath?: string;
 }
