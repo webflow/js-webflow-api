@@ -7,14 +7,14 @@ import { CustomRoleAuditLogItem } from "./CustomRoleAuditLogItem";
 import { SettingChangeAuditLogItem } from "./SettingChangeAuditLogItem";
 import { SiteMembershipAuditLogItem } from "./SiteMembershipAuditLogItem";
 import { UserAccessAuditLogItem } from "./UserAccessAuditLogItem";
-import { WorkspaceAuditLogItemActor } from "./WorkspaceAuditLogItemActor";
+import { WorkspaceAuditLogActor } from "./WorkspaceAuditLogActor";
 import { WorkspaceAuditLogItemWorkspace } from "./WorkspaceAuditLogItemWorkspace";
 import { WorkspaceInvitationAuditLogItem } from "./WorkspaceInvitationAuditLogItem";
 import { WorkspaceMembershipAuditLogItem } from "./WorkspaceMembershipAuditLogItem";
 
 const _Base = core.serialization.object({
     timestamp: core.serialization.date().optional(),
-    actor: WorkspaceAuditLogItemActor.optional(),
+    actor: WorkspaceAuditLogActor.optional(),
     workspace: WorkspaceAuditLogItemWorkspace.optional(),
 });
 export const WorkspaceAuditLogItem: core.serialization.Schema<
@@ -69,7 +69,7 @@ export declare namespace WorkspaceAuditLogItem {
 
     export interface _Base {
         timestamp?: string | null;
-        actor?: WorkspaceAuditLogItemActor.Raw | null;
+        actor?: WorkspaceAuditLogActor.Raw | null;
         workspace?: WorkspaceAuditLogItemWorkspace.Raw | null;
     }
 }

@@ -11,6 +11,9 @@ export const AssetsCreateRequest: core.serialization.Schema<
     fileName: core.serialization.string(),
     fileHash: core.serialization.string(),
     parentFolder: core.serialization.string().optional(),
+    size: core.serialization.number().optional(),
+    width: core.serialization.number().optional(),
+    height: core.serialization.number().optional(),
 });
 
 export declare namespace AssetsCreateRequest {
@@ -18,5 +21,8 @@ export declare namespace AssetsCreateRequest {
         fileName: string;
         fileHash: string;
         parentFolder?: string | null;
+        size?: number | null;
+        width?: number | null;
+        height?: number | null;
     }
 }

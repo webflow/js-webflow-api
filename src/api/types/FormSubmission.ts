@@ -13,4 +13,6 @@ export interface FormSubmission {
     dateSubmitted?: Date;
     /** The data submitted in the Form */
     formResponse?: Record<string, unknown>;
+    /** The ID of the locale the form was submitted from. `null` for primary-locale submissions or sites without localization. */
+    localeId?: string;
 }

@@ -37,7 +37,7 @@ export namespace WorkspaceAuditLogItem {
 
     export interface _Base {
         timestamp?: Date;
-        actor?: Webflow.WorkspaceAuditLogItemActor;
+        actor?: Webflow.WorkspaceAuditLogActor;
         workspace?: Webflow.WorkspaceAuditLogItemWorkspace;
     }
 }
