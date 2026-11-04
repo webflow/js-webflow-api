@@ -1,0 +1,10 @@
+export type { ReportsBotTrafficPagesRequest } from "./ReportsBotTrafficPagesRequest";
+export type { ReportsBotTrafficRequest } from "./ReportsBotTrafficRequest";
+export type { ReportsCitationRateRequest } from "./ReportsCitationRateRequest";
+export type { ReportsCitationsRequest } from "./ReportsCitationsRequest";
+export type { ReportsCitedDomainPathsRequest } from "./ReportsCitedDomainPathsRequest";
+export type { ReportsCompetitorCitationsRequest } from "./ReportsCompetitorCitationsRequest";
+export type { ReportsPageCitationShareRequest } from "./ReportsPageCitationShareRequest";
+export type { ReportsTopCitedDomainsRequest } from "./ReportsTopCitedDomainsRequest";
+export type { ReportsVisibilityBreakdownRequest } from "./ReportsVisibilityBreakdownRequest";
+export type { ReportsVisibilityRequest } from "./ReportsVisibilityRequest";

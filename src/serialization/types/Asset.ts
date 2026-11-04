@@ -17,6 +17,7 @@ export const Asset: core.serialization.ObjectSchema<serializers.Asset.Raw, Webfl
     createdOn: core.serialization.date().optional(),
     variants: core.serialization.list(AssetVariant),
     altText: core.serialization.string().optional(),
+    folderId: core.serialization.string().optional(),
 });
 
 export declare namespace Asset {
@@ -32,5 +33,6 @@ export declare namespace Asset {
         createdOn?: string | null;
         variants: AssetVariant.Raw[];
         altText?: string | null;
+        folderId?: string | null;
     }
 }

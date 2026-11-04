@@ -8,6 +8,8 @@ import type * as Webflow from "../index";
 export interface ComponentProperties {
     /** Component ID */
     componentId?: string;
+    /** The component's name, matching `name` in List Components. Always the primary-locale name, regardless of `localeId`. Null if no component matches `component_id`. */
+    name?: string;
     properties?: Webflow.ComponentProperty[];
     pagination?: Webflow.Pagination;
 }

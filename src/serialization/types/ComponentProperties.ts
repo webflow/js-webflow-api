@@ -11,6 +11,7 @@ export const ComponentProperties: core.serialization.ObjectSchema<
     Webflow.ComponentProperties
 > = core.serialization.object({
     componentId: core.serialization.string().optional(),
+    name: core.serialization.string().optional(),
     properties: core.serialization.list(ComponentProperty).optional(),
     pagination: Pagination.optional(),
 });
@@ -18,6 +19,7 @@ export const ComponentProperties: core.serialization.ObjectSchema<
 export declare namespace ComponentProperties {
     export interface Raw {
         componentId?: string | null;
+        name?: string | null;
         properties?: ComponentProperty.Raw[] | null;
         pagination?: Pagination.Raw | null;
     }
