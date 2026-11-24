@@ -254,6 +254,13 @@ describe("CollectionsClient", () => {
                     helpText: "The author of the blog post",
                 },
             ],
+            fieldGroups: [
+                {
+                    displayName: "Content Details",
+                    fieldIds: ["6f7e8d9c0b1a2e3d4c5b6a7f", "1a2b3c4d5e6f7a8b9c0d1e2f"],
+                    description: "Fields for the main content of the entry",
+                },
+            ],
         };
         server
             .mockEndpoint()
@@ -326,6 +333,13 @@ describe("CollectionsClient", () => {
                     slug: "author",
                     displayName: "Author",
                     helpText: "The author of the blog post",
+                },
+            ],
+            fieldGroups: [
+                {
+                    displayName: "Content Details",
+                    fieldIds: ["6f7e8d9c0b1a2e3d4c5b6a7f", "1a2b3c4d5e6f7a8b9c0d1e2f"],
+                    description: "Fields for the main content of the entry",
                 },
             ],
         });
@@ -654,6 +668,18 @@ describe("CollectionsClient", () => {
                     displayName: "Emergency Contact",
                 },
             ],
+            fieldGroups: [
+                {
+                    displayName: "Content Details",
+                    fieldIds: ["6f7e8d9c0b1a2e3d4c5b6a7f", "1a2b3c4d5e6f7a8b9c0d1e2f"],
+                    description: "Fields for the main content of the entry",
+                },
+                {
+                    displayName: "Media",
+                    fieldIds: ["7e8d9c0b1a2e3d4c5b6a7f8e"],
+                    description: "Media assets for the entry",
+                },
+            ],
         };
         server
             .mockEndpoint()
@@ -821,6 +847,18 @@ describe("CollectionsClient", () => {
                     type: "Phone",
                     slug: "emergency-contact",
                     displayName: "Emergency Contact",
+                },
+            ],
+            fieldGroups: [
+                {
+                    displayName: "Content Details",
+                    fieldIds: ["6f7e8d9c0b1a2e3d4c5b6a7f", "1a2b3c4d5e6f7a8b9c0d1e2f"],
+                    description: "Fields for the main content of the entry",
+                },
+                {
+                    displayName: "Media",
+                    fieldIds: ["7e8d9c0b1a2e3d4c5b6a7f8e"],
+                    description: "Media assets for the entry",
                 },
             ],
         });
@@ -1057,6 +1095,485 @@ describe("CollectionsClient", () => {
 
         await expect(async () => {
             return await client.collections.delete("collection_id");
+        }).rejects.toThrow(Webflow.InternalServerError);
+    });
+
+    test("patch (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new WebflowClient({
+            maxRetries: 0,
+            accessToken: "test",
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
+        });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            id: "7f15043107e2fc95644e93807ee25dd6",
+            displayName: "Guide Entries",
+            singularName: "Guide Entry",
+            slug: "guide-entry",
+            createdOn: "2024-04-12T12:42:00Z",
+            lastUpdated: "2024-04-12T12:42:00Z",
+            fields: [
+                {
+                    id: "5e2a1b3c4d5e6f7890a1b2c3",
+                    isRequired: true,
+                    isEditable: true,
+                    type: "PlainText",
+                    slug: "name",
+                    displayName: "Entry Title",
+                    helpText: "Name of the entry.",
+                },
+                {
+                    id: "5e2a1b3c4d5e6f7890a1b2c4",
+                    isRequired: true,
+                    isEditable: true,
+                    type: "PlainText",
+                    slug: "slug",
+                    displayName: "Slug",
+                    helpText: "Slug of the entry.",
+                },
+                {
+                    id: "6f7e8d9c0b1a2e3d4c5b6a7f",
+                    isRequired: false,
+                    isEditable: true,
+                    type: "PlainText",
+                    slug: "summary",
+                    displayName: "Summary",
+                    helpText: "A short summary of the entry.",
+                },
+                {
+                    id: "1a2b3c4d5e6f7a8b9c0d1e2f",
+                    isRequired: false,
+                    isEditable: true,
+                    type: "RichText",
+                    slug: "entry-html",
+                    displayName: "Entry HTML",
+                    helpText: "The HTML content of the entry.",
+                },
+                {
+                    id: "7e8d9c0b1a2e3d4c5b6a7f8e",
+                    isRequired: false,
+                    isEditable: true,
+                    type: "Image",
+                    slug: "illustration-image",
+                    displayName: "Illustration Image",
+                    helpText: "An image of the entry.",
+                },
+                {
+                    id: "2f3e4d5c6b7a8e9d0c1b2a3f",
+                    isRequired: false,
+                    isEditable: true,
+                    type: "VideoLink",
+                    slug: "demonstration-video",
+                    displayName: "Demonstration Video",
+                    helpText: "A video of the entry.",
+                },
+                {
+                    id: "8e9d0c1b2a3f4e5d6c7b8a9e",
+                    isRequired: false,
+                    isEditable: true,
+                    type: "Link",
+                    slug: "more-info-link",
+                    displayName: "More Info Link",
+                    helpText: "A link to more information about the entry.",
+                },
+                {
+                    id: "3f4e5d6c7b8a9e0d1c2b3a4f",
+                    isRequired: false,
+                    isEditable: true,
+                    type: "Number",
+                    slug: "importance-level",
+                    displayName: "Importance Level",
+                    helpText: "The importance level of the entry.",
+                },
+                {
+                    id: "9e0d1c2b3a4f5e6d7c8b9a0e",
+                    isRequired: false,
+                    isEditable: true,
+                    type: "Switch",
+                    slug: "is-essential",
+                    displayName: "Is Essential",
+                    helpText: "Is this entry essential?",
+                },
+                {
+                    id: "4f5e6d7c8b9a0e1d2c3b4a5f",
+                    isRequired: false,
+                    isEditable: true,
+                    type: "DateTime",
+                    slug: "first-mentioned",
+                    displayName: "First Mentioned",
+                    helpText: "Date of the first mention of the subject.",
+                },
+                {
+                    id: "0e1d2c3b4a5f6e7d8c9b0a1e",
+                    isRequired: false,
+                    isEditable: true,
+                    type: "Color",
+                    slug: "towel-color",
+                    displayName: "Towel Color",
+                    helpText: "The color of the towel.",
+                },
+                {
+                    id: "5f6e7d8c9b0a1e2d3c4b5a6f",
+                    isRequired: false,
+                    isEditable: true,
+                    type: "Reference",
+                    slug: "related-entry",
+                    displayName: "Related Entry",
+                    helpText: "A related entry.",
+                },
+                {
+                    id: "1e2d3c4b5a6f7e8d9c0b1a2f",
+                    isRequired: false,
+                    isEditable: true,
+                    type: "MultiReference",
+                    slug: "mentioned-in-entries",
+                    displayName: "Mentioned In Entries",
+                    helpText: "Entries that mention this subject.",
+                },
+                {
+                    id: "6f7e8d9c0b1a2e3d4c5b6a8f",
+                    isRequired: false,
+                    isEditable: true,
+                    type: "Option",
+                    slug: "item-type",
+                    displayName: "Item Type",
+                    helpText: "The type of item.",
+                },
+                {
+                    id: "2e3d4c5b6a7f8e9d0c1b2a4f",
+                    isRequired: false,
+                    isEditable: true,
+                    type: "File",
+                    slug: "guide-file",
+                    displayName: "Guide File",
+                },
+                {
+                    id: "7f8e9d0c1b2a3f4e5d6c8b9e",
+                    isRequired: false,
+                    isEditable: true,
+                    type: "Email",
+                    slug: "contributor-email",
+                    displayName: "Contributor Email",
+                },
+                {
+                    id: "3a4f5e6d7c8b9a0e1d2c4b5f",
+                    isRequired: false,
+                    isEditable: true,
+                    type: "Phone",
+                    slug: "emergency-contact",
+                    displayName: "Emergency Contact",
+                },
+            ],
+            fieldGroups: [
+                {
+                    displayName: "Content Details",
+                    fieldIds: ["6f7e8d9c0b1a2e3d4c5b6a7f", "1a2b3c4d5e6f7a8b9c0d1e2f"],
+                    description: "Fields for the main content of the entry",
+                },
+                {
+                    displayName: "Media",
+                    fieldIds: ["7e8d9c0b1a2e3d4c5b6a7f8e"],
+                    description: "Media assets for the entry",
+                },
+            ],
+        };
+        server
+            .mockEndpoint()
+            .patch("/collections/580e63fc8c9a982ac9b8b745")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.collections.patch("580e63fc8c9a982ac9b8b745");
+        expect(response).toEqual({
+            id: "7f15043107e2fc95644e93807ee25dd6",
+            displayName: "Guide Entries",
+            singularName: "Guide Entry",
+            slug: "guide-entry",
+            createdOn: new Date("2024-04-12T12:42:00.000Z"),
+            lastUpdated: new Date("2024-04-12T12:42:00.000Z"),
+            fields: [
+                {
+                    id: "5e2a1b3c4d5e6f7890a1b2c3",
+                    isRequired: true,
+                    isEditable: true,
+                    type: "PlainText",
+                    slug: "name",
+                    displayName: "Entry Title",
+                    helpText: "Name of the entry.",
+                },
+                {
+                    id: "5e2a1b3c4d5e6f7890a1b2c4",
+                    isRequired: true,
+                    isEditable: true,
+                    type: "PlainText",
+                    slug: "slug",
+                    displayName: "Slug",
+                    helpText: "Slug of the entry.",
+                },
+                {
+                    id: "6f7e8d9c0b1a2e3d4c5b6a7f",
+                    isRequired: false,
+                    isEditable: true,
+                    type: "PlainText",
+                    slug: "summary",
+                    displayName: "Summary",
+                    helpText: "A short summary of the entry.",
+                },
+                {
+                    id: "1a2b3c4d5e6f7a8b9c0d1e2f",
+                    isRequired: false,
+                    isEditable: true,
+                    type: "RichText",
+                    slug: "entry-html",
+                    displayName: "Entry HTML",
+                    helpText: "The HTML content of the entry.",
+                },
+                {
+                    id: "7e8d9c0b1a2e3d4c5b6a7f8e",
+                    isRequired: false,
+                    isEditable: true,
+                    type: "Image",
+                    slug: "illustration-image",
+                    displayName: "Illustration Image",
+                    helpText: "An image of the entry.",
+                },
+                {
+                    id: "2f3e4d5c6b7a8e9d0c1b2a3f",
+                    isRequired: false,
+                    isEditable: true,
+                    type: "VideoLink",
+                    slug: "demonstration-video",
+                    displayName: "Demonstration Video",
+                    helpText: "A video of the entry.",
+                },
+                {
+                    id: "8e9d0c1b2a3f4e5d6c7b8a9e",
+                    isRequired: false,
+                    isEditable: true,
+                    type: "Link",
+                    slug: "more-info-link",
+                    displayName: "More Info Link",
+                    helpText: "A link to more information about the entry.",
+                },
+                {
+                    id: "3f4e5d6c7b8a9e0d1c2b3a4f",
+                    isRequired: false,
+                    isEditable: true,
+                    type: "Number",
+                    slug: "importance-level",
+                    displayName: "Importance Level",
+                    helpText: "The importance level of the entry.",
+                },
+                {
+                    id: "9e0d1c2b3a4f5e6d7c8b9a0e",
+                    isRequired: false,
+                    isEditable: true,
+                    type: "Switch",
+                    slug: "is-essential",
+                    displayName: "Is Essential",
+                    helpText: "Is this entry essential?",
+                },
+                {
+                    id: "4f5e6d7c8b9a0e1d2c3b4a5f",
+                    isRequired: false,
+                    isEditable: true,
+                    type: "DateTime",
+                    slug: "first-mentioned",
+                    displayName: "First Mentioned",
+                    helpText: "Date of the first mention of the subject.",
+                },
+                {
+                    id: "0e1d2c3b4a5f6e7d8c9b0a1e",
+                    isRequired: false,
+                    isEditable: true,
+                    type: "Color",
+                    slug: "towel-color",
+                    displayName: "Towel Color",
+                    helpText: "The color of the towel.",
+                },
+                {
+                    id: "5f6e7d8c9b0a1e2d3c4b5a6f",
+                    isRequired: false,
+                    isEditable: true,
+                    type: "Reference",
+                    slug: "related-entry",
+                    displayName: "Related Entry",
+                    helpText: "A related entry.",
+                },
+                {
+                    id: "1e2d3c4b5a6f7e8d9c0b1a2f",
+                    isRequired: false,
+                    isEditable: true,
+                    type: "MultiReference",
+                    slug: "mentioned-in-entries",
+                    displayName: "Mentioned In Entries",
+                    helpText: "Entries that mention this subject.",
+                },
+                {
+                    id: "6f7e8d9c0b1a2e3d4c5b6a8f",
+                    isRequired: false,
+                    isEditable: true,
+                    type: "Option",
+                    slug: "item-type",
+                    displayName: "Item Type",
+                    helpText: "The type of item.",
+                },
+                {
+                    id: "2e3d4c5b6a7f8e9d0c1b2a4f",
+                    isRequired: false,
+                    isEditable: true,
+                    type: "File",
+                    slug: "guide-file",
+                    displayName: "Guide File",
+                },
+                {
+                    id: "7f8e9d0c1b2a3f4e5d6c8b9e",
+                    isRequired: false,
+                    isEditable: true,
+                    type: "Email",
+                    slug: "contributor-email",
+                    displayName: "Contributor Email",
+                },
+                {
+                    id: "3a4f5e6d7c8b9a0e1d2c4b5f",
+                    isRequired: false,
+                    isEditable: true,
+                    type: "Phone",
+                    slug: "emergency-contact",
+                    displayName: "Emergency Contact",
+                },
+            ],
+            fieldGroups: [
+                {
+                    displayName: "Content Details",
+                    fieldIds: ["6f7e8d9c0b1a2e3d4c5b6a7f", "1a2b3c4d5e6f7a8b9c0d1e2f"],
+                    description: "Fields for the main content of the entry",
+                },
+                {
+                    displayName: "Media",
+                    fieldIds: ["7e8d9c0b1a2e3d4c5b6a7f8e"],
+                    description: "Media assets for the entry",
+                },
+            ],
+        });
+    });
+
+    test("patch (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new WebflowClient({
+            maxRetries: 0,
+            accessToken: "test",
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
+        });
+        const rawRequestBody = {};
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .patch("/collections/collection_id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.collections.patch("collection_id");
+        }).rejects.toThrow(Webflow.BadRequestError);
+    });
+
+    test("patch (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new WebflowClient({
+            maxRetries: 0,
+            accessToken: "test",
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
+        });
+        const rawRequestBody = {};
+        const rawResponseBody = {};
+        server
+            .mockEndpoint()
+            .patch("/collections/collection_id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.collections.patch("collection_id");
+        }).rejects.toThrow(Webflow.UnauthorizedError);
+    });
+
+    test("patch (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new WebflowClient({
+            maxRetries: 0,
+            accessToken: "test",
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
+        });
+        const rawRequestBody = {};
+        const rawResponseBody = {};
+        server
+            .mockEndpoint()
+            .patch("/collections/collection_id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.collections.patch("collection_id");
+        }).rejects.toThrow(Webflow.NotFoundError);
+    });
+
+    test("patch (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new WebflowClient({
+            maxRetries: 0,
+            accessToken: "test",
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
+        });
+        const rawRequestBody = {};
+        const rawResponseBody = {};
+        server
+            .mockEndpoint()
+            .patch("/collections/collection_id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(429)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.collections.patch("collection_id");
+        }).rejects.toThrow(Webflow.TooManyRequestsError);
+    });
+
+    test("patch (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new WebflowClient({
+            maxRetries: 0,
+            accessToken: "test",
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
+        });
+        const rawRequestBody = {};
+        const rawResponseBody = {};
+        server
+            .mockEndpoint()
+            .patch("/collections/collection_id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.collections.patch("collection_id");
         }).rejects.toThrow(Webflow.InternalServerError);
     });
 });

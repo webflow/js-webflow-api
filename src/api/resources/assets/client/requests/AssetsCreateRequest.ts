@@ -14,4 +14,10 @@ export interface AssetsCreateRequest {
     fileHash: string;
     /** ID of the Asset folder (optional) */
     parentFolder?: string;
+    /** Size of the file in bytes. Maximum 30 MB. */
+    size?: number;
+    /** Intrinsic width of the image in pixels. Webflow stores this value as provided. Omit for non-image files. */
+    width?: number;
+    /** Intrinsic height of the image in pixels. Webflow stores this value as provided. Omit for non-image files. */
+    height?: number;
 }

@@ -21,7 +21,7 @@ describe("CommentsClient", () => {
                     pageId: "679826b3b20b045e176bc4bc",
                     localeId: "67993753d910db250db64b3e",
                     breakpoint: "main",
-                    url: "https://webflow.com/design/site-slug-4ec832?workflow=comment&commentId=679d2ddb5196117ad04d1ff8&pageId=679826b3b20b045e176bc4bc",
+                    url: "https://webflow.com/design/heartofgold?workflow=comment&commentId=679d2ddb5196117ad04d1ff8&pageId=679826b3b20b045e176bc4bc",
                     content: "Let's go to the pub! [[6287ec36a841b25637c663df]] ",
                     isResolved: false,
                     author: {
@@ -45,7 +45,7 @@ describe("CommentsClient", () => {
                     pageId: "679826b3b20b045e176bc4bc",
                     localeId: "67993753d910db250db64b3e",
                     breakpoint: "main",
-                    url: "https://webflow.com/design/site-slug-4ec832?workflow=comment&commentId=679d2ddb5196117ad04d1ff8&pageId=679826b3b20b045e176bc4bc",
+                    url: "https://webflow.com/design/heartofgold?workflow=comment&commentId=679d2ddb5196117ad04d1ff8&pageId=679826b3b20b045e176bc4bc",
                     content: "You have five minutes left to drink it [[6287ec36a841b25637c663df]] ",
                     isResolved: false,
                     author: {
@@ -89,7 +89,7 @@ describe("CommentsClient", () => {
                     pageId: "679826b3b20b045e176bc4bc",
                     localeId: "67993753d910db250db64b3e",
                     breakpoint: "main",
-                    url: "https://webflow.com/design/site-slug-4ec832?workflow=comment&commentId=679d2ddb5196117ad04d1ff8&pageId=679826b3b20b045e176bc4bc",
+                    url: "https://webflow.com/design/heartofgold?workflow=comment&commentId=679d2ddb5196117ad04d1ff8&pageId=679826b3b20b045e176bc4bc",
                     content: "Let's go to the pub! [[6287ec36a841b25637c663df]] ",
                     isResolved: false,
                     author: {
@@ -113,7 +113,7 @@ describe("CommentsClient", () => {
                     pageId: "679826b3b20b045e176bc4bc",
                     localeId: "67993753d910db250db64b3e",
                     breakpoint: "main",
-                    url: "https://webflow.com/design/site-slug-4ec832?workflow=comment&commentId=679d2ddb5196117ad04d1ff8&pageId=679826b3b20b045e176bc4bc",
+                    url: "https://webflow.com/design/heartofgold?workflow=comment&commentId=679d2ddb5196117ad04d1ff8&pageId=679826b3b20b045e176bc4bc",
                     content: "You have five minutes left to drink it [[6287ec36a841b25637c663df]] ",
                     isResolved: false,
                     author: {
@@ -265,7 +265,7 @@ describe("CommentsClient", () => {
             localeId: "580e64008c9a982ac9b8b754",
             itemId: "580e64008c9a982ac9b8b754",
             breakpoint: "main",
-            url: "https://webflow.com/design/site-slug-4ec832?workflow=comment&commentId=679d2ddb5196117ad04d1ff8&pageId=679826b3b20b045e176bc4bc",
+            url: "https://webflow.com/design/heartofgold?workflow=comment&commentId=679d2ddb5196117ad04d1ff8&pageId=679826b3b20b045e176bc4bc",
             content: "This is a comment reply",
             isResolved: true,
             author: { userId: "userId", email: "email", name: "name" },
@@ -301,7 +301,7 @@ describe("CommentsClient", () => {
             localeId: "580e64008c9a982ac9b8b754",
             itemId: "580e64008c9a982ac9b8b754",
             breakpoint: "main",
-            url: "https://webflow.com/design/site-slug-4ec832?workflow=comment&commentId=679d2ddb5196117ad04d1ff8&pageId=679826b3b20b045e176bc4bc",
+            url: "https://webflow.com/design/heartofgold?workflow=comment&commentId=679d2ddb5196117ad04d1ff8&pageId=679826b3b20b045e176bc4bc",
             content: "This is a comment reply",
             isResolved: true,
             author: {
@@ -428,6 +428,201 @@ describe("CommentsClient", () => {
 
         await expect(async () => {
             return await client.sites.comments.getCommentThread("site_id", "comment_thread_id");
+        }).rejects.toThrow(Webflow.InternalServerError);
+    });
+
+    test("resolve-comment-thread (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new WebflowClient({
+            maxRetries: 0,
+            accessToken: "test",
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
+        });
+        const rawRequestBody = { resolved: true };
+        const rawResponseBody = {
+            id: "679d2ddb5196117ad04d1ffa",
+            siteId: "679826b3b20b045e176bc4b5",
+            pageId: "679826b3b20b045e176bc4bc",
+            localeId: "67993753d910db250db64b3e",
+            breakpoint: "main",
+            url: "https://webflow.com/design/heartofgold?workflow=comment&commentId=679d2ddb5196117ad04d1ff8&pageId=679826b3b20b045e176bc4bc",
+            content: "This comment mentions another user [[6287ec36a841b25637c663df]] ",
+            isResolved: true,
+            author: {
+                userId: "6287ec36a841b25637c663df",
+                email: "ford.prefect@heartofgold.spaceship",
+                name: "Ford Prefect",
+            },
+            mentionedUsers: [
+                { userId: "6287ec36a841b25637c663df", email: "arthur.dent@heartofgold.spaceship", name: "Arthur Dent" },
+            ],
+            createdOn: "2025-01-31T20:08:59.759Z",
+            lastUpdated: "2025-01-31T20:09:45.123Z",
+        };
+        server
+            .mockEndpoint()
+            .patch("/sites/580e63e98c9a982ac9b8b741/comments/580e63e98c9a982ac9b8b741")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sites.comments.resolveCommentThread(
+            "580e63e98c9a982ac9b8b741",
+            "580e63e98c9a982ac9b8b741",
+            {
+                resolved: true,
+            },
+        );
+        expect(response).toEqual({
+            id: "679d2ddb5196117ad04d1ffa",
+            siteId: "679826b3b20b045e176bc4b5",
+            pageId: "679826b3b20b045e176bc4bc",
+            localeId: "67993753d910db250db64b3e",
+            breakpoint: "main",
+            url: "https://webflow.com/design/heartofgold?workflow=comment&commentId=679d2ddb5196117ad04d1ff8&pageId=679826b3b20b045e176bc4bc",
+            content: "This comment mentions another user [[6287ec36a841b25637c663df]] ",
+            isResolved: true,
+            author: {
+                userId: "6287ec36a841b25637c663df",
+                email: "ford.prefect@heartofgold.spaceship",
+                name: "Ford Prefect",
+            },
+            mentionedUsers: [
+                {
+                    userId: "6287ec36a841b25637c663df",
+                    email: "arthur.dent@heartofgold.spaceship",
+                    name: "Arthur Dent",
+                },
+            ],
+            createdOn: "2025-01-31T20:08:59.759Z",
+            lastUpdated: "2025-01-31T20:09:45.123Z",
+        });
+    });
+
+    test("resolve-comment-thread (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new WebflowClient({
+            maxRetries: 0,
+            accessToken: "test",
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
+        });
+        const rawRequestBody = { resolved: true };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .patch("/sites/site_id/comments/comment_thread_id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.sites.comments.resolveCommentThread("site_id", "comment_thread_id", {
+                resolved: true,
+            });
+        }).rejects.toThrow(Webflow.BadRequestError);
+    });
+
+    test("resolve-comment-thread (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new WebflowClient({
+            maxRetries: 0,
+            accessToken: "test",
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
+        });
+        const rawRequestBody = { resolved: true };
+        const rawResponseBody = {};
+        server
+            .mockEndpoint()
+            .patch("/sites/site_id/comments/comment_thread_id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.sites.comments.resolveCommentThread("site_id", "comment_thread_id", {
+                resolved: true,
+            });
+        }).rejects.toThrow(Webflow.UnauthorizedError);
+    });
+
+    test("resolve-comment-thread (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new WebflowClient({
+            maxRetries: 0,
+            accessToken: "test",
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
+        });
+        const rawRequestBody = { resolved: true };
+        const rawResponseBody = {};
+        server
+            .mockEndpoint()
+            .patch("/sites/site_id/comments/comment_thread_id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.sites.comments.resolveCommentThread("site_id", "comment_thread_id", {
+                resolved: true,
+            });
+        }).rejects.toThrow(Webflow.NotFoundError);
+    });
+
+    test("resolve-comment-thread (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new WebflowClient({
+            maxRetries: 0,
+            accessToken: "test",
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
+        });
+        const rawRequestBody = { resolved: true };
+        const rawResponseBody = {};
+        server
+            .mockEndpoint()
+            .patch("/sites/site_id/comments/comment_thread_id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(429)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.sites.comments.resolveCommentThread("site_id", "comment_thread_id", {
+                resolved: true,
+            });
+        }).rejects.toThrow(Webflow.TooManyRequestsError);
+    });
+
+    test("resolve-comment-thread (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new WebflowClient({
+            maxRetries: 0,
+            accessToken: "test",
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
+        });
+        const rawRequestBody = { resolved: true };
+        const rawResponseBody = {};
+        server
+            .mockEndpoint()
+            .patch("/sites/site_id/comments/comment_thread_id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.sites.comments.resolveCommentThread("site_id", "comment_thread_id", {
+                resolved: true,
+            });
         }).rejects.toThrow(Webflow.InternalServerError);
     });
 
@@ -619,6 +814,201 @@ describe("CommentsClient", () => {
 
         await expect(async () => {
             return await client.sites.comments.listCommentReplies("site_id", "comment_thread_id");
+        }).rejects.toThrow(Webflow.InternalServerError);
+    });
+
+    test("create-comment-reply (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new WebflowClient({
+            maxRetries: 0,
+            accessToken: "test",
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
+        });
+        const rawRequestBody = { content: "Thanks for the feedback [[6287ec36a841b25637c663df]]!" };
+        const rawResponseBody = {
+            id: "679d2ddb5196117ad04d1ffa",
+            commentId: "679d2ddb5196117ad04d1ffd",
+            siteId: "679826b3b20b045e176bc4b5",
+            pageId: "679826b3b20b045e176bc4bc",
+            localeId: "580e64008c9a982ac9b8b754",
+            breakpoint: "main",
+            content: "Thanks for the feedback [[6287ec36a841b25637c663df]]!",
+            isResolved: false,
+            author: {
+                id: "6287ec36a841b25637c663df",
+                email: "ford.prefect@heartofgold.spaceship",
+                name: "Ford Prefect",
+            },
+            mentionedUsers: [
+                { id: "6287ec36a841b25637c663df", email: "arthur.dent@heartofgold.spaceship", name: "Arthur Dent" },
+            ],
+            lastUpdated: "2025-01-31T20:08:59.759Z",
+            createdOn: "2025-01-31T20:08:59.759Z",
+        };
+        server
+            .mockEndpoint()
+            .post("/sites/580e63e98c9a982ac9b8b741/comments/580e63e98c9a982ac9b8b741/replies")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sites.comments.createCommentReply(
+            "580e63e98c9a982ac9b8b741",
+            "580e63e98c9a982ac9b8b741",
+            {
+                content: "Thanks for the feedback [[6287ec36a841b25637c663df]]!",
+            },
+        );
+        expect(response).toEqual({
+            id: "679d2ddb5196117ad04d1ffa",
+            commentId: "679d2ddb5196117ad04d1ffd",
+            siteId: "679826b3b20b045e176bc4b5",
+            pageId: "679826b3b20b045e176bc4bc",
+            localeId: "580e64008c9a982ac9b8b754",
+            breakpoint: "main",
+            content: "Thanks for the feedback [[6287ec36a841b25637c663df]]!",
+            isResolved: false,
+            author: {
+                id: "6287ec36a841b25637c663df",
+                email: "ford.prefect@heartofgold.spaceship",
+                name: "Ford Prefect",
+            },
+            mentionedUsers: [
+                {
+                    id: "6287ec36a841b25637c663df",
+                    email: "arthur.dent@heartofgold.spaceship",
+                    name: "Arthur Dent",
+                },
+            ],
+            lastUpdated: "2025-01-31T20:08:59.759Z",
+            createdOn: "2025-01-31T20:08:59.759Z",
+        });
+    });
+
+    test("create-comment-reply (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new WebflowClient({
+            maxRetries: 0,
+            accessToken: "test",
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
+        });
+        const rawRequestBody = { content: "content" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/sites/site_id/comments/comment_thread_id/replies")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.sites.comments.createCommentReply("site_id", "comment_thread_id", {
+                content: "content",
+            });
+        }).rejects.toThrow(Webflow.BadRequestError);
+    });
+
+    test("create-comment-reply (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new WebflowClient({
+            maxRetries: 0,
+            accessToken: "test",
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
+        });
+        const rawRequestBody = { content: "content" };
+        const rawResponseBody = {};
+        server
+            .mockEndpoint()
+            .post("/sites/site_id/comments/comment_thread_id/replies")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.sites.comments.createCommentReply("site_id", "comment_thread_id", {
+                content: "content",
+            });
+        }).rejects.toThrow(Webflow.UnauthorizedError);
+    });
+
+    test("create-comment-reply (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new WebflowClient({
+            maxRetries: 0,
+            accessToken: "test",
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
+        });
+        const rawRequestBody = { content: "content" };
+        const rawResponseBody = {};
+        server
+            .mockEndpoint()
+            .post("/sites/site_id/comments/comment_thread_id/replies")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.sites.comments.createCommentReply("site_id", "comment_thread_id", {
+                content: "content",
+            });
+        }).rejects.toThrow(Webflow.NotFoundError);
+    });
+
+    test("create-comment-reply (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new WebflowClient({
+            maxRetries: 0,
+            accessToken: "test",
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
+        });
+        const rawRequestBody = { content: "content" };
+        const rawResponseBody = {};
+        server
+            .mockEndpoint()
+            .post("/sites/site_id/comments/comment_thread_id/replies")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(429)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.sites.comments.createCommentReply("site_id", "comment_thread_id", {
+                content: "content",
+            });
+        }).rejects.toThrow(Webflow.TooManyRequestsError);
+    });
+
+    test("create-comment-reply (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new WebflowClient({
+            maxRetries: 0,
+            accessToken: "test",
+            environment: { base: server.baseUrl, dataApi: server.baseUrl, contentDeliveryApi: server.baseUrl },
+        });
+        const rawRequestBody = { content: "content" };
+        const rawResponseBody = {};
+        server
+            .mockEndpoint()
+            .post("/sites/site_id/comments/comment_thread_id/replies")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.sites.comments.createCommentReply("site_id", "comment_thread_id", {
+                content: "content",
+            });
         }).rejects.toThrow(Webflow.InternalServerError);
     });
 });

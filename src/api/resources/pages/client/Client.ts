@@ -35,6 +35,12 @@ export class PagesClient {
     /**
      * List of all pages for a site.
      *
+     * <Note>
+     *   This endpoint supports:
+     *
+     *   - `filter[title][contains]` queries: case-insensitive, literal substring matching on the page title, with a 1–256 character value. For example, `filter[title][contains]=about`.
+     * </Note>
+     *
      * Required scope | `pages:read`
      *
      * @param {string} site_id - Unique identifier for a Site
@@ -67,11 +73,21 @@ export class PagesClient {
         request: Webflow.PagesListRequest = {},
         requestOptions?: PagesClient.RequestOptions,
     ): Promise<core.WithRawResponse<Webflow.PageList>> {
-        const { localeId, limit, offset } = request;
+        const { localeId, limit, offset, filter } = request;
         const _queryParams: Record<string, unknown> = {
             localeId,
             limit,
             offset,
+            filter:
+                filter != null
+                    ? serializers.PagesListRequestFilter.jsonOrThrow(filter, {
+                          unrecognizedObjectKeys: "passthrough",
+                          allowUnrecognizedUnionMembers: true,
+                          allowUnrecognizedEnumValues: true,
+                          omitUndefined: true,
+                          breadcrumbsPrefix: ["request", "filter"],
+                      })
+                    : filter,
         };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -185,7 +201,8 @@ export class PagesClient {
      *
      * @example
      *     await client.pages.getMetadata("63c720f9347c2139b248e552", {
-     *         localeId: "65427cf400e02b306eaa04a0"
+     *         localeId: "65427cf400e02b306eaa04a0",
+     *         translatable: "65427cf400e02b306eaa04a0"
      *     })
      */
     public getMetadata(
@@ -201,9 +218,10 @@ export class PagesClient {
         request: Webflow.PagesGetMetadataRequest = {},
         requestOptions?: PagesClient.RequestOptions,
     ): Promise<core.WithRawResponse<Webflow.Page>> {
-        const { localeId } = request;
+        const { localeId, translatable } = request;
         const _queryParams: Record<string, unknown> = {
             localeId,
+            translatable,
         };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -474,7 +492,8 @@ export class PagesClient {
      *     await client.pages.getContent("63c720f9347c2139b248e552", {
      *         localeId: "65427cf400e02b306eaa04a0",
      *         limit: 1,
-     *         offset: 1
+     *         offset: 1,
+     *         translatable: "65427cf400e02b306eaa04a0"
      *     })
      */
     public getContent(
@@ -490,11 +509,12 @@ export class PagesClient {
         request: Webflow.PagesGetContentRequest = {},
         requestOptions?: PagesClient.RequestOptions,
     ): Promise<core.WithRawResponse<Webflow.Dom>> {
-        const { localeId, limit, offset } = request;
+        const { localeId, limit, offset, translatable } = request;
         const _queryParams: Record<string, unknown> = {
             localeId,
             limit,
             offset,
+            translatable,
         };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(

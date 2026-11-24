@@ -17,6 +17,7 @@ export const FormSubmissionTriggerPayload: core.serialization.ObjectSchema<
     id: core.serialization.string().optional(),
     formId: core.serialization.string().optional(),
     formElementId: core.serialization.string().optional(),
+    localeId: core.serialization.string().optional(),
 });
 
 export declare namespace FormSubmissionTriggerPayload {
@@ -29,5 +30,6 @@ export declare namespace FormSubmissionTriggerPayload {
         id?: string | null;
         formId?: string | null;
         formElementId?: string | null;
+        localeId?: string | null;
     }
 }

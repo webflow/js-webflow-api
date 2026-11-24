@@ -247,6 +247,7 @@ describe("ComponentsClient", () => {
                 branchId: "68026fa68ef6dc744c75b833",
                 limit: 1,
                 offset: 1,
+                translatable: "65427cf400e02b306eaa04a0",
             },
         );
         expect(response).toEqual({
@@ -791,6 +792,7 @@ describe("ComponentsClient", () => {
 
         const rawResponseBody = {
             componentId: "658205da-a3e8-4206-a523-b5ad4fabcdef",
+            name: "Hero Section",
             properties: [
                 {
                     propertyId: "a245c12d-995b-55ee-5ec7-aa36a6cad623",
@@ -823,10 +825,12 @@ describe("ComponentsClient", () => {
                 branchId: "68026fa68ef6dc744c75b833",
                 limit: 1,
                 offset: 1,
+                translatable: "65427cf400e02b306eaa04a0",
             },
         );
         expect(response).toEqual({
             componentId: "658205da-a3e8-4206-a523-b5ad4fabcdef",
+            name: "Hero Section",
             properties: [
                 {
                     propertyId: "a245c12d-995b-55ee-5ec7-aa36a6cad623",

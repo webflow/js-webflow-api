@@ -4,6 +4,7 @@ import type { BaseClientOptions, BaseRequestOptions } from "../../../../../../Ba
 import { type NormalizedClientOptionsWithAuth, normalizeClientOptionsWithAuth } from "../../../../../../BaseClient";
 import * as core from "../../../../../../core";
 import { mergeHeaders } from "../../../../../../core/headers";
+import { toJson } from "../../../../../../core/json";
 import * as environments from "../../../../../../environments";
 import { handleNonStatusCodeError } from "../../../../../../errors/handleNonStatusCodeError";
 import * as errors from "../../../../../../errors/index";
@@ -24,7 +25,18 @@ export class ItemsClient {
     }
 
     /**
+     * <Tip title="Components in Rich Text">
+     *   Rich Text field values can contain Webflow component instances as `<wf-component>` markup — see [Components in Rich Text](/data/docs/working-with-the-cms/components-in-rich-text) for the markup grammar, how to find component and property IDs, and the write constraints.
+     * </Tip>
+     *
      * List of all Items within a Collection.
+     *
+     * <Note>
+     *   This endpoint supports:
+     *
+     *   - Custom `filter[...]` queries support up to 10 filter terms and 2 text-search terms per request.
+     *   - Custom `sort[...]` queries support up to 3 sort fields per request.
+     * </Note>
      *
      * Required scope | `CMS:read`
      *
@@ -46,7 +58,8 @@ export class ItemsClient {
      *         name: "name",
      *         slug: "slug",
      *         sortBy: "createdOn",
-     *         sortOrder: "asc"
+     *         sortOrder: "asc",
+     *         translatable: "65427cf400e02b306eaa04a0"
      *     })
      */
     public listItems(
@@ -62,8 +75,21 @@ export class ItemsClient {
         request: Webflow.collections.ItemsListItemsRequest = {},
         requestOptions?: ItemsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Webflow.CollectionItemList>> {
-        const { cmsLocaleId, offset, limit, name, slug, createdOn, lastPublished, lastUpdated, sortBy, sortOrder } =
-            request;
+        const {
+            cmsLocaleId,
+            offset,
+            limit,
+            name,
+            slug,
+            createdOn,
+            lastPublished,
+            lastUpdated,
+            filter,
+            sortBy,
+            sortOrder,
+            sort,
+            translatable,
+        } = request;
         const _queryParams: Record<string, unknown> = {
             cmsLocaleId,
             offset,
@@ -100,6 +126,7 @@ export class ItemsClient {
                           breadcrumbsPrefix: ["request", "lastUpdated"],
                       })
                     : lastUpdated,
+            filter: filter != null ? toJson(filter) : undefined,
             sortBy:
                 sortBy != null
                     ? serializers.collections.ItemsListItemsRequestSortBy.jsonOrThrow(sortBy, {
@@ -118,6 +145,8 @@ export class ItemsClient {
                           omitUndefined: true,
                       })
                     : undefined,
+            sort: sort != null ? toJson(sort) : undefined,
+            translatable,
         };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -220,10 +249,47 @@ export class ItemsClient {
     }
 
     /**
+     * <Tip title="Components in Rich Text">
+     *   Rich Text field values can contain Webflow component instances as `<wf-component>` markup — see [Components in Rich Text](/data/docs/working-with-the-cms/components-in-rich-text) for the markup grammar, how to find component and property IDs, and the write constraints.
+     * </Tip>
+     *
      * Create Item(s) in a Collection.
      *
+     * <Note title="Use Create Items for new integrations">
+     *   This endpoint remains supported. New integrations should use [Create Items](/data/reference/cms/collection-items/staged-items/create-items), which accepts both request shapes below and can create an item in several locales under one ID. [This guide to creating items](/data/docs/working-with-the-cms/create-items) shows how each shape maps.
+     * </Note>
      *
-     * To create items across multiple locales, please use [this endpoint.](/data/reference/cms/collection-items/staged-items/create-items)
+     * This endpoint accepts two request shapes, and a request must use one or the other:
+     *
+     * - **Single item** — send `fieldData` at the top level. Set `cmsLocaleId` to create the item in a specific locale.
+     * - **Multiple items** — send an `items` array with at least one entry. Each entry needs its own `fieldData`, and can set its own `cmsLocaleId`, `isDraft`, and `isArchived`. The API ignores any other property on an entry.
+     *
+     * ```json
+     * {
+     *   "items": [
+     *     {
+     *       "isArchived": false,
+     *       "isDraft": false,
+     *       "fieldData": {
+     *         "name": "Senior Data Analyst",
+     *         "slug": "senior-data-analyst"
+     *       }
+     *     },
+     *     {
+     *       "isArchived": false,
+     *       "isDraft": false,
+     *       "fieldData": {
+     *         "name": "Product Manager",
+     *         "slug": "product-manager"
+     *       }
+     *     }
+     *   ]
+     * }
+     * ```
+     *
+     * A request that carries both `fieldData` and `items` returns a `400`.
+     *
+     * To create an item in several locales under one ID, use [Create Items](/data/reference/cms/collection-items/staged-items/create-items).
      *
      * Required scope | `CMS:write`
      *
@@ -281,32 +347,6 @@ export class ItemsClient {
      *                     "url": "/files/62b720ef280c7a7a3be8cab3_document.pdf"
      *                 }
      *             }
-     *         }
-     *     })
-     *
-     * @example
-     *     await client.collections.items.createItem("580e63fc8c9a982ac9b8b745", {
-     *         skipInvalidFiles: true,
-     *         body: {
-     *             items: [{
-     *                     isArchived: false,
-     *                     isDraft: false,
-     *                     fieldData: {
-     *                         name: "Senior Data Analyst",
-     *                         slug: "senior-data-analyst",
-     *                         url: "https://boards.greenhouse.io/webflow/jobs/26567701",
-     *                         department: "Data"
-     *                     }
-     *                 }, {
-     *                     isArchived: false,
-     *                     isDraft: false,
-     *                     fieldData: {
-     *                         name: "Product Manager",
-     *                         slug: "product-manager",
-     *                         url: "https://boards.greenhouse.io/webflow/jobs/31234567",
-     *                         department: "Product"
-     *                     }
-     *                 }]
      *         }
      *     })
      */
@@ -575,11 +615,24 @@ export class ItemsClient {
     }
 
     /**
+     * <Tip title="Components in Rich Text">
+     *   Rich Text field values can contain Webflow component instances as `<wf-component>` markup — see [Components in Rich Text](/data/docs/working-with-the-cms/components-in-rich-text) for the markup grammar, how to find component and property IDs, and the write constraints.
+     * </Tip>
+     *
      * Update a single item or multiple items in a Collection.
      *
      * The limit for this endpoint is 100 items.
      *
      * <Tip title="Localization Tip">Items will only be updated in the primary locale, unless a `cmsLocaleId` is included in the request.</Tip>
+     *
+     * <Note title="Draft status behavior">
+     *   `isDraft: true` doesn't unpublish an item. The resulting status depends on whether the item has been published before:
+     *
+     *   - **Item that has never been published:** the item gets a `Draft` status.
+     *   - **Already-published item:** the item gets a `Changes in draft` status. The live item stays published, and your changes are held back until you publish them.
+     *
+     *   Setting `isDraft: false` queues the item to publish on the next site publish. To remove an item from the live site, use [Unpublish Live Collection Items](/data/reference/cms/collection-items/live-items/delete-items-live). For the full status mapping, see [Publishing with the CMS API](/data/docs/working-with-the-cms/publishing).
+     * </Note>
      *
      * Required scope | `CMS:write`
      *
@@ -783,11 +836,22 @@ export class ItemsClient {
     }
 
     /**
+     * <Tip title="Components in Rich Text">
+     *   Rich Text field values can contain Webflow component instances as `<wf-component>` markup — see [Components in Rich Text](/data/docs/working-with-the-cms/components-in-rich-text) for the markup grammar, how to find component and property IDs, and the write constraints.
+     * </Tip>
+     *
      * List all published items in a collection.
      *
      * <Tip title="Serve data with the Content Delivery API">
      *   Serving data to applications in real-time? Use the Content Delivery API at `api-cdn.webflow.com` for better performance. The CDN-backed endpoint is optimized for high-volume reads, while the Data API is designed for writes and management operations.
      * </Tip>
+     *
+     * <Note>
+     *   This endpoint supports:
+     *
+     *   - Custom `filter[...]` queries support up to 10 filter terms and 2 text-search terms per request.
+     *   - Custom `sort[...]` queries support up to 3 sort fields per request.
+     * </Note>
      *
      * Required scope | `CMS:read`
      *
@@ -809,7 +873,8 @@ export class ItemsClient {
      *         name: "name",
      *         slug: "slug",
      *         sortBy: "createdOn",
-     *         sortOrder: "asc"
+     *         sortOrder: "asc",
+     *         translatable: "65427cf400e02b306eaa04a0"
      *     })
      */
     public listItemsLive(
@@ -825,8 +890,21 @@ export class ItemsClient {
         request: Webflow.collections.ItemsListItemsLiveRequest = {},
         requestOptions?: ItemsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Webflow.CollectionItemList>> {
-        const { cmsLocaleId, offset, limit, name, slug, createdOn, lastPublished, lastUpdated, sortBy, sortOrder } =
-            request;
+        const {
+            cmsLocaleId,
+            offset,
+            limit,
+            name,
+            slug,
+            createdOn,
+            lastPublished,
+            lastUpdated,
+            filter,
+            sortBy,
+            sortOrder,
+            sort,
+            translatable,
+        } = request;
         const _queryParams: Record<string, unknown> = {
             cmsLocaleId,
             offset,
@@ -863,6 +941,7 @@ export class ItemsClient {
                           breadcrumbsPrefix: ["request", "lastUpdated"],
                       })
                     : lastUpdated,
+            filter: filter != null ? toJson(filter) : undefined,
             sortBy:
                 sortBy != null
                     ? serializers.collections.ItemsListItemsLiveRequestSortBy.jsonOrThrow(sortBy, {
@@ -881,6 +960,8 @@ export class ItemsClient {
                           omitUndefined: true,
                       })
                     : undefined,
+            sort: sort != null ? toJson(sort) : undefined,
+            translatable,
         };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -983,11 +1064,43 @@ export class ItemsClient {
     }
 
     /**
+     * <Tip title="Components in Rich Text">
+     *   Rich Text field values can contain Webflow component instances as `<wf-component>` markup — see [Components in Rich Text](/data/docs/working-with-the-cms/components-in-rich-text) for the markup grammar, how to find component and property IDs, and the write constraints.
+     * </Tip>
+     *
      * Create item(s) in a collection that will be immediately published to the live site.
      *
+     * This endpoint accepts two request shapes, and a request must use one or the other:
      *
-     * To create items across multiple locales, [please use this endpoint.](/data/reference/cms/collection-items/staged-items/create-items)
+     * - **Single item** — send `fieldData` at the top level. Set `cmsLocaleId` to create the item in a specific locale.
+     * - **Multiple items** — send an `items` array with at least one entry. Each entry needs its own `fieldData`, and can set its own `cmsLocaleId`, `isDraft`, and `isArchived`. The API ignores any other property on an entry.
      *
+     * ```json
+     * {
+     *   "items": [
+     *     {
+     *       "isArchived": false,
+     *       "isDraft": false,
+     *       "fieldData": {
+     *         "name": "Senior Data Analyst",
+     *         "slug": "senior-data-analyst"
+     *       }
+     *     },
+     *     {
+     *       "isArchived": false,
+     *       "isDraft": false,
+     *       "fieldData": {
+     *         "name": "Product Manager",
+     *         "slug": "product-manager"
+     *       }
+     *     }
+     *   ]
+     * }
+     * ```
+     *
+     * A request that carries both `fieldData` and `items` returns a `400`.
+     *
+     * To create items in several locales, use [Create Items](/data/reference/cms/collection-items/staged-items/create-items) and then [Publish Collection Item(s)](/data/reference/cms/collection-items/staged-items/publish-item). Create Items writes staged content only.
      *
      * Required scope | `CMS:write`
      *
@@ -1045,32 +1158,6 @@ export class ItemsClient {
      *                     "url": "/files/62b720ef280c7a7a3be8cab3_document.pdf"
      *                 }
      *             }
-     *         }
-     *     })
-     *
-     * @example
-     *     await client.collections.items.createItemLive("580e63fc8c9a982ac9b8b745", {
-     *         skipInvalidFiles: true,
-     *         body: {
-     *             items: [{
-     *                     isArchived: false,
-     *                     isDraft: false,
-     *                     fieldData: {
-     *                         name: "Senior Data Analyst",
-     *                         slug: "senior-data-analyst",
-     *                         url: "https://boards.greenhouse.io/webflow/jobs/26567701",
-     *                         department: "Data"
-     *                     }
-     *                 }, {
-     *                     isArchived: false,
-     *                     isDraft: false,
-     *                     fieldData: {
-     *                         name: "Product Manager",
-     *                         slug: "product-manager",
-     *                         url: "https://boards.greenhouse.io/webflow/jobs/31234567",
-     *                         department: "Product"
-     *                     }
-     *                 }]
      *         }
      *     })
      */
@@ -1336,6 +1423,10 @@ export class ItemsClient {
     }
 
     /**
+     * <Tip title="Components in Rich Text">
+     *   Rich Text field values can contain Webflow component instances as `<wf-component>` markup — see [Components in Rich Text](/data/docs/working-with-the-cms/components-in-rich-text) for the markup grammar, how to find component and property IDs, and the write constraints.
+     * </Tip>
+     *
      * Update a single published item or multiple published items (up to 100) in a Collection
      *
      * <Tip title="Localization Tip">Items will only be updated in the primary locale, unless a `cmsLocaleId` is included in the request.</Tip>
@@ -1545,7 +1636,15 @@ export class ItemsClient {
     }
 
     /**
+     * <Tip title="Components in Rich Text">
+     *   Rich Text field values can contain Webflow component instances as `<wf-component>` markup — see [Components in Rich Text](/data/docs/working-with-the-cms/components-in-rich-text) for the markup grammar, how to find component and property IDs, and the write constraints.
+     * </Tip>
+     *
      * Create an item or multiple items in a CMS Collection across multiple corresponding locales.
+     *
+     * <Note title="Use Create Items for new integrations">
+     *   This endpoint remains supported. New integrations should use [Create Items](/data/reference/cms/collection-items/staged-items/create-items), which does everything this endpoint does and can also add locale variants to an existing item. [This guide to creating items](/data/docs/working-with-the-cms/create-items) shows how the request shape maps.
+     * </Note>
      *
      * <Note>
      *   - This endpoint can create up to 100 items in a request.
@@ -1717,6 +1816,283 @@ export class ItemsClient {
     }
 
     /**
+     * Create one or more staged items in a CMS Collection.
+     *
+     * Send an `items` array with `fieldData` for each item. By default, new items are created in the primary locale. To choose other locales or add variants to an existing item, expand the options below.
+     *
+     * - **Publishing:** Set `isDraft: false` to queue an item for the next site publish. Items are created as drafts (`isDraft: true`) by default. To publish individual items, use [Publish Collection Item(s)](/data/reference/cms/collection-items/staged-items/publish-item).
+     * - **Request limit:** Up to 100 items, counting every locale variant across all entries. One item in three locales counts as three; an item in the primary locale only counts as one.
+     *
+     * Required scope | `cms:write`
+     *
+     * <div className="create-items-options">
+     *   <Accordion title="Create items in multiple locales">
+     *     Each new item gets one ID. Its locale variants share that ID and the same `fieldData`.
+     *
+     *     - **Selected locales:** Set `cmsLocaleIds` to the locale IDs you want to create the item in.
+     *     - **All site locales:** Set `allCmsLocales: true` to include every current site locale, including the primary locale, without listing IDs.
+     *     - **Primary locale only:** Omit both `cmsLocaleIds` and `allCmsLocales`.
+     *
+     *     Use only one locale selector per entry. `allCmsLocales` is available only for new items and accepts only `true`; omit it instead of sending `false`.
+     *   </Accordion>
+     *
+     *   <Accordion title="Add locale variants to an existing item">
+     *     Set `id` to an existing item's ID and provide the new locales in `cmsLocaleIds`. The variants reuse that ID. The item must exist and must not already have a variant in any requested locale.
+     *
+     *     Send the source content in `fieldData` as a starting point for translators. To provide different content per locale, send multiple entries with the same `id`, each with one locale in `cmsLocaleIds` and its own `fieldData`.
+     *   </Accordion>
+     *
+     *   <Accordion title="Validation and errors">
+     *     These requests return a `400`:
+     *
+     *     - Combining `allCmsLocales` with `cmsLocaleIds` (even an empty array) or `id`.
+     *     - Setting `allCmsLocales` to `false`, a string, or `null`.
+     *     - Sending unrecognized properties, including singular `cmsLocaleId`. Use `cmsLocaleIds` (plural).
+     *     - Repeating a locale within one entry, or the same `id`/locale pair across entries.
+     *
+     *     Check the response's `message` and `details` for validation errors. Some errors identify an entry, such as `items[2].cmsLocaleIds`. Invalid locale selector combinations return a message with an empty `details` array.
+     *   </Accordion>
+     * </div>
+     *
+     * Moving from `POST /items` or `POST /items/bulk`? See [Creating collection items](/data/docs/working-with-the-cms/create-items) for request mappings.
+     *
+     * Rich Text fields can include Webflow components. See [Components in Rich Text](/data/docs/working-with-the-cms/components-in-rich-text) for markup and constraints.
+     *
+     * @param {string} collection_id - Unique identifier for a Collection
+     * @param {Webflow.collections.InsertCollectionItemsRequestBody} request
+     * @param {ItemsClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Webflow.BadRequestError}
+     * @throws {@link Webflow.UnauthorizedError}
+     * @throws {@link Webflow.NotFoundError}
+     * @throws {@link Webflow.ConflictError}
+     * @throws {@link Webflow.TooManyRequestsError}
+     * @throws {@link Webflow.InternalServerError}
+     *
+     * @example
+     *     await client.collections.items.insertItems("580e63fc8c9a982ac9b8b745", {
+     *         skipInvalidFiles: true,
+     *         items: [{
+     *                 fieldData: {
+     *                     name: "Mostly Harmless",
+     *                     slug: "mostly-harmless"
+     *                 }
+     *             }]
+     *     })
+     *
+     * @example
+     *     await client.collections.items.insertItems("580e63fc8c9a982ac9b8b745", {
+     *         skipInvalidFiles: true,
+     *         items: [{
+     *                 cmsLocaleIds: ["66f6e966c9e1dc700a857ca3", "66f6e966c9e1dc700a857ca4"],
+     *                 fieldData: {
+     *                     name: "Mostly Harmless",
+     *                     slug: "mostly-harmless"
+     *                 }
+     *             }]
+     *     })
+     *
+     * @example
+     *     await client.collections.items.insertItems("580e63fc8c9a982ac9b8b745", {
+     *         skipInvalidFiles: true,
+     *         items: [{
+     *                 allCmsLocales: true,
+     *                 fieldData: {
+     *                     name: "Mostly Harmless",
+     *                     slug: "mostly-harmless"
+     *                 }
+     *             }]
+     *     })
+     *
+     * @example
+     *     await client.collections.items.insertItems("580e63fc8c9a982ac9b8b745", {
+     *         skipInvalidFiles: true,
+     *         items: [{
+     *                 id: "66f6ed9576ddacf3149d5ea6",
+     *                 cmsLocaleIds: ["66f6e966c9e1dc700a857ca4", "66f6e966c9e1dc700a857ca5"],
+     *                 fieldData: {
+     *                     name: "Don\u2019t Panic",
+     *                     slug: "dont-panic"
+     *                 }
+     *             }]
+     *     })
+     *
+     * @example
+     *     await client.collections.items.insertItems("580e63fc8c9a982ac9b8b745", {
+     *         skipInvalidFiles: true,
+     *         items: [{
+     *                 id: "66f6ed9576ddacf3149d5ea6",
+     *                 cmsLocaleIds: ["66f6e966c9e1dc700a857ca4"],
+     *                 fieldData: {
+     *                     name: "Pas de panique",
+     *                     slug: "pas-de-panique"
+     *                 }
+     *             }, {
+     *                 id: "66f6ed9576ddacf3149d5ea6",
+     *                 cmsLocaleIds: ["66f6e966c9e1dc700a857ca5"],
+     *                 fieldData: {
+     *                     name: "Keine Panik",
+     *                     slug: "keine-panik"
+     *                 }
+     *             }]
+     *     })
+     *
+     * @example
+     *     await client.collections.items.insertItems("580e63fc8c9a982ac9b8b745", {
+     *         skipInvalidFiles: true,
+     *         items: [{
+     *                 cmsLocaleIds: ["66f6e966c9e1dc700a857ca3", "66f6e966c9e1dc700a857ca4"],
+     *                 fieldData: {
+     *                     name: "So Long and Thanks for All the Fish",
+     *                     slug: "so-long-and-thanks"
+     *                 }
+     *             }, {
+     *                 fieldData: {
+     *                     name: "Life, the Universe and Everything",
+     *                     slug: "life-universe-everything"
+     *                 }
+     *             }, {
+     *                 id: "66f6ed9576ddacf3149d5ea6",
+     *                 cmsLocaleIds: ["66f6e966c9e1dc700a857ca5"],
+     *                 fieldData: {
+     *                     name: "Keine Panik",
+     *                     slug: "keine-panik"
+     *                 }
+     *             }]
+     *     })
+     */
+    public insertItems(
+        collection_id: string,
+        request: Webflow.collections.InsertCollectionItemsRequestBody,
+        requestOptions?: ItemsClient.RequestOptions,
+    ): core.HttpResponsePromise<Webflow.collections.ItemsInsertItemsResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__insertItems(collection_id, request, requestOptions));
+    }
+
+    private async __insertItems(
+        collection_id: string,
+        request: Webflow.collections.InsertCollectionItemsRequestBody,
+        requestOptions?: ItemsClient.RequestOptions,
+    ): Promise<core.WithRawResponse<Webflow.collections.ItemsInsertItemsResponse>> {
+        const { skipInvalidFiles, ..._body } = request;
+        const _queryParams: Record<string, unknown> = {
+            skipInvalidFiles,
+        };
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
+        const _response = await core.fetcher({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    ((await core.Supplier.get(this._options.environment)) ?? environments.WebflowEnvironment.DataApi)
+                        .base,
+                `collections/${core.url.encodePathParam(collection_id)}/items/insert`,
+            ),
+            method: "POST",
+            headers: _headers,
+            contentType: "application/json",
+            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            requestType: "json",
+            body: serializers.collections.InsertCollectionItemsRequestBody.jsonOrThrow(_body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                omitUndefined: true,
+            }),
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.collections.ItemsInsertItemsResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Webflow.BadRequestError(_response.error.body, _response.rawResponse);
+                case 401:
+                    throw new Webflow.UnauthorizedError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new Webflow.NotFoundError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 409:
+                    throw new Webflow.ConflictError(_response.error.body, _response.rawResponse);
+                case 429:
+                    throw new Webflow.TooManyRequestsError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 500:
+                    throw new Webflow.InternalServerError(
+                        serializers.Error_.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.WebflowError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "POST",
+            "/collections/{collection_id}/items/insert",
+        );
+    }
+
+    /**
+     * <Tip title="Components in Rich Text">
+     *   Rich Text field values can contain Webflow component instances as `<wf-component>` markup — see [Components in Rich Text](/data/docs/working-with-the-cms/components-in-rich-text) for the markup grammar, how to find component and property IDs, and the write constraints.
+     * </Tip>
+     *
      * Get details of a selected Collection Item.
      *
      * Required scope | `CMS:read`
@@ -1734,7 +2110,8 @@ export class ItemsClient {
      *
      * @example
      *     await client.collections.items.getItem("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754", {
-     *         cmsLocaleId: "cmsLocaleId"
+     *         cmsLocaleId: "cmsLocaleId",
+     *         translatable: "65427cf400e02b306eaa04a0"
      *     })
      */
     public getItem(
@@ -1752,9 +2129,10 @@ export class ItemsClient {
         request: Webflow.collections.ItemsGetItemRequest = {},
         requestOptions?: ItemsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Webflow.CollectionItem>> {
-        const { cmsLocaleId } = request;
+        const { cmsLocaleId, translatable } = request;
         const _queryParams: Record<string, unknown> = {
             cmsLocaleId,
+            translatable,
         };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -1988,7 +2366,20 @@ export class ItemsClient {
     }
 
     /**
+     * <Tip title="Components in Rich Text">
+     *   Rich Text field values can contain Webflow component instances as `<wf-component>` markup — see [Components in Rich Text](/data/docs/working-with-the-cms/components-in-rich-text) for the markup grammar, how to find component and property IDs, and the write constraints.
+     * </Tip>
+     *
      * Update a selected Item in a Collection.
+     *
+     * <Note title="Draft status behavior">
+     *   `isDraft: true` doesn't unpublish an item. The resulting status depends on whether the item has been published before:
+     *
+     *   - **Item that has never been published:** the item gets a `Draft` status.
+     *   - **Already-published item:** the item gets a `Changes in draft` status. The live item stays published, and your changes are held back until you publish them.
+     *
+     *   Setting `isDraft: false` queues the item to publish on the next site publish. To remove an item from the live site, use [Unpublish Live Collection Items](/data/reference/cms/collection-items/live-items/delete-items-live). For the full status mapping, see [Publishing with the CMS API](/data/docs/working-with-the-cms/publishing).
+     * </Note>
      *
      * Required scope | `CMS:write`
      *
@@ -2178,6 +2569,10 @@ export class ItemsClient {
     }
 
     /**
+     * <Tip title="Components in Rich Text">
+     *   Rich Text field values can contain Webflow component instances as `<wf-component>` markup — see [Components in Rich Text](/data/docs/working-with-the-cms/components-in-rich-text) for the markup grammar, how to find component and property IDs, and the write constraints.
+     * </Tip>
+     *
      * Get details of a selected Collection live Item.
      *
      * <Tip title="Serve data with the Content Delivery API">
@@ -2199,7 +2594,8 @@ export class ItemsClient {
      *
      * @example
      *     await client.collections.items.getItemLive("580e63fc8c9a982ac9b8b745", "580e64008c9a982ac9b8b754", {
-     *         cmsLocaleId: "cmsLocaleId"
+     *         cmsLocaleId: "cmsLocaleId",
+     *         translatable: "65427cf400e02b306eaa04a0"
      *     })
      */
     public getItemLive(
@@ -2219,9 +2615,10 @@ export class ItemsClient {
         request: Webflow.collections.ItemsGetItemLiveRequest = {},
         requestOptions?: ItemsClient.RequestOptions,
     ): Promise<core.WithRawResponse<Webflow.CollectionItem>> {
-        const { cmsLocaleId } = request;
+        const { cmsLocaleId, translatable } = request;
         const _queryParams: Record<string, unknown> = {
             cmsLocaleId,
+            translatable,
         };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -2459,6 +2856,10 @@ export class ItemsClient {
     }
 
     /**
+     * <Tip title="Components in Rich Text">
+     *   Rich Text field values can contain Webflow component instances as `<wf-component>` markup — see [Components in Rich Text](/data/docs/working-with-the-cms/components-in-rich-text) for the markup grammar, how to find component and property IDs, and the write constraints.
+     * </Tip>
+     *
      * Update a selected live Item in a Collection. The updates for this Item will be published to the live site.
      *
      * Required scope | `CMS:write`
@@ -2655,6 +3056,9 @@ export class ItemsClient {
 
     /**
      * Publish an item or multiple items.
+     *
+     * Publishing a draft item automatically sets `isDraft` to `false`.
+     * You don't need to update the item's draft status before calling this endpoint.
      *
      * Required scope | `cms:write`
      *

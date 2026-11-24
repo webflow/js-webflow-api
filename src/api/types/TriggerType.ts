@@ -16,5 +16,8 @@ export const TriggerType = {
     CollectionItemPublished: "collection_item_published",
     CollectionItemUnpublished: "collection_item_unpublished",
     CommentCreated: "comment_created",
+    BranchCreated: "branch_created",
+    BranchMerged: "branch_merged",
+    BranchDeleted: "branch_deleted",
 } as const;
 export type TriggerType = (typeof TriggerType)[keyof typeof TriggerType];

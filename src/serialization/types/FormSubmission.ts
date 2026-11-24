@@ -12,6 +12,7 @@ export const FormSubmission: core.serialization.ObjectSchema<serializers.FormSub
         workspaceId: core.serialization.string().optional(),
         dateSubmitted: core.serialization.date().optional(),
         formResponse: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+        localeId: core.serialization.string().optional(),
     });
 
 export declare namespace FormSubmission {
@@ -22,5 +23,6 @@ export declare namespace FormSubmission {
         workspaceId?: string | null;
         dateSubmitted?: string | null;
         formResponse?: Record<string, unknown> | null;
+        localeId?: string | null;
     }
 }
