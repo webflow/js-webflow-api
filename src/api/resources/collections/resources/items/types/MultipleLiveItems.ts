@@ -3,6 +3,6 @@
 import type * as Webflow from "../../../../../index";
 
 export interface MultipleLiveItems {
-    /** List of collection items to create */
+    /** The items to create. Each entry needs its own `fieldData`. Don't send a top-level `fieldData` with this shape. */
     items?: Webflow.CollectionItem[];
 }

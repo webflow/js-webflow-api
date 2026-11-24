@@ -22,7 +22,7 @@ export interface CollectionItem {
     createdOn?: string;
     /** Boolean determining if the Item is set to archived */
     isArchived?: boolean;
-    /** Boolean determining if the Item is set to draft */
+    /** Whether the item is in a draft state. Together with `lastPublished`, this determines the status shown in the Webflow UI. See [Publishing with the CMS API](/data/docs/working-with-the-cms/publishing) for the full mapping. */
     isDraft?: boolean;
     fieldData: Webflow.CollectionItemFieldData;
 }

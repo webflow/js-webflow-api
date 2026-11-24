@@ -3,8 +3,10 @@
 import type * as Webflow from "../../api/index";
 import * as core from "../../core";
 import type * as serializers from "../index";
+import { SiteActivityLogItemActorType } from "./SiteActivityLogItemActorType";
 import { SiteActivityLogItemEvent } from "./SiteActivityLogItemEvent";
 import { SiteActivityLogItemResourceOperation } from "./SiteActivityLogItemResourceOperation";
+import { SiteActivityLogItemSource } from "./SiteActivityLogItemSource";
 import { SiteActivityLogItemUser } from "./SiteActivityLogItemUser";
 
 export const SiteActivityLogItem: core.serialization.ObjectSchema<
@@ -22,6 +24,10 @@ export const SiteActivityLogItem: core.serialization.ObjectSchema<
     newValue: core.serialization.string().optional(),
     previousValue: core.serialization.string().optional(),
     payload: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+    source: SiteActivityLogItemSource.optional(),
+    actorType: SiteActivityLogItemActorType.optional(),
+    actorId: core.serialization.string().optional(),
+    actorName: core.serialization.string().optional(),
 });
 
 export declare namespace SiteActivityLogItem {
@@ -37,5 +43,9 @@ export declare namespace SiteActivityLogItem {
         newValue?: string | null;
         previousValue?: string | null;
         payload?: Record<string, unknown> | null;
+        source?: SiteActivityLogItemSource.Raw | null;
+        actorType?: SiteActivityLogItemActorType.Raw | null;
+        actorId?: string | null;
+        actorName?: string | null;
     }
 }

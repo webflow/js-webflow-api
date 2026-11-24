@@ -39,6 +39,7 @@ describe("AssetsClient", () => {
                         },
                     ],
                     altText: "A single candy wrapper",
+                    folderId: "6390c49774a71f99f21a08eb",
                 },
                 {
                     id: "63e5889e7fe4eafa7384cea5",
@@ -80,6 +81,7 @@ describe("AssetsClient", () => {
             localeId: "65427cf400e02b306eaa04a0",
             offset: 1,
             limit: 1,
+            folderId: "folderId",
         });
         expect(response).toEqual({
             assets: [
@@ -107,6 +109,7 @@ describe("AssetsClient", () => {
                         },
                     ],
                     altText: "A single candy wrapper",
+                    folderId: "6390c49774a71f99f21a08eb",
                 },
                 {
                     id: "63e5889e7fe4eafa7384cea5",
@@ -490,6 +493,7 @@ describe("AssetsClient", () => {
                 },
             ],
             altText: "A single candy wrapper",
+            folderId: "6390c49774a71f99f21a08eb",
         };
         server
             .mockEndpoint()
@@ -525,6 +529,7 @@ describe("AssetsClient", () => {
                 },
             ],
             altText: "A single candy wrapper",
+            folderId: "6390c49774a71f99f21a08eb",
         });
     });
 
@@ -763,6 +768,7 @@ describe("AssetsClient", () => {
                 },
             ],
             altText: "A single candy wrapper",
+            folderId: "6390c49774a71f99f21a08eb",
         };
         server
             .mockEndpoint()
@@ -799,6 +805,7 @@ describe("AssetsClient", () => {
                 },
             ],
             altText: "A single candy wrapper",
+            folderId: "6390c49774a71f99f21a08eb",
         });
     });
 
